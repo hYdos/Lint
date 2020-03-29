@@ -1,17 +1,13 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "lint",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Lint",
+  "description": "A accumulation of useful and feature adding survival features ",
   "authors": [
-    "Me!"
+    "You will never know"
   ],
-  "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
-  },
 
   "license": "CC0-1.0",
   "icon": "assets/modid/icon.png",
@@ -19,15 +15,14 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "net.fabricmc.example.LintClient"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "lint.mixins.json"
   ],
 
   "depends": {
-    "fabricloader": ">=0.7.4",
     "fabric": "*",
     "minecraft": "1.15.x"
   },
