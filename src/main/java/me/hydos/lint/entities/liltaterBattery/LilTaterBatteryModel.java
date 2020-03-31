@@ -3,7 +3,6 @@ package me.hydos.lint.entities.liltaterBattery;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
-import net.minecraft.entity.Entity;
 
 public class LilTaterBatteryModel extends CompositeEntityModel<LilTaterBattery> {
     private final ModelPart ramidzk;
@@ -19,8 +18,7 @@ public class LilTaterBatteryModel extends CompositeEntityModel<LilTaterBattery> 
 
     @Override
     public void setAngles(LilTaterBattery entity, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {
-        ramidzk.pitch = entity.pitch;
-        ramidzk.yaw = entity.yaw;
+        ramidzk.yaw = headYaw;
     }
 
     @Override
