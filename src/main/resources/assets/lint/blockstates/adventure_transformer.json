@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "lint:block/adventure_transformer" }
+  }
+}

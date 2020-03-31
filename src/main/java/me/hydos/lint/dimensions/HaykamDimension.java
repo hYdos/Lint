@@ -19,7 +19,7 @@ public class HaykamDimension extends Dimension {
         super(world, type, 0.5f);
     }
 
-    private static final Vec3d FOG_COLOR = new Vec3d(0.54, 0.44, 0.16);
+    private static final Vec3d FOG_COLOR = new Vec3d(173/256, 178/256, 186/256);
 
     @Override
     public ChunkGenerator<?> createChunkGenerator() {
@@ -36,12 +36,12 @@ public class HaykamDimension extends Dimension {
 
     @Override
     public BlockPos getSpawningBlockInChunk(ChunkPos chunkPos, boolean checkMobSpawnValidity) {
-        return new BlockPos(0,1,0);
+        return new BlockPos(0,60,0);
     }
 
     @Override
     public BlockPos getTopSpawningBlockPosition(int x, int z, boolean checkMobSpawnValidity) {
-        return new BlockPos(0,4,0);
+        return new BlockPos(0,60,0);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class HaykamDimension extends Dimension {
 
     @Override
     public boolean canPlayersSleep() {
-        return false;
+        return true;
     }
 
     @Environment(EnvType.CLIENT)

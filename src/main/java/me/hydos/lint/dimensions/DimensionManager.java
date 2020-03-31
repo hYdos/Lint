@@ -15,8 +15,6 @@ public class DimensionManager {
             .skyLight(false)
             .buildAndRegister(new Identifier("lint", "haykam"));
 
-    public static void register() {
-        // load the class
-    }
+    public static void register() {}
 
 }

@@ -10,6 +10,10 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+repositories {
+	maven { url 'https://jitpack.io' }
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -21,6 +25,13 @@ dependencies {
 
 	modApi 'teamreborn:energy:0.1.0'
 	include 'teamreborn:energy:0.1.0'
+
+	modCompile 'TechReborn:TechReborn-1.15:3.3.6+build.205'
+	modCompile 'io.github.prospector:modmenu:1.9.0+build.27'
+
+	modImplementation 'com.github.Chocohead:Fabric-ASM:v2.0'
+
+	include 'teamreborn:techreborn:0.1.0'
 
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.

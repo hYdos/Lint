@@ -3,7 +3,6 @@ package me.hydos.lint.ai;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 import java.util.EnumSet;
@@ -66,7 +65,6 @@ public class BeeMateGoal extends Goal {
 
     }
 
-    @Nullable
     private AnimalEntity findMate() {
         List<AnimalEntity> list = this.world.getTargets(this.entityClass, VALID_MATE_PREDICATE, this.animal, this.animal.getBoundingBox().expand(8.0D));
         double d = Double.MAX_VALUE;
