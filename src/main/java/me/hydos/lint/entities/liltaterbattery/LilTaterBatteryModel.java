@@ -1,4 +1,4 @@
-package me.hydos.lint.entities.liltaterBattery;
+package me.hydos.lint.entities.liltaterbattery;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.ModelPart;

@@ -10,13 +10,12 @@ import reborncore.client.gui.builder.GuiBase;
 import reborncore.client.gui.builder.widget.GuiButtonExtended;
 import reborncore.client.gui.guibuilder.GuiBuilder.ProgressDirection;
 import reborncore.client.multiblock.Multiblock;
-import techreborn.blockentity.machine.multiblock.IndustrialGrinderBlockEntity;
 import techreborn.init.TRContent.MachineBlocks;
 
 public class AdventureTransformerGui extends GuiBase<BuiltContainer> {
-    IndustrialGrinderBlockEntity blockEntity;
+    AdventureTransformerBlockEntity blockEntity;
 
-    public AdventureTransformerGui(int syncID, PlayerEntity player, IndustrialGrinderBlockEntity blockEntity) {
+    public AdventureTransformerGui(int syncID, PlayerEntity player, AdventureTransformerBlockEntity blockEntity) {
         super(player, blockEntity, blockEntity.createContainer(syncID, player));
         this.blockEntity = blockEntity;
     }

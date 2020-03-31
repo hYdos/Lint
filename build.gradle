@@ -26,10 +26,8 @@ dependencies {
 	modApi 'teamreborn:energy:0.1.0'
 	include 'teamreborn:energy:0.1.0'
 
-	modCompile 'TechReborn:TechReborn-1.15:3.3.6+build.205'
+	modCompile 'TechReborn:TechReborn-1.15:3.3.6+build.206'
 	modCompile 'io.github.prospector:modmenu:1.9.0+build.27'
-
-	modImplementation 'com.github.Chocohead:Fabric-ASM:v2.0'
 
 	include 'teamreborn:techreborn:0.1.0'
 

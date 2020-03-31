@@ -1,6 +1,6 @@
 package me.hydos.lint;
 
-import me.hydos.lint.entities.liltaterBattery.LilTaterBatteryRenderer;
+import me.hydos.lint.entities.liltaterbattery.LilTaterBatteryRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

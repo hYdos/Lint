@@ -1,8 +1,6 @@
 package me.hydos.techrebornApi;
 
 import me.hydos.techrebornApi.blocks.TRMachineBlock;
-import sun.reflect.Reflection;
-import techreborn.client.EGui;
 
 public class TechRebornApi {
 
@@ -10,10 +8,6 @@ public class TechRebornApi {
 
     public TechRebornApi(){
         INSTANCE = this;
-    }
-
-    public static EGui createGenericEGui() {
-        return EGui.valueOf("mcp");
     }
 
     /**

@@ -19,9 +19,6 @@
     ],
     "client": [
       "me.hydos.lint.LintClient"
-    ],
-    "mm:early_risers": [
-      "me.hydos.techrebornApi.cursed.CursedInit"
     ]
   },
   "mixins": [
