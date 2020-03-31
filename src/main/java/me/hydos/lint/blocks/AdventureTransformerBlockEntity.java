@@ -1,6 +1,6 @@
 package me.hydos.lint.blocks;
 
-import me.hydos.lint.LintClient;
+import me.hydos.lint.Lint;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.Material;
@@ -12,13 +12,11 @@ import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.fluid.FluidValue;
-import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import reborncore.common.util.Tank;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.blockentity.machine.multiblock.MultiblockChecker;
 import techreborn.config.TechRebornConfig;
-import techreborn.init.ModRecipes;
 import techreborn.init.TRContent;
 import techreborn.utils.FluidUtils;
 
@@ -29,7 +27,7 @@ public class AdventureTransformerBlockEntity extends GenericMachineBlockEntity i
     int ticksSinceLastChange;
 
     public AdventureTransformerBlockEntity() {
-        super(LintClient.ADVENTURE_TRANSFORMER_BLOCK_ENTITY, "Adventure Transformer", TechRebornConfig.industrialGrinderMaxInput, TechRebornConfig.industrialGrinderMaxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
+        super(Lint.ADVENTURE_TRANSFORMER_BLOCK_ENTITY, "Adventure Transformer", TechRebornConfig.industrialGrinderMaxInput, TechRebornConfig.industrialGrinderMaxEnergy, TRContent.Machine.INDUSTRIAL_GRINDER.block, 7);
         int[] inputs = new int[]{0, 1};
         int[] outputs = new int[]{2, 3, 4, 5};
         this.inventory = new RebornInventory(8, "AdventureTransformerBlockEntity", 64, this);

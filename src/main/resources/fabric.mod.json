@@ -15,6 +15,9 @@
   "environment": "*",
   "entrypoints": {
     "main": [
+      "me.hydos.lint.Lint"
+    ],
+    "client": [
       "me.hydos.lint.LintClient"
     ],
     "mm:early_risers": [
