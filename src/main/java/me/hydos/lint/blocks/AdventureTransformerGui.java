@@ -39,7 +39,6 @@ public class AdventureTransformerGui extends GuiBase<BuiltContainer> {
         super.drawForeground(mouseX, mouseY);
         Layer layer = Layer.FOREGROUND;
         this.builder.drawProgressBar(this, this.blockEntity.getProgressScaled(100), 100, 105, 47, mouseX, mouseY, ProgressDirection.RIGHT, layer);
-        this.builder.drawTank(this, 53, 25, mouseX, mouseY, this.blockEntity.tank.getFluidInstance(), this.blockEntity.tank.getCapacity(), this.blockEntity.tank.isEmpty(), layer);
         this.addHologramButton(6, 4, 212, layer).clickHandler(this::onClick);
 
         this.builder.drawMultiEnergyBar(this, 9, 19, (int) this.blockEntity.getEnergy(), (int) this.blockEntity.getMaxPower(), mouseX, mouseY, 0, layer);

@@ -1,8 +1,20 @@
 package me.hydos.techrebornApi.blocks;
 
+import me.hydos.lint.Lint;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.world.BlockView;
+import reborncore.api.blockentity.IMachineGuiHandler;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
+import techreborn.blocks.GenericMachineBlock;
+
+import java.util.function.Supplier;
 
 /**
  *
@@ -10,9 +22,13 @@ import techreborn.blockentity.machine.GenericMachineBlockEntity;
  *
  * @author hydos06
  */
-public class TRMachineBlock extends GenericMachineBlockEntity{
+public class TRMachineBlock extends GenericMachineBlock {
 
-    public TRMachineBlock(BlockEntityType<?> blockEntityType, String name, int maxInput, int maxEnergy, Block toolDrop, int energySlot) {
-        super(blockEntityType, name, maxInput, maxEnergy, toolDrop, energySlot);
+    public TRMachineBlock(boolean nonOpaque, IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {//TODO: make non-Opaque setting work
+        super(FabricBlockSettings.of(Material.METAL).nonOpaque().build(), gui, blockEntityClass);
+
+        BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getTranslucent());
     }
+
+
 }

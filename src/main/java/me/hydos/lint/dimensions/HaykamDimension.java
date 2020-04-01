@@ -1,5 +1,7 @@
 package me.hydos.lint.dimensions;
 
+import me.hydos.lint.registers.BiomeRegister;
+import me.hydos.lint.registers.DimensionRegister;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.math.BlockPos;
@@ -7,6 +9,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.source.*;
 import net.minecraft.world.dimension.Dimension;
@@ -25,10 +28,10 @@ public class HaykamDimension extends Dimension {
     public ChunkGenerator<?> createChunkGenerator() {
         // For now, we'll create a superflat world to get a basic dimension working.
         // We'll come back and change this later.
-        FlatChunkGeneratorConfig generatorConfig = FlatChunkGeneratorConfig.getDefaultConfig();
+        OverworldChunkGeneratorConfig generatorConfig = new OverworldChunkGeneratorConfig();
         // The biome everywhere will be jungle
-        FixedBiomeSourceConfig biomeConfig = BiomeSourceType.FIXED.getConfig(world.getLevelProperties()).setBiome(Biomes.JUNGLE);
-        return ChunkGeneratorType.FLAT.create(world, BiomeSourceType.FIXED.applyConfig(biomeConfig), generatorConfig);
+        FixedBiomeSourceConfig biomeConfig = BiomeSourceType.FIXED.getConfig(world.getLevelProperties()).setBiome(BiomeRegister.MYSTICAL_FOREST);
+        return ChunkGeneratorType.SURFACE.create(world, BiomeSourceType.FIXED.applyConfig(biomeConfig), generatorConfig);
     }
 
     // The following 2 methods relate to the dimension's spawn point.
@@ -79,6 +82,6 @@ public class HaykamDimension extends Dimension {
 
     @Override
     public DimensionType getType() {
-        return DimensionManager.HAYKAM;
+        return DimensionRegister.HAYKAM;
     }
 }

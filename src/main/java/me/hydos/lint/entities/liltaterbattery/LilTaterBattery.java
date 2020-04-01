@@ -8,6 +8,7 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.TameableShoulderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -15,9 +16,10 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class LilTaterBattery extends TameableEntity {
+public class LilTaterBattery extends TameableShoulderEntity {
 
     public float size = 0;
+    public boolean irritated;
 
     public LilTaterBattery(World world) {
         super(Lint.LIL_TATER, world);
@@ -27,7 +29,6 @@ public class LilTaterBattery extends TameableEntity {
     public void fromTag(CompoundTag tag) {
         super.fromTag(tag);
         size = 1;
-        System.out.println(size);
     }
 
     @Override
@@ -54,12 +55,13 @@ public class LilTaterBattery extends TameableEntity {
     @Override
     protected void initGoals() {
         super.initGoals();
+        this.goalSelector.add(0, new SwimGoal(this));
+        this.goalSelector.add(1, new AttackWithOwnerGoal(this));
+        this.goalSelector.add(2, new FollowOwnerGoal(this, 0.5D, 1.0F, 3.0F, false));
+        this.goalSelector.add(2, new SitOnOwnerShoulderGoal(this));
+        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 10));
         this.goalSelector.add(4, new LookAtEntityGoal(this, LilTaterBattery.class, 10));
-        this.goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, 10));
-        this.goalSelector.add(1, new FollowOwnerGoal(this, 0.5D, 1.0F, 3.0F, false));
-        this.goalSelector.add(2, new AttackWithOwnerGoal(this));
-        this.goalSelector.add(3, new WanderAroundGoal(this, 0.4));
-        this.goalSelector.add(2, new SwimGoal(this));
+        this.goalSelector.add(6, new WanderAroundGoal(this, 0.4));
     }
 
     @Override
@@ -75,6 +77,12 @@ public class LilTaterBattery extends TameableEntity {
             player.setStackInHand(hand, ItemStack.EMPTY);
         }
         return true;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        irritated = !isTamed();
     }
 
     @Override

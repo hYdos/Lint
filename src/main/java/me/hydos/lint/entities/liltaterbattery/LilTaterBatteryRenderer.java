@@ -9,6 +9,8 @@ import net.minecraft.util.Identifier;
 public class LilTaterBatteryRenderer extends MobEntityRenderer<LilTaterBattery, LilTaterBatteryModel> {
 
 
+    public static final Identifier FRIENDLY_TATER = new Identifier("lint:textures/block/lil_tater.png");
+
     @Override
     public void render(LilTaterBattery mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         matrixStack.push();
@@ -23,7 +25,10 @@ public class LilTaterBatteryRenderer extends MobEntityRenderer<LilTaterBattery, 
 
     @Override
     public Identifier getTexture(LilTaterBattery entity) {
-        return new Identifier("lint:textures/block/lil_tater.png");
+        if (entity.irritated) {
+            return new Identifier("lint:textures/block/lil_irritated.png");
+        }
+        return FRIENDLY_TATER;
     }
 
 }
