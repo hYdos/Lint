@@ -1,7 +1,6 @@
 package me.hydos.lint.entities.liltaterbattery;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.containers.LilTaterInteractContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -76,7 +75,7 @@ public class LilTaterBattery extends TameableShoulderEntity {
                 this.world.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0, 4, 0);
                 player.setStackInHand(hand, ItemStack.EMPTY);
             }else{
-                player.openContainer(new LilTaterInteractContainer());
+
             }
 
         }
