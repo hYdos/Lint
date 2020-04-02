@@ -27,12 +27,10 @@ dependencies {
 	include 'teamreborn:energy:0.1.0'
 
 	modCompile 'TechReborn:TechReborn-1.15:3.3.6+build.207'
-	modCompile 'io.github.prospector:modmenu:1.9.0+build.27'
+	modCompile 'io.github.prospector:modmenu:1.10.2+build.32'
 
 	include 'teamreborn:techreborn:0.1.0'
 
-	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-	// You may need to force-disable transitiveness on them.
 }
 
 processResources {

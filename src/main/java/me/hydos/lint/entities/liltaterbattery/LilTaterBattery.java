@@ -1,6 +1,7 @@
 package me.hydos.lint.entities.liltaterbattery;
 
 import me.hydos.lint.Lint;
+import me.hydos.lint.containers.LilTaterInteractContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -19,8 +20,6 @@ import net.minecraft.world.World;
 public class LilTaterBattery extends TameableShoulderEntity {
 
     public float size = 0;
-    public boolean irritated;
-
     public LilTaterBattery(World world) {
         super(Lint.LIL_TATER, world);
     }
@@ -71,18 +70,22 @@ public class LilTaterBattery extends TameableShoulderEntity {
 
     public boolean interactMob(PlayerEntity player, Hand hand) {
         if (!this.world.isClient) {
-            this.setOwner(player);
-            this.setTamed(true);
-            this.world.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0, 4, 0);
-            player.setStackInHand(hand, ItemStack.EMPTY);
+            if(!isTamed()){
+                this.setOwner(player);
+                this.setTamed(true);
+                this.world.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0, 4, 0);
+                player.setStackInHand(hand, ItemStack.EMPTY);
+            }else{
+                player.openContainer(new LilTaterInteractContainer());
+            }
+
         }
         return true;
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        irritated = !isTamed();
+    public void mobTick() {
+        super.mobTick();
     }
 
     @Override

@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "lint:block/rich_dirt" }
+  }
+}

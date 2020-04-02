@@ -10,7 +10,7 @@
   ],
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/lint/icon.png",
 
   "environment": "*",
   "entrypoints": {

@@ -1,7 +1,7 @@
 {   "parent": "block/block",
   "textures": {
     "particle": "lint:block/lively_grass_top",
-    "bottom": "lint:block/richDirt",
+    "bottom": "lint:block/rich_dirt",
     "top": "lint:block/lively_grass_top",
     "side": "lint:block/lively_grass_side"
   },

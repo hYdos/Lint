@@ -4,11 +4,15 @@ import me.hydos.lint.blocks.AdventureTransformerBlockEntity;
 import me.hydos.lint.blocks.AdventureTransformerGui;
 import me.hydos.lint.blocks.AdventureTransformerRecipe;
 import me.hydos.lint.registers.BiomeRegister;
+import me.hydos.lint.registers.BlockRegister;
 import me.hydos.lint.registers.DimensionRegister;
 import me.hydos.lint.entities.liltaterbattery.LilTaterBattery;
 import me.hydos.techrebornApi.TechRebornApi;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -36,6 +40,8 @@ public class Lint implements ModInitializer {
 
 		TechRebornApi.registerBlock("lint", "adventure_transformer", AdventureTransformerRecipe.class, ItemGroup.TOOLS, AdventureTransformerBlockEntity::new, ADVENTURE_TRANSFORMER_GUI);
 
+		BlockRegister.registerBlocks(ItemGroup.BUILDING_BLOCKS, new Block(FabricBlockSettings.of(Material.EARTH).build()), "lively_grass");
+		BlockRegister.registerBlocks(ItemGroup.BUILDING_BLOCKS, new Block(FabricBlockSettings.of(Material.EARTH).build()), "rich_dirt");
 		BiomeRegister.registerBiomes();
 		DimensionRegister.register();
 

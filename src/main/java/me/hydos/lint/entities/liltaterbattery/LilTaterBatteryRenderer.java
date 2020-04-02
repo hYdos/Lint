@@ -25,7 +25,7 @@ public class LilTaterBatteryRenderer extends MobEntityRenderer<LilTaterBattery, 
 
     @Override
     public Identifier getTexture(LilTaterBattery entity) {
-        if (entity.irritated) {
+        if (!entity.isTamed()) {
             return new Identifier("lint:textures/block/lil_irritated.png");
         }
         return FRIENDLY_TATER;
