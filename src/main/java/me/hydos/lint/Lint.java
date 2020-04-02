@@ -11,13 +11,12 @@ import me.hydos.lint.entities.liltaterbattery.LilTaterBattery;
 import me.hydos.techrebornApi.TechRebornApi;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
-import net.minecraft.container.BlockContext;
+import net.minecraft.container.ContainerType;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -57,11 +56,11 @@ public class Lint implements ModInitializer {
 
 		DimensionRegister.register();
 
-		ContainerProviderRegistry.INSTANCE.registerFactory(new Identifier("lint", "liltater"), (syncId, id, player, buf) -> new LilTaterInteractContainer(null, syncId, buf.readInt()));
+		ContainerProviderRegistry.INSTANCE.registerFactory(new Identifier("lint", "liltater"), (syncId, id, player, buf) -> new LilTaterInteractContainer(ContainerType.ANVIL, syncId, buf.readInt(), player.inventory));
 
 		ServerSidePacketRegistry.INSTANCE.register(PLAY_DIMENSION_CHANGE_PACKET_ID, (packetContext, packetByteBuf) ->{
 
-			String dimension = packetByteBuf.readString();
+			String dimension = packetByteBuf.readString(65535);
 			if(dimension.equalsIgnoreCase("HAYKAM")){
 				packetContext.getTaskQueue().execute(() -> {
 					packetContext.getPlayer().changeDimension(DimensionRegister.HAYKAM);

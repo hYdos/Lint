@@ -1,5 +1,6 @@
 package me.hydos.lint.dimensions;
 
+import me.hydos.lint.chunkgen.HaykamChunkGen;
 import me.hydos.lint.registers.BiomeRegister;
 import me.hydos.lint.registers.DimensionRegister;
 import net.fabricmc.api.EnvType;
@@ -34,7 +35,7 @@ public class HaykamDimension extends Dimension {
     public ChunkGenerator<?> createChunkGenerator() {
         OverworldChunkGeneratorConfig generatorConfig = new OverworldChunkGeneratorConfig();
         FixedBiomeSourceConfig biomeConfig = BiomeSourceType.FIXED.getConfig(world.getLevelProperties()).setBiome(BiomeRegister.MYSTICAL_FOREST);
-        return ChunkGeneratorType.SURFACE.create(world, BiomeSourceType.FIXED.applyConfig(biomeConfig), generatorConfig);
+        return new HaykamChunkGen(world, BiomeSourceType.FIXED.applyConfig(biomeConfig), generatorConfig);
     }
 
     public BlockPos getSpawningBlockInChunk(ChunkPos chunkPos, boolean checkMobSpawnValidity) {
@@ -84,7 +85,7 @@ public class HaykamDimension extends Dimension {
     @Override
     public float getSkyAngle(long worldTime, float tickDelta) {
         final int dayLength = 23999;
-        double daysPassed = ((double) worldTime + tickDelta) / dayLength;
+        double daysPassed = ((double) 1000 + tickDelta) / dayLength;
         return (float) MathHelper.fractionalPart(daysPassed - 0.25);
     }
 

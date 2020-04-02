@@ -1,8 +1,10 @@
 package me.hydos.techrebornApi.blocks;
 
 import me.hydos.lint.Lint;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -30,7 +32,9 @@ public class TRMachineBlock extends GenericMachineBlock {
     public TRMachineBlock(boolean nonOpaque, IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {//TODO: make non-Opaque setting work
         super(FabricBlockSettings.of(Material.METAL).nonOpaque().build(), gui, blockEntityClass);
 
-        BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getTranslucent());
+        if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
+            BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getTranslucent());
+        }
     }
 
     @Override

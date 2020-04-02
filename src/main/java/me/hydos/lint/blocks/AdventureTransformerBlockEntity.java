@@ -1,24 +1,16 @@
 package me.hydos.lint.blocks;
 
 import me.hydos.techrebornApi.TechRebornApi;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
 import reborncore.common.recipes.RecipeCrafter;
 import reborncore.common.util.RebornInventory;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
-import techreborn.blockentity.machine.multiblock.MultiblockChecker;
 
 public class AdventureTransformerBlockEntity extends GenericMachineBlockEntity implements IContainerProvider {
-    public MultiblockChecker multiblockChecker;
     int ticksSinceLastChange;
 
     public AdventureTransformerBlockEntity() {
@@ -31,10 +23,6 @@ public class AdventureTransformerBlockEntity extends GenericMachineBlockEntity i
     }
 
     public void tick() {
-        if (this.multiblockChecker == null) {
-            BlockPos downCenter = this.pos.offset(this.getFacing().getOpposite(), 2).offset(Direction.DOWN, 1);
-            this.multiblockChecker = new MultiblockChecker(this.world, downCenter);
-        }
 
         ++this.ticksSinceLastChange;
         assert this.world != null;

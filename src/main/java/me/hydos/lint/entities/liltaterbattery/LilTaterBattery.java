@@ -10,6 +10,9 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableShoulderEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.BasicInventory;
+import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
@@ -19,22 +22,24 @@ import net.minecraft.world.World;
 
 public class LilTaterBattery extends TameableShoulderEntity {
 
+    public BasicInventory inventory;
+
     public float size = 0;
+
     public LilTaterBattery(World world) {
         super(Lint.LIL_TATER, world);
+        inventory = new BasicInventory(31);
     }
 
     @Override
     public void fromTag(CompoundTag tag) {
         super.fromTag(tag);
-        size = 1;
+//        Inventories.fromTag(tag, inventory);
+                size = 1;
     }
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
-        if(tag.getFloat("size") == 0){
-            tag.putFloat("size", super.getRandom().nextFloat() + 1.5f);
-        }
         return super.toTag(tag);
     }
 

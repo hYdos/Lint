@@ -29,8 +29,6 @@ dependencies {
 	modCompile 'TechReborn:TechReborn-1.15:3.3.6+build.207'
 	modCompile 'io.github.prospector:modmenu:1.10.2+build.32'
 
-	include 'teamreborn:techreborn:0.1.0'
-
 }
 
 processResources {

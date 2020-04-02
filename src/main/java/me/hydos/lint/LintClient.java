@@ -1,6 +1,5 @@
 package me.hydos.lint;
 
-import javafx.stage.Screen;
 import me.hydos.lint.containers.LilTaterContainerScreen;
 import me.hydos.lint.containers.LilTaterInteractContainer;
 import me.hydos.lint.entities.liltaterbattery.LilTaterBatteryRenderer;
@@ -21,7 +20,7 @@ public class LintClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityRendererRegistry.INSTANCE.register(Lint.LIL_TATER, (entityRenderDispatcher, context) -> new LilTaterBatteryRenderer(entityRenderDispatcher));
 
-        ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier("lint", "liltater"), (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractContainer(null, syncId, buf.readInt()), playerEntity.inventory, new LiteralText("Lil Tater UI")));
+        ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier("lint", "liltater"), (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractContainer(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));
 
     }
 }
