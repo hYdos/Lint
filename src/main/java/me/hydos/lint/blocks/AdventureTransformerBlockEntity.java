@@ -1,10 +1,14 @@
 package me.hydos.lint.blocks;
 
 import me.hydos.techrebornApi.TechRebornApi;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 import reborncore.client.containerBuilder.IContainerProvider;
 import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.containerBuilder.builder.ContainerBuilder;
@@ -51,6 +55,7 @@ public class AdventureTransformerBlockEntity extends GenericMachineBlockEntity i
     }
 
 
+
     public BuiltContainer createContainer(int syncID, PlayerEntity player) {
         return (
                 new ContainerBuilder("adventure_transformer"))
@@ -59,7 +64,7 @@ public class AdventureTransformerBlockEntity extends GenericMachineBlockEntity i
                 .hotbar()
                 .addInventory()
                 .blockEntity(this)
-                .energySlot(7, 8, 72)
+                .energySlot(7, 39, 72)
                 .syncEnergyValue()
                 .addInventory()
                 .create(this, syncID);

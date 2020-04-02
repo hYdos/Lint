@@ -13,7 +13,7 @@ public class BalanceMixin {
     private static int getRarity(int i) {
         switch (i) {
             case 8:         // Vein size
-                return 32; // nice
+                return 16; // nice
             case 16:        // Veins per chunk
             case 20:        // Min Y
             case 60:        // Max Y

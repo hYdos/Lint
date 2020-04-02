@@ -3,6 +3,7 @@ package me.hydos.lint;
 import me.hydos.lint.blocks.AdventureTransformerBlockEntity;
 import me.hydos.lint.blocks.AdventureTransformerGui;
 import me.hydos.lint.blocks.AdventureTransformerRecipe;
+import me.hydos.lint.containers.LilTaterInteractContainer;
 import me.hydos.lint.registers.BiomeRegister;
 import me.hydos.lint.registers.BlockRegister;
 import me.hydos.lint.registers.DimensionRegister;
@@ -10,10 +11,13 @@ import me.hydos.lint.entities.liltaterbattery.LilTaterBattery;
 import me.hydos.techrebornApi.TechRebornApi;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
+import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
+import net.minecraft.container.BlockContext;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
@@ -44,12 +48,16 @@ public class Lint implements ModInitializer {
 
 		TechRebornApi.registerBlock("lint", "adventure_transformer", AdventureTransformerRecipe.class, ItemGroup.TOOLS, AdventureTransformerBlockEntity::new, ADVENTURE_TRANSFORMER_GUI);
 
-		BlockRegister.registerBlocks(ItemGroup.BUILDING_BLOCKS, new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.GRASS).build()), "lively_grass");
 		BlockRegister.registerBlocks(ItemGroup.BUILDING_BLOCKS, new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.GRASS).build()), "rich_dirt");
+		BlockRegister.registerBlocks(ItemGroup.BUILDING_BLOCKS, new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.GRASS).build()), "lively_grass");
+
+
+
 		BiomeRegister.registerBiomes();
+
 		DimensionRegister.register();
 
-
+		ContainerProviderRegistry.INSTANCE.registerFactory(new Identifier("lint", "liltater"), (syncId, id, player, buf) -> new LilTaterInteractContainer(null, syncId, buf.readInt()));
 
 		ServerSidePacketRegistry.INSTANCE.register(PLAY_DIMENSION_CHANGE_PACKET_ID, (packetContext, packetByteBuf) ->{
 

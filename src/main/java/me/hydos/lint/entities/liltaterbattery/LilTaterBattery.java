@@ -1,19 +1,20 @@
 package me.hydos.lint.entities.liltaterbattery;
 
 import me.hydos.lint.Lint;
+import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.TameableShoulderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class LilTaterBattery extends TameableShoulderEntity {
@@ -75,7 +76,7 @@ public class LilTaterBattery extends TameableShoulderEntity {
                 this.world.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0, 4, 0);
                 player.setStackInHand(hand, ItemStack.EMPTY);
             }else{
-
+                ContainerProviderRegistry.INSTANCE.openContainer(new Identifier("lint", "liltater"), player, packetByteBuf -> packetByteBuf.writeInt(getEntityId()));
             }
 
         }

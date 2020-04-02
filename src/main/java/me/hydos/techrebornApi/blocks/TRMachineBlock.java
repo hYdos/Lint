@@ -5,11 +5,14 @@ import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldView;
 import reborncore.api.blockentity.IMachineGuiHandler;
 import techreborn.blockentity.machine.GenericMachineBlockEntity;
 import techreborn.blocks.GenericMachineBlock;
@@ -28,6 +31,14 @@ public class TRMachineBlock extends GenericMachineBlock {
         super(FabricBlockSettings.of(Material.METAL).nonOpaque().build(), gui, blockEntityClass);
 
         BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getTranslucent());
+    }
+
+    @Override
+    public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+        if(world.getDimension().getType().getSuffix().equals("lint_haykam")){
+            return false;
+        }
+        return true;
     }
 
 

@@ -6,11 +6,11 @@
   "mixins": [
     "LivingEntityMixin",
     "BeeEntityMixin",
-    "BalanceMixin",
-    "PlayerEntityRendererMixin"
+    "BalanceMixin"
   ],
   "client": [
-
+    "InGameHudMixin",
+    "PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

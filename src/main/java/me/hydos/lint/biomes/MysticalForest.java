@@ -37,8 +37,7 @@ public class MysticalForest extends Biome {
         DefaultBiomeFeatures.addDefaultVegetation(this);
         DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addFrozenTopLayer(this);
-        this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(EntityType.SHEEP, 12, 4, 4));
-        this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(Lint.LIL_TATER, 10, 2, 8));
+        this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(Lint.LIL_TATER, 2, 1, 3));
 
     }
 
