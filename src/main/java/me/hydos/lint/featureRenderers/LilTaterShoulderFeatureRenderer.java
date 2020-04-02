@@ -1,5 +1,6 @@
 package me.hydos.lint.featureRenderers;
 
+import me.hydos.lint.core.Entities;
 import me.hydos.lint.core.Lint;
 import me.hydos.lint.entities.liltaterbattery.LilTaterBatteryModel;
 import me.hydos.lint.entities.liltaterbattery.LilTaterBatteryRenderer;
@@ -32,7 +33,7 @@ public class LilTaterShoulderFeatureRenderer<T extends PlayerEntity> extends Fea
     private void renderShoulderParrot(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T playerEntity, float f, float g, float h, float j, boolean bl) {
         CompoundTag compoundTag = bl ? playerEntity.getShoulderEntityLeft() : playerEntity.getShoulderEntityRight();
         EntityType.get(compoundTag.getString("id")).filter((entityType) -> {
-            return entityType == Lint.LIL_TATER;
+            return entityType == Entities.LIL_TATER;
         }).ifPresent((entityType) -> {
             matrixStack.push();
             matrixStack.translate(bl ? 0.4000000059604645D : -0.4000000059604645D, playerEntity.isInSneakingPose() ? -1.2999999523162842D : -1.5D, 0.0D);

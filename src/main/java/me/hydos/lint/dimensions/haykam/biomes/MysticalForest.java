@@ -1,6 +1,7 @@
 package me.hydos.lint.dimensions.haykam.biomes;
 
 import me.hydos.lint.core.Blocks;
+import me.hydos.lint.core.Entities;
 import me.hydos.lint.core.Lint;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.world.biome.Biome;
@@ -33,7 +34,7 @@ public class MysticalForest extends Biome {
         DefaultBiomeFeatures.addDefaultVegetation(this);
         DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addFrozenTopLayer(this);
-        this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(Lint.LIL_TATER, 1, 1, 3));
+        this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(Entities.LIL_TATER, 1, 1, 3));
 
     }
 

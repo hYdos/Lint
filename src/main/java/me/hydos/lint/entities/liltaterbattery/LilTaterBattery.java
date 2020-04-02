@@ -1,5 +1,6 @@
 package me.hydos.lint.entities.liltaterbattery;
 
+import me.hydos.lint.core.Entities;
 import me.hydos.lint.core.Lint;
 import me.hydos.lint.containers.LintInventory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
@@ -26,7 +27,7 @@ public class LilTaterBattery extends TameableShoulderEntity {
     public float size = 0;
 
     public LilTaterBattery(World world) {
-        super(Lint.LIL_TATER, world);
+        super(Entities.LIL_TATER, world);
         inventory = new LintInventory(31){
 
         };

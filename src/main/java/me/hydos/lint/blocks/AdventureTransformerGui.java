@@ -2,6 +2,7 @@ package me.hydos.lint.blocks;
 
 import io.netty.buffer.Unpooled;
 import me.hydos.lint.core.Lint;
+import me.hydos.lint.core.Packets;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,7 +25,7 @@ public class AdventureTransformerGui extends GuiBase<BuiltContainer> {
         addButton(new ButtonWidget(x+60,y+40,40,20,"Enter", (widget) ->{
             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
             data.writeString("HAYKAM");
-            ClientSidePacketRegistry.INSTANCE.sendToServer(Lint.PLAY_DIMENSION_CHANGE_PACKET_ID, data);
+            ClientSidePacketRegistry.INSTANCE.sendToServer(Packets.PLAY_DIMENSION_CHANGE_PACKET_ID, data);
         }));
     }
 

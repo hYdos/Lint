@@ -1,8 +1,8 @@
 package me.hydos.lint.dimensions.haykam;
 
+import me.hydos.lint.core.Biomes;
+import me.hydos.lint.core.Dimensions;
 import me.hydos.lint.dimensions.haykam.chunk.HaykamChunkGen;
-import me.hydos.lint.registers.BiomeRegister;
-import me.hydos.lint.registers.DimensionRegister;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -33,7 +33,7 @@ public class HaykamDimension extends Dimension {
     @Override
     public ChunkGenerator<?> createChunkGenerator() {
         OverworldChunkGeneratorConfig generatorConfig = new OverworldChunkGeneratorConfig();
-        FixedBiomeSourceConfig biomeConfig = BiomeSourceType.FIXED.getConfig(world.getLevelProperties()).setBiome(BiomeRegister.MYSTICAL_FOREST);
+        FixedBiomeSourceConfig biomeConfig = BiomeSourceType.FIXED.getConfig(world.getLevelProperties()).setBiome(Biomes.MYSTICAL_FOREST);
         return new HaykamChunkGen(world, BiomeSourceType.FIXED.applyConfig(biomeConfig), generatorConfig);
     }
 
@@ -113,6 +113,6 @@ public class HaykamDimension extends Dimension {
 
     @Override
     public DimensionType getType() {
-        return DimensionRegister.HAYKAM;
+        return Dimensions.HAYKAM;
     }
 }
