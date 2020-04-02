@@ -15,7 +15,11 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "me.hydos.lint.Lint"
+      "me.hydos.lint.core.Lint",
+      "me.hydos.lint.core.Blocks::onInitialize",
+      "me.hydos.lint.core.Biomes::onInitialize",
+      "me.hydos.lint.core.Dimensions::onInitialize",
+      "me.hydos.lint.core.Entities::onInitialize"
     ],
     "client": [
       "me.hydos.lint.LintClient"

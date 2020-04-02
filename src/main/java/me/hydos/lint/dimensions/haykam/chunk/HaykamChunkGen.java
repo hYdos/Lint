@@ -1,7 +1,6 @@
 package me.hydos.lint.dimensions.haykam.chunk;
 
 import me.hydos.lint.alphaworldgen.OctaveAlpha11NoiseSampler;
-import me.hydos.lint.registers.BlockRegister;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -319,8 +318,8 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
                 boolean gravelSampleAtPos = this.gravelSample[(x + z * 16)] + random.nextDouble() * 0.2D > 3.0D;
                 int stoneSampleAtPos = (int) (this.stoneNoise[(x + z * 16)] / 3.0D + 3.0D + random.nextDouble() * 0.25D);
                 int run = -1;
-                BlockState topState = BlockRegister.getBlock("lively_grass").getDefaultState();
-                BlockState underState = BlockRegister.getBlock("rich_dirt").getDefaultState();
+                BlockState topState = me.hydos.lint.core.Blocks.LIVELY_GRASS.getDefaultState();
+                BlockState underState = me.hydos.lint.core.Blocks.RICH_DIRT.getDefaultState();
 
                 for (int y = 256; y >= 128; --y) {
                     pos.setY(y);
@@ -341,8 +340,8 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
                                     topState = Blocks.AIR.getDefaultState();
                                     underState = STONE;
                                 } else if ((y >= seaLevel - 4) && (y <= seaLevel + 1)) {
-                                    topState = BlockRegister.getBlock("lively_grass").getDefaultState();
-                                    underState = BlockRegister.getBlock("rich_dirt").getDefaultState();
+                                    topState = me.hydos.lint.core.Blocks.LIVELY_GRASS.getDefaultState();
+                                    underState = me.hydos.lint.core.Blocks.RICH_DIRT.getDefaultState();
 
                                     if (gravelSampleAtPos) {
                                         topState = AIR;

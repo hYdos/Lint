@@ -1,7 +1,7 @@
 package me.hydos.lint.blocks;
 
 import io.netty.buffer.Unpooled;
-import me.hydos.lint.Lint;
+import me.hydos.lint.core.Lint;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.entity.player.PlayerEntity;

@@ -4,13 +4,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.hydos.lint.entities.liltaterbattery.LilTaterBattery;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -41,7 +38,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         this.minecraft.getTextureManager().bindTexture(backgroundIdentifier);
         int i = this.x;
         int j = this.y;
-        this.blit(i, j, 0, 0, this.containerWidth, this.containerHeight);
+        this.blit(i, j-15, 0, 0, this.containerWidth, this.containerHeight);
         assert this.minecraft.player != null;
 
         LilTaterBattery tater = (LilTaterBattery) this.minecraft.world.getEntityById(container.taterId);
@@ -49,7 +46,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
             onClose();
             return;
         }
-        drawTater(i + 51, j + 65, 60, (float)(i + 51) - this.mouseX, (float)(j + 75 - 50) - this.mouseY, tater);
+        drawTater(i + 51, j + 55, 60, (float)(i + 51) - this.mouseX, (float)(j + 75 - 50) - this.mouseY, tater);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package me.hydos.lint;
+package me.hydos.lint.core.client;
 
 import me.hydos.lint.containers.LilTaterContainerScreen;
 import me.hydos.lint.containers.LilTaterInteractContainer;
