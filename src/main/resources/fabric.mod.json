@@ -24,7 +24,7 @@
       "me.hydos.lint.core.Features::onInitialize"
     ],
     "client": [
-      "me.hydos.lint.LintClient"
+      "me.hydos.lint.core.client.LintClient"
     ]
   },
   "mixins": [
