@@ -7,7 +7,6 @@ import net.minecraft.container.ContainerType;
 import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.BasicInventory;
 import net.minecraft.inventory.Inventory;
 
 public class LilTaterInteractContainer extends Container {

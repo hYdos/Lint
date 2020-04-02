@@ -33,8 +33,6 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         super.render(mouseX, mouseY, delta);
         this.mouseX = mouseX;
         this.mouseY = mouseY;
-
-
     }
 
     public void renderBackground(){

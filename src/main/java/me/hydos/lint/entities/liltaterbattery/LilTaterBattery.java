@@ -1,6 +1,7 @@
 package me.hydos.lint.entities.liltaterbattery;
 
 import me.hydos.lint.Lint;
+import me.hydos.lint.containers.LintInventory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.*;
@@ -10,9 +11,7 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableShoulderEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.BasicInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
@@ -22,25 +21,28 @@ import net.minecraft.world.World;
 
 public class LilTaterBattery extends TameableShoulderEntity {
 
-    public BasicInventory inventory;
+    public LintInventory inventory;
 
     public float size = 0;
 
     public LilTaterBattery(World world) {
         super(Lint.LIL_TATER, world);
-        inventory = new BasicInventory(31);
+        inventory = new LintInventory(31){
+        };
     }
 
     @Override
     public void fromTag(CompoundTag tag) {
         super.fromTag(tag);
-//        Inventories.fromTag(tag, inventory);
-                size = 1;
+        Inventories.fromTag(tag, inventory.getRawList());
+        size = 1;
     }
 
     @Override
     public CompoundTag toTag(CompoundTag tag) {
+        Inventories.toTag(tag, inventory.getRawList());
         return super.toTag(tag);
+
     }
 
     @Override
