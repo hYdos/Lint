@@ -1,6 +1,6 @@
 package me.hydos.lint.registers;
 
-import me.hydos.lint.dimensions.HaykamDimension;
+import me.hydos.lint.dimensions.haykam.HaykamDimension;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensionType;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.util.Identifier;

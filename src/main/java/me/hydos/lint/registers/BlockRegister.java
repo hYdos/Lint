@@ -15,6 +15,9 @@ public class BlockRegister {
 
     private static HashMap<String, Block> blocks = new HashMap<>();
 
+    public static Block
+    
+
     public static void registerBlocks(ItemGroup itemGroup, Block block, String identifier){
         Registry.register(Registry.BLOCK, new Identifier("lint", identifier), block);
         Registry.register(Registry.ITEM, new Identifier("lint", identifier), new BlockItem(block, new Item.Settings().group(itemGroup)));

@@ -1,6 +1,6 @@
-package me.hydos.lint.dimensions;
+package me.hydos.lint.dimensions.haykam;
 
-import me.hydos.lint.chunkgen.HaykamChunkGen;
+import me.hydos.lint.dimensions.haykam.chunk.HaykamChunkGen;
 import me.hydos.lint.registers.BiomeRegister;
 import me.hydos.lint.registers.DimensionRegister;
 import net.fabricmc.api.EnvType;
@@ -20,7 +20,6 @@ import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.ChunkGeneratorType;
 import net.minecraft.world.gen.chunk.OverworldChunkGeneratorConfig;
 
 public class HaykamDimension extends Dimension {

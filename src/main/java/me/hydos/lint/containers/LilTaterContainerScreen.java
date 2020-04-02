@@ -49,7 +49,6 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
             onClose();
             return;
         }
-        PlayerEntity plr = minecraft.player;
         drawTater(i + 51, j + 65, 60, (float)(i + 51) - this.mouseX, (float)(j + 75 - 50) - this.mouseY, tater);
     }
 

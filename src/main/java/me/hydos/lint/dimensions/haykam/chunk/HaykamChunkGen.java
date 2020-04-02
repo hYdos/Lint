@@ -1,4 +1,4 @@
-package me.hydos.lint.chunkgen;
+package me.hydos.lint.dimensions.haykam.chunk;
 
 import me.hydos.lint.alphaworldgen.OctaveAlpha11NoiseSampler;
 import me.hydos.lint.registers.BlockRegister;

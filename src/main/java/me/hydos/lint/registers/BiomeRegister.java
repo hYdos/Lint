@@ -1,6 +1,6 @@
 package me.hydos.lint.registers;
 
-import me.hydos.lint.biomes.MysticalForest;
+import me.hydos.lint.dimensions.haykam.biomes.MysticalForest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
