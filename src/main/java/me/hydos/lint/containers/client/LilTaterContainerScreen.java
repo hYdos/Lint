@@ -1,6 +1,7 @@
-package me.hydos.lint.containers;
+package me.hydos.lint.containers.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import me.hydos.lint.containers.LilTaterInteractContainer;
 import me.hydos.lint.entities.liltaterbattery.LilTaterBattery;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
@@ -14,7 +15,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Quaternion;
 
 public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInteractContainer> {
-    public int mouseX, mouseY;
+    public int mouseX;
+
+    public int mouseY;
 
     public LilTaterInteractContainer container;
 
@@ -42,9 +45,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(backgroundIdentifier);
-        int i = this.x;
-        int j = this.y;
-        this.blit(i, j-15, 0, 0, this.containerWidth, this.containerHeight);
+        this.blit(x, y-45, 0, 0, this.containerWidth, this.containerHeight + 65);
         assert this.minecraft.player != null;
 
         LilTaterBattery tater = (LilTaterBattery) this.minecraft.world.getEntityById(container.taterId);
@@ -52,7 +53,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
             onClose();
             return;
         }
-        drawTater(i + 51, j + 55, 60, (float)(i + 51) - this.mouseX, (float)(j + 75 - 50) - this.mouseY, tater);
+        drawTater(x + 51, y + 20, 60, (float)(x + 51) - this.mouseX, (float)(y + 75 - 50) - this.mouseY, tater);
     }
 
     @Override

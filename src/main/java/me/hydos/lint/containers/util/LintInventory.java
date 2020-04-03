@@ -1,4 +1,4 @@
-package me.hydos.lint.containers;
+package me.hydos.lint.containers.util;
 
 import com.google.common.collect.Lists;
 import net.minecraft.entity.player.PlayerEntity;

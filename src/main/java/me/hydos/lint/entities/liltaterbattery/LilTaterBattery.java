@@ -2,7 +2,7 @@ package me.hydos.lint.entities.liltaterbattery;
 
 import me.hydos.lint.core.Containers;
 import me.hydos.lint.core.Entities;
-import me.hydos.lint.containers.LintInventory;
+import me.hydos.lint.containers.util.LintInventory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.*;
@@ -17,7 +17,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class LilTaterBattery extends TameableShoulderEntity {
@@ -85,7 +84,7 @@ public class LilTaterBattery extends TameableShoulderEntity {
                 this.world.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0, 4, 0);
                 player.setStackInHand(hand, ItemStack.EMPTY);
             }else{
-                if(getOwner().getUuid().compareTo(player.getUuid()) == 0){
+                if(getOwner() == player){
                     //the person who clicked owns the tater
                     ContainerProviderRegistry.INSTANCE.openContainer(Containers.TATER_CONTAINER_ID, player, packetByteBuf -> packetByteBuf.writeInt(getEntityId()));
                 }else{
