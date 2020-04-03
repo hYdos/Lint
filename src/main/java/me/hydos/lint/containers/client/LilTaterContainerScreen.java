@@ -45,7 +45,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(backgroundIdentifier);
-        this.blit(x, y-45, 0, 0, this.containerWidth, this.containerHeight + 65);
+        this.blit(x, y-20, 0, 0, this.containerWidth, this.containerHeight + 65);
         assert this.minecraft.player != null;
 
         LilTaterBattery tater = (LilTaterBattery) this.minecraft.world.getEntityById(container.taterId);
