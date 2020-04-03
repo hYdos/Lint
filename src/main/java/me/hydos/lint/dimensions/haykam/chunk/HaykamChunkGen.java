@@ -15,6 +15,7 @@ import net.minecraft.world.gen.chunk.OverworldChunkGeneratorConfig;
 
 import java.util.Random;
 
+import static me.hydos.lint.core.Blocks.MYSTICAL_SAND;
 import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.*;
 
 public class HaykamChunkGen extends OverworldChunkGenerator {
@@ -349,8 +350,8 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
                                     }
 
                                     if (sandSampleAtPos) {
-                                        topState = SAND;
-                                        underState = SAND;
+                                        topState = MYSTICAL_SAND.getDefaultState();
+                                        underState = MYSTICAL_SAND.getDefaultState();
                                     }
                                 }
 

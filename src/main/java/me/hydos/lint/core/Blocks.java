@@ -3,6 +3,7 @@ package me.hydos.lint.core;
 import me.hydos.lint.blocks.MysticalGrassBlock;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.FallingBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
@@ -19,8 +20,8 @@ public interface Blocks {
 
     Block MYSTICAL_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque().build());
     Block MYSTICAL_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(0.5f).sounds(BlockSoundGroup.WOOD).build());
-
     Block MYSTICAL_GRASS = new MysticalGrassBlock(FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().hardness(0).sounds(BlockSoundGroup.GRASS).nonOpaque().build());
+    Block MYSTICAL_SAND = new FallingBlock(FabricBlockSettings.of(Material.SAND).hardness(0.5f).sounds(BlockSoundGroup.SAND).build());
 
 
     static void onInitialize(){
@@ -30,6 +31,7 @@ public interface Blocks {
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LEAVES, "mystical_leaves");
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LOG, "mystical_log");
         registerBlock(ItemGroup.DECORATIONS, MYSTICAL_GRASS, "mystical_grass");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_SAND, "mystical_sand");
     }
 
     static void registerBlock(ItemGroup itemGroup, Block block, String identifier){
