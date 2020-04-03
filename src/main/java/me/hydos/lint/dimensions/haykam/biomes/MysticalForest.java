@@ -12,6 +12,7 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.CountDecoratorConfig;
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
@@ -24,6 +25,7 @@ import java.util.Random;
 
 import static me.hydos.lint.core.Blocks.MYSTICAL_GRASS;
 import static me.hydos.lint.core.Blocks.MYSTICAL_LOG;
+import static me.hydos.lint.core.Features.EPIC_VALO_CLOUD_FEATURE_FEATURE;
 import static me.hydos.lint.core.Features.MYSTICAL_TREE;
 import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.*;
 
@@ -66,6 +68,8 @@ public class MysticalForest extends Biome {
                 ),
                 new SimpleBlockPlacer()).tries(32).build()
         ).createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_DOUBLE.configure(new CountDecoratorConfig(2))));
+
+        this.addFeature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, EPIC_VALO_CLOUD_FEATURE_FEATURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(Decorator.NOPE.configure(new NopeDecoratorConfig())));
 
         DefaultBiomeFeatures.addDefaultVegetation(this);
         DefaultBiomeFeatures.addSprings(this);

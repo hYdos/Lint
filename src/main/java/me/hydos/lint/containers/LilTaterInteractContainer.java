@@ -36,11 +36,10 @@ public class LilTaterInteractContainer extends Container {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 132));
         }
 
-        //Tater inv
-        int offset = 4;
+        int offset = 9;
         for(int j = 0; j != 3; j++){
             for(int i = 0; i != 9; i++){
-                this.addSlot(new Slot(inv, i + offset, 8 + i * 18, 70 + j * 18));
+                this.addSlot(new Slot(playerInventory, i + offset, 8 + i * 18, 70 + j * 18));
             }
             offset += 9;
         }

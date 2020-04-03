@@ -1,5 +1,10 @@
 {
   "variants": {
-    "": { "model": "lint:block/lively_grass" }
-  }
+        "": [
+            { "model": "lint:block/lively_grass" },
+            { "model": "lint:block/lively_grass_mirrored" },
+            { "model": "lint:block/lively_grass", "y": 180 },
+            { "model": "lint:block/lively_grass_mirrored", "y": 180 }
+        ]
+    }
 }

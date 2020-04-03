@@ -1,5 +1,6 @@
 package me.hydos.lint.blocks;
 
+import me.hydos.lint.core.Blocks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.loader.api.FabricLoader;
@@ -21,6 +22,6 @@ public class MysticalGrassBlock extends FlowerBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
-        return floor.isAir(); //Valo likes
+        return floor == Blocks.LIVELY_GRASS.getDefaultState();
     }
 }
