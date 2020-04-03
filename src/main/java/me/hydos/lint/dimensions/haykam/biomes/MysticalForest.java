@@ -17,24 +17,16 @@ public class MysticalForest extends Biome {
     public static final TernarySurfaceConfig MYSTICAL_GRASS_CONFIG = new TernarySurfaceConfig(Blocks.LIVELY_GRASS.getDefaultState(), Blocks.RICH_DIRT.getDefaultState(), GRAVEL);
 
     public MysticalForest(){
-        super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, MYSTICAL_GRASS_CONFIG).precipitation(Biome.Precipitation.RAIN).category(Biome.Category.PLAINS).depth(0.24F).scale(0.2F).temperature(0.6F).downfall(0.7F).waterColor(4159204).waterFogColor(329011).parent(null));
+        super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, MYSTICAL_GRASS_CONFIG).precipitation(Precipitation.RAIN).category(Category.FOREST).depth(0.24F).scale(0.2F).temperature(0.6F).downfall(0.7F).waterColor(4159204).waterFogColor(329011).parent(null));
 
-        this.addStructureFeature(Feature.MINESHAFT.configure(new MineshaftFeatureConfig(0.004D, MineshaftFeature.Type.NORMAL)));
-        this.addStructureFeature(Feature.STRONGHOLD.configure(FeatureConfig.DEFAULT));
         DefaultBiomeFeatures.addLandCarvers(this);
-        DefaultBiomeFeatures.addDefaultStructures(this);
         DefaultBiomeFeatures.addDefaultLakes(this);
-        DefaultBiomeFeatures.addDungeons(this);
-        DefaultBiomeFeatures.addExtraMountainTrees(this);
-        DefaultBiomeFeatures.addDefaultFlowers(this);
-        DefaultBiomeFeatures.addDefaultGrass(this);
         DefaultBiomeFeatures.addMineables(this);
         DefaultBiomeFeatures.addDefaultOres(this);
         DefaultBiomeFeatures.addDefaultDisks(this);
         DefaultBiomeFeatures.addDefaultVegetation(this);
         DefaultBiomeFeatures.addSprings(this);
-        DefaultBiomeFeatures.addFrozenTopLayer(this);
-        this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(Entities.LIL_TATER, 1, 1, 3));
+        this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(Entities.LIL_TATER, 1, 1, 1));
 
     }
 

@@ -89,6 +89,13 @@ public class CommonMysticalTreeFeature extends OakTreeFeature {
         }
     }
 
+    protected void setToDirt(ModifiableTestableWorld world, BlockPos pos) {
+        if (!isNaturalDirt(world, pos)) {
+            this.setBlockState(world, pos, Blocks.LIVELY_GRASS.getDefaultState());
+        }
+
+    }
+
     protected static boolean canSpawnTree(TestableWorld world, BlockPos pos) {
         return world.testBlockState(pos, (blockState) -> {
             Block block = blockState.getBlock();

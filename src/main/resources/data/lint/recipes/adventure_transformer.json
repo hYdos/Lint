@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "111",
+    "121",
+    "343"
+  ],
+  "key": {
+    "1": {
+      "item": "techreborn:insulated_copper_cable"
+    },
+    "2": {
+      "item": "techreborn:basic_machine_frame"
+    },
+    "3": {
+      "item": "techreborn:electronic_circuit"
+    },
+    "4": {
+      "item": "minecraft:glass_pane"
+    }
+  },
+  "result": {
+    "item": "lint:adventure_transformer",
+    "count": 1
+  }
+}

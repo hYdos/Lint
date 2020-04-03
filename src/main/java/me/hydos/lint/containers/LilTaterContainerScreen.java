@@ -27,9 +27,15 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
 
     @Override
     public void render(int mouseX, int mouseY, float delta) {
-        super.render(mouseX, mouseY, delta);
-        this.mouseX = mouseX;
-        this.mouseY = mouseY;
+        if(container != null){
+            super.render(mouseX, mouseY, delta);
+            this.mouseX = mouseX;
+            this.mouseY = mouseY;
+        }else{
+            this.onClose();
+            minecraft.openScreen(null);
+        }
+
     }
 
     public void renderBackground(){

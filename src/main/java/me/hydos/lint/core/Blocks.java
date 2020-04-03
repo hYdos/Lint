@@ -1,7 +1,9 @@
 package me.hydos.lint.core;
 
+import me.hydos.lint.blocks.MysticalGrassBlock;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -12,13 +14,22 @@ import net.minecraft.util.registry.Registry;
 
 public interface Blocks {
 
-    Block RICH_DIRT = new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.GRASS).build());
-    Block LIVELY_GRASS = new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.GRASS).build());
+    Block RICH_DIRT = new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.WET_GRASS).build());
+    Block LIVELY_GRASS = new Block(FabricBlockSettings.of(Material.ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.GRASS).build());
+
+    Block MYSTICAL_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque().build());
+    Block MYSTICAL_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(0.5f).sounds(BlockSoundGroup.WOOD).build());
+
+    Block MYSTICAL_GRASS = new MysticalGrassBlock(FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().hardness(0).sounds(BlockSoundGroup.GRASS).nonOpaque().build());
 
 
     static void onInitialize(){
         registerBlock(ItemGroup.BUILDING_BLOCKS, RICH_DIRT, "rich_dirt");
         registerBlock(ItemGroup.BUILDING_BLOCKS, LIVELY_GRASS, "lively_grass");
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LEAVES, "mystical_leaves");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LOG, "mystical_log");
+        registerBlock(ItemGroup.DECORATIONS, MYSTICAL_GRASS, "mystical_grass");
     }
 
     static void registerBlock(ItemGroup itemGroup, Block block, String identifier){

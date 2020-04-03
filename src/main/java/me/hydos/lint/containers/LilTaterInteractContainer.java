@@ -37,7 +37,7 @@ public class LilTaterInteractContainer extends Container {
         }
 
         //Tater inv
-        int offset = 0;
+        int offset = 4;
         for(int j = 0; j != 3; j++){
             for(int i = 0; i != 9; i++){
                 this.addSlot(new Slot(inv, i + offset, 8 + i * 18, 70 + j * 18));
