@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "lint",
-  "version": "1.0.3",
+  "version": "1.0.4",
 
   "name": "Lint",
   "description": "A accumulation of useful and feature adding survival features ",
