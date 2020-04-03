@@ -19,9 +19,9 @@
       "me.hydos.lint.core.Blocks::onInitialize",
       "me.hydos.lint.core.Biomes::onInitialize",
       "me.hydos.lint.core.Dimensions::onInitialize",
+      "me.hydos.lint.core.Features::onInitialize",
       "me.hydos.lint.core.Entities::onInitialize",
       "me.hydos.lint.core.Packets::onInitialize",
-      "me.hydos.lint.core.Features::onInitialize",
       "me.hydos.lint.core.Containers::onInitialize"
     ],
     "client": [
