@@ -4,12 +4,11 @@
   "version": "1.0.4",
 
   "name": "Lint",
-  "description": "A accumulation of useful and feature adding survival features ",
+  "description": "A accumulation of useful and feature adding survival features (An Adventure and Automation mod)",
   "authors": [
     "You will never know"
   ],
 
-  "license": "CC0-1.0",
   "icon": "assets/lint/icon.png",
 
   "environment": "*",
