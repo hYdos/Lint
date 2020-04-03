@@ -13,46 +13,51 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import javax.swing.tree.AbstractLayoutCache;
-
 import static me.hydos.lint.core.Dimensions.HAYKAM;
 
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
 
+    @Final
     @Shadow
-    static Identifier MOON_PHASES;
+    private static Identifier MOON_PHASES;
 
+    @Final
     @Shadow
-    TextureManager textureManager;
+    private TextureManager textureManager;
 
+    @Final
     @Shadow
-    MinecraftClient client;
+    private MinecraftClient client;
 
-    @Shadow
+    private @Shadow
     ClientWorld world;
 
-    @Shadow
+    private @Shadow
     VertexBuffer lightSkyBuffer;
 
+    @Final
     VertexBuffer darkSkyBuffer;
 
+    @Final
     VertexBuffer starsBuffer;
 
+    @Final
     @Shadow
-    VertexFormat skyVertexFormat;
+    private VertexFormat skyVertexFormat;
 
-    private static Identifier COOLSUN = new Identifier("lint", "textures/environment/twin_sun.png");
+    private static final Identifier COOLSUN = new Identifier("lint", "textures/environment/twin_sun.png");
 
     @Inject(at=@At("HEAD"), method = "renderSky", cancellable = true)
     public void tatooine(MatrixStack matrixStack, float f, CallbackInfo ci){
+        assert client.world != null;
         if (client.world.dimension.hasVisibleSky()) {
             if(client.world.getDimension().getType() == HAYKAM){
                 ci.cancel();
@@ -182,8 +187,6 @@ public class WorldRendererMixin {
                 RenderSystem.enableTexture();
                 RenderSystem.depthMask(true);
                 RenderSystem.disableFog();
-            }else{
-                return;
             }
         }
     }
