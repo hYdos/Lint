@@ -15,7 +15,7 @@ public interface Blocks {
     Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).build();
     Block.Settings SAND_SETTINGS = FabricBlockSettings.of(Material.SAND).hardness(0.5f).sounds(BlockSoundGroup.SAND).build();
 
-    Block WHITE_SAND = new Block(SAND_SETTINGS);
+    Block WHITE_SAND = new FallingBlock(SAND_SETTINGS);
 
     Block CORRUPT_PLANKS = new Block(PLANK_SETTINGS);
 

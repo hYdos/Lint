@@ -48,7 +48,7 @@ public class CorruptForest extends Biome implements IBiomeHasLex{
 
         WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
         logProvider.addState(
-                MYSTICAL_LOG.getDefaultState(),
+                CORRUPT_LOG.getDefaultState(),
                 10
         );
 
@@ -62,9 +62,9 @@ public class CorruptForest extends Biome implements IBiomeHasLex{
 
         this.addFeature(
                 GenerationStep.Feature.VEGETAL_DECORATION,
-                MYSTICAL_TREE.configure(new BranchedTreeFeatureConfig.Builder(
+                CORRUPT_TREE.configure(new BranchedTreeFeatureConfig.Builder(
                         logProvider,
-                        new SimpleBlockStateProvider(Blocks.MYSTICAL_LEAVES.getDefaultState().with(Properties.PERSISTENT, true)),
+                        new SimpleBlockStateProvider(CORRUPT_LEAVES.getDefaultState().with(Properties.PERSISTENT, true)),
                         new BlobFoliagePlacer(MathHelper.nextInt(r, 2, 3), MathHelper.nextInt(r, 1, 3)))
                         .baseHeight(MathHelper.nextInt(r, 5, 7))
                         .heightRandA(MathHelper.nextInt(r, 3, 6))
