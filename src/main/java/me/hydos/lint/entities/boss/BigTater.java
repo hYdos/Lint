@@ -1,5 +1,7 @@
 package me.hydos.lint.entities.boss;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -9,9 +11,14 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings("EntityConstructor")
 public class BigTater extends HostileEntity implements SkinOverlayOwner, RangedAttackMob {
@@ -23,6 +30,14 @@ public class BigTater extends HostileEntity implements SkinOverlayOwner, RangedA
     public BigTater(EntityType<? extends BigTater> type, World world) {
         super(type, world);
         bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.PINK, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
+        this.bossBar.setVisible(true);
+        this.bossBar.setPercent(100);
+        if(!world.isClient){
+            for(PlayerEntity playerEntity : world.getPlayers()){
+                this.bossBar.addPlayer((ServerPlayerEntity)playerEntity);
+            }
+        }
+
     }
 
     @Override

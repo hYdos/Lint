@@ -21,19 +21,4 @@ public class SoundSystemMixin {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "stop()V")
-    public void a(CallbackInfo ci){
-        System.out.println("A");
-    }
-
-    @Inject(at = @At("HEAD"), method = "stop(Lnet/minecraft/client/sound/SoundInstance;)V")
-    public void b(SoundInstance soundInstance, CallbackInfo ci){
-        System.out.println("B " + soundInstance.getId());
-    }
-
-    @Inject(at = @At("HEAD"), method = "stopSounds")
-    public void c(Identifier identifier, SoundCategory soundCategory, CallbackInfo ci){
-        System.out.println("C " + identifier + " " + soundCategory);
-    }
-
 }
