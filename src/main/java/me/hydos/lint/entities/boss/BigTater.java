@@ -7,6 +7,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -38,6 +39,16 @@ public class BigTater extends HostileEntity implements SkinOverlayOwner, RangedA
             }
         }
 
+    }
+
+    @Override
+    public void onDeath(DamageSource source) {
+        if(!world.isClient){
+            for(PlayerEntity playerEntity : world.getPlayers()){
+                this.bossBar.removePlayer((ServerPlayerEntity)playerEntity);
+            }
+        }
+        super.onDeath(source);
     }
 
     @Override
