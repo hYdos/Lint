@@ -25,7 +25,7 @@ public class TaterVillageGenerator {
 
     public static class Piece extends SimpleStructurePiece {
         private BlockRotation rotation;
-        private Identifier template = new Identifier("minecraft", "igloo");
+        private Identifier template = new Identifier("minecraft", "igloo/top");
 
         public Piece(StructureManager structureManager_1, Identifier identifier_1, BlockPos blockPos_1, BlockRotation rotation_1) {
             super(Features.TATER_VILLAGE_PIECE_TYPE, 0);
@@ -48,8 +48,9 @@ public class TaterVillageGenerator {
         protected void toNbt(CompoundTag compoundTag) {
             super.toNbt(compoundTag);
             System.out.println(this.template.toString() +
-                    " : " +
-                    this.rotation.name()
+                    "\n" +
+                    this.rotation.name() +
+                    this.pos
             );
             compoundTag.putString("Template", this.template.toString());
             compoundTag.putString("Rot", this.rotation.name());

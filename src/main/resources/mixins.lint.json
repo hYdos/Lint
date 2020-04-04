@@ -10,7 +10,8 @@
   ],
   "client": [
     "PlayerEntityRendererMixin",
-    "WorldRendererMixin"
+    "WorldRendererMixin",
+    "SoundSystemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

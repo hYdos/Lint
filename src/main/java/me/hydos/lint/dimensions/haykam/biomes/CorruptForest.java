@@ -33,8 +33,18 @@ public class CorruptForest extends Biome implements IBiomeHasLex{
     public static final TernarySurfaceConfig MYSTICAL_GRASS_CONFIG = new TernarySurfaceConfig(Blocks.LIVELY_GRASS.getDefaultState(), Blocks.RICH_DIRT.getDefaultState(), GRAVEL);
 
     public CorruptForest() {
-        super(new Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, MYSTICAL_GRASS_CONFIG).precipitation(Precipitation.RAIN).category(Category.FOREST).depth(0.24F).scale(0.2F).temperature(0.6F).downfall(0.7F).waterColor(4159204).waterFogColor(329011).parent(null));
-        Random r = new Random();
+        super(new Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, MYSTICAL_GRASS_CONFIG)
+                .precipitation(Precipitation.RAIN)
+                .category(Category.FOREST)
+                .depth(0.24F)
+                .scale(0.2F)
+                .temperature(0.6F)
+                .downfall(0.1F)
+                .waterColor(0x631ee3)
+                .waterFogColor(0x631ee3)
+                .parent(null)
+
+        );
 
         WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
         logProvider.addState(
@@ -47,6 +57,8 @@ public class CorruptForest extends Biome implements IBiomeHasLex{
         DefaultBiomeFeatures.addMineables(this);
         DefaultBiomeFeatures.addDefaultOres(this);
         DefaultBiomeFeatures.addDefaultDisks(this);
+
+        Random r = new Random();
 
         this.addFeature(
                 GenerationStep.Feature.VEGETAL_DECORATION,
