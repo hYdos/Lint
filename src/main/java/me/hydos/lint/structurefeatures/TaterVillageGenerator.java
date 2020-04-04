@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class TaterVillageGenerator {
 
-    public static Identifier IDENTIFIER = new Identifier("igloo/top");
+    public static Identifier IDENTIFIER = new Identifier("lint", "dungeon_enterance");
 
     public static void addParts(StructureManager structureManager, BlockPos blockPos, BlockRotation rotation, List<StructurePiece> list, Random random, DefaultFeatureConfig featureConfig){
         list.add(new TaterVillageGenerator.Piece(structureManager, IDENTIFIER, blockPos, rotation));
@@ -25,7 +25,7 @@ public class TaterVillageGenerator {
 
     public static class Piece extends SimpleStructurePiece {
         private BlockRotation rotation;
-        private Identifier template = new Identifier("minecraft", "igloo/top");
+        private Identifier template = new Identifier("lint", "dungeon_enterance");
 
         public Piece(StructureManager structureManager_1, Identifier identifier_1, BlockPos blockPos_1, BlockRotation rotation_1) {
             super(Features.TATER_VILLAGE_PIECE_TYPE, 0);

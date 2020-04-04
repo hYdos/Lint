@@ -22,6 +22,10 @@ repositories {
 		url "https://maven.jamieswhiteshirt.com/libs-release/"
 	}
 
+	flatDir{
+		dirs "run/modsbutsomthingelse"
+	}
+
 }
 
 def optionalDependency(String dep) {
