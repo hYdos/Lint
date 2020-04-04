@@ -1,7 +1,5 @@
 package me.hydos.lint.core;
 
-import me.hydos.lint.core.client.LintClient;
-
 public interface Blursed {
 
     static void onInitialize() {
@@ -14,6 +12,5 @@ public interface Blursed {
         Packets.onInitialize();
         Containers.onInitialize();
         Sounds.onInitialize();
-        LintClient.onInitializeClient();
     }
 }
