@@ -14,7 +14,7 @@ public class TaterVillageFeature extends AbstractTempleFeature<DefaultFeatureCon
 
     @Override
     protected int getSeedModifier() {
-        return 0;
+        return 165745296;
     }
 
     @Override
@@ -29,6 +29,6 @@ public class TaterVillageFeature extends AbstractTempleFeature<DefaultFeatureCon
 
     @Override
     public int getRadius() {
-        return 4;
+        return 8;
     }
 }
