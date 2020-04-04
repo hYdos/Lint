@@ -9,12 +9,6 @@ import net.minecraft.client.util.math.MatrixStack;
 public class KingTaterModel extends CompositeEntityModel<KingTater> {
 
     private final ModelPart model;
-    private final ModelPart crown;
-    private final ModelPart things;
-    private final ModelPart front;
-    private final ModelPart back;
-    private final ModelPart right;
-    private final ModelPart left;
 
     public KingTaterModel() {
         textureWidth = 96;
@@ -24,16 +18,16 @@ public class KingTaterModel extends CompositeEntityModel<KingTater> {
         model.setPivot(0.0F, 24.0F, 0.0F);
         model.addCuboid("model", -12.0F, -32.0F, -12.0F, 24, 32, 24, 0.0F, 0, 0);
 
-        crown = new ModelPart(this);
+        ModelPart crown = new ModelPart(this);
         crown.setPivot(0.0F, 0.0F, 0.0F);
         model.addChild(crown);
         crown.addCuboid("crown", -12.0F, -34.0F, -12.0F, 24, 2, 24, 0.0F, 0, 56);
 
-        things = new ModelPart(this);
+        ModelPart things = new ModelPart(this);
         things.setPivot(0.0F, 0.0F, 0.0F);
         crown.addChild(things);
 
-        front = new ModelPart(this);
+        ModelPart front = new ModelPart(this);
         front.setPivot(0.0F, 0.0F, 0.0F);
         things.addChild(front);
         front.addCuboid("front", 10.5F, -35.0F, -12.0F, 1, 1, 0, 0.0F, 8, 77);
@@ -50,7 +44,7 @@ public class KingTaterModel extends CompositeEntityModel<KingTater> {
         front.addCuboid("front", -11.5F, -35.0F, -12.0F, 1, 1, 0, 0.0F, 8, 77);
 
 
-        back = new ModelPart(this);
+        ModelPart back = new ModelPart(this);
         back.setPivot(0.0F, 0.0F, 1.0F);
         things.addChild(back);
         back.addCuboid("back", 10.5F, -35.0F, 11.0F, 1, 1, 0, 0.0F, 8, 77);
@@ -66,7 +60,7 @@ public class KingTaterModel extends CompositeEntityModel<KingTater> {
         back.addCuboid("back", -9.5F, -35.0F, 11.0F, 1, 1, 0, 0.0F, 8, 77);
         back.addCuboid("back", -11.5F, -35.0F, 11.0F, 1, 1, 0, 0.0F, 8, 77);
 
-        right = new ModelPart(this);
+        ModelPart right = new ModelPart(this);
         right.setPivot(0.0F, 0.0F, 0.0F);
         things.addChild(right);
         right.addCuboid("right", 12.0F, -35.0F, -11.5F, 0, 1, 1, 0.0F, 31, 68);
@@ -82,7 +76,7 @@ public class KingTaterModel extends CompositeEntityModel<KingTater> {
         right.addCuboid("right", 12.0F, -35.0F, 8.5F, 0, 1, 1, 0.0F, 31, 68);
         right.addCuboid("right", 12.0F, -35.0F, 10.5F, 0, 1, 1, 0.0F, 31, 68);
 
-        left = new ModelPart(this);
+        ModelPart left = new ModelPart(this);
         left.setPivot(0.0F, 0.0F, 0.0F);
         things.addChild(left);
         left.addCuboid("left", -12.0F, -35.0F, -11.5F, 0, 1, 1, 0.0F, 31, 68);
