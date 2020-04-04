@@ -15,6 +15,10 @@ import net.minecraft.util.registry.Registry;
 
 public interface Blocks {
 
+    Block CORRUPT_PLANKS = new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.WET_GRASS).build());
+
+    Block MYSTICAL_PLANKS = new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.WET_GRASS).build());
+
     Block RICH_DIRT = new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.WET_GRASS).build());
     Block LIVELY_GRASS = new Block(FabricBlockSettings.of(Material.ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.GRASS).build());
 
@@ -29,6 +33,10 @@ public interface Blocks {
     Block CORRUPT_SAND = new FallingBlock(FabricBlockSettings.of(Material.SAND).hardness(0.5f).sounds(BlockSoundGroup.SAND).build());
 
     static void onInitialize() {
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_PLANKS, "corrupt_planks");
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_PLANKS, "mystical_planks");
         registerBlock(ItemGroup.BUILDING_BLOCKS, RICH_DIRT, "rich_dirt");
         registerBlock(ItemGroup.BUILDING_BLOCKS, LIVELY_GRASS, "lively_grass");
 

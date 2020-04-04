@@ -9,7 +9,22 @@ class DataDir:
 
     def sub(this, subpath):
         return DataDir(this.path + "/" + subpath)
-
+    
+    def writetojavasrc(this, string, string2):
+        with open(this.path, "r+") as file:
+            file_content = file.read()
+            split = file_content.split("public interface Blocks {")
+            new_file_content = split[0] + "public interface Blocks {\n\n" + string + split[1]
+            file.seek(0)
+            file.write(new_file_content)
+        
+        with open(this.path, "r+") as file:
+            file_content = file.read()
+            split = file_content.split("static void onInitialize() {")
+            new_file_content = split[0] + "static void onInitialize() {\n\n" + string2 + split[1]
+            file.seek(0)
+            file.write(new_file_content)
+        
     def make(this, file, jsonobj):
         with open(this.path + "/" + file, "w+") as file:
             json.dump(jsonobj, file, indent=2)
@@ -21,7 +36,7 @@ assets = DataDir("assets/" + MOD_ID)
 blockstates = assets.sub("blockstates")
 blockmodels = assets.sub("models/block")
 itemmodels = assets.sub("models/item")
-blockclass = assets.sub("../java/" + BLOCK_CLASS_PATH)
+blockclass = DataDir("../java/" + BLOCK_CLASS_PATH)
 
 
 loottables = DataDir("data/" + MOD_ID + "/loot_tables/blocks")
@@ -42,6 +57,12 @@ while (block_id != ""):
     id_string = MOD_ID + ":block/" + block_id
     file_string = block_id + ".json"
 
+    variable_string = "    Block " + block_id.upper() + " = new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.WET_GRASS).build());"
+
+    variable_string2 = "        registerBlock(ItemGroup.BUILDING_BLOCKS, " + block_id.upper() + ", \"" + block_id + "\");"
+    
+    blockclass.writetojavasrc(variable_string, variable_string2)
+    
     # Assets
     
     modelloc["model"] = id_string
