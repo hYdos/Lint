@@ -1,54 +1,30 @@
 package me.hydos.lint.entities.boss;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @SuppressWarnings("EntityConstructor")
-public class BigTater extends HostileEntity implements SkinOverlayOwner, RangedAttackMob {
+public class KingTater extends HostileEntity implements SkinOverlayOwner, RangedAttackMob {
 
-    private static final TrackedData<Integer> INVULNERABILITY_TIMER = DataTracker.registerData(BigTater.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> INVULNERABILITY_TIMER = DataTracker.registerData(KingTater.class, TrackedDataHandlerRegistry.INTEGER);
 
     private final ServerBossBar bossBar;
 
-    public BigTater(EntityType<? extends BigTater> type, World world) {
+    public KingTater(EntityType<? extends KingTater> type, World world) {
         super(type, world);
         bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.PINK, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
-        this.bossBar.setVisible(true);
-        this.bossBar.setPercent(100);
-        if(!world.isClient){
-            for(PlayerEntity playerEntity : world.getPlayers()){
-                this.bossBar.addPlayer((ServerPlayerEntity)playerEntity);
-            }
-        }
-
-    }
-
-    @Override
-    public void onDeath(DamageSource source) {
-        if(!world.isClient){
-            for(PlayerEntity playerEntity : world.getPlayers()){
-                this.bossBar.removePlayer((ServerPlayerEntity)playerEntity);
-            }
-        }
-        super.onDeath(source);
     }
 
     @Override
@@ -62,8 +38,29 @@ public class BigTater extends HostileEntity implements SkinOverlayOwner, RangedA
     }
 
     @Override
+    protected void initAttributes() {
+        super.initAttributes();
+        getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(300.0D);
+    }
+
+    @Override
     public void attack(LivingEntity target, float f) {
         // TODO: Summon tater minion
+    }
+
+    @Override
+    public void onStartedTrackingBy(ServerPlayerEntity player) {
+        bossBar.addPlayer(player);
+    }
+
+    @Override
+    public void onStoppedTrackingBy(ServerPlayerEntity player) {
+        bossBar.removePlayer(player);
+    }
+
+    @Override
+    protected void mobTick() {
+        bossBar.setPercent(getScaledHealth());
     }
 
     @Override
@@ -82,6 +79,7 @@ public class BigTater extends HostileEntity implements SkinOverlayOwner, RangedA
         }
     }
 
+    @Override
     public void setCustomName(Text name) {
         super.setCustomName(name);
         this.bossBar.setName(this.getDisplayName());
@@ -94,7 +92,7 @@ public class BigTater extends HostileEntity implements SkinOverlayOwner, RangedA
 
     @Override
     public EntityDimensions getDimensions(EntityPose pose) {
-        return getType().getDimensions().scaled((float) (1.5 - (getHealth() / getMaximumHealth())));
+        return getType().getDimensions().scaled(getScaledHealth());
     }
 
     @Override
@@ -113,5 +111,9 @@ public class BigTater extends HostileEntity implements SkinOverlayOwner, RangedA
 
     public void setInvulnerabilityTicks(int ticks) {
         this.dataTracker.set(INVULNERABILITY_TIMER, ticks);
+    }
+
+    public float getScaledHealth() {
+        return getHealth() / getMaximumHealth();
     }
 }

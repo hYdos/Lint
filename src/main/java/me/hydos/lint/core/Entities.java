@@ -1,6 +1,6 @@
 package me.hydos.lint.core;
 
-import me.hydos.lint.entities.boss.BigTater;
+import me.hydos.lint.entities.boss.KingTater;
 import me.hydos.lint.entities.boss.TaterMinion;
 import me.hydos.lint.entities.liltaterbattery.LilTaterBattery;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
@@ -16,11 +16,9 @@ public interface Entities {
             Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "lil_tater"), FabricEntityTypeBuilder.create(EntityCategory.AMBIENT, (LilTaterBattery::new))
                     .size(EntityDimensions.fixed(0.3f, 0.4f))
                     .build());
-    EntityType<BigTater> BIG_TATER =
-            Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "big_tater"), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, BigTater::new)
-                    .size(EntityDimensions.fixed(8f, 32f))
-                    .disableSaving()
-                    .setImmuneToFire()
+    EntityType<KingTater> KING_TATER =
+            Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "king_tater"), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, KingTater::new)
+                    .size(EntityDimensions.changing(3f, 4f))
                     .build());
     EntityType<TaterMinion> MINION =
             Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "minion"), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, TaterMinion::new)
