@@ -18,13 +18,13 @@ public interface Entities {
                     .build());
     EntityType<BigTater> BIG_TATER =
             Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "big_tater"), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, BigTater::new)
-                    .size(null)
+                    .size(EntityDimensions.fixed(8f, 32f))
                     .disableSaving()
                     .setImmuneToFire()
                     .build());
     EntityType<TaterMinion> MINION =
             Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "minion"), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, TaterMinion::new)
-                    .size(null)
+                    .size(LIL_TATER.getDimensions())
                     .disableSaving()
                     .setImmuneToFire()
                     .build());
