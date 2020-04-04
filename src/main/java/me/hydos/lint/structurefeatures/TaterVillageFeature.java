@@ -6,9 +6,9 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 
 import java.util.function.Function;
 
-public class TaterKingdungeonFeature extends AbstractTempleFeature<DefaultFeatureConfig> {
+public class TaterVillageFeature extends AbstractTempleFeature<DefaultFeatureConfig> {
 
-    public TaterKingdungeonFeature(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
+    public TaterVillageFeature(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
         super(configFactory);
     }
 
