@@ -15,11 +15,14 @@ class DataDir:
             json.dump(jsonobj, file, indent=2)
 
 MOD_ID = "lint"
+BLOCK_CLASS_PATH = "me/hydos/lint/core/Blocks.java"
 
 assets = DataDir("assets/" + MOD_ID)
 blockstates = assets.sub("blockstates")
 blockmodels = assets.sub("models/block")
 itemmodels = assets.sub("models/item")
+blockclass = assets.sub("../java/" + BLOCK_CLASS_PATH)
+
 
 loottables = DataDir("data/" + MOD_ID + "/loot_tables/blocks")
 
