@@ -26,7 +26,7 @@ public class TaterVillageStructureStart extends StructureStart {
         int z = chunkZ * 16;
         BlockPos startingPos = new BlockPos(x, chunkGenerator.getHeightOnGround(x,z, Heightmap.Type.WORLD_SURFACE_WG)-2, z);
         BlockRotation rotation = BlockRotation.values()[this.random.nextInt(BlockRotation.values().length)];
-        TaterVillageGenerator.addParts(structureManager, startingPos, rotation, this.children, this.random, defaultFeatureConfig);
+        TaterKingDungeonGenerator.addParts(structureManager, startingPos, rotation, this.children);
         this.setBoundingBoxFromChildren();
     }
 }
