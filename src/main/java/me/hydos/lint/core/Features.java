@@ -1,5 +1,6 @@
 package me.hydos.lint.core;
 
+import me.hydos.lint.dimensions.haykam.features.CommonCorruptTreeFeature;
 import me.hydos.lint.dimensions.haykam.features.CommonMysticalTreeFeature;
 import me.hydos.lint.structurefeatures.TaterVillageFeature;
 import me.hydos.lint.structurefeatures.TaterVillageGenerator;
@@ -14,6 +15,12 @@ public interface Features {
             Registry.FEATURE,
             new Identifier("lint", "mystical_tree"),
             new CommonMysticalTreeFeature(BranchedTreeFeatureConfig::deserialize)
+    );
+
+    Feature<BranchedTreeFeatureConfig> CORRUPT_TREE = Registry.register(
+            Registry.FEATURE,
+            new Identifier("lint", "corrupt_tree"),
+            new CommonCorruptTreeFeature(BranchedTreeFeatureConfig::deserialize)
     );
 
     StructurePieceType TATER_VILLAGE_PIECE_TYPE = Registry.register(Registry.STRUCTURE_PIECE, "tater_village_piece", TaterVillageGenerator.Piece::new);
