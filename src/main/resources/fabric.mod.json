@@ -28,7 +28,7 @@
     ]
   },
   "mixins": [
-    "lint.mixins.json"
+    "mixins.lint.json"
   ],
 
   "depends": {

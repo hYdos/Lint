@@ -9,7 +9,6 @@
     "BalanceMixin"
   ],
   "client": [
-    "InGameHudMixin",
     "PlayerEntityRendererMixin",
     "WorldRendererMixin"
   ],
