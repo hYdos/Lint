@@ -1,9 +1,10 @@
-import me.hydos.lint.core.*;
+package me.hydos.lint.core;
+
 import me.hydos.lint.core.client.LintClient;
 
 public interface Blursed {
 
-    static void no() {
+    static void onInitialize() {
         Lint.onInitialize();
         Blocks.onInitialize();
         Biomes.onInitialize();
@@ -12,6 +13,7 @@ public interface Blursed {
         Entities.onInitialize();
         Packets.onInitialize();
         Containers.onInitialize();
+        Sounds.onInitialize();
         LintClient.onInitializeClient();
     }
 }

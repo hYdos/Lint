@@ -1,0 +1,12 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "lint:corrupt_log"
+    }
+  ],
+  "result": {
+    "item": "lint:corrupt_planks",
+    "count": 4
+  }
+}

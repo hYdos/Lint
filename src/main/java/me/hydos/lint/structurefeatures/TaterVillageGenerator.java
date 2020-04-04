@@ -47,7 +47,10 @@ public class TaterVillageGenerator {
         @Override
         protected void toNbt(CompoundTag compoundTag) {
             super.toNbt(compoundTag);
-            System.out.println(this.template.toString() + " : " + this.rotation.name());
+            System.out.println(this.template.toString() +
+                    " : " +
+                    this.rotation.name()
+            );
             compoundTag.putString("Template", this.template.toString());
             compoundTag.putString("Rot", this.rotation.name());
         }
