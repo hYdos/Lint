@@ -1,9 +1,9 @@
 {   "parent": "block/block",
   "textures": {
-    "particle": "lint:block/lively_grass_top",
+    "particle": "lint:block/corrupt_grass_top",
     "bottom": "lint:block/rich_dirt",
-    "top": "lint:block/lively_grass_top",
-    "side": "lint:block/lively_grass_side"
+    "top": "lint:block/corrupt_grass_top",
+    "side": "lint:block/corrupt_grass_side"
   },
   "elements": [
     {   "from": [ 0, 0, 0 ],

@@ -89,7 +89,7 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
                             posMutable.setX(localX + xSubChunk * 4);
 
                             double sample = sampleNWInitial;
-                            double someOffsetThing = (sampleSWInitial - sampleNWInitial) * oneQuarter;
+                            double progress = (sampleSWInitial - sampleNWInitial) * oneQuarter;
 
                             for (int localZ = 0; localZ < 4; ++localZ) {
                                 posMutable.setZ(zSubChunk * 4 + localZ);
@@ -104,7 +104,7 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
                                 }
 
                                 chunk.setBlockState(posMutable, toSet, false);
-                                sample += someOffsetThing;
+                                sample += progress;
                             }
 
                             sampleNWInitial += sampleNAverage;
@@ -140,38 +140,39 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
 
         for (int localX = 0; localX < 5; ++localX) {
             for (int localZ = 0; localZ < 5; ++localZ) {
+                Biome noiseBiome = this.biomeSource.getBiomeForNoiseGen(localX, 0, localZ);
                 double double0 = (this.noiseArray4[index1] + 256.0D) / 512.0D;
                 if (double0 > 1.0D) {
                     double0 = 1.0D;
                 }
 
                 double double2 = 0.0D;
-                double double3 = this.noiseArray5[index1] / 8000.0D;
-                if (double3 < 0.0D) {
-                    double3 = -double3;
+                double clamp = this.noiseArray5[index1] / 8000.0D;
+                if (clamp < 0.0D) {
+                    clamp = -clamp;
                 }
 
-                double3 = double3 * 3.0D - 3.0D;
-                if (double3 < 0.0D) {
-                    double3 = double3 / 2.0D;
-                    if (double3 < -1.0D) {
-                        double3 = -1.0D;
+                clamp = clamp * 3.0D - 3.0D;
+                if (clamp < 0.0D) {
+                    clamp = clamp / 2.0D;
+                    if (clamp < -1.0D) {
+                        clamp = -1.0D;
                     }
 
-                    double3 = double3 / 1.4D;
-                    double3 = double3 / 2.0D;
+                    clamp = clamp / 1.4D;
+                    clamp = clamp / 2.0D;
                     double0 = 0.0D;
                 } else {
-                    if (double3 > 1.0D) {
-                        double3 = 1.0D;
+                    if (clamp > 1.0D) {
+                        clamp = 1.0D;
                     }
 
-                    double3 = double3 / 6.0D;
+                    clamp = clamp / 6.0D;
                 }
 
                 double0 = double0 + 0.5D;
-                double3 = double3 * (double) 17 / 16.0D;
-                double double4 = (double) 17 / 2.0D + double3 * 4.0D;
+                clamp = clamp * (double) 17 / 16.0D;
+                double double4 = (double) 17 / 2.0D + clamp * 4.0D;
                 ++index1;
 
                 for (int localY = 0; localY < 17; ++localY) {
@@ -211,7 +212,7 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
                         double1 = double1 * (1.0D - double7) + -10.0D * double7;
                     }
 
-                    oldArray[index0] = double1;
+                    oldArray[index0] = double1 * noiseBiome.getScale() * 10000;
                     ++index0;
                 }
             }
@@ -306,12 +307,17 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
         this.gravelSample = this.beachNoise.sample(this.gravelSample, chunkZ * 16, 109.0134D, chunkX * 16, 16, 1, 16, oneSixteenth, 1.0D, oneSixteenth);
         this.stoneNoise = this.surfaceNoise.sample(this.stoneNoise, chunkX * 16, chunkZ * 16, 0.0D, 16, 16, 1, oneSixteenth * 2.0D, oneSixteenth * 2.0D, oneSixteenth * 2.0D);
 
+        int chunkStartX = chunk.getPos().getStartX();
+        int chunkStartZ = chunk.getPos().getStartZ();
+        BlockPos.Mutable biomePos = new BlockPos.Mutable();
         for (int x = 0; x < 16; x++) {
             pos.setX(x);
+            biomePos.setX(x + chunkStartX);
             for (int z = 0; z < 16; z++) {
                 pos.setZ(z);
+                biomePos.setZ(z + chunkStartZ);
 
-                Biome biome = chunkRegion.getBiome(pos);
+                Biome biome = chunkRegion.getBiome(biomePos);
                 BlockState grass = LIVELY_GRASS.getDefaultState();
                 BlockState dirt = RICH_DIRT.getDefaultState();
                 BlockState sand = MYSTICAL_SAND.getDefaultState();

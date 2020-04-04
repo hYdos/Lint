@@ -51,7 +51,7 @@ public interface Blocks {
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_LEAVES, "corrupt_leaves");
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_LOG, "corrupt_log");
-        registerBlock(ItemGroup.DECORATIONS, CORRUPT_GRASS, "corrupt_grass");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_GRASS, "corrupt_grass");
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_SAND, "corrupt_sand");
     }
 

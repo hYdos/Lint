@@ -1,6 +1,7 @@
 package me.hydos.lint.dimensions.haykam.biomes;
 
 import me.hydos.lint.core.Blocks;
+import net.minecraft.block.BlockState;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
@@ -23,17 +24,25 @@ import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
 import java.util.Random;
 
-import static me.hydos.lint.core.Blocks.MYSTICAL_GRASS;
-import static me.hydos.lint.core.Blocks.MYSTICAL_LOG;
+import static me.hydos.lint.core.Blocks.*;
 import static me.hydos.lint.core.Features.*;
 import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.GRAVEL;
 
-public class MysticalForest extends Biome {
+public class MysticalForest extends Biome implements IBiomeHasLex{
 
     public static final TernarySurfaceConfig MYSTICAL_GRASS_CONFIG = new TernarySurfaceConfig(Blocks.LIVELY_GRASS.getDefaultState(), Blocks.RICH_DIRT.getDefaultState(), GRAVEL);
 
     public MysticalForest() {
-        super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, MYSTICAL_GRASS_CONFIG).precipitation(Precipitation.RAIN).category(Category.FOREST).depth(0.24F).scale(0.2F).temperature(0.6F).downfall(0.7F).waterColor(4159204).waterFogColor(329011).parent(null));
+        super(new Biome.Settings()
+                .configureSurfaceBuilder(SurfaceBuilder.DEFAULT, MYSTICAL_GRASS_CONFIG)
+                .precipitation(Precipitation.RAIN).category(Category.FOREST)
+                .depth(0.24F)
+                .scale(100F)
+                .temperature(0.6F)
+                .downfall(0.7F)
+                .waterColor(4159204)
+                .waterFogColor(329011)
+                .parent(null));
         Random r = new Random();
 
         WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
@@ -76,5 +85,25 @@ public class MysticalForest extends Biome {
 
         DefaultBiomeFeatures.addDefaultVegetation(this);
         DefaultBiomeFeatures.addSprings(this);
+    }
+
+    @Override
+    public BlockState getGrass() {
+        return LIVELY_GRASS.getDefaultState();
+    }
+
+    @Override
+    public BlockState getUnderDirt() {
+        return RICH_DIRT.getDefaultState();
+    }
+
+    @Override
+    public BlockState getSand() {
+        return MYSTICAL_SAND.getDefaultState();
+    }
+
+    @Override
+    public BlockState getGravel() {
+        return WHITE_SAND.getDefaultState();
     }
 }
