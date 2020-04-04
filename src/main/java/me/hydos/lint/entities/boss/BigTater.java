@@ -32,7 +32,7 @@ public class BigTater extends HostileEntity implements SkinOverlayOwner, RangedA
         super(type, world);
         bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.PINK, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
         this.bossBar.setVisible(true);
-        this.bossBar.setPercent(100);
+        this.bossBar.setPercent(0.5f);
         if(!world.isClient){
             for(PlayerEntity playerEntity : world.getPlayers()){
                 this.bossBar.addPlayer((ServerPlayerEntity)playerEntity);
