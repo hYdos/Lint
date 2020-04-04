@@ -1,6 +1,7 @@
 package me.hydos.lint.core;
 
 import me.hydos.lint.blocks.MysticalGrassBlock;
+import me.hydos.lint.unprotect.TrapdoorBlock;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
@@ -11,6 +12,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public interface Blocks {
+
+    Block MYSTICAL_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD).build());
+
+    Block DUNGEON_BRICKS = new Block(FabricBlockSettings.of(Material.STONE).hardness(4).sounds(BlockSoundGroup.STONE).build());
 
     Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD).build();
     Block.Settings SAND_SETTINGS = FabricBlockSettings.of(Material.SAND).hardness(0.5f).sounds(BlockSoundGroup.SAND).build();
@@ -35,6 +40,10 @@ public interface Blocks {
     Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
 
     static void onInitialize() {
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_TRAPDOOR, "mystical_trapdoor");
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, DUNGEON_BRICKS, "dungeon_bricks");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, WHITE_SAND, "white_sand");
 

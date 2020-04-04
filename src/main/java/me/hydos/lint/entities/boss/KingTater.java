@@ -1,5 +1,6 @@
 package me.hydos.lint.entities.boss;
 
+import me.hydos.lint.core.Sounds;
 import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -12,6 +13,8 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 
@@ -25,6 +28,7 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
     public KingTater(EntityType<? extends KingTater> type, World world) {
         super(type, world);
         bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.PINK, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
+        world.playSoundFromEntity(world.getClosestPlayer(this, 10), this, Sounds.KING_TATER_SOUND_EVENT, SoundCategory.MASTER, 100, 1);
     }
 
     @Override
