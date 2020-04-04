@@ -14,7 +14,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "me.hydos.lint.core.Lint",
+      "me.hydos.lint.core.Lint::onInitialize",
       "me.hydos.lint.core.Blocks::onInitialize",
       "me.hydos.lint.core.Biomes::onInitialize",
       "me.hydos.lint.core.Dimensions::onInitialize",
@@ -24,7 +24,7 @@
       "me.hydos.lint.core.Containers::onInitialize"
     ],
     "client": [
-      "me.hydos.lint.core.client.LintClient"
+      "me.hydos.lint.core.client.LintClient::onInitializeClient"
     ]
   },
   "mixins": [

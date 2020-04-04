@@ -1,16 +1,19 @@
 package me.hydos.lint.dimensions.haykam.biomes;
 
 import me.hydos.lint.core.Blocks;
-import me.hydos.lint.core.Entities;
-import me.hydos.lint.core.Lint;
-import net.minecraft.entity.EntityCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.*;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
+import net.minecraft.world.gen.decorator.CountDecoratorConfig;
+import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig;
+import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.feature.BranchedTreeFeatureConfig;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
@@ -23,13 +26,13 @@ import java.util.Random;
 import static me.hydos.lint.core.Blocks.MYSTICAL_GRASS;
 import static me.hydos.lint.core.Blocks.MYSTICAL_LOG;
 import static me.hydos.lint.core.Features.*;
-import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.*;
+import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.GRAVEL;
 
 public class MysticalForest extends Biome {
 
     public static final TernarySurfaceConfig MYSTICAL_GRASS_CONFIG = new TernarySurfaceConfig(Blocks.LIVELY_GRASS.getDefaultState(), Blocks.RICH_DIRT.getDefaultState(), GRAVEL);
 
-    public MysticalForest(){
+    public MysticalForest() {
         super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.DEFAULT, MYSTICAL_GRASS_CONFIG).precipitation(Precipitation.RAIN).category(Category.FOREST).depth(0.24F).scale(0.2F).temperature(0.6F).downfall(0.7F).waterColor(4159204).waterFogColor(329011).parent(null));
         Random r = new Random();
 
@@ -74,7 +77,4 @@ public class MysticalForest extends Biome {
         DefaultBiomeFeatures.addDefaultVegetation(this);
         DefaultBiomeFeatures.addSprings(this);
     }
-
-
-
 }

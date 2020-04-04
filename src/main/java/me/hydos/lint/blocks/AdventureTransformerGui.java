@@ -1,7 +1,6 @@
 package me.hydos.lint.blocks;
 
 import io.netty.buffer.Unpooled;
-import me.hydos.lint.core.Lint;
 import me.hydos.lint.core.Packets;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -11,18 +10,18 @@ import reborncore.client.containerBuilder.builder.BuiltContainer;
 import reborncore.client.gui.builder.GuiBase;
 
 public class AdventureTransformerGui extends GuiBase<BuiltContainer> {
-    AdventureTransformerBlockEntity blockEntity;
+
+    final AdventureTransformerBlockEntity blockEntity;
 
     public AdventureTransformerGui(int syncID, PlayerEntity player, AdventureTransformerBlockEntity blockEntity) {
         super(player, blockEntity, blockEntity.createContainer(syncID, player));
         this.blockEntity = blockEntity;
-
     }
 
     @Override
     public void init() {
         super.init();
-        addButton(new ButtonWidget(x+60,y+40,40,20,"Enter", (widget) ->{
+        addButton(new ButtonWidget(x + 60, y + 40, 40, 20, "Enter", (widget) -> {
             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
             data.writeString("HAYKAM");
             ClientSidePacketRegistry.INSTANCE.sendToServer(Packets.PLAY_DIMENSION_CHANGE_PACKET_ID, data);

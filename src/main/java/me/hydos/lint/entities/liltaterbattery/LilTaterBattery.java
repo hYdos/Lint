@@ -1,10 +1,10 @@
 package me.hydos.lint.entities.liltaterbattery;
 
-import me.hydos.lint.core.Containers;
-import me.hydos.lint.core.Entities;
 import me.hydos.lint.containers.util.LintInventory;
+import me.hydos.lint.core.Containers;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -19,17 +19,16 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
+@SuppressWarnings("EntityConstructor")
 public class LilTaterBattery extends TameableShoulderEntity {
 
-    public LintInventory inventory;
+    public final LintInventory inventory;
 
     public float size = 0;
 
-    public LilTaterBattery(World world) {
-        super(Entities.LIL_TATER, world);
-        inventory = new LintInventory(31){
-
-        };
+    public LilTaterBattery(EntityType<? extends LilTaterBattery> type, World world) {
+        super(type, world);
+        inventory = new LintInventory(31);
     }
 
     @Override
@@ -43,7 +42,6 @@ public class LilTaterBattery extends TameableShoulderEntity {
     public CompoundTag toTag(CompoundTag tag) {
         Inventories.toTag(tag, inventory.getRawList());
         return super.toTag(tag);
-
     }
 
     @Override
@@ -73,26 +71,26 @@ public class LilTaterBattery extends TameableShoulderEntity {
 
     @Override
     public PassiveEntity createChild(PassiveEntity mate) {
-        return new LilTaterBattery(world);
+        return (PassiveEntity) getType().create(world);
     }
 
     public boolean interactMob(PlayerEntity player, Hand hand) {
         if (!this.world.isClient) {
-            if(!isTamed()){
+            if (!isTamed()) {
                 this.setOwner(player);
                 this.setTamed(true);
                 this.world.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0, 4, 0);
                 player.setStackInHand(hand, ItemStack.EMPTY);
-            }else{
-                if(getOwner() == player){
+            } else {
+                if (getOwner() == player) {
                     //the person who clicked owns the tater
                     ContainerProviderRegistry.INSTANCE.openContainer(Containers.TATER_CONTAINER_ID, player, packetByteBuf -> packetByteBuf.writeInt(getEntityId()));
-                }else{
+                } else {
                     return false;
                 }
             }
-
         }
+
         return true;
     }
 

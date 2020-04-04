@@ -13,14 +13,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayerEntity.class)
 public abstract class LivingEntityMixin extends LivingEntity {
 
-
     protected LivingEntityMixin(EntityType<? extends LivingEntity> type, World world) {
         super(type, world);
     }
 
     @Inject(at = @At("HEAD"), method = "onDeath", cancellable = true)
-    public void onDeath(DamageSource source, CallbackInfo ci){
-        if(source == DamageSource.OUT_OF_WORLD){
+    public void onDeath(DamageSource source, CallbackInfo ci) {
+        if (source == DamageSource.OUT_OF_WORLD) {
             ci.cancel();
             System.out.println("E");
             super.onDeath(source);

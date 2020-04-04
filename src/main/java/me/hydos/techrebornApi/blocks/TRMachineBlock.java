@@ -16,28 +16,22 @@ import techreborn.blocks.GenericMachineBlock;
 import java.util.function.Supplier;
 
 /**
- *
  * used to make blocks which are machines which are compatible with the TR system
  *
  * @author hydos06
  */
 public class TRMachineBlock extends GenericMachineBlock {
 
-    public TRMachineBlock(boolean nonOpaque, IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {//TODO: make non-Opaque setting work
+    public TRMachineBlock(IMachineGuiHandler gui, Supplier<BlockEntity> blockEntityClass) {//TODO: make non-Opaque setting work
         super(FabricBlockSettings.of(Material.METAL).nonOpaque().build(), gui, blockEntityClass);
 
-        if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getTranslucent());
         }
     }
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        if(world.getDimension().getType().getSuffix().equals("lint_haykam")){
-            return false;
-        }
-        return true;
+        return !world.getDimension().getType().getSuffix().equals("lint_haykam");
     }
-
-
 }

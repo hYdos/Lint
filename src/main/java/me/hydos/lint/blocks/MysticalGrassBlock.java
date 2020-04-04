@@ -15,7 +15,7 @@ public class MysticalGrassBlock extends FlowerBlock {
 
     public MysticalGrassBlock(Settings settings) {
         super(StatusEffects.BAD_OMEN, 7, settings);
-        if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getTranslucent());
         }
     }

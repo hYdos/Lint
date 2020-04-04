@@ -8,8 +8,12 @@ import net.minecraft.util.Identifier;
 
 public class LilTaterBatteryRenderer extends MobEntityRenderer<LilTaterBattery, LilTaterBatteryModel> {
 
+    public static final Identifier FRIENDLY_TATER = new Identifier("lint:textures/entity/lil_tater.png");
+    public static final Identifier IRRITATER = new Identifier("lint:textures/entity/lil_irritated.png");
 
-    public static final Identifier FRIENDLY_TATER = new Identifier("lint:textures/block/lil_tater.png");
+    public LilTaterBatteryRenderer(EntityRenderDispatcher dispatcher) {
+        super(dispatcher, new LilTaterBatteryModel(), 0.4f);
+    }
 
     @Override
     public void render(LilTaterBattery mobEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
@@ -19,16 +23,8 @@ public class LilTaterBatteryRenderer extends MobEntityRenderer<LilTaterBattery, 
         matrixStack.pop();
     }
 
-    public LilTaterBatteryRenderer(EntityRenderDispatcher dispatcher) {
-        super(dispatcher, new LilTaterBatteryModel(), 0.4f);
-    }
-
     @Override
     public Identifier getTexture(LilTaterBattery entity) {
-        if (!entity.isTamed()) {
-            return new Identifier("lint:textures/block/lil_irritated.png");
-        }
-        return FRIENDLY_TATER;
+        return entity.isTamed() ? FRIENDLY_TATER : IRRITATER;
     }
-
 }

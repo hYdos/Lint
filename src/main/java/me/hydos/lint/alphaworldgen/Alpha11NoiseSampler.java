@@ -2,12 +2,12 @@ package me.hydos.lint.alphaworldgen;
 
 import java.util.Random;
 
-public class Alpha11NoiseSampler
-{
-    private int[] p;
-    public double offsetX;
-    public double offsetY;
-    public double offsetZ;
+public class Alpha11NoiseSampler {
+
+    public final double offsetX;
+    public final double offsetY;
+    public final double offsetZ;
+    private final int[] p;
 
     public Alpha11NoiseSampler() {
         this(new Random());
@@ -34,9 +34,9 @@ public class Alpha11NoiseSampler
         double sampleX = x + this.offsetX;
         double sampleY = y + this.offsetY;
         double sampleZ = z + this.offsetZ;
-        int floorX = (int)sampleX;
-        int floorY = (int)sampleY;
-        int floorZ = (int)sampleZ;
+        int floorX = (int) sampleX;
+        int floorY = (int) sampleY;
+        int floorZ = (int) sampleZ;
         if (sampleX < floorX) {
             --floorX;
         }
@@ -89,7 +89,7 @@ public class Alpha11NoiseSampler
         double double36 = 0.0;
         for (int i = 0; i < integer9; ++i) {
             double double39 = (double3 + i) * double12 + this.offsetX;
-            int integer41 = (int)double39;
+            int integer41 = (int) double39;
             if (double39 < integer41) {
                 --integer41;
             }
@@ -98,7 +98,7 @@ public class Alpha11NoiseSampler
             double double43 = double39 * double39 * double39 * (double39 * (double39 * 6.0 - 15.0) + 10.0);
             for (int j = 0; j < integer11; ++j) {
                 double double46 = (double7 + j) * double16 + this.offsetZ;
-                int integer48 = (int)double46;
+                int integer48 = (int) double46;
                 if (double46 < integer48) {
                     --integer48;
                 }
@@ -107,7 +107,7 @@ public class Alpha11NoiseSampler
                 double double50 = double46 * double46 * double46 * (double46 * (double46 * 6.0 - 15.0) + 10.0);
                 for (int k = 0; k < integer10; ++k) {
                     double double53 = (double5 + k) * double14 + this.offsetY;
-                    int integer55 = (int)double53;
+                    int integer55 = (int) double53;
                     if (double53 < integer55) {
                         --integer55;
                     }

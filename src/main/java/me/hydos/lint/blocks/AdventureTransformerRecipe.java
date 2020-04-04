@@ -22,5 +22,4 @@ public class AdventureTransformerRecipe extends RebornRecipe {
     public boolean canCraft(BlockEntity be) {
         return super.canCraft(be);
     }
-
 }

@@ -9,8 +9,7 @@ public interface Containers {
 
     Identifier TATER_CONTAINER_ID = new Identifier("lint", "liltater");
 
-    static void onInitialize(){
+    static void onInitialize() {
         ContainerProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, id, player, buf) -> new LilTaterInteractContainer(ContainerType.ANVIL, syncId, buf.readInt(), player.inventory));
     }
-
 }

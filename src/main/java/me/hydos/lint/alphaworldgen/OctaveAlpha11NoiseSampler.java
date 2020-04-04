@@ -1,11 +1,12 @@
 package me.hydos.lint.alphaworldgen;
 
+import java.util.Arrays;
 import java.util.Random;
 
-public class OctaveAlpha11NoiseSampler
-{
-    private Alpha11NoiseSampler[] generators;
-    private int octaves;
+public class OctaveAlpha11NoiseSampler {
+
+    private final Alpha11NoiseSampler[] generators;
+    private final int octaves;
 
     public OctaveAlpha11NoiseSampler(Random rand, int octaveCount) {
         this.octaves = octaveCount;
@@ -28,11 +29,8 @@ public class OctaveAlpha11NoiseSampler
     public double[] sample(double[] arrayToReuse, double double3, double double5, double double7, int integer9, int integer10, int integer11, double double12, double double14, double double16) {
         if (arrayToReuse == null) {
             arrayToReuse = new double[integer9 * integer10 * integer11];
-        }
-        else {
-            for (int i = 0; i < arrayToReuse.length; ++i) {
-                arrayToReuse[i] = 0.0;
-            }
+        } else {
+            Arrays.fill(arrayToReuse, 0.0);
         }
         double double18 = 1.0;
         for (int j = 0; j < this.octaves; ++j) {

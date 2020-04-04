@@ -9,7 +9,6 @@ public interface Biomes {
 
     Biome MYSTICAL_FOREST = Registry.register(Registry.BIOME, new Identifier("lint", "mystical_forest"), new MysticalForest());
 
-    static void onInitialize(){
+    static void onInitialize() {
     }
-
 }

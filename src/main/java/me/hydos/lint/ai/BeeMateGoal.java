@@ -1,31 +1,30 @@
 package me.hydos.lint.ai;
 
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.passive.AnimalEntity;
-
-import java.util.List;
-
-import java.util.EnumSet;
-import java.util.Random;
-
 import net.minecraft.advancement.criterion.Criterions;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
+
 public class BeeMateGoal extends Goal {
+
     private static final TargetPredicate VALID_MATE_PREDICATE = (new TargetPredicate()).setBaseMaxDistance(8.0D).includeInvulnerable().includeTeammates().includeHidden();
     protected final AnimalEntity animal;
-    private final Class<? extends AnimalEntity> entityClass;
     protected final World world;
+    private final Class<? extends AnimalEntity> entityClass;
+    private final double chance;
+    private final Random random;
     protected AnimalEntity mate;
     private int timer;
-    private final double chance;
-    private Random random;
 
     public BeeMateGoal(AnimalEntity animal, double chance) {
         this(animal, chance, animal.getClass());
@@ -56,13 +55,12 @@ public class BeeMateGoal extends Goal {
     }
 
     public void tick() {
-        this.animal.getLookControl().lookAt(this.mate, 10.0F, (float)this.animal.getLookPitchSpeed());
+        this.animal.getLookControl().lookAt(this.mate, 10.0F, (float) this.animal.getLookPitchSpeed());
         this.animal.getNavigation().startMovingTo(this.mate, this.chance);
         ++this.timer;
         if (this.timer >= 60 && this.animal.squaredDistanceTo(this.mate) < 9.0D) {
             this.breed();
         }
-
     }
 
     private AnimalEntity findMate() {
@@ -77,7 +75,7 @@ public class BeeMateGoal extends Goal {
             }
         }
         //just in case it gets out of hand
-        if(list.size() > 120){
+        if (list.size() > 120) {
             return null;
         }
         return animalEntity;
@@ -103,11 +101,11 @@ public class BeeMateGoal extends Goal {
             passiveEntity.setBreedingAge(-24000);
             passiveEntity.refreshPositionAndAngles(this.animal.getX(), this.animal.getY(), this.animal.getZ(), 0.0F, 0.0F);
             this.world.spawnEntity(passiveEntity);
-            this.world.sendEntityStatus(this.animal, (byte)18);
+            this.world.sendEntityStatus(this.animal, (byte) 18);
+
             if (this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
                 this.world.spawnEntity(new ExperienceOrbEntity(this.world, this.animal.getX(), this.animal.getY(), this.animal.getZ(), this.animal.getRandom().nextInt(7) + 1));
             }
-
         }
     }
 }

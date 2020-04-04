@@ -20,22 +20,20 @@ import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.*;
 
 public class HaykamChunkGen extends OverworldChunkGenerator {
 
+    public final OctaveAlpha11NoiseSampler noise6;
+    public final OctaveAlpha11NoiseSampler noise7;
+    public final OctaveAlpha11NoiseSampler treeNoise;
     private final OctaveAlpha11NoiseSampler noise1;
     private final OctaveAlpha11NoiseSampler noise2;
     private final OctaveAlpha11NoiseSampler noise3;
     private final OctaveAlpha11NoiseSampler beachNoise;
     private final OctaveAlpha11NoiseSampler surfaceNoise;
-    public final OctaveAlpha11NoiseSampler noise6;
-    public final OctaveAlpha11NoiseSampler noise7;
-    public final OctaveAlpha11NoiseSampler treeNoise;
-
+    private final Random random = new Random();
     private double[] heightNoise;
     private double[] noiseArray1, noiseArray2, noiseArray3, noiseArray4, noiseArray5;
     private double[] sandSample = new double[256];
     private double[] gravelSample = new double[256];
     private double[] stoneNoise = new double[256];
-
-    private final Random random = new Random();
 
     public HaykamChunkGen(IWorld world, BiomeSource biomeSource, OverworldChunkGeneratorConfig config) {
         super(world, biomeSource, config);
@@ -239,7 +237,6 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
         final int actualLocalZ = z - (chunkZ << 4) - (zSubChunk << 2);
 
         for (int ySubChunk = 0; ySubChunk < 16; ++ySubChunk) {
-
             double sampleNWLow = this.heightNoise[(xSubChunk * 5 + zSubChunk) * 17 + ySubChunk];
             double sampleSWLow = this.heightNoise[((xSubChunk) * 5 + zSubChunk + 1) * 17 + ySubChunk];
             double sampleNELow = this.heightNoise[((xSubChunk + 1) * 5 + zSubChunk) * 17 + ySubChunk];
@@ -258,7 +255,8 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
                 double sampleNAverage = (sampleNELow - sampleNWLow) * oneQuarter;
                 double sampleSAverage = (sampleSELow - sampleSWLow) * oneQuarter;
 
-                xloop: for (int localX = 0; localX < 4; ++localX) {
+                xloop:
+                for (int localX = 0; localX < 4; ++localX) {
 
                     double someValueToDoWithSettingStone = sampleNWInitial;
                     double someOffsetThing = (sampleSWInitial - sampleNWInitial) * oneQuarter;
@@ -287,13 +285,12 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
             }
         }
 
-        return maxGroundY+1;
+        return maxGroundY + 1;
     }
 
     @Override
     public void buildSurface(ChunkRegion region, Chunk chunk) {
         this.replaceSurfaceBlocks(chunk);
-
     }
 
     private void replaceSurfaceBlocks(Chunk chunk) {
@@ -375,7 +372,4 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
             }
         }
     }
-
-
-
 }

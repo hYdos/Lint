@@ -24,11 +24,11 @@ import net.minecraft.world.gen.chunk.OverworldChunkGeneratorConfig;
 
 public class HaykamDimension extends Dimension {
 
+    private static final Vec3d FOG_COLOR = new Vec3d(87f / 255f, 0.9999, 194f / 255f);
+
     public HaykamDimension(World world, DimensionType type) {
         super(world, type, 0.5f);
     }
-
-    private static final Vec3d FOG_COLOR = new Vec3d(87f / 255f, 0.9999, 194f / 255f);
 
     @Override
     public ChunkGenerator<?> createChunkGenerator() {
@@ -38,8 +38,8 @@ public class HaykamDimension extends Dimension {
     }
 
     public BlockPos getSpawningBlockInChunk(ChunkPos chunkPos, boolean checkMobSpawnValidity) {
-        for(int i = chunkPos.getStartX(); i <= chunkPos.getEndX(); ++i) {
-            for(int j = chunkPos.getStartZ(); j <= chunkPos.getEndZ(); ++j) {
+        for (int i = chunkPos.getStartX(); i <= chunkPos.getEndX(); ++i) {
+            for (int j = chunkPos.getStartZ(); j <= chunkPos.getEndZ(); ++j) {
                 BlockPos blockPos = this.getTopSpawningBlockPosition(i, j, checkMobSpawnValidity);
                 if (blockPos != null) {
                     return blockPos;
@@ -64,7 +64,7 @@ public class HaykamDimension extends Dimension {
             } else if (worldChunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE, x & 15, z & 15) > worldChunk.sampleHeightmap(Heightmap.Type.OCEAN_FLOOR, x & 15, z & 15)) {
                 return null;
             } else {
-                for(int j = i + 1; j >= 0; --j) {
+                for (int j = i + 1; j >= 0; --j) {
                     mutable.set(x, j, z);
                     BlockState blockState2 = this.world.getBlockState(mutable);
                     if (!blockState2.getFluidState().isEmpty()) {

@@ -57,7 +57,7 @@ public class EpicValoCloudFeature extends Feature<DefaultFeatureConfig> {
                 int totalZ = zo + z;
                 setPos.setZ(totalZ);
 
-                int sample = (int) (amplitude * (this.noise.sample(totalX * frequency, totalZ * frequency)-rarity));
+                int sample = (int) (amplitude * (this.noise.sample(totalX * frequency, totalZ * frequency) - rarity));
 
                 if (sample > 0) {
                     for (int yo = -sample + 1; yo < sample; ++yo) {

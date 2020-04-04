@@ -28,8 +28,7 @@ public interface Blocks {
     Block CORRUPT_GRASS = new MysticalGrassBlock(FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().hardness(0).sounds(BlockSoundGroup.GRASS).nonOpaque().build());
     Block CORRUPT_SAND = new FallingBlock(FabricBlockSettings.of(Material.SAND).hardness(0.5f).sounds(BlockSoundGroup.SAND).build());
 
-
-    static void onInitialize(){
+    static void onInitialize() {
         registerBlock(ItemGroup.BUILDING_BLOCKS, RICH_DIRT, "rich_dirt");
         registerBlock(ItemGroup.BUILDING_BLOCKS, LIVELY_GRASS, "lively_grass");
 
@@ -44,10 +43,8 @@ public interface Blocks {
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_SAND, "corrupt_sand");
     }
 
-    static void registerBlock(ItemGroup itemGroup, Block block, String identifier){
+    static void registerBlock(ItemGroup itemGroup, Block block, String identifier) {
         Registry.register(Registry.BLOCK, new Identifier("lint", identifier), block);
         Registry.register(Registry.ITEM, new Identifier("lint", identifier), new BlockItem(block, new Item.Settings().group(itemGroup)));
     }
-
-
 }

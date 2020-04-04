@@ -16,6 +16,6 @@ public interface Dimensions {
             .skyLight(true)
             .buildAndRegister(new Identifier("lint", "haykam"));
 
-    static void onInitialize(){
+    static void onInitialize() {
     }
 }

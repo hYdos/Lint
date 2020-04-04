@@ -14,12 +14,12 @@ import static me.hydos.lint.core.Dimensions.HAYKAM;
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
 
-    @Shadow
-    private ClientWorld world;
+    private static final Identifier COOLSUN = new Identifier("lint", "textures/environment/twin_sun.png");
     @Shadow
     @Final
     private static Identifier SUN;
-    private static final Identifier COOLSUN = new Identifier("lint", "textures/environment/twin_sun.png");
+    @Shadow
+    private ClientWorld world;
 
     @Redirect(method = "renderSky", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/WorldRenderer;SUN:Lnet/minecraft/util/Identifier;"))
     private Identifier getCoolsun() {
@@ -29,5 +29,4 @@ public class WorldRendererMixin {
             return SUN;
         }
     }
-
 }

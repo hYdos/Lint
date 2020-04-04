@@ -19,6 +19,17 @@ public class CommonMysticalTreeFeature extends OakTreeFeature {
         super(function);
     }
 
+    public static boolean isDirtOrGrass(TestableWorld world, BlockPos pos) {
+        return world.testBlockState(pos, (blockState) -> {
+            Block block = blockState.getBlock();
+            return isDirt(block) || block == net.minecraft.block.Blocks.FARMLAND;
+        });
+    }
+
+    protected static boolean isDirt(Block block) {
+        return block == Blocks.RICH_DIRT || block == Blocks.LIVELY_GRASS;
+    }
+
     @Override
     protected void setToDirt(ModifiableTestableWorld world, BlockPos pos) {
         this.setBlockState(world, pos, Blocks.RICH_DIRT.getDefaultState());
@@ -41,14 +52,14 @@ public class CommonMysticalTreeFeature extends OakTreeFeature {
         }
 
         if (blockPos2.getY() >= 1 && blockPos2.getY() + height + 1 <= 256) {
-            for(m = 0; m <= height + 1; ++m) {
+            for (m = 0; m <= height + 1; ++m) {
                 n = config.foliagePlacer.method_23447(i, height, j, m);
                 BlockPos.Mutable mutable = new BlockPos.Mutable();
 
-                for(int o = -n; o <= n; ++o) {
+                for (int o = -n; o <= n; ++o) {
                     int p = -n;
 
-                    while(p <= n) {
+                    while (p <= n) {
                         if (m + blockPos2.getY() >= 0 && m + blockPos2.getY() < 256) {
                             mutable.set(o + blockPos2.getX(), m + blockPos2.getY(), p + blockPos2.getZ());
                             if (canTreeReplace(world, mutable) && (config.noVines || !isLeaves(world, mutable))) {
@@ -72,16 +83,5 @@ public class CommonMysticalTreeFeature extends OakTreeFeature {
         } else {
             return Optional.empty();
         }
-    }
-
-    public static boolean isDirtOrGrass(TestableWorld world, BlockPos pos){
-        return world.testBlockState(pos, (blockState) -> {
-            Block block = blockState.getBlock();
-            return isDirt(block) || block == net.minecraft.block.Blocks.FARMLAND;
-        });
-    }
-
-    protected static boolean isDirt(Block block) {
-        return block == Blocks.RICH_DIRT || block == Blocks.LIVELY_GRASS;
     }
 }

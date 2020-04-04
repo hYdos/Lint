@@ -4,10 +4,10 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
-import net.minecraft.client.render.entity.model.ParrotEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class LilTaterBatteryModel extends CompositeEntityModel<LilTaterBattery> {
+
     private final ModelPart ramidzk;
 
     public LilTaterBatteryModel() {
@@ -22,7 +22,7 @@ public class LilTaterBatteryModel extends CompositeEntityModel<LilTaterBattery> 
     @Override
     public void setAngles(LilTaterBattery entity, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {
         ramidzk.yaw = headYaw / 100;
-        ramidzk.pitch = headPitch/100;
+        ramidzk.pitch = headPitch / 100;
     }
 
     @Override
@@ -30,9 +30,7 @@ public class LilTaterBatteryModel extends CompositeEntityModel<LilTaterBattery> 
         return ImmutableList.of(ramidzk);
     }
 
-    public void renderOnShoulder(MatrixStack matrixStack, VertexConsumer vertexConsumer, int i, int j, float f, float g, float h, float k, int l) {
-        this.getParts().forEach((modelPart) -> {
-            modelPart.render(matrixStack, vertexConsumer, i, j);
-        });
+    public void renderOnShoulder(MatrixStack matrixStack, VertexConsumer vertexConsumer, int i, int j) {
+        this.getParts().forEach((modelPart) -> modelPart.render(matrixStack, vertexConsumer, i, j));
     }
 }

@@ -20,8 +20,8 @@ public class PlayerEntityRendererMixin extends LivingEntityRenderer<AbstractClie
     }
 
     @Inject(at = @At("TAIL"), method = "<init>(Lnet/minecraft/client/render/entity/EntityRenderDispatcher;Z)V")
-    public void addFeatures(EntityRenderDispatcher entityRenderDispatcher, boolean bl, CallbackInfo ci){
-        this.addFeature(new LilTaterShoulderFeatureRenderer(this));
+    public void addFeatures(EntityRenderDispatcher entityRenderDispatcher, boolean bl, CallbackInfo ci) {
+        this.addFeature(new LilTaterShoulderFeatureRenderer<>(this));
     }
 
     @Override

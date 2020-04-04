@@ -19,8 +19,7 @@ public abstract class BeeEntityMixin extends AnimalEntity implements Flutterer {
     }
 
     @Inject(at = @At("HEAD"), method = "initGoals")
-    public void initGoals(CallbackInfo ci){
+    public void initGoals(CallbackInfo ci) {
         this.goalSelector.add(2, new BeeMateGoal(this, 0.001D));
     }
-
 }
