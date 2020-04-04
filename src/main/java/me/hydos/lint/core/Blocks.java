@@ -23,6 +23,11 @@ public interface Blocks {
     Block MYSTICAL_GRASS = new MysticalGrassBlock(FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().hardness(0).sounds(BlockSoundGroup.GRASS).nonOpaque().build());
     Block MYSTICAL_SAND = new FallingBlock(FabricBlockSettings.of(Material.SAND).hardness(0.5f).sounds(BlockSoundGroup.SAND).build());
 
+    Block CORRUPT_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque().build());
+    Block CORRUPT_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(0.5f).sounds(BlockSoundGroup.WOOD).build());
+    Block CORRUPT_GRASS = new MysticalGrassBlock(FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().hardness(0).sounds(BlockSoundGroup.GRASS).nonOpaque().build());
+    Block CORRUPT_SAND = new FallingBlock(FabricBlockSettings.of(Material.SAND).hardness(0.5f).sounds(BlockSoundGroup.SAND).build());
+
 
     static void onInitialize(){
         registerBlock(ItemGroup.BUILDING_BLOCKS, RICH_DIRT, "rich_dirt");
@@ -32,6 +37,11 @@ public interface Blocks {
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LOG, "mystical_log");
         registerBlock(ItemGroup.DECORATIONS, MYSTICAL_GRASS, "mystical_grass");
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_SAND, "mystical_sand");
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_LEAVES, "corrupt_leaves");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_LOG, "corrupt_log");
+        registerBlock(ItemGroup.DECORATIONS, CORRUPT_GRASS, "corrupt_grass");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_SAND, "corrupt_sand");
     }
 
     static void registerBlock(ItemGroup itemGroup, Block block, String identifier){

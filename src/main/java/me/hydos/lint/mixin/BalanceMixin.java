@@ -26,7 +26,7 @@ public class BalanceMixin {
     private static int getRarityButBauxite(int i) {
         switch (i) {
             case 6:         // Vein size
-                return 16; // nice
+                return 12; // nice
             case 10:        // Veins per chunk & Min Y
             case 60:        // Max Y
             default:

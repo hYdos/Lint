@@ -1,0 +1,10 @@
+{
+  "variants": {
+        "": [
+            { "model": "lint:block/corrupt_grass" },
+            { "model": "lint:block/corrupt_grass_mirrored" },
+            { "model": "lint:block/corrupt_grass", "y": 180 },
+            { "model": "lint:block/corrupt_grass_mirrored", "y": 180 }
+        ]
+    }
+}
