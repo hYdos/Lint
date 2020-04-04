@@ -9,10 +9,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.CountDecoratorConfig;
-import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
+import net.minecraft.world.gen.decorator.*;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
@@ -25,8 +22,7 @@ import java.util.Random;
 
 import static me.hydos.lint.core.Blocks.MYSTICAL_GRASS;
 import static me.hydos.lint.core.Blocks.MYSTICAL_LOG;
-import static me.hydos.lint.core.Features.EPIC_VALO_CLOUD_FEATURE_FEATURE;
-import static me.hydos.lint.core.Features.MYSTICAL_TREE;
+import static me.hydos.lint.core.Features.*;
 import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.*;
 
 public class MysticalForest extends Biome {
@@ -62,6 +58,10 @@ public class MysticalForest extends Biome {
                         .build()).createDecoratedFeature(Decorator.COUNT_EXTRA_HEIGHTMAP.configure(new CountExtraChanceDecoratorConfig(4, 0.25f, 1)))
         );
 
+        this.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES, TATER_VILLAGE_FEATURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(Decorator.CHANCE_PASSTHROUGH.configure(new ChanceDecoratorConfig(0))));
+
+        this.addStructureFeature(TATER_VILLAGE_STRUCTURE.configure(FeatureConfig.DEFAULT));
+
         this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(
                 new SimpleBlockStateProvider(
                         MYSTICAL_GRASS.getDefaultState()
@@ -73,9 +73,6 @@ public class MysticalForest extends Biome {
 
         DefaultBiomeFeatures.addDefaultVegetation(this);
         DefaultBiomeFeatures.addSprings(this);
-        //TODO: add tater village
-//        this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(Entities.LIL_TATER, 1, 1, 1));
-
     }
 
 

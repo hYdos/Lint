@@ -10,7 +10,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
-import static me.hydos.lint.core.Features.TATER_VILLAGE;
+import static me.hydos.lint.core.Features.TATER_VILLAGE_FEATURE;
 
 public class TaterVillageStructureStart extends StructureStart {
 
@@ -20,12 +20,12 @@ public class TaterVillageStructureStart extends StructureStart {
 
     @Override
     public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int chunkX, int chunkZ, Biome biome) {
-        DefaultFeatureConfig defaultFeatureConfig = chunkGenerator.getStructureConfig(biome, TATER_VILLAGE);
+        DefaultFeatureConfig defaultFeatureConfig = chunkGenerator.getStructureConfig(biome, TATER_VILLAGE_FEATURE);
         int x = chunkX * 16;
         int z = chunkZ * 16;
         BlockPos startingPos = new BlockPos(x, 0, z);
         BlockRotation rotation = BlockRotation.values()[this.random.nextInt(BlockRotation.values().length)];
-        MyGenerator.addParts(structureManager, startingPos, rotation, this.children, this.random, defaultFeatureConfig);
+        TaterVillageGenerator.addParts(structureManager, startingPos, rotation, this.children, this.random, defaultFeatureConfig);
         this.setBoundingBoxFromChildren();
     }
 }

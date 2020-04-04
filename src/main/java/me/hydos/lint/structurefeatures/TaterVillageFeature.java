@@ -19,7 +19,7 @@ public class TaterVillageFeature extends AbstractTempleFeature<DefaultFeatureCon
 
     @Override
     public StructureStartFactory getStructureStartFactory() {
-        return null;
+        return TaterVillageStructureStart::new;
     }
 
     @Override
@@ -29,6 +29,6 @@ public class TaterVillageFeature extends AbstractTempleFeature<DefaultFeatureCon
 
     @Override
     public int getRadius() {
-        return 0;
+        return 4;
     }
 }
