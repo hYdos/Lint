@@ -1,7 +1,7 @@
 package me.hydos.lint.core;
 
 public interface Blursed {
-    
+
 
     static void onInitialize() {
         Lint.onInitialize();

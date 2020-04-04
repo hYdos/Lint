@@ -31,7 +31,7 @@ public interface Blocks {
 
     Block CORRUPT_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque().build());
     Block CORRUPT_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD).build());
-    Block CORRUPT_GRASS = new MysticalGrassBlock(FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().hardness(0).sounds(BlockSoundGroup.GRASS).nonOpaque().build());
+    Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.ORGANIC).hardness(00.5f).sounds(BlockSoundGroup.GRASS).build());
     Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
 
     static void onInitialize() {

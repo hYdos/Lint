@@ -1,0 +1,9 @@
+{
+  "type": "smelting",
+  "ingredient": {
+    "item": "lint:corrupt_sand"
+  },
+  "result": "minecraft:purple_stained_glass",
+  "experience": 0.75,
+  "cookingtime": 200
+}

@@ -1,6 +1,7 @@
 package me.hydos.lint.dimensions.haykam.chunk;
 
 import me.hydos.lint.alphaworldgen.OctaveAlpha11NoiseSampler;
+import me.hydos.lint.dimensions.haykam.biomes.IBiomeHasLex;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -8,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.chunk.OverworldChunkGenerator;
@@ -15,8 +17,7 @@ import net.minecraft.world.gen.chunk.OverworldChunkGeneratorConfig;
 
 import java.util.Random;
 
-import static me.hydos.lint.core.Blocks.MYSTICAL_SAND;
-import static me.hydos.lint.core.Blocks.WHITE_SAND;
+import static me.hydos.lint.core.Blocks.*;
 import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.*;
 
 public class HaykamChunkGen extends OverworldChunkGenerator {
@@ -290,11 +291,7 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
     }
 
     @Override
-    public void buildSurface(ChunkRegion region, Chunk chunk) {
-        this.replaceSurfaceBlocks(chunk);
-    }
-
-    private void replaceSurfaceBlocks(Chunk chunk) {
+    public void buildSurface(ChunkRegion chunkRegion, Chunk chunk) {
         random.setSeed(this.seed);
 
         BlockPos.Mutable pos = new BlockPos.Mutable();
@@ -313,12 +310,26 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
             pos.setX(x);
             for (int z = 0; z < 16; z++) {
                 pos.setZ(z);
+
+                Biome biome = chunkRegion.getBiome(pos);
+                BlockState grass = LIVELY_GRASS.getDefaultState();
+                BlockState dirt = RICH_DIRT.getDefaultState();
+                BlockState sand = MYSTICAL_SAND.getDefaultState();
+                BlockState gravel = WHITE_SAND.getDefaultState();
+
+                if(biome instanceof IBiomeHasLex){
+                    grass = ((IBiomeHasLex) biome).getGrass();
+                    dirt = ((IBiomeHasLex) biome).getUnderDirt();
+                    sand = ((IBiomeHasLex) biome).getSand();
+                    gravel = ((IBiomeHasLex) biome).getGravel();
+                }
+
                 boolean sandSampleAtPos = this.sandSample[(x + z * 16)] + random.nextDouble() * 0.2D > 0.0D;
                 boolean gravelSampleAtPos = this.gravelSample[(x + z * 16)] + random.nextDouble() * 0.2D > 3.0D;
                 int stoneSampleAtPos = (int) (this.stoneNoise[(x + z * 16)] / 3.0D + 3.0D + random.nextDouble() * 0.25D);
                 int run = -1;
-                BlockState topState = me.hydos.lint.core.Blocks.LIVELY_GRASS.getDefaultState();
-                BlockState underState = me.hydos.lint.core.Blocks.RICH_DIRT.getDefaultState();
+                BlockState topState = grass;
+                BlockState underState = dirt;
 
                 for (int y = 256; y >= 128; --y) {
                     pos.setY(y);
@@ -339,17 +350,17 @@ public class HaykamChunkGen extends OverworldChunkGenerator {
                                     topState = Blocks.AIR.getDefaultState();
                                     underState = STONE;
                                 } else if ((y >= seaLevel - 4) && (y <= seaLevel + 1)) {
-                                    topState = me.hydos.lint.core.Blocks.LIVELY_GRASS.getDefaultState();
-                                    underState = me.hydos.lint.core.Blocks.RICH_DIRT.getDefaultState();
+                                    topState = grass;
+                                    underState = dirt;
 
                                     if (gravelSampleAtPos) {
                                         topState = AIR;
-                                        underState = WHITE_SAND.getDefaultState();
+                                        underState = gravel;
                                     }
 
                                     if (sandSampleAtPos) {
-                                        topState = MYSTICAL_SAND.getDefaultState();
-                                        underState = MYSTICAL_SAND.getDefaultState();
+                                        topState = sand;
+                                        underState = sand;
                                     }
                                 }
 

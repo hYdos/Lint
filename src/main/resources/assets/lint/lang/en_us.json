@@ -1,6 +1,18 @@
 {
   "block.lint.adventure_transformer": "Adventure Transformer",
-
+  "block.lint.corrupt_grass": "Corrupt Grass",
+  "block.lint.lively_grass": "Lively Grass",
+  "block.lint.mystical_grass": "Mystical Grass",
+  "block.lint.corrupt_planks": "Corrupt Planks",
+  "block.lint.mystical_planks": "Lively Planks",
+  "block.lint.corrupt_sand": "Corrupt Sand",
+  "block.lint.mystical_sand": "Mystical Sand",
+  "block.lint.white_sand": "White Sand",
+  "block.lint.rich_dirt": "Rich Dirt",
+  "block.lint.mystical_leaves": "Mystical Leaves",
+  "block.lint.corrupt_leaves": "Corrupt Leaves",
+  "block.lint.mystical_log": "Mystical Log",
+  "block.lint.corrupt_log": "Corrupt Log",
 
 
   "biome.lint.mystical_forest": "Mystical Forest",
