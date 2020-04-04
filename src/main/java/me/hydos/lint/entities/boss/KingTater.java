@@ -97,7 +97,7 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
 
     @Override
     public boolean shouldRenderOverlay() {
-        return getHealth() / getMaximumHealth() <= 0.5D;
+        return getScaledHealth() <= 0.5D;
     }
 
     @Override
