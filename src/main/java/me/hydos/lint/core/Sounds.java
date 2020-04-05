@@ -6,9 +6,12 @@ import net.minecraft.util.registry.Registry;
 
 public interface Sounds {
 
-    SoundEvent KING_TATER = new SoundEvent(new Identifier("lint", "king_tater_boss"));
+
+    Identifier MY_SOUND_ID = new Identifier("lint:music.king_tater");
+
+    SoundEvent KING_TATER = new SoundEvent(MY_SOUND_ID);
 
     static void onInitialize() {
-        Registry.register(Registry.SOUND_EVENT, KING_TATER.getId(), KING_TATER);
+        Registry.register(Registry.SOUND_EVENT, MY_SOUND_ID, KING_TATER);
     }
 }
