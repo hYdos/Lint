@@ -61,7 +61,7 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
 
         getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(300.0D);
         getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(10.0D);
-        getAttributes().register(EntityAttributes.ATTACK_DAMAGE).setBaseValue(1.5D);
+        getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).setBaseValue(1.5D);
     }
 
     @Override
