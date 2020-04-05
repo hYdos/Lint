@@ -72,7 +72,6 @@ public class CorruptForest extends Biome implements IBiomeHasLex{
                         .build()).createDecoratedFeature(Decorator.COUNT_EXTRA_HEIGHTMAP.configure(new CountExtraChanceDecoratorConfig(4, 0.25f, 1)))
         );
 
-        this.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES, FEATURE.configure(new DefaultFeatureConfig()).createDecoratedFeature(Decorator.CHANCE_HEIGHTMAP_DOUBLE.configure(new ChanceDecoratorConfig(40))));
         this.addStructureFeature(FEATURE.configure(new DefaultFeatureConfig()));
 
         this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(Entities.LIL_TATER, 12, 4, 4));

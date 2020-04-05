@@ -25,7 +25,7 @@ public class KingTaterDungeonStructureStart extends StructureStart {
     @Override
     public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z, Biome biome) {
         // start pool, size, piece (only 1 piece needed)
-        StructurePoolBasedGenerator.addPieces(BASE_POOL, 15, KingTaterDungeonPiece::new, chunkGenerator, structureManager, new BlockPos(x * 16, 150, z * 16), children, random);
+        StructurePoolBasedGenerator.addPieces(BASE_POOL, 4, KingTaterDungeonPiece::new, chunkGenerator, structureManager, new BlockPos(x * 16, 150, z * 16), children, random);
         setBoundingBoxFromChildren();
     }
 

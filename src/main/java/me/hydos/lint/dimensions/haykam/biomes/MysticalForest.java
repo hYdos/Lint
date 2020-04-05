@@ -71,7 +71,6 @@ public class MysticalForest extends Biome implements IBiomeHasLex{
 
         this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(Entities.LIL_TATER, 12, 4, 4));
 
-        this.addFeature(GenerationStep.Feature.RAW_GENERATION, FEATURE.configure(new DefaultFeatureConfig()).createDecoratedFeature(Decorator.CHANCE_HEIGHTMAP_DOUBLE.configure(new ChanceDecoratorConfig(40))));
         this.addStructureFeature(FEATURE.configure(new DefaultFeatureConfig()));
 
         this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(

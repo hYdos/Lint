@@ -1,7 +1,6 @@
 package me.hydos.lint.entities.boss;
 
 import me.hydos.lint.core.Entities;
-import net.minecraft.client.render.entity.feature.SkinOverlayOwner;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.control.MoveControl;
@@ -30,7 +29,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @SuppressWarnings("EntityConstructor")
-public class KingTater extends HostileEntity implements SkinOverlayOwner, RangedAttackMob {
+public class KingTater extends HostileEntity implements RangedAttackMob {
 
     private final Set<UUID> minions = new HashSet<>();
     private final ServerBossBar bossBar;
@@ -159,11 +158,6 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
     @Override
     public EntityDimensions getDimensions(EntityPose pose) {
         return getType().getDimensions().scaled(getScaledHealth());
-    }
-
-    @Override
-    public boolean shouldRenderOverlay() {
-        return getScaledHealth() <= 0.5D;
     }
 
     @Override
