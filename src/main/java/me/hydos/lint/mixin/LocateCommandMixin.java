@@ -23,7 +23,6 @@ public abstract class LocateCommandMixin {
     @Inject(method = "register", at = @At(value = "RETURN"))
     private static void onRegister(CommandDispatcher<ServerCommandSource> dispatcher, CallbackInfo info) {
         dispatcher.register(literal("locate").requires(source -> source.hasPermissionLevel(2))
-                .then(literal("Tater_Dungeon").executes(ctx -> execute(ctx.getSource(), "tater_dungeon"))));
+                .then(literal("TutorialStructure").executes(ctx -> execute(ctx.getSource(), "Tutorial_Jigsaw"))));
     }
-
 }

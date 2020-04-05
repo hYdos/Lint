@@ -17,7 +17,7 @@ public class TaterKingDungeonFeature extends StructureFeature<DefaultFeatureConf
     }
 
     @Override
-    public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> chunkGenerator, Random random, int chunkZ, int i, Biome biome) {
+    public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> chunkGenerator, Random random, int i, int j, Biome biome) {
         return true;
     }
 
@@ -26,13 +26,18 @@ public class TaterKingDungeonFeature extends StructureFeature<DefaultFeatureConf
         return TaterKingDungeonStructureStart::new;
     }
 
+    // used for structure feature location
     @Override
     public String getName() {
-        return "King Tater Dungeon";
+        return "TutorialJigsaw";
     }
 
+    // radius seems to be the max size of a piece inside a chunk
+    // I assume it is used for random rotation and placement
     @Override
     public int getRadius() {
         return 2;
     }
+
 }
+
