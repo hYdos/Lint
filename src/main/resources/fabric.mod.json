@@ -13,6 +13,9 @@
 
   "environment": "*",
   "entrypoints": {
+    "mm:early_risers": [
+      "me.hydos.lint.core.PreInitialize::onInitialize"
+    ],
     "main": [
       "me.hydos.lint.core.Biomes::onInitialize",
       "me.hydos.lint.core.Blocks::onInitialize",

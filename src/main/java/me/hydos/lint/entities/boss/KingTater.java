@@ -9,29 +9,30 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.packet.s2c.play.PlaySoundIdS2CPacket;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
-import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @SuppressWarnings("EntityConstructor")
 public class KingTater extends HostileEntity implements SkinOverlayOwner, RangedAttackMob {
 
-    private static final TrackedData<Integer> INVULNERABILITY_TIMER = DataTracker.registerData(KingTater.class, TrackedDataHandlerRegistry.INTEGER);
-
+    private final Set<UUID> minions = new HashSet<>();
     private final ServerBossBar bossBar;
 
     public KingTater(EntityType<? extends KingTater> type, World world) {
@@ -42,25 +43,25 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.0D, 40, 20.0F));
+        this.goalSelector.add(1, new SwimGoal(this));
+        this.goalSelector.add(2, new ProjectileAttackGoal(this, 1.0D, 40, 40.0F));
+        this.goalSelector.add(3, new MeleeAttackGoal(this, 1D, false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, false));
-    }
-
-    @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        dataTracker.startTracking(INVULNERABILITY_TIMER, 0);
+        this.targetSelector.add(4, new FollowTargetGoal<>(this, LivingEntity.class, false));
     }
 
     @Override
     protected void initAttributes() {
         super.initAttributes();
+
         getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(300.0D);
+        getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(10.0D);
+        getAttributes().register(EntityAttributes.ATTACK_DAMAGE).setBaseValue(1.5D);
     }
 
     @Override
@@ -73,20 +74,32 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
     @Override
     public void attack(LivingEntity target, float f) {
         TaterMinion minion = new TaterMinion(Entities.MINION, world, target);
-        minion.setPos(getX(), getY(), getZ());
+        minion.refreshPositionAndAngles(getX(), getY(), getZ(), 0, 0);
+        minions.add(minion.getUuid());
         world.spawnEntity(minion);
     }
 
     @Override
     public void onStartedTrackingBy(ServerPlayerEntity player) {
-        player.networkHandler.sendPacket(new PlaySoundIdS2CPacket(new Identifier("lint", "music.king_tater"), SoundCategory.HOSTILE, getPos(), 1, 1));
         bossBar.addPlayer(player);
     }
 
     @Override
     public void onStoppedTrackingBy(ServerPlayerEntity player) {
-        player.networkHandler.sendPacket(new StopSoundS2CPacket(new Identifier("lint", "music.king_tater"), SoundCategory.HOSTILE));
         bossBar.removePlayer(player);
+    }
+
+    @Override
+    public void remove() {
+        super.remove();
+
+        for (UUID id : minions) {
+            Entity minion = ((ServerWorld) world).getEntity(id);
+
+            if (minion != null) {
+                minion.remove();
+            }
+        }
     }
 
     @Override
@@ -103,18 +116,32 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
-        tag.putInt("InvulnerabilityTicks", getInvulnerableTicks());
-    }
-
-    @Override
     public void readCustomDataFromTag(CompoundTag tag) {
         super.readCustomDataFromTag(tag);
-        setInvulnerabilityTicks(tag.getInt("InvulnerabilityTicks"));
 
         if (this.hasCustomName()) {
             this.bossBar.setName(this.getDisplayName());
+        }
+
+        Tag t = tag.get("Minions");
+        minions.clear();
+
+        if (t instanceof ListTag) {
+            for (Tag id : ((ListTag) t)) {
+                minions.add(UUID.fromString(id.asString()));
+            }
+        }
+    }
+
+    @Override
+    public void writeCustomDataToTag(CompoundTag tag) {
+        super.writeCustomDataToTag(tag);
+
+        ListTag list = new ListTag();
+        tag.put("Minions", list);
+
+        for (UUID minion : minions) {
+            list.add(StringTag.of(minion.toString()));
         }
     }
 
@@ -148,14 +175,6 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
         return this.random.nextInt(20) + 10;
     }
 
-    public int getInvulnerableTicks() {
-        return this.dataTracker.get(INVULNERABILITY_TIMER);
-    }
-
-    public void setInvulnerabilityTicks(int ticks) {
-        this.dataTracker.set(INVULNERABILITY_TIMER, ticks);
-    }
-
     public float getScaledHealth() {
         return getHealth() / getMaximumHealth();
     }
@@ -171,8 +190,6 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
             this.slime = kingTater;
             this.targetYaw = 180.0F * kingTater.yaw / 3.1415927F;
         }
-
-
 
         public void tick() {
             this.entity.yaw = this.changeAngle(this.entity.yaw, this.targetYaw, 90.0F);
