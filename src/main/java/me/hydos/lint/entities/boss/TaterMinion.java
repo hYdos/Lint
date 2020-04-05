@@ -43,9 +43,10 @@ public class TaterMinion extends LilTaterBattery implements Monster {
     @Override
     public void mobTick() {
         super.mobTick();
-
-        if (getTarget().removed) {
-            remove();
+        if(getTarget() != null){
+            if (getTarget().removed) {
+                remove();
+            }
         }
     }
 
