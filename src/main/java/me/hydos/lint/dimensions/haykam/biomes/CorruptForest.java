@@ -11,10 +11,7 @@ import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.CountDecoratorConfig;
 import net.minecraft.world.gen.decorator.CountExtraChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.feature.BranchedTreeFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
@@ -26,6 +23,7 @@ import java.util.Random;
 
 import static me.hydos.lint.core.Blocks.*;
 import static me.hydos.lint.core.Features.*;
+import static me.hydos.lint.taterkingdungeon.TutorialJigsaws.FEATURE;
 import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.GRAVEL;
 
 public class CorruptForest extends Biome implements IBiomeHasLex{
@@ -71,6 +69,9 @@ public class CorruptForest extends Biome implements IBiomeHasLex{
                         .noVines()
                         .build()).createDecoratedFeature(Decorator.COUNT_EXTRA_HEIGHTMAP.configure(new CountExtraChanceDecoratorConfig(4, 0.25f, 1)))
         );
+
+        this.addFeature(GenerationStep.Feature.RAW_GENERATION, FEATURE.configure(new DefaultFeatureConfig()).createDecoratedFeature(Decorator.CHANCE_HEIGHTMAP_DOUBLE.configure(new ChanceDecoratorConfig(40))));
+        this.addStructureFeature(FEATURE.configure(new DefaultFeatureConfig()));
 
         this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(
                 new SimpleBlockStateProvider(

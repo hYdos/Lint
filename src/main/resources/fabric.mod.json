@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "lint",
-  "version": "1.0.4",
+  "version": "1.1.0",
 
   "name": "Lint",
   "description": "A accumulation of useful and feature adding survival features (An Adventure and Automation mod)",
@@ -14,12 +14,12 @@
   "environment": "*",
   "entrypoints": {
     "main": [
+      "me.hydos.lint.taterkingdungeon.TutorialJigsaws",
       "me.hydos.lint.core.Biomes::onInitialize",
       "me.hydos.lint.core.Blocks::onInitialize",
       "me.hydos.lint.core.Containers::onInitialize",
       "me.hydos.lint.core.Dimensions::onInitialize",
       "me.hydos.lint.core.Entities::onInitialize",
-      "me.hydos.lint.core.Features::onInitialize",
       "me.hydos.lint.core.Lint::onInitialize",
       "me.hydos.lint.core.Packets::onInitialize",
       "me.hydos.lint.core.Sounds::onInitialize"

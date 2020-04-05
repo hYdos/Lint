@@ -8,7 +8,6 @@ public interface Blursed {
         Containers.onInitialize();
         Dimensions.onInitialize();
         Entities.onInitialize();
-        Features.onInitialize();
         Lint.onInitialize();
         Packets.onInitialize();
         Sounds.onInitialize();

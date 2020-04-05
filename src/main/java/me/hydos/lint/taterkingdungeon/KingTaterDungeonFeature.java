@@ -10,10 +10,10 @@ import net.minecraft.world.gen.feature.StructureFeature;
 import java.util.Random;
 import java.util.function.Function;
 
-public class TaterKingDungeonFeature extends StructureFeature<DefaultFeatureConfig> {
+public class KingTaterDungeonFeature extends StructureFeature<DefaultFeatureConfig> {
 
-    public TaterKingDungeonFeature(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
-        super(configFactory);
+    public KingTaterDungeonFeature(Function<Dynamic<?>, ? extends DefaultFeatureConfig> config) {
+        super(config);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class TaterKingDungeonFeature extends StructureFeature<DefaultFeatureConf
 
     @Override
     public StructureStartFactory getStructureStartFactory() {
-        return TaterKingDungeonStructureStart::new;
+        return KingTaterDungeonStructureStart::new;
     }
 
     // used for structure feature location
@@ -36,8 +36,6 @@ public class TaterKingDungeonFeature extends StructureFeature<DefaultFeatureConf
     // I assume it is used for random rotation and placement
     @Override
     public int getRadius() {
-        return 2;
+        return 17;
     }
-
 }
-
