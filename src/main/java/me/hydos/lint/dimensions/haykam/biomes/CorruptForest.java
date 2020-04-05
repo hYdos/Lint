@@ -56,7 +56,6 @@ public class CorruptForest extends Biome implements IBiomeHasLex{
         DefaultBiomeFeatures.addDefaultLakes(this);
         DefaultBiomeFeatures.addMineables(this);
         DefaultBiomeFeatures.addDefaultOres(this);
-        DefaultBiomeFeatures.addDefaultDisks(this);
 
         Random r = new Random();
 

@@ -55,7 +55,6 @@ public class MysticalForest extends Biome implements IBiomeHasLex{
         DefaultBiomeFeatures.addDefaultLakes(this);
         DefaultBiomeFeatures.addMineables(this);
         DefaultBiomeFeatures.addDefaultOres(this);
-        DefaultBiomeFeatures.addDefaultDisks(this);
 
         this.addFeature(
                 GenerationStep.Feature.VEGETAL_DECORATION,
