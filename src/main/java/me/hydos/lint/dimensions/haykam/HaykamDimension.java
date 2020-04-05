@@ -1,6 +1,5 @@
 package me.hydos.lint.dimensions.haykam;
 
-import me.hydos.lint.core.Biomes;
 import me.hydos.lint.core.Dimensions;
 import me.hydos.lint.dimensions.haykam.biomes.HaykamBiomeSource;
 import me.hydos.lint.dimensions.haykam.chunk.HaykamChunkGen;
@@ -15,8 +14,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.source.BiomeSourceType;
-import net.minecraft.world.biome.source.FixedBiomeSourceConfig;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;

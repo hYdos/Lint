@@ -42,14 +42,13 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new ProjectileAttackGoal(this, 1.0D, 40, 20.0F));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
 
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new FollowTargetGoal<>(this, LivingEntity.class, false));
+        this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, false));
     }
 
     @Override
@@ -167,11 +166,13 @@ public class KingTater extends HostileEntity implements SkinOverlayOwner, Ranged
         private int ticksUntilJump;
         private final KingTater slime;
 
-        public KingTaterMoveControl(KingTater slime) {
-            super(slime);
-            this.slime = slime;
-            this.targetYaw = 180.0F * slime.yaw / 3.1415927F;
+        public KingTaterMoveControl(KingTater kingTater) {
+            super(kingTater);
+            this.slime = kingTater;
+            this.targetYaw = 180.0F * kingTater.yaw / 3.1415927F;
         }
+
+
 
         public void tick() {
             this.entity.yaw = this.changeAngle(this.entity.yaw, this.targetYaw, 90.0F);
