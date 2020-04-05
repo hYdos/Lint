@@ -1,5 +1,6 @@
 package me.hydos.lint.core;
 
+import me.hydos.lint.blocks.KingTaterButton;
 import me.hydos.lint.blocks.MysticalGrassBlock;
 import me.hydos.lint.unprotect.TrapdoorBlock;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
@@ -12,6 +13,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public interface Blocks {
+
+    Block RED_BUTTON = new KingTaterButton(FabricBlockSettings.of(Material.EARTH).hardness(-0.1f).sounds(BlockSoundGroup.WET_GRASS).build());
+
+    Block GREEN_BUTTON = new KingTaterButton(FabricBlockSettings.of(Material.EARTH).hardness(-0.1f).sounds(BlockSoundGroup.WET_GRASS).build());
 
     Block MYSTICAL_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD).build());
 
@@ -40,6 +45,10 @@ public interface Blocks {
     Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
 
     static void onInitialize() {
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, RED_BUTTON, "red_button");
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, GREEN_BUTTON, "green_button");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_TRAPDOOR, "mystical_trapdoor");
 

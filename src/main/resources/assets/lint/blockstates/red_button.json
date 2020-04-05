@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lint:block/red_button"
+    }
+  }
+}
