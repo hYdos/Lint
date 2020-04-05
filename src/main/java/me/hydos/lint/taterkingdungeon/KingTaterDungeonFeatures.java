@@ -1,7 +1,5 @@
-package me.hydos.lint.core.features;
+package me.hydos.lint.taterkingdungeon;
 
-import me.hydos.lint.taterkingdungeon.BasicPiece;
-import me.hydos.lint.taterkingdungeon.TaterKingDungeonFeature;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

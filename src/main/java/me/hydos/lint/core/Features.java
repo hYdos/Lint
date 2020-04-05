@@ -1,6 +1,6 @@
 package me.hydos.lint.core;
 
-import me.hydos.lint.core.features.KingTaterDungeonFeatures;
+import me.hydos.lint.taterkingdungeon.KingTaterDungeonFeatures;
 import me.hydos.lint.dimensions.haykam.features.CommonCorruptTreeFeature;
 import me.hydos.lint.dimensions.haykam.features.CommonMysticalTreeFeature;
 import net.minecraft.util.Identifier;

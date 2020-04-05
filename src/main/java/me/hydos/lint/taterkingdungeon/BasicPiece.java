@@ -1,10 +1,8 @@
 package me.hydos.lint.taterkingdungeon;
 
-import me.hydos.lint.core.features.KingTaterDungeonFeatures;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
-import net.minecraft.structure.StructurePieceType;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockBox;
