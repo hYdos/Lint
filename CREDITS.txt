@@ -1,0 +1,5 @@
+Firstly, credit to Hydos and Ramidzkh for epic amazing mod, making the models, most of the code, etc.
+
+Secondly, Valoeghese and Draylar for helping out with world generation, and Notch for writing the original alpha world generation code.
+
+Also, Valoeghese again for making the epic king tater boss music.
