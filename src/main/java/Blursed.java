@@ -1,17 +1,16 @@
-package me.hydos.lint.core;
+import me.hydos.lint.core.*;
 
 public interface Blursed {
 
-
     static void onInitialize() {
-        Lint.onInitialize();
-        Blocks.onInitialize();
         Biomes.onInitialize();
-        Dimensions.onInitialize();
-        Features.onInitialize();
-        Entities.onInitialize();
-        Packets.onInitialize();
+        Blocks.onInitialize();
         Containers.onInitialize();
+        Dimensions.onInitialize();
+        Entities.onInitialize();
+        Features.onInitialize();
+        Lint.onInitialize();
+        Packets.onInitialize();
         Sounds.onInitialize();
     }
 }

@@ -14,7 +14,15 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "me.hydos.lint.core.Blursed::onInitialize"
+      "me.hydos.lint.core.Biomes::onInitialize",
+      "me.hydos.lint.core.Blocks::onInitialize",
+      "me.hydos.lint.core.Containers::onInitialize",
+      "me.hydos.lint.core.Dimensions::onInitialize",
+      "me.hydos.lint.core.Entities::onInitialize",
+      "me.hydos.lint.core.Features::onInitialize",
+      "me.hydos.lint.core.Lint::onInitialize",
+      "me.hydos.lint.core.Packets::onInitialize",
+      "me.hydos.lint.core.Sounds::onInitialize"
     ],
     "client": [
       "me.hydos.lint.core.client.LintClient::onInitializeClient"
@@ -28,8 +36,5 @@
     "fabric": "*",
     "minecraft": "1.15.x",
     "techreborn": "3.3.6+build.207"
-  },
-  "suggests": {
-    "flamingo": "*"
   }
 }
