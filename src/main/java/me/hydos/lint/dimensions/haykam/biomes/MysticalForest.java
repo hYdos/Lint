@@ -1,7 +1,9 @@
 package me.hydos.lint.dimensions.haykam.biomes;
 
 import me.hydos.lint.core.Blocks;
+import me.hydos.lint.core.Entities;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
@@ -66,6 +68,8 @@ public class MysticalForest extends Biome implements IBiomeHasLex{
                         .noVines()
                         .build()).createDecoratedFeature(Decorator.COUNT_EXTRA_HEIGHTMAP.configure(new CountExtraChanceDecoratorConfig(4, 0.25f, 1)))
         );
+
+        this.addSpawn(EntityCategory.CREATURE, new Biome.SpawnEntry(Entities.LIL_TATER, 12, 4, 4));
 
         this.addFeature(GenerationStep.Feature.RAW_GENERATION, FEATURE.configure(new DefaultFeatureConfig()).createDecoratedFeature(Decorator.CHANCE_HEIGHTMAP_DOUBLE.configure(new ChanceDecoratorConfig(40))));
         this.addStructureFeature(FEATURE.configure(new DefaultFeatureConfig()));
