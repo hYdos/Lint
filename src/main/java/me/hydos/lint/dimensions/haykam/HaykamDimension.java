@@ -83,8 +83,11 @@ public class HaykamDimension extends Dimension {
 
     @Override
     public float getSkyAngle(long worldTime, float tickDelta) {
-        final int dayLength = 23999;
-        double daysPassed = ((double) 1000 + tickDelta) / dayLength;
+        // Returns a sky angle ranging between 0 and 1.
+        // This is a very simple implementation that approximates the overworld sky angle, but is easier to understand.
+        // In the overworld, the sky does not quite move at a constant rate, see the OverworldDimension code for details.
+        final int dayLength = 24000;
+        double daysPassed = ((double) worldTime + tickDelta) / dayLength;
         return (float) MathHelper.fractionalPart(daysPassed - 0.25);
     }
 

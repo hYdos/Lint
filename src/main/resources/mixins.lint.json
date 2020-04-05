@@ -6,7 +6,8 @@
   "mixins": [
     "LivingEntityMixin",
     "BeeEntityMixin",
-    "BalanceMixin"
+    "BalanceMixin",
+    "LocateCommandMixin"
   ],
   "client": [
     "PlayerEntityRendererMixin",

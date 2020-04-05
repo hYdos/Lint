@@ -13,9 +13,12 @@
   "block.lint.corrupt_leaves": "Corrupt Leaves",
   "block.lint.mystical_log": "Mystical Log",
   "block.lint.corrupt_log": "Corrupt Log",
+  "block.lint.mystical_trapdoor": "Mystical Trapdoor",
+  "block.lint.dungeon_bricks": "Dungeon Bricks",
 
 
   "biome.lint.mystical_forest": "Mystical Forest",
+  "biome.lint.corrupt_forest": "Corrupt Forest",
 
 
 

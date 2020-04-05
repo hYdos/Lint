@@ -23,20 +23,14 @@ public interface Features {
             new CommonCorruptTreeFeature(BranchedTreeFeatureConfig::deserialize)
     );
 
-    StructurePieceType TATER_VILLAGE_PIECE_TYPE = Registry.register(Registry.STRUCTURE_PIECE, "tater_village_piece", TaterVillageGenerator.Piece::new);
+    StructurePieceType TATER_VILLAGE_PIECE_TYPE = Registry.register(Registry.STRUCTURE_PIECE, "tater_king_dungeon_piece", TaterVillageGenerator.Piece::new);
 
-    StructureFeature<DefaultFeatureConfig> TATER_VILLAGE_FEATURE = register("tater_village_feature", new TaterVillageFeature(DefaultFeatureConfig::deserialize));
+    StructureFeature<DefaultFeatureConfig> TATER_KING_DUNGEON_FEATURE = register("tater_king_dungeon_feature", new TaterVillageFeature(DefaultFeatureConfig::deserialize));
 
-    StructureFeature<DefaultFeatureConfig> TATER_VILLAGE_STRUCTURE = Registry.register(Registry.STRUCTURE_FEATURE, "tater_village_structure", TATER_VILLAGE_FEATURE);
-
-//    Feature<DefaultFeatureConfig> EPIC_VALO_CLOUD_FEATURE_FEATURE = Registry.register(
-//            Registry.FEATURE,
-//            new Identifier("lint", "valo_cool_epic_e"),
-//            new EpicValoCloudFeature()
-//    );
+    StructureFeature<DefaultFeatureConfig> TATER_VILLAGE_STRUCTURE = Registry.register(Registry.STRUCTURE_FEATURE, "tater_king_dungeon_structure", TATER_KING_DUNGEON_FEATURE);
 
     static void onInitialize(){
-        Feature.STRUCTURES.put("Tater Village", TATER_VILLAGE_FEATURE);
+        Feature.STRUCTURES.put("Dungeon Enterance", TATER_KING_DUNGEON_FEATURE);
     }
 
     static <F extends Feature<? extends FeatureConfig>> F register(String name, F feature) {

@@ -11,7 +11,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
-import static me.hydos.lint.core.Features.TATER_VILLAGE_FEATURE;
+import static me.hydos.lint.core.Features.TATER_KING_DUNGEON_FEATURE;
 
 public class TaterVillageStructureStart extends StructureStart {
 
@@ -21,7 +21,7 @@ public class TaterVillageStructureStart extends StructureStart {
 
     @Override
     public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int chunkX, int chunkZ, Biome biome) {
-        DefaultFeatureConfig defaultFeatureConfig = chunkGenerator.getStructureConfig(biome, TATER_VILLAGE_FEATURE);
+        DefaultFeatureConfig defaultFeatureConfig = chunkGenerator.getStructureConfig(biome, TATER_KING_DUNGEON_FEATURE);
         int x = chunkX * 16;
         int z = chunkZ * 16;
         BlockPos startingPos = new BlockPos(x, chunkGenerator.getHeightOnGround(x,z, Heightmap.Type.WORLD_SURFACE_WG)-2, z);

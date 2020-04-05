@@ -24,7 +24,7 @@ public class TaterVillageFeature extends AbstractTempleFeature<DefaultFeatureCon
 
     @Override
     public String getName() {
-        return "Tater Village";
+        return "Tater Dungeon";
     }
 
     @Override
