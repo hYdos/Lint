@@ -63,7 +63,7 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
 
         getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(300.0D);
         getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(10.0D);
-        getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).setBaseValue(1.5D);
+        getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).setBaseValue(15D);
     }
 
     @Override
@@ -204,7 +204,7 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
                     if (this.ticksUntilJump-- <= 0) {
                         this.ticksUntilJump = this.slime.getTicksUntilNextJump();
                         this.slime.getJumpControl().setActive();
-                        this.slime.playSound(SoundEvents.ENTITY_SLIME_JUMP, this.slime.getSoundVolume(), ((this.slime.getRandom().nextFloat() - this.slime.getRandom().nextFloat()) * 0.2F + 1.0F) * 0.8F);
+//                        this.slime.playSound(SoundEvents.ENTITY_SLIME_JUMP, this.slime.getSoundVolume(), ((this.slime.getRandom().nextFloat() - this.slime.getRandom().nextFloat()) * 0.2F + 1.0F) * 0.8F);
                     } else {
                         this.slime.sidewaysSpeed = 0.0F;
                         this.slime.forwardSpeed = 0.0F;

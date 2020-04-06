@@ -19,8 +19,6 @@ repositories {
 		//Dev Mode
 		url "https://maven.jamieswhiteshirt.com/libs-release/"
 	}
-
-	maven { url 'https://jitpack.io' }
 }
 
 def optionalDependency(String dep) {
@@ -42,8 +40,6 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-	modImplementation 'com.github.Chocohead:Fabric-ASM:v2.0'
 
 	modApi 'teamreborn:energy:0.1.0'
 	optionalDependency ("me.shedaniel:RoughlyEnoughItems:3.6.0")

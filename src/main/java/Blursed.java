@@ -7,7 +7,6 @@ import me.hydos.lint.core.client.LintClient;
 public interface Blursed {
 
     static void onInitialize() {
-        PreInitialize.onInitialize();
         Biomes.onInitialize();
         Blocks.onInitialize();
         Containers.onInitialize();
