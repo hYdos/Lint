@@ -24,8 +24,6 @@ public interface Entities {
     EntityType<TaterMinion> MINION =
             Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "minion"), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, (EntityType<TaterMinion> type, World world) -> new TaterMinion(type, world, null))
                     .size(LIL_TATER.getDimensions())
-                    .disableSaving()
-                    .setImmuneToFire()
                     .build());
 
     static void onInitialize() {
