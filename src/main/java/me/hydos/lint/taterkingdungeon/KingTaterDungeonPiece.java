@@ -18,4 +18,6 @@ public class KingTaterDungeonPiece extends PoolStructurePiece {
     public KingTaterDungeonPiece(StructureManager manager, CompoundTag tag) {
         super(manager, tag, TutorialJigsaws.EXAMPLE_PIECE);
     }
+
+
 }

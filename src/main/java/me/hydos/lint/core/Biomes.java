@@ -5,6 +5,12 @@ import me.hydos.lint.dimensions.haykam.biomes.MysticalForest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
+import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+
+import static me.hydos.lint.taterkingdungeon.TutorialJigsaws.FEATURE;
 
 public interface Biomes {
 
@@ -12,5 +18,8 @@ public interface Biomes {
     Biome CORRUPT_FOREST = Registry.register(Registry.BIOME, new Identifier("lint", "corrupt_forest"), new CorruptForest());
 
     static void onInitialize() {
+
+        Registry.BIOME.forEach(biome -> biome.addFeature(GenerationStep.Feature.RAW_GENERATION, FEATURE.configure(new DefaultFeatureConfig()).createDecoratedFeature(Decorator.CHANCE_HEIGHTMAP_DOUBLE.configure(new ChanceDecoratorConfig(40)))));
+
     }
 }
