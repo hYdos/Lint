@@ -22,7 +22,8 @@
       "me.hydos.lint.core.Entities::onInitialize",
       "me.hydos.lint.core.Items::onInitialize",
       "me.hydos.lint.core.Packets::onInitialize",
-      "me.hydos.lint.core.Sounds::onInitialize"
+      "me.hydos.lint.core.Sounds::onInitialize",
+      "me.hydos.lint.core.LintCommon"
     ],
     "client": [
       "me.hydos.lint.core.client.LintClient::onInitializeClient"

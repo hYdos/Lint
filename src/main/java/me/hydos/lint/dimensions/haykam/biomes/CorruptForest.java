@@ -14,14 +14,11 @@ import static me.hydos.lint.core.Features.EPIC_VALO_CLOUD_FEATURE_FEATURE;
 import static me.hydos.lint.taterkingdungeon.TutorialJigsaws.FEATURE;
 import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.GRAVEL;
 
-import java.util.Random;
-
 import me.hydos.lint.core.Blocks;
 import me.hydos.lint.core.Entities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStep;
@@ -70,17 +67,15 @@ public class CorruptForest extends Biome implements IBiomeHasLex {
 		DefaultBiomeFeatures.addMineables(this);
 		DefaultBiomeFeatures.addDefaultOres(this);
 
-		Random r = new Random();
-
 		this.addFeature(
 				GenerationStep.Feature.VEGETAL_DECORATION,
 				CORRUPT_TREE.configure(new BranchedTreeFeatureConfig.Builder(
 						logProvider,
 						new SimpleBlockStateProvider(CORRUPT_LEAVES.getDefaultState().with(Properties.PERSISTENT, true)),
-						new BlobFoliagePlacer(MathHelper.nextInt(r, 2, 3), MathHelper.nextInt(r, 1, 3)))
-						.baseHeight(MathHelper.nextInt(r, 5, 7))
-						.heightRandA(MathHelper.nextInt(r, 3, 6))
-						.foliageHeight(MathHelper.nextInt(r, 3, 5))
+						new BlobFoliagePlacer(2, 1))
+						.baseHeight(5)
+						.heightRandA(6)
+						.foliageHeight(3)
 						.noVines()
 						.build()).createDecoratedFeature(Decorator.COUNT_EXTRA_HEIGHTMAP.configure(new CountExtraChanceDecoratorConfig(4, 0.25f, 1)))
 				);
@@ -97,7 +92,7 @@ public class CorruptForest extends Biome implements IBiomeHasLex {
 				).createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_DOUBLE.configure(new CountDecoratorConfig(2))));
 
 		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.flower(WILTED_FLOWER.getDefaultState(), 8, 1));
-		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.flower(CORRUPT_STEM.getDefaultState(), 32, 4));
+		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.flower(CORRUPT_STEM.getDefaultState(), 64, 4));
 
 		this.addFeature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, EPIC_VALO_CLOUD_FEATURE_FEATURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(Decorator.NOPE.configure(new NopeDecoratorConfig())));
 

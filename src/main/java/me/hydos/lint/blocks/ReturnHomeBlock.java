@@ -1,15 +1,18 @@
 package me.hydos.lint.blocks;
 
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
+import me.hydos.lint.util.TeleportUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 
@@ -25,19 +28,17 @@ public class ReturnHomeBlock extends Block {
 	}
 
 	@Override
-	public boolean onBlockAction(BlockState state, World world, BlockPos pos, int type, int data) {
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (state.get(ACTIVATED)) {
-			world.getEntities(LivingEntity.class, new Box(pos).expand(3.0), le -> true).forEach(le -> {
-				if (world instanceof ServerWorld) {
-					FabricDimensions.teleport(le, DimensionType.OVERWORLD);
-					BlockPos aPos = world.getServer().getWorld(DimensionType.OVERWORLD).getTopPosition(Heightmap.Type.MOTION_BLOCKING, pos);
-					le.setPos(aPos.getX() + 0.5, aPos.getY() + 0.5, aPos.getZ() + 0.5);
-				}
-			});
-			return true;
+			if (world instanceof ServerWorld) {
+				world.getEntities(LivingEntity.class, new Box(pos).expand(5.0), le -> true).forEach(le -> {
+					TeleportUtils.teleport(le, DimensionType.OVERWORLD, le.getBlockPos());
+				});
+			}
+			return ActionResult.SUCCESS;
 		}
 
-		return false;
+		return ActionResult.PASS;
 	}
 
 	public static final BooleanProperty ACTIVATED = BooleanProperty.of("activated");
