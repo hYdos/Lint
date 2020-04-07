@@ -14,14 +14,11 @@ import static me.hydos.lint.core.Features.PORTAL_FEATURE;
 import static me.hydos.lint.taterkingdungeon.TutorialJigsaws.FEATURE;
 import static net.minecraft.world.gen.surfacebuilder.SurfaceBuilder.GRAVEL;
 
-import java.util.Random;
-
 import me.hydos.lint.core.Blocks;
 import me.hydos.lint.core.Entities;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStep;
@@ -53,7 +50,6 @@ public class MysticalForest extends Biome implements IBiomeHasLex {
 				.waterColor(4159204)
 				.waterFogColor(329011)
 				.parent(null));
-		Random r = new Random();
 
 		WeightedBlockStateProvider logProvider = new WeightedBlockStateProvider();
 		logProvider.addState(
@@ -71,10 +67,10 @@ public class MysticalForest extends Biome implements IBiomeHasLex {
 				MYSTICAL_TREE.configure(new BranchedTreeFeatureConfig.Builder(
 						logProvider,
 						new SimpleBlockStateProvider(Blocks.MYSTICAL_LEAVES.getDefaultState().with(Properties.PERSISTENT, true)),
-						new BlobFoliagePlacer(MathHelper.nextInt(r, 2, 3), MathHelper.nextInt(r, 1, 3)))
-						.baseHeight(MathHelper.nextInt(r, 5, 7))
-						.heightRandA(MathHelper.nextInt(r, 3, 6))
-						.foliageHeight(MathHelper.nextInt(r, 3, 5))
+						new BlobFoliagePlacer(2, 2))
+						.baseHeight(6)
+						.heightRandA(3)
+						.foliageHeight(4)
 						.noVines()
 						.build()).createDecoratedFeature(Decorator.COUNT_EXTRA_HEIGHTMAP.configure(new CountExtraChanceDecoratorConfig(4, 0.25f, 1)))
 				);
@@ -84,8 +80,8 @@ public class MysticalForest extends Biome implements IBiomeHasLex {
 		this.addStructureFeature(FEATURE.configure(new DefaultFeatureConfig()));
 
 		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.randomPatch(MYSTICAL_GRASS.getDefaultState(), 2));
-		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.flower(YELLOW_DAISY.getDefaultState(), 32, 1));
-		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.flower(MYSTICAL_STEM.getDefaultState(), 32, 2));
+		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.flower(YELLOW_DAISY.getDefaultState(), 64, 2));
+		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.flower(MYSTICAL_STEM.getDefaultState(), 64, 3));
 
 		this.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES, PORTAL_FEATURE
 				.configure(FeatureConfig.DEFAULT)
