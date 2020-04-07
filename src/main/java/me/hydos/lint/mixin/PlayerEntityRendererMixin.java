@@ -8,6 +8,7 @@ import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -24,7 +25,7 @@ public class PlayerEntityRendererMixin extends LivingEntityRenderer<AbstractClie
         this.addFeature(new LilTaterShoulderFeatureRenderer<>(this));
     }
 
-    @Override
+    @Shadow
     public Identifier getTexture(AbstractClientPlayerEntity entity) {
         return entity.getSkinTexture();
     }
