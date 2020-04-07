@@ -36,7 +36,8 @@ public interface Items {
 
 		@Override
 		public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-			tooltip.add(new LiteralText("It radiates with a power that feels surprisingly similar to that which those shrines emit."));
+			tooltip.add(new LiteralText("It radiates with a similar power"));
+			tooltip.add(new LiteralText("to that which those shrines emit."));
 		}
 
 		@Override
