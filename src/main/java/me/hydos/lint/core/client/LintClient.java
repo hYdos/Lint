@@ -8,7 +8,7 @@ import me.hydos.lint.containers.client.LilTaterContainerScreen;
 import me.hydos.lint.core.Containers;
 import me.hydos.lint.core.Entities;
 import me.hydos.lint.entities.boss.KingTaterRenderer;
-import me.hydos.lint.entities.liltaterbattery.LilTaterBatteryRenderer;
+import me.hydos.lint.entities.tater.LilTaterEntityRenderer;
 import me.hydos.techrebornApi.TechRebornApi;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,8 +25,8 @@ public interface LintClient {
     static void onInitializeClient() {
         TechRebornApi.registerBlock("lint", "adventure_transformer", AdventureTransformerRecipe.class, ItemGroup.TOOLS, AdventureTransformerBlockEntity::new, GuiType.register(new Identifier("adventure_transformer"), () -> () -> AdventureTransformerGui::new));
 
-        EntityRendererRegistry.INSTANCE.register(Entities.LIL_TATER, (entityRenderDispatcher, context) -> new LilTaterBatteryRenderer(entityRenderDispatcher));
-        EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new LilTaterBatteryRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.INSTANCE.register(Entities.LIL_TATER, (entityRenderDispatcher, context) -> new LilTaterEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new LilTaterEntityRenderer(entityRenderDispatcher));
         EntityRendererRegistry.INSTANCE.register(Entities.KING_TATER, (entityRenderDispatcher, context) -> new KingTaterRenderer(entityRenderDispatcher));
 
         ScreenProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractContainer(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));

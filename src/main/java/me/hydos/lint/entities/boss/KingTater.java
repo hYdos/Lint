@@ -75,7 +75,6 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
         super.initAttributes();
 
         getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(300.0D);
-        getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(10.0D);
         getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).setBaseValue(15D);
     }
 

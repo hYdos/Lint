@@ -1,12 +1,11 @@
 package me.hydos.lint.entities.boss;
 
-import me.hydos.lint.entities.liltaterbattery.LilTaterBattery;
+import me.hydos.lint.entities.tater.LilTaterEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -19,7 +18,7 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 @SuppressWarnings("EntityConstructor")
-public class TaterMinion extends LilTaterBattery implements Monster {
+public class TaterMinion extends LilTaterEntity implements Monster {
 
     public TaterMinion(EntityType<? extends TaterMinion> type, World world, LivingEntity target) {
         super(type, world);

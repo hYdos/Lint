@@ -2,7 +2,7 @@ package me.hydos.lint.core;
 
 import me.hydos.lint.entities.boss.KingTater;
 import me.hydos.lint.entities.boss.TaterMinion;
-import me.hydos.lint.entities.liltaterbattery.LilTaterBattery;
+import me.hydos.lint.entities.tater.LilTaterEntity;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityDimensions;
@@ -13,8 +13,8 @@ import net.minecraft.world.World;
 
 public interface Entities {
 
-    EntityType<LilTaterBattery> LIL_TATER =
-            Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "lil_tater"), FabricEntityTypeBuilder.create(EntityCategory.AMBIENT, (LilTaterBattery::new))
+    EntityType<LilTaterEntity> LIL_TATER =
+            Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "lil_tater"), FabricEntityTypeBuilder.create(EntityCategory.AMBIENT, (LilTaterEntity::new))
                     .size(EntityDimensions.fixed(0.3f, 0.4f))
                     .build());
     EntityType<KingTater> KING_TATER =

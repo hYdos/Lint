@@ -1,7 +1,7 @@
 package me.hydos.lint.containers;
 
 import me.hydos.lint.containers.util.LintInventory;
-import me.hydos.lint.entities.liltaterbattery.LilTaterBattery;
+import me.hydos.lint.entities.tater.LilTaterEntity;
 import net.minecraft.container.Container;
 import net.minecraft.container.ContainerType;
 import net.minecraft.container.Slot;
@@ -21,7 +21,7 @@ public class LilTaterInteractContainer extends Container {
 
         World world = playerInventory.player.world;
 
-        LilTaterBattery tater = (LilTaterBattery) world.getEntityById(taterId);
+        LilTaterEntity tater = (LilTaterEntity) world.getEntityById(taterId);
         assert tater != null;
         LintInventory inv = tater.inventory;
 

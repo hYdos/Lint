@@ -9,7 +9,9 @@
     "LocateCommandMixin"
   ],
   "client": [
+    "CreditsScreenMixin",
     "PlayerEntityRendererMixin",
+    "MinecraftClientMixin",
     "WorldRendererMixin"
   ],
   "injectors": {

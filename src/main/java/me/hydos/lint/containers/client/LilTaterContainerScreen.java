@@ -2,7 +2,7 @@ package me.hydos.lint.containers.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.hydos.lint.containers.LilTaterInteractContainer;
-import me.hydos.lint.entities.liltaterbattery.LilTaterBattery;
+import me.hydos.lint.entities.tater.LilTaterEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -26,7 +26,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         this.container = container;
     }
 
-    public static void drawTater(int x, int y, int size, float mouseX, float mouseY, LilTaterBattery entity) {
+    public static void drawTater(int x, int y, int size, float mouseX, float mouseY, LilTaterEntity entity) {
         RenderSystem.pushMatrix();
         RenderSystem.translatef((float) x, (float) y, 1050.0F);
         RenderSystem.scalef(1.0F, 1.0F, -1.0F);
@@ -63,7 +63,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         this.blit(x, y - 20, 0, 0, this.containerWidth, this.containerHeight + 65);
         assert this.minecraft.player != null;
 
-        LilTaterBattery tater = (LilTaterBattery) this.minecraft.world.getEntityById(container.taterId);
+        LilTaterEntity tater = (LilTaterEntity) this.minecraft.world.getEntityById(container.taterId);
 
         if (tater == null) {
             onClose();

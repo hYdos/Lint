@@ -15,20 +15,23 @@ repositories {
 		// LibCD
 		url 'http://server.bbkr.space:8081/artifactory/libs-release'
 	}
+
 	maven {
 		//Dev Mode
-		url "https://maven.jamieswhiteshirt.com/libs-release/"
+		url 'https://maven.jamieswhiteshirt.com/libs-release/'
 	}
+
+	maven { url 'https://jitpack.io/' }
 }
 
 def optionalDependency(String dep) {
 	dependencies.modRuntime (dep) {
-		exclude group: "net.fabricmc"
-		exclude module: "nbt-crafting"
+		exclude group: 'net.fabricmc'
+		exclude module: 'nbt-crafting'
 	}
 	dependencies.modCompileOnly (dep) {
-		exclude group: "net.fabricmc"
-		exclude module: "nbt-crafting"
+		exclude group: 'net.fabricmc'
+		exclude module: 'nbt-crafting'
 	}
 }
 
@@ -41,11 +44,13 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
+	include(modImplementation('com.github.Chocohead:Fabric-ASM:v2.0.1'))
+
 	modApi 'teamreborn:energy:0.1.0'
-	optionalDependency ("me.shedaniel:RoughlyEnoughItems:3.6.0")
+	optionalDependency ('me.shedaniel:RoughlyEnoughItems:3.6.0')
 	optionalDependency ('io.github.cottonmc:LibCD:2.0.1+1.15')
 
-	modRuntime ("com.jamieswhiteshirt:developer-mode:1.0.15") {
+	modRuntime ('com.jamieswhiteshirt:developer-mode:1.0.15') {
 		transitive = false
 	}
 
@@ -53,15 +58,15 @@ dependencies {
 }
 
 processResources {
-	inputs.property "version", project.version
+	inputs.property 'version', project.version
 
 	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
-		expand "version": project.version
+		include 'fabric.mod.json'
+		expand 'version': project.version
 	}
 
 	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
+		exclude 'fabric.mod.json'
 	}
 }
 
@@ -69,19 +74,19 @@ processResources {
 // this fixes some edge cases with special characters not displaying correctly
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
+	options.encoding = 'UTF-8'
 }
 
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the 'build' task
 // if it is present.
 // If you remove this task, sources will not be generated.
 task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = "sources"
+	classifier = 'sources'
 	from sourceSets.main.allSource
 }
 
 jar {
-	from "LICENSE"
+	from 'LICENSE'
 }
 
 // configure the maven publication

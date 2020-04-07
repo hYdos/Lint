@@ -1,8 +1,8 @@
 package me.hydos.lint.featureRenderers;
 
 import me.hydos.lint.core.Entities;
-import me.hydos.lint.entities.liltaterbattery.LilTaterBatteryModel;
-import me.hydos.lint.entities.liltaterbattery.LilTaterBatteryRenderer;
+import me.hydos.lint.entities.tater.LilTaterEntityModel;
+import me.hydos.lint.entities.tater.LilTaterEntityRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
@@ -19,7 +19,7 @@ import net.minecraft.nbt.CompoundTag;
 @Environment(EnvType.CLIENT)
 public class LilTaterShoulderFeatureRenderer<T extends PlayerEntity> extends FeatureRenderer<T, PlayerEntityModel<T>> {
 
-    private final LilTaterBatteryModel model = new LilTaterBatteryModel();
+    private final LilTaterEntityModel model = new LilTaterEntityModel();
 
     public LilTaterShoulderFeatureRenderer(FeatureRendererContext<T, PlayerEntityModel<T>> context) {
         super(context);
@@ -35,7 +35,7 @@ public class LilTaterShoulderFeatureRenderer<T extends PlayerEntity> extends Fea
         EntityType.get(compoundTag.getString("id")).filter((entityType) -> entityType == Entities.LIL_TATER).ifPresent((entityType) -> {
             matrixStack.push();
             matrixStack.translate(bl ? 0.4000000059604645D : -0.4000000059604645D, playerEntity.isInSneakingPose() ? -1.2999999523162842D : -1.5D, 0.0D);
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(LilTaterBatteryRenderer.FRIENDLY_TATER));
+            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(LilTaterEntityRenderer.FRIENDLY_TATER));
             this.model.renderOnShoulder(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
             matrixStack.pop();
         });
