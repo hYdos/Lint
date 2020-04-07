@@ -1,9 +1,9 @@
 {
   "variants": {
-    "activated=on": {
+    "activated=true": {
       "model": "lint:block/return_home_on"
     },
-	"activated=off": {
+	"activated=false": {
       "model": "lint:block/return_home_off"
     }
   }

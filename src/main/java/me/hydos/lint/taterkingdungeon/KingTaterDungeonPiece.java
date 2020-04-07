@@ -1,6 +1,5 @@
 package me.hydos.lint.taterkingdungeon;
 
-import me.hydos.lint.core.Lint;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.PoolStructurePiece;
 import net.minecraft.structure.StructureManager;
