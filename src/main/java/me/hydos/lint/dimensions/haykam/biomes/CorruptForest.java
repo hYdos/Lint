@@ -97,7 +97,7 @@ public class CorruptForest extends Biome implements IBiomeHasLex {
 				).createDecoratedFeature(Decorator.COUNT_HEIGHTMAP_DOUBLE.configure(new CountDecoratorConfig(2))));
 
 		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.flower(WILTED_FLOWER.getDefaultState(), 8, 1));
-		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.flower(CORRUPT_STEM.getDefaultState(), 32, 2));
+		this.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, BiomeUtils.flower(CORRUPT_STEM.getDefaultState(), 32, 4));
 
 		this.addFeature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, EPIC_VALO_CLOUD_FEATURE_FEATURE.configure(FeatureConfig.DEFAULT).createDecoratedFeature(Decorator.NOPE.configure(new NopeDecoratorConfig())));
 

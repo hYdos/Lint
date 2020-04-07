@@ -19,7 +19,7 @@ public class TutorialJigsaws implements ModInitializer
 	public static final StructureFeature<DefaultFeatureConfig> STRUCTURE = Registry.register(
 			Registry.STRUCTURE_FEATURE,
 			new Identifier("lint", "example_structure_feature"),
-			new KingTaterDungeonFeature(DefaultFeatureConfig::deserialize)
+			FEATURE
 	);
 
 	public static final StructurePieceType EXAMPLE_PIECE = Registry.register(
