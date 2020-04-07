@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "lint:block/corrupt_stem"
+  }
+}

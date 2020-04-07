@@ -1,7 +1,6 @@
 package me.hydos.lint.core;
 
 import me.hydos.lint.blocks.AdventureTransformerBlockEntity;
-import me.hydos.lint.blocks.AdventureTransformerGui;
 import me.hydos.lint.blocks.AdventureTransformerRecipe;
 import me.hydos.techrebornApi.TechRebornApi;
 import net.minecraft.item.ItemGroup;

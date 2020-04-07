@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "activated=on": {
+      "model": "lint:block/return_home_on"
+    },
+	"activated=off": {
+      "model": "lint:block/return_home_off"
+    }
+  }
+}
