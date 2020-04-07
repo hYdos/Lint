@@ -24,7 +24,6 @@ public class AdventureTransformerBlockEntity extends GenericMachineBlockEntity i
     }
 
     public void tick() {
-
         ++this.ticksSinceLastChange;
         assert this.world != null;
         if (!this.world.isClient && this.ticksSinceLastChange >= 10) {

@@ -14,6 +14,7 @@ import net.minecraft.world.BlockView;
 public class LintGrassBlock extends FlowerBlock {
     public LintGrassBlock(StatusEffect effect, Settings settings) {
         super(effect, 7, settings);
+
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getTranslucent());
         }

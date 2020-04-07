@@ -1,9 +1,9 @@
 package me.hydos.lint.core;
 
-import me.hydos.lint.dimensions.haykam.features.CommonCorruptTreeFeature;
-import me.hydos.lint.dimensions.haykam.features.CommonMysticalTreeFeature;
-import me.hydos.lint.dimensions.haykam.features.EpicValoCloudFeature;
-import me.hydos.lint.dimensions.haykam.features.PortalFeature;
+import me.hydos.lint.world.dimension.features.CommonCorruptTreeFeature;
+import me.hydos.lint.world.dimension.features.CommonMysticalTreeFeature;
+import me.hydos.lint.world.dimension.features.EpicValoCloudFeature;
+import me.hydos.lint.world.dimension.features.PortalFeature;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.*;

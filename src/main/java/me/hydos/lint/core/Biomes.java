@@ -1,7 +1,7 @@
 package me.hydos.lint.core;
 
-import me.hydos.lint.dimensions.haykam.biomes.CorruptForest;
-import me.hydos.lint.dimensions.haykam.biomes.MysticalForest;
+import me.hydos.lint.world.dimension.biomes.CorruptForest;
+import me.hydos.lint.world.dimension.biomes.MysticalForest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -10,7 +10,7 @@ import net.minecraft.world.gen.decorator.ChanceDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 
-import static me.hydos.lint.taterkingdungeon.TutorialJigsaws.FEATURE;
+import static me.hydos.lint.world.dungeon.TutorialJigsaws.FEATURE;
 
 public interface Biomes {
 

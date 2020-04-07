@@ -17,6 +17,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 
 public class ReturnHomeBlock extends Block {
+
+	public static final BooleanProperty ACTIVATED = BooleanProperty.of("activated");
+
 	public ReturnHomeBlock(Settings settings) {
 		super(settings);
 
@@ -35,11 +38,10 @@ public class ReturnHomeBlock extends Block {
 					TeleportUtils.teleport(le, DimensionType.OVERWORLD, le.getBlockPos());
 				});
 			}
+
 			return ActionResult.SUCCESS;
 		}
 
 		return ActionResult.PASS;
 	}
-
-	public static final BooleanProperty ACTIVATED = BooleanProperty.of("activated");
 }

@@ -17,7 +17,7 @@
       "me.hydos.lint.core.PreInitialize::initialize"
     ],
     "main": [
-      "me.hydos.lint.taterkingdungeon.TutorialJigsaws",
+      "me.hydos.lint.world.dungeon.TutorialJigsaws",
       "me.hydos.lint.core.Biomes::onInitialize",
       "me.hydos.lint.core.Blocks::onInitialize",
       "me.hydos.lint.core.Containers::onInitialize",

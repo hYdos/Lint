@@ -4,7 +4,7 @@ import me.hydos.lint.blocks.KingTaterButton;
 import me.hydos.lint.blocks.LintCorruptGrassBlock;
 import me.hydos.lint.blocks.LintGrassBlock;
 import me.hydos.lint.blocks.ReturnHomeBlock;
-import me.hydos.lint.unprotect.TrapdoorBlock;
+import me.hydos.lint.blocks.TrapdoorBlock;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.FallingBlock;

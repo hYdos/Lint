@@ -1,8 +1,8 @@
 package me.hydos.lint.core;
 
-import me.hydos.lint.entities.boss.KingTater;
-import me.hydos.lint.entities.boss.TaterMinion;
-import me.hydos.lint.entities.tater.LilTaterEntity;
+import me.hydos.lint.entity.boss.KingTater;
+import me.hydos.lint.entity.boss.TaterMinion;
+import me.hydos.lint.entity.tater.LilTaterEntity;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityDimensions;

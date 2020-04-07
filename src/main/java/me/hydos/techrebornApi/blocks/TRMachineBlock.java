@@ -1,5 +1,6 @@
 package me.hydos.techrebornApi.blocks;
 
+import me.hydos.lint.core.Dimensions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -32,6 +33,6 @@ public class TRMachineBlock extends GenericMachineBlock {
 
     @Override
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        return !world.getDimension().getType().getSuffix().equals("lint_haykam");
+        return world.getDimension().getType() != Dimensions.HAYKAM;
     }
 }

@@ -1,7 +1,7 @@
 package me.hydos.lint.containers;
 
 import me.hydos.lint.containers.util.LintInventory;
-import me.hydos.lint.entities.tater.LilTaterEntity;
+import me.hydos.lint.entity.tater.LilTaterEntity;
 import net.minecraft.container.Container;
 import net.minecraft.container.ContainerType;
 import net.minecraft.container.Slot;

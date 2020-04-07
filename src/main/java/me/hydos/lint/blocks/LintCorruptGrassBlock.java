@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 public class LintCorruptGrassBlock extends FlowerBlock {
 	public LintCorruptGrassBlock(StatusEffect effect, Settings settings) {
 		super(effect, 7, settings);
+
 		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
 			BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getTranslucent());
 		}

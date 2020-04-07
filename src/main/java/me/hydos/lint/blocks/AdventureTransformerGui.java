@@ -22,6 +22,8 @@ public class AdventureTransformerGui extends GuiBase<BuiltContainer> {
     public void init() {
         super.init();
         addButton(new ButtonWidget(x + 60, y + 40, 40, 20, "Enter", (widget) -> {
+            blockEntity.useEnergy(1000);
+
             PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
             data.writeString("HAYKAM");
             ClientSidePacketRegistry.INSTANCE.sendToServer(Packets.PLAY_DIMENSION_CHANGE_PACKET_ID, data);
@@ -32,7 +34,7 @@ public class AdventureTransformerGui extends GuiBase<BuiltContainer> {
         super.drawBackground(f, mouseX, mouseY);
         Layer layer = Layer.BACKGROUND;
         this.drawSlot(39, 72, layer);
-        buttons.get(0).active = !(blockEntity.getEnergy() < 10);
+        buttons.get(0).active = blockEntity.getEnergy() > 1000;
     }
 
     protected void drawForeground(int mouseX, int mouseY) {

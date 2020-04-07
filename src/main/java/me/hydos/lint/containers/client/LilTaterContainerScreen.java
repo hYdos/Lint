@@ -2,7 +2,7 @@ package me.hydos.lint.containers.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.hydos.lint.containers.LilTaterInteractContainer;
-import me.hydos.lint.entities.tater.LilTaterEntity;
+import me.hydos.lint.entity.tater.LilTaterEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.render.VertexConsumerProvider;
