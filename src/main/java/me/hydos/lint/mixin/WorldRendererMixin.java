@@ -15,6 +15,7 @@ import static me.hydos.lint.core.Dimensions.HAYKAM;
 public class WorldRendererMixin {
 
     private static final Identifier COOLSUN = new Identifier("lint", "textures/environment/twin_sun.png");
+
     @Shadow
     @Final
     private static Identifier SUN;

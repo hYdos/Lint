@@ -4,12 +4,10 @@
   "package": "me.hydos.lint.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "LivingEntityMixin",
     "BeeEntityMixin",
     "LocateCommandMixin"
   ],
   "client": [
-    "CreditsScreenMixin",
     "PlayerEntityRendererMixin",
     "MinecraftClientMixin",
     "WorldRendererMixin"
