@@ -7,19 +7,13 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 
-public class MysticalGrassBlock extends FlowerBlock {
-
-    public MysticalGrassBlock(Settings settings) {
-        super(StatusEffects.BAD_OMEN, 7, settings);
+public class LintGrassBlock extends FlowerBlock {
+    public LintGrassBlock(StatusEffect effect, Settings settings) {
+        super(effect, 7, settings);
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getTranslucent());
         }

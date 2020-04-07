@@ -1,10 +1,27 @@
 package me.hydos.lint.entities.boss;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+import java.util.function.Predicate;
+
 import me.hydos.lint.core.Entities;
-import net.minecraft.entity.*;
+import me.hydos.lint.core.Items;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.control.MoveControl;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
@@ -12,6 +29,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -23,11 +41,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Predicate;
 
 @SuppressWarnings("EntityConstructor")
 public class KingTater extends HostileEntity implements RangedAttackMob {
@@ -68,6 +81,7 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
 
     @Override
     protected void onKilledBy(LivingEntity adversary) {
+    	adversary.dropStack(new ItemStack(Items.TATER_ESSENCE));
         if (adversary instanceof ServerPlayerEntity) {
             ((ServerPlayerEntity) adversary).networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.MASTER, getX(), getY(), getZ(), 1f, 1f));
         }

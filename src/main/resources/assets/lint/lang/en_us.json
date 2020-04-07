@@ -15,12 +15,16 @@
   "block.lint.corrupt_log": "Corrupt Log",
   "block.lint.mystical_trapdoor": "Mystical Trapdoor",
   "block.lint.dungeon_bricks": "Dungeon Bricks",
-
-
+  "block.lint_mystical_stem": "Mystical Stem",
+  "block.lint.yellow_daisy": "Yellow Daisy",
+  "block.lint.wilted_flower": "Wilted Flower",
+  "block.lint.return_home": "Return Portal",
+  "block.lint.corrupt_stem": "Corrupt Stem",
+  
   "biome.lint.mystical_forest": "Mystical Forest",
   "biome.lint.corrupt_forest": "Corrupt Forest",
 
-
+  "item.lint.tater_essence": "Tater Essence",
 
   "entity.lint.lil_tater": "Lil Tater",
   "entity.lint.king_tater": "King Tater",

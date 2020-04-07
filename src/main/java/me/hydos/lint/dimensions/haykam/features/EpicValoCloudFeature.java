@@ -21,17 +21,6 @@ public class EpicValoCloudFeature extends Feature<DefaultFeatureConfig> {
         super(DefaultFeatureConfig::deserialize);
     }
 
-    /*
-        TODO: e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e
-        TODO: e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e
-        TODO: e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e
-        TODO: e e e e e e e e e e e e e e e e e e e e e e V A L O e e e e e e e e e e e e e e e e e e e e e e e e e e e
-        TODO: e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e
-        TODO: e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e
-        TODO: e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e
-        TODO: e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e e
-     */
-
     @Override
     public boolean generate(IWorld world, ChunkGenerator<? extends ChunkGeneratorConfig> generator, Random random, BlockPos pos, DefaultFeatureConfig config) {
         long seed = world.getSeed();
@@ -46,9 +35,9 @@ public class EpicValoCloudFeature extends Feature<DefaultFeatureConfig> {
         int z = pos.getZ();
         BlockPos.Mutable setPos = new BlockPos.Mutable();
 
-        final double frequency = 0.06;
-        final double rarity = 0.2;
-        final int amplitude = 5;
+        final double frequency = 0.0005;
+        final double rarity = 0.78;
+        final int amplitude = 6;
 
         for (int xo = 0; xo < 16; ++xo) {
             int totalX = xo + x;
