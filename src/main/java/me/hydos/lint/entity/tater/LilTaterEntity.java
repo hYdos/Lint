@@ -1,6 +1,8 @@
 package me.hydos.lint.entity.tater;
 
 import me.hydos.lint.containers.util.LintInventory;
+import me.hydos.lint.core.Containers;
+import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
@@ -14,6 +16,8 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 @SuppressWarnings("EntityConstructor")
@@ -71,9 +75,24 @@ public class LilTaterEntity extends TameableShoulderEntity {
         return (PassiveEntity) getType().create(world);
     }
 
-    @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return stack.getItem() == Items.POTATO;
+    public boolean interactMob(PlayerEntity player, Hand hand) {
+        if (!this.world.isClient) {
+            if (!isTamed() && player.getStackInHand(hand).getItem() == Items.POTATO) {
+                this.setOwner(player);
+                this.setTamed(true);-
+                this.world.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0, 4, 0);
+                player.setStackInHand(hand, ItemStack.EMPTY);
+            } else {
+                if (getOwner() == player) {
+                    //the person who clicked owns the tater
+                    ContainerProviderRegistry.INSTANCE.openContainer(Containers.TATER_CONTAINER_ID, player, packetByteBuf -> packetByteBuf.writeInt(getEntityId()));
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     @Override
