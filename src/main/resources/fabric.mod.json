@@ -42,6 +42,6 @@
   "depends": {
     "fabric": "*",
     "minecraft": "1.15.x",
-    "techreborn": "3.3.6+build.207"
+    "techreborn": ">=3.3.6+build.207"
   }
 }
