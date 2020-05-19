@@ -46,7 +46,6 @@ dependencies {
 
 	include(modImplementation('com.github.Chocohead:Fabric-ASM:v2.0.1'))
 
-	modApi 'teamreborn:energy:0.1.0'
 	optionalDependency ('me.shedaniel:RoughlyEnoughItems:3.6.0')
 	optionalDependency ('io.github.cottonmc:LibCD:2.0.1+1.15')
 

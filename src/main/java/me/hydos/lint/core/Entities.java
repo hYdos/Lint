@@ -1,5 +1,6 @@
 package me.hydos.lint.core;
 
+import me.hydos.lint.entity.beetater.BeeTaterEntity;
 import me.hydos.lint.entity.boss.KingTater;
 import me.hydos.lint.entity.boss.TaterMinion;
 import me.hydos.lint.entity.tater.LilTaterEntity;
@@ -13,6 +14,10 @@ import net.minecraft.world.World;
 
 public interface Entities {
 
+    EntityType<BeeTaterEntity> BEE_TATER =
+            Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "bee_tater"), FabricEntityTypeBuilder.create(EntityCategory.AMBIENT, (BeeTaterEntity::new))
+                    .size(EntityDimensions.fixed(0.3f, 0.4f))
+                    .build());
     EntityType<LilTaterEntity> LIL_TATER =
             Registry.register(Registry.ENTITY_TYPE, new Identifier("lint", "lil_tater"), FabricEntityTypeBuilder.create(EntityCategory.AMBIENT, (LilTaterEntity::new))
                     .size(EntityDimensions.fixed(0.3f, 0.4f))
