@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import me.hydos.lint.core.Entities;
 import me.hydos.lint.core.Items;
+import me.hydos.lint.entity.boss.KingTater.KingTaterMoveControl;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
@@ -22,6 +23,7 @@ import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
@@ -70,12 +72,11 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
         this.targetSelector.add(4, new FollowTargetGoal<>(this, LivingEntity.class, 10, false, false, PREDICATE));
     }
 
-    @Override
-    protected void initAttributes() {
-        super.initAttributes();
-
-        getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(300.0D);
-        getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).setBaseValue(15D);
+    public static DefaultAttributeContainer.Builder initAttributes() {
+        return LivingEntity.createLivingAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 15);
     }
 
     @Override
@@ -186,12 +187,12 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
     }
 
     public float getScaledHealth() {
-        return getHealth() / getMaximumHealth();
+        return getHealth() / getMaxHealth();
     }
 
     static class KingTaterMoveControl extends MoveControl {
 
-        private float targetYaw;
+        private final float targetYaw;
         private int ticksUntilJump;
         private final KingTater slime;
 
@@ -211,21 +212,21 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
             } else {
                 this.state = MoveControl.State.WAIT;
 
-                if (this.entity.onGround) {
-                    this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue()));
-
-                    if (this.ticksUntilJump-- <= 0) {
-                        this.ticksUntilJump = this.slime.getTicksUntilNextJump();
-                        this.slime.getJumpControl().setActive();
-//                        this.slime.playSound(SoundEvents.ENTITY_SLIME_JUMP, this.slime.getSoundVolume(), ((this.slime.getRandom().nextFloat() - this.slime.getRandom().nextFloat()) * 0.2F + 1.0F) * 0.8F);
-                    } else {
-                        this.slime.sidewaysSpeed = 0.0F;
-                        this.slime.forwardSpeed = 0.0F;
-                        this.entity.setMovementSpeed(0.0F);
-                    }
-                } else {
-                    this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getValue()));
-                }
+//                if (this.entity.onGround) {//FIXME
+//                    this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue()));
+//
+//                    if (this.ticksUntilJump-- <= 0) {
+//                        this.ticksUntilJump = this.slime.getTicksUntilNextJump();
+//                        this.slime.getJumpControl().setActive();
+////                        this.slime.playSound(SoundEvents.ENTITY_SLIME_JUMP, this.slime.getSoundVolume(), ((this.slime.getRandom().nextFloat() - this.slime.getRandom().nextFloat()) * 0.2F + 1.0F) * 0.8F);
+//                    } else {
+//                        this.slime.sidewaysSpeed = 0.0F;
+//                        this.slime.forwardSpeed = 0.0F;
+//                        this.entity.setMovementSpeed(0.0F);
+//                    }
+//                } else {
+//                    this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue()));
+//                }
             }
         }
     }

@@ -18,19 +18,19 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public interface Items {
-	static Item TATER_ESSENCE = new TaterEssenceItem(new Item.Settings().group(ItemGroup.MATERIALS).rarity(Rarity.EPIC).maxCount(1));
+	Item TATER_ESSENCE = new TaterEssenceItem(new Item.Settings().group(ItemGroup.MATERIALS).rarity(Rarity.EPIC).maxCount(1));
 
 	static void onInitialize() {
 		Registry.register(Registry.ITEM, new Identifier("lint", "tater_essence"), TATER_ESSENCE);
 	}
 
-	static class TaterEssenceItem extends Item {
+	class TaterEssenceItem extends Item {
 		public TaterEssenceItem(Item.Settings settings) {
 			super(settings);
 		}
 
 		@Override
-		public boolean hasEnchantmentGlint(ItemStack stack) {
+		public boolean hasGlint(ItemStack stack) {
 			return true;
 		}
 

@@ -6,7 +6,9 @@
   "name": "Lint",
   "description": "A accumulation of useful and feature adding survival features (An Adventure and Automation mod)",
   "authors": [
-    "You will never know"
+    "hydos",
+    "ramidzkh",
+    "valoghese"
   ],
 
   "icon": "assets/lint/icon.png",
@@ -17,7 +19,6 @@
       "me.hydos.lint.core.PreInitialize::initialize"
     ],
     "main": [
-      "me.hydos.lint.world.dungeon.TutorialJigsaws",
       "me.hydos.lint.core.Biomes::onInitialize",
       "me.hydos.lint.core.Blocks::onInitialize",
       "me.hydos.lint.core.Containers::onInitialize",
@@ -32,7 +33,6 @@
       "me.hydos.lint.core.client.LintClient::onInitializeClient"
     ],
     "server": [
-      "me.hydos.lint.core.Lint::onInitializeServer"
     ]
   },
   "mixins": [
@@ -41,7 +41,6 @@
 
   "depends": {
     "fabric": "*",
-    "minecraft": "1.15.x",
-    "techreborn": ">=3.3.6+build.207"
+    "minecraft": "1.16.x"
   }
 }

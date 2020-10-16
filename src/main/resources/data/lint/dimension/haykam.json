@@ -1,0 +1,13 @@
+{
+  "type": "lint:haykam",
+  "generator": {
+    "biome_source": {
+      "type": "lint:biome_source"
+    },
+    "type": "lint:chunk_generator",
+    "structures": {
+      "structures": {
+      }
+    }
+  }
+}

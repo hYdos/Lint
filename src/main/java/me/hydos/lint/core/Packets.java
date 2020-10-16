@@ -1,6 +1,5 @@
 package me.hydos.lint.core;
 
-import me.hydos.lint.util.TeleportUtils;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.util.Identifier;
 
@@ -12,7 +11,7 @@ public interface Packets {
             String dimension = packetByteBuf.readString(65535);
             if (dimension.equalsIgnoreCase("HAYKAM")) {
                 packetContext.getTaskQueue().execute(() -> {
-                    TeleportUtils.teleport(packetContext.getPlayer(), Dimensions.HAYKAM, packetContext.getPlayer().getBlockPos());
+//                    TeleportUtils.teleport(packetContext.getPlayer(), Dimensions.HAYKAM, packetContext.getPlayer().getBlockPos());
                 });
             }
         });

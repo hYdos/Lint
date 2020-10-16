@@ -1,12 +1,13 @@
 package me.hydos.lint.entity.ai;
 
-import net.minecraft.advancement.criterion.Criterions;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stats;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
@@ -82,7 +83,7 @@ public class BeeMateGoal extends Goal {
     }
 
     protected void breed() {
-        PassiveEntity passiveEntity = this.animal.createChild(this.mate);
+        PassiveEntity passiveEntity = this.animal.createChild((ServerWorld) world, this.mate);
         if (passiveEntity != null) {
             ServerPlayerEntity serverPlayerEntity = this.animal.getLovingPlayer();
             if (serverPlayerEntity == null && this.mate.getLovingPlayer() != null) {
@@ -91,7 +92,7 @@ public class BeeMateGoal extends Goal {
 
             if (serverPlayerEntity != null) {
                 serverPlayerEntity.incrementStat(Stats.ANIMALS_BRED);
-                Criterions.BRED_ANIMALS.trigger(serverPlayerEntity, this.animal, this.mate, passiveEntity);
+                Criteria.BRED_ANIMALS.trigger(serverPlayerEntity, this.animal, this.mate, passiveEntity);
             }
 
             this.animal.setBreedingAge(6000);

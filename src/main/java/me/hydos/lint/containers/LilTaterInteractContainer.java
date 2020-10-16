@@ -2,20 +2,20 @@ package me.hydos.lint.containers;
 
 import me.hydos.lint.containers.util.LintInventory;
 import me.hydos.lint.entity.tater.LilTaterEntity;
-import net.minecraft.container.Container;
-import net.minecraft.container.ContainerType;
-import net.minecraft.container.Slot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class LilTaterInteractContainer extends Container {
+public class LilTaterInteractContainer extends ScreenHandler {
 
 
     public final int taterId;
 
-    public LilTaterInteractContainer(ContainerType<?> type, int syncId, int taterId, PlayerInventory playerInventory) {
+    public LilTaterInteractContainer(ScreenHandlerType<?> type, int syncId, int taterId, PlayerInventory playerInventory) {
         super(type, syncId);
         this.taterId = taterId;
 

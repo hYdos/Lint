@@ -1,8 +1,5 @@
 package me.hydos.lint.core.client;
 
-import me.hydos.lint.blocks.AdventureTransformerBlockEntity;
-import me.hydos.lint.blocks.AdventureTransformerGui;
-import me.hydos.lint.blocks.AdventureTransformerRecipe;
 import me.hydos.lint.containers.LilTaterInteractContainer;
 import me.hydos.lint.containers.client.LilTaterContainerScreen;
 import me.hydos.lint.core.Containers;
@@ -10,22 +7,16 @@ import me.hydos.lint.core.Entities;
 import me.hydos.lint.entity.beetater.BeeTaterEntityRenderer;
 import me.hydos.lint.entity.boss.KingTaterRenderer;
 import me.hydos.lint.entity.tater.LilTaterEntityRenderer;
-import me.hydos.techrebornApi.TechRebornApi;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.text.LiteralText;
-import net.minecraft.util.Identifier;
-import techreborn.client.GuiType;
 
 @Environment(EnvType.CLIENT)
 public interface LintClient {
 
     static void onInitializeClient() {
-        TechRebornApi.registerBlock("lint", "adventure_transformer", AdventureTransformerRecipe.class, ItemGroup.TOOLS, AdventureTransformerBlockEntity::new, GuiType.register(new Identifier("adventure_transformer"), () -> () -> AdventureTransformerGui::new));
-
         EntityRendererRegistry.INSTANCE.register(Entities.LIL_TATER, (entityRenderDispatcher, context) -> new LilTaterEntityRenderer(entityRenderDispatcher));
         EntityRendererRegistry.INSTANCE.register(Entities.BEE_TATER, (entityRenderDispatcher, context) -> new BeeTaterEntityRenderer(entityRenderDispatcher));
         EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new LilTaterEntityRenderer(entityRenderDispatcher));

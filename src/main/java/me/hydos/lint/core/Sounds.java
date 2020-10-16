@@ -7,11 +7,11 @@ import net.minecraft.util.registry.Registry;
 public interface Sounds {
 
 
-    Identifier MY_SOUND_ID = new Identifier("lint:music.king_tater");
+    Identifier KING_TATER_SOUND_ID = new Identifier("lint:music.king_tater");
 
-    SoundEvent KING_TATER = new SoundEvent(MY_SOUND_ID);
+    SoundEvent KING_TATER = new SoundEvent(KING_TATER_SOUND_ID);
 
     static void onInitialize() {
-        Registry.register(Registry.SOUND_EVENT, MY_SOUND_ID, KING_TATER);
+        Registry.register(Registry.SOUND_EVENT, KING_TATER_SOUND_ID, KING_TATER);
     }
 }

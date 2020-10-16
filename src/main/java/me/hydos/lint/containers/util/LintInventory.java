@@ -4,11 +4,10 @@ import com.google.common.collect.Lists;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.InventoryListener;
+import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DefaultedList;
-
+import net.minecraft.util.collection.DefaultedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +15,7 @@ public class LintInventory implements Inventory {
 
     private final int size;
     private final DefaultedList<ItemStack> stackList;
-    private List<InventoryListener> listeners;
+    private List<InventoryChangedListener> listeners;
 
     public LintInventory(int size) {
         this.size = size;
@@ -32,7 +31,7 @@ public class LintInventory implements Inventory {
         return stackList;
     }
 
-    public void addListener(InventoryListener inventoryListener) {
+    public void addListener(InventoryChangedListener inventoryListener) {
         if (this.listeners == null) {
             this.listeners = Lists.newArrayList();
         }
@@ -40,15 +39,15 @@ public class LintInventory implements Inventory {
         this.listeners.add(inventoryListener);
     }
 
-    public void removeListener(InventoryListener inventoryListener) {
+    public void removeListener(InventoryChangedListener inventoryListener) {
         this.listeners.remove(inventoryListener);
     }
 
-    public ItemStack getInvStack(int slot) {
+    public ItemStack getStack(int slot) {
         return slot >= 0 && slot < this.stackList.size() ? this.stackList.get(slot) : ItemStack.EMPTY;
     }
 
-    public ItemStack takeInvStack(int slot, int amount) {
+    public ItemStack removeStack(int slot, int amount) {
         ItemStack itemStack = Inventories.splitStack(this.stackList, slot, amount);
         if (!itemStack.isEmpty()) {
             this.markDirty();
@@ -61,7 +60,7 @@ public class LintInventory implements Inventory {
         ItemStack itemStack = new ItemStack(item, 0);
 
         for (int i = this.size - 1; i >= 0; --i) {
-            ItemStack itemStack2 = this.getInvStack(i);
+            ItemStack itemStack2 = this.getStack(i);
             if (itemStack2.getItem().equals(item)) {
                 int j = count - itemStack.getCount();
                 ItemStack itemStack3 = itemStack2.split(j);
@@ -90,7 +89,7 @@ public class LintInventory implements Inventory {
         }
     }
 
-    public ItemStack removeInvStack(int slot) {
+    public ItemStack removeStack(int slot) {
         ItemStack itemStack = this.stackList.get(slot);
         if (itemStack.isEmpty()) {
             return ItemStack.EMPTY;
@@ -100,20 +99,20 @@ public class LintInventory implements Inventory {
         }
     }
 
-    public void setInvStack(int slot, ItemStack stack) {
+    public void setStack(int slot, ItemStack stack) {
         this.stackList.set(slot, stack);
-        if (!stack.isEmpty() && stack.getCount() > this.getInvMaxStackAmount()) {
-            stack.setCount(this.getInvMaxStackAmount());
+        if (!stack.isEmpty() && stack.getCount() > this.getMaxCountPerStack()) {
+            stack.setCount(this.getMaxCountPerStack());
         }
 
         this.markDirty();
     }
 
-    public int getInvSize() {
+    public int size() {
         return this.size;
     }
 
-    public boolean isInvEmpty() {
+    public boolean isEmpty() {
         for (ItemStack stack : this.stackList) {
             if (!stack.isEmpty()) {
                 return true;
@@ -125,13 +124,13 @@ public class LintInventory implements Inventory {
 
     public void markDirty() {
         if (this.listeners != null) {
-            for (InventoryListener inventoryListener : this.listeners) {
-                inventoryListener.onInvChange(this);
+            for (InventoryChangedListener inventoryListener : this.listeners) {
+                inventoryListener.onInventoryChanged(this);
             }
         }
     }
 
-    public boolean canPlayerUseInv(PlayerEntity player) {
+    public boolean canPlayerUse(PlayerEntity player) {
         return true;
     }
 
@@ -146,9 +145,9 @@ public class LintInventory implements Inventory {
 
     private void addToNewSlot(ItemStack stack) {
         for (int i = 0; i < this.size; ++i) {
-            ItemStack itemStack = this.getInvStack(i);
+            ItemStack itemStack = this.getStack(i);
             if (itemStack.isEmpty()) {
-                this.setInvStack(i, stack.copy());
+                this.setStack(i, stack.copy());
                 stack.setCount(0);
                 return;
             }
@@ -157,7 +156,7 @@ public class LintInventory implements Inventory {
 
     private void addToExistingSlot(ItemStack stack) {
         for (int i = 0; i < this.size; ++i) {
-            ItemStack itemStack = this.getInvStack(i);
+            ItemStack itemStack = this.getStack(i);
             if (ItemStack.areItemsEqualIgnoreDamage(itemStack, stack)) {
                 this.transfer(stack, itemStack);
                 if (stack.isEmpty()) {
@@ -168,7 +167,7 @@ public class LintInventory implements Inventory {
     }
 
     private void transfer(ItemStack source, ItemStack target) {
-        int i = Math.min(this.getInvMaxStackAmount(), target.getMaxCount());
+        int i = Math.min(this.getMaxCountPerStack(), target.getMaxCount());
         int j = Math.min(source.getCount(), i - target.getCount());
         if (j > 0) {
             target.increment(j);

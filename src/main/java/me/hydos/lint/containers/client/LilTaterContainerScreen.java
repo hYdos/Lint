@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import me.hydos.lint.containers.LilTaterInteractContainer;
 import me.hydos.lint.entity.tater.LilTaterEntity;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
@@ -26,6 +27,12 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         this.container = container;
     }
 
+    @Override
+    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+        renderBackground();
+    }
+
+
     public static void drawTater(int x, int y, int size, float mouseX, float mouseY, LilTaterEntity entity) {
         RenderSystem.pushMatrix();
         RenderSystem.translatef((float) x, (float) y, 1050.0F);
@@ -35,7 +42,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         matrixStack.scale((float) size, (float) size, (float) size);
         Quaternion quaternion = Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F);
         matrixStack.multiply(quaternion);
-        EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderManager();
+        EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
         entityRenderDispatcher.setRenderShadows(false);
         VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
         entityRenderDispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixStack, immediate, 15728880);
@@ -44,26 +51,28 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         RenderSystem.popMatrix();
     }
 
+
+
     @Override
-    public void render(int mouseX, int mouseY, float delta) {
+    public void render(MatrixStack stack, int mouseX, int mouseY, float delta) {
         if (container != null) {
-            super.render(mouseX, mouseY, delta);
+            super.render(stack, mouseX, mouseY, delta);
             this.mouseX = mouseX;
             this.mouseY = mouseY;
         } else {
             this.onClose();
-            minecraft.openScreen(null);
+            client.openScreen(null);
         }
     }
 
     public void renderBackground() {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        assert this.minecraft != null;
-        this.minecraft.getTextureManager().bindTexture(backgroundIdentifier);
-        this.blit(x, y - 20, 0, 0, this.containerWidth, this.containerHeight + 65);
-        assert this.minecraft.player != null;
+        assert this.client != null;
+        this.client.getTextureManager().bindTexture(backgroundIdentifier);
+//        this.blit(x, y - 20, 0, 0, this.backgroundWidth, this.backgroundHeight + 65); FIXME
+        assert this.client.player != null;
 
-        LilTaterEntity tater = (LilTaterEntity) this.minecraft.world.getEntityById(container.taterId);
+        LilTaterEntity tater = (LilTaterEntity) this.client.world.getEntityById(container.taterId);
 
         if (tater == null) {
             onClose();
@@ -71,11 +80,5 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         }
 
         drawTater(x + 51, y + 20, 60, (float) (x + 51) - this.mouseX, (float) (y + 75 - 50) - this.mouseY, tater);
-    }
-
-    @Override
-    protected void drawBackground(float delta, int mouseX, int mouseY) {
-        super.renderBackground();
-        renderBackground();
     }
 }

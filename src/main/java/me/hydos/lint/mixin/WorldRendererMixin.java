@@ -9,8 +9,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import static me.hydos.lint.core.Dimensions.HAYKAM;
-
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
 
@@ -24,10 +22,11 @@ public class WorldRendererMixin {
 
     @Redirect(method = "renderSky", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/WorldRenderer;SUN:Lnet/minecraft/util/Identifier;"))
     private Identifier getCoolsun() {
-        if (world.getDimension().getType() == HAYKAM) {
-            return COOLSUN;
-        } else {
-            return SUN;
-        }
+//        if (world.getDimension().getType() == HAYKAM) {
+//            return COOLSUN;
+//        } else {
+//            return SUN;
+//        }
+        return SUN;
     }
 }

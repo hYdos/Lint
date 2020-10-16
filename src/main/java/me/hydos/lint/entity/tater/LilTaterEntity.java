@@ -2,12 +2,17 @@ package me.hydos.lint.entity.tater;
 
 import me.hydos.lint.containers.util.LintInventory;
 import me.hydos.lint.core.Containers;
+import me.hydos.lint.core.Entities;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableShoulderEntity;
@@ -17,8 +22,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("EntityConstructor")
 public class LilTaterEntity extends TameableShoulderEntity {
@@ -45,12 +53,12 @@ public class LilTaterEntity extends TameableShoulderEntity {
         return super.toTag(tag);
     }
 
-    @Override
-    protected void initAttributes() {
-        super.initAttributes();
-
-        this.getAttributes().get(EntityAttributes.MOVEMENT_SPEED).setBaseValue(0.6);
-        this.getAttributes().register(EntityAttributes.FLYING_SPEED).setBaseValue(0.6);
+    public static DefaultAttributeContainer.Builder initAttributes() {
+        return LivingEntity.createLivingAttributes()
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.6)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
+                .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6);
     }
 
     @Override
@@ -70,12 +78,7 @@ public class LilTaterEntity extends TameableShoulderEntity {
         this.goalSelector.add(6, new WanderAroundGoal(this, 0.4));
     }
 
-    @Override
-    public PassiveEntity createChild(PassiveEntity mate) {
-        return (PassiveEntity) getType().create(world);
-    }
-
-    public boolean interactMob(PlayerEntity player, Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (!this.world.isClient) {
             if (!isTamed() && player.getStackInHand(hand).getItem() == Items.POTATO) {
                 this.setOwner(player);
@@ -87,12 +90,12 @@ public class LilTaterEntity extends TameableShoulderEntity {
                     //the person who clicked owns the tater
                     ContainerProviderRegistry.INSTANCE.openContainer(Containers.TATER_CONTAINER_ID, player, packetByteBuf -> packetByteBuf.writeInt(getEntityId()));
                 } else {
-                    return false;
+                    return ActionResult.FAIL;
                 }
             }
         }
 
-        return true;
+        return ActionResult.SUCCESS;
     }
 
     @Override
@@ -103,5 +106,10 @@ public class LilTaterEntity extends TameableShoulderEntity {
     @Override
     protected EntityNavigation createNavigation(World world) {
         return new BirdNavigation(this, world);
+    }
+
+    @Override
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return (PassiveEntity) getType().create(world);
     }
 }

@@ -4,15 +4,19 @@ import me.hydos.lint.entity.tater.LilTaterEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 import java.util.UUID;
@@ -31,12 +35,10 @@ public class TaterMinion extends LilTaterEntity implements Monster {
         goalSelector.add(2, new MeleeAttackGoal(this, 1D, false));
     }
 
-    @Override
-    protected void initAttributes() {
-        super.initAttributes();
-
-        getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(10.0D);
-        getAttributes().register(EntityAttributes.ATTACK_DAMAGE).setBaseValue(1.5D);
+    public static DefaultAttributeContainer.Builder initAttributes() {
+        return LilTaterEntity.initAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.5);
     }
 
     @Override
@@ -55,13 +57,8 @@ public class TaterMinion extends LilTaterEntity implements Monster {
     }
 
     @Override
-    public boolean interactMob(PlayerEntity player, Hand hand) {
-        return false;
-    }
-
-    @Override
-    public PassiveEntity createChild(PassiveEntity mate) {
-        return null;
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        return ActionResult.FAIL;
     }
 
     @Override
@@ -90,6 +87,11 @@ public class TaterMinion extends LilTaterEntity implements Monster {
     @Override
     public boolean canAttackWithOwner(LivingEntity target, LivingEntity owner) {
         return false;
+    }
+
+    @Override
+    public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return null;
     }
 
     private class LookAtTargetGoal extends Goal {

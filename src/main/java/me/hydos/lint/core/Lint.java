@@ -1,15 +1,18 @@
 package me.hydos.lint.core;
 
-import me.hydos.lint.blocks.AdventureTransformerBlockEntity;
-import me.hydos.lint.blocks.AdventureTransformerRecipe;
-import me.hydos.techrebornApi.TechRebornApi;
-import net.minecraft.item.ItemGroup;
+import net.fabricmc.api.DedicatedServerModInitializer;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
 import net.minecraft.util.Identifier;
-import techreborn.client.GuiType;
+import net.minecraft.util.registry.Registry;
 
-public interface Lint {
+public class Lint implements DedicatedServerModInitializer {
 
-    static void onInitializeServer() {
-        TechRebornApi.registerBlock("lint", "adventure_transformer", AdventureTransformerRecipe.class, ItemGroup.TOOLS, AdventureTransformerBlockEntity::new, GuiType.register(new Identifier("adventure_transformer"), null));
+    public static final Block ADVENTURE_TRANSFORMER = new Block(AbstractBlock.Settings.of(Material.METAL));
+    public static final String MODID = "lint";
+
+    public void onInitializeServer() {
+        Registry.register(Registry.BLOCK, new Identifier(MODID, "adventure_transformer"), ADVENTURE_TRANSFORMER);
     }
 }
