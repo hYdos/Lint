@@ -26,8 +26,8 @@ public class HaykamBiomeSource extends BiomeSource {
 
     private static BishopLayer bishopLayer;
     private final Registry<Biome> biomeRegistry;
-    private long seed;
-    private OpenSimplexNoise noise;
+    private final long seed;
+    private final OpenSimplexNoise noise;
 
     public static final Codec<HaykamBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),

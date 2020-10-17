@@ -1,10 +1,11 @@
 package io.github.hydos.lint.world.biome;
 
-import io.github.hydos.lint.world.feature.Features;
-import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.Lint;
+import io.github.hydos.lint.block.Blocks;
+import io.github.hydos.lint.entity.Entities;
+import io.github.hydos.lint.world.feature.Features;
+import io.github.hydos.lint.world.gen.HaykamChunkGenerator;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -19,12 +20,7 @@ import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
 public class Biomes {
-
-    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> TESTING = SurfaceBuilder.DEFAULT
-            .withConfig(new TernarySurfaceConfig(
-                    Blocks.OBSIDIAN.getDefaultState(),
-                    Blocks.DIRT.getDefaultState(),
-                    Blocks.GRAVEL.getDefaultState()));
+    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> TESTING = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState()));
 
     public static final Biome CORRUPT_FOREST;
     public static final Biome MYSTICAL_FOREST;
@@ -32,23 +28,20 @@ public class Biomes {
     public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
     public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
 
-    public static boolean hasSpecialBlocks(Biome biome) {
-        return false;
-    }
-
     public static void register() {
+        Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_generator"), HaykamChunkGenerator.CODEC);
+
         Registry.register(BuiltinRegistries.BIOME, MYSTICAL_FOREST_KEY.getValue(), MYSTICAL_FOREST);
         Registry.register(BuiltinRegistries.BIOME, CORRUPT_FOREST_KEY.getValue(), CORRUPT_FOREST);
 
         BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(CORRUPT_FOREST), CORRUPT_FOREST_KEY);
         BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(MYSTICAL_FOREST), MYSTICAL_FOREST_KEY);
 
-        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, Lint.id("unused"), TESTING);
     }
 
     static {
         SpawnSettings.Builder spawningSettings = new SpawnSettings.Builder();
-        spawningSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.LIL_TATER, 12, 4, 4));
+        spawningSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.LIL_TATER, 12, 1, 3));
         MYSTICAL_FOREST = new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
                 .category(Biome.Category.NONE)
@@ -66,7 +59,8 @@ public class Biomes {
                 .spawnSettings(spawningSettings.build())
                 .generationSettings(new GenerationSettings.Builder()
                         .surfaceBuilder(TESTING)
-                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL)
+                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_TREES)
+                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
                         .build())
                 .build();
 
@@ -87,7 +81,7 @@ public class Biomes {
                 .spawnSettings(spawningSettings.build())
                 .generationSettings(new GenerationSettings.Builder()
                         .surfaceBuilder(TESTING)
-                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT)
+                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
                         .build())
                 .build();
     }

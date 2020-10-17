@@ -1,9 +1,10 @@
 package io.github.hydos.lint.world.gen;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.hydos.lint.callback.ServerChunkManagerCallback;
 import io.github.hydos.lint.world.biome.Biomes;
 import io.github.hydos.lint.world.biome.HaykamBiomeSource;
-import io.github.hydos.lint.callback.ServerChunkManagerCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -44,15 +45,15 @@ public class HaykamChunkGenerator extends ChunkGenerator {
     private double[] stoneNoise = new double[256];
     private final long seed;
 
-    public static final Codec<? extends ChunkGenerator> CODEC = RegistryLookupCodec.of(Registry.BIOME_KEY)
-            .xmap(registry -> new HaykamChunkGenerator(0, registry), HaykamChunkGenerator::getBiomeRegistry)
-            .stable()
-            .codec();
-
     private final Registry<Biome> biomeRegistry;
 
-    public HaykamChunkGenerator(long seed, Registry<Biome> registry) {
-        super(new HaykamBiomeSource(registry, 69), new StructuresConfig(false));
+    public static final Codec<HaykamChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+            Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
+            RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
+    ).apply(instance, instance.stable(HaykamChunkGenerator::new)));
+
+    public HaykamChunkGenerator(Long seed, Registry<Biome> registry) {
+        super(new HaykamBiomeSource(registry, seed), new StructuresConfig(false));
         this.seed = seed;
         this.biomeRegistry = registry;
 
@@ -76,13 +77,9 @@ public class HaykamChunkGenerator extends ChunkGenerator {
         return CODEC;
     }
 
-    public Registry<Biome> getBiomeRegistry() {
-        return this.biomeRegistry;
-    }
-
     @Override
     public ChunkGenerator withSeed(long seed) {
-        return this;
+        return new HaykamChunkGenerator(seed, biomeRegistry);
     }
 
     @Override
