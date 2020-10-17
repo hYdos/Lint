@@ -4,7 +4,7 @@
   "version": "1.2.0",
 
   "name": "Lint",
-  "description": "A accumulation of useful and feature adding survival features (An Adventure and Automation mod)",
+  "description": "Adds lots of content to the game to extend gameplay and make it more enjoyable",
   "authors": [
     "hydos",
     "valoghese",
@@ -16,18 +16,16 @@
   "environment": "*",
   "entrypoints": {
     "mm:early_risers": [
-      "me.hydos.lint.core.PreInitialize::initialize"
+      "io.github.hydos.lint.old.PreInitialize::initialize"
     ],
     "main": [
-      "me.hydos.lint.core.Lint",
-      "me.hydos.lint.core.Blocks::onInitialize",
-      "me.hydos.lint.core.Containers::onInitialize",
-      "me.hydos.lint.core.Entities::onInitialize",
-      "me.hydos.lint.core.Items::onInitialize",
-      "me.hydos.lint.core.LintCommon"
+      "io.github.hydos.lint.Lint",
+      "io.github.hydos.lint.old.Containers::onInitialize",
+      "io.github.hydos.lint.old.Entities::onInitialize",
+      "io.github.hydos.lint.old.Items::onInitialize"
     ],
     "client": [
-      "me.hydos.lint.core.client.LintClient::onInitializeClient"
+      "io.github.hydos.lint.old.client.LintClient::onInitializeClient"
     ]
   },
   "mixins": [

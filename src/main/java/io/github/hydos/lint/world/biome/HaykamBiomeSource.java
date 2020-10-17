@@ -3,7 +3,7 @@ package io.github.hydos.lint.world.biome;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.hydos.lint.world.layer.BishopLayer;
-import me.hydos.lint.util.OpenSimplexNoise;
+import io.github.hydos.lint.util.OpenSimplexNoise;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;

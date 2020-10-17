@@ -24,7 +24,7 @@ import net.minecraft.world.gen.chunk.StructuresConfig;
 import java.util.Objects;
 import java.util.Random;
 
-import static me.hydos.lint.core.Blocks.*;
+import static io.github.hydos.lint.block.Blocks.*;
 
 public class HaykamChunkGenerator extends ChunkGenerator {
 
@@ -42,17 +42,18 @@ public class HaykamChunkGenerator extends ChunkGenerator {
     private double[] sandSample = new double[256];
     private double[] gravelSample = new double[256];
     private double[] stoneNoise = new double[256];
-    private long seed;
+    private final long seed;
 
     public static final Codec<? extends ChunkGenerator> CODEC = RegistryLookupCodec.of(Registry.BIOME_KEY)
-            .xmap(HaykamChunkGenerator::new, HaykamChunkGenerator::getBiomeRegistry)
+            .xmap(registry -> new HaykamChunkGenerator(0, registry), HaykamChunkGenerator::getBiomeRegistry)
             .stable()
             .codec();
 
     private final Registry<Biome> biomeRegistry;
 
-    public HaykamChunkGenerator(Registry<Biome> registry) {
+    public HaykamChunkGenerator(long seed, Registry<Biome> registry) {
         super(new HaykamBiomeSource(registry, 69), new StructuresConfig(false));
+        this.seed = seed;
         this.biomeRegistry = registry;
 
         ServerChunkManagerCallback.EVENT.register(manager -> {

@@ -25,6 +25,6 @@ public class DimensionTypeMixin {
 
     @Inject(method = "createDefaultDimensionOptions", at = @At("TAIL"))
     private static void addAdditionalDefaultDimensionOptions(Registry<DimensionType> dimensionRegistry, Registry<Biome> biomeRegistry, Registry<ChunkGeneratorSettings> chunkGeneratorSettingsRegistry, long seed, CallbackInfoReturnable<SimpleRegistry<DimensionOptions>> cir) {
-        cir.getReturnValue().add(Dimensions.HAYKAM_DIM_OPTIONS, new DimensionOptions(() -> dimensionRegistry.getOrThrow(Dimensions.HAYKAM_DIM), new HaykamChunkGenerator(biomeRegistry)), Lifecycle.stable());
+        cir.getReturnValue().add(Dimensions.HAYKAM_DIM_OPTIONS, new DimensionOptions(() -> dimensionRegistry.getOrThrow(Dimensions.HAYKAM_DIM), new HaykamChunkGenerator(seed, biomeRegistry)), Lifecycle.stable());
     }
 }

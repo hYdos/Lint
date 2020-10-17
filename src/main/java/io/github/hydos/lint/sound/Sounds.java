@@ -1,6 +1,6 @@
 package io.github.hydos.lint.sound;
 
-import me.hydos.lint.core.Lint;
+import io.github.hydos.lint.Lint;
 import net.minecraft.sound.SoundEvent;
 
 public class Sounds {

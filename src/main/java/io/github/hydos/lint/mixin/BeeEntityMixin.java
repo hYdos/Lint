@@ -1,6 +1,6 @@
 package io.github.hydos.lint.mixin;
 
-import me.hydos.lint.entity.ai.BeeMateGoal;
+import io.github.hydos.lint.entity.ai.BeeMateGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.passive.AnimalEntity;

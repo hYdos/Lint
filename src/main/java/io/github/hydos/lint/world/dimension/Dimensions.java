@@ -1,7 +1,7 @@
 package io.github.hydos.lint.world.dimension;
 
 import io.github.hydos.lint.mixin.DimensionTypeAccessor;
-import me.hydos.lint.core.Lint;
+import io.github.hydos.lint.Lint;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
