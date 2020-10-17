@@ -2,6 +2,7 @@ package io.github.hydos.lint.worldgen;
 
 import com.mojang.serialization.Codec;
 import io.github.hydos.lint.biome.Biomes;
+import io.github.hydos.lint.biome.HaykamBiomeSource;
 import io.github.hydos.lint.callback.ServerChunkManagerCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -15,12 +16,12 @@ import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.source.FixedBiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.StructuresConfig;
 
+import java.util.Objects;
 import java.util.Random;
 
 import static me.hydos.lint.core.Blocks.*;
@@ -51,12 +52,12 @@ public class HaykamChunkGenerator extends ChunkGenerator {
     private final Registry<Biome> biomeRegistry;
 
     public HaykamChunkGenerator(Registry<Biome> registry) {
-        super(new FixedBiomeSource(registry.getOrThrow(Biomes.MYSTICAL_FOREST_KEY)), new StructuresConfig(false));
+        super(new HaykamBiomeSource(registry, 69), new StructuresConfig(false));
         this.biomeRegistry = registry;
 
         ServerChunkManagerCallback.EVENT.register(manager -> {
-            if(!manager.getWorld().isClient()){
-                Random rand = new Random(((ServerWorld)manager.getWorld()).getSeed());
+            if (!manager.getWorld().isClient()) {
+                Random rand = new Random(((ServerWorld) manager.getWorld()).getSeed());
                 noise1 = new OctaveHaykamNoiseSampler(rand, 16);
                 noise2 = new OctaveHaykamNoiseSampler(rand, 16);
                 noise3 = new OctaveHaykamNoiseSampler(rand, 8);
@@ -115,12 +116,11 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                 BlockState sand = MYSTICAL_SAND.getDefaultState();
                 BlockState gravel = WHITE_SAND.getDefaultState();
 
-                if (Biomes.hasSpecialBlocks(biome)) {
-                    //FIXME
-//                    grass = ((LintBlockDecorator) biome).getGrass();
-//                    dirt = ((LintBlockDecorator) biome).getUnderDirt();
-//                    sand = ((LintBlockDecorator) biome).getSand();
-//                    gravel = ((LintBlockDecorator) biome).getGravel();
+                if (Objects.equals(biomeRegistry.getId(biome), Biomes.CORRUPT_FOREST_KEY.getValue())) {
+                    grass = CORRUPT_GRASS.getDefaultState();
+                    dirt = RICH_DIRT.getDefaultState();
+                    sand = CORRUPT_SAND.getDefaultState();
+                    gravel = WHITE_SAND.getDefaultState();
                 }
 
                 boolean sandSampleAtPos = this.sandSample[(x + z * 16)] + random.nextDouble() * 0.2D > 0.0D;

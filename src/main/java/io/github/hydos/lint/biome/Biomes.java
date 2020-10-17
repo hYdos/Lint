@@ -1,5 +1,6 @@
 package io.github.hydos.lint.biome;
 
+import io.github.hydos.lint.feature.Features;
 import me.hydos.lint.core.Entities;
 import me.hydos.lint.core.Lint;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
@@ -12,7 +13,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
@@ -35,14 +36,14 @@ public class Biomes {
         return false;
     }
 
-    public static void register(){
+    public static void register() {
+        Registry.register(BuiltinRegistries.BIOME, MYSTICAL_FOREST_KEY.getValue(), MYSTICAL_FOREST);
+        Registry.register(BuiltinRegistries.BIOME, CORRUPT_FOREST_KEY.getValue(), CORRUPT_FOREST);
+
         BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(CORRUPT_FOREST), CORRUPT_FOREST_KEY);
         BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(MYSTICAL_FOREST), MYSTICAL_FOREST_KEY);
 
         Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, Lint.id("test_surface"), TESTING);
-
-        Registry.register(BuiltinRegistries.BIOME, MYSTICAL_FOREST_KEY.getValue(), MYSTICAL_FOREST);
-        Registry.register(BuiltinRegistries.BIOME, CORRUPT_FOREST_KEY.getValue(), CORRUPT_FOREST);
     }
 
     static {
@@ -63,7 +64,10 @@ public class Biomes {
                         .skyColor(0x77adff)
                         .build())
                 .spawnSettings(spawningSettings.build())
-                .generationSettings(new GenerationSettings.Builder().surfaceBuilder(TESTING).build())
+                .generationSettings(new GenerationSettings.Builder()
+                        .surfaceBuilder(TESTING)
+                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT)
+                        .build())
                 .build();
 
         CORRUPT_FOREST = new Biome.Builder()
@@ -81,7 +85,10 @@ public class Biomes {
                         .skyColor(0x77adff)
                         .build())
                 .spawnSettings(spawningSettings.build())
-                .generationSettings(new GenerationSettings.Builder().surfaceBuilder(TESTING).build())
+                .generationSettings(new GenerationSettings.Builder()
+                        .surfaceBuilder(TESTING)
+                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT)
+                        .build())
                 .build();
     }
 }

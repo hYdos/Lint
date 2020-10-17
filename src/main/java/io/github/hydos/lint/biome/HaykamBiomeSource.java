@@ -1,10 +1,10 @@
 package io.github.hydos.lint.biome;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import io.github.hydos.lint.callback.ServerChunkManagerCallback;
 import io.github.hydos.lint.layer.BishopLayer;
-import io.github.hydos.lint.mixin.DimensionTypeAccessor;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
@@ -17,13 +17,15 @@ import net.minecraft.world.biome.layer.util.LayerSampler;
 import net.minecraft.world.biome.source.BiomeLayerSampler;
 import net.minecraft.world.biome.source.BiomeSource;
 
+import java.util.Random;
 import java.util.function.LongFunction;
+import java.util.stream.Collectors;
 
 public class HaykamBiomeSource extends BiomeSource {
 
     private static BishopLayer bishopLayer;
     private final Registry<Biome> biomeRegistry;
-    private final long seed;
+    private long seed;
 
     public static final Codec<HaykamBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
@@ -33,9 +35,10 @@ public class HaykamBiomeSource extends BiomeSource {
     BiomeLayerSampler sampler;
 
     public HaykamBiomeSource(Registry<Biome> biomeRegistry, long seed) {
-        super(ImmutableList.of());
+        super(biomeRegistry.stream().collect(Collectors.toList()));
         this.seed = seed;
         bishopLayer = new BishopLayer(biomeRegistry);
+        sampler = createBiomeLayerSampler(seed);
         this.biomeRegistry = biomeRegistry;
     }
 
@@ -56,7 +59,7 @@ public class HaykamBiomeSource extends BiomeSource {
 
     @Override
     public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
-        return this.sampler.sample(biomeRegistry, biomeX, biomeY);
+        return Biomes.MYSTICAL_FOREST;
     }
 
     @Override
@@ -66,7 +69,6 @@ public class HaykamBiomeSource extends BiomeSource {
 
     @Override
     public BiomeSource withSeed(long seed) {
-        sampler = createBiomeLayerSampler(seed);
-        return this;
+        return new HaykamBiomeSource(biomeRegistry, seed);
     }
 }
