@@ -1,4 +1,4 @@
-package me.hydos.lint.mixin;
+package io.github.hydos.lint.mixin;
 
 import me.hydos.lint.entity.ai.BeeMateGoal;
 import net.minecraft.entity.EntityType;

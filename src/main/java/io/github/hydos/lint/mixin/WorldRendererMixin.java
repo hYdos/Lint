@@ -1,5 +1,6 @@
-package me.hydos.lint.mixin;
+package io.github.hydos.lint.mixin;
 
+import io.github.hydos.lint.dimension.Dimensions;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;
@@ -22,11 +23,10 @@ public class WorldRendererMixin {
 
     @Redirect(method = "renderSky", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/WorldRenderer;SUN:Lnet/minecraft/util/Identifier;"))
     private Identifier getCoolsun() {
-//        if (world.getDimension().getType() == HAYKAM) {
-//            return COOLSUN;
-//        } else {
-//            return SUN;
-//        }
-        return SUN;
+        if (world.getDimension() == Dimensions.HAYKAM) {
+            return COOLSUN;
+        } else {
+            return SUN;
+        }
     }
 }

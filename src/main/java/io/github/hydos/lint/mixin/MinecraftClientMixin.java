@@ -1,4 +1,4 @@
-package me.hydos.lint.mixin;
+package io.github.hydos.lint.mixin;
 
 import me.hydos.lint.core.Entities;
 import me.hydos.lint.core.Sounds;

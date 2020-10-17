@@ -1,15 +1,18 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "me.hydos.lint.mixin",
+  "package": "io.github.hydos.lint.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BeeEntityMixin",
-    "LocateCommandMixin"
+    "DimensionTypeAccessor",
+    "DimensionTypeMixin",
+    "LocateCommandMixin",
+    "ServerChunkManagerMixin"
   ],
   "client": [
-    "PlayerEntityRendererMixin",
     "MinecraftClientMixin",
+    "PlayerEntityRendererMixin",
     "WorldRendererMixin"
   ],
   "injectors": {

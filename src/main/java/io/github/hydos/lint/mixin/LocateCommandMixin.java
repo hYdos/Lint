@@ -1,4 +1,4 @@
-package me.hydos.lint.mixin;
+package io.github.hydos.lint.mixin;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

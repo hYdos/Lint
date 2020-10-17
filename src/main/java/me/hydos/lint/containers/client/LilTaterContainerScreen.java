@@ -29,7 +29,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
 
     @Override
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        renderBackground();
+        renderBackground(matrices);
     }
 
 
@@ -65,11 +65,11 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         }
     }
 
-    public void renderBackground() {
+    public void renderBackground(MatrixStack matrix) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         assert this.client != null;
         this.client.getTextureManager().bindTexture(backgroundIdentifier);
-//        this.blit(x, y - 20, 0, 0, this.backgroundWidth, this.backgroundHeight + 65); FIXME
+        drawTexture(matrix, x, y - 20, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);
         assert this.client.player != null;
 
         LilTaterEntity tater = (LilTaterEntity) this.client.world.getEntityById(container.taterId);
