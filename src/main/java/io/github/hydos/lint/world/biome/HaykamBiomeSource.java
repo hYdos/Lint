@@ -1,11 +1,12 @@
-package io.github.hydos.lint.biome;
+package io.github.hydos.lint.world.biome;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.hydos.lint.callback.ServerChunkManagerCallback;
-import io.github.hydos.lint.layer.BishopLayer;
-import net.minecraft.server.world.ServerWorld;
+import io.github.hydos.lint.world.layer.BishopLayer;
+import me.hydos.lint.util.OpenSimplexNoise;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.layer.ScaleLayer;
@@ -26,6 +27,7 @@ public class HaykamBiomeSource extends BiomeSource {
     private static BishopLayer bishopLayer;
     private final Registry<Biome> biomeRegistry;
     private long seed;
+    private OpenSimplexNoise noise;
 
     public static final Codec<HaykamBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
@@ -39,6 +41,7 @@ public class HaykamBiomeSource extends BiomeSource {
         this.seed = seed;
         bishopLayer = new BishopLayer(biomeRegistry);
         sampler = createBiomeLayerSampler(seed);
+        this.noise = new OpenSimplexNoise(new Random(seed));
         this.biomeRegistry = biomeRegistry;
     }
 
@@ -59,7 +62,11 @@ public class HaykamBiomeSource extends BiomeSource {
 
     @Override
     public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
-        return Biomes.MYSTICAL_FOREST;
+        if (this.noise.sample(biomeX * 0.05, biomeZ * 0.05) > 0.15) {
+            return biomeRegistry.getOrThrow(RegistryKey.of(Registry.BIOME_KEY, BuiltinRegistries.BIOME.getKey(Biomes.CORRUPT_FOREST).get().getValue()));
+        } else {
+            return biomeRegistry.getOrThrow(RegistryKey.of(Registry.BIOME_KEY, BuiltinRegistries.BIOME.getKey(Biomes.MYSTICAL_FOREST).get().getValue()));
+        }
     }
 
     @Override

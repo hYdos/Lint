@@ -1,6 +1,6 @@
-package io.github.hydos.lint.biome;
+package io.github.hydos.lint.world.biome;
 
-import io.github.hydos.lint.feature.Features;
+import io.github.hydos.lint.world.feature.Features;
 import me.hydos.lint.core.Entities;
 import me.hydos.lint.core.Lint;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
@@ -43,7 +43,7 @@ public class Biomes {
         BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(CORRUPT_FOREST), CORRUPT_FOREST_KEY);
         BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(MYSTICAL_FOREST), MYSTICAL_FOREST_KEY);
 
-        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, Lint.id("test_surface"), TESTING);
+        Registry.register(BuiltinRegistries.CONFIGURED_SURFACE_BUILDER, Lint.id("unused"), TESTING);
     }
 
     static {
@@ -66,7 +66,7 @@ public class Biomes {
                 .spawnSettings(spawningSettings.build())
                 .generationSettings(new GenerationSettings.Builder()
                         .surfaceBuilder(TESTING)
-                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT)
+                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL)
                         .build())
                 .build();
 

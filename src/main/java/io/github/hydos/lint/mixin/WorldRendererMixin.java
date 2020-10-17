@@ -1,6 +1,6 @@
 package io.github.hydos.lint.mixin;
 
-import io.github.hydos.lint.dimension.Dimensions;
+import io.github.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;

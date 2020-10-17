@@ -1,8 +1,20 @@
 {
-  "music.king_tater": {
-    "subtitle": "subtitles.king_tater_boss",
+  "music.king_tater_boss_theme": {
+    "subtitle": "subtitles.king_tater.boss_theme",
     "sounds": [
       "lint:king_tater_boss"
+    ]
+  },
+  "music.i509_boss_theme": {
+    "subtitle": "subtitles.i509.boss_theme",
+    "sounds": [
+      "lint:i509"
+    ]
+  },
+  "music.lex_manos_boss_theme": {
+    "subtitle": "subtitles.lex_manos.boss_theme",
+    "sounds": [
+      "lint:lexmanos"
     ]
   }
 }

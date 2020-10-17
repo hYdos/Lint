@@ -1,8 +1,8 @@
 package io.github.hydos.lint.mixin;
 
 import com.mojang.serialization.Lifecycle;
-import io.github.hydos.lint.dimension.Dimensions;
-import io.github.hydos.lint.worldgen.HaykamChunkGenerator;
+import io.github.hydos.lint.world.dimension.Dimensions;
+import io.github.hydos.lint.world.gen.HaykamChunkGenerator;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.SimpleRegistry;

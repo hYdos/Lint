@@ -1,4 +1,4 @@
-package io.github.hydos.lint.worldgen;
+package io.github.hydos.lint.world.gen;
 
 import java.util.Random;
 

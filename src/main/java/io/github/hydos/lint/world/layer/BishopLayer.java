@@ -1,6 +1,6 @@
-package io.github.hydos.lint.layer;
+package io.github.hydos.lint.world.layer;
 
-import io.github.hydos.lint.biome.Biomes;
+import io.github.hydos.lint.world.biome.Biomes;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;

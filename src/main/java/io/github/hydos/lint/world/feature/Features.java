@@ -1,4 +1,4 @@
-package io.github.hydos.lint.feature;
+package io.github.hydos.lint.world.feature;
 
 import me.hydos.lint.core.Blocks;
 import me.hydos.lint.core.Lint;
@@ -27,10 +27,10 @@ public class Features {
                     new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
 
     public static final ConfiguredFeature<?, ?> MYSTICAL = register("mystical_tree", TREE.configure((
-            new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.CORRUPT_LOG.getDefaultState()),
-                    new SimpleBlockStateProvider(Blocks.CORRUPT_LEAVES.getDefaultState()),
+            new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_LOG.getDefaultState()),
+                    new SimpleBlockStateProvider(Blocks.MYSTICAL_LEAVES.getDefaultState()),
                     new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
-                    new StraightTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(6, 0.3F, 3))));
+                    new StraightTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(3, 0.3F, 1))));
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(Registry.FEATURE, Lint.id(name), feature);

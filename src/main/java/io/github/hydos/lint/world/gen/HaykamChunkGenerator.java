@@ -1,8 +1,8 @@
-package io.github.hydos.lint.worldgen;
+package io.github.hydos.lint.world.gen;
 
 import com.mojang.serialization.Codec;
-import io.github.hydos.lint.biome.Biomes;
-import io.github.hydos.lint.biome.HaykamBiomeSource;
+import io.github.hydos.lint.world.biome.Biomes;
+import io.github.hydos.lint.world.biome.HaykamBiomeSource;
 import io.github.hydos.lint.callback.ServerChunkManagerCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

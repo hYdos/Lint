@@ -7,8 +7,8 @@
   "description": "A accumulation of useful and feature adding survival features (An Adventure and Automation mod)",
   "authors": [
     "hydos",
-    "ramidzkh",
-    "valoghese"
+    "valoghese",
+    "ramidzkh"
   ],
 
   "icon": "assets/lint/icon.png",
@@ -20,14 +20,10 @@
     ],
     "main": [
       "me.hydos.lint.core.Lint",
-      "me.hydos.lint.core.Biomes::onInitialize",
       "me.hydos.lint.core.Blocks::onInitialize",
       "me.hydos.lint.core.Containers::onInitialize",
-      "me.hydos.lint.core.Dimensions::onInitialize",
       "me.hydos.lint.core.Entities::onInitialize",
       "me.hydos.lint.core.Items::onInitialize",
-      "me.hydos.lint.core.Packets::onInitialize",
-      "me.hydos.lint.core.Sounds::onInitialize",
       "me.hydos.lint.core.LintCommon"
     ],
     "client": [

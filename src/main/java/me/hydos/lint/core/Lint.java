@@ -1,7 +1,6 @@
 package me.hydos.lint.core;
 
-import io.github.hydos.lint.biome.Biomes;
-import net.fabricmc.api.DedicatedServerModInitializer;
+import io.github.hydos.lint.world.biome.Biomes;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;

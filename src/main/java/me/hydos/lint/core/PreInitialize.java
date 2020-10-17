@@ -1,6 +1,7 @@
 package me.hydos.lint.core;
 
 import com.chocohead.mm.api.ClassTinkerers;
+import io.github.hydos.lint.sound.Sounds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;

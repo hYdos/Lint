@@ -1,4 +1,4 @@
-package io.github.hydos.lint.dimension;
+package io.github.hydos.lint.world.dimension;
 
 import io.github.hydos.lint.mixin.DimensionTypeAccessor;
 import me.hydos.lint.core.Lint;

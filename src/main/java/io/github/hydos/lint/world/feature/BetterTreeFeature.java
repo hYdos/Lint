@@ -1,11 +1,11 @@
-package io.github.hydos.lint.feature;
+package io.github.hydos.lint.world.feature;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
+import me.hydos.lint.core.Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.state.property.Properties;
 import net.minecraft.structure.Structure;
@@ -35,11 +35,11 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
     }
 
     private static boolean isVine(TestableWorld world, BlockPos pos) {
-        return world.testBlockState(pos, (state) -> state.isOf(Blocks.VINE));
+        return world.testBlockState(pos, (state) -> state.isOf(net.minecraft.block.Blocks.VINE));
     }
 
     private static boolean isWater(TestableWorld world, BlockPos pos) {
-        return world.testBlockState(pos, (state) -> state.isOf(Blocks.WATER));
+        return world.testBlockState(pos, (state) -> state.isOf(net.minecraft.block.Blocks.WATER));
     }
 
     public static boolean isAirOrLeaves(TestableWorld world, BlockPos pos) {
@@ -49,7 +49,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
     private static boolean isDirtOrGrass(TestableWorld world, BlockPos pos) {
         return world.testBlockState(pos, (state) -> {
             Block block = state.getBlock();
-            return block == me.hydos.lint.core.Blocks.CORRUPT_GRASS || block == me.hydos.lint.core.Blocks.MYSTICAL_GRASS;
+            return block == Blocks.CORRUPT_GRASS || block == Blocks.LIVELY_GRASS;
         });
     }
 
@@ -69,9 +69,10 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
     }
 
     private boolean generate(ModifiableTestableWorld world, Random random, BlockPos pos, Set<BlockPos> logPositions, Set<BlockPos> leavesPositions, BlockBox box, TreeFeatureConfig config) {
-        int i = config.trunkPlacer.getHeight(random);
-        int j = config.foliagePlacer.getRandomHeight(random, i, config);
-        int k = i - j;
+        pos = new BlockPos(((pos.getX() >> 4) << 4) + random.nextInt(16), pos.getY(), ((pos.getZ() >> 4) << 4) + random.nextInt(16));
+        int trunkPlacerHeight = config.trunkPlacer.getHeight(random);
+        int j = config.foliagePlacer.getRandomHeight(random, trunkPlacerHeight, config);
+        int k = trunkPlacerHeight - j;
         int l = config.foliagePlacer.getRandomRadius(random, k);
         BlockPos blockPos2;
         int r;
@@ -96,13 +97,13 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
             blockPos2 = pos;
         }
 
-        if (blockPos2.getY() >= 1 && blockPos2.getY() + i + 1 <= 256) {
+        if (blockPos2.getY() >= 1 && blockPos2.getY() + trunkPlacerHeight + 1 <= 256) {
             if (!isDirtOrGrass(world, blockPos2.down())) {
                 return false;
             } else {
                 OptionalInt optionalInt = config.minimumSize.getMinClippedHeight();
-                r = this.method_29963(world, i, blockPos2, config);
-                if (r >= i || optionalInt.isPresent() && r >= optionalInt.getAsInt()) {
+                r = this.method_29963(world, trunkPlacerHeight, blockPos2, config);
+                if (r >= trunkPlacerHeight || optionalInt.isPresent() && r >= optionalInt.getAsInt()) {
                     List<FoliagePlacer.TreeNode> list = config.trunkPlacer.generate(world, random, r, blockPos2, logPositions, box, config);
                     int finalR = r;
                     list.forEach((treeNode) -> config.foliagePlacer.generate(world, random, config, finalR, treeNode, j, l, leavesPositions, box));
