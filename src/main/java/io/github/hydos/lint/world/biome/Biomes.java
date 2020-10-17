@@ -1,7 +1,7 @@
 package io.github.hydos.lint.world.biome;
 
 import io.github.hydos.lint.world.feature.Features;
-import io.github.hydos.lint.old.Entities;
+import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.Lint;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
 import net.minecraft.block.Blocks;

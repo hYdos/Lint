@@ -1,15 +1,18 @@
-package io.github.hydos.lint.old;
+package io.github.hydos.lint.container;
 
-import io.github.hydos.lint.container.LilTaterInteractContainer;
+import io.github.hydos.lint.Lint;
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
-public interface Containers {
+//TODO update api
+public class Containers implements ModInitializer {
 
-    Identifier TATER_CONTAINER_ID = new Identifier("lint", "liltater");
+    public static final Identifier TATER_CONTAINER_ID = Lint.id("liltater");
 
-    static void onInitialize() {
+    @Override
+    public void onInitialize() {
         ContainerProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, id, player, buf) -> new LilTaterInteractContainer(ScreenHandlerType.ANVIL, syncId, buf.readInt(), player.inventory));
     }
 }

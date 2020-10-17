@@ -16,16 +16,17 @@
   "environment": "*",
   "entrypoints": {
     "mm:early_risers": [
-      "io.github.hydos.lint.old.PreInitialize::initialize"
+      "io.github.hydos.lint.chocoasm.PreInitialize::initialize"
     ],
     "main": [
       "io.github.hydos.lint.Lint",
-      "io.github.hydos.lint.old.Containers::onInitialize",
-      "io.github.hydos.lint.old.Entities::onInitialize",
-      "io.github.hydos.lint.old.Items::onInitialize"
+      "io.github.hydos.lint.container.Containers",
+      "io.github.hydos.lint.entity.Entities",
+      "io.github.hydos.lint.block.Blocks",
+      "io.github.hydos.lint.item.Items"
     ],
     "client": [
-      "io.github.hydos.lint.old.client.LintClient::onInitializeClient"
+      "io.github.hydos.lint.client.LintClient"
     ]
   },
   "mixins": [

@@ -1,6 +1,6 @@
 package io.github.hydos.lint.entity.features;
 
-import io.github.hydos.lint.old.Entities;
+import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.entity.tater.LilTaterEntityModel;
 import io.github.hydos.lint.entity.tater.LilTaterEntityRenderer;
 import net.fabricmc.api.EnvType;

@@ -1,7 +1,7 @@
 package io.github.hydos.lint.entity.tater;
 
 import io.github.hydos.lint.container.util.LintInventory;
-import io.github.hydos.lint.old.Containers;
+import io.github.hydos.lint.container.Containers;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

@@ -5,8 +5,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-import io.github.hydos.lint.old.Entities;
-import io.github.hydos.lint.old.Items;
+import io.github.hydos.lint.entity.Entities;
+import io.github.hydos.lint.item.Items;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;

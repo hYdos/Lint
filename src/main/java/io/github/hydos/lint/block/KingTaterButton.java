@@ -1,6 +1,6 @@
 package io.github.hydos.lint.block;
 
-import io.github.hydos.lint.old.Entities;
+import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.entity.boss.KingTater;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

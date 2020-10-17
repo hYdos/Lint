@@ -1,4 +1,4 @@
-package io.github.hydos.lint.old;
+package io.github.hydos.lint.chocoasm;
 
 import com.chocohead.mm.api.ClassTinkerers;
 import io.github.hydos.lint.sound.Sounds;
@@ -21,7 +21,7 @@ public interface PreInitialize {
         String soundEvent = remapper.mapClassName("intermediary", "net.minecraft.class_3414");
 
         ClassTinkerers.enumBuilder(musicType, 'L' + soundEvent + ';', "I", "I")
-                .addEnum("KING_TATER", () -> new Object[] {Sounds.KING_TATER, 0, 0})
+                .addEnum("KING_TATER", () -> new Object[]{Sounds.KING_TATER, 0, 0})
                 .build();
     }
 }
