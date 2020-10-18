@@ -41,10 +41,10 @@ public class Features {
     /**
      * PATCHY FEATURES
      **/
-    public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS = register("mystical_flowers", (ConfiguredFeature) Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_DAISY_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
-    public static final ConfiguredFeature<?, ?> MYSTICAL_STEMS = register("mystical_stems", (ConfiguredFeature) Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_STEM_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
-    public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = register("corrupt_stems", (ConfiguredFeature) Feature.RANDOM_PATCH.configure(Configs.CORRUPT_STEM_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
-    public static final ConfiguredFeature<?, ?> WILTED_FLOWERS = register("wilted_flowers", (ConfiguredFeature) Feature.RANDOM_PATCH.configure(Configs.WILTED_FLOWER_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+    public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS = register("mystical_flowers", (ConfiguredFeature<? extends FeatureConfig, ? extends Feature<? extends FeatureConfig>>) Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_DAISY_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+    public static final ConfiguredFeature<?, ?> MYSTICAL_STEMS = register("mystical_stems", (ConfiguredFeature<? extends FeatureConfig, ? extends Feature<? extends FeatureConfig>>) Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_STEM_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+    public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = register("corrupt_stems", (ConfiguredFeature<? extends FeatureConfig, ? extends Feature<? extends FeatureConfig>>) Feature.RANDOM_PATCH.configure(Configs.CORRUPT_STEM_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+    public static final ConfiguredFeature<?, ?> WILTED_FLOWERS = register("wilted_flowers", (ConfiguredFeature<? extends FeatureConfig, ? extends Feature<? extends FeatureConfig>>) Feature.RANDOM_PATCH.configure(Configs.WILTED_FLOWER_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
 
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
