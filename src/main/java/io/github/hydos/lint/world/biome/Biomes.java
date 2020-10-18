@@ -77,7 +77,7 @@ public class Biomes implements ModInitializer {
                 .generationSettings(new GenerationSettings.Builder()
                         .surfaceBuilder(TESTING)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
-                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CONFIGURED_RETURN_PORTAL)
+                        .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
                         .build()
