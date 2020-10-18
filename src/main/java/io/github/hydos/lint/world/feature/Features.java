@@ -19,7 +19,7 @@ public class Features {
      * UNCONFIGURED FEATURES
      **/
     public static final Feature<TreeFeatureConfig> TREE = register("tree", new BetterTreeFeature(TreeFeatureConfig.CODEC));
-    public static final Feature<?> RETURN_PORTAL = register("portal", new PortalFeature());
+    public static final Feature<DefaultFeatureConfig> RETURN_PORTAL = register("portal", new PortalFeature());
 
     public static final ConfiguredFeature<?, ?> CORRUPT_TREES = register("corrupt_tree", TREE.configure((
             new TreeFeatureConfig.Builder(
@@ -36,7 +36,7 @@ public class Features {
     /**
      * MISC
      */
-    public static final ConfiguredFeature<?, ?> CONFIGURED_RETURN_PORTAL = register("return_portal", RETURN_PORTAL.configure(null));
+    public static final ConfiguredFeature<?, ?> CONFIGURED_RETURN_PORTAL = register("return_portal", RETURN_PORTAL.configure(DefaultFeatureConfig.INSTANCE));
 
     /**
      * PATCHY FEATURES
