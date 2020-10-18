@@ -15,9 +15,6 @@
 
   "environment": "*",
   "entrypoints": {
-    "mm:early_risers": [
-      "io.github.hydos.lint.chocoasm.PreInitialize::initialize"
-    ],
     "main": [
       "io.github.hydos.lint.Lint",
       "io.github.hydos.lint.container.Containers",

@@ -15,6 +15,7 @@ import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
@@ -65,6 +66,8 @@ public class Biomes {
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_STEMS)
                         .build())
                 .build();
+
+        DefaultBiomeFeatures.addBatsAndMonsters(spawningSettings);
 
         CORRUPT_FOREST = new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)
