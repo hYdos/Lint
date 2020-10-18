@@ -1,11 +1,7 @@
 package io.github.hydos.lint.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -18,12 +14,9 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class LintCorruptGrassBlock extends FlowerBlock {
+
     public LintCorruptGrassBlock(StatusEffect effect, Settings settings) {
         super(effect, 7, settings);
-
-        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            BlockRenderLayerMap.INSTANCE.putBlock(this, RenderLayer.getTranslucent());
-        }
     }
 
     @Override
