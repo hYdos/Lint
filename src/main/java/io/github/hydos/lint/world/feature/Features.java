@@ -15,8 +15,11 @@ import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.trunk.StraightTrunkPlacer;
 
 public class Features {
-    /**         TREES          **/
+    /**
+     * UNCONFIGURED FEATURES
+     **/
     public static final Feature<TreeFeatureConfig> TREE = register("tree", new BetterTreeFeature(TreeFeatureConfig.CODEC));
+    public static final Feature<?> RETURN_PORTAL = register("portal", new PortalFeature());
 
     public static final ConfiguredFeature<?, ?> CORRUPT_TREES = register("corrupt_tree", TREE.configure((
             new TreeFeatureConfig.Builder(
@@ -30,9 +33,18 @@ public class Features {
                     new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
                     new StraightTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(3, 0.3F, 1))));
 
-    /**      PATCHY FEATURES      **/
+    /**
+     * MISC
+     */
+    public static final ConfiguredFeature<?, ?> CONFIGURED_RETURN_PORTAL = register("return_portal", RETURN_PORTAL.configure(null));
 
-    public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS = register("mystical_flowers", (ConfiguredFeature)Feature.RANDOM_PATCH.configure(Configs.GRASS_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+    /**
+     * PATCHY FEATURES
+     **/
+    public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS = register("mystical_flowers", (ConfiguredFeature) Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_DAISY_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+    public static final ConfiguredFeature<?, ?> MYSTICAL_STEMS = register("mystical_stems", (ConfiguredFeature) Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_STEM_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+    public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = register("corrupt_stems", (ConfiguredFeature) Feature.RANDOM_PATCH.configure(Configs.CORRUPT_STEM_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+    public static final ConfiguredFeature<?, ?> WILTED_FLOWERS = register("wilted_flowers", (ConfiguredFeature) Feature.RANDOM_PATCH.configure(Configs.WILTED_FLOWER_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
 
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
@@ -44,10 +56,16 @@ public class Features {
     }
 
     public static final class Configs {
-        public static final RandomPatchFeatureConfig GRASS_CONFIG;
+        public static final RandomPatchFeatureConfig MYSTICAL_DAISY_CONFIG;
+        public static final RandomPatchFeatureConfig MYSTICAL_STEM_CONFIG;
+        public static final RandomPatchFeatureConfig CORRUPT_STEM_CONFIG;
+        public static final RandomPatchFeatureConfig WILTED_FLOWER_CONFIG;
 
         static {
-            GRASS_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_DAISY.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
+            MYSTICAL_DAISY_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_DAISY.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
+            MYSTICAL_STEM_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_STEM.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
+            CORRUPT_STEM_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.CORRUPT_STEM.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
+            WILTED_FLOWER_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.WILTED_FLOWER.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
         }
     }
 }

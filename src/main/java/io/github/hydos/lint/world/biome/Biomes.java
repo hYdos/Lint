@@ -20,6 +20,7 @@ import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
 public class Biomes {
+    public static final int CORRUPT_FOG_COLOUR = 0x916ec1;
     private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> TESTING = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState()));
 
     public static final Biome CORRUPT_FOREST;
@@ -61,6 +62,7 @@ public class Biomes {
                         .surfaceBuilder(TESTING)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_TREES)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
+                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_STEMS)
                         .build())
                 .build();
 
@@ -75,13 +77,16 @@ public class Biomes {
                         .waterColor(0)
                         .waterColor(0x3f76e4)
                         .waterFogColor(0x050533)
-                        .fogColor(0xc0d8ff)
+                        .fogColor(CORRUPT_FOG_COLOUR)
                         .skyColor(0x77adff)
                         .build())
                 .spawnSettings(spawningSettings.build())
                 .generationSettings(new GenerationSettings.Builder()
                         .surfaceBuilder(TESTING)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
+                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CONFIGURED_RETURN_PORTAL)
+                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
+                        .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
                         .build())
                 .build();
     }

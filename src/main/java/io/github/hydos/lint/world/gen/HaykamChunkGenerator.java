@@ -58,17 +58,15 @@ public class HaykamChunkGenerator extends ChunkGenerator {
         this.biomeRegistry = registry;
 
         ServerChunkManagerCallback.EVENT.register(manager -> {
-            if (!manager.getWorld().isClient()) {
-                Random rand = new Random(((ServerWorld) manager.getWorld()).getSeed());
-                noise1 = new OctaveHaykamNoiseSampler(rand, 16);
-                noise2 = new OctaveHaykamNoiseSampler(rand, 16);
-                noise3 = new OctaveHaykamNoiseSampler(rand, 8);
-                beachNoise = new OctaveHaykamNoiseSampler(rand, 4);
-                surfaceNoise = new OctaveHaykamNoiseSampler(rand, 4);
-                noise6 = new OctaveHaykamNoiseSampler(rand, 10);
-                noise7 = new OctaveHaykamNoiseSampler(rand, 16);
-                treeNoise = new OctaveHaykamNoiseSampler(rand, 8);
-            }
+            Random rand = new Random(((ServerWorld) manager.getWorld()).getSeed());
+            noise1 = new OctaveHaykamNoiseSampler(rand, 16);
+            noise2 = new OctaveHaykamNoiseSampler(rand, 16);
+            noise3 = new OctaveHaykamNoiseSampler(rand, 8);
+            beachNoise = new OctaveHaykamNoiseSampler(rand, 4);
+            surfaceNoise = new OctaveHaykamNoiseSampler(rand, 4);
+            noise6 = new OctaveHaykamNoiseSampler(rand, 10);
+            noise7 = new OctaveHaykamNoiseSampler(rand, 16);
+            treeNoise = new OctaveHaykamNoiseSampler(rand, 8);
         });
     }
 

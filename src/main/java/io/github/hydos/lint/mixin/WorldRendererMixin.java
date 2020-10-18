@@ -1,5 +1,6 @@
 package io.github.hydos.lint.mixin;
 
+import io.github.hydos.lint.Lint;
 import io.github.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
@@ -13,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
 
-    private static final Identifier COOLSUN = new Identifier("lint", "textures/environment/twin_sun.png");
+    private static final Identifier COOL_SUN = Lint.id("textures/environment/twin_sun.png");
 
     @Shadow
     @Final
@@ -24,7 +25,7 @@ public class WorldRendererMixin {
     @Redirect(method = "renderSky", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/WorldRenderer;SUN:Lnet/minecraft/util/Identifier;"))
     private Identifier getCoolsun() {
         if (world.getDimension() == Dimensions.HAYKAM) {
-            return COOLSUN;
+            return COOL_SUN;
         } else {
             return SUN;
         }
