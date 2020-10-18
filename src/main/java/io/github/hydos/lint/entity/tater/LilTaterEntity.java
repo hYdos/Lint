@@ -80,7 +80,7 @@ public class LilTaterEntity extends TameableShoulderEntity {
                 this.setOwner(player);
                 this.setTamed(true);
                 this.world.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0, 4, 0);
-                player.setStackInHand(hand, ItemStack.EMPTY);
+                player.getStackInHand(hand).decrement(1);
             } else {
                 if (getOwner() == player) {
                     //the person who clicked owns the tater
