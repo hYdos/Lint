@@ -5,6 +5,7 @@ import io.github.hydos.lint.block.Blocks;
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.world.feature.Features;
 import io.github.hydos.lint.world.gen.HaykamChunkGenerator;
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -20,7 +21,7 @@ import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
-public class Biomes {
+public class Biomes implements ModInitializer {
     public static final int CORRUPT_FOG_COLOUR = 0x916ec1;
     private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> TESTING = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState()));
 
@@ -30,7 +31,7 @@ public class Biomes {
     public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
     public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
 
-    public static void register() {
+    public void onInitialize() {
         Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_generator"), HaykamChunkGenerator.CODEC);
 
         Registry.register(BuiltinRegistries.BIOME, MYSTICAL_FOREST_KEY.getValue(), MYSTICAL_FOREST);
@@ -82,7 +83,8 @@ public class Biomes {
                         .waterFogColor(0x050533)
                         .fogColor(CORRUPT_FOG_COLOUR)
                         .skyColor(0x77adff)
-                        .build())
+                        .build()
+                )
                 .spawnSettings(spawningSettings.build())
                 .generationSettings(new GenerationSettings.Builder()
                         .surfaceBuilder(TESTING)
@@ -90,7 +92,8 @@ public class Biomes {
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CONFIGURED_RETURN_PORTAL)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
-                        .build())
+                        .build()
+                )
                 .build();
     }
 }

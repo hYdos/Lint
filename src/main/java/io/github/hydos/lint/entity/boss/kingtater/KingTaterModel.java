@@ -1,4 +1,4 @@
-package io.github.hydos.lint.entity.boss;
+package io.github.hydos.lint.entity.boss.kingtater;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.ModelPart;

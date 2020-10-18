@@ -28,7 +28,7 @@ public class MinecraftClientMixin {
         Entity entity = this.cameraEntity;
 
         if (world != null && entity != null && !world.getEntitiesByType(Entities.KING_TATER, entity.getBoundingBox().expand(40), $ -> true).isEmpty()) {
-            callbackInfoReturnable.setReturnValue(MusicType.createIngameMusic(Sounds.KING_TATER));
+            callbackInfoReturnable.setReturnValue(Sounds.KING_TATER_LOOP);
         }
     }
 }

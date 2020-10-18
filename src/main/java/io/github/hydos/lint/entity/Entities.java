@@ -2,8 +2,8 @@ package io.github.hydos.lint.entity;
 
 import io.github.hydos.lint.Lint;
 import io.github.hydos.lint.entity.beetater.BeeTaterEntity;
-import io.github.hydos.lint.entity.boss.KingTater;
-import io.github.hydos.lint.entity.boss.TaterMinion;
+import io.github.hydos.lint.entity.boss.kingtater.KingTater;
+import io.github.hydos.lint.entity.boss.kingtater.TaterMinion;
 import io.github.hydos.lint.entity.tater.LilTaterEntity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;

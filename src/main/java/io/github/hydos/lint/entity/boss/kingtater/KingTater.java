@@ -1,4 +1,4 @@
-package io.github.hydos.lint.entity.boss;
+package io.github.hydos.lint.entity.boss.kingtater;
 
 import java.util.HashSet;
 import java.util.Set;

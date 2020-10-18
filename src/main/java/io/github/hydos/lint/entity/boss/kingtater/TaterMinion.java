@@ -1,4 +1,4 @@
-package io.github.hydos.lint.entity.boss;
+package io.github.hydos.lint.entity.boss.kingtater;
 
 import io.github.hydos.lint.entity.tater.LilTaterEntity;
 import net.minecraft.entity.EntityType;

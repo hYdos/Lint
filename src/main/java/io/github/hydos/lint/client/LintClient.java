@@ -5,7 +5,7 @@ import io.github.hydos.lint.container.client.LilTaterContainerScreen;
 import io.github.hydos.lint.container.Containers;
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.entity.beetater.BeeTaterEntityRenderer;
-import io.github.hydos.lint.entity.boss.KingTaterRenderer;
+import io.github.hydos.lint.entity.boss.kingtater.KingTaterRenderer;
 import io.github.hydos.lint.entity.tater.LilTaterEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;

@@ -1,7 +1,7 @@
 package io.github.hydos.lint.block;
 
 import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.entity.boss.KingTater;
+import io.github.hydos.lint.entity.boss.kingtater.KingTater;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

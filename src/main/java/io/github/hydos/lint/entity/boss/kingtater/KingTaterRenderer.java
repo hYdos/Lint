@@ -1,4 +1,4 @@
-package io.github.hydos.lint.entity.boss;
+package io.github.hydos.lint.entity.boss.kingtater;
 
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
