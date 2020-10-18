@@ -29,10 +29,10 @@ public class LintClient implements ClientModInitializer {
 
         ScreenProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractContainer(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));
 
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.CORRUPT_STEM, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.WILTED_FLOWER, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_STEM, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_DAISY, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_GRASS, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.CORRUPT_STEM, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.WILTED_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_STEM, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_DAISY, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_GRASS, RenderLayer.getCutout());
     }
 }

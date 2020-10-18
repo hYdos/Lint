@@ -69,6 +69,7 @@ public interface Blocks {
     Block LIVELY_GRASS = new Block(FabricBlockSettings.of(Material.SOIL).hardness(0.5f).sounds(BlockSoundGroup.GRASS));
 
     Block MYSTICAL_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
+    Block MYSTICAL_FALLEN_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
     Block MYSTICAL_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD));
     Block MYSTICAL_GRASS = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
@@ -80,6 +81,7 @@ public interface Blocks {
     Block MYSTICAL_SAND = new FallingBlock(SAND_SETTINGS);
 
     Block CORRUPT_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
+    Block CORRUPT_FALLEN_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
     Block CORRUPT_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD));
     Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(00.5f).sounds(BlockSoundGroup.GRASS));
     Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
@@ -125,6 +127,9 @@ public interface Blocks {
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_SAND, "corrupt_sand");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, RETURN_HOME, "return_home");
+
+        registerBlock(ItemGroup.DECORATIONS, MYSTICAL_FALLEN_LEAVES, "mystical_fallen_leaves");
+        registerBlock(ItemGroup.DECORATIONS, CORRUPT_FALLEN_LEAVES, "corrupt_fallen_leaves");
 
         BlockRenderLayerMap.INSTANCE.putBlock(MYSTICAL_DAISY, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MYSTICAL_STEM, RenderLayer.getCutout());
