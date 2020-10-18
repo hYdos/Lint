@@ -85,6 +85,11 @@ public class Blocks implements ModInitializer {
     public static final Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(00.5f).sounds(BlockSoundGroup.GRASS));
     public static final Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
 
+    static void registerBlock(ItemGroup itemGroup, Block block, String path) {
+        Registry.register(Registry.BLOCK, Lint.id(path), block);
+        Registry.register(Registry.ITEM, Lint.id(path), new BlockItem(block, new Item.Settings().group(itemGroup)));
+    }
+
     @Override
     public void onInitialize() {
         registerBlock(ItemGroup.REDSTONE, ADVENTURE_TRANSFORMER, "adventure_transformer");
@@ -127,10 +132,5 @@ public class Blocks implements ModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(MYSTICAL_STEM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(CORRUPT_STEM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(WILTED_FLOWER, RenderLayer.getCutout());
-    }
-
-    static void registerBlock(ItemGroup itemGroup, Block block, String path) {
-        Registry.register(Registry.BLOCK, Lint.id(path), block);
-        Registry.register(Registry.ITEM, Lint.id(path), new BlockItem(block, new Item.Settings().group(itemGroup)));
     }
 }

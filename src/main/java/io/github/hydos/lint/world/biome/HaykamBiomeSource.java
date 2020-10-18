@@ -2,8 +2,8 @@ package io.github.hydos.lint.world.biome;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.hydos.lint.world.layer.BishopLayer;
 import io.github.hydos.lint.util.OpenSimplexNoise;
+import io.github.hydos.lint.world.layer.BishopLayer;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -25,15 +25,13 @@ import java.util.stream.Collectors;
 public class HaykamBiomeSource extends BiomeSource {
 
     private static BishopLayer bishopLayer;
-    private final Registry<Biome> biomeRegistry;
-    private final long seed;
-    private final OpenSimplexNoise noise;
-
     public static final Codec<HaykamBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
             Codec.LONG.fieldOf("seed").stable().forGetter(source -> source.seed))
             .apply(instance, instance.stable(HaykamBiomeSource::new)));
-
+    private final Registry<Biome> biomeRegistry;
+    private final long seed;
+    private final OpenSimplexNoise noise;
     BiomeLayerSampler sampler;
 
     public HaykamBiomeSource(Registry<Biome> biomeRegistry, long seed) {

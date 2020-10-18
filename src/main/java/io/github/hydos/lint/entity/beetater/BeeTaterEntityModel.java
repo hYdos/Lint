@@ -48,7 +48,7 @@ public class BeeTaterEntityModel extends EntityModel<BeeTaterEntity> {
 
     @Override
     public void setAngles(BeeTaterEntity entity, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {
-        
+
     }
 
 

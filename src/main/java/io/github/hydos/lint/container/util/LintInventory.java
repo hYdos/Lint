@@ -8,6 +8,7 @@ import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

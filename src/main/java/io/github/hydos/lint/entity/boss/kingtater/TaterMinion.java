@@ -3,7 +3,9 @@ package io.github.hydos.lint.entity.boss.kingtater;
 import io.github.hydos.lint.entity.tater.LilTaterEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.Monster;
@@ -29,12 +31,6 @@ public class TaterMinion extends LilTaterEntity implements Monster {
         setTarget(target);
     }
 
-    @Override
-    protected void initGoals() {
-        goalSelector.add(1, new SwimGoal(this));
-        goalSelector.add(2, new MeleeAttackGoal(this, 1D, false));
-    }
-
     public static DefaultAttributeContainer.Builder initAttributes() {
         return LilTaterEntity.initAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
@@ -42,9 +38,15 @@ public class TaterMinion extends LilTaterEntity implements Monster {
     }
 
     @Override
+    protected void initGoals() {
+        goalSelector.add(1, new SwimGoal(this));
+        goalSelector.add(2, new MeleeAttackGoal(this, 1D, false));
+    }
+
+    @Override
     public void mobTick() {
         super.mobTick();
-        if(getTarget() != null){
+        if (getTarget() != null) {
             if (getTarget().removed) {
                 remove();
             }

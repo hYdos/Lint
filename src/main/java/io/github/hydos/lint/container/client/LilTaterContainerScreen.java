@@ -26,12 +26,6 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         this.container = container;
     }
 
-    @Override
-    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        renderBackground(matrices);
-    }
-
-
     public static void drawTater(int x, int y, int size, float mouseX, float mouseY, LilTaterEntity entity) {
         RenderSystem.pushMatrix();
         RenderSystem.translatef((float) x, (float) y, 1050.0F);
@@ -50,7 +44,10 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         RenderSystem.popMatrix();
     }
 
-
+    @Override
+    protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+        renderBackground(matrices);
+    }
 
     @Override
     public void render(MatrixStack stack, int mouseX, int mouseY, float delta) {

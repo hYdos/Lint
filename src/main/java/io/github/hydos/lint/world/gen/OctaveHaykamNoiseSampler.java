@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class OctaveHaykamNoiseSampler {
+
     private final HaykamNoiseSampler[] generators;
     private final int octaves;
 
@@ -31,11 +32,14 @@ public class OctaveHaykamNoiseSampler {
         } else {
             Arrays.fill(arrayToReuse, 0.0);
         }
+
         double double18 = 1.0;
+
         for (int j = 0; j < this.octaves; ++j) {
             this.generators[j].sample(arrayToReuse, double3, double5, double7, integer9, integer10, integer11, double12 * double18, double14 * double18, double16 * double18, double18);
             double18 /= 2.0;
         }
+
         return arrayToReuse;
     }
 }

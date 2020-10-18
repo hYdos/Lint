@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class TaterEssenceItem extends Item {
+
     public TaterEssenceItem(Item.Settings settings) {
         super(settings);
     }

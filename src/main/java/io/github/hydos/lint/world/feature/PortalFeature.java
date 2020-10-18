@@ -1,8 +1,5 @@
 package io.github.hydos.lint.world.feature;
 
-import java.util.Random;
-
-import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PillarBlock;
@@ -16,7 +13,14 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
+import java.util.Random;
+
 public class PortalFeature extends Feature<DefaultFeatureConfig> {
+
+    private static final BlockState BASE = Blocks.CHISELED_QUARTZ_BLOCK.getDefaultState();
+    private static final BlockState PILLAR = Blocks.QUARTZ_PILLAR.getDefaultState().with(PillarBlock.AXIS, Direction.Axis.Y);
+    private static final BlockState SLAB_LOWER = Blocks.QUARTZ_SLAB.getDefaultState();
+    private static final BlockState SLAB_UPPER = Blocks.QUARTZ_SLAB.getDefaultState().with(SlabBlock.TYPE, SlabType.TOP);
 
     public PortalFeature() {
         super(DefaultFeatureConfig.CODEC);
@@ -105,9 +109,4 @@ public class PortalFeature extends Feature<DefaultFeatureConfig> {
             this.setBlockState(world, pos.up(i), PILLAR);
         }
     }
-
-    private static final BlockState BASE = Blocks.CHISELED_QUARTZ_BLOCK.getDefaultState();
-    private static final BlockState PILLAR = Blocks.QUARTZ_PILLAR.getDefaultState().with(PillarBlock.AXIS, Direction.Axis.Y);
-    private static final BlockState SLAB_LOWER = Blocks.QUARTZ_SLAB.getDefaultState();
-    private static final BlockState SLAB_UPPER = Blocks.QUARTZ_SLAB.getDefaultState().with(SlabBlock.TYPE, SlabType.TOP);
 }

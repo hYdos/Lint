@@ -76,6 +76,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
         int l = config.foliagePlacer.getRandomRadius(random, k);
         BlockPos blockPos2;
         int r;
+
         if (!config.skipFluidCheck) {
             int m = world.getTopPosition(Heightmap.Type.OCEAN_FLOOR, pos).getY();
             r = world.getTopPosition(Heightmap.Type.WORLD_SURFACE, pos).getY();
@@ -146,6 +147,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
         Set<BlockPos> set3 = Sets.newHashSet();
         BlockBox blockBox = BlockBox.empty();
         boolean bl = this.generate(structureWorldAccess, random, blockPos, set, set2, blockBox, treeFeatureConfig);
+
         if (blockBox.minX <= blockBox.maxX && bl && !set.isEmpty()) {
             if (!treeFeatureConfig.decorators.isEmpty()) {
                 List<BlockPos> list = Lists.newArrayList(set);
@@ -175,6 +177,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
         Iterator<BlockPos> var9 = Lists.newArrayList(leaves).iterator();
 
         BlockPos blockPos2;
+
         while (var9.hasNext()) {
             blockPos2 = var9.next();
             if (box.contains(blockPos2)) {

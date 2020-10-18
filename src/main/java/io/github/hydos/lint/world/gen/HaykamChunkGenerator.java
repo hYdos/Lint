@@ -29,6 +29,13 @@ import static io.github.hydos.lint.block.Blocks.*;
 
 public class HaykamChunkGenerator extends ChunkGenerator {
 
+    public static final Codec<HaykamChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+            Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
+            RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
+    ).apply(instance, instance.stable(HaykamChunkGenerator::new)));
+    private final Random random = new Random();
+    private final long seed;
+    private final Registry<Biome> biomeRegistry;
     public OctaveHaykamNoiseSampler noise6;
     public OctaveHaykamNoiseSampler noise7;
     public OctaveHaykamNoiseSampler treeNoise;
@@ -37,20 +44,11 @@ public class HaykamChunkGenerator extends ChunkGenerator {
     private OctaveHaykamNoiseSampler noise3;
     private OctaveHaykamNoiseSampler beachNoise;
     private OctaveHaykamNoiseSampler surfaceNoise;
-    private final Random random = new Random();
     private double[] heightNoise;
     private double[] noiseArray1, noiseArray2, noiseArray3, noiseArray4, noiseArray5;
     private double[] sandSample = new double[256];
     private double[] gravelSample = new double[256];
     private double[] stoneNoise = new double[256];
-    private final long seed;
-
-    private final Registry<Biome> biomeRegistry;
-
-    public static final Codec<HaykamChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-            Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
-            RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
-    ).apply(instance, instance.stable(HaykamChunkGenerator::new)));
 
     public HaykamChunkGenerator(Long seed, Registry<Biome> registry) {
         super(new HaykamBiomeSource(registry, seed), new StructuresConfig(false));

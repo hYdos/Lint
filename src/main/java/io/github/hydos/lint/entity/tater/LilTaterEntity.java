@@ -1,7 +1,7 @@
 package io.github.hydos.lint.entity.tater;
 
-import io.github.hydos.lint.container.util.LintInventory;
 import io.github.hydos.lint.container.Containers;
+import io.github.hydos.lint.container.util.LintInventory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -36,6 +36,14 @@ public class LilTaterEntity extends TameableShoulderEntity {
         inventory = new LintInventory(31);
     }
 
+    public static DefaultAttributeContainer.Builder initAttributes() {
+        return LivingEntity.createLivingAttributes()
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.6)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
+                .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6);
+    }
+
     @Override
     public void fromTag(CompoundTag tag) {
         super.fromTag(tag);
@@ -47,14 +55,6 @@ public class LilTaterEntity extends TameableShoulderEntity {
     public CompoundTag toTag(CompoundTag tag) {
         Inventories.toTag(tag, inventory.getRawList());
         return super.toTag(tag);
-    }
-
-    public static DefaultAttributeContainer.Builder initAttributes() {
-        return LivingEntity.createLivingAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.6)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
-                .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1)
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6);
     }
 
     @Override

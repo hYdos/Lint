@@ -7,14 +7,14 @@ import java.util.Random;
  */
 public class OpenSimplexNoise extends RawOpenSimplexNoise {
 
+    private final double xOffset, yOffset;
+
     public OpenSimplexNoise(Random rand) {
         super(rand.nextLong());
 
         this.xOffset = rand.nextDouble();
         this.yOffset = rand.nextDouble();
     }
-
-    private final double xOffset, yOffset;
 
     public double sample(double x) {
         return super.sample(x + this.xOffset, 0.0);
@@ -47,7 +47,28 @@ class RawOpenSimplexNoise {
     private static final double SQUISH_CONSTANT_2D = 0.366025403784439;      //(Math.sqrt(2+1)-1)/2;
 
     private static final double NORM_CONSTANT_2D = 47;
-
+    //Gradients for 2D. They approximate the directions to the
+    //vertices of an octagon from the center.
+    private static final byte[] gradients2D = new byte[]{
+            5, 2, 2, 5,
+            -5, 2, -2, 5,
+            5, -2, 2, -5,
+            -5, -2, -2, -5,
+    };
+    //Gradients for 3D. They approximate the directions to the
+    //vertices of a rhombicuboctahedron from the center, skewed so
+    //that the triangular and square facets can be inscribed inside
+    //circles of the same radius.
+    private static final byte[] gradients3D = new byte[]{
+            -11, 4, 4, -4, 11, 4, -4, 4, 11,
+            11, 4, 4, 4, 11, 4, 4, 4, 11,
+            -11, -4, 4, -4, -11, 4, -4, -4, 11,
+            11, -4, 4, 4, -11, 4, 4, -4, 11,
+            -11, 4, -4, -4, 11, -4, -4, 4, -11,
+            11, 4, -4, 4, 11, -4, 4, 4, -11,
+            -11, -4, -4, -4, -11, -4, -4, -4, -11,
+            11, -4, -4, 4, -11, -4, 4, -4, -11,
+    };
     private final short[] perm;
 
     //Initializes the class using a permutation array generated from a 64-bit seed.
@@ -69,6 +90,11 @@ class RawOpenSimplexNoise {
             perm[i] = source[r];
             source[r] = source[i];
         }
+    }
+
+    private static int fastFloor(double x) {
+        int xi = (int) x;
+        return x < xi ? xi - 1 : xi;
     }
 
     //2D OpenSimplex Noise.
@@ -190,33 +216,4 @@ class RawOpenSimplexNoise {
         return gradients2D[index] * dx
                 + gradients2D[index + 1] * dy;
     }
-
-    private static int fastFloor(double x) {
-        int xi = (int) x;
-        return x < xi ? xi - 1 : xi;
-    }
-
-    //Gradients for 2D. They approximate the directions to the
-    //vertices of an octagon from the center.
-    private static final byte[] gradients2D = new byte[]{
-            5, 2, 2, 5,
-            -5, 2, -2, 5,
-            5, -2, 2, -5,
-            -5, -2, -2, -5,
-    };
-
-    //Gradients for 3D. They approximate the directions to the
-    //vertices of a rhombicuboctahedron from the center, skewed so
-    //that the triangular and square facets can be inscribed inside
-    //circles of the same radius.
-    private static final byte[] gradients3D = new byte[]{
-            -11, 4, 4, -4, 11, 4, -4, 4, 11,
-            11, 4, 4, 4, 11, 4, 4, 4, 11,
-            -11, -4, 4, -4, -11, 4, -4, -4, 11,
-            11, -4, 4, 4, -11, 4, 4, -4, 11,
-            -11, 4, -4, -4, 11, -4, -4, 4, -11,
-            11, 4, -4, 4, 11, -4, 4, 4, -11,
-            -11, -4, -4, -4, -11, -4, -4, -4, -11,
-            11, -4, -4, 4, -11, -4, 4, -4, -11,
-    };
 }

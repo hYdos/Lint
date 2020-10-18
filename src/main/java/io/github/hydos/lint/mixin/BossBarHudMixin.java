@@ -13,13 +13,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BossBarHud.class)
 public class BossBarHudMixin {
 
-    @Shadow @Final private MinecraftClient client;
+    @Shadow
+    @Final
+    private MinecraftClient client;
 
     @Inject(method = "shouldThickenFog", at = @At("HEAD"), cancellable = true)
-    private void thickenBiomeFog(CallbackInfoReturnable<Boolean> cir){
+    private void thickenBiomeFog(CallbackInfoReturnable<Boolean> cir) {
         assert client.world != null;
         assert client.player != null;
-        if(client.world.getBiome(client.player.getBlockPos()).getFogColor() == Biomes.CORRUPT_FOG_COLOUR){
+        if (client.world.getBiome(client.player.getBlockPos()).getFogColor() == Biomes.CORRUPT_FOG_COLOUR) {
             cir.setReturnValue(true);
         }
     }

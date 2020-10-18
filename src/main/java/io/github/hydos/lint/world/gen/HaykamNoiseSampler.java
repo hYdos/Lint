@@ -3,6 +3,7 @@ package io.github.hydos.lint.world.gen;
 import java.util.Random;
 
 public class HaykamNoiseSampler {
+
     public final double offsetX;
     public final double offsetY;
     public final double offsetZ;
@@ -86,33 +87,43 @@ public class HaykamNoiseSampler {
         double double32 = 0.0;
         double double34 = 0.0;
         double double36 = 0.0;
+
         for (int i = 0; i < integer9; ++i) {
             double double39 = (double3 + i) * double12 + this.offsetX;
             int integer41 = (int) double39;
+
             if (double39 < integer41) {
                 --integer41;
             }
+
             int integer42 = integer41 & 0xFF;
             double39 -= integer41;
             double double43 = double39 * double39 * double39 * (double39 * (double39 * 6.0 - 15.0) + 10.0);
+
             for (int j = 0; j < integer11; ++j) {
                 double double46 = (double7 + j) * double16 + this.offsetZ;
                 int integer48 = (int) double46;
+
                 if (double46 < integer48) {
                     --integer48;
                 }
+
                 int integer49 = integer48 & 0xFF;
                 double46 -= integer48;
                 double double50 = double46 * double46 * double46 * (double46 * (double46 * 6.0 - 15.0) + 10.0);
+
                 for (int k = 0; k < integer10; ++k) {
                     double double53 = (double5 + k) * double14 + this.offsetY;
                     int integer55 = (int) double53;
+
                     if (double53 < integer55) {
                         --integer55;
                     }
+
                     int integer56 = integer55 & 0xFF;
                     double53 -= integer55;
                     double double57 = double53 * double53 * double53 * (double53 * (double53 * 6.0 - 15.0) + 10.0);
+
                     if (k == 0 || integer56 != integer23) {
                         integer23 = integer56;
                         int integer24 = this.p[integer42] + integer56;
@@ -126,6 +137,7 @@ public class HaykamNoiseSampler {
                         double34 = this.lerp(double43, this.gradient(this.p[integer25 + 1], double39, double53, double46 - 1.0), this.gradient(this.p[integer28 + 1], double39 - 1.0, double53, double46 - 1.0));
                         double36 = this.lerp(double43, this.gradient(this.p[integer26 + 1], double39, double53 - 1.0, double46 - 1.0), this.gradient(this.p[integer29 + 1], double39 - 1.0, double53 - 1.0, double46 - 1.0));
                     }
+
                     double double63 = this.lerp(double50, this.lerp(double57, double30, double32), this.lerp(double57, double34, double36));
                     int n21 = integer20++;
                     arrayToReuse[n21] += double63 * double21;

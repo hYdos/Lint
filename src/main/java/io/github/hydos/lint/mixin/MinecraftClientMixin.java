@@ -1,9 +1,8 @@
 package io.github.hydos.lint.mixin;
 
-import io.github.hydos.lint.sound.Sounds;
 import io.github.hydos.lint.entity.Entities;
+import io.github.hydos.lint.sound.Sounds;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.sound.MusicType;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.sound.MusicSound;

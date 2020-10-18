@@ -1,8 +1,8 @@
 package io.github.hydos.lint.client;
 
+import io.github.hydos.lint.container.Containers;
 import io.github.hydos.lint.container.LilTaterInteractContainer;
 import io.github.hydos.lint.container.client.LilTaterContainerScreen;
-import io.github.hydos.lint.container.Containers;
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.entity.beetater.BeeTaterEntityRenderer;
 import io.github.hydos.lint.entity.boss.kingtater.KingTaterRenderer;

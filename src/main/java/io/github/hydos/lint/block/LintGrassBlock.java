@@ -1,6 +1,5 @@
 package io.github.hydos.lint.block;
 
-import io.github.hydos.lint.block.Blocks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.loader.api.FabricLoader;

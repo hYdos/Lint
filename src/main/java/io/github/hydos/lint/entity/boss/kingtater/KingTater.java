@@ -1,27 +1,11 @@
 package io.github.hydos.lint.entity.boss.kingtater;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Predicate;
-
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.item.Items;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.control.MoveControl;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
-import net.minecraft.entity.ai.goal.LookAroundGoal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
-import net.minecraft.entity.ai.goal.RevengeGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
@@ -43,6 +27,11 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+import java.util.function.Predicate;
+
 @SuppressWarnings("EntityConstructor")
 public class KingTater extends HostileEntity implements RangedAttackMob {
 
@@ -55,6 +44,13 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
         super(type, world);
         moveControl = new KingTaterMoveControl(this);
         bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.PINK, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
+    }
+
+    public static DefaultAttributeContainer.Builder initAttributes() {
+        return LivingEntity.createLivingAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 15);
     }
 
     @Override
@@ -71,16 +67,9 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
         this.targetSelector.add(4, new FollowTargetGoal<>(this, LivingEntity.class, 10, false, false, PREDICATE));
     }
 
-    public static DefaultAttributeContainer.Builder initAttributes() {
-        return LivingEntity.createLivingAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 15);
-    }
-
     @Override
     protected void onKilledBy(LivingEntity adversary) {
-    	adversary.dropStack(new ItemStack(Items.TATER_ESSENCE));
+        adversary.dropStack(new ItemStack(Items.TATER_ESSENCE));
         if (adversary instanceof ServerPlayerEntity) {
             ((ServerPlayerEntity) adversary).networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.MASTER, getX(), getY(), getZ(), 1f, 1f));
         }
@@ -192,8 +181,8 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
     static class KingTaterMoveControl extends MoveControl {
 
         private final float targetYaw;
-        private int ticksUntilJump;
         private final KingTater slime;
+        private int ticksUntilJump;
 
         public KingTaterMoveControl(KingTater kingTater) {
             super(kingTater);
