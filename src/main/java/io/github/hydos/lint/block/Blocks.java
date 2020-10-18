@@ -94,12 +94,12 @@ public interface Blocks {
     static void initialize() {
         registerBlock(ItemGroup.REDSTONE, ADVENTURE_TRANSFORMER, "adventure_transformer");
 
-        registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_STEM, "corrupt_stem");
-        registerBlock(ItemGroup.BUILDING_BLOCKS, WILTED_FLOWER, "wilted_flower");
+        registerBlock(ItemGroup.DECORATIONS, CORRUPT_STEM, "corrupt_stem");
+        registerBlock(ItemGroup.DECORATIONS, WILTED_FLOWER, "wilted_flower");
 
-        registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_STEM, "mystical_stem");
+        registerBlock(ItemGroup.DECORATIONS, MYSTICAL_STEM, "mystical_stem");
 
-        registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_DAISY, "yellow_daisy");
+        registerBlock(ItemGroup.DECORATIONS, MYSTICAL_DAISY, "yellow_daisy");
         registerBlock(ItemGroup.BUILDING_BLOCKS, RED_BUTTON, "red_button");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, GREEN_BUTTON, "green_button");
@@ -126,7 +126,7 @@ public interface Blocks {
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_GRASS, "corrupt_grass");
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_SAND, "corrupt_sand");
 
-        registerBlock(ItemGroup.BUILDING_BLOCKS, RETURN_HOME, "return_home");
+        registerBlock(ItemGroup.DECORATIONS, RETURN_HOME, "return_home");
 
         registerBlock(ItemGroup.DECORATIONS, MYSTICAL_FALLEN_LEAVES, "mystical_fallen_leaves");
         registerBlock(ItemGroup.DECORATIONS, CORRUPT_FALLEN_LEAVES, "corrupt_fallen_leaves");
