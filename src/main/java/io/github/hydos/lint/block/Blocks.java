@@ -1,7 +1,6 @@
 package io.github.hydos.lint.block;
 
 import io.github.hydos.lint.Lint;
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -13,11 +12,11 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.registry.Registry;
 
-public class Blocks implements ModInitializer {
+public interface Blocks {
 
-    public static final Block ADVENTURE_TRANSFORMER = new Block(AbstractBlock.Settings.of(Material.METAL));
+    Block ADVENTURE_TRANSFORMER = new Block(AbstractBlock.Settings.of(Material.METAL));
 
-    public static final Block CORRUPT_STEM = new LintCorruptGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
+    Block CORRUPT_STEM = new LintCorruptGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
             .hardness(0)
@@ -25,7 +24,7 @@ public class Blocks implements ModInitializer {
             .nonOpaque()
     );
 
-    public static final Block WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
+    Block WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
             .hardness(0)
@@ -33,7 +32,7 @@ public class Blocks implements ModInitializer {
             .nonOpaque()
     );
 
-    public static final Block MYSTICAL_STEM = new LintGrassBlock(StatusEffects.RESISTANCE, FabricBlockSettings.of(Material.PLANT)
+    Block MYSTICAL_STEM = new LintGrassBlock(StatusEffects.RESISTANCE, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
             .hardness(0)
@@ -41,57 +40,56 @@ public class Blocks implements ModInitializer {
             .nonOpaque()
     );
 
-    public static final Block MYSTICAL_DAISY = new LintGrassBlock(StatusEffects.BAD_OMEN, net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.of(Material.PLANT)
+    Block MYSTICAL_DAISY = new LintGrassBlock(StatusEffects.BAD_OMEN, net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
             .hardness(0)
             .sounds(BlockSoundGroup.GRASS)
             .nonOpaque());
-    public static final Block RETURN_HOME = new ReturnHomeBlock(FabricBlockSettings.of(Material.STONE).hardness(-1.0f).sounds(BlockSoundGroup.METAL));
+    Block RETURN_HOME = new ReturnHomeBlock(FabricBlockSettings.of(Material.STONE).hardness(-1.0f).sounds(BlockSoundGroup.METAL));
 
-    public static final Block RED_BUTTON = new KingTaterButton(FabricBlockSettings.of(Material.SOIL).hardness(-0.1f).sounds(BlockSoundGroup.WET_GRASS));
+    Block RED_BUTTON = new KingTaterButton(FabricBlockSettings.of(Material.SOIL).hardness(-0.1f).sounds(BlockSoundGroup.WET_GRASS));
 
-    public static final Block GREEN_BUTTON = new KingTaterButton(FabricBlockSettings.of(Material.SOIL).hardness(-0.1f).sounds(BlockSoundGroup.WET_GRASS));
+    Block GREEN_BUTTON = new KingTaterButton(FabricBlockSettings.of(Material.SOIL).hardness(-0.1f).sounds(BlockSoundGroup.WET_GRASS));
 
-    public static final Block MYSTICAL_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD));
+    Block MYSTICAL_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD));
 
-    public static final Block DUNGEON_BRICKS = new Block(FabricBlockSettings.of(Material.STONE).hardness(4).sounds(BlockSoundGroup.STONE));
+    Block DUNGEON_BRICKS = new Block(FabricBlockSettings.of(Material.STONE).hardness(4).sounds(BlockSoundGroup.STONE));
 
-    public static final Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD);
-    public static final Block.Settings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE).hardness(0.5f).sounds(BlockSoundGroup.SAND);
+    Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD);
+    Block.Settings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE).hardness(0.5f).sounds(BlockSoundGroup.SAND);
 
-    public static final Block WHITE_SAND = new FallingBlock(SAND_SETTINGS);
+    Block WHITE_SAND = new FallingBlock(SAND_SETTINGS);
 
-    public static final Block CORRUPT_PLANKS = new Block(PLANK_SETTINGS);
+    Block CORRUPT_PLANKS = new Block(PLANK_SETTINGS);
 
-    public static final Block MYSTICAL_PLANKS = new Block(PLANK_SETTINGS);
+    Block MYSTICAL_PLANKS = new Block(PLANK_SETTINGS);
 
-    public static final Block RICH_DIRT = new Block(FabricBlockSettings.of(Material.SOIL).hardness(0.5f).sounds(BlockSoundGroup.WET_GRASS));
-    public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.of(Material.SOIL).hardness(0.5f).sounds(BlockSoundGroup.GRASS));
+    Block RICH_DIRT = new Block(FabricBlockSettings.of(Material.SOIL).hardness(0.5f).sounds(BlockSoundGroup.WET_GRASS));
+    Block LIVELY_GRASS = new Block(FabricBlockSettings.of(Material.SOIL).hardness(0.5f).sounds(BlockSoundGroup.GRASS));
 
-    public static final Block MYSTICAL_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-    public static final Block MYSTICAL_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD));
-    public static final Block MYSTICAL_GRASS = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
+    Block MYSTICAL_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
+    Block MYSTICAL_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD));
+    Block MYSTICAL_GRASS = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
             .hardness(0)
             .sounds(BlockSoundGroup.GRASS)
             .nonOpaque()
     );
-    public static final Block MYSTICAL_SAND = new FallingBlock(SAND_SETTINGS);
+    Block MYSTICAL_SAND = new FallingBlock(SAND_SETTINGS);
 
-    public static final Block CORRUPT_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-    public static final Block CORRUPT_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD));
-    public static final Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(00.5f).sounds(BlockSoundGroup.GRASS));
-    public static final Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
+    Block CORRUPT_LEAVES = new LeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
+    Block CORRUPT_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD));
+    Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(00.5f).sounds(BlockSoundGroup.GRASS));
+    Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
 
     static void registerBlock(ItemGroup itemGroup, Block block, String path) {
         Registry.register(Registry.BLOCK, Lint.id(path), block);
         Registry.register(Registry.ITEM, Lint.id(path), new BlockItem(block, new Item.Settings().group(itemGroup)));
     }
 
-    @Override
-    public void onInitialize() {
+    static void initialize() {
         registerBlock(ItemGroup.REDSTONE, ADVENTURE_TRANSFORMER, "adventure_transformer");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_STEM, "corrupt_stem");

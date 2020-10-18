@@ -19,9 +19,9 @@
       "io.github.hydos.lint.Lint",
       "io.github.hydos.lint.world.biome.Biomes",
       "io.github.hydos.lint.container.Containers",
-      "io.github.hydos.lint.entity.Entities",
-      "io.github.hydos.lint.block.Blocks",
-      "io.github.hydos.lint.item.Items"
+      "io.github.hydos.lint.entity.Entities::initialize",
+      "io.github.hydos.lint.block.Blocks::initialize",
+      "io.github.hydos.lint.item.Items::initialize"
     ],
     "client": [
       "io.github.hydos.lint.client.LintClient"

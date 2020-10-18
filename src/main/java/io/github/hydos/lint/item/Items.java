@@ -7,12 +7,11 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
-public class Items implements ModInitializer {
+public interface Items {
 
-    public static final Item TATER_ESSENCE = new TaterEssenceItem(new Item.Settings().group(ItemGroup.MATERIALS).rarity(Rarity.EPIC).maxCount(1));
+    Item TATER_ESSENCE = new TaterEssenceItem(new Item.Settings().group(ItemGroup.MATERIALS).rarity(Rarity.EPIC).maxCount(1));
 
-    @Override
-    public void onInitialize() {
+    static void initialize() {
         Registry.register(Registry.ITEM, Lint.id("tater_essence"), TATER_ESSENCE);
     }
 }
