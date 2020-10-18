@@ -39,7 +39,6 @@ public class Biomes implements ModInitializer {
 
         BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(CORRUPT_FOREST), CORRUPT_FOREST_KEY);
         BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(MYSTICAL_FOREST), MYSTICAL_FOREST_KEY);
-
     }
 
     static {
@@ -93,7 +92,6 @@ public class Biomes implements ModInitializer {
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
                         .build()
-                )
-                .build();
+                ).build();
     }
 }

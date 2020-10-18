@@ -5,13 +5,13 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BeeEntityMixin",
-    "BossBarHudMixin",
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
     "LocateCommandMixin",
     "ServerChunkManagerMixin"
   ],
   "client": [
+    "BossBarHudMixin",
     "MinecraftClientMixin",
     "PlayerEntityRendererMixin",
     "WorldRendererMixin"

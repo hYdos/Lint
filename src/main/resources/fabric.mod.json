@@ -17,6 +17,7 @@
   "entrypoints": {
     "main": [
       "io.github.hydos.lint.Lint",
+      "io.github.hydos.lint.world.biome.Biomes",
       "io.github.hydos.lint.container.Containers",
       "io.github.hydos.lint.entity.Entities",
       "io.github.hydos.lint.block.Blocks",

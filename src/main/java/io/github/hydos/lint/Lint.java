@@ -12,6 +12,5 @@ public class Lint implements ModInitializer {
     }
 
     public void onInitialize() {
-        Biomes.register();
     }
 }
