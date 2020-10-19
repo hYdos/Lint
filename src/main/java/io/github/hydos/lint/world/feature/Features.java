@@ -46,6 +46,8 @@ public class Features {
     public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = register("corrupt_stems", (ConfiguredFeature<? extends FeatureConfig, ? extends Feature<? extends FeatureConfig>>) Feature.RANDOM_PATCH.configure(Configs.CORRUPT_STEM_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
     public static final ConfiguredFeature<?, ?> WILTED_FLOWERS = register("wilted_flowers", (ConfiguredFeature<? extends FeatureConfig, ? extends Feature<? extends FeatureConfig>>) Feature.RANDOM_PATCH.configure(Configs.WILTED_FLOWER_CONFIG).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
 
+    public static final ConfiguredFeature<?, ?> CORRUPT_FALLEN_LEAVES = register("corrupt_fallen_leaves", (ConfiguredFeature<? extends FeatureConfig, ? extends Feature<? extends FeatureConfig>>) Feature.RANDOM_PATCH.configure(Configs.CORRUPT_FALLEN_LEAVES).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+    public static final ConfiguredFeature<?, ?> MYSTICAL_FALLEN_LEAVES = register("mystical_fallen_leaves", (ConfiguredFeature<? extends FeatureConfig, ? extends Feature<? extends FeatureConfig>>) Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_FALLEN_LEAVES).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(Registry.FEATURE, Lint.id(name), feature);
@@ -61,11 +63,17 @@ public class Features {
         public static final RandomPatchFeatureConfig CORRUPT_STEM_CONFIG;
         public static final RandomPatchFeatureConfig WILTED_FLOWER_CONFIG;
 
+        public static final RandomPatchFeatureConfig CORRUPT_FALLEN_LEAVES;
+        public static final RandomPatchFeatureConfig MYSTICAL_FALLEN_LEAVES;
+
         static {
             MYSTICAL_DAISY_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_DAISY.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
             MYSTICAL_STEM_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_STEM.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
             CORRUPT_STEM_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.CORRUPT_STEM.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
             WILTED_FLOWER_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.WILTED_FLOWER.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
+
+            CORRUPT_FALLEN_LEAVES = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.CORRUPT_FALLEN_LEAVES.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(6).build();
+            MYSTICAL_FALLEN_LEAVES = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_FALLEN_LEAVES.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(6).build();
         }
     }
 }
