@@ -16,5 +16,17 @@
     "sounds": [
       "lint:lexmanos"
     ]
+  },
+  "music.clandestine": {
+    "subtitle": "subtitles.dungeon.clandestine",
+    "sounds": [
+      "lint:clandestine"
+    ]
+  },
+  "music.mystical_forest": {
+    "subtitle": "subtitles.mystical_forest.music1",
+    "sounds": [
+      "lint:mystical_forest"
+    ]
   }
 }
