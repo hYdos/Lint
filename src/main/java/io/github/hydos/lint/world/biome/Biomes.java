@@ -84,6 +84,7 @@ public class Biomes implements ModInitializer {
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_FALLEN_LEAVES)
+                        .structureFeature(ConfiguredStructureFeatures.DUNGEON)
                         .build()
                 ).build();
     }
