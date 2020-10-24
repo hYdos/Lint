@@ -8,7 +8,8 @@
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
     "LocateCommandMixin",
-    "ServerChunkManagerMixin"
+    "ServerChunkManagerMixin",
+    "StructurePoolsMixin"
   ],
   "client": [
     "BossBarHudMixin",

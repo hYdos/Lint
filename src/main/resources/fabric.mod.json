@@ -2,21 +2,20 @@
   "schemaVersion": 1,
   "id": "lint",
   "version": "1.2.0",
-
   "name": "Lint",
   "description": "Adds lots of content to the game to extend gameplay and make it more enjoyable",
+  "license": "MIT",
   "authors": [
     "hydos",
     "valoghese",
     "ramidzkh"
   ],
-
   "icon": "assets/lint/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
       "io.github.hydos.lint.Lint",
+      "io.github.hydos.lint.world.structure.Structures",
       "io.github.hydos.lint.world.biome.Biomes",
       "io.github.hydos.lint.container.Containers",
       "io.github.hydos.lint.entity.Entities::initialize",
@@ -30,7 +29,7 @@
   "mixins": [
     "mixins.lint.json"
   ],
-
+  "accessWidener": "lint.aw",
   "depends": {
     "fabric": "*",
     "minecraft": "1.16.x"

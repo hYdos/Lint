@@ -5,6 +5,7 @@ import io.github.hydos.lint.block.Blocks;
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.world.feature.Features;
 import io.github.hydos.lint.world.gen.HaykamChunkGenerator;
+import io.github.hydos.lint.world.structure.ConfiguredStructureFeatures;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
 import net.minecraft.entity.SpawnGroup;
@@ -54,6 +55,7 @@ public class Biomes implements ModInitializer {
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_STEMS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FALLEN_LEAVES)
+                        .structureFeature(ConfiguredStructureFeatures.DUNGEON)
                         .build())
                 .build();
 

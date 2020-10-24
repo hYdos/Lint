@@ -3,6 +3,7 @@ package io.github.hydos.lint.block;
 import io.github.hydos.lint.Lint;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
 import net.minecraft.block.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.effect.StatusEffects;
@@ -10,11 +11,10 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 public interface Blocks {
-
-    Block ADVENTURE_TRANSFORMER = new Block(AbstractBlock.Settings.of(Material.METAL));
 
     Block CORRUPT_STEM = new LintCorruptGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
@@ -45,7 +45,9 @@ public interface Blocks {
             .breakInstantly()
             .hardness(0)
             .sounds(BlockSoundGroup.GRASS)
-            .nonOpaque());
+            .nonOpaque()
+    );
+
     Block RETURN_HOME = new ReturnHomeBlock(FabricBlockSettings.of(Material.STONE).hardness(-1.0f).sounds(BlockSoundGroup.METAL));
 
     Block RED_BUTTON = new KingTaterButton(FabricBlockSettings.of(Material.SOIL).hardness(-0.1f).sounds(BlockSoundGroup.WET_GRASS));
@@ -70,7 +72,8 @@ public interface Blocks {
 
     Block MYSTICAL_LEAVES = new LintLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
     Block MYSTICAL_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-    Block MYSTICAL_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD));
+    Block MYSTICAL_LOG = createLogBlock(MaterialColor.LIME_TERRACOTTA, MaterialColor.LIME_TERRACOTTA);
+    Block MYSTICAL_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
     Block MYSTICAL_GRASS = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
@@ -82,18 +85,25 @@ public interface Blocks {
 
     Block CORRUPT_LEAVES = new LintLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
     Block CORRUPT_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-    Block CORRUPT_LOG = new Block(FabricBlockSettings.of(Material.WOOD).hardness(2).sounds(BlockSoundGroup.WOOD));
+    Block CORRUPT_LOG = createLogBlock(MaterialColor.PURPLE, MaterialColor.PURPLE);
     Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(00.5f).sounds(BlockSoundGroup.GRASS));
     Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
+
+    static PillarBlock createLogBlock(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
+        return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+    }
 
     static void registerBlock(ItemGroup itemGroup, Block block, String path) {
         Registry.register(Registry.BLOCK, Lint.id(path), block);
         Registry.register(Registry.ITEM, Lint.id(path), new BlockItem(block, new Item.Settings().group(itemGroup)));
     }
 
-    static void initialize() {
-        registerBlock(ItemGroup.REDSTONE, ADVENTURE_TRANSFORMER, "adventure_transformer");
+    static void registerFlower(FlowerBlock flower, String path) {
+        registerBlock(ItemGroup.DECORATIONS, flower, path);
+        BlockRenderLayerMap.INSTANCE.putBlock(flower, RenderLayer.getCutout());
+    }
 
+    static void initialize() {
         registerBlock(ItemGroup.DECORATIONS, CORRUPT_STEM, "corrupt_stem");
         registerBlock(ItemGroup.DECORATIONS, WILTED_FLOWER, "wilted_flower");
 
@@ -118,6 +128,7 @@ public interface Blocks {
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LEAVES, "mystical_leaves");
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LOG, "mystical_log");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_SLAB, "mystical_slab");
         registerBlock(ItemGroup.DECORATIONS, MYSTICAL_GRASS, "mystical_grass");
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_SAND, "mystical_sand");
 
@@ -130,10 +141,5 @@ public interface Blocks {
 
         registerBlock(ItemGroup.DECORATIONS, MYSTICAL_FALLEN_LEAVES, "mystical_fallen_leaves");
         registerBlock(ItemGroup.DECORATIONS, CORRUPT_FALLEN_LEAVES, "corrupt_fallen_leaves");
-
-        BlockRenderLayerMap.INSTANCE.putBlock(MYSTICAL_DAISY, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(MYSTICAL_STEM, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(CORRUPT_STEM, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(WILTED_FLOWER, RenderLayer.getCutout());
     }
 }
