@@ -75,7 +75,6 @@ public interface Blocks {
     Block MYSTICAL_LEAVES = new LintLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
     Block MYSTICAL_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
     Block MYSTICAL_LOG = createLogBlock(MaterialColor.LIME_TERRACOTTA, MaterialColor.LIME_TERRACOTTA);
-    Block MYSTICAL_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
     Block MYSTICAL_GRASS = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
@@ -90,6 +89,10 @@ public interface Blocks {
     Block CORRUPT_LOG = createLogBlock(MaterialColor.PURPLE, MaterialColor.PURPLE);
     Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(00.5f).sounds(BlockSoundGroup.GRASS));
     Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
+
+    Block MYSTICAL_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
+    Block CORRUPT_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
+    Block DUNGEON_BRICK_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
 
     static PillarBlock createLogBlock(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
         return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
@@ -131,7 +134,6 @@ public interface Blocks {
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LEAVES, "mystical_leaves");
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LOG, "mystical_log");
-        registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_SLAB, "mystical_slab");
         registerBlock(ItemGroup.DECORATIONS, MYSTICAL_GRASS, "mystical_grass");
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_SAND, "mystical_sand");
 
@@ -144,5 +146,9 @@ public interface Blocks {
 
         registerBlock(ItemGroup.DECORATIONS, MYSTICAL_FALLEN_LEAVES, "mystical_fallen_leaves");
         registerBlock(ItemGroup.DECORATIONS, CORRUPT_FALLEN_LEAVES, "corrupt_fallen_leaves");
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_SLAB, "mystical_slab");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_SLAB, "corrupt_slab");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, DUNGEON_BRICK_SLAB, "dungeon_brick_slab");
     }
 }

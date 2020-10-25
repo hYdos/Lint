@@ -1,8 +1,13 @@
 {
-  "parent": "lint:block/slab",
-  "textures": {
-    "bottom": "lint:block/mystical_planks",
-    "top": "lint:block/mystical_planks",
-    "side": "lint:block/mystical_planks"
+  "variants": {
+    "type=bottom": {
+      "model": "lint:block/mystical_slab"
+    },
+    "type=double": {
+      "model": "lint:block/mystical_planks"
+    },
+    "type=top": {
+      "model": "lint:block/mystical_slab_top"
+    }
   }
 }
