@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "lint:block/corrupt_slab"
+    },
+    "type=double": {
+      "model": "lint:block/corrupt_planks"
+    },
+    "type=top": {
+      "model": "lint:block/corrupt_slab_top"
+    }
+  }
+}
