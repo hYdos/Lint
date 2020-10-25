@@ -58,6 +58,8 @@ public interface Blocks {
 
     Block DUNGEON_BRICKS = new Block(FabricBlockSettings.of(Material.STONE).hardness(4).sounds(BlockSoundGroup.STONE));
 
+    Block MOSSY_DUNGEON_BRICKS = new Block(FabricBlockSettings.of(Material.STONE).hardness(4).sounds(BlockSoundGroup.STONE));
+
     Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD);
     Block.Settings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE).hardness(0.5f).sounds(BlockSoundGroup.SAND);
 
@@ -117,6 +119,7 @@ public interface Blocks {
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_TRAPDOOR, "mystical_trapdoor");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, DUNGEON_BRICKS, "dungeon_bricks");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, MOSSY_DUNGEON_BRICKS, "mossy_dungeon_bricks");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, WHITE_SAND, "white_sand");
 

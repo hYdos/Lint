@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "lint:block/features/corrupt_tree/corrupt_leaves",
-		"particle": "lint:block/features/corrupt_tree/corrupt_leaves"
+		"0": "lint:block/corrupt_leaves",
+		"particle": "lint:block/corrupt_leaves"
 	},
 	"elements": [
 		{

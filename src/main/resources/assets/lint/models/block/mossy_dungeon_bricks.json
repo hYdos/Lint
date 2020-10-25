@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "lint:block/mystical_leaves"
+    "all": "lint:block/mossy_dungeon_bricks"
   }
 }

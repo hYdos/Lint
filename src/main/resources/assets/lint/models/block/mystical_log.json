@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_column",
   "textures": {
-    "end": "lint:block/features/mystical_tree/mystical_log_top",
-    "side": "lint:block/features/mystical_tree/mystical_log"
+    "end": "lint:block/mystical_log_top",
+    "side": "lint:block/mystical_log"
   }
 }

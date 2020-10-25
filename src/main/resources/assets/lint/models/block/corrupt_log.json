@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_column",
   "textures": {
-    "end": "lint:block/features/corrupt_tree/corrupt_log_top",
-    "side": "lint:block/features/corrupt_tree/corrupt_log"
+    "end": "lint:block/corrupt_log_top",
+    "side": "lint:block/corrupt_log"
   }
 }
