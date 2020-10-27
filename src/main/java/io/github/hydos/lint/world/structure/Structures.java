@@ -16,7 +16,7 @@ import java.util.function.Function;
 
 public class Structures implements ModInitializer {
 
-    public static final StructureFeature<StructurePoolFeatureConfig> DUNGEON = FabricStructureBuilder.create(Lint.id("dungeon"), new DungeonFeature(StructurePoolFeatureConfig.CODEC)).step(GenerationStep.Feature.SURFACE_STRUCTURES).defaultConfig(32, 8, 12345).register();
+    public static final StructureFeature<StructurePoolFeatureConfig> DUNGEON = FabricStructureBuilder.create(Lint.id("dungeon"), new DungeonFeature(StructurePoolFeatureConfig.CODEC)).step(GenerationStep.Feature.SURFACE_STRUCTURES).defaultConfig(32, 8, 6969420).register();
 
     @Override
     public void onInitialize() {
