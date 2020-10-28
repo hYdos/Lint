@@ -19,11 +19,6 @@ public class DungeonFeature extends JigsawFeature {
         super(codec, 0, true, true);
     }
 
-    @Override
-    public String getName() {
-        return "LintDungeon";
-    }
-
     //TODO: make the entry the 1st object
     @Override
     public StructureStartFactory<StructurePoolFeatureConfig> getStructureStartFactory() {

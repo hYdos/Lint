@@ -25,4 +25,8 @@ public class Structures implements ModInitializer {
     public static Function<StructurePool.Projection, LegacySinglePoolElement> createLegacySinglePoolElement(String path, StructureProcessorList structureProcessorList) {
         return (projection) -> new LegacySinglePoolElement(Either.left(Lint.id(path)), () -> structureProcessorList, projection);
     }
+
+    public static Function<StructurePool.Projection, LegacySinglePoolElement> createSinglePoolElement(String path, StructureProcessorList structureProcessorList) {
+        return (projection) -> new LegacySinglePoolElement(Either.left(Lint.id(path)), () -> structureProcessorList, projection);
+    }
 }
