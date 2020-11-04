@@ -1,5 +1,6 @@
 package io.github.hydos.lint;
 
+import io.github.hydos.lint.sound.Sounds;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 
@@ -12,5 +13,6 @@ public class Lint implements ModInitializer {
     }
 
     public void onInitialize() {
+        Sounds.register();
     }
 }

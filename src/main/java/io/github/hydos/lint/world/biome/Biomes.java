@@ -3,6 +3,7 @@ package io.github.hydos.lint.world.biome;
 import io.github.hydos.lint.Lint;
 import io.github.hydos.lint.block.Blocks;
 import io.github.hydos.lint.entity.Entities;
+import io.github.hydos.lint.sound.Sounds;
 import io.github.hydos.lint.world.feature.Features;
 import io.github.hydos.lint.world.gen.HaykamChunkGenerator;
 import io.github.hydos.lint.world.structure.ConfiguredStructureFeatures;
@@ -46,6 +47,7 @@ public class Biomes implements ModInitializer {
                         .waterColor(0x3f76e4)
                         .waterFogColor(0x050533)
                         .fogColor(0xc0d8ff)
+                        .loopSound(Sounds.MYSTICAL_FOREST)
                         .skyColor(0x77adff)
                         .build())
                 .spawnSettings(spawningSettings.build())
@@ -57,8 +59,6 @@ public class Biomes implements ModInitializer {
                         .structureFeature(ConfiguredStructureFeatures.DUNGEON)
                         .build())
                 .build();
-
-        DefaultBiomeFeatures.addBatsAndMonsters(spawningSettings);
 
         CORRUPT_FOREST = new Biome.Builder()
                 .precipitation(Biome.Precipitation.RAIN)

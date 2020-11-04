@@ -43,7 +43,7 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
     public KingTater(EntityType<? extends KingTater> type, World world) {
         super(type, world);
         moveControl = new KingTaterMoveControl(this);
-        bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.PINK, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
+        bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.GREEN, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
     }
 
     public static DefaultAttributeContainer.Builder initAttributes() {
@@ -68,10 +68,11 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
     }
 
     @Override
-    protected void onKilledBy(LivingEntity adversary) {
-        adversary.dropStack(new ItemStack(Items.TATER_ESSENCE));
-        if (adversary instanceof ServerPlayerEntity) {
-            ((ServerPlayerEntity) adversary).networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.MASTER, getX(), getY(), getZ(), 1f, 1f));
+    protected void onKilledBy(LivingEntity killer) {
+        assert killer != null;
+        killer.dropStack(new ItemStack(Items.TATER_ESSENCE));
+        if (killer instanceof ServerPlayerEntity) {
+            ((ServerPlayerEntity) killer).networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.MASTER, getX(), getY(), getZ(), 1f, 1f));
         }
     }
 

@@ -24,7 +24,7 @@
     ]
   },
   "music.mystical_forest": {
-    "subtitle": "subtitles.mystical_forest.music1",
+    "subtitle": "subtitles.mystical_forest",
     "sounds": [
       "lint:mystical_forest"
     ]
