@@ -109,12 +109,11 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
 
     @Override
     protected void mobTick() {
-        bossBar.setPercent(getScaledHealth());
+        bossBar.setPercent(getScaledHealth(getHealth(), getMaxHealth()));
 
         if (hasStatusEffect(StatusEffects.JUMP_BOOST)) {
             addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20, 4, true, true, true, null));
         }
-
         if (hasStatusEffect(StatusEffects.REGENERATION)) {
             addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, true, true, true, null));
         }
@@ -163,7 +162,7 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
 
     @Override
     public EntityDimensions getDimensions(EntityPose pose) {
-        return getType().getDimensions().scaled(getScaledHealth());
+        return getType().getDimensions().scaled(getScaledHealth(getHealth(), getMaxHealth()));
     }
 
     @Override
@@ -171,12 +170,8 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
         return false;
     }
 
-    protected int getTicksUntilNextJump() {
-        return this.random.nextInt(20) + 10;
-    }
-
-    public float getScaledHealth() {
-        return getHealth() / getMaxHealth();
+    public static float getScaledHealth(float health, float maxHealth) {
+        return health / maxHealth;
     }
 
     static class KingTaterMoveControl extends MoveControl {

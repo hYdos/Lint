@@ -10,7 +10,8 @@
     "LocateCommandMixin",
     "ServerChunkManagerMixin",
     "SoundManagerMixin",
-    "StructurePoolsMixin"
+    "StructurePoolsMixin",
+    "TitleScreenMixin"
   ],
   "client": [
     "BossBarHudMixin",

@@ -21,7 +21,7 @@ public class KingTaterRenderer extends MobEntityRenderer<KingTater, KingTaterMod
 
     @Override
     protected void scale(KingTater entity, MatrixStack matrices, float tickDelta) {
-        float scale = Math.max(entity.getScaledHealth(), 0.125F);
+        float scale = Math.max(KingTater.getScaledHealth(entity.getHealth(), entity.getMaxHealth()), 0.125F);
         matrices.scale(scale, scale, scale);
     }
 }

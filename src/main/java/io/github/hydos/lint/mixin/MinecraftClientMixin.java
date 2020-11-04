@@ -32,7 +32,7 @@ public class MinecraftClientMixin {
         if (world != null && entity != null && !world.getEntitiesByType(Entities.I5, entity.getBoundingBox().expand(40), $ -> true).isEmpty()) {
             callbackInfoReturnable.setReturnValue(Sounds.I509_LOOP);
         }
-//        if (world != null && entity != null && !world.getEntitiesByType(Entities.KING_TATER, entity.getBoundingBox().expand(40), $ -> true).isEmpty()) {
+//        if (world != null && entity != null && !world.getEntitiesByType(Entities.LEX_MANOS, entity.getBoundingBox().expand(40), $ -> true).isEmpty()) {
 //            callbackInfoReturnable.setReturnValue(Sounds.KING_TATER_LOOP);
 //        }
     }
