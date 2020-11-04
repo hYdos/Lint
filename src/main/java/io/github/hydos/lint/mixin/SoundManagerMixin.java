@@ -22,11 +22,14 @@ public abstract class SoundManagerMixin {
 
     @Shadow public abstract void play(MusicSound type);
 
+    @Shadow public abstract void stop();
+
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickButGood(CallbackInfo ci){
         MusicSound musicSound = this.client.getMusicType();
         if(this.current == null){
             if(musicSound == Sounds.KING_TATER_LOOP || musicSound == Sounds.I509_LOOP || musicSound == Sounds.LEX_MANOS_LOOP){
+                this.stop();
                 this.play(musicSound);
             }
         }
