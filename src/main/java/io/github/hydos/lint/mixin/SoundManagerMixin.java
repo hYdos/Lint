@@ -25,8 +25,10 @@ public abstract class SoundManagerMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickButGood(CallbackInfo ci){
         MusicSound musicSound = this.client.getMusicType();
-        if(this.current == null && musicSound == Sounds.KING_TATER_LOOP){
-            this.play(musicSound);
+        if(this.current == null){
+            if(musicSound == Sounds.KING_TATER_LOOP || musicSound == Sounds.I509_LOOP || musicSound == Sounds.LEX_MANOS_LOOP){
+                this.play(musicSound);
+            }
         }
     }
 
