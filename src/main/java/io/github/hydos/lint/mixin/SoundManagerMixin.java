@@ -1,36 +1,33 @@
 package io.github.hydos.lint.mixin;
 
-import io.github.hydos.doshysound.DosHySoundSystem;
+import io.github.hydos.lint.sound.Sounds;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.sound.SoundManager;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.profiler.Profiler;
-import org.apache.logging.log4j.LogManager;
+import net.minecraft.client.sound.MusicTracker;
+import net.minecraft.client.sound.SoundInstance;
+import net.minecraft.sound.MusicSound;
+import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
+@Mixin(MusicTracker.class)
+public abstract class SoundManagerMixin {
 
-@Mixin(SoundManager.class)
-public class SoundManagerMixin {
+    @Shadow private @Nullable SoundInstance current;
 
-    @Inject(method = "prepare", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/Resource;getInputStream()Ljava/io/InputStream;", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-    private void registerLength(ResourceManager resourceManager, Profiler profiler, CallbackInfoReturnable<SoundManager.SoundList> cir, SoundManager.SoundList soundList, Iterator var4, String string, List list, Iterator var7, Resource resource) {
-//        DosHySoundSystem dosHySoundSystem = new DosHySoundSystem();
-//        try {
-//            double length = dosHySoundSystem.calculateDuration(resource.getInputStream());
-//            DosHySoundSystem.LOGGER.info(length);
-//        } catch (IOException e) {
-//            DosHySoundSystem.LOGGER.info("Lint's SoundSystem has encountered an io error calculating the length of " + resource.toString());
-//            e.printStackTrace();
-//        }
-//        dosHySoundSystem.addMapElement()
+    @Shadow @Final private MinecraftClient client;
+
+    @Shadow public abstract void play(MusicSound type);
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tickButGood(CallbackInfo ci){
+        MusicSound musicSound = this.client.getMusicType();
+        if(this.current == null && musicSound == Sounds.KING_TATER_LOOP){
+            this.play(musicSound);
+        }
     }
 
 }
