@@ -1,9 +1,8 @@
-package io.github.hydos.lint.block;
+package io.github.hydos.lint.resource.block;
 
 import io.github.hydos.lint.Lint;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
 import net.minecraft.block.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.effect.StatusEffects;
@@ -16,7 +15,13 @@ import net.minecraft.util.registry.Registry;
 
 public interface Blocks {
 
-    Block CORRUPT_STEM = new LintCorruptGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
+    Block TARSCAN = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
+
+    Block SICIERON = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
+
+    Block JUREL = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
+
+    FlowerBlock CORRUPT_STEM = new LintCorruptGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
             .hardness(0)
@@ -24,7 +29,7 @@ public interface Blocks {
             .nonOpaque()
     );
 
-    Block WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
+    FlowerBlock WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
             .hardness(0)
@@ -32,7 +37,7 @@ public interface Blocks {
             .nonOpaque()
     );
 
-    Block MYSTICAL_STEM = new LintGrassBlock(StatusEffects.RESISTANCE, FabricBlockSettings.of(Material.PLANT)
+    FlowerBlock MYSTICAL_STEM = new LintGrassBlock(StatusEffects.RESISTANCE, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
             .hardness(0)
@@ -40,7 +45,7 @@ public interface Blocks {
             .nonOpaque()
     );
 
-    Block MYSTICAL_DAISY = new LintGrassBlock(StatusEffects.BAD_OMEN, net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.of(Material.PLANT)
+    FlowerBlock MYSTICAL_DAISY = new LintGrassBlock(StatusEffects.BAD_OMEN, net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
             .hardness(0)
@@ -75,7 +80,7 @@ public interface Blocks {
     Block MYSTICAL_LEAVES = new LintLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
     Block MYSTICAL_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(0.5f).sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
     Block MYSTICAL_LOG = createLogBlock(MaterialColor.LIME_TERRACOTTA, MaterialColor.LIME_TERRACOTTA);
-    Block MYSTICAL_GRASS = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
+    FlowerBlock MYSTICAL_GRASS = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
             .breakInstantly()
             .hardness(0)
@@ -109,13 +114,19 @@ public interface Blocks {
     }
 
     static void initialize() {
-        registerBlock(ItemGroup.DECORATIONS, CORRUPT_STEM, "corrupt_stem");
-        registerBlock(ItemGroup.DECORATIONS, WILTED_FLOWER, "wilted_flower");
 
-        registerBlock(ItemGroup.DECORATIONS, MYSTICAL_STEM, "mystical_stem");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, TARSCAN, "tarscan");
 
-        registerBlock(ItemGroup.DECORATIONS, MYSTICAL_DAISY, "yellow_daisy");
-        registerBlock(ItemGroup.BUILDING_BLOCKS, RED_BUTTON, "red_button");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, SICIERON, "sicieron");
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, JUREL, "jurel");
+        registerFlower(CORRUPT_STEM, "corrupt_stem");
+        registerFlower(WILTED_FLOWER, "wilted_flower");
+        registerFlower(MYSTICAL_GRASS, "mystical_grass");
+        registerFlower(MYSTICAL_STEM, "mystical_stem");
+        registerFlower(MYSTICAL_DAISY, "yellow_daisy");
+
+        registerBlock(ItemGroup.DECORATIONS, RED_BUTTON, "red_button");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, GREEN_BUTTON, "green_button");
 
@@ -134,7 +145,6 @@ public interface Blocks {
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LEAVES, "mystical_leaves");
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_LOG, "mystical_log");
-        registerBlock(ItemGroup.DECORATIONS, MYSTICAL_GRASS, "mystical_grass");
         registerBlock(ItemGroup.BUILDING_BLOCKS, MYSTICAL_SAND, "mystical_sand");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_LEAVES, "corrupt_leaves");

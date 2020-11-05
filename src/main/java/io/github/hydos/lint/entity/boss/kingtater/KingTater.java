@@ -1,7 +1,7 @@
 package io.github.hydos.lint.entity.boss.kingtater;
 
 import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.item.Items;
+import io.github.hydos.lint.resource.item.Items;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.control.MoveControl;

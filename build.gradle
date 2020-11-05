@@ -9,6 +9,15 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+repositories {
+	maven {
+		name = "CottonMC"
+		url = "https://server.bbkr.space/artifactory/libs-release"
+	}
+	maven { url 'https://jitpack.io' }
+	jcenter()
+}
+
 minecraft {
 	accessWidener "src/main/resources/lint.aw"
 }

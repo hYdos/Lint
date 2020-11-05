@@ -1,7 +1,6 @@
-package io.github.hydos.lint.item;
+package io.github.hydos.lint.resource.item;
 
 import io.github.hydos.lint.Lint;
-import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Rarity;

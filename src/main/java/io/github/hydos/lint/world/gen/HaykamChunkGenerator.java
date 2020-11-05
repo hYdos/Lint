@@ -25,7 +25,7 @@ import net.minecraft.world.gen.chunk.StructuresConfig;
 import java.util.Objects;
 import java.util.Random;
 
-import static io.github.hydos.lint.block.Blocks.*;
+import static io.github.hydos.lint.resource.block.Blocks.*;
 
 public class HaykamChunkGenerator extends ChunkGenerator {
 
@@ -137,11 +137,11 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
                         if (currentBlock == Blocks.AIR) {
                             run = -1;
-                        } else if (currentBlock == Blocks.STONE) {
+                        } else if (currentBlock == HARDENED_STONE) {
                             if (run == -1) {
                                 if (stoneSampleAtPos <= 0) {
                                     topState = Blocks.AIR.getDefaultState();
-                                    underState = Blocks.STONE.getDefaultState();
+                                    underState = HARDENED_STONE.getDefaultState();
                                 } else if ((y >= seaLevel - 4) && (y <= seaLevel + 1)) {
                                     topState = grass;
                                     underState = dirt;
@@ -226,7 +226,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                                     toSet = Blocks.WATER.getDefaultState();
                                 }
                                 if (sample > 0.0D) {
-                                    toSet = Blocks.STONE.getDefaultState();
+                                    toSet = HARDENED_STONE.getDefaultState();
                                 }
 
                                 chunk.setBlockState(posMutable, toSet, false);

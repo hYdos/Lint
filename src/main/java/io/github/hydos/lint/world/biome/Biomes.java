@@ -1,7 +1,7 @@
 package io.github.hydos.lint.world.biome;
 
 import io.github.hydos.lint.Lint;
-import io.github.hydos.lint.block.Blocks;
+import io.github.hydos.lint.resource.block.Blocks;
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.sound.Sounds;
 import io.github.hydos.lint.world.feature.Features;
@@ -18,7 +18,6 @@ import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;

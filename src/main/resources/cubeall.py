@@ -20,8 +20,8 @@ class DataDir:
         
         with open(this.path, "r+") as file:
             file_content = file.read()
-            split = file_content.split("static void onInitialize() {")
-            new_file_content = split[0] + "static void onInitialize() {\n\n" + string2 + split[1]
+            split = file_content.split("static void initialize() {")
+            new_file_content = split[0] + "static void initialize() {\n\n" + string2 + split[1]
             file.seek(0)
             file.write(new_file_content)
         
@@ -30,7 +30,7 @@ class DataDir:
             json.dump(jsonobj, file, indent=2)
 
 MOD_ID = "lint"
-BLOCK_CLASS_PATH = "io/github/hydos/lint/old/Blocks.java"
+BLOCK_CLASS_PATH = "io/github/hydos/lint/resource/block/Blocks.java"
 
 assets = DataDir("assets/" + MOD_ID)
 blockstates = assets.sub("blockstates")
@@ -57,7 +57,7 @@ while (block_id != ""):
     id_string = MOD_ID + ":block/" + block_id
     file_string = block_id + ".json"
 
-    variable_string = "    Block " + block_id.upper() + " = new Block(FabricBlockSettings.of(Material.EARTH).hardness(0.5f).sounds(BlockSoundGroup.WET_GRASS).build());"
+    variable_string = "    Block " + block_id.upper() + " = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.WET_GRASS));"
 
     variable_string2 = "        registerBlock(ItemGroup.BUILDING_BLOCKS, " + block_id.upper() + ", \"" + block_id + "\");"
     

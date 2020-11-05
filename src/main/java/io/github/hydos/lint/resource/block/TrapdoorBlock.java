@@ -1,4 +1,4 @@
-package io.github.hydos.lint.block;
+package io.github.hydos.lint.resource.block;
 
 public class TrapdoorBlock extends net.minecraft.block.TrapdoorBlock {
 

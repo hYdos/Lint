@@ -1,7 +1,7 @@
-package io.github.hydos.lint.item;
+package io.github.hydos.lint.resource.item;
 
-import io.github.hydos.lint.block.Blocks;
-import io.github.hydos.lint.block.ReturnHomeBlock;
+import io.github.hydos.lint.resource.block.Blocks;
+import io.github.hydos.lint.resource.block.ReturnHomeBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,6 +1,6 @@
 package io.github.hydos.lint.client;
 
-import io.github.hydos.lint.block.Blocks;
+import io.github.hydos.lint.resource.block.Blocks;
 import io.github.hydos.lint.client.particle.ClientParticles;
 import io.github.hydos.lint.container.Containers;
 import io.github.hydos.lint.container.LilTaterInteractContainer;
@@ -10,7 +10,6 @@ import io.github.hydos.lint.entity.beetater.BeeTaterEntityRenderer;
 import io.github.hydos.lint.entity.boss.i5.I509VCBRenderer;
 import io.github.hydos.lint.entity.boss.kingtater.KingTaterRenderer;
 import io.github.hydos.lint.entity.tater.LilTaterEntityRenderer;
-import io.github.hydos.lint.sound.Sounds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

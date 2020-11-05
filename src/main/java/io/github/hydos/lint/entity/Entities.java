@@ -23,7 +23,7 @@ public interface Entities {
 
     EntityType<I509VCB> I5 =
             Registry.register(Registry.ENTITY_TYPE, Lint.id("i509vcb"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, I509VCB::new)
-                    .dimensions(EntityDimensions.changing(2f, 2f))
+                    .dimensions(EntityDimensions.changing(1f, 4f))
                     .build());
 
     EntityType<BeeTaterEntity> BEE_TATER =

@@ -24,13 +24,17 @@ public abstract class SoundManagerMixin {
 
     @Shadow public abstract void stop();
 
-    @Inject(method = "tick", at = @At("HEAD"))
+    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     private void tickButGood(CallbackInfo ci){
         MusicSound musicSound = this.client.getMusicType();
         if(this.current == null){
             if(musicSound == Sounds.KING_TATER_LOOP || musicSound == Sounds.I509_LOOP || musicSound == Sounds.LEX_MANOS_LOOP){
                 this.stop();
                 this.play(musicSound);
+            }
+        }else {
+            if(current.getId().getNamespace().equals("lint")){
+                ci.cancel();
             }
         }
     }

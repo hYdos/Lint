@@ -1,6 +1,5 @@
 package io.github.hydos.lint.container.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.hydos.lint.container.LilTaterInteractContainer;
 import io.github.hydos.lint.entity.tater.LilTaterEntity;
 import net.minecraft.client.MinecraftClient;
@@ -14,6 +13,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Quaternion;
 
+import java.util.Objects;
+
 public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInteractContainer> {
 
     public final LilTaterInteractContainer container;
@@ -26,10 +27,10 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         this.container = container;
     }
 
-    public static void drawTater(int x, int y, int size, float mouseX, float mouseY, LilTaterEntity entity) {
-        RenderSystem.pushMatrix();
-        RenderSystem.translatef((float) x, (float) y, 1050.0F);
-        RenderSystem.scalef(1.0F, 1.0F, -1.0F);
+    public static void drawTater(MatrixStack matrices, int x, int y, int size, LilTaterEntity entity) {
+        matrices.push();
+        matrices.translate((float) x, (float) y, 1050.0F);
+        matrices.scale(1.0F, 1.0F, -1.0F);
         MatrixStack matrixStack = new MatrixStack();
         matrixStack.translate(0.0D, 0.0D, 1000.0D);
         matrixStack.scale((float) size, (float) size, (float) size);
@@ -41,7 +42,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         entityRenderDispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixStack, immediate, 15728880);
         immediate.draw();
         entityRenderDispatcher.setRenderShadows(true);
-        RenderSystem.popMatrix();
+        matrices.pop();
     }
 
     @Override
@@ -57,24 +58,24 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
             this.mouseY = mouseY;
         } else {
             this.onClose();
-            client.openScreen(null);
+            Objects.requireNonNull(client).openScreen(null);
         }
     }
 
     public void renderBackground(MatrixStack matrix) {
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+//        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         assert this.client != null;
         this.client.getTextureManager().bindTexture(backgroundIdentifier);
         drawTexture(matrix, x, y - 20, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);
         assert this.client.player != null;
 
-        LilTaterEntity tater = (LilTaterEntity) this.client.world.getEntityById(container.taterId);
+        LilTaterEntity tater = (LilTaterEntity) Objects.requireNonNull(this.client.world).getEntityById(container.taterId);
 
         if (tater == null) {
             onClose();
             return;
         }
 
-        drawTater(x + 51, y + 20, 60, (float) (x + 51) - this.mouseX, (float) (y + 75 - 50) - this.mouseY, tater);
+        drawTater(matrix, x + 51, y + 20, 60, tater);
     }
 }
