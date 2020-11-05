@@ -132,16 +132,18 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                     pos.setY(y);
                     if (y <= random.nextInt(6) - 1) {
                         chunk.setBlockState(new BlockPos(x, y, z), Blocks.BEDROCK.getDefaultState(), false);
+                    } else if (y == 0){
+                        chunk.setBlockState(new BlockPos(x, y, z), Blocks.BEDROCK.getDefaultState(), false);
                     } else {
                         Block currentBlock = chunk.getBlockState(pos).getBlock();
 
                         if (currentBlock == Blocks.AIR) {
                             run = -1;
-                        } else if (currentBlock == HARDENED_STONE) {
+                        } else if (currentBlock == FUSED_STONE) {
                             if (run == -1) {
                                 if (stoneSampleAtPos <= 0) {
                                     topState = Blocks.AIR.getDefaultState();
-                                    underState = HARDENED_STONE.getDefaultState();
+                                    underState = FUSED_STONE.getDefaultState();
                                 } else if ((y >= seaLevel - 4) && (y <= seaLevel + 1)) {
                                     topState = grass;
                                     underState = dirt;
@@ -226,7 +228,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                                     toSet = Blocks.WATER.getDefaultState();
                                 }
                                 if (sample > 0.0D) {
-                                    toSet = HARDENED_STONE.getDefaultState();
+                                    toSet = FUSED_STONE.getDefaultState();
                                 }
 
                                 chunk.setBlockState(posMutable, toSet, false);

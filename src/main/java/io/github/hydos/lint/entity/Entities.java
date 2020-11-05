@@ -11,7 +11,9 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 
 public interface Entities {
@@ -46,5 +48,7 @@ public interface Entities {
 
         FabricDefaultAttributeRegistry.register(Entities.KING_TATER, KingTater.initAttributes());
         FabricDefaultAttributeRegistry.register(Entities.I5, I509VCB.initAttributes());
+
+        SpawnRestriction.register(Entities.LIL_TATER, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, LilTaterEntity::canSpawn);
     }
 }

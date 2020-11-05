@@ -33,14 +33,14 @@ public class Biomes implements ModInitializer {
 
     static {
         SpawnSettings.Builder spawningSettings = new SpawnSettings.Builder();
-        spawningSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.LIL_TATER, 12, 1, 3));
+        spawningSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.LIL_TATER, 1, 1, 3));
         MYSTICAL_FOREST = new Biome.Builder()
-                .precipitation(Biome.Precipitation.RAIN)
-                .category(Biome.Category.NONE)
+                .precipitation(Biome.Precipitation.NONE)
+                .category(Biome.Category.FOREST)
                 .depth(0.125f)
                 .scale(1)
                 .temperature(0.8f)
-                .downfall(1)
+                .downfall(0)
                 .effects(new BiomeEffects.Builder()
                         .waterColor(0)
                         .waterColor(0x3f76e4)
@@ -60,8 +60,8 @@ public class Biomes implements ModInitializer {
                 .build();
 
         CORRUPT_FOREST = new Biome.Builder()
-                .precipitation(Biome.Precipitation.RAIN)
-                .category(Biome.Category.NONE)
+                .precipitation(Biome.Precipitation.NONE)
+                .category(Biome.Category.FOREST)
                 .depth(0.125f)
                 .scale(1)
                 .temperature(0.8f)
@@ -78,7 +78,7 @@ public class Biomes implements ModInitializer {
                 .generationSettings(new GenerationSettings.Builder()
                         .surfaceBuilder(TESTING)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
-                        .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
+//                        .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL) its broken for some reason. i dont even know
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
                         .structureFeature(ConfiguredStructureFeatures.DUNGEON)

@@ -28,5 +28,18 @@
     "sounds": [
       "lint:mystical_forest"
     ]
+  },
+  "music.oboe": {
+    "subtitle": "subtitles.oboe",
+    "sounds": [
+      "lint:oboe"
+    ]
+  },
+  "player.advancement": {
+    "subtitle": "subtitles.advancement",
+    "volume": 10,
+    "sounds": [
+      "lint:advancement"
+    ]
   }
 }

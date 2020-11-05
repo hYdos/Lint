@@ -15,6 +15,8 @@ import net.minecraft.util.registry.Registry;
 
 public interface Blocks {
 
+    Block FUSED_STONE = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
+
     Block TARSCAN = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
 
     Block SICIERON = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
@@ -114,6 +116,8 @@ public interface Blocks {
     }
 
     static void initialize() {
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, FUSED_STONE, "fused_stone");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, TARSCAN, "tarscan");
 

@@ -2,6 +2,7 @@ package io.github.hydos.lint.entity.boss.kingtater;
 
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.resource.item.Items;
+import io.github.hydos.lint.sound.Sounds;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.control.MoveControl;
@@ -72,7 +73,7 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
         assert killer != null;
         killer.dropStack(new ItemStack(Items.TATER_ESSENCE));
         if (killer instanceof ServerPlayerEntity) {
-            ((ServerPlayerEntity) killer).networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundCategory.MASTER, getX(), getY(), getZ(), 1f, 1f));
+            ((ServerPlayerEntity) killer).networkHandler.sendPacket(new PlaySoundS2CPacket(Sounds.ADVANCEMENT, SoundCategory.MASTER, getX(), getY(), getZ(), 1f, 1f));
         }
     }
 
@@ -110,7 +111,6 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
     @Override
     protected void mobTick() {
         bossBar.setPercent(getScaledHealth(getHealth(), getMaxHealth()));
-
         if (hasStatusEffect(StatusEffects.JUMP_BOOST)) {
             addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20, 4, true, true, true, null));
         }
@@ -140,7 +140,6 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
     @Override
     public void writeCustomDataToTag(CompoundTag tag) {
         super.writeCustomDataToTag(tag);
-
         ListTag list = new ListTag();
         tag.put("Minions", list);
 
@@ -175,14 +174,11 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
     }
 
     static class KingTaterMoveControl extends MoveControl {
-
         private final float targetYaw;
-        private final KingTater slime;
         private int ticksUntilJump;
 
         public KingTaterMoveControl(KingTater kingTater) {
             super(kingTater);
-            this.slime = kingTater;
             this.targetYaw = 180.0F * kingTater.yaw / 3.1415927F;
         }
 
@@ -190,12 +186,10 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
             this.entity.yaw = this.changeAngle(this.entity.yaw, this.targetYaw, 90.0F);
             this.entity.headYaw = this.entity.yaw;
             this.entity.bodyYaw = this.entity.yaw;
-
             if (this.state != MoveControl.State.MOVE_TO) {
                 this.entity.setForwardSpeed(0.0F);
             } else {
                 this.state = MoveControl.State.WAIT;
-
 //                if (this.entity.onGround) {//FIXME
 //                    this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue()));
 //

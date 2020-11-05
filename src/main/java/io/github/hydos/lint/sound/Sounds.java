@@ -14,7 +14,10 @@ public class Sounds {
     public static final SoundEvent I509 = new SoundEvent(Lint.id("music.i509_boss_theme"));
     public static final SoundEvent LEX_MANOS = new SoundEvent(Lint.id("music.lex_manos_boss_theme"));
     public static final SoundEvent DUNGEON = new SoundEvent(Lint.id("music.clandestine"));
+    public static final SoundEvent OBOE = new SoundEvent(Lint.id("music.oboe"));
     public static final SoundEvent MYSTICAL_FOREST = new SoundEvent(Lint.id("music.mystical_forest"));
+
+    public static final SoundEvent ADVANCEMENT = new SoundEvent(Lint.id("player.advancement"));
 
     public static final MusicSound KING_TATER_LOOP = MusicType.createIngameMusic(KING_TATER);
     public static final MusicSound I509_LOOP = MusicType.createIngameMusic(I509);
