@@ -109,12 +109,18 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                 BlockState dirt = RICH_DIRT.getDefaultState();
                 BlockState sand = MYSTICAL_SAND.getDefaultState();
                 BlockState gravel = WHITE_SAND.getDefaultState();
+                BlockState stone = null;
 
                 if (Objects.equals(biomeRegistry.getId(biome), Biomes.CORRUPT_FOREST_KEY.getValue())) {
                     grass = CORRUPT_GRASS.getDefaultState();
                     dirt = RICH_DIRT.getDefaultState();
                     sand = CORRUPT_SAND.getDefaultState();
                     gravel = WHITE_SAND.getDefaultState();
+                } else if (Objects.equals(biomeRegistry.getId(biome), Biomes.INDIGO_RIDGES_KEY.getValue())) {
+                    grass = INDIGO_STONE.getDefaultState();
+                    dirt = INDIGO_STONE.getDefaultState();
+                    gravel = INDIGO_STONE.getDefaultState();
+                    stone = INDIGO_STONE.getDefaultState();
                 }
 
                 boolean sandSampleAtPos = this.sandSample[(x + z * 16)] + random.nextDouble() * 0.2D > 0.0D;
@@ -172,6 +178,8 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                             } else if (run > 0) {
                                 run--;
                                 chunk.setBlockState(new BlockPos(x, y, z), underState, false);
+                            } else if (stone != null) {
+                                chunk.setBlockState(new BlockPos(x, y, z), stone, false);
                             }
                         }
                     }
@@ -414,7 +422,10 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                         double1 = double1 * (1.0D - double7) + -10.0D * double7;
                     }
 
-                    oldArray[index0] = double1 * noiseBiome.getScale() * 10000;
+                    oldArray[index0] = double1;
+                    if (Objects.equals(biomeRegistry.getId(noiseBiome), Biomes.INDIGO_RIDGES_KEY.getValue())) {
+                        oldArray[index0] = (int) Math.ceil(oldArray[index0] / 10d) * 10;
+                    }
                     ++index0;
                 }
             }

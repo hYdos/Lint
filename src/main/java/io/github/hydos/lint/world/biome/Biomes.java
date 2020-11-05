@@ -18,6 +18,7 @@ import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
@@ -27,8 +28,10 @@ public class Biomes implements ModInitializer {
     public static final int CORRUPT_FOG_COLOUR = 0x916ec1;
     public static final Biome CORRUPT_FOREST;
     public static final Biome MYSTICAL_FOREST;
+    public static final Biome INDIGO_RIDGES;
     public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
     public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
+    public static final RegistryKey<Biome> INDIGO_RIDGES_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("indigo_ridges"));
     private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> TESTING = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState()));
 
     static {
@@ -84,6 +87,29 @@ public class Biomes implements ModInitializer {
                         .structureFeature(ConfiguredStructureFeatures.DUNGEON)
                         .build()
                 ).build();
+
+        GenerationSettings.Builder indigoRidgesGenerationSettingsBuilder = new GenerationSettings.Builder()
+                .surfaceBuilder(TESTING)
+                .structureFeature(ConfiguredStructureFeatures.DUNGEON);
+        DefaultBiomeFeatures.addLandCarvers(indigoRidgesGenerationSettingsBuilder);
+
+    INDIGO_RIDGES = new Biome.Builder()
+            .precipitation(Biome.Precipitation.NONE)
+            .category(Biome.Category.EXTREME_HILLS)
+            .depth(1.5f)
+            .scale(0.5f)
+            .temperature(0.6f)
+            .downfall(1)
+            .effects(new BiomeEffects.Builder()
+                    .waterColor(0x3f76e4)
+                    .waterFogColor(0x050533)
+                    .fogColor(0xc0d8ff)
+                    .skyColor(0x77adff)
+                    .build()
+            )
+            .spawnSettings(spawningSettings.build())
+            .generationSettings(indigoRidgesGenerationSettingsBuilder.build())
+            .build();
     }
 
     public void onInitialize() {
@@ -91,8 +117,10 @@ public class Biomes implements ModInitializer {
 
         Registry.register(BuiltinRegistries.BIOME, MYSTICAL_FOREST_KEY.getValue(), MYSTICAL_FOREST);
         Registry.register(BuiltinRegistries.BIOME, CORRUPT_FOREST_KEY.getValue(), CORRUPT_FOREST);
+        Registry.register(BuiltinRegistries.BIOME, INDIGO_RIDGES_KEY.getValue(), INDIGO_RIDGES);
 
         BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(CORRUPT_FOREST), CORRUPT_FOREST_KEY);
         BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(MYSTICAL_FOREST), MYSTICAL_FOREST_KEY);
+        BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(INDIGO_RIDGES), INDIGO_RIDGES_KEY);
     }
 }

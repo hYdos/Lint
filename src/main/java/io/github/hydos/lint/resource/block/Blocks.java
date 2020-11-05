@@ -97,6 +97,8 @@ public interface Blocks {
     Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC).hardness(00.5f).sounds(BlockSoundGroup.GRASS));
     Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
 
+    Block INDIGO_STONE = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE).materialColor(MaterialColor.PURPLE_TERRACOTTA));
+
     Block MYSTICAL_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
     Block CORRUPT_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
     Block DUNGEON_BRICK_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
@@ -155,6 +157,8 @@ public interface Blocks {
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_LOG, "corrupt_log");
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_GRASS, "corrupt_grass");
         registerBlock(ItemGroup.BUILDING_BLOCKS, CORRUPT_SAND, "corrupt_sand");
+
+        registerBlock(ItemGroup.BUILDING_BLOCKS, INDIGO_STONE, "indigo_stone");
 
         registerBlock(ItemGroup.DECORATIONS, RETURN_HOME, "return_home");
 

@@ -60,7 +60,10 @@ public class HaykamBiomeSource extends BiomeSource {
 
     @Override
     public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
-        if (this.noise.sample(biomeX * 0.05, biomeZ * 0.05) > 0.15) {
+        double sample = this.noise.sample(biomeX * 0.05, biomeZ * 0.05);
+        if (sample > 0.30) {
+            return biomeRegistry.getOrThrow(RegistryKey.of(Registry.BIOME_KEY, BuiltinRegistries.BIOME.getKey(Biomes.INDIGO_RIDGES).get().getValue()));
+        } else if (sample > 0.15) {
             return biomeRegistry.getOrThrow(RegistryKey.of(Registry.BIOME_KEY, BuiltinRegistries.BIOME.getKey(Biomes.CORRUPT_FOREST).get().getValue()));
         } else {
             return biomeRegistry.getOrThrow(RegistryKey.of(Registry.BIOME_KEY, BuiltinRegistries.BIOME.getKey(Biomes.MYSTICAL_FOREST).get().getValue()));

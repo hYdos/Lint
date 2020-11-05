@@ -20,9 +20,11 @@
   "block.lint.wilted_flower": "Wilted Flower",
   "block.lint.return_home": "Return Portal",
   "block.lint.corrupt_stem": "Corrupt Stem",
+  "block.lint.indigo_stone": "Indigo Stone",
   
   "biome.lint.mystical_forest": "Mystical Forest",
   "biome.lint.corrupt_forest": "Corrupt Forest",
+  "biome.lint.indigo_ridges": "Indigo Ridges",
 
   "item.lint.tater_essence": "Tater Essence",
 
