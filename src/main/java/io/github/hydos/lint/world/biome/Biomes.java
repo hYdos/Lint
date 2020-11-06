@@ -33,7 +33,7 @@ public class Biomes implements ModInitializer {
 
     static {
         SpawnSettings.Builder spawningSettings = new SpawnSettings.Builder();
-        spawningSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.LIL_TATER, 1, 1, 3));
+        spawningSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 1, 1, 3));
         MYSTICAL_FOREST = new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)
                 .category(Biome.Category.FOREST)

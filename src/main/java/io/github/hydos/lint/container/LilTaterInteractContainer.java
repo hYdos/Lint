@@ -1,7 +1,7 @@
 package io.github.hydos.lint.container;
 
 import io.github.hydos.lint.container.util.LintInventory;
-import io.github.hydos.lint.entity.tater.LilTaterEntity;
+import io.github.hydos.lint.entity.tater.TinyPotatoEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class LilTaterInteractContainer extends ScreenHandler {
 
         World world = playerInventory.player.world;
 
-        LilTaterEntity tater = (LilTaterEntity) world.getEntityById(taterId);
+        TinyPotatoEntity tater = (TinyPotatoEntity) world.getEntityById(taterId);
         assert tater != null;
         LintInventory inv = tater.inventory;
 

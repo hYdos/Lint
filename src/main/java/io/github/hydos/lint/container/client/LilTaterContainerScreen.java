@@ -1,7 +1,7 @@
 package io.github.hydos.lint.container.client;
 
 import io.github.hydos.lint.container.LilTaterInteractContainer;
-import io.github.hydos.lint.entity.tater.LilTaterEntity;
+import io.github.hydos.lint.entity.tater.TinyPotatoEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -27,7 +27,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         this.container = container;
     }
 
-    public static void drawTater(MatrixStack matrices, int x, int y, int size, LilTaterEntity entity) {
+    public static void drawTater(MatrixStack matrices, int x, int y, int size, TinyPotatoEntity entity) {
         matrices.push();
         matrices.translate((float) x, (float) y, 1050.0F);
         matrices.scale(1.0F, 1.0F, -1.0F);
@@ -69,7 +69,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
         drawTexture(matrix, x, y - 20, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);
         assert this.client.player != null;
 
-        LilTaterEntity tater = (LilTaterEntity) Objects.requireNonNull(this.client.world).getEntityById(container.taterId);
+        TinyPotatoEntity tater = (TinyPotatoEntity) Objects.requireNonNull(this.client.world).getEntityById(container.taterId);
 
         if (tater == null) {
             onClose();

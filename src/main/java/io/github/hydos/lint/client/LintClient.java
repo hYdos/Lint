@@ -9,7 +9,7 @@ import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.entity.beetater.BeeTaterEntityRenderer;
 import io.github.hydos.lint.entity.boss.i5.I509VCBRenderer;
 import io.github.hydos.lint.entity.boss.kingtater.KingTaterRenderer;
-import io.github.hydos.lint.entity.tater.LilTaterEntityRenderer;
+import io.github.hydos.lint.entity.tater.TinyPotatoEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,9 +26,9 @@ public class LintClient implements ClientModInitializer {
     public void onInitializeClient() {
         ClientParticles.register();
 
-        EntityRendererRegistry.INSTANCE.register(Entities.LIL_TATER, (entityRenderDispatcher, context) -> new LilTaterEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.INSTANCE.register(Entities.TINY_POTATO, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
         EntityRendererRegistry.INSTANCE.register(Entities.BEE_TATER, (entityRenderDispatcher, context) -> new BeeTaterEntityRenderer(entityRenderDispatcher));
-        EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new LilTaterEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
         EntityRendererRegistry.INSTANCE.register(Entities.KING_TATER, (entityRenderDispatcher, context) -> new KingTaterRenderer(entityRenderDispatcher));
         EntityRendererRegistry.INSTANCE.register(Entities.I5, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));
 

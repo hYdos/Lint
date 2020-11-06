@@ -1,6 +1,6 @@
 package io.github.hydos.lint.entity.beetater;
 
-import io.github.hydos.lint.entity.tater.LilTaterEntity;
+import io.github.hydos.lint.entity.tater.TinyPotatoEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -12,7 +12,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 @SuppressWarnings("EntityConstructor")
-public class BeeTaterEntity extends LilTaterEntity {
+public class BeeTaterEntity extends TinyPotatoEntity {
 
     public float size = 0;
 

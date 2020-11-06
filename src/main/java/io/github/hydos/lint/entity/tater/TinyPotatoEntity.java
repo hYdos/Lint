@@ -4,7 +4,6 @@ import io.github.hydos.lint.container.Containers;
 import io.github.hydos.lint.container.util.LintInventory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -15,11 +14,9 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.RabbitEntity;
 import net.minecraft.entity.passive.TameableShoulderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
@@ -27,20 +24,19 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 import java.util.Random;
 
 @SuppressWarnings("EntityConstructor")
-public class LilTaterEntity extends TameableShoulderEntity {
+public class TinyPotatoEntity extends TameableShoulderEntity {
 
     public final LintInventory inventory;
 
     public float size = 0;
 
-    public LilTaterEntity(EntityType<? extends LilTaterEntity> type, World world) {
+    public TinyPotatoEntity(EntityType<? extends TinyPotatoEntity> type, World world) {
         super(type, world);
         inventory = new LintInventory(31);
     }
@@ -79,7 +75,7 @@ public class LilTaterEntity extends TameableShoulderEntity {
         this.goalSelector.add(2, new FollowOwnerGoal(this, 0.5D, 1.0F, 3.0F, false));
         this.goalSelector.add(2, new SitOnOwnerShoulderGoal(this));
         this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 10));
-        this.goalSelector.add(4, new LookAtEntityGoal(this, LilTaterEntity.class, 10));
+        this.goalSelector.add(4, new LookAtEntityGoal(this, TinyPotatoEntity.class, 10));
         this.goalSelector.add(6, new WanderAroundGoal(this, 0.4));
     }
 
@@ -118,7 +114,7 @@ public class LilTaterEntity extends TameableShoulderEntity {
         return (PassiveEntity) getType().create(world);
     }
 
-    public static boolean canSpawn(EntityType<LilTaterEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+    public static boolean canSpawn(EntityType<TinyPotatoEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
         BlockState blockState = world.getBlockState(pos.down());
         return (blockState.isOf(io.github.hydos.lint.resource.block.Blocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
     }
