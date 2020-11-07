@@ -9,8 +9,10 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 
 public class I509VCBRenderer extends MobEntityRenderer<I509VCB, I509VCBModel> {
@@ -31,8 +33,7 @@ public class I509VCBRenderer extends MobEntityRenderer<I509VCB, I509VCBModel> {
         matrixStack.push();
         float l = MathHelper.sin(((float) cone.age + g) / 10.0F + 3) * 0.5f;
         matrixStack.translate(0.0D, l + 0.25F, 0.0D);
-        if (MinecraftClient.getInstance().player != null) {
-            ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        for (PlayerEntity player : cone.world.getEntitiesByClass(PlayerEntity.class, new Box(cone.getX() - 10, cone.getY() - 10, cone.getZ() - 10, cone.getX() + 10, cone.getY() + 10, cone.getZ() + 10), LivingEntity::isAlive)) {
             float x = (float) (player.getX() - cone.getX());
             float y = (float) (player.getY() - cone.getY()) - l - 0.5f;
             float z = (float) (player.getZ() - cone.getZ());
