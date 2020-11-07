@@ -15,6 +15,7 @@
   "entrypoints": {
     "main": [
       "io.github.hydos.lint.Lint",
+      "io.github.hydos.lint.network.Networking",
       "io.github.hydos.lint.world.structure.Structures",
       "io.github.hydos.lint.world.biome.Biomes",
       "io.github.hydos.lint.container.Containers",
@@ -23,7 +24,8 @@
       "io.github.hydos.lint.resource.item.Items::initialize"
     ],
     "client": [
-      "io.github.hydos.lint.client.LintClient"
+      "io.github.hydos.lint.client.LintClient",
+      "io.github.hydos.lint.network.ClientNetworking"
     ]
   },
   "mixins": [

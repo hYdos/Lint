@@ -1,51 +1,100 @@
 package io.github.hydos.mbb;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.util.math.MatrixStack;
+import io.github.hydos.lint.network.Networking;
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModernBossBar extends DrawableHelper {
-    public static final List<ModernBossBar> instancedBossBars = new ArrayList<>();
-    public Text title;
-    public int colour;
-    private int percentage;
+public class ModernBossBar {
+    private static ModernBossBar instance;
 
-    public ModernBossBar(Text title, int colour) {
+    private final List<ServerPlayerEntity> players;
+    private Text title;
+    private int colour;
+    private int endX;
+
+    public ModernBossBar(Text title, int colour, int endX) {
+        this.players = new ArrayList<>();
         this.title = title;
         this.colour = colour;
-        instancedBossBars.add(this);
+        this.endX = endX;
+        instance = this;
     }
 
-    public void render(MatrixStack stack, TextRenderer textRenderer, float tickDelta, boolean renderShadow) {
-        if(percentage == 0){
-            return;
+    public static int calculateEndX(float percent) {
+        return  (int) (280 * percent) - 140;
+    }
+
+    public void clear() {
+        setEndX(0);
+    }
+
+    public void addPlayer(ServerPlayerEntity player) {
+        players.add(player);
+        PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+        data.writeEnumConstant(PacketType.NEW);
+        data.writeText(title);
+        data.writeInt(colour);
+        data.writeInt(endX);
+        ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Networking.SEND_BOSSBAR_INFO, data);
+    }
+
+    public void removePlayer(ServerPlayerEntity player){
+        players.remove(player);
+        PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+        data.writeEnumConstant(PacketType.SET_VALUE);
+        data.writeInt(0);
+        ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Networking.SEND_BOSSBAR_INFO, data);
+    }
+
+    public void setEndX(int endX) {
+        this.endX = endX;
+        PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+        data.writeEnumConstant(PacketType.SET_VALUE);
+        data.writeInt(endX);
+        for (ServerPlayerEntity player : players) {
+            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Networking.SEND_BOSSBAR_INFO, data);
         }
-        float scale = (float) MinecraftClient.getInstance().getWindow().getScaleFactor() / 4;
-        int shadowOffsetX = 2;
-        int shadowOffsetY = 2;
-        stack.push();
-        stack.scale(scale, scale, scale);
-        stack.translate(240, 0, 0);
-        drawCenteredText(stack, textRenderer, title, 0, 16, 0xFFFFFFFF);
-        if(renderShadow){
-            fill(stack, -140 + shadowOffsetX, 30 + shadowOffsetY, 140 + shadowOffsetX, 34 + shadowOffsetY, 0x80000000);
+    }
+
+    public static ModernBossBar getInstance() {
+        if (instance == null)
+            new ModernBossBar(new LiteralText("UNINITIALIZED"), 0xFF696969, 10);
+        return instance;
+    }
+
+    public void setTitle(Text title) {
+        this.title = title;
+        PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+        data.writeEnumConstant(PacketType.SET_TITLE);
+        data.writeText(title);
+        for (ServerPlayerEntity player : players) {
+            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Networking.SEND_BOSSBAR_INFO, data);
         }
-        fill(stack, -140, 30, 140, 34, 0x991E1E1E);
-        fill(stack, -140, 30, percentage, 34, 0xFFE52320);
-        stack.pop();
     }
 
-    public void render(MatrixStack stack, TextRenderer textRenderer, float tickDelta) {
-        render(stack, textRenderer, tickDelta, true);
+    public Text getTitle() {
+        return title;
     }
 
-    public void setPercent(float scaledHealth) {
-        this.percentage = (int) (140 * scaledHealth);
+    public int getColour() {
+        return colour;
+    }
+
+    public int getEndX() {
+        return endX;
+    }
+
+    public enum PacketType {
+        NEW,
+        SET_VALUE,
+        SET_TITLE
     }
 }

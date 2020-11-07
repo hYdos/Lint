@@ -1,6 +1,5 @@
 package io.github.hydos.lint.client;
 
-import io.github.hydos.lint.resource.block.Blocks;
 import io.github.hydos.lint.client.particle.ClientParticles;
 import io.github.hydos.lint.container.Containers;
 import io.github.hydos.lint.container.LilTaterInteractContainer;
@@ -16,11 +15,20 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
+import net.minecraft.block.FlowerBlock;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.LiteralText;
 
 @Environment(EnvType.CLIENT)
 public class LintClient implements ClientModInitializer {
+
+    public static void putBlock(FlowerBlock flower, ServerRenderLayer layer) {
+        RenderLayer renderLayer = null;
+        if (layer == ServerRenderLayer.cutout) {
+            renderLayer = RenderLayer.getCutout();
+        }
+        BlockRenderLayerMap.INSTANCE.putBlock(flower, renderLayer);
+    }
 
     @Override
     public void onInitializeClient() {
@@ -33,11 +41,9 @@ public class LintClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(Entities.I5, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));
 
         ScreenProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractContainer(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));
+    }
 
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.CORRUPT_STEM, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.WILTED_FLOWER, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_STEM, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_DAISY, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_GRASS, RenderLayer.getCutout());
+    public enum ServerRenderLayer {
+        cutout
     }
 }

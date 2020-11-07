@@ -1,10 +1,11 @@
 package io.github.hydos.lint.resource.block;
 
 import io.github.hydos.lint.Lint;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import io.github.hydos.lint.client.LintClient;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -112,7 +113,9 @@ public interface Blocks {
 
     static void registerFlower(FlowerBlock flower, String path) {
         registerBlock(ItemGroup.DECORATIONS, flower, path);
-        BlockRenderLayerMap.INSTANCE.putBlock(flower, RenderLayer.getCutout());
+        if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
+            LintClient.putBlock(flower, LintClient.ServerRenderLayer.cutout);
+        }
     }
 
     static void initialize() {
