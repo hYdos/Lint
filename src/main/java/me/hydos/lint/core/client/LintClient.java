@@ -7,6 +7,7 @@ import me.hydos.lint.containers.LilTaterInteractContainer;
 import me.hydos.lint.containers.client.LilTaterContainerScreen;
 import me.hydos.lint.core.Containers;
 import me.hydos.lint.core.Entities;
+import me.hydos.lint.entity.beetater.BeeTaterEntityRenderer;
 import me.hydos.lint.entity.boss.KingTaterRenderer;
 import me.hydos.lint.entity.tater.LilTaterEntityRenderer;
 import me.hydos.techrebornApi.TechRebornApi;
@@ -26,6 +27,7 @@ public interface LintClient {
         TechRebornApi.registerBlock("lint", "adventure_transformer", AdventureTransformerRecipe.class, ItemGroup.TOOLS, AdventureTransformerBlockEntity::new, GuiType.register(new Identifier("adventure_transformer"), () -> () -> AdventureTransformerGui::new));
 
         EntityRendererRegistry.INSTANCE.register(Entities.LIL_TATER, (entityRenderDispatcher, context) -> new LilTaterEntityRenderer(entityRenderDispatcher));
+        EntityRendererRegistry.INSTANCE.register(Entities.BEE_TATER, (entityRenderDispatcher, context) -> new BeeTaterEntityRenderer(entityRenderDispatcher));
         EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new LilTaterEntityRenderer(entityRenderDispatcher));
         EntityRendererRegistry.INSTANCE.register(Entities.KING_TATER, (entityRenderDispatcher, context) -> new KingTaterRenderer(entityRenderDispatcher));
 
