@@ -1,5 +1,7 @@
 package io.github.hydos.lint.client;
 
+import java.util.Optional;
+
 import io.github.hydos.lint.client.particle.ClientParticles;
 import io.github.hydos.lint.container.Containers;
 import io.github.hydos.lint.container.LilTaterInteractContainer;
@@ -21,6 +23,8 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
@@ -71,17 +75,19 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private static float getFDC(World world, int x, int z, float originalResultChunks) {
-		Biome biome = world.getBiome(new BlockPos(x, 64, z)); // get biome
+		Optional<RegistryKey<Biome>> biome = world.getRegistryManager().get(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos(x, 64, z))); // get biome
 		float distChunks = originalResultChunks;
 
-		// Want an equal experience for all players, so control it directly.
-		if (biome == Biomes.CORRUPT_FOREST) {
-			return 3f;
-		} else if (biome == Biomes.MYSTICAL_FOREST) {
-			return 0.9f * originalResultChunks;
+		if (biome.isPresent()) {
+			RegistryKey<Biome> aBiome = biome.get();
+			// Want an equal experience for all players, so control it directly.
+			if (aBiome == Biomes.CORRUPT_FOREST_KEY) {
+				distChunks = 3f;
+			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY) {
+				distChunks = 0.9f * originalResultChunks;
+			}
 		}
-		
-		
+
 		if (distChunks > originalResultChunks) {
 			distChunks = originalResultChunks;
 		}
