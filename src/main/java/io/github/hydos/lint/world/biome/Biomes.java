@@ -1,12 +1,9 @@
 package io.github.hydos.lint.world.biome;
 
-import com.ibm.icu.impl.TimeZoneGenericNames.GenericNameType;
-
 import io.github.hydos.lint.Lint;
-import io.github.hydos.lint.resource.block.Blocks;
 import io.github.hydos.lint.entity.Entities;
+import io.github.hydos.lint.resource.block.Blocks;
 import io.github.hydos.lint.sound.Sounds;
-import io.github.hydos.lint.world.carver.LintCaveCarver;
 import io.github.hydos.lint.world.carver.LintConfiguredCarvers;
 import io.github.hydos.lint.world.feature.Features;
 import io.github.hydos.lint.world.gen.HaykamChunkGenerator;
@@ -27,8 +24,9 @@ import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
 public class Biomes implements ModInitializer {
-
+	public static final int MYSTICAL_FOG_COLOUR = 0xc0d8ff;
     public static final int CORRUPT_FOG_COLOUR = 0x916ec1;
+    public static final int DAWN_FOG_COLOUR = 0xeacf1c;
     public static final Biome CORRUPT_FOREST;
     public static final Biome MYSTICAL_FOREST;
     public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
@@ -49,7 +47,7 @@ public class Biomes implements ModInitializer {
                         .waterColor(0)
                         .waterColor(0x3f76e4)
                         .waterFogColor(0x050533)
-                        .fogColor(0xc0d8ff)
+                        .fogColor(MYSTICAL_FOG_COLOUR)//.fogColor(CORRUPT_FOG_COLOUR)
                         .loopSound(Sounds.MYSTICAL_FOREST)
                         .skyColor(0x88dfea)
                         .build())
