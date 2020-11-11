@@ -16,7 +16,7 @@
     "TitleScreenMixin"
   ],
   "client": [
-    "BossBarHudMixin",
+    "GameRendererMixin",
     "MinecraftClientMixin",
     "PlayerEntityRendererMixin",
     "WorldRendererMixin"
