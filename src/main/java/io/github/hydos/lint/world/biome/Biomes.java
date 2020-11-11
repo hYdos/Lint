@@ -1,9 +1,13 @@
 package io.github.hydos.lint.world.biome;
 
+import com.ibm.icu.impl.TimeZoneGenericNames.GenericNameType;
+
 import io.github.hydos.lint.Lint;
 import io.github.hydos.lint.resource.block.Blocks;
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.sound.Sounds;
+import io.github.hydos.lint.world.carver.LintCaveCarver;
+import io.github.hydos.lint.world.carver.LintConfiguredCarvers;
 import io.github.hydos.lint.world.feature.Features;
 import io.github.hydos.lint.world.gen.HaykamChunkGenerator;
 import io.github.hydos.lint.world.structure.ConfiguredStructureFeatures;
@@ -47,11 +51,12 @@ public class Biomes implements ModInitializer {
                         .waterFogColor(0x050533)
                         .fogColor(0xc0d8ff)
                         .loopSound(Sounds.MYSTICAL_FOREST)
-                        .skyColor(0x77adff)
+                        .skyColor(0x88dfea)
                         .build())
                 .spawnSettings(spawningSettings.build())
                 .generationSettings(new GenerationSettings.Builder()
                         .surfaceBuilder(TESTING)
+                        .carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_TREES)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_STEMS)
@@ -71,12 +76,13 @@ public class Biomes implements ModInitializer {
                         .waterColor(0x3f76e4)
                         .waterFogColor(0x050533)
                         .fogColor(CORRUPT_FOG_COLOUR)
-                        .skyColor(0x77adff)
+                        .skyColor(0x9c76c1)
                         .build()
                 )
                 .spawnSettings(spawningSettings.build())
                 .generationSettings(new GenerationSettings.Builder()
                         .surfaceBuilder(TESTING)
+                        .carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
 //                        .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL) its broken for some reason. i dont even know
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
