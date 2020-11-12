@@ -3,3 +3,8 @@ Firstly, credit to hydos and ramidzkh for epic amazing mod, making the models, m
 Secondly, Valoeghese and Draylar for helping out with world generation, and Notch for writing the original alpha world generation code.
 
 Also, Valoeghese again for making the epic king tater boss music.
+
+Spirits:
+- Clean taters and isometric tater by @gdude2002 (https://github.com/FabricMC/community/tree/9ff92239b0178b2e439e2aa8f8dc5afb00c21a38/media/tater-wall/png)
+- Collectaters by @haykam821 (https://github.com/haykam821/Collectater)
+- Plural tater by @kvverti

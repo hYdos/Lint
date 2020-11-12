@@ -48,7 +48,28 @@
 
   "key.lint.spirits": "Show Spirits",
 
+  "home_series.lint.asie": "Asie",
+  "home_series.lint.collectater": "Collectater",
+  "home_series.lint.fabricord": "Fabricord",
   "home_series.lint.lint": "Lint",
+  "home_series.lint.queerbric": "Queerbric",
   
+  "spirit.lint.clean_irritater": "Clean Irritater",
+  "spirit.lint.clean_neutral_tater": "Clean Neutral Tater",
+  "spirit.lint.clean_sad_tater": "Clean Sad Tater",
+  "spirit.lint.clean_tater": "Clean Tater",
+  "spirit.lint.collectater": "Collectater",
+  "spirit.lint.concerned_tater": "Concerned Tater",
+  "spirit.lint.daylight_collectater": "Daylight Collectater",
   "spirit.lint.default_spirit": "Default Spirit",
+  "spirit.lint.irritater": "Irritater",
+  "spirit.lint.isometric_tater": "Isometric Tater",
+  "spirit.lint.plural_tater": "Plural Tater",
+  "spirit.lint.redstone_collectater": "Redstone Collectater",
+  "spirit.lint.target_collectater": "Target Collectater",
+  "spirit.lint.tater_timer_plate": "Tater Timer Plate",
+  "spirit.lint.timer_collectater": "Timer Collectater",
+  "spirit.lint.tiny_potato": "Tiny Potato",
+  "spirit.lint.trans_tater": "Trans Tater",
+  "spirit.lint.winktato": "Winktato"
 }
