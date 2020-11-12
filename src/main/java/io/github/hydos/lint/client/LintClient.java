@@ -3,6 +3,8 @@ package io.github.hydos.lint.client;
 import java.util.Optional;
 
 import io.github.hydos.lint.client.particle.ClientParticles;
+import io.github.hydos.lint.client.screen.SpiritGui;
+import io.github.hydos.lint.client.screen.SpiritScreen;
 import io.github.hydos.lint.container.Containers;
 import io.github.hydos.lint.container.LilTaterInteractContainer;
 import io.github.hydos.lint.container.client.LilTaterContainerScreen;
@@ -16,9 +18,12 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.minecraft.block.FlowerBlock;
+import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
@@ -30,6 +35,7 @@ import net.minecraft.world.biome.Biome;
 
 @Environment(EnvType.CLIENT)
 public class LintClient implements ClientModInitializer {
+	private static final KeyBinding SPIRITS_KEY_BINDING = new KeyBinding("key.lint.spirits", 75, "key.categories.misc");
 
 	public static void putBlock(FlowerBlock flower, ServerRenderLayer layer) {
 		RenderLayer renderLayer = null;
@@ -50,6 +56,13 @@ public class LintClient implements ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(Entities.I5, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));
 
 		ScreenProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractContainer(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));
+
+		KeyBindingHelper.registerKeyBinding(SPIRITS_KEY_BINDING);
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			if (SPIRITS_KEY_BINDING.isPressed() && !SPIRITS_KEY_BINDING.wasPressed()) {
+				client.openScreen(new SpiritScreen(new SpiritGui()));
+			}
+		});
 	}
 
 	public enum ServerRenderLayer {

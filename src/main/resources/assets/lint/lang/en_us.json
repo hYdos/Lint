@@ -44,5 +44,11 @@
 
   "entity.lint.tiny_potato": "Tiny Potato",
   "entity.lint.king_tater": "King Tater",
-  "entity.lint.minion": "Lil Tater Minion"
+  "entity.lint.minion": "Lil Tater Minion",
+
+  "key.lint.spirits": "Show Spirits",
+
+  "home_series.lint.lint": "Lint",
+  
+  "spirit.lint.default_spirit": "Default Spirit",
 }

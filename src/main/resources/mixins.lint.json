@@ -5,8 +5,10 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BeeEntityMixin",
+    "BuiltinRegistriesMixin",
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
+    "DynamicRegistryManagerMixin",
     "InGameHudMixin",
     "LocateCommandMixin",
     "ServerChunkManagerMixin",

@@ -34,6 +34,7 @@
   "accessWidener": "lint.aw",
   "depends": {
     "fabric": "*",
-    "minecraft": "1.16.x"
+    "minecraft": "1.16.x",
+    "libgui": ">=3.0.0"
   }
 }
