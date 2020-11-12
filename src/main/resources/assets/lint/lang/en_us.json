@@ -47,6 +47,8 @@
   "entity.lint.minion": "Lil Tater Minion",
 
   "key.lint.spirits": "Show Spirits",
+  "text.lint.screen.spirits.title": "Spirits",
+  "text.lint.screen.spirits.show_home_series": "Show Home Series",
 
   "home_series.lint.asie": "Asie",
   "home_series.lint.collectater": "Collectater",

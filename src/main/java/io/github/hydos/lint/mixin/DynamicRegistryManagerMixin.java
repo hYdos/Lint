@@ -21,6 +21,5 @@ public class DynamicRegistryManagerMixin {
 	private static void registerCustomDynamicRegistries(CallbackInfoReturnable<ImmutableMap<RegistryKey<? extends Registry<?>>, DynamicRegistryManager.Info<?>>> ci, ImmutableMap.Builder<RegistryKey<? extends Registry<?>>, DynamicRegistryManager.Info<?>> builder) {
 		builder.put(SpiritRegistry.HOME_SERIES_KEY, new DynamicRegistryManager.Info<>(SpiritRegistry.HOME_SERIES_KEY, HomeSeries.CODEC, null));
 		builder.put(SpiritRegistry.SPIRIT_KEY, new DynamicRegistryManager.Info<>(SpiritRegistry.SPIRIT_KEY, Spirit.CODEC, null));
-		System.out.println("COOL2");
 	}
 }

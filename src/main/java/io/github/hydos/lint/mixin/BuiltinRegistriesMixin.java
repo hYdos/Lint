@@ -29,6 +29,5 @@ public abstract class BuiltinRegistriesMixin {
 	private static void addCustomRegistry(CallbackInfo ci) {
 		addRegistry(SpiritRegistry.HOME_SERIES_KEY, SpiritRegistry.HOME_SERIES_REGISTRY, () -> HomeSeries.LINT, Lifecycle.stable());
 		addRegistry(SpiritRegistry.SPIRIT_KEY, SpiritRegistry.SPIRIT_REGISTRY, () -> Spirit.DEFAULT_SPIRIT, Lifecycle.stable());
-		System.out.println("COOL");
 	}
 }
