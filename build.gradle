@@ -14,6 +14,10 @@ repositories {
 		name = "CottonMC"
 		url = "https://server.bbkr.space/artifactory/libs-release"
 	}
+	maven {
+		name = "Ladysnake Libs"
+		url = "https://dl.bintray.com/ladysnake/libs"
+	}
 	maven { url 'https://jitpack.io' }
 	jcenter()
 }
@@ -32,6 +36,9 @@ dependencies {
 
     modImplementation "io.github.cottonmc:LibGui:${libgui_version}"
     include "io.github.cottonmc:LibGui:${libgui_version}"
+
+	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${project.cardinal_components_version}"
+	modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${project.cardinal_components_version}"
 }
 
 processResources {

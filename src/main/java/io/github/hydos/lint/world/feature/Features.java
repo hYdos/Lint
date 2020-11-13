@@ -2,6 +2,9 @@ package io.github.hydos.lint.world.feature;
 
 import io.github.hydos.lint.Lint;
 import io.github.hydos.lint.resource.block.Blocks;
+import net.minecraft.loot.function.LootFunction;
+import net.minecraft.loot.function.LootFunctionType;
+import net.minecraft.util.JsonSerializer;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.UniformIntDistribution;
@@ -20,6 +23,7 @@ public class Features {
      **/
     public static final Feature<TreeFeatureConfig> TREE = register("tree", new BetterTreeFeature(TreeFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> RETURN_PORTAL = register("portal", new PortalFeature());
+    public static final Feature<DefaultFeatureConfig> SPIRIT_SHRINE = register("spirit_shrine", new SpiritShrineFeature(DefaultFeatureConfig.CODEC));
 
     public static final ConfiguredFeature<?, ?> CORRUPT_TREES = register("corrupt_tree", TREE.configure((
             new TreeFeatureConfig.Builder(
@@ -48,6 +52,15 @@ public class Features {
 
     public static final ConfiguredFeature<?, ?> CORRUPT_FALLEN_LEAVES = register("corrupt_fallen_leaves", (ConfiguredFeature<? extends FeatureConfig, ? extends Feature<? extends FeatureConfig>>) Feature.RANDOM_PATCH.configure(Configs.CORRUPT_FALLEN_LEAVES).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
     public static final ConfiguredFeature<?, ?> MYSTICAL_FALLEN_LEAVES = register("mystical_fallen_leaves", (ConfiguredFeature<? extends FeatureConfig, ? extends Feature<? extends FeatureConfig>>) Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_FALLEN_LEAVES).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+
+    /**
+     * SPIRIT SHRINE
+     */
+    public static final ConfiguredFeature<?, ?> CONFIGURED_SPIRIT_SHRINE = register("spirit_shrine", SPIRIT_SHRINE.configure(FeatureConfig.DEFAULT).applyChance(128));
+
+    private static LootFunctionType register(String id, JsonSerializer<? extends LootFunction> jsonSerializer) {
+        return Registry.register(Registry.LOOT_FUNCTION_TYPE, Lint.id(id), new LootFunctionType(jsonSerializer));
+    }
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(Registry.FEATURE, Lint.id(name), feature);

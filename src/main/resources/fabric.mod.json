@@ -26,6 +26,14 @@
     "client": [
       "io.github.hydos.lint.client.LintClient",
       "io.github.hydos.lint.network.ClientNetworking"
+    ],
+    "cardinal-components-entity": [
+      "io.github.hydos.lint.spirit.SpiritComponentInitializer"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "lint:spirits"
     ]
   },
   "mixins": [
@@ -35,6 +43,7 @@
   "depends": {
     "fabric": "*",
     "minecraft": "1.16.x",
-    "libgui": ">=3.0.0"
+    "libgui": ">=3.0.0",
+    "cardinal-components-entity": ">=2.5.0"
   }
 }

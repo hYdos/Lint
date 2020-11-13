@@ -11,7 +11,9 @@ import io.github.cottonmc.cotton.gui.widget.WLabel;
 import io.github.cottonmc.cotton.gui.widget.WScrollPanel;
 import io.github.cottonmc.cotton.gui.widget.WToggleButton;
 import io.github.hydos.lint.spirit.Spirit;
+import io.github.hydos.lint.spirit.SpiritComponentInitializer;
 import io.github.hydos.lint.spirit.SpiritRegistry;
+import io.github.hydos.lint.spirit.SpiritsComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -42,8 +44,11 @@ public class SpiritGui extends LightweightGuiDescription {
 			}
 		});
 
+		SpiritsComponent component = SpiritComponentInitializer.SPIRITS.get(CLIENT.player);
 		Registry<Spirit> spiritRegistry = CLIENT.player.world.getRegistryManager().get(SpiritRegistry.SPIRIT_KEY);
-		List<Map.Entry<RegistryKey<Spirit>, Spirit>> spirits = spiritRegistry.getEntries().stream().sorted((first, second) -> {
+		List<Map.Entry<RegistryKey<Spirit>, Spirit>> spirits = spiritRegistry.getEntries().stream().filter(entry -> {
+			return component.hasSpirit(entry.getValue());
+		}).sorted((first, second) -> {
 			return first.getKey().getValue().compareTo(second.getKey().getValue());
 		}).collect(Collectors.toList());
 

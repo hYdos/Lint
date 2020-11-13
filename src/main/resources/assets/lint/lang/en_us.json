@@ -38,6 +38,8 @@
   "biome.lint.corrupt_forest": "Corrupt Forest",
 
   "item.lint.tater_essence": "Tater Essence",
+  "item.lint.spirit_orb": "Spirit Orb",
+  "item.lint.spirit_orb.tooltip": "Holder of the spirit of %s",
   "item.lint.tarscan": "Tarscan",
   "item.lint.sicieron": "Sicieron",
   "item.lint.jurel": "Jurel",

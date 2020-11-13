@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:chest",
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "lint:spirit_orb",
+                    "functions": [
+                        {
+                            "function": "lint:set_random_spirit"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
