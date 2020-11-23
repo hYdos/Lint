@@ -16,6 +16,7 @@
     "TitleScreenMixin"
   ],
   "client": [
+    "ClientPlayNetworkHandlerMixin",
     "GameRendererMixin",
     "MinecraftClientMixin",
     "PlayerEntityRendererMixin",
