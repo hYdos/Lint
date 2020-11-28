@@ -74,6 +74,7 @@ public class Biomes implements ModInitializer {
 						.waterColor(0x3f76e4)
 						.waterFogColor(0x050533)
 						.fogColor(CORRUPT_FOG_COLOUR)
+						.loopSound(Sounds.CORRUPT_FOREST)
 						.skyColor(0x9c76c1)
 						.build()
 						)
