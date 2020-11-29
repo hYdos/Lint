@@ -29,6 +29,12 @@
       "lint:mystical_forest"
     ]
   },
+  "music.corrupt_forest": {
+    "subtitle": "subtitles.corrupt_forest",
+    "sounds": [
+      "lint:corrupt_forest"
+    ]
+  },
   "music.oboe": {
     "subtitle": "subtitles.oboe",
     "sounds": [
