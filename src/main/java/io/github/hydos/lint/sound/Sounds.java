@@ -17,6 +17,7 @@ public class Sounds {
     public static final SoundEvent DUNGEON = new SoundEvent(Lint.id("music.clandestine"));
     public static final SoundEvent OBOE = new SoundEvent(Lint.id("music.oboe"));
     public static final SoundEvent MYSTICAL_FOREST = new SoundEvent(Lint.id("music.mystical_forest"));
+    public static final SoundEvent CORRUPT_FOREST = new SoundEvent(Lint.id("music.corrupt_forest"));
 
     public static final SoundEvent ADVANCEMENT = new SoundEvent(Lint.id("player.advancement"));
 
@@ -24,10 +25,15 @@ public class Sounds {
     public static final MusicSound I509_LOOP = MusicType.createIngameMusic(I509);
     public static final MusicSound LEX_MANOS_LOOP = MusicType.createIngameMusic(LEX_MANOS);
 
-    public static void register(){
-        Registry.register(Registry.SOUND_EVENT, ((SoundEventAccessor) KING_TATER).getId(), KING_TATER);
-        Registry.register(Registry.SOUND_EVENT, ((SoundEventAccessor) I509).getId(), I509);
-        Registry.register(Registry.SOUND_EVENT, ((SoundEventAccessor) LEX_MANOS).getId(), LEX_MANOS);
-        Registry.register(Registry.SOUND_EVENT, ((SoundEventAccessor) MYSTICAL_FOREST).getId(), MYSTICAL_FOREST);
+    public static void register() {
+        regSound(KING_TATER);
+        regSound(I509);
+        regSound(LEX_MANOS);
+        regSound(MYSTICAL_FOREST);
+        regSound(CORRUPT_FOREST);
+    }
+    
+    private static void regSound(SoundEvent event) {
+    	Registry.register(Registry.SOUND_EVENT, ((SoundEventAccessor) event).getId(), event);
     }
 }
