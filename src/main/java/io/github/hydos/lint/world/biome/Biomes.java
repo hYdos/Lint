@@ -2,7 +2,7 @@ package io.github.hydos.lint.world.biome;
 
 import io.github.hydos.lint.Lint;
 import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.resource.block.Blocks;
+import io.github.hydos.lint.resource.block.LintBlocks;
 import io.github.hydos.lint.sound.Sounds;
 import io.github.hydos.lint.world.carver.LintConfiguredCarvers;
 import io.github.hydos.lint.world.feature.Features;
@@ -31,7 +31,7 @@ public class Biomes implements ModInitializer {
 	public static final Biome MYSTICAL_FOREST;
 	public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
 	public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> TESTING = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState()));
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> TESTING = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(LintBlocks.CORRUPT_LEAVES.getDefaultState(), LintBlocks.CORRUPT_LEAVES.getDefaultState(), LintBlocks.CORRUPT_LEAVES.getDefaultState()));
 
 	static {
 		SpawnSettings.Builder spawningSettings = new SpawnSettings.Builder();

@@ -2,10 +2,11 @@ package io.github.hydos.lint.world.feature;
 
 import java.util.Random;
 
-import io.github.hydos.lint.resource.block.Blocks;
+import io.github.hydos.lint.resource.block.LintBlocks;
 import io.github.hydos.lint.util.OpenSimplexNoise;
 import io.github.hydos.lint.util.Voronoi;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.chunk.Chunk;
@@ -51,5 +52,6 @@ public class FloatingIslandModifier {
 		}
 	}
 
-	private static final BlockState STONE = Blocks.FUSED_STONE.getDefaultState();
+	private static final BlockState STONE = Blocks.STONE.getDefaultState();
+	private static final BlockState FUSED_STONE = LintBlocks.FUSED_STONE.getDefaultState();
 }

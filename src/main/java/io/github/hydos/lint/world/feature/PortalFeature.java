@@ -235,7 +235,7 @@ public class PortalFeature extends Feature<DefaultFeatureConfig> {
         makePillar(world, pos.add(1, 0, 3));
         makePillar(world, pos.add(3, 0, 3));
         makeRoof(world, pos);
-        this.setBlockState(world, pos.add(2, 1, 2), io.github.hydos.lint.resource.block.Blocks.RETURN_HOME.getDefaultState());
+        this.setBlockState(world, pos.add(2, 1, 2), io.github.hydos.lint.resource.block.LintBlocks.RETURN_HOME.getDefaultState());
         return true;
     }
 
