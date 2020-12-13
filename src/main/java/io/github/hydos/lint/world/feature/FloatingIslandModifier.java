@@ -2,10 +2,10 @@ package io.github.hydos.lint.world.feature;
 
 import java.util.Random;
 
+import io.github.hydos.lint.resource.block.Blocks;
 import io.github.hydos.lint.util.OpenSimplexNoise;
 import io.github.hydos.lint.util.Voronoi;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.chunk.Chunk;
@@ -30,7 +30,7 @@ public class FloatingIslandModifier {
 
 			for (int zo = 0; zo < 16; ++zo) {
 				int z = zo + startZ;
-				double floatingIsland = Voronoi.sampleFloating(x * 0.05, z * 0.05, this.seed, this.noise);
+				double floatingIsland = Voronoi.sampleFloating(x * 0.04, z * 0.04, this.seed, this.noise);
 
 				if (floatingIsland > 0.0) {
 					pos.setZ(zo);
@@ -51,5 +51,5 @@ public class FloatingIslandModifier {
 		}
 	}
 
-	private static final BlockState STONE = Blocks.STONE.getDefaultState();
+	private static final BlockState STONE = Blocks.FUSED_STONE.getDefaultState();
 }

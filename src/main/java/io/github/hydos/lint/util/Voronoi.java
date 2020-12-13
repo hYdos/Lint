@@ -50,7 +50,7 @@ public final class Voronoi {
 				int gridY = baseY + yo;
 
 				// if a floating island point
-				if (noise.sample(gridX * 0.2, gridY * 0.2) * 2 + random(gridX + 32, gridY, seed, 1) > 1.0) {
+				if (noise.sample(gridX * 0.11, gridY * 0.11) * 2 + 0.5 * random(gridX + 32, gridY, seed, 1) > 1.4) {
 					double vx = gridX + randomFloat(gridX, gridY, seed);
 					double vy = gridY + randomFloat(gridX, gridY, seed + 1);
 					double vdist = squaredDist(x, y, vx, vy);
