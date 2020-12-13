@@ -128,11 +128,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                 BlockState topState = grass;
                 BlockState underState = dirt;
 
-                for (int y = 256; y >= 128; --y) {
-                    pos.setY(y);
-                    chunk.setBlockState(pos, Blocks.AIR.getDefaultState(), false);
-                }
-                for (int y = 127; y >= 0; --y) {
+                for (int y = 255; y >= 0; --y) {
                     pos.setY(y);
                     if (y <= random.nextInt(6) - 1) {
                         chunk.setBlockState(new BlockPos(x, y, z), Blocks.BEDROCK.getDefaultState(), false);

@@ -38,10 +38,10 @@ public final class Voronoi {
 		return new Vec2f(rx, ry);
 	}
 
-	public static float sampleFloating(float x, float y, int seed, OpenSimplexNoise noise) {
+	public static double sampleFloating(double x, double y, int seed, OpenSimplexNoise noise) {
 		final int baseX = MathHelper.floor(x);
 		final int baseY = MathHelper.floor(y);
-		float rdist = 1000;
+		double rdist = 1000;
 
 		for (int xo = -1; xo <= 1; ++xo) {
 			int gridX = baseX + xo;
@@ -51,9 +51,9 @@ public final class Voronoi {
 
 				// if a floating island point
 				if (noise.sample(gridX * 0.2, gridY * 0.2) * 2 + random(gridX + 32, gridY, seed, 1) > 1.0) {
-					float vx = gridX + randomFloat(gridX, gridY, seed);
-					float vy = gridY + randomFloat(gridX, gridY, seed + 1);
-					float vdist = squaredDist(x, y, vx, vy);
+					double vx = gridX + randomFloat(gridX, gridY, seed);
+					double vy = gridY + randomFloat(gridX, gridY, seed + 1);
+					double vdist = squaredDist(x, y, vx, vy);
 
 					if (vdist < rdist) {
 						rdist = vdist;
@@ -62,7 +62,7 @@ public final class Voronoi {
 			}
 		}
 
-		return Math.max(0.0f, 1.0f - rdist);
+		return Math.max(0.0, 1.0 - rdist);
 	}
 
 	private static int random(int x, int y, int seed, int mask) {
@@ -77,6 +77,12 @@ public final class Voronoi {
 	private static float squaredDist(float x0, float y0, float x1, float y1) {
 		float dx = Math.abs(x1 - x0);
 		float dy = Math.abs(y1 - y0);
+		return dx * dx + dy * dy;
+	}
+
+	private static double squaredDist(double x0, double y0, double x1, double y1) {
+		double dx = Math.abs(x1 - x0);
+		double dy = Math.abs(y1 - y0);
 		return dx * dx + dy * dy;
 	}
 
