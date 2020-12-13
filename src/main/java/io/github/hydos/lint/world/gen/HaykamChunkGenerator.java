@@ -121,7 +121,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                     gravel = WHITE_SAND.getDefaultState();
                 }
 
-                boolean sandSampleAtPos = this.sandSample[(x + z * 16)] + random.nextDouble() * 0.2D > 0.0D;
+                boolean sandSampleAtPos = this.sandSample[(x * 16 + z)] + random.nextDouble() * 0.2D > 0.0D;
                 boolean gravelSampleAtPos = this.gravelSample[(x + z * 16)] + random.nextDouble() * 0.2D > 3.0D;
                 int stoneSampleAtPos = (int) (this.stoneNoise[(x + z * 16)] / 3.0D + 3.0D + random.nextDouble() * 0.25D);
                 int run = -1;

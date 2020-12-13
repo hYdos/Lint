@@ -26,18 +26,18 @@ public class OctaveHaykamNoiseSampler {
         return double6;
     }
 
-    public double[] sample(double[] arrayToReuse, double double3, double double5, double double7, int integer9, int integer10, int integer11, double double12, double double14, double double16) {
+    public double[] sample(double[] arrayToReuse, double startX, double startY, double startZ, int xWidth, int yHeight, int zWidth, double xScale, double yScale, double zScale) {
         if (arrayToReuse == null) {
-            arrayToReuse = new double[integer9 * integer10 * integer11];
+            arrayToReuse = new double[xWidth * yHeight * zWidth];
         } else {
             Arrays.fill(arrayToReuse, 0.0);
         }
 
-        double double18 = 1.0;
+        double scale = 1.0;
 
         for (int j = 0; j < this.octaves; ++j) {
-            this.generators[j].sample(arrayToReuse, double3, double5, double7, integer9, integer10, integer11, double12 * double18, double14 * double18, double16 * double18, double18);
-            double18 /= 2.0;
+            this.generators[j].sample(arrayToReuse, startX, startY, startZ, xWidth, yHeight, zWidth, xScale * scale, yScale * scale, zScale * scale, scale);
+            scale /= 2.0;
         }
 
         return arrayToReuse;
