@@ -38,7 +38,7 @@ public final class Voronoi {
 		return new Vec2f(rx, ry);
 	}
 
-	public static double sampleFloating(float x, float y, int seed, OpenSimplexNoise noise) {
+	public static float sampleFloating(float x, float y, int seed, OpenSimplexNoise noise) {
 		final int baseX = MathHelper.floor(x);
 		final int baseY = MathHelper.floor(y);
 		float rdist = 1000;
@@ -62,7 +62,7 @@ public final class Voronoi {
 			}
 		}
 
-		return Math.max(0.0, 1.0 - rdist);
+		return Math.max(0.0f, 1.0f - rdist);
 	}
 
 	private static int random(int x, int y, int seed, int mask) {

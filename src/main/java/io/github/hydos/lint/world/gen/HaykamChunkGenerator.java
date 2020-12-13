@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.hydos.lint.callback.ServerChunkManagerCallback;
 import io.github.hydos.lint.world.biome.Biomes;
 import io.github.hydos.lint.world.biome.HaykamBiomeSource;
+import io.github.hydos.lint.world.feature.FloatingIslandModifier;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -49,6 +50,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
     private double[] sandSample = new double[256];
     private double[] gravelSample = new double[256];
     private double[] stoneNoise = new double[256];
+    private FloatingIslandModifier islands;
 
     public HaykamChunkGenerator(Long seed, Registry<Biome> registry) {
         super(new HaykamBiomeSource(registry, seed), new StructuresConfig(false));
@@ -56,7 +58,8 @@ public class HaykamChunkGenerator extends ChunkGenerator {
         this.biomeRegistry = registry;
 
         ServerChunkManagerCallback.EVENT.register(manager -> {
-            Random rand = new Random(((ServerWorld) manager.getWorld()).getSeed());
+        	long worldSeed = ((ServerWorld) manager.getWorld()).getSeed();
+            Random rand = new Random(seed);
             noise1 = new OctaveHaykamNoiseSampler(rand, 16);
             noise2 = new OctaveHaykamNoiseSampler(rand, 16);
             noise3 = new OctaveHaykamNoiseSampler(rand, 8);
@@ -65,6 +68,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
             noise6 = new OctaveHaykamNoiseSampler(rand, 10);
             noise7 = new OctaveHaykamNoiseSampler(rand, 16);
             treeNoise = new OctaveHaykamNoiseSampler(rand, 8);
+            islands = new FloatingIslandModifier(worldSeed);
         });
     }
 
@@ -247,6 +251,8 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                 }
             }
         }
+        
+        this.islands.generate(world, chunk, random, chunkX << 4, chunkZ << 4);
     }
 
     @Override
