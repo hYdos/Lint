@@ -26,16 +26,16 @@ public class FloatingIslandModifier {
 
 		for (int xo = 0; xo < 16; ++xo) {
 			int x = xo + startX;
-			pos.setX(x);
+			pos.setX(xo);
 
 			for (int zo = 0; zo < 16; ++zo) {
 				int z = zo + startZ;
 				float floatingIsland = Voronoi.sampleFloating(x * 0.05f, z * 0.05f, this.seed, this.noise);
 
 				if (floatingIsland > 0.0f) {
-					pos.setZ(z);
+					pos.setZ(zo);
 					double height = 180 + 30 * this.noise.sample(x * 0.012, z * 0.012);
-					double depth = height - 20 * this.noise.sample(5 + x * 0.012, z * 0.012) * floatingIsland;
+					double depth = height - 25 * Math.abs(this.noise.sample(5 + x * 0.012, z * 0.012)) * floatingIsland;
 
 					int iHeight = (int) height;
 					int iDepth = (int) depth;
