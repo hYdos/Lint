@@ -6,9 +6,12 @@ import io.github.hydos.lint.resource.block.LintBlocks;
 import io.github.hydos.lint.util.OpenSimplexNoise;
 import io.github.hydos.lint.util.Voronoi;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
 
 public class FloatingIslandModifier {
 	public FloatingIslandModifier(long seed) {
@@ -23,6 +26,9 @@ public class FloatingIslandModifier {
 
 	public void generate(StructureWorldAccess world, Random random, int startX, int startZ) {
 		BlockPos.Mutable pos = new BlockPos.Mutable();
+		Chunk chunk = world.getChunk(new BlockPos(startX, 0, startZ));
+		Heightmap wsWG = chunk.getHeightmap(Heightmap.Type.WORLD_SURFACE_WG);
+		Heightmap ofWG = chunk.getHeightmap(Heightmap.Type.OCEAN_FLOOR_WG);
 
 		for (int xo = 0; xo < 16; ++xo) {
 			int x = xo + startX;
@@ -38,12 +44,28 @@ public class FloatingIslandModifier {
 					double depth = height - 25 * (0.5 + Math.abs(this.noise.sample(5 + x * 0.012, z * 0.012))) * floatingIsland;
 
 					int iHeight = (int) height;
+					int finalY = iHeight - 1;
+					int fillY = iHeight - (random.nextBoolean() ? 4 : 5);
 					int iDepth = (int) depth;
 
 					if (iDepth < iHeight) {
+						Biome biome = world.getBiome(pos.up(64));// just in case 3d biomes in 1.17
+						SurfaceConfig surface = biome.getGenerationSettings().getSurfaceConfig();
+						BlockState filler = surface.getUnderMaterial();
+						BlockState top = surface.getTopMaterial();
+
 						for (int y = iDepth; y < iHeight; ++y) {
 							pos.setY(y);
-							world.setBlockState(pos, STONE, 3);
+							
+							if (y == finalY) {
+								world.setBlockState(pos, top, 3);
+								wsWG.trackUpdate(xo, y, zo, top); // the top block will never be air so always updates
+								ofWG.trackUpdate(xo, y, zo, top); // I don't think any top blocks fail the check here either
+							} else if (y > fillY) {
+								world.setBlockState(pos, filler, 3);
+							} else {
+								world.setBlockState(pos, FUSED_STONE, 3);
+							}
 						}
 					}
 				}
@@ -51,6 +73,5 @@ public class FloatingIslandModifier {
 		}
 	}
 
-	private static final BlockState STONE = Blocks.STONE.getDefaultState();
 	private static final BlockState FUSED_STONE = LintBlocks.FUSED_STONE.getDefaultState();
 }

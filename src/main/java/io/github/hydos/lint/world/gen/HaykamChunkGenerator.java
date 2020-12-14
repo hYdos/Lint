@@ -59,7 +59,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	private double[] sandSample = new double[256];
 	private double[] gravelSample = new double[256];
 	private double[] stoneNoise = new double[256];
-	private FloatingIslandModifier islands;
+	private FloatingIslandModifier floatingIslands;
 
 	public HaykamChunkGenerator(Long seed, Registry<Biome> registry) {
 		super(new HaykamBiomeSource(registry, seed), new StructuresConfig(false));
@@ -77,7 +77,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 			noise6 = new OctaveHaykamNoiseSampler(rand, 10);
 			noise7 = new OctaveHaykamNoiseSampler(rand, 16);
 			treeNoise = new OctaveHaykamNoiseSampler(rand, 8);
-			islands = new FloatingIslandModifier(worldSeed);
+			floatingIslands = new FloatingIslandModifier(worldSeed);
 		});
 	}
 
@@ -441,10 +441,13 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 		int startX = centreChunkX * 16;
 		int startZ = centreChunkZ * 16;
 
-		this.islands.generate(region, random, startX, startZ);
+		// generate floating islands
+		ChunkRandom genRand = new ChunkRandom();
+		genRand.setTerrainSeed(centreChunkX, centreChunkZ);
+		this.floatingIslands.generate(region, genRand, startX, startZ);
 
-		BlockPos startPos = new BlockPos(startX, 0, startZ);
 		Biome biome = this.populationSource.getBiomeForNoiseGen((centreChunkX << 2) + 2, 2, (centreChunkZ << 2) + 2);
+		BlockPos startPos = new BlockPos(startX, 0, startZ);
 		ChunkRandom rand = new ChunkRandom();
 		rand.setPopulationSeed(region.getSeed() + 1, startX, startZ);
 
