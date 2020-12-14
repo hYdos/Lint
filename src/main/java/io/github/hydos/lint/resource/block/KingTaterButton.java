@@ -19,8 +19,8 @@ public class KingTaterButton extends Block {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (state != Blocks.GREEN_BUTTON.getDefaultState()) {
-            world.setBlockState(pos, Blocks.GREEN_BUTTON.getDefaultState());
+        if (state != LintBlocks.GREEN_BUTTON.getDefaultState()) {
+            world.setBlockState(pos, LintBlocks.GREEN_BUTTON.getDefaultState());
             KingTater kingTater = new KingTater(Entities.KING_TATER, world);
             kingTater.refreshPositionAndAngles(pos, 0, 0);
             world.spawnEntity(kingTater);

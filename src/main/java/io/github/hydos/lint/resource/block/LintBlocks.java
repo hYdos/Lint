@@ -14,7 +14,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
-public interface Blocks {
+public interface LintBlocks {
 
     Block FUSED_STONE = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
 

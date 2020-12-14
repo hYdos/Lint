@@ -84,7 +84,7 @@ public class LintClient implements ClientModInitializer {
 			if (aBiome == Biomes.CORRUPT_FOREST_KEY) {
 				distChunks = 3f;
 			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY) {
-				distChunks = 0.9f * originalResultChunks;
+				distChunks = Math.min(6.2f, 0.43f * originalResultChunks);
 			}
 		}
 

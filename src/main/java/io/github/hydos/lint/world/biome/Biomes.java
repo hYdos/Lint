@@ -2,7 +2,7 @@ package io.github.hydos.lint.world.biome;
 
 import io.github.hydos.lint.Lint;
 import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.resource.block.Blocks;
+import io.github.hydos.lint.resource.block.LintBlocks;
 import io.github.hydos.lint.sound.Sounds;
 import io.github.hydos.lint.world.carver.LintConfiguredCarvers;
 import io.github.hydos.lint.world.feature.Features;
@@ -31,7 +31,8 @@ public class Biomes implements ModInitializer {
 	public static final Biome MYSTICAL_FOREST;
 	public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
 	public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> TESTING = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState()));
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(LintBlocks.LIVELY_GRASS.getDefaultState(), LintBlocks.RICH_DIRT.getDefaultState(), LintBlocks.RICH_DIRT.getDefaultState()));
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CF_SB = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(), LintBlocks.RICH_DIRT.getDefaultState(), LintBlocks.RICH_DIRT.getDefaultState()));
 
 	static {
 		SpawnSettings.Builder spawningSettings = new SpawnSettings.Builder();
@@ -53,8 +54,9 @@ public class Biomes implements ModInitializer {
 						.build())
 				.spawnSettings(spawningSettings.build())
 				.generationSettings(new GenerationSettings.Builder()
-						.surfaceBuilder(TESTING)
+						.surfaceBuilder(MF_SB)
 						.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+						.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_TREES)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_STEMS)
@@ -80,10 +82,10 @@ public class Biomes implements ModInitializer {
 						)
 				.spawnSettings(spawningSettings.build())
 				.generationSettings(new GenerationSettings.Builder()
-						.surfaceBuilder(TESTING)
+						.surfaceBuilder(CF_SB)
 						.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+						.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
-						//                        .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL) its broken for some reason. i dont even know
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
 						.structureFeature(ConfiguredStructureFeatures.DUNGEON)
