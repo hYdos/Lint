@@ -29,12 +29,6 @@ public class PortalFeature extends Feature<DefaultFeatureConfig> {
 
     @Override
     public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
-        pos = pos.up();
-
-        while (world.isAir(pos) && pos.getY() > 2) {
-            pos = pos.down();
-        }
-
         makeBase(world, pos);
         makePillar(world, pos.add(1, 0, 1));
         makePillar(world, pos.add(3, 0, 1));
