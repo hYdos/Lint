@@ -11,7 +11,6 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
 
 public class FloatingIslandModifier {
@@ -39,6 +38,13 @@ public class FloatingIslandModifier {
 			for (int zo = 0; zo < 16; ++zo) {
 				int z = zo + startZ;
 				double floatingIsland = Voronoi.sampleFloating(x * 0.04, z * 0.04, this.seed, this.noise);
+				double floatingNoise = noise.sample(x * 0.04 * 0.11, z * 0.04 * 0.11);
+				floatingIsland = smoothstep(floatingIsland);
+
+				// give a nicer shape
+				if (floatingNoise > 0.7) {
+					floatingIsland += 0.5 * (floatingNoise - 0.7); // start at 0
+				}
 
 				if (floatingIsland > 0.0) {
 					pos.setZ(z);
@@ -58,7 +64,7 @@ public class FloatingIslandModifier {
 
 						for (int y = iDepth; y < iHeight; ++y) {
 							pos.setY(y);
-							
+
 							if (y == finalY) {
 								world.setBlockState(pos, top, 3);
 								wsWG.trackUpdate(xo, y, zo, top); // the top block will never be air so always updates
@@ -76,5 +82,9 @@ public class FloatingIslandModifier {
 		}
 	}
 
+	private static final double smoothstep(double x) {
+		x -= 0.5;
+		return 0.5 * (1 + x + 4 * (x * x * x));
+	}
 	private static final BlockState FUSED_STONE = LintBlocks.FUSED_STONE.getDefaultState();
 }
