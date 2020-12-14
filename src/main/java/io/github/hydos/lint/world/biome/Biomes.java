@@ -84,7 +84,7 @@ public class Biomes implements ModInitializer {
 						.surfaceBuilder(CF_SB)
 						.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
-						//                        .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL) its broken for some reason. i dont even know
+						.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
 						.structureFeature(ConfiguredStructureFeatures.DUNGEON)
