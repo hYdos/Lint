@@ -11,6 +11,7 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
 
 public class FloatingIslandModifier {
@@ -29,6 +30,7 @@ public class FloatingIslandModifier {
 		Chunk chunk = world.getChunk(new BlockPos(startX, 0, startZ));
 		Heightmap wsWG = chunk.getHeightmap(Heightmap.Type.WORLD_SURFACE_WG);
 		Heightmap ofWG = chunk.getHeightmap(Heightmap.Type.OCEAN_FLOOR_WG);
+		Heightmap mb = chunk.getHeightmap(Heightmap.Type.MOTION_BLOCKING);
 
 		for (int xo = 0; xo < 16; ++xo) {
 			int x = xo + startX;
@@ -61,6 +63,7 @@ public class FloatingIslandModifier {
 								world.setBlockState(pos, top, 3);
 								wsWG.trackUpdate(xo, y, zo, top); // the top block will never be air so always updates
 								ofWG.trackUpdate(xo, y, zo, top); // I don't think any top blocks fail the check here either
+								mb.trackUpdate(xo, y, zo, top);
 							} else if (y > fillY) {
 								world.setBlockState(pos, filler, 3);
 							} else {
