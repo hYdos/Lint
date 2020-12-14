@@ -8,8 +8,7 @@ import io.github.hydos.lint.util.Voronoi;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.StructureWorldAccess;
 
 public class FloatingIslandModifier {
 	public FloatingIslandModifier(long seed) {
@@ -22,19 +21,19 @@ public class FloatingIslandModifier {
 	private final OpenSimplexNoise noise;
 	private final int seed;
 
-	public void generate(WorldAccess world, Chunk chunk, Random random, int startX, int startZ) {
+	public void generate(StructureWorldAccess world, Random random, int startX, int startZ) {
 		BlockPos.Mutable pos = new BlockPos.Mutable();
 
 		for (int xo = 0; xo < 16; ++xo) {
 			int x = xo + startX;
-			pos.setX(xo);
+			pos.setX(x);
 
 			for (int zo = 0; zo < 16; ++zo) {
 				int z = zo + startZ;
 				double floatingIsland = Voronoi.sampleFloating(x * 0.04, z * 0.04, this.seed, this.noise);
 
 				if (floatingIsland > 0.0) {
-					pos.setZ(zo);
+					pos.setZ(z);
 					double height = 150 + 10 * this.noise.sample(x * 0.02, z * 0.02);
 					double depth = height - 25 * (0.5 + Math.abs(this.noise.sample(5 + x * 0.012, z * 0.012))) * floatingIsland;
 
@@ -44,7 +43,7 @@ public class FloatingIslandModifier {
 					if (iDepth < iHeight) {
 						for (int y = iDepth; y < iHeight; ++y) {
 							pos.setY(y);
-							chunk.setBlockState(pos, STONE, false);
+							world.setBlockState(pos, STONE, 3);
 						}
 					}
 				}
