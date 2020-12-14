@@ -75,7 +75,7 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private static float getFDC(World world, int x, int z, float originalResultChunks) {
-		if (true) return originalResultChunks;
+		//if (true) return originalResultChunks;
 		Optional<RegistryKey<Biome>> biome = world.getRegistryManager().get(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos(x, 64, z))); // get biome
 		float distChunks = originalResultChunks;
 
