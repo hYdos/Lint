@@ -75,9 +75,6 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private static float getFDC(World world, int x, int z, float originalResultChunks) {
-		if (true) {
-			return originalResultChunks;
-		}
 		Optional<RegistryKey<Biome>> biome = world.getRegistryManager().get(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos(x, 64, z))); // get biome
 		float distChunks = originalResultChunks;
 
@@ -87,7 +84,7 @@ public class LintClient implements ClientModInitializer {
 			if (aBiome == Biomes.CORRUPT_FOREST_KEY) {
 				distChunks = 3f;
 			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY) {
-				distChunks = Math.min(5.8f, 0.36f * originalResultChunks);
+				distChunks = Math.min(6.2f, 0.46f * originalResultChunks);
 			}
 		}
 
