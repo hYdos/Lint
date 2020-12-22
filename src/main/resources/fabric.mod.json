@@ -20,8 +20,8 @@
       "io.github.hydos.lint.world.biome.Biomes",
       "io.github.hydos.lint.container.Containers",
       "io.github.hydos.lint.entity.Entities::initialize",
-      "io.github.hydos.lint.resource.block.LintBlocks::initialize",
-      "io.github.hydos.lint.resource.item.Items::initialize"
+      "io.github.hydos.lint.block.LintBlocks::initialize",
+      "io.github.hydos.lint.item.Items::initialize"
     ],
     "client": [
       "io.github.hydos.lint.client.LintClient",

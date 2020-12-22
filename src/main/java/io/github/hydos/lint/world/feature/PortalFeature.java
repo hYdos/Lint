@@ -2,7 +2,7 @@ package io.github.hydos.lint.world.feature;
 
 import java.util.Random;
 
-import io.github.hydos.lint.resource.block.LintBlocks;
+import io.github.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.PillarBlock;

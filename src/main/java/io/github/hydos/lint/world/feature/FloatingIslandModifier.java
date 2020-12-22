@@ -2,7 +2,7 @@ package io.github.hydos.lint.world.feature;
 
 import java.util.Random;
 
-import io.github.hydos.lint.resource.block.LintBlocks;
+import io.github.hydos.lint.block.LintBlocks;
 import io.github.hydos.lint.util.OpenSimplexNoise;
 import io.github.hydos.lint.util.Voronoi;
 import net.minecraft.block.BlockState;

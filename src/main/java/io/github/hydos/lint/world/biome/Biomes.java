@@ -2,7 +2,7 @@ package io.github.hydos.lint.world.biome;
 
 import io.github.hydos.lint.Lint;
 import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.resource.block.LintBlocks;
+import io.github.hydos.lint.block.LintBlocks;
 import io.github.hydos.lint.sound.Sounds;
 import io.github.hydos.lint.world.carver.LintConfiguredCarvers;
 import io.github.hydos.lint.world.feature.Features;

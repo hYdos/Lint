@@ -9,7 +9,7 @@ import org.apache.commons.lang3.mutable.MutableBoolean;
 import com.mojang.serialization.Codec;
 
 import io.github.hydos.lint.Lint;
-import io.github.hydos.lint.resource.block.LintBlocks;
+import io.github.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;

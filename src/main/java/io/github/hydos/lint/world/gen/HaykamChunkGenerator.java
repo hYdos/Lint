@@ -1,6 +1,6 @@
 package io.github.hydos.lint.world.gen;
 
-import static io.github.hydos.lint.resource.block.LintBlocks.*;
+import static io.github.hydos.lint.block.LintBlocks.*;
 
 import java.util.Iterator;
 import java.util.List;

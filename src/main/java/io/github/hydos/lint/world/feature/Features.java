@@ -1,7 +1,7 @@
 package io.github.hydos.lint.world.feature;
 
 import io.github.hydos.lint.Lint;
-import io.github.hydos.lint.resource.block.LintBlocks;
+import io.github.hydos.lint.block.LintBlocks;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.UniformIntDistribution;
