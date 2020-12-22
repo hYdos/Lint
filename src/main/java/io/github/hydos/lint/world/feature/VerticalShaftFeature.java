@@ -22,7 +22,7 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 		final int startX = start.getX() - 2;
 		final int startY = start.getY();
 		final int startZ = start.getZ() - 2;
-		final int depth = 7 + random.nextInt(14);
+		final int depth = 7 + random.nextInt(16);
 
 		if (startY - depth < 0) { // make sure can go deep enough.
 			return false;
