@@ -30,6 +30,6 @@ public class LintCorruptGrassBlock extends FlowerBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
-        return floor == Blocks.CORRUPT_GRASS.getDefaultState();
+        return floor == LintBlocks.CORRUPT_GRASS.getDefaultState();
     }
 }

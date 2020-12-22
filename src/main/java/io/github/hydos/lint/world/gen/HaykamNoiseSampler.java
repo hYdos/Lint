@@ -2,6 +2,8 @@ package io.github.hydos.lint.world.gen;
 
 import java.util.Random;
 
+import net.minecraft.util.math.MathHelper;
+
 public class HaykamNoiseSampler {
 
     public final double offsetX;
@@ -79,8 +81,8 @@ public class HaykamNoiseSampler {
         return this.sample(x, y, 0.0);
     }
 
-    public void sample(double[] arrayToReuse, double double3, double double5, double double7, int integer9, int integer10, int integer11, double double12, double double14, double double16, double double18) {
-        int integer20 = 0;
+    public void sample(double[] arrayToReuse, double startX, double startY, double startZ, int xWidth, int yHeight, int zWidth, double xScale, double yScale, double zScale, double double18) {
+        int indexCounter = 0;
         double double21 = 1.0 / double18;
         int integer23 = -1;
         double double30 = 0.0;
@@ -88,43 +90,43 @@ public class HaykamNoiseSampler {
         double double34 = 0.0;
         double double36 = 0.0;
 
-        for (int i = 0; i < integer9; ++i) {
-            double double39 = (double3 + i) * double12 + this.offsetX;
-            int integer41 = (int) double39;
+        for (int xPos = 0; xPos < xWidth; ++xPos) {
+            double xSample = (startX + xPos) * xScale + this.offsetX;
+            int x = MathHelper.floor(xSample);
 
-            if (double39 < integer41) {
-                --integer41;
+            if (xSample < x) {
+                --x;
             }
 
-            int integer42 = integer41 & 0xFF;
-            double39 -= integer41;
-            double double43 = double39 * double39 * double39 * (double39 * (double39 * 6.0 - 15.0) + 10.0);
+            int integer42 = x & 0xFF;
+            xSample -= x;
+            double double43 = xSample * xSample * xSample * (xSample * (xSample * 6.0 - 15.0) + 10.0);
 
-            for (int j = 0; j < integer11; ++j) {
-                double double46 = (double7 + j) * double16 + this.offsetZ;
-                int integer48 = (int) double46;
+            for (int zPos = 0; zPos < zWidth; ++zPos) {
+                double zSample = (startZ + zPos) * zScale + this.offsetZ;
+                int z = MathHelper.floor(zSample);
 
-                if (double46 < integer48) {
-                    --integer48;
+                if (zSample < z) {
+                    --z;
                 }
 
-                int integer49 = integer48 & 0xFF;
-                double46 -= integer48;
-                double double50 = double46 * double46 * double46 * (double46 * (double46 * 6.0 - 15.0) + 10.0);
+                int integer49 = z & 0xFF;
+                zSample -= z;
+                double double50 = zSample * zSample * zSample * (zSample * (zSample * 6.0 - 15.0) + 10.0);
 
-                for (int k = 0; k < integer10; ++k) {
-                    double double53 = (double5 + k) * double14 + this.offsetY;
-                    int integer55 = (int) double53;
+                for (int yPos = 0; yPos < yHeight; ++yPos) {
+                    double ySample = (startY + yPos) * yScale + this.offsetY;
+                    int y = (int) ySample;
 
-                    if (double53 < integer55) {
-                        --integer55;
+                    if (ySample < y) {
+                        --y;
                     }
 
-                    int integer56 = integer55 & 0xFF;
-                    double53 -= integer55;
-                    double double57 = double53 * double53 * double53 * (double53 * (double53 * 6.0 - 15.0) + 10.0);
+                    int integer56 = y & 0xFF;
+                    ySample -= y;
+                    double double57 = ySample * ySample * ySample * (ySample * (ySample * 6.0 - 15.0) + 10.0);
 
-                    if (k == 0 || integer56 != integer23) {
+                    if (yPos == 0 || integer56 != integer23) {
                         integer23 = integer56;
                         int integer24 = this.p[integer42] + integer56;
                         int integer25 = this.p[integer24] + integer49;
@@ -132,15 +134,15 @@ public class HaykamNoiseSampler {
                         int integer27 = this.p[integer42 + 1] + integer56;
                         int integer28 = this.p[integer27] + integer49;
                         int integer29 = this.p[integer27 + 1] + integer49;
-                        double30 = this.lerp(double43, this.gradient(this.p[integer25], double39, double53, double46), this.gradient(this.p[integer28], double39 - 1.0, double53, double46));
-                        double32 = this.lerp(double43, this.gradient(this.p[integer26], double39, double53 - 1.0, double46), this.gradient(this.p[integer29], double39 - 1.0, double53 - 1.0, double46));
-                        double34 = this.lerp(double43, this.gradient(this.p[integer25 + 1], double39, double53, double46 - 1.0), this.gradient(this.p[integer28 + 1], double39 - 1.0, double53, double46 - 1.0));
-                        double36 = this.lerp(double43, this.gradient(this.p[integer26 + 1], double39, double53 - 1.0, double46 - 1.0), this.gradient(this.p[integer29 + 1], double39 - 1.0, double53 - 1.0, double46 - 1.0));
+                        double30 = this.lerp(double43, this.gradient(this.p[integer25], xSample, ySample, zSample), this.gradient(this.p[integer28], xSample - 1.0, ySample, zSample));
+                        double32 = this.lerp(double43, this.gradient(this.p[integer26], xSample, ySample - 1.0, zSample), this.gradient(this.p[integer29], xSample - 1.0, ySample - 1.0, zSample));
+                        double34 = this.lerp(double43, this.gradient(this.p[integer25 + 1], xSample, ySample, zSample - 1.0), this.gradient(this.p[integer28 + 1], xSample - 1.0, ySample, zSample - 1.0));
+                        double36 = this.lerp(double43, this.gradient(this.p[integer26 + 1], xSample, ySample - 1.0, zSample - 1.0), this.gradient(this.p[integer29 + 1], xSample - 1.0, ySample - 1.0, zSample - 1.0));
                     }
 
                     double double63 = this.lerp(double50, this.lerp(double57, double30, double32), this.lerp(double57, double34, double36));
-                    int n21 = integer20++;
-                    arrayToReuse[n21] += double63 * double21;
+                    int index = indexCounter++;
+                    arrayToReuse[index] += double63 * double21;
                 }
             }
         }

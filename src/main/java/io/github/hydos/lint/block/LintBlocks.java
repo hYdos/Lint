@@ -1,4 +1,4 @@
-package io.github.hydos.lint.block;
+package io.github.hydos.lint.resource.block;
 
 import io.github.hydos.lint.Lint;
 import io.github.hydos.lint.client.LintClient;
@@ -14,7 +14,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
-public interface Blocks {
+public interface LintBlocks {
 
     Block FUSED_STONE = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
 
@@ -119,13 +119,14 @@ public interface Blocks {
     }
 
     static void initialize() {
+
         registerBlock(ItemGroup.BUILDING_BLOCKS, FUSED_STONE, "fused_stone");
 
-        registerBlock(ItemGroup.BUILDING_BLOCKS, TARSCAN, "tarscan_ore");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, TARSCAN, "tarscan");
 
-        registerBlock(ItemGroup.BUILDING_BLOCKS, SICIERON, "sicieron_ore");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, SICIERON, "sicieron");
 
-        registerBlock(ItemGroup.BUILDING_BLOCKS, JUREL, "jurel_ore");
+        registerBlock(ItemGroup.BUILDING_BLOCKS, JUREL, "jurel");
         registerFlower(CORRUPT_STEM, "corrupt_stem");
         registerFlower(WILTED_FLOWER, "wilted_flower");
         registerFlower(MYSTICAL_GRASS, "mystical_grass");

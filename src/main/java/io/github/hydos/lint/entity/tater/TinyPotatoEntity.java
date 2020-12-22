@@ -116,6 +116,6 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 
     public static boolean canSpawn(EntityType<TinyPotatoEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
         BlockState blockState = world.getBlockState(pos.down());
-        return (blockState.isOf(io.github.hydos.lint.block.Blocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
+        return (blockState.isOf(io.github.hydos.lint.resource.block.LintBlocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
     }
 }

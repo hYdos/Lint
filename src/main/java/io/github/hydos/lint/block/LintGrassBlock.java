@@ -14,6 +14,6 @@ public class LintGrassBlock extends FlowerBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
-        return floor == Blocks.LIVELY_GRASS.getDefaultState();
+        return floor == LintBlocks.LIVELY_GRASS.getDefaultState();
     }
 }
