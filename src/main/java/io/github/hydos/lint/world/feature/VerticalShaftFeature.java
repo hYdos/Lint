@@ -22,7 +22,7 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 		final int startX = start.getX() - 2;
 		final int startY = start.getY();
 		final int startZ = start.getZ() - 2;
-		final int depth = 7 + random.nextInt(6);
+		final int depth = 7 + random.nextInt(14);
 
 		if (startY - depth < 0) { // make sure can go deep enough.
 			return false;
@@ -65,14 +65,14 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 	}
 
 	private static void getShift(int[] offsets, double x, int y, double z) {
-		boolean reverseX = SHIFT_CUT.sample(x, y * 0.04) > 0;
-		double noiseX = SHIFT.sample(x, y * 0.04);
+		boolean reverseX = SHIFT_CUT.sample(x, y * 0.045) > 0;
+		double noiseX = SHIFT.sample(x, y * 0.05);
 
-		boolean reverseZ = SHIFT_CUT.sample(z, y * 0.04) > 0;
-		double noiseZ = SHIFT.sample(z, y * 0.04);
+		boolean reverseZ = SHIFT_CUT.sample(z, y * 0.045) > 0;
+		double noiseZ = SHIFT.sample(z, y * 0.05);
 
-		offsets[0] = (int) (3 * (reverseX ? 1.0 - noiseX : noiseX));
-		offsets[1] = (int) (3 * (reverseZ ? 1.0 - noiseZ : noiseZ));
+		offsets[0] = (int) (4 * (reverseX ? 1.0 - noiseX : noiseX));
+		offsets[1] = (int) (4 * (reverseZ ? 1.0 - noiseZ : noiseZ));
 	}
 
 	private static final OpenSimplexNoise SHIFT = new OpenSimplexNoise(new Random(0));
