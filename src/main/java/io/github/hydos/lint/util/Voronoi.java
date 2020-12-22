@@ -66,7 +66,7 @@ public final class Voronoi {
 		return Math.max(0.0, 1.0 - rdist);
 	}
 
-	private static int random(int x, int y, int seed, int mask) {
+	public static int random(int x, int y, int seed, int mask) {
 		seed *= 375462423 * seed + 672456235;
 		seed += x;
 		seed *= 375462423 * seed + 672456235;
