@@ -65,14 +65,14 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 	}
 
 	private static void getShift(int[] offsets, double x, int y, double z) {
-		boolean reverseX = SHIFT_CUT.sample(x, y * 0.045) > 0;
-		double noiseX = SHIFT.sample(x, y * 0.05);
+		boolean reverseX = SHIFT_CUT.sample(x, y * 0.05) > 0;
+		double noiseX = SHIFT.sample(x, y * 0.07);
 
-		boolean reverseZ = SHIFT_CUT.sample(z, y * 0.045) > 0;
-		double noiseZ = SHIFT.sample(z, y * 0.05);
+		boolean reverseZ = SHIFT_CUT.sample(z, y * 0.05) > 0;
+		double noiseZ = SHIFT.sample(z, y * 0.07);
 
-		offsets[0] = (int) (4 * (reverseX ? 1.0 - noiseX : noiseX));
-		offsets[1] = (int) (4 * (reverseZ ? 1.0 - noiseZ : noiseZ));
+		offsets[0] = (int) (3 * (reverseX ? 1.0 - noiseX : noiseX));
+		offsets[1] = (int) (3 * (reverseZ ? 1.0 - noiseZ : noiseZ));
 	}
 
 	private static final OpenSimplexNoise SHIFT = new OpenSimplexNoise(new Random(0));
