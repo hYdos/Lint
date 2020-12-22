@@ -1,4 +1,4 @@
-package io.github.hydos.lint.resource.block;
+package io.github.hydos.lint.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

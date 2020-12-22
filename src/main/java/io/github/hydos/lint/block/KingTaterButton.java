@@ -1,4 +1,4 @@
-package io.github.hydos.lint.resource.block;
+package io.github.hydos.lint.block;
 
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.entity.boss.kingtater.KingTater;

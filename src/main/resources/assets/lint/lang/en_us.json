@@ -38,11 +38,14 @@
   "biome.lint.corrupt_forest": "Corrupt Forest",
 
   "item.lint.tater_essence": "Tater Essence",
-  "item.lint.tarscan": "Tarscan",
-  "item.lint.sicieron": "Sicieron",
-  "item.lint.jurel": "Jurel",
+  "item.lint.tarscan_shard": "Tarscan Shard",
+  "item.lint.sicieron_ingot": "Sicieron Ingot",
+  "item.lint.jurel_powder": "Jurel Powder",
 
   "entity.lint.tiny_potato": "Tiny Potato",
   "entity.lint.king_tater": "King Tater",
-  "entity.lint.minion": "Lil Tater Minion"
+  "entity.lint.minion": "Lil Tater Minion",
+
+  "advancements.enter_lint.title": "Tiny Potato",
+  "advancements.enter_lint.description": "More beautiful than the aether"
 }

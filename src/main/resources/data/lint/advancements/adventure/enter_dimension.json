@@ -1,0 +1,31 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "lint:lively_grass"
+    },
+    "title": {
+      "translate": "advancements.enter_lint.title"
+    },
+    "description": {
+      "translate": "advancements.enter_lint.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "enter_dim": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "lint:haykam"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "enter_dim"
+    ]
+  ]
+}

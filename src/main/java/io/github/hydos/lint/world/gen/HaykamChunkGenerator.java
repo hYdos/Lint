@@ -25,7 +25,7 @@ import net.minecraft.world.gen.chunk.StructuresConfig;
 import java.util.Objects;
 import java.util.Random;
 
-import static io.github.hydos.lint.resource.block.Blocks.*;
+import static io.github.hydos.lint.block.Blocks.*;
 
 public class HaykamChunkGenerator extends ChunkGenerator {
 

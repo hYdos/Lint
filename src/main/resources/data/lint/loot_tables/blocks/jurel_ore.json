@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lint:tarscan"
+          "name": "lint:jurel_ore"
         }
       ],
       "conditions": [

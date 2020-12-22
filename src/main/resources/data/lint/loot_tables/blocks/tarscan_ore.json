@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lint:sicieron"
+          "name": "lint:tarscan_ore"
         }
       ],
       "conditions": [

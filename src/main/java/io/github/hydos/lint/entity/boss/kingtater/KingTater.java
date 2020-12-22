@@ -1,7 +1,7 @@
 package io.github.hydos.lint.entity.boss.kingtater;
 
 import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.resource.item.Items;
+import io.github.hydos.lint.item.Items;
 import io.github.hydos.lint.sound.Sounds;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -24,7 +24,6 @@ import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 

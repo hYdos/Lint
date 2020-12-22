@@ -3,7 +3,7 @@ package io.github.hydos.lint.world.feature;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
-import io.github.hydos.lint.resource.block.Blocks;
+import io.github.hydos.lint.block.Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
