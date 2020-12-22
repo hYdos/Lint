@@ -60,6 +60,9 @@ public class Biomes implements ModInitializer {
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_TREES)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_STEMS)
+						.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+						.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+						.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
 						.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 						.build())
 				.build();
@@ -79,7 +82,7 @@ public class Biomes implements ModInitializer {
 						.loopSound(Sounds.CORRUPT_FOREST)
 						.skyColor(0x9c76c1)
 						.build()
-						)
+				)
 				.spawnSettings(spawningSettings.build())
 				.generationSettings(new GenerationSettings.Builder()
 						.surfaceBuilder(CF_SB)
@@ -88,9 +91,12 @@ public class Biomes implements ModInitializer {
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
+						.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+						.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+						.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
 						.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 						.build()
-						).build();
+				).build();
 	}
 
 	public void onInitialize() {

@@ -16,13 +16,15 @@ import net.minecraft.util.registry.Registry;
 
 public interface LintBlocks {
 
-    Block FUSED_STONE = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
+    Block HAYKAMIUM_PORTAL = new HaykamiumPortalBlock(FabricBlockSettings.of(Material.STONE).hardness(1f).sounds(BlockSoundGroup.STONE).collidable(false));
 
-    Block TARSCAN = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
+    Block FUSED_STONE = new Block(FabricBlockSettings.of(Material.STONE).hardness(1f).sounds(BlockSoundGroup.STONE));
 
-    Block SICIERON = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
+    Block TARSCAN = new Block(FabricBlockSettings.of(Material.STONE).hardness(1f).sounds(BlockSoundGroup.STONE));
 
-    Block JUREL = new Block(FabricBlockSettings.of(Material.STONE).hardness(0.5f).sounds(BlockSoundGroup.STONE));
+    Block SICIERON = new Block(FabricBlockSettings.of(Material.STONE).hardness(1f).sounds(BlockSoundGroup.STONE));
+
+    Block JUREL = new Block(FabricBlockSettings.of(Material.STONE).hardness(1f).sounds(BlockSoundGroup.STONE));
 
     FlowerBlock CORRUPT_STEM = new LintCorruptGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
             .noCollision()
@@ -119,6 +121,7 @@ public interface LintBlocks {
     }
 
     static void initialize() {
+        registerBlock(ItemGroup.BUILDING_BLOCKS, HAYKAMIUM_PORTAL, "haykamium_portal");
 
         registerBlock(ItemGroup.BUILDING_BLOCKS, FUSED_STONE, "fused_stone");
 

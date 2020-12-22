@@ -30,7 +30,7 @@ class DataDir:
             json.dump(jsonobj, file, indent=2)
 
 MOD_ID = "lint"
-BLOCK_CLASS_PATH = "io/github/hydos/lint/resource/block/LintBlocks.java"
+BLOCK_CLASS_PATH = "io/github/hydos/lint/block/LintBlocks.java"
 
 assets = DataDir("assets/" + MOD_ID)
 blockstates = assets.sub("blockstates")
