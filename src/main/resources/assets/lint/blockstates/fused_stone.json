@@ -1,7 +1,13 @@
 {
   "variants": {
-    "": {
-      "model": "lint:block/fused_stone"
-    }
+    "": [
+      {
+        "model": "lint:block/fused_stone"
+      },
+      {
+        "model": "lint:block/fused_stone",
+        "y": 180
+      }
+    ]
   }
 }

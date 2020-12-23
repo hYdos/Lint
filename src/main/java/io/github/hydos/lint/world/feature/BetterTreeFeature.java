@@ -3,7 +3,7 @@ package io.github.hydos.lint.world.feature;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
-import io.github.hydos.lint.resource.block.Blocks;
+import io.github.hydos.lint.block.LintBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -49,7 +49,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
     private static boolean isDirtOrGrass(TestableWorld world, BlockPos pos) {
         return world.testBlockState(pos, (state) -> {
             Block block = state.getBlock();
-            return block == Blocks.CORRUPT_GRASS || block == Blocks.LIVELY_GRASS;
+            return block == LintBlocks.CORRUPT_GRASS || block == LintBlocks.LIVELY_GRASS;
         });
     }
 

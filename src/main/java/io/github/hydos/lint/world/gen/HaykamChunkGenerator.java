@@ -1,14 +1,26 @@
 package io.github.hydos.lint.world.gen;
 
+import static io.github.hydos.lint.block.LintBlocks.*;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.function.Supplier;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import io.github.hydos.lint.callback.ServerChunkManagerCallback;
 import io.github.hydos.lint.world.biome.Biomes;
 import io.github.hydos.lint.world.biome.HaykamBiomeSource;
+import io.github.hydos.lint.world.feature.FloatingIslandModifier;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.crash.CrashException;
+import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
@@ -18,21 +30,19 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.gen.ChunkRandom;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.StructuresConfig;
-
-import java.util.Objects;
-import java.util.Random;
-
-import static io.github.hydos.lint.resource.block.Blocks.*;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 public class HaykamChunkGenerator extends ChunkGenerator {
 
     public static final Codec<HaykamChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
             RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
-    ).apply(instance, instance.stable(HaykamChunkGenerator::new)));
+            ).apply(instance, instance.stable(HaykamChunkGenerator::new)));
     private final Random random = new Random();
     private final long seed;
     private final Registry<Biome> biomeRegistry;
@@ -49,6 +59,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
     private double[] sandSample = new double[256];
     private double[] gravelSample = new double[256];
     private double[] stoneNoise = new double[256];
+    private FloatingIslandModifier floatingIslands;
 
     public HaykamChunkGenerator(Long seed, Registry<Biome> registry) {
         super(new HaykamBiomeSource(registry, seed), new StructuresConfig(false));
@@ -56,7 +67,8 @@ public class HaykamChunkGenerator extends ChunkGenerator {
         this.biomeRegistry = registry;
 
         ServerChunkManagerCallback.EVENT.register(manager -> {
-            Random rand = new Random(((ServerWorld) manager.getWorld()).getSeed());
+            long worldSeed = ((ServerWorld) manager.getWorld()).getSeed();
+            Random rand = new Random(seed);
             noise1 = new OctaveHaykamNoiseSampler(rand, 16);
             noise2 = new OctaveHaykamNoiseSampler(rand, 16);
             noise3 = new OctaveHaykamNoiseSampler(rand, 8);
@@ -65,6 +77,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
             noise6 = new OctaveHaykamNoiseSampler(rand, 10);
             noise7 = new OctaveHaykamNoiseSampler(rand, 16);
             treeNoise = new OctaveHaykamNoiseSampler(rand, 8);
+            floatingIslands = new FloatingIslandModifier(worldSeed);
         });
     }
 
@@ -123,18 +136,14 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                     stone = INDIGO_STONE.getDefaultState();
                 }
 
-                boolean sandSampleAtPos = this.sandSample[(x + z * 16)] + random.nextDouble() * 0.2D > 0.0D;
+                boolean sandSampleAtPos = this.sandSample[(x * 16 + z)] + random.nextDouble() * 0.2D > 0.0D;
                 boolean gravelSampleAtPos = this.gravelSample[(x + z * 16)] + random.nextDouble() * 0.2D > 3.0D;
                 int stoneSampleAtPos = (int) (this.stoneNoise[(x + z * 16)] / 3.0D + 3.0D + random.nextDouble() * 0.25D);
                 int run = -1;
                 BlockState topState = grass;
                 BlockState underState = dirt;
 
-                for (int y = 256; y >= 128; --y) {
-                    pos.setY(y);
-                    chunk.setBlockState(pos, Blocks.AIR.getDefaultState(), false);
-                }
-                for (int y = 127; y >= 0; --y) {
+                for (int y = 255; y >= 0; --y) {
                     pos.setY(y);
                     if (y <= random.nextInt(6) - 1) {
                         chunk.setBlockState(new BlockPos(x, y, z), Blocks.BEDROCK.getDefaultState(), false);
@@ -294,27 +303,27 @@ public class HaykamChunkGenerator extends ChunkGenerator {
                 double sampleSAverage = (sampleSELow - sampleSWLow) * oneQuarter;
 
                 xloop:
-                for (int localX = 0; localX < 4; ++localX) {
+                    for (int localX = 0; localX < 4; ++localX) {
 
-                    double someValueToDoWithSettingStone = sampleNWInitial;
-                    double someOffsetThing = (sampleSWInitial - sampleNWInitial) * oneQuarter;
+                        double someValueToDoWithSettingStone = sampleNWInitial;
+                        double someOffsetThing = (sampleSWInitial - sampleNWInitial) * oneQuarter;
 
-                    for (int localZ = 0; localZ < 4; ++localZ) {
+                        for (int localZ = 0; localZ < 4; ++localZ) {
 
-                        if (someValueToDoWithSettingStone > 0.0D) {
-                            maxGroundY = y;
+                            if (someValueToDoWithSettingStone > 0.0D) {
+                                maxGroundY = y;
+                            }
+
+                            someValueToDoWithSettingStone += someOffsetThing;
+
+                            if (actualLocalZ == localZ && actualLocalX == localX) {
+                                break xloop;
+                            }
                         }
 
-                        someValueToDoWithSettingStone += someOffsetThing;
-
-                        if (actualLocalZ == localZ && actualLocalX == localX) {
-                            break xloop;
-                        }
+                        sampleNWInitial += sampleNAverage;
+                        sampleSWInitial += sampleSAverage;
                     }
-
-                    sampleNWInitial += sampleNAverage;
-                    sampleSWInitial += sampleSAverage;
-                }
 
                 sampleNWLow += sampleNWHigh;
                 sampleSWLow += sampleSWHigh;
@@ -432,5 +441,53 @@ public class HaykamChunkGenerator extends ChunkGenerator {
         }
 
         return oldArray;
+    }
+
+    @Override
+    public void generateFeatures(ChunkRegion region, StructureAccessor accessor) {
+        super.generateFeatures(region, accessor);
+
+        int centreChunkX = region.getCenterChunkX();
+        int centreChunkZ = region.getCenterChunkZ();
+        int startX = centreChunkX * 16;
+        int startZ = centreChunkZ * 16;
+
+        // generate floating islands
+        ChunkRandom genRand = new ChunkRandom();
+        genRand.setTerrainSeed(centreChunkX, centreChunkZ);
+        this.floatingIslands.generate(region, genRand, startX, startZ);
+
+        Biome biome = this.populationSource.getBiomeForNoiseGen((centreChunkX << 2) + 2, 2, (centreChunkZ << 2) + 2);
+        BlockPos startPos = new BlockPos(startX, 0, startZ);
+        ChunkRandom rand = new ChunkRandom();
+        rand.setPopulationSeed(region.getSeed() + 1, startX, startZ);
+
+        List<List<Supplier<ConfiguredFeature<?, ?>>>> list = biome.getGenerationSettings().getFeatures();
+        this.postVegetalPlacement(list, region, startPos, rand);
+    }
+
+    private <T extends List<R>, R extends Supplier<ConfiguredFeature<?, ?>>> void postVegetalPlacement(List<T> list, ChunkRegion region, BlockPos pos, ChunkRandom random) {
+        // get iterator
+        Iterator<R> var23 = ((List<R>)list.get(GenerationStep.Feature.VEGETAL_DECORATION.ordinal())).iterator();
+
+        // loop over stuff
+        while (var23.hasNext()) {
+            R supplier = var23.next();
+            try {
+                ConfiguredFeature<?, ?> configured = (ConfiguredFeature<?, ?>) supplier.get();
+
+                try {
+                    configured.generate(region, this, random, pos);
+                } catch (Exception var22) {
+                    CrashReport report = CrashReport.create(var22, "Feature placement");
+                    report.addElement("Feature").add("Id", (Object)Registry.FEATURE.getId(configured.feature)).add("Config", (Object)configured.config).add("Description", () -> {
+                        return configured.feature.toString();
+                    });
+                    throw new CrashException(report);
+                }
+            } catch (ClassCastException e) {
+                // no
+            }
+        }
     }
 }

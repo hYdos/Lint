@@ -13,8 +13,8 @@ class DataDir:
     def writetojavasrc(this, string, string2):
         with open(this.path, "r+") as file:
             file_content = file.read()
-            split = file_content.split("public interface Blocks {")
-            new_file_content = split[0] + "public interface Blocks {\n\n" + string + split[1]
+            split = file_content.split("public interface LintBlocks {")
+            new_file_content = split[0] + "public interface LintBlocks {\n\n" + string + split[1]
             file.seek(0)
             file.write(new_file_content)
         
@@ -30,7 +30,7 @@ class DataDir:
             json.dump(jsonobj, file, indent=2)
 
 MOD_ID = "lint"
-BLOCK_CLASS_PATH = "io/github/hydos/lint/resource/block/Blocks.java"
+BLOCK_CLASS_PATH = "io/github/hydos/lint/block/LintBlocks.java"
 
 assets = DataDir("assets/" + MOD_ID)
 blockstates = assets.sub("blockstates")

@@ -19,6 +19,19 @@
   "block.lint.yellow_daisy": "Yellow Daisy",
   "block.lint.wilted_flower": "Wilted Flower",
   "block.lint.return_home": "Return Portal",
+  "block.lint.fused_stone": "Fused Stone",
+  "block.lint.tarscan_ore": "Tarscan Ore",
+  "block.lint.sicieron_ore": "Sicieron Ore",
+  "block.lint.jurel_ore": "Jurel Ore",
+  "block.lint.mystical_stem": "Mystical Stem",
+  "block.lint.red_button": "Red Button",
+  "block.lint.green_button": "Green Button",
+  "block.lint.mossy_dungeon_bricks": "Mossy Dungeon Bricks",
+  "block.lint.mystical_fallen_leaves": "Mystical Fallen Leaves",
+  "block.lint.corrupt_fallen_leaves": "Corrupt Fallen Leaves",
+  "block.lint.mystical_slab": "Mystical Slab",
+  "block.lint.corrupt_slab": "Corrupt Slab",
+  "block.lint.dungeon_brick_slab": "Dungeon Brick Slab",
   "block.lint.corrupt_stem": "Corrupt Stem",
   "block.lint.indigo_stone": "Indigo Stone",
   
@@ -27,8 +40,14 @@
   "biome.lint.indigo_ridges": "Indigo Ridges",
 
   "item.lint.tater_essence": "Tater Essence",
+  "item.lint.tarscan_shard": "Tarscan Shard",
+  "item.lint.sicieron_ingot": "Sicieron Ingot",
+  "item.lint.jurel_powder": "Jurel Powder",
 
-  "entity.lint.lil_tater": "Lil Tater",
+  "entity.lint.tiny_potato": "Tiny Potato",
   "entity.lint.king_tater": "King Tater",
-  "entity.lint.minion": "Lil Tater Minion"
+  "entity.lint.minion": "Lil Tater Minion",
+
+  "advancements.enter_lint.title": "Tiny Potato",
+  "advancements.enter_lint.description": "More beautiful than the aether"
 }

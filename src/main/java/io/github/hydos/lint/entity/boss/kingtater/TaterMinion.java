@@ -1,6 +1,6 @@
 package io.github.hydos.lint.entity.boss.kingtater;
 
-import io.github.hydos.lint.entity.tater.LilTaterEntity;
+import io.github.hydos.lint.entity.tater.TinyPotatoEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -24,7 +24,7 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 @SuppressWarnings("EntityConstructor")
-public class TaterMinion extends LilTaterEntity implements Monster {
+public class TaterMinion extends TinyPotatoEntity implements Monster {
 
     public TaterMinion(EntityType<? extends TaterMinion> type, World world, LivingEntity target) {
         super(type, world);
@@ -32,7 +32,7 @@ public class TaterMinion extends LilTaterEntity implements Monster {
     }
 
     public static DefaultAttributeContainer.Builder initAttributes() {
-        return LilTaterEntity.initAttributes()
+        return TinyPotatoEntity.initAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.5);
     }

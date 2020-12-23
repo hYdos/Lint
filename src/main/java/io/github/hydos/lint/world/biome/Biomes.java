@@ -1,9 +1,10 @@
 package io.github.hydos.lint.world.biome;
 
 import io.github.hydos.lint.Lint;
-import io.github.hydos.lint.resource.block.Blocks;
 import io.github.hydos.lint.entity.Entities;
+import io.github.hydos.lint.block.LintBlocks;
 import io.github.hydos.lint.sound.Sounds;
+import io.github.hydos.lint.world.carver.LintConfiguredCarvers;
 import io.github.hydos.lint.world.feature.Features;
 import io.github.hydos.lint.world.gen.HaykamChunkGenerator;
 import io.github.hydos.lint.world.structure.ConfiguredStructureFeatures;
@@ -24,19 +25,21 @@ import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
 public class Biomes implements ModInitializer {
-
+    public static final int MYSTICAL_FOG_COLOUR = 0xc0d8ff;
     public static final int CORRUPT_FOG_COLOUR = 0x916ec1;
+    public static final int DAWN_FOG_COLOUR = 0xe5c14b;
     public static final Biome CORRUPT_FOREST;
     public static final Biome MYSTICAL_FOREST;
     public static final Biome INDIGO_RIDGES;
     public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
     public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
     public static final RegistryKey<Biome> INDIGO_RIDGES_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("indigo_ridges"));
-    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> TESTING = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState(), Blocks.CORRUPT_LEAVES.getDefaultState()));
+    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(LintBlocks.LIVELY_GRASS.getDefaultState(), LintBlocks.RICH_DIRT.getDefaultState(), LintBlocks.RICH_DIRT.getDefaultState()));
+    private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CF_SB = SurfaceBuilder.DEFAULT.withConfig(new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(), LintBlocks.RICH_DIRT.getDefaultState(), LintBlocks.RICH_DIRT.getDefaultState()));
 
     static {
         SpawnSettings.Builder spawningSettings = new SpawnSettings.Builder();
-        spawningSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.LIL_TATER, 1, 1, 3));
+        spawningSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 1, 1, 3));
         MYSTICAL_FOREST = new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)
                 .category(Biome.Category.FOREST)
@@ -48,16 +51,21 @@ public class Biomes implements ModInitializer {
                         .waterColor(0)
                         .waterColor(0x3f76e4)
                         .waterFogColor(0x050533)
-                        .fogColor(0xc0d8ff)
+                        .fogColor(MYSTICAL_FOG_COLOUR)//.fogColor(CORRUPT_FOG_COLOUR)
                         .loopSound(Sounds.MYSTICAL_FOREST)
-                        .skyColor(0x77adff)
+                        .skyColor(0x88dfea)
                         .build())
                 .spawnSettings(spawningSettings.build())
                 .generationSettings(new GenerationSettings.Builder()
-                        .surfaceBuilder(TESTING)
+                        .surfaceBuilder(MF_SB)
+                        .carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+                        .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_TREES)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_STEMS)
+                        .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+                        .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+                        .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
                         .structureFeature(ConfiguredStructureFeatures.DUNGEON)
                         .build())
                 .build();
@@ -74,25 +82,26 @@ public class Biomes implements ModInitializer {
                         .waterColor(0x3f76e4)
                         .waterFogColor(0x050533)
                         .fogColor(CORRUPT_FOG_COLOUR)
-                        .skyColor(0x77adff)
+                        .loopSound(Sounds.CORRUPT_FOREST)
+                        .skyColor(0x9c76c1)
                         .build()
                 )
                 .spawnSettings(spawningSettings.build())
                 .generationSettings(new GenerationSettings.Builder()
-                        .surfaceBuilder(TESTING)
+                        .surfaceBuilder(CF_SB)
+                        .carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+                        .feature(GenerationStep.Feature.RAW_GENERATION, Features.CONFIGURED_VERTICAL_SHAFT)
+                        .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
-//                        .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL) its broken for some reason. i dont even know
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
                         .feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
+                        .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+                        .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+                        .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
                         .structureFeature(ConfiguredStructureFeatures.DUNGEON)
                         .build()
                 ).build();
-
-        GenerationSettings.Builder indigoRidgesGenerationSettingsBuilder = new GenerationSettings.Builder()
-                .surfaceBuilder(TESTING)
-                .structureFeature(ConfiguredStructureFeatures.DUNGEON);
-        DefaultBiomeFeatures.addLandCarvers(indigoRidgesGenerationSettingsBuilder);
-
+        
     INDIGO_RIDGES = new Biome.Builder()
             .precipitation(Biome.Precipitation.NONE)
             .category(Biome.Category.EXTREME_HILLS)
@@ -108,7 +117,14 @@ public class Biomes implements ModInitializer {
                     .build()
             )
             .spawnSettings(spawningSettings.build())
-            .generationSettings(indigoRidgesGenerationSettingsBuilder.build())
+            .generationSettings(new GenerationSettings.Builder()
+                    .surfaceBuilder(MF_SB)
+                    .carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+                    .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
+                    .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+                    .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+                    .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+                    .build())
             .build();
     }
 

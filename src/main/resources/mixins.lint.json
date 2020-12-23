@@ -4,20 +4,23 @@
   "package": "io.github.hydos.lint.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BeeEntityMixin",
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
+    "client.InGameHudMixin",
     "LocateCommandMixin",
     "ServerChunkManagerMixin",
+    "SoundEventAccessor",
     "SoundManagerMixin",
     "StructurePoolsMixin",
-    "TitleScreenMixin"
+    "client.TitleScreenMixin",
+    "client.LevelPropertiesMixin"
   ],
   "client": [
-    "BossBarHudMixin",
-    "MinecraftClientMixin",
-    "PlayerEntityRendererMixin",
-    "WorldRendererMixin"
+    "client.ClientPlayNetworkHandlerMixin",
+    "client.GameRendererMixin",
+    "client.MinecraftClientMixin",
+    "client.PlayerEntityRendererMixin",
+    "client.WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
