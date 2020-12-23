@@ -159,12 +159,12 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	private int riverMod(int x, int z, int height) {
 		double riverNoise = this.riverNoise.sample(x * 0.003, z * 0.003);
 
-		if (riverNoise > -0.04 && riverNoise < 0.04) {
+		/*if (riverNoise > -0.12 && riverNoise < 0.12) {
 			int riverHeight = this.getSeaLevel() - 3 - (int) (3 * this.sampleHillsNoise(x, z));
 
-			// 1 / 0.04 = 25.
-			height = (int) MathHelper.lerp(MathHelper.perlinFade((Math.abs(riverNoise) * 25)), riverHeight, height);
-		}
+			// 1 / 0.12 = 8.333...
+			height = (int) MathHelper.lerp(MathHelper.perlinFade((Math.abs(riverNoise) * 8.333333)), riverHeight, height);
+		}*/
 
 		return height;
 	}
@@ -172,8 +172,8 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	private int getBaseHeight(int x, int z) {
 		double continent = 3 + 1.2 * this.continentOperator.get(x, z);
 
-		double terrainTypeScale = 0.0;
-		double terrainHeightScale = 0.0;
+		double typeScale = 0.0;
+		double heightScale = 0.0;
 		int count = 0;
 
 		for (int xo = -SCALE_SMOOTH_RADIUS; xo <= SCALE_SMOOTH_RADIUS; ++xo) {
@@ -181,40 +181,40 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 			for (int zo = -SCALE_SMOOTH_RADIUS; zo <= SCALE_SMOOTH_RADIUS; ++zo) {
 				double current = this.scaleOperator.get(sx, z + zo);
-				terrainTypeScale += current;
+				typeScale += current;
 
-				if (current > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 1/240 blocks period
+				/*if (current > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 1/240 blocks period
 					current -= 35;
 					current = Math.max(0, current);
-				}
+				}*/
 
-				terrainHeightScale += current;
+				heightScale += current;
 				++count;
 			}
 		}
 
-		terrainTypeScale /= count;
-		terrainHeightScale /= count;
+		typeScale /= count;
+		heightScale /= count;
 
-		if (terrainTypeScale > 40) {
+		if (typeScale > 40) {
 			double mountains = this.sampleMountainsNoise(x, z);
 
 			if (mountains < 0) {
-				terrainHeightScale /= 2;
+				heightScale /= 2;
 			}
 
-			return AVG_HEIGHT + (int) (continent + terrainHeightScale * mountains);
-		} else if (terrainTypeScale < 35) {
+			return AVG_HEIGHT + (int) (continent + heightScale * mountains);
+		} else if (typeScale < 35) {
 			double hills = this.sampleHillsNoise(x, z);
 
 			if (hills < 0) {
-				terrainHeightScale /= 2;
+				heightScale /= 2;
 			}
 
-			return AVG_HEIGHT + (int) (continent + terrainHeightScale * hills);
+			return AVG_HEIGHT + (int) (continent + heightScale * hills);
 		} else { // fade region from mountains to hills
-			double mountainsScale = (terrainTypeScale - 35) * 0.2 * terrainHeightScale; // 35 -> 0. 40 -> full scale.
-			double hillsScale = (40 - terrainTypeScale) * 0.2 * terrainHeightScale; // 40 -> 0. 35 -> full scale.
+			double mountainsScale = (typeScale - 35) * 0.2 * heightScale; // 35 -> 0. 40 -> full scale.
+			double hillsScale = (40 - typeScale) * 0.2 * heightScale; // 40 -> 0. 35 -> full scale.
 
 			double mountains = this.sampleMountainsNoise(x, z);
 			double hills = this.sampleHillsNoise(x, z);
