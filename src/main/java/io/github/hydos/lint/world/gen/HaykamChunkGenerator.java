@@ -26,6 +26,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.BlockView;
@@ -152,7 +153,20 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	private int getHeight(int x, int z) {
-		return this.getBaseHeight(x, z);
+		return riverMod(x, z, this.getBaseHeight(x, z));
+	}
+
+	private int riverMod(int x, int z, int height) {
+		double riverNoise = this.riverNoise.sample(x * 0.003, z * 0.003);
+
+		if (riverNoise > -0.04 && riverNoise < 0.04) {
+			int riverHeight = this.getSeaLevel() - 3 - (int) (3 * this.sampleHillsNoise(x, z));
+
+			// 1 / 0.04 = 25.
+			height = (int) MathHelper.lerp(MathHelper.perlinFade((Math.abs(riverNoise) * 25)), riverHeight, height);
+		}
+
+		return height;
 	}
 
 	private int getBaseHeight(int x, int z) {
@@ -169,12 +183,12 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 				double current = this.scaleOperator.get(sx, z + zo);
 				terrainTypeScale += current;
 
-				if (current > 25 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 1/240 blocks period
-					current -= 30;
+				if (current > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 1/240 blocks period
+					current -= 35;
+					current = Math.max(0, current);
 				}
 
 				terrainHeightScale += current;
-
 				++count;
 			}
 		}
@@ -182,7 +196,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 		terrainTypeScale /= count;
 		terrainHeightScale /= count;
 
-		if (terrainTypeScale > 35) {
+		if (terrainTypeScale > 40) {
 			double mountains = this.sampleMountainsNoise(x, z);
 
 			if (mountains < 0) {
@@ -190,7 +204,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 			}
 
 			return AVG_HEIGHT + (int) (continent + terrainHeightScale * mountains);
-		} else if (terrainTypeScale < 30) {
+		} else if (terrainTypeScale < 35) {
 			double hills = this.sampleHillsNoise(x, z);
 
 			if (hills < 0) {
@@ -199,8 +213,8 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 			return AVG_HEIGHT + (int) (continent + terrainHeightScale * hills);
 		} else { // fade region from mountains to hills
-			double mountainsScale = (terrainTypeScale - 30) * 0.2 * terrainHeightScale; // 30 -> 0. 35 -> full scale.
-			double hillsScale = (35 - terrainTypeScale) * 0.2 * terrainHeightScale; // 35 -> 0. 30 -> full scale.
+			double mountainsScale = (terrainTypeScale - 35) * 0.2 * terrainHeightScale; // 35 -> 0. 40 -> full scale.
+			double hillsScale = (40 - terrainTypeScale) * 0.2 * terrainHeightScale; // 40 -> 0. 35 -> full scale.
 
 			double mountains = this.sampleMountainsNoise(x, z);
 			double hills = this.sampleHillsNoise(x, z);
