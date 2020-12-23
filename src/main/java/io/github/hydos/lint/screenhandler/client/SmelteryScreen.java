@@ -1,11 +1,23 @@
 package io.github.hydos.lint.screenhandler.client;
 
+import io.github.hydos.lint.client.render.fluid.Fluid2DRenderer;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Matrix4f;
+
+import java.awt.*;
 
 public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 
@@ -19,6 +31,36 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
 		this.client.getTextureManager().bindTexture(GUI);
 		drawTexture(matrices, x, y - 32, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);
-		assert this.client.player != null;
+		renderFluid(matrices, Fluids.LAVA, new Rectangle(new Point(133, 86), new Dimension(72, 20)));
+	}
+
+	public void renderFluid(MatrixStack matrices, Fluid fluid, Rectangle bounds) {
+		Fluid2DRenderer.CachedFluid renderingData = Fluid2DRenderer.from(fluid);
+		if (renderingData != null) {
+			Sprite sprite = renderingData.getSprite();
+			int color = renderingData.getColor();
+			int a = 255;
+			int r = color >> 16 & 255;
+			int g = color >> 8 & 255;
+			int b = color & 255;
+			MinecraftClient.getInstance().getTextureManager().bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
+			Tessellator tess = Tessellator.getInstance();
+			BufferBuilder bb = tess.getBuffer();
+			Matrix4f matrix = matrices.peek().getModel();
+			bb.begin(7, VertexFormats.POSITION_TEXTURE_COLOR);
+			bb.vertex(matrix, (float) bounds.getMaxX(), (float) bounds.y, this.getFluidZ()).texture(sprite.getMaxU(), sprite.getMinV()).color(r, g, b, a).next();
+			bb.vertex(matrix, (float) bounds.x, (float) bounds.y, this.getFluidZ()).texture(sprite.getMinU(), sprite.getMinV()).color(r, g, b, a).next();
+			bb.vertex(matrix, (float) bounds.x, (float) bounds.getMaxY(), this.getFluidZ()).texture(sprite.getMinU(), sprite.getMaxV()).color(r, g, b, a).next();
+			bb.vertex(matrix, (float) bounds.getMaxX(), (float) bounds.getMaxY(), this.getFluidZ()).texture(sprite.getMaxU(), sprite.getMaxV()).color(r, g, b, a).next();
+			tess.draw();
+		}
+	}
+
+	public void renderAdvancedFluidTm(MatrixStack matrices, Fluid fluid, Rectangle bounds) {
+		//TODO: this will work by rendering many small fluids and putting them together thus removing the stretching artifact i hope. this will be interesting also someone remind me to finish overworld -> lint and lint -> overworld portal thank
+	}
+
+	private float getFluidZ() {
+		return 1f;
 	}
 }

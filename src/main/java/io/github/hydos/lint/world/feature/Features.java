@@ -56,12 +56,12 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> SICIERON_ORE = register("sicieron_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
 					LintBlocks.SICIERON.getDefaultState(),
-					12)).rangeOf(40)).spreadHorizontally().repeat(14);
+					12)).rangeOf(40)).spreadHorizontally().repeat(8);
 
 	public static final ConfiguredFeature<?, ?> JUREL_ORE = register("jurel_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
 					LintBlocks.TARSCAN.getDefaultState(),
-					9)).rangeOf(10)).spreadHorizontally().repeat(8);
+					9)).rangeOf(10)).spreadHorizontally().repeat(6);
 
 	/**
 	 * MISC

@@ -10,9 +10,7 @@ public class GhostEntityModel extends EntityModel<GhostEntity> {
 
 	private final ModelPart ghost;
 	private final ModelPart wavyBits;
-	private final ModelPart wavyBits2;
-	private final ModelPart wavyBits3;
-	
+
 	public GhostEntityModel() {
 		textureWidth = 32;
 		textureHeight = 32;
@@ -33,7 +31,7 @@ public class GhostEntityModel extends EntityModel<GhostEntity> {
 		wavyBits.setTextureOffset(0, 0).addCuboid(-2.0F, 0.0F, 14.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
 		wavyBits.setTextureOffset(0, 0).addCuboid(-16.0F, 0.0F, 14.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
 
-		wavyBits2 = new ModelPart(this);
+		ModelPart wavyBits2 = new ModelPart(this);
 		wavyBits2.setPivot(-8.0F, 1.0F, 1.0F);
 		wavyBits.addChild(wavyBits2);
 //		setRotationAngle(wavyBits2, 0.0F, -1.5708F, 0.0F);
@@ -43,7 +41,7 @@ public class GhostEntityModel extends EntityModel<GhostEntity> {
 		wavyBits2.setTextureOffset(0, 0).addCuboid(-1.0F, -1.0F, -4.6F, 2.0F, 2.0F, 2.0F, 0.0F, false);
 		wavyBits2.setTextureOffset(0, 0).addCuboid(-1.0F, -1.0F, -8.0F, 2.0F, 2.0F, 2.0F, 0.0F, false);
 
-		wavyBits3 = new ModelPart(this);
+		ModelPart wavyBits3 = new ModelPart(this);
 		wavyBits3.setPivot(-8.0F, 1.0F, 15.0F);
 		wavyBits.addChild(wavyBits3);
 //		setRotationAngle(wavyBits3, 0.0F, -1.5708F, 0.0F);
@@ -61,7 +59,5 @@ public class GhostEntityModel extends EntityModel<GhostEntity> {
 	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
 		ghost.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 		wavyBits.render(matrices, vertices, light, overlay, red, green, blue, alpha);
-		wavyBits2.render(matrices, vertices, light, overlay, red, green, blue, alpha);
-		wavyBits3.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 	}
 }

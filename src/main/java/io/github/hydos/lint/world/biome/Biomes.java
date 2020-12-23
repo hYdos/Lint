@@ -10,6 +10,7 @@ import io.github.hydos.lint.world.gen.HaykamChunkGenerator;
 import io.github.hydos.lint.world.structure.ConfiguredStructureFeatures;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
@@ -37,6 +38,9 @@ public class Biomes implements ModInitializer {
 	static {
 		SpawnSettings.Builder spawningSettings = new SpawnSettings.Builder();
 		spawningSettings.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 1, 1, 3));
+		spawningSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 1, 1, 1));
+		spawningSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1));
+		spawningSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
 		MYSTICAL_FOREST = new Biome.Builder()
 				.precipitation(Biome.Precipitation.NONE)
 				.category(Biome.Category.FOREST)
