@@ -9,8 +9,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import io.github.hydos.lint.sound.Sounds;
+import io.github.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.MusicTracker;
+import net.minecraft.client.sound.MusicType;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.sound.MusicSound;
 
@@ -39,5 +41,14 @@ public abstract class SoundManagerMixin {
 				ci.cancel();
 			}
 		}
+	}
+	
+	@Inject(at = @At("HEAD"), method = "play", cancellable = true)	
+	private void onPlay(MusicSound type, CallbackInfo info) {	
+		if (type == MusicType.UNDERWATER || type == MusicType.GAME || type == MusicType.CREATIVE) {	
+			if (this.client.world.getDimension() == Dimensions.HAYKAM) {	
+				info.cancel();	
+			}	
+		}	
 	}
 }

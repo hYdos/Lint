@@ -56,7 +56,7 @@ public class LintClient implements ClientModInitializer {
 
 		ScreenProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractContainer(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));
 
-		ClientTickEvents.START_CLIENT_TICK.register(lexmanos -> {
+		/*ClientTickEvents.START_CLIENT_TICK.register(lexmanos -> {
 			long currentTime = System.currentTimeMillis();
 
 			if (currentTime > nextUpdateTime) {
@@ -71,7 +71,7 @@ public class LintClient implements ClientModInitializer {
 					}
 				}
 			}
-		});
+		});*/
 	}
 
 	private static long nextUpdateTime = 0;
