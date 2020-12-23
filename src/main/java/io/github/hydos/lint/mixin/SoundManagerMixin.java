@@ -42,13 +42,13 @@ public abstract class SoundManagerMixin {
 			}
 		}
 	}
-
-	@Inject(at = @At("HEAD"), method = "play", cancellable = true)
-	private void onPlay(MusicSound type, CallbackInfo info) {
-		if (type == MusicType.UNDERWATER || type == MusicType.GAME) {
-			if (this.client.world.getDimension() == Dimensions.HAYKAM) {
-				info.cancel();
-			}
-		}
+	
+	@Inject(at = @At("HEAD"), method = "play", cancellable = true)	
+	private void onPlay(MusicSound type, CallbackInfo info) {	
+		if (type == MusicType.UNDERWATER || type == MusicType.GAME || type == MusicType.CREATIVE) {	
+			if (this.client.world.getDimension() == Dimensions.HAYKAM) {	
+				info.cancel();	
+			}	
+		}	
 	}
 }
