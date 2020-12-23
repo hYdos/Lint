@@ -247,7 +247,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	private double sampleMountainsNoise(int x, int z) {
-		double bias = this.terrainDeterminerNoise.sample(1 + 0.001 * x, 0.001 * z) * 0.25;
+		double bias = this.terrainDeterminerNoise.sample(1 + 0.001 * x, 0.001 * z) * 0.2;
 		double sample1;
 
 		if (bias > 0) {
