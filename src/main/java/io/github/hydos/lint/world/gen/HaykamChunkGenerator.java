@@ -182,10 +182,10 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 				double current = this.scaleOperator.get(sx, z + zo);
 				typeScale += current;
 
-				/*if (current > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 240 blocks period
+				if (current > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 240 blocks period
 					current -= 35;
 					current = Math.max(0, current);
-				}*/
+				}
 
 				heightScale += current;
 				++count;
