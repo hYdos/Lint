@@ -26,7 +26,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.BlockView;
@@ -183,7 +182,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 				double current = this.scaleOperator.get(sx, z + zo);
 				typeScale += current;
 
-				/*if (current > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 1/240 blocks period
+				/*if (current > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 240 blocks period
 					current -= 35;
 					current = Math.max(0, current);
 				}*/
@@ -241,7 +240,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	private double sampleMountainsNoise(int x, int z) {
-		double bias = this.terrainDeterminerNoise.sample(1 + 0.001 * x, 0.001 * z) * 0.5;
+		double bias = this.terrainDeterminerNoise.sample(1 + 0.001 * x, 0.001 * z) * 0.25;
 		double sample1;
 
 		if (bias > 0) {
