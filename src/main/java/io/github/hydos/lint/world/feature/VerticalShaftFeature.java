@@ -28,6 +28,23 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 
 		pos.setX(startX);
 		pos.setZ(startZ);
+		pos.setY(startY);
+
+		// no water
+		for (int xo = -WATER_SEARCH_RADIUS; xo <= WATER_SEARCH_RADIUS; ++xo) {
+			pos.setX(startX + xo);
+
+			for (int zo = -WATER_SEARCH_RADIUS; zo <= WATER_SEARCH_RADIUS; ++zo) {
+				pos.setZ(startZ + zo);
+
+				if (world.getBlockState(pos.down()).getBlock() == Blocks.WATER) {
+					return false;
+				}
+			}
+		}
+
+		pos.setX(startX);
+		pos.setZ(startZ);
 
 		// Break into caves
 		for (int yo = 0; yo < MAX_DEPTH; ++yo) {
@@ -40,7 +57,7 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 			pos.setY(y);
 
 			if (world.getBlockState(pos) == CAVE_AIR) {
-				depth = yo + 1;
+				depth = yo + 2;
 				break;
 			}
 		}
@@ -92,10 +109,14 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 		boolean reverseZ = SHIFT_CUT.sample(z, y * 0.05) > 0;
 		double noiseZ = SHIFT.sample(z, y * 0.07);
 
+		reverseX &= Math.abs(noiseX) < 0.7;
+		reverseZ &= Math.abs(noiseZ) < 0.7;
+
 		offsets[0] = (int) (3 * (reverseX ? 1.0 - noiseX : noiseX));
 		offsets[1] = (int) (3 * (reverseZ ? 1.0 - noiseZ : noiseZ));
 	}
 
+	public static final int WATER_SEARCH_RADIUS = 4;
 	public static final int MAX_DEPTH = 40;
 	public static final int MIN_Y = 22;
 
