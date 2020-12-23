@@ -156,7 +156,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	private int getHeight(int x, int z) {
-		double continent = this.continentOperator.get(x, z);
+		double continent = 3 + 1.2 * this.continentOperator.get(x, z);
 
 		double scale = 0.0;
 		int count = 0;
@@ -173,15 +173,38 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 		scale /= count;
 
 		if (scale > 35) {
-			return AVG_HEIGHT + (int) (continent + scale * this.sampleMountainsNoise(x, z));
+			double mountains = this.sampleMountainsNoise(x, z);
+
+			if (mountains < 0) {
+				scale /= 2;
+			}
+
+			return AVG_HEIGHT + (int) (continent + scale * mountains);
 		} else if (scale < 30) {
-			return AVG_HEIGHT + (int) (continent + scale * this.sampleHillsNoise(x, z));
+			double hills = this.sampleHillsNoise(x, z);
+
+			if (hills < 0) {
+				scale /= 2;
+			}
+
+			return AVG_HEIGHT + (int) (continent + scale * hills);
 		} else { // fade region from mountains to hills
 			double mountainsScale = (scale - 30) * 0.2 * scale; // 30 -> 0. 35 -> full scale.
 			double hillsScale = (35 - scale) * 0.2 * scale; // 35 -> 0. 30 -> full scale.
 
-			double mountains = mountainsScale * this.sampleMountainsNoise(x, z);
-			double hills = hillsScale * this.sampleHillsNoise(x, z);
+			double mountains = this.sampleMountainsNoise(x, z);
+			double hills = this.sampleHillsNoise(x, z);
+
+			if (mountains < 0) {
+				mountainsScale /= 2;
+			}	
+
+			if (hills < 0) {
+				hillsScale /= 2;
+			}
+
+			mountains = mountainsScale * mountains;
+			hills = hillsScale * hills;
 
 			return AVG_HEIGHT + (int) (continent + mountains + hills);
 		}
