@@ -13,6 +13,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import io.github.hydos.lint.block.LintBlocks;
 import io.github.hydos.lint.callback.ServerChunkManagerCallback;
+import io.github.hydos.lint.util.DoubleGridOperator;
+import io.github.hydos.lint.util.LossyDoubleCache;
 import io.github.hydos.lint.util.OpenSimplexNoise;
 import io.github.hydos.lint.world.biome.Biomes;
 import io.github.hydos.lint.world.biome.HaykamBiomeSource;
@@ -53,8 +55,12 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	private OpenSimplexNoise continentNoise;
 	private OpenSimplexNoise mountainsNoise;
 	private OpenSimplexNoise hillsNoise;
+	private OpenSimplexNoise scaleNoise;
 	private OpenSimplexNoise cliffsNoise;
 	private OpenSimplexNoise terrainDeterminerNoise;
+
+	private DoubleGridOperator continentOperator;
+	private DoubleGridOperator scaleOperator;
 
 	private OctaveHaykamNoiseSampler beachNoise;
 	private OctaveHaykamNoiseSampler surfaceNoise;
@@ -71,15 +77,32 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 		ServerChunkManagerCallback.EVENT.register(manager -> {
 			long worldSeed = ((ServerWorld) manager.getWorld()).getSeed();
 			Random rand = new Random(seed);
-			continentNoise = new OpenSimplexNoise(rand);
-			mountainsNoise = new OpenSimplexNoise(rand);
-			hillsNoise = new OpenSimplexNoise(rand);
-			cliffsNoise = new OpenSimplexNoise(rand);
-			terrainDeterminerNoise = new OpenSimplexNoise(rand);
+			this.continentNoise = new OpenSimplexNoise(rand);
+			this.mountainsNoise = new OpenSimplexNoise(rand);
+			this.hillsNoise = new OpenSimplexNoise(rand);
+			this.scaleNoise = new OpenSimplexNoise(rand);
+			this.cliffsNoise = new OpenSimplexNoise(rand);
+			this.terrainDeterminerNoise = new OpenSimplexNoise(rand);
 
-			beachNoise = new OctaveHaykamNoiseSampler(rand, 4);
-			surfaceNoise = new OctaveHaykamNoiseSampler(rand, 4);
-			floatingIslands = new FloatingIslandModifier(worldSeed);
+			this.beachNoise = new OctaveHaykamNoiseSampler(rand, 4);
+			this.surfaceNoise = new OctaveHaykamNoiseSampler(rand, 4);
+			this.floatingIslands = new FloatingIslandModifier(worldSeed);
+
+			this.continentOperator = new LossyDoubleCache(512, (x, z) -> Math.min(30, 30 * this.continentNoise.sample(x * 0.001, z * 0.001)
+					+ 18 * Math.max(0, (1.0 - 0.004 * manhattan(x, z, 0, 0))))); // make sure area around 0,0 is higher, but does not go higher than continent noise should go);
+			this.scaleOperator = new LossyDoubleCache(512, (x, z) -> {
+				double continent = Math.max(0, this.continentOperator.get(x, z)); // min 0
+				double scale = (0.5 * this.scaleNoise.sample(x * 0.003, z * 0.003)) + 1.0; // 0 - 1
+				scale = 35 * scale + 0.5 * continent; // continent 0-15, scaleNoise 0-35. Overall, 0-50.
+
+				if (scale > 25) {
+					if (this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.275) { // approx 1/240 blocks period
+						scale -= 30;
+					}
+				}
+
+				return Math.max(0, scale);
+			});
 		});
 	}
 
@@ -91,6 +114,98 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	@Override
 	public ChunkGenerator withSeed(long seed) {
 		return new HaykamChunkGenerator(seed, biomeRegistry);
+	}
+
+	@Override
+	public void populateNoise(WorldAccess world, StructureAccessor accessor, Chunk chunk) {
+		final int startX = ((chunk.getPos().x) << 4);
+		final int startZ = ((chunk.getPos().z) << 4);
+		final int seaLevel = this.getSeaLevel();
+
+		BlockPos.Mutable pos = new BlockPos.Mutable();
+
+		for (int xo = 0; xo < 16; ++xo) {
+			final int x = xo + startX;
+			pos.setX(xo);
+
+			for (int zo = 0; zo < 16; ++zo) {
+				final int z = zo + startZ;
+				pos.setZ(zo);
+
+				int height = getHeight(x, z);
+
+				for (int y = 0; y < world.getHeight(); ++y) {
+					pos.setY(y);
+
+					if (y < height) {
+						chunk.setBlockState(pos, LintBlocks.FUSED_STONE.getDefaultState(), false);
+					} else if (y < seaLevel) {
+						chunk.setBlockState(pos, Blocks.WATER.getDefaultState(), false);
+					} else {
+						chunk.setBlockState(pos, Blocks.AIR.getDefaultState(), false);
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public int getHeight(int x, int z, Heightmap.Type heightmapType) {
+		int height = getHeight(x, z);
+		return heightmapType.getBlockPredicate().test(Blocks.WATER.getDefaultState()) ? Math.max(height, this.getSeaLevel()) : height;
+	}
+
+	private int getHeight(int x, int z) {
+		double continent = this.continentOperator.get(x, z);
+
+		double scale = 0.0;
+		int count = 0;
+
+		for (int xo = -SCALE_SMOOTH_RADIUS; xo <= SCALE_SMOOTH_RADIUS; ++xo) {
+			int sx = x + xo;
+
+			for (int zo = -SCALE_SMOOTH_RADIUS; zo <= SCALE_SMOOTH_RADIUS; ++zo) {
+				scale += this.scaleOperator.get(sx, z + zo);
+				++count;
+			}
+		}
+
+		scale /= count;
+
+		if (scale > 35) {
+			return AVG_HEIGHT + (int) (continent + scale * this.sampleMountainsNoise(x, z));
+		} else if (scale < 30) {
+			return AVG_HEIGHT + (int) (continent + scale * this.sampleHillsNoise(x, z));
+		} else { // fade region from mountains to hills
+			double mountainsScale = (scale - 30) * 0.2 * scale; // 30 -> 0. 35 -> full scale.
+			double hillsScale = (35 - scale) * 0.2 * scale; // 35 -> 0. 30 -> full scale.
+
+			double mountains = mountainsScale * this.sampleMountainsNoise(x, z);
+			double hills = hillsScale * this.sampleHillsNoise(x, z);
+
+			return AVG_HEIGHT + (int) (continent + mountains + hills);
+		}
+	}
+
+	private double sampleHillsNoise(int x, int z) {
+		double sample1 = 0.67 * this.hillsNoise.sample(x * 0.0065, z * 0.0065); // period: ~150
+		double sample2 = 0.33 * this.hillsNoise.sample(x * 0.016, z * 0.016); // period: 62.5
+		return sample1 + sample2;
+	}
+
+	private double sampleMountainsNoise(int x, int z) {
+		double bias = this.terrainDeterminerNoise.sample(1 + 0.001 * x, 0.001 * z) * 0.5;
+		double sample1;
+
+		if (bias > 0) {
+			sample1 = this.mountainsNoise.sample(0.004 * x * (1.0 + bias), 0.004 * z);
+		} else {
+			sample1 = this.mountainsNoise.sample(0.004 * x, 0.004 * z * (1.0 - bias));
+		}
+
+		sample1 = 0.75 - 1.5 * Math.abs(sample1); // ridged +/-0.75
+		double sample2 = 0.25 - 0.5 * Math.abs(this.mountainsNoise.sample(0.0064 * x, 1 + 0.0064 * z)); // ridged +/- 0.25
+		return sample1 + sample2;
 	}
 
 	@Override
@@ -192,45 +307,6 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	@Override
-	public void populateNoise(WorldAccess world, StructureAccessor accessor, Chunk chunk) {
-		final int startX = ((chunk.getPos().x) << 4);
-		final int startZ = ((chunk.getPos().z) << 4);
-		final int seaLevel = this.getSeaLevel();
-
-		BlockPos.Mutable pos = new BlockPos.Mutable();
-
-		for (int xo = 0; xo < 16; ++xo) {
-			final int x = xo + startX;
-			pos.setX(xo);
-
-			for (int zo = 0; zo < 16; ++zo) {
-				final int z = zo + startZ;
-				pos.setZ(zo);
-
-				int height = getHeight(x, z);
-
-				for (int y = 0; y < world.getHeight(); ++y) {
-					pos.setY(y);
-					
-					if (y < height) {
-						chunk.setBlockState(pos, LintBlocks.FUSED_STONE.getDefaultState(), false);
-					} else if (y < seaLevel) {
-						chunk.setBlockState(pos, Blocks.WATER.getDefaultState(), false);
-					} else {
-						chunk.setBlockState(pos, Blocks.AIR.getDefaultState(), false);
-					}
-				}
-			}
-		}
-	}
-
-	@Override
-	public int getHeight(int x, int z, Heightmap.Type heightmapType) {
-		int height = getHeight(x, z);
-		return heightmapType.getBlockPredicate().test(Blocks.WATER.getDefaultState()) ? Math.max(height, this.getSeaLevel()) : height;
-	}
-
-	@Override
 	public BlockView getColumnSample(int x, int z) {
 		BlockState[] column = new BlockState[256];
 		final int seaLevel = this.getSeaLevel();
@@ -249,8 +325,10 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 		return new VerticalBlockSample(column);
 	}
 
-	private int getHeight(int x, int z) {
-
+	private static double manhattan(double x, double y, double x1, double y1) {
+		double dx = Math.abs(x1 - x);
+		double dy = Math.abs(y1 - y);
+		return dx + dy;
 	}
 
 	@Override
@@ -300,4 +378,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 			}
 		}
 	}
+
+	private static final int AVG_HEIGHT = 65;
+	private static final int SCALE_SMOOTH_RADIUS = 10;
 }
