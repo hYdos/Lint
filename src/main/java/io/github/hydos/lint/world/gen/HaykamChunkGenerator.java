@@ -93,15 +93,9 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 			this.scaleOperator = new LossyDoubleCache(512, (x, z) -> {
 				double continent = Math.max(0, this.continentOperator.get(x, z)); // min 0
 				double scale = (0.5 * this.scaleNoise.sample(x * 0.003, z * 0.003)) + 1.0; // 0 - 1
-				scale = 35 * scale + 0.5 * continent; // continent 0-15, scaleNoise 0-35. Overall, 0-50.
+				scale = 30 * scale + continent; // continent 0-30, scaleNoise 0-30. Overall, 0-60.
 
-				if (scale > 25) {
-					if (this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.275) { // approx 1/240 blocks period
-						scale -= 30;
-					}
-				}
-
-				return Math.max(0, scale);
+				return scale; // should be range 0-60 on return
 			});
 		});
 	}
@@ -158,39 +152,49 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	private int getHeight(int x, int z) {
 		double continent = 3 + 1.2 * this.continentOperator.get(x, z);
 
-		double scale = 0.0;
+		double terrainTypeScale = 0.0;
+		double terrainHeightScale = 0.0;
 		int count = 0;
 
 		for (int xo = -SCALE_SMOOTH_RADIUS; xo <= SCALE_SMOOTH_RADIUS; ++xo) {
 			int sx = x + xo;
 
 			for (int zo = -SCALE_SMOOTH_RADIUS; zo <= SCALE_SMOOTH_RADIUS; ++zo) {
-				scale += this.scaleOperator.get(sx, z + zo);
+				double current = this.scaleOperator.get(sx, z + zo);
+				terrainTypeScale += current;
+
+				if (current > 25 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 1/240 blocks period
+					current -= 30;
+				}
+
+				terrainHeightScale += current;
+
 				++count;
 			}
 		}
 
-		scale /= count;
+		terrainTypeScale /= count;
+		terrainHeightScale /= count;
 
-		if (scale > 35) {
+		if (terrainTypeScale > 35) {
 			double mountains = this.sampleMountainsNoise(x, z);
 
 			if (mountains < 0) {
-				scale /= 2;
+				terrainHeightScale /= 2;
 			}
 
-			return AVG_HEIGHT + (int) (continent + scale * mountains);
-		} else if (scale < 30) {
+			return AVG_HEIGHT + (int) (continent + terrainHeightScale * mountains);
+		} else if (terrainTypeScale < 30) {
 			double hills = this.sampleHillsNoise(x, z);
 
 			if (hills < 0) {
-				scale /= 2;
+				terrainHeightScale /= 2;
 			}
 
-			return AVG_HEIGHT + (int) (continent + scale * hills);
+			return AVG_HEIGHT + (int) (continent + terrainHeightScale * hills);
 		} else { // fade region from mountains to hills
-			double mountainsScale = (scale - 30) * 0.2 * scale; // 30 -> 0. 35 -> full scale.
-			double hillsScale = (35 - scale) * 0.2 * scale; // 35 -> 0. 30 -> full scale.
+			double mountainsScale = (terrainTypeScale - 30) * 0.2 * terrainHeightScale; // 30 -> 0. 35 -> full scale.
+			double hillsScale = (35 - terrainTypeScale) * 0.2 * terrainHeightScale; // 35 -> 0. 30 -> full scale.
 
 			double mountains = this.sampleMountainsNoise(x, z);
 			double hills = this.sampleHillsNoise(x, z);
@@ -403,5 +407,5 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	private static final int AVG_HEIGHT = 65;
-	private static final int SCALE_SMOOTH_RADIUS = 10;
+	private static final int SCALE_SMOOTH_RADIUS = 15;
 }
