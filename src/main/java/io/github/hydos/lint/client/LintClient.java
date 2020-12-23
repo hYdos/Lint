@@ -12,14 +12,17 @@ import io.github.hydos.lint.entity.boss.i5.I509VCBRenderer;
 import io.github.hydos.lint.entity.boss.kingtater.KingTaterRenderer;
 import io.github.hydos.lint.entity.tater.TinyPotatoEntityRenderer;
 import io.github.hydos.lint.world.biome.Biomes;
+import io.github.hydos.lint.world.dimension.Dimensions;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -50,7 +53,20 @@ public class LintClient implements ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(Entities.I5, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));
 
 		ScreenProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractContainer(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));
+
+		ClientTickEvents.START_CLIENT_TICK.register(lexmanos -> {
+			long currentTime = System.currentTimeMillis();
+
+			if (currentTime > nextUpdateTime) {
+				nextUpdateTime = currentTime + 4000L;
+				if (lexmanos.world.getDimension() == Dimensions.HAYKAM) {
+					lexmanos.getSoundManager().stopSounds(null, SoundCategory.MUSIC);
+				}
+			}
+		});
 	}
+
+	private static long nextUpdateTime = 0;
 
 	public enum ServerRenderLayer {
 		cutout
