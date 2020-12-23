@@ -11,6 +11,7 @@ import java.util.function.Supplier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import io.github.hydos.lint.block.LintBlocks;
 import io.github.hydos.lint.callback.ServerChunkManagerCallback;
 import io.github.hydos.lint.util.OpenSimplexNoise;
 import io.github.hydos.lint.world.biome.Biomes;
@@ -191,24 +192,41 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 	@Override
 	public void populateNoise(WorldAccess world, StructureAccessor accessor, Chunk chunk) {
-		int startX = ((chunk.getPos().x) << 4);
-		int startZ = ((chunk.getPos().z) << 4);
+		final int startX = ((chunk.getPos().x) << 4);
+		final int startZ = ((chunk.getPos().z) << 4);
+		final int seaLevel = this.getSeaLevel();
 
 		BlockPos.Mutable pos = new BlockPos.Mutable();
 
 		for (int xo = 0; xo < 16; ++xo) {
-			pos.setX(xo + startX);
+			final int x = xo + startX;
+			pos.setX(xo);
 
 			for (int zo = 0; zo < 16; ++zo) {
-				pos.setZ(zo + startZ);
+				final int z = zo + startZ;
+				pos.setZ(zo);
+
+				int height = getHeight(x, z);
+
+				for (int y = 0; y < world.getHeight(); ++y) {
+					pos.setY(y);
+					
+					if (y < height) {
+						chunk.setBlockState(pos, LintBlocks.FUSED_STONE.getDefaultState(), false);
+					} else if (y < seaLevel) {
+						chunk.setBlockState(pos, Blocks.WATER.getDefaultState(), false);
+					} else {
+						chunk.setBlockState(pos, Blocks.AIR.getDefaultState(), false);
+					}
+				}
 			}
 		}
 	}
 
 	@Override
 	public int getHeight(int x, int z, Heightmap.Type heightmapType) {
-		int chunkX = (x >> 4);
-		int chunkZ = (z >> 4);
+		int height = getHeight(x, z);
+		return heightmapType.getBlockPredicate().test(Blocks.WATER.getDefaultState()) ? Math.max(height, this.getSeaLevel()) : height;
 	}
 
 	@Override
@@ -217,7 +235,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	private int getHeight(int x, int z) {
-		
+
 	}
 
 	@Override
