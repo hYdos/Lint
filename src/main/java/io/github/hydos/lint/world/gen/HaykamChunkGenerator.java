@@ -37,6 +37,7 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.StructuresConfig;
+import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 
 public class HaykamChunkGenerator extends ChunkGenerator {
@@ -231,7 +232,21 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 	@Override
 	public BlockView getColumnSample(int x, int z) {
-		return null;
+		BlockState[] column = new BlockState[256];
+		final int seaLevel = this.getSeaLevel();
+		final int height = this.getHeight(x, z);
+
+		for (int y = 0; y < 256; ++y) {
+			if (y < height) {
+				column[y] = LintBlocks.FUSED_STONE.getDefaultState();
+			} else if (y < seaLevel) {
+				column[y] = Blocks.WATER.getDefaultState();
+			} else {
+				column[y] = Blocks.AIR.getDefaultState();
+			}
+		}
+
+		return new VerticalBlockSample(column);
 	}
 
 	private int getHeight(int x, int z) {
