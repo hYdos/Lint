@@ -176,16 +176,14 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 		int count = 0;
 
 		for (int xo = -SCALE_SMOOTH_RADIUS; xo <= SCALE_SMOOTH_RADIUS; ++xo) {
-			int sx = x + xo;
+			int sx = x + xo; // shifted/sample x
 
 			for (int zo = -SCALE_SMOOTH_RADIUS; zo <= SCALE_SMOOTH_RADIUS; ++zo) {
-				double current = this.scaleOperator.get(sx, z + zo);
+				int sz = z + zo; // shifted/sample z
+				double current = this.scaleOperator.get(sx, sz);
 				typeScale += current;
 
-				if (current > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 240 blocks period
-					current -= 35;
-					current = Math.max(0, current);
-				}
+				current = applyScaleModifiers(sx, sz, current);
 
 				heightScale += current;
 				++count;
@@ -231,6 +229,15 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 			return AVG_HEIGHT + (int) (continent + mountains + hills);
 		}
+	}
+
+	private double applyScaleModifiers(int x, int z, double scale) {
+		if (scale > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 240 blocks period
+			scale -= 35;
+			scale = Math.max(0, scale);
+		}
+
+		return scale;
 	}
 
 	private double sampleHillsNoise(int x, int z) {
