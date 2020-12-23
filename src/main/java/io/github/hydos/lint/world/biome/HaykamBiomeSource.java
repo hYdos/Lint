@@ -1,30 +1,22 @@
 package io.github.hydos.lint.world.biome;
 
+import java.util.Random;
+import java.util.stream.Collectors;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import io.github.hydos.lint.util.OpenSimplexNoise;
-import io.github.hydos.lint.world.layer.BishopLayer;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.layer.ScaleLayer;
-import net.minecraft.world.biome.layer.SmoothLayer;
-import net.minecraft.world.biome.layer.util.CachingLayerContext;
-import net.minecraft.world.biome.layer.util.LayerFactory;
-import net.minecraft.world.biome.layer.util.LayerSampleContext;
-import net.minecraft.world.biome.layer.util.LayerSampler;
-import net.minecraft.world.biome.source.BiomeLayerSampler;
 import net.minecraft.world.biome.source.BiomeSource;
-
-import java.util.Random;
-import java.util.function.LongFunction;
-import java.util.stream.Collectors;
 
 public class HaykamBiomeSource extends BiomeSource {
 
-    private static BishopLayer bishopLayer;
+   // private static BishopLayer bishopLayer;
     public static final Codec<HaykamBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
             Codec.LONG.fieldOf("seed").stable().forGetter(source -> source.seed))
@@ -32,18 +24,18 @@ public class HaykamBiomeSource extends BiomeSource {
     private final Registry<Biome> biomeRegistry;
     private final long seed;
     private final OpenSimplexNoise noise;
-    BiomeLayerSampler sampler;
+   // BiomeLayerSampler sampler;
 
     public HaykamBiomeSource(Registry<Biome> biomeRegistry, long seed) {
         super(biomeRegistry.stream().collect(Collectors.toList()));
         this.seed = seed;
-        bishopLayer = new BishopLayer(biomeRegistry);
-        sampler = createBiomeLayerSampler(seed);
+   //     bishopLayer = new BishopLayer(biomeRegistry);
+       // sampler = createBiomeLayerSampler(seed);
         this.noise = new OpenSimplexNoise(new Random(seed));
         this.biomeRegistry = biomeRegistry;
     }
 
-    public static BiomeLayerSampler createBiomeLayerSampler(long seed) {
+    /*public static BiomeLayerSampler createBiomeLayerSampler(long seed) {
         LongFunction<CachingLayerContext> contextProvider = salt -> new CachingLayerContext(25, seed, salt);
         return new BiomeLayerSampler(stackLayers(contextProvider));
 
@@ -56,7 +48,7 @@ public class HaykamBiomeSource extends BiomeSource {
         }
         result = SmoothLayer.INSTANCE.create(contextProvider.apply(4L), result);
         return result;
-    }
+    }*/
 
     @Override
     public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
