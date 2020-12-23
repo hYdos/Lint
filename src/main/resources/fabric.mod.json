@@ -21,6 +21,8 @@
       "io.github.hydos.lint.container.Containers",
       "io.github.hydos.lint.entity.Entities::initialize",
       "io.github.hydos.lint.block.LintBlocks::initialize",
+      "io.github.hydos.lint.block.entity.BlockEntities",
+      "io.github.hydos.lint.item.group.ItemGroups",
       "io.github.hydos.lint.item.Items::initialize"
     ],
     "client": [
