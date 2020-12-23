@@ -87,6 +87,7 @@ public class Biomes implements ModInitializer {
 				.generationSettings(new GenerationSettings.Builder()
 						.surfaceBuilder(CF_SB)
 						.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+						.feature(GenerationStep.Feature.RAW_GENERATION, Features.CONFIGURED_VERTICAL_SHAFT)
 						.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
 						.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
