@@ -57,6 +57,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	private OpenSimplexNoise hillsNoise;
 	private OpenSimplexNoise scaleNoise;
 	private OpenSimplexNoise cliffsNoise;
+	private OpenSimplexNoise riverNoise;
 	private OpenSimplexNoise terrainDeterminerNoise;
 
 	private DoubleGridOperator continentOperator;
@@ -82,6 +83,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 			this.hillsNoise = new OpenSimplexNoise(rand);
 			this.scaleNoise = new OpenSimplexNoise(rand);
 			this.cliffsNoise = new OpenSimplexNoise(rand);
+			this.riverNoise = new OpenSimplexNoise(rand);
 			this.terrainDeterminerNoise = new OpenSimplexNoise(rand);
 
 			this.beachNoise = new OctaveHaykamNoiseSampler(rand, 4);
@@ -150,6 +152,10 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	private int getHeight(int x, int z) {
+		return this.getBaseHeight(x, z);
+	}
+
+	private int getBaseHeight(int x, int z) {
 		double continent = 3 + 1.2 * this.continentOperator.get(x, z);
 
 		double terrainTypeScale = 0.0;
@@ -215,8 +221,8 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	private double sampleHillsNoise(int x, int z) {
-		double sample1 = 0.67 * this.hillsNoise.sample(x * 0.0065, z * 0.0065); // period: ~150
-		double sample2 = 0.33 * this.hillsNoise.sample(x * 0.016, z * 0.016); // period: 62.5
+		double sample1 = 0.67 * this.hillsNoise.sample(x * 0.0105, z * 0.0105); // period: ~95
+		double sample2 = 0.33 * this.hillsNoise.sample(x * 0.025, z * 0.025); // period: 40
 		return sample1 + sample2;
 	}
 
@@ -231,7 +237,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 		}
 
 		sample1 = 0.75 - 1.5 * Math.abs(sample1); // ridged +/-0.75
-		double sample2 = 0.25 - 0.5 * Math.abs(this.mountainsNoise.sample(0.0064 * x, 1 + 0.0064 * z)); // ridged +/- 0.25
+		double sample2 = 0.25 - 0.5 * Math.abs(this.mountainsNoise.sample(0.0076 * x, 1 + 0.0076 * z)); // ridged +/- 0.25
 		return sample1 + sample2;
 	}
 
