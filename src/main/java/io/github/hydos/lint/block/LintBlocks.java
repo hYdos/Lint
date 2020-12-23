@@ -183,5 +183,7 @@ public interface LintBlocks {
         registerBlock(ItemGroups.LINT_BLOCKS, MYSTICAL_SLAB, "mystical_slab");
         registerBlock(ItemGroups.LINT_BLOCKS, CORRUPT_SLAB, "corrupt_slab");
         registerBlock(ItemGroups.LINT_BLOCKS, DUNGEON_BRICK_SLAB, "dungeon_brick_slab");
+
+        LintClient.putBlock(SMELTERY, LintClient.ServerCompatibleRenderLayer.CUTOUT);
     }
 }

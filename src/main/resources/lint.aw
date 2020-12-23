@@ -7,4 +7,6 @@ accessible	field	net/minecraft/world/gen/feature/StructureFeature	STRUCTURE_TO_G
 
 accessible	class	net/minecraft/client/MinecraftClient$WorldLoadAction
 
+accessible	method	net/minecraft/world/gen/trunk/TrunkPlacer	canGenerate(Lnet/minecraft/world/TestableWorld;	Lnet/minecraft/util/math/BlockPos;)Z
+
 accessible	method	net/minecraft/entity/SpawnRestriction	register	(Lnet/minecraft/entity/EntityType;Lnet/minecraft/entity/SpawnRestriction$Location;Lnet/minecraft/world/Heightmap$Type;Lnet/minecraft/entity/SpawnRestriction$SpawnPredicate;)V

@@ -10,7 +10,7 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.layer.ScaleLayer;
-import net.minecraft.world.biome.layer.SmoothenShorelineLayer;
+import net.minecraft.world.biome.layer.SmoothLayer;
 import net.minecraft.world.biome.layer.util.CachingLayerContext;
 import net.minecraft.world.biome.layer.util.LayerFactory;
 import net.minecraft.world.biome.layer.util.LayerSampleContext;
@@ -54,7 +54,7 @@ public class HaykamBiomeSource extends BiomeSource {
         for (int i = 0; i < 6; i++) {
             result = ScaleLayer.NORMAL.create(contextProvider.apply(1000 + i), result);
         }
-        result = SmoothenShorelineLayer.INSTANCE.create(contextProvider.apply(4L), result);
+        result = SmoothLayer.INSTANCE.create(contextProvider.apply(4L), result);
         return result;
     }
 

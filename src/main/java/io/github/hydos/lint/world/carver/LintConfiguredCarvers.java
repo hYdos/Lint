@@ -4,5 +4,5 @@ import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 
 public interface LintConfiguredCarvers {
-	ConfiguredCarver<ProbabilityConfig> CAVE = LintCaveCarver.INSTANCE.method_28614(new ProbabilityConfig(0.09F));
+	ConfiguredCarver<ProbabilityConfig> CAVE = LintCaveCarver.INSTANCE.configure(new ProbabilityConfig(0.09F));
 }

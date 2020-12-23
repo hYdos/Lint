@@ -4,7 +4,6 @@
   "package": "io.github.hydos.lint.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BeeEntityMixin",
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
     "client.InGameHudMixin",

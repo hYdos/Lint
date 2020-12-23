@@ -1,17 +1,15 @@
 package io.github.hydos.lint.client;
 
-import java.util.Optional;
-
 import io.github.hydos.lint.client.particle.ClientParticles;
-import io.github.hydos.lint.screenhandler.Containers;
-import io.github.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
-import io.github.hydos.lint.screenhandler.ScreenHandlers;
-import io.github.hydos.lint.screenhandler.client.LilTaterContainerScreen;
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.entity.beetater.BeeTaterEntityRenderer;
 import io.github.hydos.lint.entity.boss.i5.I509VCBRenderer;
 import io.github.hydos.lint.entity.boss.kingtater.KingTaterRenderer;
 import io.github.hydos.lint.entity.tater.TinyPotatoEntityRenderer;
+import io.github.hydos.lint.screenhandler.Containers;
+import io.github.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
+import io.github.hydos.lint.screenhandler.ScreenHandlers;
+import io.github.hydos.lint.screenhandler.client.LilTaterContainerScreen;
 import io.github.hydos.lint.screenhandler.client.SmelteryScreen;
 import io.github.hydos.lint.world.biome.Biomes;
 import net.fabricmc.api.ClientModInitializer;
@@ -21,7 +19,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
@@ -31,15 +29,17 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
+import java.util.Optional;
+
 @Environment(EnvType.CLIENT)
 public class LintClient implements ClientModInitializer {
 
-	public static void putBlock(FlowerBlock flower, ServerCompatibleRenderLayer layer) {
+	public static void putBlock(Block block, ServerCompatibleRenderLayer layer) {
 		RenderLayer renderLayer = null;
 		if (layer == ServerCompatibleRenderLayer.CUTOUT) {
 			renderLayer = RenderLayer.getCutout();
 		}
-		BlockRenderLayerMap.INSTANCE.putBlock(flower, renderLayer);
+		BlockRenderLayerMap.INSTANCE.putBlock(block, renderLayer);
 	}
 
 	@Override
