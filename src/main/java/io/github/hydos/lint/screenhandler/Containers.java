@@ -1,4 +1,4 @@
-package io.github.hydos.lint.container;
+package io.github.hydos.lint.screenhandler;
 
 import io.github.hydos.lint.Lint;
 import net.fabricmc.api.ModInitializer;
@@ -13,6 +13,6 @@ public class Containers implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ContainerProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, id, player, buf) -> new LilTaterInteractContainer(ScreenHandlerType.ANVIL, syncId, buf.readInt(), player.inventory));
+        ContainerProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, id, player, buf) -> new LilTaterInteractScreenHandler(ScreenHandlerType.ANVIL, syncId, buf.readInt(), player.inventory));
     }
 }

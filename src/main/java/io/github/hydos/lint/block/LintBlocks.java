@@ -123,7 +123,7 @@ public interface LintBlocks {
     static void registerFlower(FlowerBlock flower, String path) {
         registerBlock(ItemGroups.LINT_DECORATIONS, flower, path);
         if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT){
-            LintClient.putBlock(flower, LintClient.ServerRenderLayer.cutout);
+            LintClient.putBlock(flower, LintClient.ServerCompatibleRenderLayer.CUTOUT);
         }
     }
 

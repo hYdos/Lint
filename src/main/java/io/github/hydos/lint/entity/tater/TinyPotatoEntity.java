@@ -1,8 +1,8 @@
 package io.github.hydos.lint.entity.tater;
 
 import io.github.hydos.lint.block.LintBlocks;
-import io.github.hydos.lint.container.Containers;
-import io.github.hydos.lint.container.util.LintInventory;
+import io.github.hydos.lint.screenhandler.Containers;
+import io.github.hydos.lint.util.LintInventory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;

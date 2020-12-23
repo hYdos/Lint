@@ -7,19 +7,20 @@
     "BeeEntityMixin",
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
-    "InGameHudMixin",
+    "client.InGameHudMixin",
     "LocateCommandMixin",
     "ServerChunkManagerMixin",
     "SoundEventAccessor",
     "SoundManagerMixin",
     "StructurePoolsMixin",
-    "TitleScreenMixin"
+    "client.TitleScreenMixin",
+    "client.LevelPropertiesMixin"
   ],
   "client": [
     "ClientPlayNetworkHandlerMixin",
-    "GameRendererMixin",
-    "MinecraftClientMixin",
-    "PlayerEntityRendererMixin",
+    "client.GameRendererMixin",
+    "client.MinecraftClientMixin",
+    "client.PlayerEntityRendererMixin",
     "WorldRendererMixin"
   ],
   "injectors": {

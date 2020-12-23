@@ -1,4 +1,4 @@
-package io.github.hydos.lint.mixin;
+package io.github.hydos.lint.mixin.client;
 
 import io.github.hydos.mbb.BossBarClientRenderer;
 import io.github.hydos.mbb.ClientModernBossBar;

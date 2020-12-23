@@ -3,14 +3,16 @@ package io.github.hydos.lint.client;
 import java.util.Optional;
 
 import io.github.hydos.lint.client.particle.ClientParticles;
-import io.github.hydos.lint.container.Containers;
-import io.github.hydos.lint.container.LilTaterInteractContainer;
-import io.github.hydos.lint.container.client.LilTaterContainerScreen;
+import io.github.hydos.lint.screenhandler.Containers;
+import io.github.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
+import io.github.hydos.lint.screenhandler.ScreenHandlers;
+import io.github.hydos.lint.screenhandler.client.LilTaterContainerScreen;
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.entity.beetater.BeeTaterEntityRenderer;
 import io.github.hydos.lint.entity.boss.i5.I509VCBRenderer;
 import io.github.hydos.lint.entity.boss.kingtater.KingTaterRenderer;
 import io.github.hydos.lint.entity.tater.TinyPotatoEntityRenderer;
+import io.github.hydos.lint.screenhandler.client.SmelteryScreen;
 import io.github.hydos.lint.world.biome.Biomes;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -18,6 +20,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.LiteralText;
@@ -31,9 +34,9 @@ import net.minecraft.world.biome.Biome;
 @Environment(EnvType.CLIENT)
 public class LintClient implements ClientModInitializer {
 
-	public static void putBlock(FlowerBlock flower, ServerRenderLayer layer) {
+	public static void putBlock(FlowerBlock flower, ServerCompatibleRenderLayer layer) {
 		RenderLayer renderLayer = null;
-		if (layer == ServerRenderLayer.cutout) {
+		if (layer == ServerCompatibleRenderLayer.CUTOUT) {
 			renderLayer = RenderLayer.getCutout();
 		}
 		BlockRenderLayerMap.INSTANCE.putBlock(flower, renderLayer);
@@ -49,7 +52,8 @@ public class LintClient implements ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(Entities.KING_TATER, (entityRenderDispatcher, context) -> new KingTaterRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.I5, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));
 
-		ScreenProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractContainer(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));
+		ScreenProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractScreenHandler(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));
+		ScreenRegistry.register(ScreenHandlers.SMELTERY, SmelteryScreen::new);
 
 		/*ClientTickEvents.START_CLIENT_TICK.register(lexmanos -> {
 			long currentTime = System.currentTimeMillis();
@@ -69,10 +73,8 @@ public class LintClient implements ClientModInitializer {
 		});*/
 	}
 
-	private static long nextUpdateTime = 0;
-
-	public enum ServerRenderLayer {
-		cutout
+	public enum ServerCompatibleRenderLayer {
+		CUTOUT
 	}
 
 	public static float calculateFogDistanceChunks(World world, double x, double z, float originalResultChunks) {

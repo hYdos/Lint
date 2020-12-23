@@ -1,6 +1,6 @@
-package io.github.hydos.lint.container;
+package io.github.hydos.lint.screenhandler;
 
-import io.github.hydos.lint.container.util.LintInventory;
+import io.github.hydos.lint.util.LintInventory;
 import io.github.hydos.lint.entity.tater.TinyPotatoEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,12 +10,12 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
-public class LilTaterInteractContainer extends ScreenHandler {
+public class LilTaterInteractScreenHandler extends ScreenHandler {
 
 
     public final int taterId;
 
-    public LilTaterInteractContainer(ScreenHandlerType<?> type, int syncId, int taterId, PlayerInventory playerInventory) {
+    public LilTaterInteractScreenHandler(ScreenHandlerType<?> type, int syncId, int taterId, PlayerInventory playerInventory) {
         super(type, syncId);
         this.taterId = taterId;
 

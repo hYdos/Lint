@@ -1,6 +1,6 @@
-package io.github.hydos.lint.container.client;
+package io.github.hydos.lint.screenhandler.client;
 
-import io.github.hydos.lint.container.LilTaterInteractContainer;
+import io.github.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import io.github.hydos.lint.entity.tater.TinyPotatoEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
@@ -15,14 +15,14 @@ import net.minecraft.util.math.Quaternion;
 
 import java.util.Objects;
 
-public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInteractContainer> {
+public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInteractScreenHandler> {
 
-    public final LilTaterInteractContainer container;
+    public final LilTaterInteractScreenHandler container;
     public final Identifier backgroundIdentifier = new Identifier("lint", "textures/gui/container/lil_tater_inventory.png");
     public int mouseX;
     public int mouseY;
 
-    public LilTaterContainerScreen(LilTaterInteractContainer container, PlayerInventory playerInventory, Text name) {
+    public LilTaterContainerScreen(LilTaterInteractScreenHandler container, PlayerInventory playerInventory, Text name) {
         super(container, playerInventory, name);
         this.container = container;
     }

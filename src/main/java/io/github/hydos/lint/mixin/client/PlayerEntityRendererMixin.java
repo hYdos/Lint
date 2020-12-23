@@ -1,4 +1,4 @@
-package io.github.hydos.lint.mixin;
+package io.github.hydos.lint.mixin.client;
 
 import io.github.hydos.lint.entity.features.LilTaterShoulderFeatureRenderer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
