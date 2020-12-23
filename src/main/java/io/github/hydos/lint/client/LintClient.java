@@ -22,7 +22,9 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -59,8 +61,14 @@ public class LintClient implements ClientModInitializer {
 
 			if (currentTime > nextUpdateTime) {
 				nextUpdateTime = currentTime + 4000L;
-				if (lexmanos.world.getDimension() == Dimensions.HAYKAM) {
-					lexmanos.getSoundManager().stopSounds(null, SoundCategory.MUSIC);
+				ClientWorld asie = lexmanos.world;
+
+				if (asie != null) {
+					if (asie.getDimension() == Dimensions.HAYKAM) {
+						lexmanos.getSoundManager().stopSounds(SoundEvents.MUSIC_CREATIVE.getId(), SoundCategory.MUSIC);
+						lexmanos.getSoundManager().stopSounds(SoundEvents.MUSIC_GAME.getId(), SoundCategory.MUSIC);
+						lexmanos.getSoundManager().stopSounds(SoundEvents.MUSIC_UNDER_WATER.getId(), SoundCategory.MUSIC);
+					}
 				}
 			}
 		});
