@@ -1,6 +1,6 @@
-package io.github.hydos.lint.entity.boss.kingtater;
+package io.github.hydos.lint.entity.aggressive;
 
-import io.github.hydos.lint.entity.tater.TinyPotatoEntity;
+import io.github.hydos.lint.entity.passive.TinyPotatoEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -24,15 +24,15 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 @SuppressWarnings("EntityConstructor")
-public class TaterMinion extends TinyPotatoEntity implements Monster {
+public class TaterMinionEntity extends TinyPotatoEntity implements Monster {
 
-    public TaterMinion(EntityType<? extends TaterMinion> type, World world, LivingEntity target) {
+    public TaterMinionEntity(EntityType<? extends TaterMinionEntity> type, World world, LivingEntity target) {
         super(type, world);
         setTarget(target);
     }
 
-    public static DefaultAttributeContainer.Builder initAttributes() {
-        return TinyPotatoEntity.initAttributes()
+    public static DefaultAttributeContainer.Builder createAttributes() {
+        return TinyPotatoEntity.createAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.5);
     }
@@ -118,7 +118,7 @@ public class TaterMinion extends TinyPotatoEntity implements Monster {
             } else {
                 LivingEntity livingEntity = getTarget();
                 double d = 64.0D;
-                if (livingEntity.squaredDistanceTo(TaterMinion.this) < (d * d)) {
+                if (livingEntity.squaredDistanceTo(TaterMinionEntity.this) < (d * d)) {
                     double e = livingEntity.getX() - getX();
                     double f = livingEntity.getZ() - getZ();
                     yaw = -((float) MathHelper.atan2(e, f)) * 57.295776F;

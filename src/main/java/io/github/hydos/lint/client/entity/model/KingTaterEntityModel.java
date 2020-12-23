@@ -1,16 +1,17 @@
-package io.github.hydos.lint.entity.boss.kingtater;
+package io.github.hydos.lint.client.entity.model;
 
 import com.google.common.collect.ImmutableList;
+import io.github.hydos.lint.entity.aggressive.KingTaterEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class KingTaterModel extends CompositeEntityModel<KingTater> {
+public class KingTaterEntityModel extends CompositeEntityModel<KingTaterEntity> {
 
     private final ModelPart model;
 
-    public KingTaterModel() {
+    public KingTaterEntityModel() {
         textureWidth = 96;
         textureHeight = 82;
 
@@ -104,6 +105,6 @@ public class KingTaterModel extends CompositeEntityModel<KingTater> {
     }
 
     @Override
-    public void setAngles(KingTater entity, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {
+    public void setAngles(KingTaterEntity entity, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {
     }
 }

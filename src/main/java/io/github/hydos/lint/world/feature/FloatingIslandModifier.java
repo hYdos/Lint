@@ -82,7 +82,7 @@ public class FloatingIslandModifier {
 		}
 	}
 
-	private static final double smoothstep(double x) {
+	private static double smoothstep(double x) {
 		x -= 0.5;
 		return 0.5 * (1 + x + 4 * (x * x * x));
 	}

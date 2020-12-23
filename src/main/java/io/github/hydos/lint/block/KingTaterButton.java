@@ -1,7 +1,7 @@
 package io.github.hydos.lint.block;
 
 import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.entity.boss.kingtater.KingTater;
+import io.github.hydos.lint.entity.aggressive.KingTaterEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +21,7 @@ public class KingTaterButton extends Block {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (state != LintBlocks.GREEN_BUTTON.getDefaultState()) {
             world.setBlockState(pos, LintBlocks.GREEN_BUTTON.getDefaultState());
-            KingTater kingTater = new KingTater(Entities.KING_TATER, world);
+            KingTaterEntity kingTater = new KingTaterEntity(Entities.KING_TATER, world);
             kingTater.refreshPositionAndAngles(pos, 0, 0);
             world.spawnEntity(kingTater);
             return ActionResult.SUCCESS;

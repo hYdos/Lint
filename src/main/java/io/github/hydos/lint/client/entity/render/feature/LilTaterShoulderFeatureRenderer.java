@@ -1,8 +1,8 @@
-package io.github.hydos.lint.entity.features;
+package io.github.hydos.lint.client.entity.render.feature;
 
 import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.entity.tater.TinyPotatoEntityModel;
-import io.github.hydos.lint.entity.tater.TinyPotatoEntityRenderer;
+import io.github.hydos.lint.client.entity.model.TinyPotatoEntityModel;
+import io.github.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;

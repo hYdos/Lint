@@ -1,4 +1,4 @@
-package io.github.hydos.lint.entity.boss.kingtater;
+package io.github.hydos.lint.entity.aggressive;
 
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.item.Items;
@@ -33,20 +33,20 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 @SuppressWarnings("EntityConstructor")
-public class KingTater extends HostileEntity implements RangedAttackMob {
+public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 
     private static final Predicate<LivingEntity> PREDICATE = entity -> entity.getType() != Entities.MINION;
 
     private final Set<UUID> minions = new HashSet<>();
     private final ServerBossBar bossBar;
 
-    public KingTater(EntityType<? extends KingTater> type, World world) {
+    public KingTaterEntity(EntityType<? extends KingTaterEntity> type, World world) {
         super(type, world);
         moveControl = new KingTaterMoveControl(this);
         bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.GREEN, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
     }
 
-    public static DefaultAttributeContainer.Builder initAttributes() {
+    public static DefaultAttributeContainer.Builder createAttributes() {
         return LivingEntity.createLivingAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
@@ -78,7 +78,7 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
 
     @Override
     public void attack(LivingEntity target, float f) {
-        TaterMinion minion = new TaterMinion(Entities.MINION, world, target);
+        TaterMinionEntity minion = new TaterMinionEntity(Entities.MINION, world, target);
         minion.refreshPositionAndAngles(getX(), getY(), getZ(), 0, 0);
         minions.add(minion.getUuid());
         world.spawnEntity(minion);
@@ -176,7 +176,7 @@ public class KingTater extends HostileEntity implements RangedAttackMob {
         private final float targetYaw;
         private int ticksUntilJump;
 
-        public KingTaterMoveControl(KingTater kingTater) {
+        public KingTaterMoveControl(KingTaterEntity kingTater) {
             super(kingTater);
             this.targetYaw = 180.0F * kingTater.yaw / 3.1415927F;
         }

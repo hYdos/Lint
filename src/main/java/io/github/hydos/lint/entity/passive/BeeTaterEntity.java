@@ -1,6 +1,5 @@
-package io.github.hydos.lint.entity.beetater;
+package io.github.hydos.lint.entity.passive;
 
-import io.github.hydos.lint.entity.tater.TinyPotatoEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.pathing.BirdNavigation;

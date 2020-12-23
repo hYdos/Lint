@@ -1,6 +1,7 @@
-package io.github.hydos.lint.entity.tater;
+package io.github.hydos.lint.client.entity.model;
 
 import com.google.common.collect.ImmutableList;
+import io.github.hydos.lint.entity.passive.TinyPotatoEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;

@@ -17,7 +17,7 @@ public class ModernBossBar {
 
     private final List<ServerPlayerEntity> players;
     private Text title;
-    private int colour;
+    private final int colour;
     private int endX;
 
     public ModernBossBar(Text title, int colour, int endX) {

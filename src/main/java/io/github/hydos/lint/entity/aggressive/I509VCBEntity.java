@@ -1,6 +1,5 @@
-package io.github.hydos.lint.entity.boss.i5;
+package io.github.hydos.lint.entity.aggressive;
 
-import io.github.hydos.lint.entity.boss.kingtater.KingTater;
 import io.github.hydos.mbb.ModernBossBar;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -14,12 +13,11 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.TextColor;
 import net.minecraft.world.World;
 
-public class I509VCB extends HostileEntity implements RangedAttackMob {
-    public I509VCB(EntityType<? extends HostileEntity> entityType, World world) {
+public class I509VCBEntity extends HostileEntity implements RangedAttackMob {
+    public I509VCBEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         ModernBossBar.getInstance().setTitle(getDisplayName().shallowCopy().styled(style -> style.withBold(true).withColor(TextColor.fromRgb(0xB41917))));
     }
@@ -35,7 +33,7 @@ public class I509VCB extends HostileEntity implements RangedAttackMob {
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D));
     }
 
-    public static DefaultAttributeContainer.Builder initAttributes() {
+    public static DefaultAttributeContainer.Builder createAttributes() {
         return LivingEntity.createLivingAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 125)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 12)
@@ -64,7 +62,7 @@ public class I509VCB extends HostileEntity implements RangedAttackMob {
 
     @Override
     protected void mobTick() {
-        ModernBossBar.getInstance().setEndX(ModernBossBar.calculateEndX(KingTater.getScaledHealth(getHealth(), getMaxHealth())));
+        ModernBossBar.getInstance().setEndX(ModernBossBar.calculateEndX(KingTaterEntity.getScaledHealth(getHealth(), getMaxHealth())));
         if (hasStatusEffect(StatusEffects.JUMP_BOOST)) {
             addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20, 4, true, true, true, null));
         }

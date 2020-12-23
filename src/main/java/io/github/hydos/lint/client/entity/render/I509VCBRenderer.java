@@ -1,13 +1,12 @@
-package io.github.hydos.lint.entity.boss.i5;
+package io.github.hydos.lint.client.entity.render;
 
 import io.github.hydos.lint.Lint;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
+import io.github.hydos.lint.client.entity.model.I509VCBEntityModel;
+import io.github.hydos.lint.entity.aggressive.I509VCBEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EnderDragonEntityRenderer;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,21 +14,21 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 
-public class I509VCBRenderer extends MobEntityRenderer<I509VCB, I509VCBModel> {
+public class I509VCBRenderer extends MobEntityRenderer<I509VCBEntity, I509VCBEntityModel> {
 
     public static final Identifier SKIN = Lint.id("textures/entity/i509vcb.png");
 
     public I509VCBRenderer(EntityRenderDispatcher dispatcher) {
-        super(dispatcher, new I509VCBModel(), 1);
+        super(dispatcher, new I509VCBEntityModel(), 1);
     }
 
     @Override
-    public Identifier getTexture(I509VCB entity) {
+    public Identifier getTexture(I509VCBEntity entity) {
         return SKIN;
     }
 
     @Override
-    public void render(I509VCB cone, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(I509VCBEntity cone, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         matrixStack.push();
         float l = MathHelper.sin(((float) cone.age + g) / 10.0F + 3) * 0.5f;
         matrixStack.translate(0.0D, l + 0.25F, 0.0D);

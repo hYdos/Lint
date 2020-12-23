@@ -1,11 +1,8 @@
 package io.github.hydos.lint.client;
 
+import io.github.hydos.lint.client.entity.render.*;
 import io.github.hydos.lint.client.particle.ClientParticles;
 import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.entity.beetater.BeeTaterEntityRenderer;
-import io.github.hydos.lint.entity.boss.i5.I509VCBRenderer;
-import io.github.hydos.lint.entity.boss.kingtater.KingTaterRenderer;
-import io.github.hydos.lint.entity.tater.TinyPotatoEntityRenderer;
 import io.github.hydos.lint.screenhandler.Containers;
 import io.github.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import io.github.hydos.lint.screenhandler.ScreenHandlers;
@@ -48,6 +45,7 @@ public class LintClient implements ClientModInitializer {
 
 		EntityRendererRegistry.INSTANCE.register(Entities.TINY_POTATO, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.BEE_TATER, (entityRenderDispatcher, context) -> new BeeTaterEntityRenderer(entityRenderDispatcher));
+		EntityRendererRegistry.INSTANCE.register(Entities.GHOST, (entityRenderDispatcher, context) -> new GhostEntityRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.KING_TATER, (entityRenderDispatcher, context) -> new KingTaterRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.I5, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));

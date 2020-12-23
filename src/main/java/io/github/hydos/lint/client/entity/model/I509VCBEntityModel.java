@@ -1,14 +1,15 @@
-package io.github.hydos.lint.entity.boss.i5;
+package io.github.hydos.lint.client.entity.model;
 
+import io.github.hydos.lint.entity.aggressive.I509VCBEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class I509VCBModel extends EntityModel<I509VCB> {
+public class I509VCBEntityModel extends EntityModel<I509VCBEntity> {
 	private final ModelPart cone;
 
-	public I509VCBModel() {
+	public I509VCBEntityModel() {
 		textureWidth = 64;
 		textureHeight = 64;
 
@@ -26,7 +27,7 @@ public class I509VCBModel extends EntityModel<I509VCB> {
 	}
 
 	@Override
-	public void setAngles(I509VCB entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+	public void setAngles(I509VCBEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
 		cone.roll = (float) (Math.PI);
 	}
 
