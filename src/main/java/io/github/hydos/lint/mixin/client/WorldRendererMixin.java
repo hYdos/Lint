@@ -1,4 +1,4 @@
-package io.github.hydos.lint.mixin;
+package io.github.hydos.lint.mixin.client;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

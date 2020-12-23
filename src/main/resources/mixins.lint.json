@@ -17,11 +17,11 @@
     "client.LevelPropertiesMixin"
   ],
   "client": [
-    "ClientPlayNetworkHandlerMixin",
+    "client.ClientPlayNetworkHandlerMixin",
     "client.GameRendererMixin",
     "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",
-    "WorldRendererMixin"
+    "client.WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
