@@ -28,7 +28,7 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 
 		pos.setX(startX);
 		pos.setZ(startZ);
-		pos.setY(startY);
+		pos.setY(startY - 1);
 
 		// no water
 		for (int xo = -WATER_SEARCH_RADIUS; xo <= WATER_SEARCH_RADIUS; ++xo) {
@@ -37,12 +37,13 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 			for (int zo = -WATER_SEARCH_RADIUS; zo <= WATER_SEARCH_RADIUS; ++zo) {
 				pos.setZ(startZ + zo);
 
-				if (world.getBlockState(pos.down()).getBlock() == Blocks.WATER) {
+				if (world.getBlockState(pos).getBlock() == Blocks.WATER) {
 					return false;
 				}
 			}
 		}
 
+		pos.setY(startY);
 		pos.setX(startX);
 		pos.setZ(startZ);
 
