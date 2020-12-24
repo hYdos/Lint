@@ -27,6 +27,7 @@ public class Sounds {
 	 */
 	public static final SoundEvent MYSTICAL_FOREST = new SoundEvent(Lint.id("music.mystical_forest"));
 	public static final SoundEvent CORRUPT_FOREST = new SoundEvent(Lint.id("music.corrupt_forest"));
+	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
 
 	/**
 	 * Misc Sounds
