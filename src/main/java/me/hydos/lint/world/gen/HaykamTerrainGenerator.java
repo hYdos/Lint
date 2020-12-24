@@ -131,8 +131,8 @@ public class HaykamTerrainGenerator implements TerrainData {
 		if (this.sampleTypeScale(x, z) < 20.0) {
 			height += (int) (22 * Voronoi.sampleTerrace(x * 0.034, z * 0.034, this.seed, (sx, sz) -> {
 				double cliffsNoise = this.cliffsNoise.sample(sx, sz);
-				double modifier = Math.max(0, TERRACE_RESCALE * (this.terrainDeterminerNoise.sample(sx * 0.2, sz * 0.2) - 0.65));
-				return modifier * cliffsNoise;
+				double limiter = Math.max(0, TERRACE_RESCALE * (this.terrainDeterminerNoise.sample(sx * 0.2, sz * 0.2) - 0.65));
+				return limiter * cliffsNoise;
 			}, 0.3));
 		}
 
