@@ -80,7 +80,6 @@ public class HaykamBiomeSource extends BiomeSource {
             return this.biomeRegistry.getOrThrow(Biomes.OCEAN_KEY);
         } else {
             double scale = this.data.sampleTerrainScale(x, z);
-
             return (scale > 40.0 ? this.mountainSampler : this.genericSampler).sample(this.biomeRegistry, biomeX, biomeZ);
         }
     }

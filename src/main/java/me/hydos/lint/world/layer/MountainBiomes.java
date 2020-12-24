@@ -10,7 +10,7 @@ import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
 
 public class MountainBiomes implements InitLayer {
     @SuppressWarnings("rawtypes")
-    private static final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY};
+    private static final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY, Biomes.INDIGO_RIDGES_KEY};
 
     private final Registry<Biome> biomeRegistry;
 

@@ -44,6 +44,10 @@ public class Biomes {
 			new TernarySurfaceConfig(Blocks.CORRUPT_GRASS.getDefaultState(),
 					Blocks.RICH_DIRT.getDefaultState(),
 					Blocks.RICH_DIRT.getDefaultState()));
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> IN_SB = SurfaceBuilder.DEFAULT.withConfig(
+			new TernarySurfaceConfig(Blocks.INDIGO_STONE.getDefaultState(),
+					Blocks.INDIGO_STONE.getDefaultState(),
+					Blocks.INDIGO_STONE.getDefaultState()));
 
 	/**
 	 * Spawn Configurations
@@ -143,12 +147,38 @@ public class Biomes {
 					.build())
 			.build();
 
+	public static final Biome INDIGO_RIDGES = new Biome.Builder()
+            .precipitation(Biome.Precipitation.NONE)
+            .category(Biome.Category.EXTREME_HILLS)
+            .depth(1.5f)
+            .scale(0.5f)
+            .temperature(0.6f)
+            .downfall(1)
+            .effects(new BiomeEffects.Builder()
+                    .waterColor(0x3f76e4)
+                    .waterFogColor(0x050533)
+                    .fogColor(0xc0d8ff)
+                    .skyColor(0x77adff)
+                    .build()
+            )
+            .spawnSettings(LINT_SPAWN_SETTINGS.build())
+            .generationSettings(new GenerationSettings.Builder()
+                    .surfaceBuilder(IN_SB)
+                    .carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+                    .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
+                    .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+                    .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+                    .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+                    .build())
+            .build();
+
 	/**
 	 * Biome Keys
 	 */
 	public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
 	public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
 	public static final RegistryKey<Biome> OCEAN_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ocean"));
+	public static final RegistryKey<Biome> INDIGO_RIDGES_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("indigo_ridges"));
 
 	public static void register() {
 		Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_chunk_gen"), HaykamChunkGenerator.CODEC);

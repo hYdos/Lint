@@ -1,14 +1,24 @@
 package me.hydos.lint.block;
 
+import java.util.HashMap;
+
 import me.hydos.lint.Lint;
 import me.hydos.lint.fluid.Fluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.FallingBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.block.PillarBlock;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -16,9 +26,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
-import java.util.HashMap;
-
-public class Blocks {
+public final class Blocks {
 
 	/**
 	 * Fluid blockstate cache
@@ -184,6 +192,7 @@ public class Blocks {
 	public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.of(Material.SOIL)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.GRASS));
+	public static final Block INDIGO_STONE = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE).materialColor(MaterialColor.PURPLE_TERRACOTTA));
 
 	public static void register() {
 		registerBuildingBlocks();

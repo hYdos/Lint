@@ -37,6 +37,7 @@
   "block.lint.haykamium_portal": "Haykamium Portal",
   "block.lint.basic_casting": "Basic Casting",
   "block.lint.cracked_basic_casting": "Cracked Basic Casting",
+  "block.lint.indigo_stone": "Indigo Stone",
 
   "item.lint.tater_essence": "Tater Essence",
   "item.lint.tarscan_shard": "Tarscan Shard",
@@ -61,6 +62,8 @@
 
   "biome.lint.mystical_forest": "Mystical Forest",
   "biome.lint.corrupt_forest": "Corrupt Forest",
+  "biome.lint.ocean": "Ocean",
+  "biome.lint.indigo_ridges": "Indigo Ridges",
 
   "entity.lint.tiny_potato": "Tiny Potato",
   "entity.lint.king_tater": "King Tater",
