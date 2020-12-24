@@ -1,16 +1,19 @@
 package me.hydos.lint.world.biome;
 
+import java.util.function.LongFunction;
+import java.util.stream.Collectors;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.hydos.lint.world.gen.OpenSimplexNoise;
-import me.hydos.lint.world.layer.BishopLayer;
-import net.minecraft.util.registry.BuiltinRegistries;
+
+import me.hydos.lint.world.layer.GenericBiomes;
+import me.hydos.lint.world.layer.MountainBiomes;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.layer.ScaleLayer;
 import net.minecraft.world.biome.layer.SmoothLayer;
+import net.minecraft.world.biome.layer.type.InitLayer;
 import net.minecraft.world.biome.layer.util.CachingLayerContext;
 import net.minecraft.world.biome.layer.util.LayerFactory;
 import net.minecraft.world.biome.layer.util.LayerSampleContext;
@@ -18,39 +21,47 @@ import net.minecraft.world.biome.layer.util.LayerSampler;
 import net.minecraft.world.biome.source.BiomeLayerSampler;
 import net.minecraft.world.biome.source.BiomeSource;
 
-import java.util.Random;
-import java.util.function.LongFunction;
-import java.util.stream.Collectors;
-
 public class HaykamBiomeSource extends BiomeSource {
-
-    private static BishopLayer bishopLayer;
     public static final Codec<HaykamBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
             Codec.LONG.fieldOf("seed").stable().forGetter(source -> source.seed))
             .apply(instance, instance.stable(HaykamBiomeSource::new)));
+
     private final Registry<Biome> biomeRegistry;
     private final long seed;
-    private final OpenSimplexNoise noise;
-    BiomeLayerSampler sampler;
+
+    private final GenericBiomes genericBiomes;
+    private final MountainBiomes mountainBiomes;
+
+    private final BiomeLayerSampler genericSampler;
+    private final BiomeLayerSampler mountainSampler;
+    
+    private TerrainData data;
 
     public HaykamBiomeSource(Registry<Biome> biomeRegistry, long seed) {
         super(biomeRegistry.stream().collect(Collectors.toList()));
         this.seed = seed;
-        bishopLayer = new BishopLayer(biomeRegistry);
-        sampler = createBiomeLayerSampler(seed);
-        this.noise = new OpenSimplexNoise(new Random(seed));
         this.biomeRegistry = biomeRegistry;
+
+        this.genericBiomes = new GenericBiomes(biomeRegistry);
+        this.genericSampler = createBiomeLayerSampler(this.genericBiomes, seed);
+
+        this.mountainBiomes = new MountainBiomes(biomeRegistry);
+        this.mountainSampler = createBiomeLayerSampler(this.mountainBiomes, seed);
     }
 
-    public static BiomeLayerSampler createBiomeLayerSampler(long seed) {
+    public void setTerrainData(TerrainData data) {
+        this.data = data;
+    }
+
+    public static BiomeLayerSampler createBiomeLayerSampler(InitLayer biomes, long seed) {
         LongFunction<CachingLayerContext> contextProvider = salt -> new CachingLayerContext(25, seed, salt);
-        return new BiomeLayerSampler(stackLayers(contextProvider));
+        return new BiomeLayerSampler(stackLayers(biomes, contextProvider));
 
     }
 
-    public static <T extends LayerSampler, C extends LayerSampleContext<T>> LayerFactory<T> stackLayers(LongFunction<C> contextProvider) {
-        LayerFactory<T> result = bishopLayer.create(contextProvider.apply(1L));
+    public static <T extends LayerSampler, C extends LayerSampleContext<T>> LayerFactory<T> stackLayers(InitLayer biomes, LongFunction<C> contextProvider) {
+        LayerFactory<T> result = biomes.create(contextProvider.apply(1L));
         for (int i = 0; i < 6; i++) {
             result = ScaleLayer.NORMAL.create(contextProvider.apply(1000 + i), result);
         }
@@ -60,11 +71,7 @@ public class HaykamBiomeSource extends BiomeSource {
 
     @Override
     public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
-        if (this.noise.sample(biomeX * 0.05, biomeZ * 0.05) > 0.15) {
-            return biomeRegistry.getOrThrow(RegistryKey.of(Registry.BIOME_KEY, BuiltinRegistries.BIOME.getKey(Biomes.CORRUPT_FOREST).get().getValue()));
-        } else {
-            return biomeRegistry.getOrThrow(RegistryKey.of(Registry.BIOME_KEY, BuiltinRegistries.BIOME.getKey(Biomes.MYSTICAL_FOREST).get().getValue()));
-        }
+        return this.genericSampler.sample(this.biomeRegistry, biomeX, biomeZ);
     }
 
     @Override
