@@ -25,6 +25,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.BlockView;
@@ -157,12 +158,12 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	private int riverMod(int x, int z, int height) {
 		double riverNoise = this.riverNoise.sample(x * 0.003, z * 0.003);
 
-		/*if (riverNoise > -0.12 && riverNoise < 0.12) {
+		if (riverNoise > -0.12 && riverNoise < 0.12) {
 			int riverHeight = this.getSeaLevel() - 3 - (int) (3 * this.sampleHillsNoise(x, z));
 
 			// 1 / 0.12 = 8.333...
 			height = (int) MathHelper.lerp(MathHelper.perlinFade((Math.abs(riverNoise) * 8.333333)), riverHeight, height);
-		}*/
+		}
 
 		return height;
 	}
