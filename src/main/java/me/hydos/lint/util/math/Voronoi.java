@@ -67,6 +67,32 @@ public final class Voronoi {
 		return Math.max(0.0, 1.0 - rdist);
 	}
 
+	public static double sampleTerrace(double x, double y, int seed, DoublePreciseGridOperator values, double noiseScale) {
+		final int baseX = MathHelper.floor(x);
+		final int baseY = MathHelper.floor(y);
+		double rdist = 1000;
+		double sample = 0.0;
+
+		for (int xo = -1; xo <= 1; ++xo) {
+			int gridX = baseX + xo;
+
+			for (int yo = -1; yo <= 1; ++yo) {
+				int gridY = baseY + yo;
+
+				double vx = gridX + randomFloat(gridX, gridY, seed);
+				double vy = gridY + randomFloat(gridX, gridY, seed + 1);
+				double vdist = squaredDist(x, y, vx, vy);
+
+				if (vdist < rdist) {
+					sample = values.get(vx * noiseScale, vy * noiseScale);
+					rdist = vdist;
+				}
+			}
+		}
+
+		return sample;
+	}
+
 	public static int random(int x, int y, int seed, int mask) {
 		seed *= 375462423 * seed + 672456235;
 		seed += x;

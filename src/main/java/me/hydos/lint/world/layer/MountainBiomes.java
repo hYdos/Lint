@@ -24,7 +24,7 @@ public class MountainBiomes implements InitLayer {
 
         int absx = MathHelper.abs(x);
         int absy = MathHelper.abs(y);
-        int absval = Math.min(absx, absy);
+        int absval = absx + absy;
 
         if (absval < 2) {
             key = Biomes.MYSTICAL_FOREST_KEY;
