@@ -6,13 +6,12 @@
   "mixins": [
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
-    "client.InGameHudMixin",
     "LocateCommandMixin",
     "ServerChunkManagerMixin",
     "SoundEventAccessor",
     "SoundManagerMixin",
     "StructurePoolsMixin",
-    "client.TitleScreenMixin",
+    "client.InGameHudMixin",
     "client.LevelPropertiesMixin"
   ],
   "client": [

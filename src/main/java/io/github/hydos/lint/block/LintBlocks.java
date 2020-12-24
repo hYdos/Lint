@@ -2,6 +2,7 @@ package io.github.hydos.lint.block;
 
 import io.github.hydos.lint.Lint;
 import io.github.hydos.lint.client.LintClient;
+import io.github.hydos.lint.fluid.Fluids;
 import io.github.hydos.lint.item.group.ItemGroups;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -111,7 +112,9 @@ public interface LintBlocks {
     Block CORRUPT_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
     Block DUNGEON_BRICK_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
 
-    static PillarBlock createLogBlock(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
+    Block MOLTEN_METAL_FLUID = new LintFluidBlock(Fluids.STILL_MOLTEN_METAL, FabricBlockSettings.copy(Blocks.WATER));
+
+	static PillarBlock createLogBlock(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
         return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
     }
 
@@ -183,6 +186,8 @@ public interface LintBlocks {
         registerBlock(ItemGroups.LINT_BLOCKS, MYSTICAL_SLAB, "mystical_slab");
         registerBlock(ItemGroups.LINT_BLOCKS, CORRUPT_SLAB, "corrupt_slab");
         registerBlock(ItemGroups.LINT_BLOCKS, DUNGEON_BRICK_SLAB, "dungeon_brick_slab");
+
+        registerBlock(ItemGroups.LINT_BLOCKS, MOLTEN_METAL_FLUID, "molten_metal");
 
         LintClient.putBlock(SMELTERY, LintClient.ServerCompatibleRenderLayer.CUTOUT);
     }

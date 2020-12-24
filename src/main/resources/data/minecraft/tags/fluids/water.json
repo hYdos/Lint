@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values":
+  [
+    "lint:molten_metal",
+    "lint:flowing_molten_metal"
+  ]
+}

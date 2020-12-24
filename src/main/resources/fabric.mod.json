@@ -16,6 +16,7 @@
     "main": [
       "io.github.hydos.lint.Lint",
       "io.github.hydos.lint.network.Networking",
+      "io.github.hydos.lint.fluid.Fluids",
       "io.github.hydos.lint.world.structure.Structures",
       "io.github.hydos.lint.world.biome.Biomes",
       "io.github.hydos.lint.screenhandler.Containers",

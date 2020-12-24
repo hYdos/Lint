@@ -21,9 +21,18 @@ public class SmelteryScreenHandler extends ScreenHandler {
 		super(ScreenHandlers.SMELTERY, syncId);
 		this.smelteryBlock = smelteryBlock;
 		this.inventory = smelteryBlock.inventory;
-		this.inventory.onOpen(playerInventory.player);
 
 		this.addSlot(new Slot(inventory, 0, 10, 10));
+		this.addSlot(new Slot(inventory, 1, 10, 10));
+		this.addSlot(new Slot(inventory, 2, 10, 10));
+		this.addSlot(new Slot(inventory, 3, 10, 10));
+		this.addSlot(new Slot(inventory, 4, 10, 10));
+		this.addSlot(new Slot(inventory, 5, 10, 10));
+		this.addSlot(new Slot(inventory, 6, 10, 10));
+		this.addSlot(new Slot(inventory, 7, 10, 10));
+		this.addSlot(new Slot(inventory, 8, 10, 10));
+
+		this.inventory.onOpen(playerInventory.player);
 	}
 
 	@Override

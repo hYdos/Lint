@@ -1,6 +1,7 @@
 package io.github.hydos.lint.screenhandler.client;
 
 import io.github.hydos.lint.client.render.fluid.Fluid2DRenderer;
+import io.github.hydos.lint.fluid.Fluids;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.BufferBuilder;
@@ -11,7 +12,6 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -31,7 +31,7 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
 		this.client.getTextureManager().bindTexture(GUI);
 		drawTexture(matrices, x, y - 32, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);
-		renderFluid(matrices, Fluids.LAVA, new Rectangle(new Point(133, 86), new Dimension(72, 20)));
+		renderFluid(matrices, Fluids.STILL_MOLTEN_METAL, new Rectangle(new Point(x + 8, y + 49), new Dimension(72, 20)));
 	}
 
 	public void renderFluid(MatrixStack matrices, Fluid fluid, Rectangle bounds) {
@@ -44,15 +44,15 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 			int g = color >> 8 & 255;
 			int b = color & 255;
 			MinecraftClient.getInstance().getTextureManager().bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
-			Tessellator tess = Tessellator.getInstance();
-			BufferBuilder bb = tess.getBuffer();
+			Tessellator tessellator = Tessellator.getInstance();
+			BufferBuilder bb = tessellator.getBuffer();
 			Matrix4f matrix = matrices.peek().getModel();
 			bb.begin(7, VertexFormats.POSITION_TEXTURE_COLOR);
 			bb.vertex(matrix, (float) bounds.getMaxX(), (float) bounds.y, this.getFluidZ()).texture(sprite.getMaxU(), sprite.getMinV()).color(r, g, b, a).next();
 			bb.vertex(matrix, (float) bounds.x, (float) bounds.y, this.getFluidZ()).texture(sprite.getMinU(), sprite.getMinV()).color(r, g, b, a).next();
 			bb.vertex(matrix, (float) bounds.x, (float) bounds.getMaxY(), this.getFluidZ()).texture(sprite.getMinU(), sprite.getMaxV()).color(r, g, b, a).next();
 			bb.vertex(matrix, (float) bounds.getMaxX(), (float) bounds.getMaxY(), this.getFluidZ()).texture(sprite.getMaxU(), sprite.getMaxV()).color(r, g, b, a).next();
-			tess.draw();
+			tessellator.draw();
 		}
 	}
 

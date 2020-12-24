@@ -64,7 +64,7 @@ public interface Entities {
 
 		FabricDefaultAttributeRegistry.register(Entities.KING_TATER, KingTaterEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.I5, I509VCBEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(Entities.GHOST, GhostEntity.createZombieAttributes());
+		FabricDefaultAttributeRegistry.register(Entities.GHOST, GhostEntity.createHostileAttributes());
 
 		SpawnRestriction.register(Entities.TINY_POTATO, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TinyPotatoEntity::canSpawn);
 	}

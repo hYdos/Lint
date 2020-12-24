@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
-	private static final Identifier COOL_SUN = Lint.id("textures/environment/twin_sun.png");
+	private static final Identifier HAYKAM_SUN = Lint.id("textures/environment/twin_sun.png");
 
 	@Shadow
 	@Final
@@ -25,7 +25,7 @@ public class WorldRendererMixin {
 	@Redirect(method = "renderSky", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/WorldRenderer;SUN:Lnet/minecraft/util/Identifier;"))
 	private Identifier getCoolsun() {
 		if (world.getDimension() == Dimensions.HAYKAM) {
-			return COOL_SUN;
+			return HAYKAM_SUN;
 		} else {
 			return SUN;
 		}

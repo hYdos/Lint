@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class SmelteryBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
 
-	public LintInventory inventory = new LintInventory(24);
+	public LintInventory inventory = new LintInventory(9);
 
 	public SmelteryBlockEntity() {
 		super(BlockEntities.SMELTERY);
@@ -41,7 +41,7 @@ public class SmelteryBlockEntity extends BlockEntity implements NamedScreenHandl
 
 	@Override
 	public void fromTag(BlockState state, CompoundTag tag) {
-		inventory = new LintInventory(24);
+		inventory = new LintInventory(9);
 		Inventories.fromTag(tag, inventory.getRawList());
 		super.fromTag(state, tag);
 	}
