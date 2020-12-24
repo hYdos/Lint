@@ -131,13 +131,13 @@ public class HaykamTerrainGenerator implements TerrainData {
 	}
 
 	private int terraceMod(int x, int z, int height, int baseHeight) {
-		double terraceRescaleConstant = 1.0 / 0.57;
+		double terraceRescaleConstant = 1.0 / 0.52;
 
 		if (this.sampleTypeScale(x, z) < 23.0 && baseHeight > SEA_LEVEL + 2) {
 			int heightMod = (int) (28 * Voronoi.sampleTerrace(x * 0.034, z * 0.034, this.seed, (sx, sz) -> {
 				double cliffsNoise = 1 + this.cliffsNoise.sample(sx, sz);
-				double limiter = Math.max(0, terraceRescaleConstant * (this.terrainDeterminerNoise.sample(sx * 0.23, sz * 0.23) - 0.43));
-				limiter = limiter < 0.4 ? 0.4 : limiter;
+				double limiter = Math.max(0, terraceRescaleConstant * (this.terrainDeterminerNoise.sample(sx * 0.23, sz * 0.23) - 0.48));
+				limiter = limiter < 0.2 ? 0.2 : limiter;
 				return limiter * cliffsNoise;
 			}, 0.3));
 			heightMod = 3 * (heightMod / 3);
