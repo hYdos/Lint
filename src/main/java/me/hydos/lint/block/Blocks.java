@@ -18,6 +18,12 @@ import net.minecraft.util.registry.Registry;
 public class Blocks {
 
 	/**
+	 * Bindings for easy access to minecraft blocks
+	 */
+	public static final Block WATER = net.minecraft.block.Blocks.WATER;
+	public static final Block AIR = net.minecraft.block.Blocks.AIR;
+
+	/**
 	 * Block Settings
 	 */
 	public static final Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD)
