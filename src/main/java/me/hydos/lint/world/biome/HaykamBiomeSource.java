@@ -71,7 +71,11 @@ public class HaykamBiomeSource extends BiomeSource {
 
     @Override
     public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
-        return this.genericSampler.sample(this.biomeRegistry, biomeX, biomeZ);
+        int x = (biomeX << 2);
+        int z = (biomeZ << 2);
+        double scale = this.data.sampleTerrainScale(x, z);
+
+        return (scale > 40.0 ? this.mountainSampler : this.genericSampler).sample(this.biomeRegistry, biomeX, biomeZ);
     }
 
     @Override
