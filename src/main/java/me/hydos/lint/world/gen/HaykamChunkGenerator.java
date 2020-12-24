@@ -409,21 +409,19 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 	private <T extends List<R>, R extends Supplier<ConfiguredFeature<?, ?>>> void postVegetalPlacement(List<T> list, ChunkRegion region, BlockPos pos, ChunkRandom random) {
 		// get iterator
-		Iterator<R> var23 = ((List<R>)list.get(GenerationStep.Feature.VEGETAL_DECORATION.ordinal())).iterator();
+		Iterator<R> var23 = list.get(GenerationStep.Feature.VEGETAL_DECORATION.ordinal()).iterator();
 
 		// loop over stuff
 		while (var23.hasNext()) {
 			R supplier = var23.next();
 			try {
-				ConfiguredFeature<?, ?> configured = (ConfiguredFeature<?, ?>) supplier.get();
+				ConfiguredFeature<?, ?> configured = supplier.get();
 
 				try {
 					configured.generate(region, this, random, pos);
 				} catch (Exception var22) {
 					CrashReport report = CrashReport.create(var22, "Feature placement");
-					report.addElement("Feature").add("Id", (Object)Registry.FEATURE.getId(configured.feature)).add("Config", (Object)configured.config).add("Description", () -> {
-						return configured.feature.toString();
-					});
+					report.addElement("Feature").add("Id", Registry.FEATURE.getId(configured.feature)).add("Config", configured.config).add("Description", configured.feature::toString);
 					throw new CrashException(report);
 				}
 			} catch (ClassCastException e) {
