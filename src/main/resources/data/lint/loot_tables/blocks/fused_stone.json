@@ -9,11 +9,6 @@
           "name": "lint:fused_stone"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
     }
   ]
 }

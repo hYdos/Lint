@@ -7,6 +7,7 @@
     "ArmorItemMixin",
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
+    "EntityMixin",
     "LocateCommandMixin",
     "ServerChunkManagerMixin",
     "SoundEventAccessor",

@@ -9,11 +9,6 @@
           "name": "lint:rich_dirt"
         }
       ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ]
     }
   ]
 }

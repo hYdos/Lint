@@ -33,14 +33,34 @@
   "block.lint.corrupt_slab": "Corrupt Slab",
   "block.lint.dungeon_brick_slab": "Dungeon Brick Slab",
   "block.lint.corrupt_stem": "Corrupt Stem",
-
-  "biome.lint.mystical_forest": "Mystical Forest",
-  "biome.lint.corrupt_forest": "Corrupt Forest",
+  "block.lint.smeltery": "Smeltery",
+  "block.lint.haykamium_portal": "Haykamium Portal",
+  "block.lint.basic_casting": "Basic Casting",
+  "block.lint.cracked_basic_casting": "Cracked Basic Casting",
 
   "item.lint.tater_essence": "Tater Essence",
   "item.lint.tarscan_shard": "Tarscan Shard",
   "item.lint.sicieron_ingot": "Sicieron Ingot",
   "item.lint.jurel_powder": "Jurel Powder",
+
+  "item.lint.sicieron_helmet": "Sicieron Helmet",
+  "item.lint.sicieron_chestplate": "Sicieron Chestplate",
+  "item.lint.sicieron_leggings": "Sicieron Leggings",
+  "item.lint.sicieron_boots": "Sicieron Boots",
+
+  "item.lint.sicieron_sword": "Sicieron Sword",
+  "item.lint.sicieron_axe": "Sicieron Axe",
+  "item.lint.sicieron_pickaxe": "Sicieron Pickaxe",
+  "item.lint.sicieron_shovel": "Sicieron Shovel",
+  "item.lint.sicieron_hoe": "Sicieron Hoe",
+
+  "itemGroup.lint.lint_blocks": "Lint Blocks",
+  "itemGroup.lint.lint_decorations": "Lint Decorations",
+  "itemGroup.lint.lint_tools": "Lint Tools",
+  "itemGroup.lint.lint_items": "Lint Items",
+
+  "biome.lint.mystical_forest": "Mystical Forest",
+  "biome.lint.corrupt_forest": "Corrupt Forest",
 
   "entity.lint.tiny_potato": "Tiny Potato",
   "entity.lint.king_tater": "King Tater",

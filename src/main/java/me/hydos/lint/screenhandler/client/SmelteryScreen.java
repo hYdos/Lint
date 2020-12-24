@@ -1,5 +1,6 @@
 package me.hydos.lint.screenhandler.client;
 
+import me.hydos.lint.Lint;
 import me.hydos.lint.client.render.fluid.Fluid2DRenderer;
 import me.hydos.lint.fluid.Fluids;
 import net.minecraft.client.MinecraftClient;
@@ -22,6 +23,7 @@ import java.awt.*;
 public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 
 	public static final Identifier GUI = new Identifier("lint", "textures/gui/container/smeltery_inventory.png");
+	private static final Identifier IRON_FLUID = Lint.id("iron");
 
 	public SmelteryScreen(ScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
@@ -31,7 +33,7 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
 		this.client.getTextureManager().bindTexture(GUI);
 		drawTexture(matrices, x, y - 32, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);
-		renderFluid(matrices, Fluids.STILL_MOLTEN_METAL, new Rectangle(new Point(x + 8, y + 49), new Dimension(72, 20)));
+		renderFluid(matrices, Fluids.MOLTEN_FLUID_MAP.get(IRON_FLUID).getStill(), new Rectangle(new Point(x + 8, y + 49), new Dimension(72, 20)));
 	}
 
 	public void renderFluid(MatrixStack matrices, Fluid fluid, Rectangle bounds) {

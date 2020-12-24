@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "lint:return_home"
+          "name": "minecraft:air"
         }
       ],
       "conditions": [

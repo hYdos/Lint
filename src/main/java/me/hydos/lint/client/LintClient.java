@@ -55,7 +55,9 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerFluidRenderers() {
-		registerFluidRenderer(Fluids.STILL_MOLTEN_METAL, Fluids.FLOWING_MOLTEN_METAL, new Identifier("water"), 0x44FFFFFF);
+		for (Fluids.FluidEntry entry : Fluids.MOLTEN_FLUID_MAP.values()) {
+			registerFluidRenderer(entry.getStill(), entry.getFlowing(), new Identifier("water"), entry.getColour());
+		}
 	}
 
 	private void registerBlockRenderers() {
