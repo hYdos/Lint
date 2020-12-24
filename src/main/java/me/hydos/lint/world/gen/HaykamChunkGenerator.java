@@ -64,7 +64,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 		ServerChunkManagerCallback.EVENT.register(manager -> {
 			long worldSeed = ((ServerWorld) manager.getWorld()).getSeed();
 			Random rand = new Random(seed);
-			this.terrain = new HaykamTerrainGenerator(rand);
+			this.terrain = new HaykamTerrainGenerator(worldSeed, rand);
 			((HaykamBiomeSource) this.biomeSource).setTerrainData(this.terrain);
 			this.floatingIslands = new FloatingIslandModifier(worldSeed);
 

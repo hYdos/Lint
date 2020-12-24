@@ -6,24 +6,30 @@ import me.hydos.lint.util.LossyDoubleCache;
 import me.hydos.lint.util.LossyIntCache;
 import me.hydos.lint.util.math.DoubleGridOperator;
 import me.hydos.lint.util.math.IntGridOperator;
+import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.biome.TerrainData;
 import net.minecraft.util.math.MathHelper;
 
 public class HaykamTerrainGenerator implements TerrainData {
-	private OpenSimplexNoise continentNoise;
-	private OpenSimplexNoise mountainsNoise;
-	private OpenSimplexNoise hillsNoise;
-	private OpenSimplexNoise scaleNoise;
-	private OpenSimplexNoise cliffsNoise;
-	private OpenSimplexNoise riverNoise;
-	private OpenSimplexNoise terrainDeterminerNoise;
+	private final int seed;
+	private final OpenSimplexNoise continentNoise;
+	private final OpenSimplexNoise mountainsNoise;
+	private final OpenSimplexNoise hillsNoise;
+	private final OpenSimplexNoise scaleNoise;
+	private final OpenSimplexNoise cliffsNoise;
+	private final OpenSimplexNoise riverNoise;
+	private final OpenSimplexNoise terrainDeterminerNoise;
 
-	private DoubleGridOperator continentOperator;
-	private DoubleGridOperator typeScaleOperator;
-	private DoubleGridOperator terrainScaleOperator;
-	private IntGridOperator baseHeightOperator;
+	private final DoubleGridOperator continentOperator;
+	private final DoubleGridOperator typeScaleOperator;
+	private final DoubleGridOperator terrainScaleOperator;
+	private final IntGridOperator baseHeightOperator;
+	private final IntGridOperator heightOperator;
 
-	HaykamTerrainGenerator(Random rand) {
+	HaykamTerrainGenerator(long seed, Random rand) {
+		int protoSeed = (int) (seed >> 32);
+		this.seed = protoSeed == 0 ? 1 : protoSeed; // 0 bad and worst in game
+
 		this.continentNoise = new OpenSimplexNoise(rand);
 		this.mountainsNoise = new OpenSimplexNoise(rand);
 		this.hillsNoise = new OpenSimplexNoise(rand);
@@ -100,10 +106,12 @@ public class HaykamTerrainGenerator implements TerrainData {
 				return AVG_HEIGHT + (int) (continent + mountains + hills);
 			}
 		});
+
+		this.heightOperator = new LossyIntCache(512, (x, z) -> terraceMod(x, z, riverMod(x, z, this.sampleBaseHeight(x, z))));
 	}
 
 	public int getHeight(int x, int z) {
-		return riverMod(x, z, this.sampleBaseHeight(x, z));
+		return this.heightOperator.get(x, z);
 	}
 
 	private int riverMod(int x, int z, int height) {
@@ -118,6 +126,20 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 		return height;
 	}
+
+	private int terraceMod(int x, int z, int height) {
+		if (this.sampleTypeScale(x, z) < 20.0) {
+			height += (int) (22 * Voronoi.sampleTerrace(x * 0.034, z * 0.034, this.seed, (sx, sz) -> {
+				double cliffsNoise = this.cliffsNoise.sample(sx, sz);
+				double modifier = Math.max(0, TERRACE_RESCALE * (this.terrainDeterminerNoise.sample(sx * 0.2, sz * 0.2) - 0.65));
+				return modifier * cliffsNoise;
+			}, 0.3));
+		}
+
+		return height;
+	}
+
+	private static final double TERRACE_RESCALE = 1 / 0.35;
 
 	private double addMountainPlateaus(int x, int z, double scale) {
 		if (scale > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 240 blocks period
