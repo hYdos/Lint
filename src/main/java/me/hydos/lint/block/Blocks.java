@@ -22,6 +22,7 @@ public class Blocks {
 	 */
 	public static final Block WATER = net.minecraft.block.Blocks.WATER;
 	public static final Block AIR = net.minecraft.block.Blocks.AIR;
+	public static final Block BEDROCK = net.minecraft.block.Blocks.BEDROCK;
 
 	/**
 	 * Block Settings
