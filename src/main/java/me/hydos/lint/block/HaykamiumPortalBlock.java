@@ -1,6 +1,6 @@
 package me.hydos.lint.block;
 
-import io.github.hydos.lint.util.TeleportUtils;
+import me.hydos.lint.util.TeleportUtils;
 import me.hydos.lint.world.dimension.Dimensions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;

@@ -10,8 +10,8 @@ import java.util.function.Supplier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import io.github.hydos.lint.callback.ServerChunkManagerCallback;
 import me.hydos.lint.block.Blocks;
+import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.biome.HaykamBiomeSource;
 import me.hydos.lint.world.feature.FloatingIslandModifier;

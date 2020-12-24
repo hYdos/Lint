@@ -2,9 +2,8 @@ package me.hydos.lint.world.gen;
 
 import java.util.Random;
 
-import io.github.hydos.lint.util.DoubleGridOperator;
-import io.github.hydos.lint.util.LossyDoubleCache;
-import io.github.hydos.lint.util.OpenSimplexNoise;
+import me.hydos.lint.util.LossyDoubleCache;
+import me.hydos.lint.util.math.DoubleGridOperator;
 import me.hydos.lint.world.biome.TerrainData;
 import net.minecraft.util.math.MathHelper;
 

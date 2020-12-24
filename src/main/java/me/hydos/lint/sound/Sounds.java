@@ -1,6 +1,6 @@
 package me.hydos.lint.sound;
 
-import io.github.hydos.lint.mixin.SoundEventAccessor;
+import me.hydos.lint.mixin.SoundEventAccessor;
 import me.hydos.lint.Lint;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.sound.MusicSound;

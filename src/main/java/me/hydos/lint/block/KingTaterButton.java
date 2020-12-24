@@ -1,8 +1,7 @@
 package me.hydos.lint.block;
 
-import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.entity.aggressive.KingTaterEntity;
-import me.hydos.lint.block.Blocks;
+import me.hydos.lint.entity.Entities;
+import me.hydos.lint.entity.aggressive.KingTaterEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;

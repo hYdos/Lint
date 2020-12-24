@@ -29,6 +29,12 @@
       "lint:mystical_forest"
     ]
   },
+  "music.ocean": {
+    "subtitle": "subtitles.ocean",
+    "sounds": [
+      "lint:ocean"
+    ]
+  },
   "music.corrupt_forest": {
     "subtitle": "subtitles.corrupt_forest",
     "sounds": [

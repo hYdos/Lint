@@ -1,6 +1,5 @@
 package me.hydos.lint.block;
 
-import me.hydos.lint.block.Blocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.Entity;
