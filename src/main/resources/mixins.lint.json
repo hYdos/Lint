@@ -8,6 +8,7 @@
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
     "EntityMixin",
+    "ItemTagsProviderMixin",
     "LocateCommandMixin",
     "ServerChunkManagerMixin",
     "SoundEventAccessor",
