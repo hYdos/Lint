@@ -187,7 +187,7 @@ public class Blocks {
 	}
 
 	public static void registerDecorations() {
-		registerBlock(ItemGroups.LINT_BLOCKS, HAYKAMIUM_PORTAL, "haykamium_portal");
+		registerBlock(ItemGroups.BLOCKS, HAYKAMIUM_PORTAL, "haykamium_portal");
 
 		registerFlower(CORRUPT_STEM, "corrupt_stem");
 		registerFlower(WILTED_FLOWER, "wilted_flower");
@@ -195,53 +195,53 @@ public class Blocks {
 		registerFlower(MYSTICAL_STEM, "mystical_stem");
 		registerFlower(MYSTICAL_DAISY, "yellow_daisy");
 
-		registerBlock(ItemGroups.LINT_DECORATIONS, RED_BUTTON, "red_button");
-		registerBlock(ItemGroups.LINT_BLOCKS, GREEN_BUTTON, "green_button");
+		registerBlock(ItemGroups.DECORATIONS, RED_BUTTON, "red_button");
+		registerBlock(ItemGroups.BLOCKS, GREEN_BUTTON, "green_button");
 
-		registerBlock(ItemGroups.LINT_DECORATIONS, RETURN_HOME, "return_home");
+		registerBlock(ItemGroups.DECORATIONS, RETURN_HOME, "return_home");
 
-		registerBlock(ItemGroups.LINT_DECORATIONS, MYSTICAL_FALLEN_LEAVES, "mystical_fallen_leaves");
-		registerBlock(ItemGroups.LINT_DECORATIONS, CORRUPT_FALLEN_LEAVES, "corrupt_fallen_leaves");
+		registerBlock(ItemGroups.DECORATIONS, MYSTICAL_FALLEN_LEAVES, "mystical_fallen_leaves");
+		registerBlock(ItemGroups.DECORATIONS, CORRUPT_FALLEN_LEAVES, "corrupt_fallen_leaves");
 	}
 
 	public static void registerBuildingBlocks() {
-		registerBlock(ItemGroups.LINT_BLOCKS, SMELTERY, "smeltery");
-		registerBlock(ItemGroups.LINT_BLOCKS, BASIC_CASTING, "basic_casting");
-		registerBlock(ItemGroups.LINT_BLOCKS, CRACKED_BASIC_CASTING, "cracked_basic_casting");
+		registerBlock(ItemGroups.BLOCKS, SMELTERY, "smeltery");
+		registerBlock(ItemGroups.BLOCKS, BASIC_CASTING, "basic_casting");
+		registerBlock(ItemGroups.BLOCKS, CRACKED_BASIC_CASTING, "cracked_basic_casting");
 
-		registerBlock(ItemGroups.LINT_BLOCKS, FUSED_STONE, "fused_stone");
-		registerBlock(ItemGroups.LINT_BLOCKS, TARSCAN, "tarscan_ore");
-		registerBlock(ItemGroups.LINT_BLOCKS, SICIERON, "sicieron_ore");
-		registerBlock(ItemGroups.LINT_BLOCKS, JUREL, "jurel_ore");
+		registerBlock(ItemGroups.BLOCKS, FUSED_STONE, "fused_stone");
+		registerBlock(ItemGroups.BLOCKS, TARSCAN, "tarscan_ore");
+		registerBlock(ItemGroups.BLOCKS, SICIERON, "sicieron_ore");
+		registerBlock(ItemGroups.BLOCKS, JUREL, "jurel_ore");
 
-		registerBlock(ItemGroups.LINT_BLOCKS, MYSTICAL_TRAPDOOR, "mystical_trapdoor");
+		registerBlock(ItemGroups.BLOCKS, MYSTICAL_TRAPDOOR, "mystical_trapdoor");
 
-		registerBlock(ItemGroups.LINT_BLOCKS, DUNGEON_BRICKS, "dungeon_bricks");
-		registerBlock(ItemGroups.LINT_BLOCKS, MOSSY_DUNGEON_BRICKS, "mossy_dungeon_bricks");
+		registerBlock(ItemGroups.BLOCKS, DUNGEON_BRICKS, "dungeon_bricks");
+		registerBlock(ItemGroups.BLOCKS, MOSSY_DUNGEON_BRICKS, "mossy_dungeon_bricks");
 
-		registerBlock(ItemGroups.LINT_BLOCKS, WHITE_SAND, "white_sand");
-		registerBlock(ItemGroups.LINT_BLOCKS, CORRUPT_SAND, "corrupt_sand");
+		registerBlock(ItemGroups.BLOCKS, WHITE_SAND, "white_sand");
+		registerBlock(ItemGroups.BLOCKS, CORRUPT_SAND, "corrupt_sand");
 
-		registerBlock(ItemGroups.LINT_BLOCKS, RICH_DIRT, "rich_dirt");
-		registerBlock(ItemGroups.LINT_BLOCKS, CORRUPT_GRASS, "corrupt_grass");
-		registerBlock(ItemGroups.LINT_BLOCKS, LIVELY_GRASS, "lively_grass");
+		registerBlock(ItemGroups.BLOCKS, RICH_DIRT, "rich_dirt");
+		registerBlock(ItemGroups.BLOCKS, CORRUPT_GRASS, "corrupt_grass");
+		registerBlock(ItemGroups.BLOCKS, LIVELY_GRASS, "lively_grass");
 
-		registerBlock(ItemGroups.LINT_BLOCKS, MYSTICAL_PLANKS, "mystical_planks");
-		registerBlock(ItemGroups.LINT_BLOCKS, MYSTICAL_LEAVES, "mystical_leaves");
-		registerBlock(ItemGroups.LINT_BLOCKS, MYSTICAL_LOG, "mystical_log");
-		registerBlock(ItemGroups.LINT_BLOCKS, MYSTICAL_SAND, "mystical_sand");
+		registerBlock(ItemGroups.BLOCKS, MYSTICAL_PLANKS, "mystical_planks");
+		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LEAVES, "mystical_leaves");
+		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
+		registerBlock(ItemGroups.BLOCKS, MYSTICAL_SAND, "mystical_sand");
 
-		registerBlock(ItemGroups.LINT_BLOCKS, CORRUPT_PLANKS, "corrupt_planks");
-		registerBlock(ItemGroups.LINT_BLOCKS, CORRUPT_LEAVES, "corrupt_leaves");
-		registerBlock(ItemGroups.LINT_BLOCKS, CORRUPT_LOG, "corrupt_log");
+		registerBlock(ItemGroups.BLOCKS, CORRUPT_PLANKS, "corrupt_planks");
+		registerBlock(ItemGroups.BLOCKS, CORRUPT_LEAVES, "corrupt_leaves");
+		registerBlock(ItemGroups.BLOCKS, CORRUPT_LOG, "corrupt_log");
 
-		registerBlock(ItemGroups.LINT_BLOCKS, MYSTICAL_SLAB, "mystical_slab");
-		registerBlock(ItemGroups.LINT_BLOCKS, CORRUPT_SLAB, "corrupt_slab");
-		registerBlock(ItemGroups.LINT_BLOCKS, DUNGEON_BRICK_SLAB, "dungeon_brick_slab");
+		registerBlock(ItemGroups.BLOCKS, MYSTICAL_SLAB, "mystical_slab");
+		registerBlock(ItemGroups.BLOCKS, CORRUPT_SLAB, "corrupt_slab");
+		registerBlock(ItemGroups.BLOCKS, DUNGEON_BRICK_SLAB, "dungeon_brick_slab");
 	}
 
 	public static void registerFluidBlocks() {
-		registerBlock(ItemGroups.LINT_BLOCKS, MOLTEN_METAL_FLUID, "molten_metal");
+		registerBlock(ItemGroups.BLOCKS, MOLTEN_METAL_FLUID, "molten_metal");
 	}
 
 	public static PillarBlock createLog(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
@@ -254,6 +254,6 @@ public class Blocks {
 	}
 
 	public static void registerFlower(FlowerBlock flower, String path) {
-		registerBlock(ItemGroups.LINT_DECORATIONS, flower, path);
+		registerBlock(ItemGroups.DECORATIONS, flower, path);
 	}
 }

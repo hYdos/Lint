@@ -13,9 +13,9 @@ import net.minecraft.util.Lazy;
 import java.util.function.Supplier;
 
 public enum ArmorMaterials implements ArmorMaterial {
-	DIAMOND("diamond",
+	SICIERON("sicieron",
 			33,
-			new int[]{3, 6, 8, 3},
+			new int[]{5, 8, 10, 5},
 			10,
 			SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
 			2.0F,
