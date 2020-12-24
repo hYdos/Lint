@@ -156,7 +156,7 @@ public class HaykamTerrainGenerator implements TerrainData {
     }
 
     private static final int AVG_HEIGHT = 65;
-    private static final int SCALE_SMOOTH_RADIUS = 11;
+    private static final int SCALE_SMOOTH_RADIUS = 9;
     public static final int SEA_LEVEL = 63;
 
     @Override
