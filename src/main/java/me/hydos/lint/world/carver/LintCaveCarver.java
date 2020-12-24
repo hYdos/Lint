@@ -60,7 +60,7 @@ public class LintCaveCarver extends CaveCarver {
 					if (grassCheckerThing.isTrue()) {
 						pos3.set(pos1, Direction.DOWN);
 						if (chunk.getBlockState(pos3).isOf(Blocks.RICH_DIRT)) {
-							chunk.setBlockState(pos3, ((Biome)posToBiome.apply(pos1)).getGenerationSettings().getSurfaceConfig().getTopMaterial(), false);
+							chunk.setBlockState(pos3, posToBiome.apply(pos1).getGenerationSettings().getSurfaceConfig().getTopMaterial(), false);
 						}
 					}
 				}

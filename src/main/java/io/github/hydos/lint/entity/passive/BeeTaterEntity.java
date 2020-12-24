@@ -34,21 +34,11 @@ public class BeeTaterEntity extends TinyPotatoEntity {
         return super.tryAttack(target);
     }
 
-    @Override
-    protected void initGoals() {
-        super.initGoals();
-    }
-
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
         return super.interactMob(player, hand);
     }
 
-    @Override
-    public void mobTick() {
-        super.mobTick();
-    }
-
-    @Override
+	@Override
     protected EntityNavigation createNavigation(World world) {
         return new BirdNavigation(this, world);
     }

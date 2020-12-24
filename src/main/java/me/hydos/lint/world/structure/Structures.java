@@ -3,7 +3,6 @@ package me.hydos.lint.world.structure;
 import com.mojang.datafixers.util.Either;
 import me.hydos.lint.Lint;
 import me.hydos.lint.world.feature.DungeonFeature;
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.minecraft.structure.pool.LegacySinglePoolElement;
 import net.minecraft.structure.pool.StructurePool;

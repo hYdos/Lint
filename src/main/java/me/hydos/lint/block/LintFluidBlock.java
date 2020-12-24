@@ -4,7 +4,6 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.fluid.FluidState;
 
 public class LintFluidBlock extends FluidBlock {
 

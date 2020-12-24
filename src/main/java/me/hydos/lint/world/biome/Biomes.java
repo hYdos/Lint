@@ -8,7 +8,6 @@ import me.hydos.lint.world.carver.LintConfiguredCarvers;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.gen.HaykamChunkGenerator;
 import me.hydos.lint.world.structure.ConfiguredStructureFeatures;
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;

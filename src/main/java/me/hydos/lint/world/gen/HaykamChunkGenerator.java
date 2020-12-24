@@ -2,7 +2,6 @@ package me.hydos.lint.world.gen;
 
 import static me.hydos.lint.block.Blocks.*;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -408,12 +407,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	private <T extends List<R>, R extends Supplier<ConfiguredFeature<?, ?>>> void postVegetalPlacement(List<T> list, ChunkRegion region, BlockPos pos, ChunkRandom random) {
-		// get iterator
-		Iterator<R> var23 = list.get(GenerationStep.Feature.VEGETAL_DECORATION.ordinal()).iterator();
-
-		// loop over stuff
-		while (var23.hasNext()) {
-			R supplier = var23.next();
+		for (R supplier : list.get(GenerationStep.Feature.VEGETAL_DECORATION.ordinal())) {
 			try {
 				ConfiguredFeature<?, ?> configured = supplier.get();
 
@@ -424,7 +418,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 					report.addElement("Feature").add("Id", Registry.FEATURE.getId(configured.feature)).add("Config", configured.config).add("Description", configured.feature::toString);
 					throw new CrashException(report);
 				}
-			} catch (ClassCastException e) {
+			} catch (ClassCastException ignored) {
 				// no
 			}
 		}
