@@ -1,7 +1,6 @@
 package io.github.hydos.lint.entity;
 
-import io.github.hydos.lint.Lint;
-import io.github.hydos.lint.entity.aggressive.GhostEntity;
+import me.hydos.lint.Lint;import io.github.hydos.lint.entity.aggressive.GhostEntity;
 import io.github.hydos.lint.entity.passive.BeeTaterEntity;
 import io.github.hydos.lint.entity.aggressive.I509VCBEntity;
 import io.github.hydos.lint.entity.aggressive.KingTaterEntity;

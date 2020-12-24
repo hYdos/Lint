@@ -1,7 +1,6 @@
 package io.github.hydos.lint.client.entity.render;
 
-import io.github.hydos.lint.Lint;
-import io.github.hydos.lint.client.entity.model.I509VCBEntityModel;
+import me.hydos.lint.Lint;import io.github.hydos.lint.client.entity.model.I509VCBEntityModel;
 import io.github.hydos.lint.entity.aggressive.I509VCBEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EnderDragonEntityRenderer;

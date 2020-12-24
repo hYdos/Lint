@@ -1,7 +1,6 @@
 package io.github.hydos.lint.network;
 
-import io.github.hydos.lint.Lint;
-import net.fabricmc.api.ModInitializer;
+import me.hydos.lint.Lint;import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.util.Identifier;
 

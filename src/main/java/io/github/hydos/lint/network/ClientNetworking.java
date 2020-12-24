@@ -1,7 +1,7 @@
 package io.github.hydos.lint.network;
 
-import io.github.hydos.mbb.ClientModernBossBar;
-import io.github.hydos.mbb.ModernBossBar;
+import me.hydos.modernbossbars.ClientModernBossBar;
+import me.hydos.modernbossbars.ModernBossBar;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.text.Text;

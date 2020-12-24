@@ -1,7 +1,6 @@
 package io.github.hydos.lint.client.entity.render;
 
-import io.github.hydos.lint.Lint;
-import io.github.hydos.lint.client.entity.model.GhostEntityModel;
+import me.hydos.lint.Lint;import io.github.hydos.lint.client.entity.model.GhostEntityModel;
 import io.github.hydos.lint.entity.aggressive.GhostEntity;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;

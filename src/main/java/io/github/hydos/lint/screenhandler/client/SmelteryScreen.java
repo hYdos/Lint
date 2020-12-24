@@ -1,7 +1,7 @@
 package io.github.hydos.lint.screenhandler.client;
 
 import io.github.hydos.lint.client.render.fluid.Fluid2DRenderer;
-import io.github.hydos.lint.fluid.Fluids;
+import me.hydos.lint.fluid.Fluids;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.BufferBuilder;

@@ -1,6 +1,6 @@
 package io.github.hydos.lint.mixin;
 
-import io.github.hydos.lint.world.structure.DungeonGenerator;
+import me.hydos.lint.world.structure.DungeonGenerator;
 import net.minecraft.structure.pool.StructurePools;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

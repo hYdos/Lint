@@ -1,7 +1,6 @@
 package io.github.hydos.lint.client.entity.render;
 
-import io.github.hydos.lint.Lint;
-import io.github.hydos.lint.client.entity.model.BeeTaterEntityModel;
+import me.hydos.lint.Lint;import io.github.hydos.lint.client.entity.model.BeeTaterEntityModel;
 import io.github.hydos.lint.entity.passive.BeeTaterEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;

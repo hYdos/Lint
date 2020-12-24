@@ -1,6 +1,6 @@
 package io.github.hydos.lint.entity.passive;
 
-import io.github.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.Blocks;
 import io.github.hydos.lint.screenhandler.Containers;
 import io.github.hydos.lint.util.LintInventory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
@@ -120,7 +120,7 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 		}
 		if (random.nextInt(10) > 5) {
 			BlockState blockState = world.getBlockState(pos.down());
-			return (blockState.isOf(LintBlocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
+			return (blockState.isOf(Blocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
 		}
 		return false;
 	}

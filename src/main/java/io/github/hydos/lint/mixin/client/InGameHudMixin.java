@@ -1,7 +1,6 @@
 package io.github.hydos.lint.mixin.client;
 
-import io.github.hydos.mbb.BossBarClientRenderer;
-import io.github.hydos.mbb.ClientModernBossBar;
+import me.hydos.modernbossbars.BossBarClientRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;

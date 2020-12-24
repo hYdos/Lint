@@ -1,6 +1,6 @@
 package io.github.hydos.lint.screenhandler;
 
-import io.github.hydos.lint.block.entity.SmelteryBlockEntity;
+import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import io.github.hydos.lint.util.LintInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

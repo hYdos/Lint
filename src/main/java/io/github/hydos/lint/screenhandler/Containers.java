@@ -1,7 +1,6 @@
 package io.github.hydos.lint.screenhandler;
 
-import io.github.hydos.lint.Lint;
-import net.fabricmc.api.ModInitializer;
+import me.hydos.lint.Lint;import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;

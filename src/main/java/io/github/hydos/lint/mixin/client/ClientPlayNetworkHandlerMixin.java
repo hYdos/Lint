@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import io.github.hydos.lint.client.screen.TaterDownloadingTerrainScreen;
-import io.github.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
 import net.minecraft.client.gui.screen.Screen;

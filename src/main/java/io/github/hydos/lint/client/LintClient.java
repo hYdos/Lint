@@ -3,13 +3,13 @@ package io.github.hydos.lint.client;
 import io.github.hydos.lint.client.entity.render.*;
 import io.github.hydos.lint.client.particle.ClientParticles;
 import io.github.hydos.lint.entity.Entities;
-import io.github.hydos.lint.fluid.Fluids;
+import me.hydos.lint.fluid.Fluids;
 import io.github.hydos.lint.screenhandler.Containers;
 import io.github.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import io.github.hydos.lint.screenhandler.ScreenHandlers;
 import io.github.hydos.lint.screenhandler.client.LilTaterContainerScreen;
 import io.github.hydos.lint.screenhandler.client.SmelteryScreen;
-import io.github.hydos.lint.world.biome.Biomes;
+import me.hydos.lint.world.biome.Biomes;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -69,7 +69,7 @@ public class LintClient implements ClientModInitializer {
 		ScreenProviderRegistry.INSTANCE.registerFactory(Containers.TATER_CONTAINER_ID, (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractScreenHandler(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));
 		ScreenRegistry.register(ScreenHandlers.SMELTERY, SmelteryScreen::new);
 
-		registerFluidRenderer(Fluids.STILL_MOLTEN_METAL, Fluids.FLOWING_MOLTEN_METAL, new Identifier("water"), 0x433248);
+		registerFluidRenderer(Fluids.STILL_MOLTEN_METAL, Fluids.FLOWING_MOLTEN_METAL, new Identifier("water"), 0x44FFFFFF);
 
 		/*ClientTickEvents.START_CLIENT_TICK.register(lexmanos -> {
 			long currentTime = System.currentTimeMillis();

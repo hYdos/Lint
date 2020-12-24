@@ -2,7 +2,7 @@ package io.github.hydos.lint.entity.aggressive;
 
 import io.github.hydos.lint.entity.Entities;
 import io.github.hydos.lint.item.Items;
-import io.github.hydos.lint.sound.Sounds;
+import me.hydos.lint.sound.Sounds;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.control.MoveControl;

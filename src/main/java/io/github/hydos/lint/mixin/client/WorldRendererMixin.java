@@ -6,8 +6,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import io.github.hydos.lint.Lint;
-import io.github.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.Lint;import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;
