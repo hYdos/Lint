@@ -1,6 +1,6 @@
 package me.hydos.lint.sound;
 
-import io.github.hydos.lint.mixin.SoundEventAccessor;
+import me.hydos.lint.mixin.SoundEventAccessor;
 import me.hydos.lint.Lint;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.sound.MusicSound;
@@ -27,6 +27,7 @@ public class Sounds {
 	 */
 	public static final SoundEvent MYSTICAL_FOREST = new SoundEvent(Lint.id("music.mystical_forest"));
 	public static final SoundEvent CORRUPT_FOREST = new SoundEvent(Lint.id("music.corrupt_forest"));
+	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
 
 	/**
 	 * Misc Sounds

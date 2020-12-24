@@ -1,5 +1,10 @@
 package me.hydos.lint;
 
+import me.hydos.lint.entity.Entities;
+import me.hydos.lint.fluid.Fluids;
+import me.hydos.lint.item.Items;
+import me.hydos.lint.network.Networking;
+import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.block.Blocks;
 import me.hydos.lint.world.biome.Biomes;
@@ -20,6 +25,11 @@ public class Lint implements ModInitializer {
 		LOGGER.info("Lint is initializing");
 		Sounds.register();
 		Blocks.register();
+		Items.register();
+		Entities.register();
+		Fluids.register();
+		ScreenHandlers.register();
+		Networking.register();
 		registerDimensions();
 		LOGGER.info("Lint initialization successful!");
 	}

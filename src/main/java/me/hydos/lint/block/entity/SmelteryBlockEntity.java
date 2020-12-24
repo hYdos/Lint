@@ -1,7 +1,7 @@
 package me.hydos.lint.block.entity;
 
-import io.github.hydos.lint.screenhandler.SmelteryScreenHandler;
-import io.github.hydos.lint.util.LintInventory;
+import me.hydos.lint.screenhandler.SmelteryScreenHandler;
+import me.hydos.lint.util.LintInventory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;

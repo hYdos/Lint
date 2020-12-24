@@ -11,10 +11,9 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import me.hydos.lint.block.Blocks;
-import io.github.hydos.lint.callback.ServerChunkManagerCallback;
-import io.github.hydos.lint.util.DoubleGridOperator;
-import io.github.hydos.lint.util.LossyDoubleCache;
-import io.github.hydos.lint.util.OpenSimplexNoise;
+import me.hydos.lint.util.callback.ServerChunkManagerCallback;
+import me.hydos.lint.util.math.DoubleGridOperator;
+import me.hydos.lint.util.LossyDoubleCache;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.biome.HaykamBiomeSource;
 import me.hydos.lint.world.feature.FloatingIslandModifier;

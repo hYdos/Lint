@@ -3,8 +3,8 @@ package me.hydos.lint.world.feature;
 import java.util.Random;
 
 import me.hydos.lint.block.Blocks;
-import io.github.hydos.lint.util.OpenSimplexNoise;
-import io.github.hydos.lint.util.Voronoi;
+import me.hydos.lint.world.gen.OpenSimplexNoise;
+import me.hydos.lint.util.math.Voronoi;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;

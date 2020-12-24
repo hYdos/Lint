@@ -1,7 +1,7 @@
 package me.hydos.lint.world.biome;
 
 import me.hydos.lint.Lint;
-import io.github.hydos.lint.entity.Entities;
+import me.hydos.lint.entity.Entities;
 import me.hydos.lint.block.Blocks;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.world.carver.LintConfiguredCarvers;
@@ -28,7 +28,7 @@ public class Biomes {
 	/**
 	 * Fog Colours
 	 */
-	public static final int MYSTICAL_FOG_COLOUR = 0xc0d8ff;
+	public static final int MYSTICAL_FOG_COLOUR = 0x8cfff5;
 	public static final int CORRUPT_FOG_COLOUR = 0x916ec1;
 	public static final int DAWN_FOG_COLOUR = 0xe5c14b;
 
@@ -65,9 +65,8 @@ public class Biomes {
 			.temperature(0.8f)
 			.downfall(1)
 			.effects(new BiomeEffects.Builder()
-					.waterColor(0)
-					.waterColor(0x3f76e4)
-					.waterFogColor(0x050533)
+					.waterColor(0x916ec1)
+					.waterFogColor(0x916ec1)
 					.fogColor(CORRUPT_FOG_COLOUR)
 					.loopSound(Sounds.CORRUPT_FOREST)
 					.skyColor(0x9c76c1)
@@ -97,9 +96,9 @@ public class Biomes {
 			.downfall(0)
 			.effects(new BiomeEffects.Builder()
 					.waterColor(0)
-					.waterColor(0x3f76e4)
-					.waterFogColor(0x050533)
-					.fogColor(MYSTICAL_FOG_COLOUR)//.fogColor(CORRUPT_FOG_COLOUR)
+					.waterColor(0x32e686)
+					.waterFogColor(0x32e686)
+					.fogColor(MYSTICAL_FOG_COLOUR)
 					.loopSound(Sounds.MYSTICAL_FOREST)
 					.skyColor(0x88dfea)
 					.build())

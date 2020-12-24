@@ -1,6 +1,6 @@
 package me.hydos.lint.block;
 
-import io.github.hydos.lint.util.TeleportUtils;
+import me.hydos.lint.util.TeleportUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;

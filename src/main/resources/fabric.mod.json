@@ -7,25 +7,16 @@
   "license": "MIT",
   "authors": [
     "hydos",
-    "valoghese",
-    "ramidzkh"
+    "valoghese"
   ],
   "icon": "assets/lint/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "me.hydos.lint.Lint",
-      "io.github.hydos.lint.network.Networking",
-      "me.hydos.lint.fluid.Fluids",
-      "io.github.hydos.lint.screenhandler.Containers",
-      "io.github.hydos.lint.screenhandler.ScreenHandlers",
-      "io.github.hydos.lint.entity.Entities::initialize",
-      "io.github.hydos.lint.item.group.ItemGroups",
-      "io.github.hydos.lint.item.Items::initialize"
+      "me.hydos.lint.Lint"
     ],
     "client": [
-      "io.github.hydos.lint.client.LintClient",
-      "io.github.hydos.lint.network.ClientNetworking"
+      "me.hydos.lint.client.LintClient"
     ]
   },
   "mixins": [
