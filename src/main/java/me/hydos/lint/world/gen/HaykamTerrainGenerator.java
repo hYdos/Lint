@@ -28,9 +28,9 @@ public class HaykamTerrainGenerator implements TerrainData {
         this.riverNoise = new OpenSimplexNoise(rand);
         this.terrainDeterminerNoise = new OpenSimplexNoise(rand);
 
-        this.continentOperator = new LossyDoubleCache(512, (x, z) -> Math.min(30, 30 * this.continentNoise.sample(x * 0.001, z * 0.001)
+        this.continentOperator = new LossyDoubleCache(1024, (x, z) -> Math.min(30, 30 * this.continentNoise.sample(x * 0.001, z * 0.001)
                 + 18 * Math.max(0, (1.0 - 0.004 * manhattan(x, z, 0, 0))))); // make sure area around 0,0 is higher, but does not go higher than continent noise should go);
-        this.scaleOperator = new LossyDoubleCache(512, (x, z) -> {
+        this.scaleOperator = new LossyDoubleCache(1024, (x, z) -> {
             double continent = Math.max(0, this.continentOperator.get(x, z)); // min 0
             double scale = (0.5 * this.scaleNoise.sample(x * 0.003, z * 0.003)) + 1.0; // 0 - 1
             scale = 30 * scale + continent; // continent 0-30, scaleNoise 0-30. Overall, 0-60.
@@ -156,7 +156,7 @@ public class HaykamTerrainGenerator implements TerrainData {
     }
 
     private static final int AVG_HEIGHT = 65;
-    private static final int SCALE_SMOOTH_RADIUS = 15;
+    private static final int SCALE_SMOOTH_RADIUS = 11;
     public static final int SEA_LEVEL = 63;
 
     @Override
