@@ -128,6 +128,7 @@ public class Biomes {
                     .waterColor(0)
                     .waterColor(0x4faad1)
                     .waterFogColor(0x4faad1)
+                    .fogColor(0xffffff)
                     .loopSound(Sounds.OCEAN)
                     .skyColor(0x88dfea)
                     .build())
