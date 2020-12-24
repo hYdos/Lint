@@ -107,7 +107,10 @@ public class HaykamTerrainGenerator implements TerrainData {
 			}
 		});
 
-		this.heightOperator = new LossyIntCache(512, (x, z) -> terraceMod(x, z, riverMod(x, z, this.sampleBaseHeight(x, z))));
+		this.heightOperator = new LossyIntCache(512, (x, z) -> {
+			int baseHeight = this.sampleBaseHeight(x, z);
+			return riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+		});
 	}
 
 	public int getHeight(int x, int z) {
@@ -127,19 +130,24 @@ public class HaykamTerrainGenerator implements TerrainData {
 		return height;
 	}
 
-	private int terraceMod(int x, int z, int height) {
-		if (this.sampleTypeScale(x, z) < 20.0) {
-			height += (int) (22 * Voronoi.sampleTerrace(x * 0.034, z * 0.034, this.seed, (sx, sz) -> {
-				double cliffsNoise = this.cliffsNoise.sample(sx, sz);
-				double limiter = Math.max(0, TERRACE_RESCALE * (this.terrainDeterminerNoise.sample(sx * 0.2, sz * 0.2) - 0.65));
+	private int terraceMod(int x, int z, int height, int baseHeight) {
+		double terraceRescaleConstant = 1.0 / 0.57;
+
+		if (this.sampleTypeScale(x, z) < 23.0 && baseHeight > SEA_LEVEL + 2) {
+			int heightMod = (int) (28 * Voronoi.sampleTerrace(x * 0.034, z * 0.034, this.seed, (sx, sz) -> {
+				double cliffsNoise = 1 + this.cliffsNoise.sample(sx, sz);
+				double limiter = Math.max(0, terraceRescaleConstant * (this.terrainDeterminerNoise.sample(sx * 0.23, sz * 0.23) - 0.43));
+				limiter = limiter < 0.4 ? 0.4 : limiter;
 				return limiter * cliffsNoise;
 			}, 0.3));
+			heightMod = 3 * (heightMod / 3);
+			return height + heightMod;
 		}
 
 		return height;
 	}
 
-	private static final double TERRACE_RESCALE = 1 / 0.35;
+	//private static final double TERRACE_RESCALE = 1 / 0.6;
 
 	private double addMountainPlateaus(int x, int z, double scale) {
 		if (scale > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 240 blocks period
