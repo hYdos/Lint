@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import me.hydos.lint.world.gen.HaykamTerrainGenerator;
 import me.hydos.lint.world.layer.GenericBiomes;
 import me.hydos.lint.world.layer.MountainBiomes;
 import net.minecraft.util.registry.Registry;
@@ -35,7 +36,7 @@ public class HaykamBiomeSource extends BiomeSource {
 
     private final BiomeLayerSampler genericSampler;
     private final BiomeLayerSampler mountainSampler;
-    
+
     private TerrainData data;
 
     public HaykamBiomeSource(Registry<Biome> biomeRegistry, long seed) {
@@ -73,9 +74,15 @@ public class HaykamBiomeSource extends BiomeSource {
     public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
         int x = (biomeX << 2);
         int z = (biomeZ << 2);
-        double scale = this.data.sampleTerrainScale(x, z);
+        double baseHeight = this.data.sampleBaseHeight(x, z);
 
-        return (scale > 40.0 ? this.mountainSampler : this.genericSampler).sample(this.biomeRegistry, biomeX, biomeZ);
+        if (baseHeight < HaykamTerrainGenerator.SEA_LEVEL + 2) {
+            return this.biomeRegistry.getOrThrow(Biomes.OCEAN_KEY);
+        } else {
+            double scale = this.data.sampleTerrainScale(x, z);
+
+            return (scale > 40.0 ? this.mountainSampler : this.genericSampler).sample(this.biomeRegistry, biomeX, biomeZ);
+        }
     }
 
     @Override

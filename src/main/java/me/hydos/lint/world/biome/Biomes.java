@@ -1,8 +1,8 @@
 package me.hydos.lint.world.biome;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.entity.Entities;
 import me.hydos.lint.block.Blocks;
+import me.hydos.lint.entity.Entities;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.world.carver.LintConfiguredCarvers;
 import me.hydos.lint.world.feature.Features;
@@ -71,7 +71,7 @@ public class Biomes {
 					.loopSound(Sounds.CORRUPT_FOREST)
 					.skyColor(0x9c76c1)
 					.build()
-			)
+					)
 			.spawnSettings(LINT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CF_SB)
@@ -86,7 +86,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build()
-			).build();
+					).build();
 	public static final Biome MYSTICAL_FOREST = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.FOREST)
@@ -117,19 +117,49 @@ public class Biomes {
 					.build())
 			.build();
 
+	public static final Biome OCEAN = new Biome.Builder()
+			.precipitation(Biome.Precipitation.NONE)
+			.category(Biome.Category.OCEAN)
+			.depth(-0.5f)
+			.scale(1)
+			.temperature(0.8f)
+			.downfall(0)
+			.effects(new BiomeEffects.Builder()
+					.waterColor(0)
+					.waterColor(0x4faad1)
+					.waterFogColor(0x4faad1)
+					.fogColor(0xffffff)
+					.loopSound(Sounds.OCEAN)
+					.skyColor(0x88dfea)
+					.build())
+			.spawnSettings(LINT_SPAWN_SETTINGS.build())
+			.generationSettings(new GenerationSettings.Builder()
+					.surfaceBuilder(MF_SB)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
+					.build())
+			.build();
+
 	/**
 	 * Biome Keys
 	 */
 	public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
 	public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
+	public static final RegistryKey<Biome> OCEAN_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ocean"));
 
 	public static void register() {
 		Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_chunk_gen"), HaykamChunkGenerator.CODEC);
 
-		Registry.register(BuiltinRegistries.BIOME, MYSTICAL_FOREST_KEY.getValue(), MYSTICAL_FOREST);
-		Registry.register(BuiltinRegistries.BIOME, CORRUPT_FOREST_KEY.getValue(), CORRUPT_FOREST);
+		registerBiome(MYSTICAL_FOREST_KEY, MYSTICAL_FOREST);
+		registerBiome(CORRUPT_FOREST_KEY, CORRUPT_FOREST);
+		registerBiome(OCEAN_KEY, OCEAN);
+	}
 
-		BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(CORRUPT_FOREST), CORRUPT_FOREST_KEY);
-		BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(MYSTICAL_FOREST), MYSTICAL_FOREST_KEY);
+	private static void registerBiome(RegistryKey<Biome> key, Biome biome) {
+		Registry.register(BuiltinRegistries.BIOME, key.getValue(), biome);
+		BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(biome), key);
 	}
 }

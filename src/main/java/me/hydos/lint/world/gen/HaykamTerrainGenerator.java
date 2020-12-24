@@ -171,7 +171,7 @@ public class HaykamTerrainGenerator implements TerrainData {
     }
 
     @Override
-    public double sampleContinent(int x, int z) {
-        return this.continentOperator.get(x, z);
+    public int sampleBaseHeight(int x, int z) {
+        return this.getBaseHeight(x, z);
     }
 }
