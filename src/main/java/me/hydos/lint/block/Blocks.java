@@ -2,10 +2,13 @@ package me.hydos.lint.block;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.fluid.Fluids;
+import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -13,7 +16,14 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
+import java.util.HashMap;
+
 public class Blocks {
+
+	/**
+	 * Fluid blockstate cache
+	 */
+	private static final HashMap<MoltenMetalFluid, FluidBlock> FLUID_BLOCKSTATE_MAP = new HashMap<>();
 
 	/**
 	 * Bindings for easy access to minecraft blocks
@@ -175,11 +185,6 @@ public class Blocks {
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.GRASS));
 
-	/**
-	 * Fluids
-	 */
-	public static final Block MOLTEN_METAL_FLUID = new LintFluidBlock(Fluids.STILL_MOLTEN_METAL, FabricBlockSettings.copy(net.minecraft.block.Blocks.WATER));
-
 	public static void register() {
 		registerBuildingBlocks();
 		registerDecorations();
@@ -187,7 +192,7 @@ public class Blocks {
 	}
 
 	public static void registerDecorations() {
-		registerBlock(ItemGroups.BLOCKS, HAYKAMIUM_PORTAL, "haykamium_portal");
+		registerHiddenBlock(HAYKAMIUM_PORTAL, "haykamium_portal");
 
 		registerFlower(CORRUPT_STEM, "corrupt_stem");
 		registerFlower(WILTED_FLOWER, "wilted_flower");
@@ -196,7 +201,7 @@ public class Blocks {
 		registerFlower(MYSTICAL_DAISY, "yellow_daisy");
 
 		registerBlock(ItemGroups.DECORATIONS, RED_BUTTON, "red_button");
-		registerBlock(ItemGroups.BLOCKS, GREEN_BUTTON, "green_button");
+		registerBlock(ItemGroups.DECORATIONS, GREEN_BUTTON, "green_button");
 
 		registerBlock(ItemGroups.DECORATIONS, RETURN_HOME, "return_home");
 
@@ -241,19 +246,36 @@ public class Blocks {
 	}
 
 	public static void registerFluidBlocks() {
-		registerBlock(ItemGroups.BLOCKS, MOLTEN_METAL_FLUID, "molten_metal");
+		for (Fluids.FluidEntry entry : Fluids.MOLTEN_FLUID_MAP.values()) {
+			LintFluidBlock block = new LintFluidBlock(entry.getStill(), FabricBlockSettings.copy(net.minecraft.block.Blocks.LAVA));
+			registerHiddenBlock(block, "molten_" + entry.getMetalName());
+			FLUID_BLOCKSTATE_MAP.put((MoltenMetalFluid) entry.getStill(), block);
+		}
 	}
 
-	public static PillarBlock createLog(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
+	private static void registerHiddenBlock(Block block, String path) {
+		Registry.register(Registry.BLOCK, Lint.id(path), block);
+	}
+
+	private static PillarBlock createLog(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
 		return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
 	}
 
-	public static void registerBlock(ItemGroup itemGroup, Block block, String path) {
-		Registry.register(Registry.BLOCK, Lint.id(path), block);
+	private static void registerBlock(ItemGroup itemGroup, Block block, String path) {
+		registerHiddenBlock(block, path);
 		Registry.register(Registry.ITEM, Lint.id(path), new BlockItem(block, new Item.Settings().group(itemGroup)));
 	}
 
-	public static void registerFlower(FlowerBlock flower, String path) {
+	private static void registerFlower(FlowerBlock flower, String path) {
 		registerBlock(ItemGroups.DECORATIONS, flower, path);
+	}
+
+	public static BlockState getFluid(Fluid still) {
+		for (MoltenMetalFluid fluid : FLUID_BLOCKSTATE_MAP.keySet()) {
+			if(still.equals(fluid)) {
+				return FLUID_BLOCKSTATE_MAP.get(fluid).getDefaultState();
+			}
+		}
+		throw new RuntimeException("Cannot find fluid!");
 	}
 }

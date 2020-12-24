@@ -24,10 +24,10 @@ public class Lint implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Lint is initializing");
 		Sounds.register();
+		Fluids.register();
 		Blocks.register();
 		Items.register();
 		Entities.register();
-		Fluids.register();
 		ScreenHandlers.register();
 		Networking.register();
 		registerDimensions();

@@ -2,7 +2,7 @@ package me.hydos.lint.mixin;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import me.hydos.lint.item.armor.ArmorMaterials;
+import me.hydos.lint.item.ArmorMaterials;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;

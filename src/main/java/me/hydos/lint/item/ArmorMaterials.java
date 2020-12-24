@@ -1,4 +1,4 @@
-package me.hydos.lint.item.armor;
+package me.hydos.lint.item;
 
 import me.hydos.lint.item.Items;
 import net.fabricmc.api.EnvType;
