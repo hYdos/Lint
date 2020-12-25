@@ -186,6 +186,7 @@ public class Biomes {
 		registerBiome(MYSTICAL_FOREST_KEY, MYSTICAL_FOREST);
 		registerBiome(CORRUPT_FOREST_KEY, CORRUPT_FOREST);
 		registerBiome(OCEAN_KEY, OCEAN);
+		registerBiome(INDIGO_RIDGES_KEY, INDIGO_RIDGES);
 	}
 
 	private static void registerBiome(RegistryKey<Biome> key, Biome biome) {
