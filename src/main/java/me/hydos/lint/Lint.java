@@ -32,11 +32,11 @@ public class Lint implements ModInitializer {
 		Entities.register();
 		ScreenHandlers.register();
 		Networking.register();
-		registerDimensions();
+		registerLintWorld();
 		LOGGER.info("Lint initialization successful!");
 	}
 
-	private void registerDimensions() {
+	private void registerLintWorld() {
 		Structures.register();
 		Features.register();
 		Biomes.register();
