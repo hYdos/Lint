@@ -27,9 +27,9 @@ public class EntityMixin {
 	}
 
 	@Inject(method = "onSwimmingStart", at = @At("HEAD"), cancellable = true)
-	private void checkIfIsWater(CallbackInfo ci){
-		if(currentFluid != null){
-			if(!currentFluid.isIn(FluidTags.WATER)){
+	private void checkIfWater(CallbackInfo ci) {
+		if (currentFluid != null) {
+			if (!currentFluid.isIn(FluidTags.WATER)) {
 				ci.cancel();
 			}
 		}

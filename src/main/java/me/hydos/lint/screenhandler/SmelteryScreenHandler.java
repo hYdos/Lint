@@ -10,17 +10,15 @@ import net.minecraft.screen.slot.Slot;
 
 public class SmelteryScreenHandler extends ScreenHandler {
 
-	public LintInventory inventory;
-	public SmelteryBlockEntity smelteryBlock;
+	public LintInventory inventory = new LintInventory(9);
 
 	public SmelteryScreenHandler(int syncId, PlayerInventory playerInventory) {
-		super(ScreenHandlers.SMELTERY, syncId);
+		this(syncId, playerInventory, new LintInventory(9));
 	}
 
-	public SmelteryScreenHandler(int syncId, PlayerInventory playerInventory, SmelteryBlockEntity smelteryBlock) {
+	public SmelteryScreenHandler(int syncId, PlayerInventory playerInventory, LintInventory inventory) {
 		super(ScreenHandlers.SMELTERY, syncId);
-		this.smelteryBlock = smelteryBlock;
-		this.inventory = smelteryBlock.inventory;
+		this.inventory = inventory;
 
 		this.addSlot(new Slot(inventory, 0, 10, 10));
 		this.addSlot(new Slot(inventory, 1, 10, 10));

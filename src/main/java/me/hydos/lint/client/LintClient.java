@@ -1,8 +1,10 @@
 package me.hydos.lint.client;
 
 import me.hydos.lint.block.Blocks;
+import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.render.*;
 import me.hydos.lint.client.particle.ClientParticles;
+import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.network.ClientNetworking;
 import me.hydos.lint.Lint;
@@ -74,6 +76,8 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerEntityRenderers() {
+		EntityRendererRegistry.INSTANCE.register(Birds.EASTERN_ROSELLA, (entityRenderDispatcher, context) -> new BirdEntityRenderer(entityRenderDispatcher, new EasternRosellaModel()));
+
 		EntityRendererRegistry.INSTANCE.register(Entities.TINY_POTATO, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.BEE_TATER, (entityRenderDispatcher, context) -> new BeeTaterEntityRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.GHOST, (entityRenderDispatcher, context) -> new GhostEntityRenderer(entityRenderDispatcher));

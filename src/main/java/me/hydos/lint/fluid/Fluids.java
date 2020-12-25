@@ -17,7 +17,7 @@ public class Fluids {
 
 	public static void register() {
 		MOLTEN_FLUID_MAP.put(Lint.id("iron"), new FluidEntry(Items.IRON_NUGGET, Items.IRON_INGOT, Blocks.IRON_BLOCK.asItem(), "iron", 0x44FFFFFF));
-		MOLTEN_FLUID_MAP.put(Lint.id("gold"), new FluidEntry(Items.GOLD_NUGGET, Items.GOLD_INGOT, Blocks.GOLD_BLOCK.asItem(), "gold", 0x44FFFFFF));
+		MOLTEN_FLUID_MAP.put(Lint.id("gold"), new FluidEntry(Items.GOLD_NUGGET, Items.GOLD_INGOT, Blocks.GOLD_BLOCK.asItem(), "gold", 0x44ffdd30));
 	}
 
 

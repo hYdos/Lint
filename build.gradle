@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.5-SNAPSHOT'
+    id 'fabric-loom' version '0.5-SNAPSHOT'
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -10,49 +10,62 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven {
-		name = "CottonMC"
-		url = "https://server.bbkr.space/artifactory/libs-release"
-	}
-	maven { url 'https://jitpack.io' }
-	jcenter()
+    maven {
+        name = "CottonMC"
+        url = "https://server.bbkr.space/artifactory/libs-release"
+    }
+    maven {
+        name = "Gecko Lib Repository"
+        url = "https://repo.repsy.io/mvn/gandiber/geckolib"
+    }
+    maven {
+        name = "Jitpack"
+        url = 'https://jitpack.io'
+    }
+//    maven {
+//        name = "HWYLA Repo"
+//        url = "http://tehnut.info/maven"
+//    }
+    jcenter()
 }
 
 minecraft {
-	accessWidener "src/main/resources/lint.aw"
+    accessWidener "src/main/resources/lint.aw"
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	modRuntime 'me.shedaniel:RoughlyEnoughItems:5.6.2'
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    modImplementation 'software.bernie.geckolib:fabric-1.16.4-geckolib:3.0.0:dev'
+    modRuntime 'me.shedaniel:RoughlyEnoughItems:5.8.10'
+//    modRuntime 'com.github.TehNut:HWYLA:1.16_fabric-SNAPSHOT'
 }
 
 processResources {
-	inputs.property 'version', project.version
+    inputs.property 'version', project.version
 
-	from(sourceSets.main.resources.srcDirs) {
-		include 'fabric.mod.json'
-		expand 'version': project.version
-	}
+    from(sourceSets.main.resources.srcDirs) {
+        include 'fabric.mod.json'
+        expand 'version': project.version
+    }
 
-	from(sourceSets.main.resources.srcDirs) {
-		exclude 'fabric.mod.json'
-	}
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'fabric.mod.json'
+    }
 }
 
 tasks.withType(JavaCompile) {
-	options.encoding = 'UTF-8'
+    options.encoding = 'UTF-8'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-	classifier = 'sources'
-	from sourceSets.main.allSource
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 jar {
-	from 'LICENSE'
+    from 'LICENSE'
 }
