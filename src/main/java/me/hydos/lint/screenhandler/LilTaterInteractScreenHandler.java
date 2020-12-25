@@ -24,7 +24,7 @@ public class LilTaterInteractScreenHandler extends ScreenHandler {
         LintInventory inv = tater.inventory;
 
         //Tater Armour slots
-        this.addSlot(new Slot(inv, 0, 8, -12));
+        this.addSlot(new Slot(inv, 0, 8, 10));
         this.addSlot(new Slot(inv, 1, 8, 6));
         this.addSlot(new Slot(inv, 2, 8, 24));
         this.addSlot(new Slot(inv, 3, 8, 42));

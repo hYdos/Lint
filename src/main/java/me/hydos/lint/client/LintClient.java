@@ -71,7 +71,7 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerHandledScreens() {
-		ScreenProviderRegistry.INSTANCE.registerFactory(Lint.id("tater_inv"), (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractScreenHandler(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("Lil Tater UI")));
+		ScreenProviderRegistry.INSTANCE.registerFactory(Lint.id("tater_inv"), (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractScreenHandler(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("")));
 		ScreenRegistry.register(ScreenHandlers.SMELTERY, SmelteryScreen::new);
 	}
 
