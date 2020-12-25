@@ -15,6 +15,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import software.bernie.geckolib3.GeckoLib;
 
 public class Lint implements ModInitializer {
 
@@ -23,6 +24,7 @@ public class Lint implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Lint is initializing");
+		GeckoLib.initialize();
 		Sounds.register();
 		Fluids.register();
 		Blocks.register();

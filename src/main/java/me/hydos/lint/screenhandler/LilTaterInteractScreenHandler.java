@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 
 public class LilTaterInteractScreenHandler extends ScreenHandler {
 
-
     public final int taterId;
 
     public LilTaterInteractScreenHandler(ScreenHandlerType<?> type, int syncId, int taterId, PlayerInventory playerInventory) {
@@ -22,7 +21,6 @@ public class LilTaterInteractScreenHandler extends ScreenHandler {
         World world = playerInventory.player.world;
 
         TinyPotatoEntity tater = (TinyPotatoEntity) world.getEntityById(taterId);
-        assert tater != null;
         LintInventory inv = tater.inventory;
 
         //Tater Armour slots

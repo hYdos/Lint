@@ -5,6 +5,7 @@ import me.hydos.lint.entity.passive.BeeTaterEntity;
 import me.hydos.lint.entity.aggressive.I509VCBEntity;
 import me.hydos.lint.entity.aggressive.KingTaterEntity;
 import me.hydos.lint.entity.aggressive.TaterMinionEntity;
+import me.hydos.lint.entity.passive.bird.AbstractBirdEntity;
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -15,6 +16,8 @@ import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
+
+import java.util.HashMap;
 
 public class Entities {
 
@@ -57,6 +60,8 @@ public class Entities {
 					.build());
 
 	public static void register() {
+		Birds.register();
+
 		FabricDefaultAttributeRegistry.register(Entities.TINY_POTATO, TinyPotatoEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.BEE_TATER, TinyPotatoEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.MINION, TaterMinionEntity.createAttributes());

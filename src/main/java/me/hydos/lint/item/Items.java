@@ -2,6 +2,7 @@ package me.hydos.lint.item;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.item.group.ItemGroups;
+import me.hydos.lint.sound.Sounds;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.util.Rarity;
@@ -34,11 +35,29 @@ public class Items {
 	public static final Item TARSCAN_SHARD = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
 	public static final Item JUREL_POWDER = new Item(new Item.Settings().group(ItemGroups.ITEMS).rarity(Rarity.RARE).maxCount(64));
 
+	/**
+	 * Music Discs
+	 */
+	public static final Item SUSPICOUS_LOOKING_DISC = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
+	public static final Item OBOE_DISC = new MusicDiscItem(14, Sounds.OBOE, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
+	public static final Item OCEAN_DISC = new MusicDiscItem(15, Sounds.OCEAN, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
+	public static final Item MYSTICAL_FOREST_DISC = new MusicDiscItem(16, Sounds.MYSTICAL_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
+	public static final Item CORRUPT_FOREST_DISC = new MusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
+
 	public static void register() {
 		ItemGroups.register();
 		registerOreMaterials();
 		registerArmorSets();
 		registerToolSets();
+		registerDiscs();
+	}
+
+	private static void registerDiscs() {
+		Registry.register(Registry.ITEM, Lint.id("suspicous_looking_disc"), SUSPICOUS_LOOKING_DISC);
+		Registry.register(Registry.ITEM, Lint.id("oboe_disc"), OBOE_DISC);
+		Registry.register(Registry.ITEM, Lint.id("ocean_disc"), OCEAN_DISC);
+		Registry.register(Registry.ITEM, Lint.id("mystical_forest_disc"), MYSTICAL_FOREST_DISC);
+		Registry.register(Registry.ITEM, Lint.id("corrupt_forest_disc"), CORRUPT_FOREST_DISC);
 	}
 
 	private static void registerToolSets() {

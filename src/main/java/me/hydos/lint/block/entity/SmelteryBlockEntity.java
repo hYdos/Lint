@@ -30,7 +30,7 @@ public class SmelteryBlockEntity extends BlockEntity implements NamedScreenHandl
 	@Nullable
 	@Override
 	public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-		return new SmelteryScreenHandler(syncId, inv, this);
+		return new SmelteryScreenHandler(syncId, inv, this.inventory);
 	}
 
 	@Override

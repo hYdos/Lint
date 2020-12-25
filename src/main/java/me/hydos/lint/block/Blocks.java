@@ -83,6 +83,8 @@ public final class Blocks {
 	/**
 	 * Stone & Ores
 	 */
+	public static final Block INDIGO_STONE = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE)
+			.materialColor(MaterialColor.PURPLE_TERRACOTTA));
 	public static final Block FUSED_STONE = new Block(FabricBlockSettings.of(Material.STONE)
 			.hardness(1f)
 			.sounds(BlockSoundGroup.STONE));
@@ -192,7 +194,6 @@ public final class Blocks {
 	public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.of(Material.SOIL)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.GRASS));
-	public static final Block INDIGO_STONE = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE).materialColor(MaterialColor.PURPLE_TERRACOTTA));
 
 	public static void register() {
 		registerBuildingBlocks();
@@ -224,6 +225,7 @@ public final class Blocks {
 		registerBlock(ItemGroups.BLOCKS, CRACKED_BASIC_CASTING, "cracked_basic_casting");
 
 		registerBlock(ItemGroups.BLOCKS, FUSED_STONE, "fused_stone");
+		registerBlock(ItemGroups.BLOCKS, INDIGO_STONE, "indigo_stone");
 		registerBlock(ItemGroups.BLOCKS, TARSCAN, "tarscan_ore");
 		registerBlock(ItemGroups.BLOCKS, SICIERON, "sicieron_ore");
 		registerBlock(ItemGroups.BLOCKS, JUREL, "jurel_ore");

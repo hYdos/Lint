@@ -117,11 +117,11 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 	public static boolean canSpawn(EntityType<TinyPotatoEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
 		if (spawnReason == SpawnReason.NATURAL) {
 			//TODO: create a mob entity cap manager and check the passive cap before spawning them.
+			if (random.nextInt(10) > 4) {
+				BlockState blockState = world.getBlockState(pos.down());
+				return (blockState.isOf(Blocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
+			}
 		}
-		if (random.nextInt(10) > 5) {
-			BlockState blockState = world.getBlockState(pos.down());
-			return (blockState.isOf(Blocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
-		}
-		return false;
+		return true;
 	}
 }

@@ -39,6 +39,18 @@
   "block.lint.cracked_basic_casting": "Cracked Basic Casting",
   "block.lint.indigo_stone": "Indigo Stone",
 
+  "item.lint.oboe_disc": "Lint Music Disc",
+  "item.lint.oboe_disc.desc": "Valoghese - Oboe",
+
+  "item.lint.mystical_forest_disc": "Lint Music Disc",
+  "item.lint.mystical_forest_disc.desc": "Valoghese - Mystical Forest",
+
+  "item.lint.corrupt_forest_disc": "Lint Music Disc",
+  "item.lint.corrupt_forest_disc.desc": "Valoghese - Corrupt Forest",
+
+  "item.lint.ocean_disc": "Lint Music Disc",
+  "item.lint.ocean_disc.desc": "Valoghese - Ocean",
+
   "item.lint.tater_essence": "Tater Essence",
   "item.lint.tarscan_shard": "Tarscan Shard",
   "item.lint.sicieron_ingot": "Sicieron Ingot",
