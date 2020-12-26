@@ -11,8 +11,8 @@ public class SoundShitCache {
 	public static Optional<SoundEvent> next = Optional.empty();
 
 	public static void checkFade(CallbackInfo info) {
-		if (SoundShitCache.prev.isPresent() && SoundShitCache.next.isPresent()) {
-			if (SoundShitCache.prev.get().getId().equals(SoundShitCache.next.get().getId())) {
+		if (prev.isPresent() && next.isPresent()) {
+			if (prev.get().getId().equals(next.get().getId())) {
 				info.cancel();
 			}
 		}
