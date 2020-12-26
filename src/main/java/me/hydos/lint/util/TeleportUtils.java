@@ -14,15 +14,17 @@ import net.minecraft.world.TeleportTarget;
 
 public class TeleportUtils {
 	public static void teleport(LivingEntity entity, ServerWorld world, BlockPos pos) {
-		if (entity instanceof ServerPlayerEntity) {
-			world.getChunkManager().addTicket(ChunkTicketType.POST_TELEPORT, new ChunkPos(pos), 1, entity.getEntityId());
-			entity.stopRiding();
-			world.getChunk(pos);
-			world.getChunk(pos.add(0, 0, 16));
-			world.getChunk(pos.add(16, 0, 0));
-			world.getChunk(pos.add(16, 0, 16));
-			((PlayerEntity) entity).openHandledScreen(null);
+		if (entity.getEntityWorld() != world) {
+			if (entity instanceof ServerPlayerEntity) {
+				world.getChunkManager().addTicket(ChunkTicketType.POST_TELEPORT, new ChunkPos(pos), 1, entity.getEntityId());
+				entity.stopRiding();
+				world.getChunk(pos);
+				world.getChunk(pos.add(0, 0, 16));
+				world.getChunk(pos.add(16, 0, 0));
+				world.getChunk(pos.add(16, 0, 16));
+				((PlayerEntity) entity).openHandledScreen(null);
+			}
+			FabricDimensions.teleport(entity, world, new TeleportTarget(new Vec3d(pos.getX() + 0.5, world.getTopY(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ()) + 1, pos.getZ() + 0.5), new Vec3d(0, 0, 0), entity.yaw, entity.pitch));
 		}
-		FabricDimensions.teleport(entity, world, new TeleportTarget(new Vec3d(pos.getX() + 0.5, world.getTopY(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ()) + 1, pos.getZ() + 0.5), new Vec3d(0, 0, 0), entity.yaw, entity.pitch));
 	}
 }
