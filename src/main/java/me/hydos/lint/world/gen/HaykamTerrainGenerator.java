@@ -47,7 +47,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 			return scale; // should be range 0-60 on return
 		});
-		this.terrainScaleOperator = new LossyDoubleCache(1024, (x, z) -> this.addMountainPlateaus(x, z, this.typeScaleOperator.get(x, z)));
+		this.terrainScaleOperator = new LossyDoubleCache(1024, (x, z) -> this.addMountainPlateaus(x, z, this.addTerrainCrobber(x, z, this.typeScaleOperator.get(x, z))));
 		this.baseHeightOperator = new LossyIntCache(512, (x, z) -> {
 			double continent = 3 + 1.2 * this.continentOperator.get(x, z);
 
@@ -149,6 +149,17 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 	//private static final double TERRACE_RESCALE = 1 / 0.6;
 
+	private double addTerrainCrobber(int x, int z, double scale) {
+		x = MathHelper.abs(x);
+		z = MathHelper.abs(z);
+
+		if (x * x + z * z > 0.5 * (SHARDLANDS_FADE_START + SHARDLANDS_START)) {
+			return 0;
+		}
+
+		return scale;
+	}
+
 	private double addMountainPlateaus(int x, int z, double scale) {
 		if (scale > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 240 blocks period
 			scale -= 35;
@@ -195,6 +206,9 @@ public class HaykamTerrainGenerator implements TerrainData {
 	}
 
 	public int getLowerGenBound(int x, int z) {
+		x = MathHelper.abs(x);
+		z = MathHelper.abs(z);
+
 		int sqrDist = x * x + z * z;
 
 		if (sqrDist < SHARDLANDS_FADE_START) {
