@@ -108,8 +108,6 @@ public class HaykamTerrainGenerator implements TerrainData {
 		});
 
 		this.heightOperator = new LossyIntCache(512, (x, z) -> {
-			x = MathHelper.abs(x);
-			z = MathHelper.abs(z);
 			int dist = x * x + z * z;
 
 			if (dist < TERRAIN_CROB_DISTANCE) {
@@ -136,8 +134,8 @@ public class HaykamTerrainGenerator implements TerrainData {
 		});
 	}
 
-	private double flop(double prog) {
-		double val = prog - 0.5;
+	private static double flop(double progress) {
+		double val = progress - 0.5;
 		return -4 * val * val + 1;
 	}
 
@@ -178,9 +176,6 @@ public class HaykamTerrainGenerator implements TerrainData {
 	//private static final double TERRACE_RESCALE = 1 / 0.6;
 
 	private double addTerrainCrobber(int x, int z, double scale) {
-		x = MathHelper.abs(x);
-		z = MathHelper.abs(z);
-
 		if (x * x + z * z > TERRAIN_CROB_DISTANCE) {
 			return 0;
 		}
@@ -234,9 +229,6 @@ public class HaykamTerrainGenerator implements TerrainData {
 	}
 
 	public int getLowerGenBound(int x, int z, int height) {
-		x = MathHelper.abs(x);
-		z = MathHelper.abs(z);
-
 		int sqrDist = x * x + z * z;
 
 		if (sqrDist < SHARDLANDS_FADE_START) {

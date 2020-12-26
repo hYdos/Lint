@@ -18,7 +18,6 @@ import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.noise.OctaveSimplexNoiseSampler;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
@@ -86,13 +85,11 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 		for (int xo = 0; xo < 16; ++xo) {
 			final int x = xo + startX;
-			final int absx = MathHelper.abs(x);
 			pos.setX(xo);
 
 			for (int zo = 0; zo < 16; ++zo) {
 				final int z = zo + startZ;
-				final int absz = MathHelper.abs(z);
-				final int dist = absx * absx + absz * absz;
+				final int dist = x * x + z * z;
 				pos.setZ(zo);
 
 				int height = this.terrain.getHeight(x, z);
@@ -149,10 +146,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 						Blocks.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(), region.getSeed());
 
 				// bedrock
-				int absx = MathHelper.abs(x);
-				int absz = MathHelper.abs(z);
-
-				if (absx * absx + absz * absz < HaykamTerrainGenerator.SHARDLANDS_FADE_START) {
+				if (x * x + z * z < HaykamTerrainGenerator.SHARDLANDS_FADE_START) {
 					mutable.setY(0);
 					chunk.setBlockState(mutable, Blocks.BEDROCK.getDefaultState(), false);
 				}
