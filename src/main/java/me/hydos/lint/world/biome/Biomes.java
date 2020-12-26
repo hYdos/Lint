@@ -12,15 +12,15 @@ import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.gen.HaykamChunkGenerator;
 import me.hydos.lint.world.structure.ConfiguredStructureFeatures;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeEffects;
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
@@ -261,6 +261,7 @@ public class Biomes {
 			.temperature(0.8f)
 			.downfall(0)
 			.effects(new BiomeEffects.Builder()
+					.particleConfig(new BiomeParticleConfig(ParticleTypes.ASH, 0.05F))
 					.waterColor(0xfccb07)
 					.waterFogColor(0xfcf807)
 					.fogColor(DAWN_FOG_COLOUR)
