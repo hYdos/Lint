@@ -108,9 +108,37 @@ public class HaykamTerrainGenerator implements TerrainData {
 		});
 
 		this.heightOperator = new LossyIntCache(512, (x, z) -> {
-			int baseHeight = this.sampleBaseHeight(x, z);
-			return riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+			x = MathHelper.abs(x);
+			z = MathHelper.abs(z);
+			int dist = x * x + z * z;
+
+			if (dist < TERRAIN_CROB_DISTANCE) {
+				int baseHeight = this.sampleBaseHeight(x, z);
+				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+				return height;
+			} else if (dist > SHARDLANDS_ISLANDS_START) {
+				return AVG_FLOAT_HEIGHT + (int) (5 * this.sampleHillsNoise(x, z));
+			} else if (dist > SHARDLANDS_START) {
+				return 0;
+			} else {
+				double prog = (double) dist / (double) (SHARDLANDS_START - TERRAIN_CROB_DISTANCE);
+				int finalHeight = (int) ((AVG_FLOAT_HEIGHT) * flop(prog));
+
+				if (prog > 0.5) { // drop
+					return finalHeight;
+				} else { // rise
+					prog = 2 * prog;
+					int baseHeight = this.sampleBaseHeight(x, z);
+					int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+					return (int) MathHelper.lerp(prog, height, finalHeight);
+				}
+			}
 		});
+	}
+
+	private double flop(double prog) {
+		double val = prog - 0.5;
+		return -4 * val * val + 1;
 	}
 
 	public int getHeight(int x, int z) {
@@ -205,7 +233,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 		return this.baseHeightOperator.get(x, z);
 	}
 
-	public int getLowerGenBound(int x, int z) {
+	public int getLowerGenBound(int x, int z, int height) {
 		x = MathHelper.abs(x);
 		z = MathHelper.abs(z);
 
@@ -214,7 +242,17 @@ public class HaykamTerrainGenerator implements TerrainData {
 		if (sqrDist < SHARDLANDS_FADE_START) {
 			return 0;
 		} else if (sqrDist > SHARDLANDS_START) {
-			return 256;
+			if (sqrDist < SHARDLANDS_ISLANDS_START) {
+				return 256;
+			} else {
+				int lowerBound = height - (int) (22 * (0.12 + this.sampleMountainsNoise(x, z)));
+
+				if (sqrDist > SHARDLANDS_ISLANDS_FADE_END) {
+					return lowerBound;
+				} else {
+					return (int) clampMap(sqrDist, SHARDLANDS_ISLANDS_START, SHARDLANDS_ISLANDS_FADE_END, 256, lowerBound);
+				}
+			}
 		} else {
 			return (int) clampMap(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, 256);
 		}
@@ -241,6 +279,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 	}
 
 	private static final int AVG_HEIGHT = 65;
+	private static final int AVG_FLOAT_HEIGHT = 105;
 	private static final int SCALE_SMOOTH_RADIUS = 9;
 	public static final int SEA_LEVEL = 63;
 
@@ -248,4 +287,5 @@ public class HaykamTerrainGenerator implements TerrainData {
 	public static final int TERRAIN_CROB_DISTANCE = 2450 * 2450;
 	public static final int SHARDLANDS_START = 2500 * 2500;
 	public static final int SHARDLANDS_ISLANDS_START = 2580 * 2580;
+	public static final int SHARDLANDS_ISLANDS_FADE_END = 2600 * 2600;
 }
