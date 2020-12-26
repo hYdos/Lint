@@ -86,10 +86,13 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 		for (int xo = 0; xo < 16; ++xo) {
 			final int x = xo + startX;
+			final int absx = MathHelper.abs(x);
 			pos.setX(xo);
 
 			for (int zo = 0; zo < 16; ++zo) {
 				final int z = zo + startZ;
+				final int absz = MathHelper.abs(z);
+				final int dist = absx * absx + absz * absz;
 				pos.setZ(zo);
 
 				int height = this.terrain.getHeight(x, z);
@@ -99,7 +102,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 					pos.setY(y);
 
 					if (y < height) {
-						chunk.setBlockState(pos, Blocks.FUSED_STONE.getDefaultState(), false);
+						chunk.setBlockState(pos, dist > HaykamTerrainGenerator.SHARDLANDS_ISLANDS_START ? Blocks.ASPHALT.getDefaultState() : Blocks.FUSED_STONE.getDefaultState(), false);
 					} else if (y < seaLevel) {
 						chunk.setBlockState(pos, Blocks.WATER.getDefaultState(), false);
 					} else {

@@ -83,12 +83,14 @@ public class HaykamBiomeSource extends BiomeSource {
 		int absx = MathHelper.abs(x);
 		int absz = MathHelper.abs(z);
 		int dist = absx * absx + absz * absz;
-		double baseHeight = this.data.sampleBaseHeight(x, z);
-		final int limit = HaykamTerrainGenerator.SEA_LEVEL + 2;
 
 		if (dist > HaykamTerrainGenerator.TERRAIN_CROB_DISTANCE) {
 			return this.biomeRegistry.getOrThrow(Biomes.DAWN_SHARDLANDS_KEY);
 		}
+
+		double baseHeight = this.data.sampleBaseHeight(x, z);
+		final int limit = HaykamTerrainGenerator.SEA_LEVEL + 2;
+
 
 		if (baseHeight < limit) {
 			/*for (GridDirection direction : GridDirection.values()) {
