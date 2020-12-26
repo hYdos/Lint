@@ -40,7 +40,7 @@
   "block.lint.indigo_stone": "Indigo Stone",
 
   "item.lint.oboe_disc": "Lint Music Disc",
-  "item.lint.oboe_disc.desc": "Valoghese - Oboe",
+  "item.lint.oboe_disc.desc": "Valoghese - Grimace",
 
   "item.lint.mystical_forest_disc": "Lint Music Disc",
   "item.lint.mystical_forest_disc.desc": "Valoghese - Mystical Forest",
@@ -76,6 +76,8 @@
   "biome.lint.corrupt_forest": "Corrupt Forest",
   "biome.lint.ocean": "Ocean",
   "biome.lint.indigo_ridges": "Indigo Ridges",
+  "biome.lint.thick_mystical_forest": "Thick Mystical Forest",
+  "biome.lint.dawn_shardlands": "Dawn Shardlands",
 
   "entity.lint.tiny_potato": "Tiny Potato",
   "entity.lint.king_tater": "King Tater",

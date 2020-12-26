@@ -47,7 +47,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 			return scale; // should be range 0-60 on return
 		});
-		this.terrainScaleOperator = new LossyDoubleCache(1024, (x, z) -> this.addMountainPlateaus(x, z, this.typeScaleOperator.get(x, z)));
+		this.terrainScaleOperator = new LossyDoubleCache(1024, (x, z) -> this.addMountainPlateaus(x, z, this.addTerrainCrobber(x, z, this.typeScaleOperator.get(x, z))));
 		this.baseHeightOperator = new LossyIntCache(512, (x, z) -> {
 			double continent = 3 + 1.2 * this.continentOperator.get(x, z);
 
@@ -108,9 +108,37 @@ public class HaykamTerrainGenerator implements TerrainData {
 		});
 
 		this.heightOperator = new LossyIntCache(512, (x, z) -> {
-			int baseHeight = this.sampleBaseHeight(x, z);
-			return riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+			x = MathHelper.abs(x);
+			z = MathHelper.abs(z);
+			int dist = x * x + z * z;
+
+			if (dist < TERRAIN_CROB_DISTANCE) {
+				int baseHeight = this.sampleBaseHeight(x, z);
+				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+				return height;
+			} else if (dist > SHARDLANDS_ISLANDS_START) {
+				return AVG_FLOAT_HEIGHT + (int) (7 * (1 + this.sampleHillsNoise(x, z)));
+			} else if (dist > SHARDLANDS_START) {
+				return 0;
+			} else {
+				double prog = (double) dist / (double) (SHARDLANDS_START - TERRAIN_CROB_DISTANCE);
+				int finalHeight = (int) ((AVG_FLOAT_HEIGHT) * flop(prog));
+
+				if (prog > 0.5) { // drop
+					return finalHeight;
+				} else { // rise
+					prog = 2 * prog;
+					int baseHeight = this.sampleBaseHeight(x, z);
+					int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+					return (int) MathHelper.lerp(prog, height, finalHeight);
+				}
+			}
 		});
+	}
+
+	private double flop(double prog) {
+		double val = prog - 0.5;
+		return -4 * val * val + 1;
 	}
 
 	public int getHeight(int x, int z) {
@@ -149,6 +177,17 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 	//private static final double TERRACE_RESCALE = 1 / 0.6;
 
+	private double addTerrainCrobber(int x, int z, double scale) {
+		x = MathHelper.abs(x);
+		z = MathHelper.abs(z);
+
+		if (x * x + z * z > TERRAIN_CROB_DISTANCE) {
+			return 0;
+		}
+
+		return scale;
+	}
+
 	private double addMountainPlateaus(int x, int z, double scale) {
 		if (scale > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 240 blocks period
 			scale -= 35;
@@ -179,16 +218,6 @@ public class HaykamTerrainGenerator implements TerrainData {
 		return sample1 + sample2;
 	}
 
-	private static double manhattan(double x, double y, double x1, double y1) {
-		double dx = Math.abs(x1 - x);
-		double dy = Math.abs(y1 - y);
-		return dx + dy;
-	}
-
-	private static final int AVG_HEIGHT = 65;
-	private static final int SCALE_SMOOTH_RADIUS = 9;
-	public static final int SEA_LEVEL = 63;
-
 	@Override
 	public double sampleTypeScale(int x, int z) {
 		return this.typeScaleOperator.get(x, z);
@@ -203,4 +232,60 @@ public class HaykamTerrainGenerator implements TerrainData {
 	public int sampleBaseHeight(int x, int z) {
 		return this.baseHeightOperator.get(x, z);
 	}
+
+	public int getLowerGenBound(int x, int z, int height) {
+		x = MathHelper.abs(x);
+		z = MathHelper.abs(z);
+
+		int sqrDist = x * x + z * z;
+
+		if (sqrDist < SHARDLANDS_FADE_START) {
+			return 0;
+		} else if (sqrDist > SHARDLANDS_START) {
+			if (sqrDist < SHARDLANDS_ISLANDS_START) {
+				return 256;
+			} else {
+				int lowerBound = height - (int) (22 * (0.21 + this.sampleMountainsNoise(x * 3, z * 3)));
+
+				if (sqrDist > SHARDLANDS_ISLANDS_FADE_END) {
+					return lowerBound;
+				} else {
+					return (int) clampMap(sqrDist, SHARDLANDS_ISLANDS_START, SHARDLANDS_ISLANDS_FADE_END, 256, lowerBound);
+				}
+			}
+		} else {
+			return (int) clampMap(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, AVG_FLOAT_HEIGHT);
+		}
+	}
+
+	private static double manhattan(double x, double y, double x1, double y1) {
+		double dx = Math.abs(x1 - x);
+		double dy = Math.abs(y1 - y);
+		return dx + dy;
+	}
+
+	public static double clampMap(double value, double min, double max, double newmin, double newmax) {
+		value -= min;
+		value /= (max - min);
+		value = newmin + value * (newmax - newmin);
+
+		if (value > newmax) {
+			return newmax;
+		} else if (value < newmin) {
+			return newmin;
+		} else {
+			return value;
+		}
+	}
+
+	private static final int AVG_HEIGHT = 65;
+	private static final int AVG_FLOAT_HEIGHT = 105;
+	private static final int SCALE_SMOOTH_RADIUS = 9;
+	public static final int SEA_LEVEL = 63;
+
+	public static final int SHARDLANDS_FADE_START = 2400 * 2400;
+	public static final int TERRAIN_CROB_DISTANCE = 2450 * 2450;
+	public static final int SHARDLANDS_START = 2500 * 2500;
+	public static final int SHARDLANDS_ISLANDS_START = 2580 * 2580;
+	public static final int SHARDLANDS_ISLANDS_FADE_END = 2600 * 2600;
 }

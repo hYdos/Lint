@@ -20,7 +20,7 @@ public class Sounds {
 	 * Misc Music
 	 */
 	public static final SoundEvent DUNGEON = new SoundEvent(Lint.id("music.clandestine"));
-	public static final SoundEvent OBOE = new SoundEvent(Lint.id("music.oboe"));
+	public static final SoundEvent GRIMACE = new SoundEvent(Lint.id("music.grimace"));
 
 	/**
 	 * Biome Music
@@ -28,6 +28,7 @@ public class Sounds {
 	public static final SoundEvent MYSTICAL_FOREST = new SoundEvent(Lint.id("music.mystical_forest"));
 	public static final SoundEvent CORRUPT_FOREST = new SoundEvent(Lint.id("music.corrupt_forest"));
 	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
+	public static final SoundEvent DAWN_SHARDLANDS = new SoundEvent(Lint.id("music.dawn_shardlands"));
 
 	/**
 	 * Misc Sounds
@@ -53,6 +54,7 @@ public class Sounds {
 		register(MYSTICAL_FOREST);
 		register(CORRUPT_FOREST);
 		register(OCEAN);
+		register(DAWN_SHARDLANDS);
 
 		register(ADVANCEMENT);
 

@@ -41,10 +41,16 @@
       "lint:corrupt_forest"
     ]
   },
-  "music.oboe": {
-    "subtitle": "subtitles.oboe",
+  "music.dawn_shardlands": {
+    "subtitle": "subtitles.dawn_shardlands",
     "sounds": [
-      "lint:oboe"
+      "lint:dawn_shardlands"
+    ]
+  },
+  "music.grimace": {
+    "subtitle": "subtitles.grimace",
+    "sounds": [
+      "lint:grimace"
     ]
   },
   "player.advancement": {

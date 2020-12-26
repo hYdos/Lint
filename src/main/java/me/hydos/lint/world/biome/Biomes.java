@@ -5,6 +5,7 @@ import me.hydos.lint.block.Blocks;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.sound.Sounds;
+import me.hydos.lint.world.biome.surface.DawnShardlandsSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.OceanSurfaceBuilder;
 import me.hydos.lint.world.carver.LintConfiguredCarvers;
 import me.hydos.lint.world.feature.Features;
@@ -39,6 +40,7 @@ public class Biomes {
 	 */
 	public static final SurfaceBuilder<TernarySurfaceConfig> OCEAN_RAW_SB = new OceanSurfaceBuilder(Blocks.MYSTICAL_SAND.getDefaultState(), Blocks.WHITE_SAND.getDefaultState());
 	public static final SurfaceBuilder<TernarySurfaceConfig> CORRUPT_OCEAN_RAW_SB = new OceanSurfaceBuilder(Blocks.CORRUPT_SAND.getDefaultState(), Blocks.WHITE_SAND.getDefaultState());
+	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_RAW_SB = new DawnShardlandsSurfaceBuilder();
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(
@@ -62,6 +64,10 @@ public class Biomes {
 			new TernarySurfaceConfig(Blocks.INDIGO_STONE.getDefaultState(),
 					Blocks.INDIGO_STONE.getDefaultState(),
 					Blocks.INDIGO_STONE.getDefaultState()));
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DS_SB = DAWN_SHARDLANDS_RAW_SB.withConfig(
+			new TernarySurfaceConfig(Blocks.ASPHALT.getDefaultState(),
+					Blocks.ASPHALT.getDefaultState(),
+					Blocks.ASPHALT.getDefaultState()));
 
 	/**
 	 * Spawn Configurations
@@ -122,7 +128,6 @@ public class Biomes {
 			.temperature(0.8f)
 			.downfall(0)
 			.effects(new BiomeEffects.Builder()
-					.waterColor(0)
 					.waterColor(0x32e686)
 					.waterFogColor(0x32e686)
 					.fogColor(MYSTICAL_FOG_COLOUR)
@@ -152,7 +157,6 @@ public class Biomes {
 			.temperature(0.8f)
 			.downfall(0)
 			.effects(new BiomeEffects.Builder()
-					.waterColor(0)
 					.waterColor(0x32e686)
 					.waterFogColor(0x32e686)
 					.fogColor(MYSTICAL_FOG_COLOUR)
@@ -182,7 +186,6 @@ public class Biomes {
 			.temperature(0.8f)
 			.downfall(0)
 			.effects(new BiomeEffects.Builder()
-					.waterColor(0)
 					.waterColor(0x4faad1)
 					.waterFogColor(0x4faad1)
 					.fogColor(0xC0D8FF)
@@ -250,6 +253,29 @@ public class Biomes {
 					.build())
 			.build();
 
+	public static final Biome DAWN_SHARDLANDS = new Biome.Builder()
+			.precipitation(Biome.Precipitation.NONE)
+			.category(Biome.Category.NONE)
+			.depth(0.125f)
+			.scale(1)
+			.temperature(0.8f)
+			.downfall(0)
+			.effects(new BiomeEffects.Builder()
+					.waterColor(0xfccb07)
+					.waterFogColor(0xfcf807)
+					.fogColor(DAWN_FOG_COLOUR)
+					.loopSound(Sounds.DAWN_SHARDLANDS)
+					.skyColor(0xffd30f)
+					.build())
+			.spawnSettings(new SpawnSettings.Builder().build())
+			.generationSettings(new GenerationSettings.Builder()
+					.surfaceBuilder(DS_SB)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
+					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
+					// TODO allos and manos shards (powerful crystals of the two forces that made the world) as "ores" that spawn hanging from the bottom of the floating islands
+					.build())
+			.build();
+
 	/**
 	 * Biome Keys
 	 */
@@ -259,10 +285,13 @@ public class Biomes {
 	public static final RegistryKey<Biome> OCEAN_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ocean"));
 	public static final RegistryKey<Biome> CORRUPT_BEACH_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_beach"));
 	public static final RegistryKey<Biome> INDIGO_RIDGES_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("indigo_ridges"));
+	public static final RegistryKey<Biome> DAWN_SHARDLANDS_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands"));
 
 	public static void register() {
 		Registry.register(Registry.SURFACE_BUILDER, Lint.id("ocean"), OCEAN_RAW_SB);
 		Registry.register(Registry.SURFACE_BUILDER, Lint.id("corrupt_ocean"), CORRUPT_OCEAN_RAW_SB);
+		Registry.register(Registry.SURFACE_BUILDER, Lint.id("dawn_shardlands"), DAWN_SHARDLANDS_RAW_SB);
+
 		Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_chunk_gen"), HaykamChunkGenerator.CODEC);
 
 		registerBiome(MYSTICAL_FOREST_KEY, MYSTICAL_FOREST);
@@ -271,6 +300,7 @@ public class Biomes {
 		registerBiome(OCEAN_KEY, OCEAN);
 		registerBiome(CORRUPT_BEACH_KEY, CORRUPT_BEACH);
 		registerBiome(INDIGO_RIDGES_KEY, INDIGO_RIDGES);
+		registerBiome(DAWN_SHARDLANDS_KEY, DAWN_SHARDLANDS);
 	}
 
 	private static void registerBiome(RegistryKey<Biome> key, Biome biome) {

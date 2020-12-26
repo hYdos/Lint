@@ -4,9 +4,11 @@ import java.util.Random;
 
 import me.hydos.lint.block.Blocks;
 import me.hydos.lint.util.math.Voronoi;
+import me.hydos.lint.world.gen.HaykamTerrainGenerator;
 import me.hydos.lint.world.gen.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
@@ -34,11 +36,19 @@ public class FloatingIslandModifier {
 
 		for (int xo = 0; xo < 16; ++xo) {
 			int x = xo + startX;
+			int absx = MathHelper.abs(x);
 			pos.setX(x);
 
 			for (int zo = 0; zo < 16; ++zo) {
 				int z = zo + startZ;
-				double floatingIsland = Voronoi.sampleFloating(x * 0.04, z * 0.04, this.seed, this.noise);
+				int absz = MathHelper.abs(z);
+				int dist = absx * absx + absz * absz;
+
+				if (dist > HaykamTerrainGenerator.SHARDLANDS_START) {
+					return false; // prevent unneccessary checks since it will all succeed second thing
+				}
+
+				double floatingIsland = Voronoi.sampleFloating(x, z , this.seed, this.noise, 0.04);
 				double floatingNoise = noise.sample(x * 0.04 * 0.11, z * 0.04 * 0.11);
 				floatingIsland = smoothstep(floatingIsland);
 
