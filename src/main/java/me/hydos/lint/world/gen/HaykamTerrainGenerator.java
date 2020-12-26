@@ -120,7 +120,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 				return 0;
 			} else {
 				double progress = (double) (sqrDist - TERRAIN_CROB_DISTANCE) / (double) (SHARDLANDS_START - TERRAIN_CROB_DISTANCE);
-				int finalHeight = (int) ((AVG_FLOAT_HEIGHT) * progress);
+				int finalHeight = AVG_FLOAT_HEIGHT;	
 
 				int baseHeight = this.sampleBaseHeight(x, z);
 				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
@@ -253,7 +253,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 	}
 
 	private static final int AVG_HEIGHT = 65;
-	private static final int AVG_FLOAT_HEIGHT = 105;
+	private static final int AVG_FLOAT_HEIGHT = 85;
 	private static final int SCALE_SMOOTH_RADIUS = 9;
 	public static final int SEA_LEVEL = 63;
 

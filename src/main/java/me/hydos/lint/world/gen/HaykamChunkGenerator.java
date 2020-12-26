@@ -1,7 +1,13 @@
 package me.hydos.lint.world.gen;
 
+import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import me.hydos.lint.block.Blocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.world.biome.HaykamBiomeSource;
@@ -28,11 +34,6 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-
-import java.util.List;
-import java.util.Random;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
 
 public class HaykamChunkGenerator extends ChunkGenerator {
 
@@ -93,12 +94,29 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 				int height = this.terrain.getHeight(x, z);
 				int lowerBound = this.terrain.getLowerGenBound(x, z, height);
+				boolean ash = this.surfaceNoise.sample(x * 0.09, z * 0.09, true) > 0 && (height - lowerBound) < 3;
+ 
+				if (height - lowerBound == 1) {
+					lowerBound--;
+				}
 
 				for (int y = lowerBound; y < world.getHeight(); ++y) {
 					pos.setY(y);
 
 					if (y < height) {
-						chunk.setBlockState(pos, dist > HaykamTerrainGenerator.SHARDLANDS_ISLANDS_START ? Blocks.ASPHALT.getDefaultState() : Blocks.FUSED_STONE.getDefaultState(), false);
+						BlockState state;
+
+						if (dist > HaykamTerrainGenerator.SHARDLANDS_ISLANDS_START) {
+							if (ash && y > lowerBound) {
+								state = Blocks.ASH.getDefaultState();
+							} else {
+								state = Blocks.ASPHALT.getDefaultState();
+							}
+						} else {
+							state = Blocks.FUSED_STONE.getDefaultState();
+						}
+
+						chunk.setBlockState(pos, state, false);
 					} else if (y < seaLevel) {
 						chunk.setBlockState(pos, Blocks.WATER.getDefaultState(), false);
 					} else {

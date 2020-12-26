@@ -79,7 +79,7 @@ public class HaykamBiomeSource extends BiomeSource {
 		int z = (biomeZ << 2);
 		int dist = x * x + z * z;
 
-		if (dist > HaykamTerrainGenerator.TERRAIN_CROB_DISTANCE) {
+		if (dist > HaykamTerrainGenerator.SHARDLANDS_START) {
 			return this.biomeRegistry.getOrThrow(Biomes.DAWN_SHARDLANDS_KEY);
 		}
 
