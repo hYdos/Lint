@@ -2,7 +2,7 @@ package me.hydos.modernbossbars;
 
 import io.netty.buffer.Unpooled;
 import me.hydos.lint.network.Networking;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
@@ -42,7 +42,7 @@ public class ModernBossBar {
         data.writeText(title);
         data.writeInt(colour);
         data.writeInt(endX);
-        ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Networking.SEND_BOSSBAR_INFO, data);
+        ServerPlayNetworking.send(player, Networking.SEND_BOSSBAR_INFO, data);
     }
 
     public void removePlayer(ServerPlayerEntity player){
@@ -50,7 +50,7 @@ public class ModernBossBar {
         PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
         data.writeEnumConstant(PacketType.SET_VALUE);
         data.writeInt(0);
-        ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Networking.SEND_BOSSBAR_INFO, data);
+        ServerPlayNetworking.send(player, Networking.SEND_BOSSBAR_INFO, data);
     }
 
     public void setEndX(int endX) {
@@ -59,7 +59,7 @@ public class ModernBossBar {
         data.writeEnumConstant(PacketType.SET_VALUE);
         data.writeInt(endX);
         for (ServerPlayerEntity player : players) {
-            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Networking.SEND_BOSSBAR_INFO, data);
+            ServerPlayNetworking.send(player, Networking.SEND_BOSSBAR_INFO, data);
         }
     }
 
@@ -75,7 +75,7 @@ public class ModernBossBar {
         data.writeEnumConstant(PacketType.SET_TITLE);
         data.writeText(title);
         for (ServerPlayerEntity player : players) {
-            ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, Networking.SEND_BOSSBAR_INFO, data);
+            ServerPlayNetworking.send(player, Networking.SEND_BOSSBAR_INFO, data);
         }
     }
 
