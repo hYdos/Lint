@@ -39,13 +39,12 @@ public class LilTaterInteractScreenHandler extends ScreenHandler {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 154));
         }
 
-
-        int offset = 9;
+        int padding = 9;
         for (int j = 0; j != 3; j++) {
             for (int i = 0; i != 9; i++) {
-                this.addSlot(new Slot(playerInventory, i + offset, 8 + i * 18, 96 + j * 18));
+                this.addSlot(new Slot(playerInventory, i + padding, 8 + i * 18, 96 + j * 18));
             }
-            offset += 9;
+            padding += 9;
         }
     }
 

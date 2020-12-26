@@ -2,6 +2,7 @@ package me.hydos.lint.entity.passive.bird;
 
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.sound.Sounds;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.ai.control.FlightMoveControl;
@@ -24,7 +25,7 @@ import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 
 @SuppressWarnings("EntityConstructor")
-public class EasternRosellaEntity extends AbstractBirdEntity implements Flutterer  {
+public class EasternRosellaEntity extends AbstractBirdEntity implements Flutterer {
 
 	private static final AnimationBuilder FLY_ANIMATION = new AnimationBuilder().addAnimation("animation.eastern_rosella.fly", true);
 	private static final AnimationBuilder IDLE_ANiMATION = new AnimationBuilder().addAnimation("animation.eastern_rosella.idle", true);
@@ -70,11 +71,11 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 	}
 
 	public <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-//		if (flying) {
-//			event.getController().setAnimation(FLY_ANIMATION);
-//		} else {
-		event.getController().setAnimation(IDLE_ANiMATION);
-//		}
+		if (world.getBlockState(getBlockPos().down()) == Blocks.AIR.getDefaultState()) {
+			event.getController().setAnimation(FLY_ANIMATION);
+		} else {
+			event.getController().setAnimation(IDLE_ANiMATION);
+		}
 		return PlayState.CONTINUE;
 	}
 

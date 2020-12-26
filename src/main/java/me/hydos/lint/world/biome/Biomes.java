@@ -2,6 +2,7 @@ package me.hydos.lint.world.biome;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.Blocks;
+import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.world.carver.LintConfiguredCarvers;
@@ -53,8 +54,9 @@ public class Biomes {
 	 * Spawn Configurations
 	 */
 	public static final SpawnSettings.Builder LINT_SPAWN_SETTINGS = new SpawnSettings.Builder()
-			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 1, 1, 3))
-			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 1, 1, 1))
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 2, 1, 3))
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 1, 3, 6))
+			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
 
@@ -120,7 +122,6 @@ public class Biomes {
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
-
 	public static final Biome OCEAN = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.OCEAN)
@@ -146,7 +147,6 @@ public class Biomes {
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
-
 	public static final Biome INDIGO_RIDGES = new Biome.Builder()
             .precipitation(Biome.Precipitation.NONE)
             .category(Biome.Category.EXTREME_HILLS)
