@@ -91,9 +91,10 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 				final int z = zo + startZ;
 				pos.setZ(zo);
 
+				int lowerBound = this.terrain.getLowerGenBound(x, z);
 				int height = this.terrain.getHeight(x, z);
 
-				for (int y = 0; y < world.getHeight(); ++y) {
+				for (int y = lowerBound; y < world.getHeight(); ++y) {
 					pos.setY(y);
 
 					if (y < height) {

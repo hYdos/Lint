@@ -179,16 +179,6 @@ public class HaykamTerrainGenerator implements TerrainData {
 		return sample1 + sample2;
 	}
 
-	private static double manhattan(double x, double y, double x1, double y1) {
-		double dx = Math.abs(x1 - x);
-		double dy = Math.abs(y1 - y);
-		return dx + dy;
-	}
-
-	private static final int AVG_HEIGHT = 65;
-	private static final int SCALE_SMOOTH_RADIUS = 9;
-	public static final int SEA_LEVEL = 63;
-
 	@Override
 	public double sampleTypeScale(int x, int z) {
 		return this.typeScaleOperator.get(x, z);
@@ -203,4 +193,43 @@ public class HaykamTerrainGenerator implements TerrainData {
 	public int sampleBaseHeight(int x, int z) {
 		return this.baseHeightOperator.get(x, z);
 	}
+
+	public int getLowerGenBound(int x, int z) {
+		int sqrDist = x * x + z * z;
+
+		if (sqrDist < SHARDLANDS_FADE_START) {
+			return 0;
+		} else if (sqrDist > SHARDLANDS_START) {
+			return 256;
+		} else {
+			return (int) clampMap(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, 256);
+		}
+	}
+
+	private static double manhattan(double x, double y, double x1, double y1) {
+		double dx = Math.abs(x1 - x);
+		double dy = Math.abs(y1 - y);
+		return dx + dy;
+	}
+
+	public static double clampMap(double value, double min, double max, double newmin, double newmax) {
+		value -= min;
+		value /= (max - min);
+		value = newmin + value * (newmax - newmin);
+
+		if (value > newmax) {
+			return newmax;
+		} else if (value < newmin) {
+			return newmin;
+		} else {
+			return value;
+		}
+	}
+
+	private static final int AVG_HEIGHT = 65;
+	private static final int SCALE_SMOOTH_RADIUS = 9;
+	public static final int SEA_LEVEL = 63;
+
+	public static final int SHARDLANDS_FADE_START = 2400 * 2400;
+	public static final int SHARDLANDS_START = 2500 * 2500;
 }
