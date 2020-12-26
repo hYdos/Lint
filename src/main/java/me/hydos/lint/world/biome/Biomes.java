@@ -239,7 +239,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
 					.build())
 			.build();
-	
+
 	public static final Biome DAWN_SHARDLANDS = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.NONE)
@@ -258,10 +258,8 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(MF_SB)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
-					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
-					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
-					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
+					// TODO allos and manos shards (powerful crystals of the two forces that made the world) as "ores" that spawn hanging from the bottom of the floating islands
 					.build())
 			.build();
 

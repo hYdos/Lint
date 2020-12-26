@@ -98,7 +98,10 @@ public final class Blocks {
 			.hardness(1f)
 			.sounds(BlockSoundGroup.STONE));
 
-
+	public static final Block ASPHALT = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
+	public static final Block ALLOS_INFUSED_ASPHALT = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
+	public static final Block MANOS_INFUSED_ASPHALT = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
+	
 	/**
 	 * Corrupt Decorations
 	 */
@@ -177,6 +180,7 @@ public final class Blocks {
 	public static final Block MYSTICAL_SAND = new FallingBlock(SAND_SETTINGS);
 	public static final Block MYSTICAL_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
 	public static final Block WHITE_SAND = new FallingBlock(SAND_SETTINGS);
+	public static final Block ASH = new FallingBlock(SAND_SETTINGS);
 
 	/**
 	 * Misc Building Blocks
@@ -254,6 +258,11 @@ public final class Blocks {
 		registerBlock(ItemGroups.BLOCKS, MYSTICAL_SLAB, "mystical_slab");
 		registerBlock(ItemGroups.BLOCKS, CORRUPT_SLAB, "corrupt_slab");
 		registerBlock(ItemGroups.BLOCKS, DUNGEON_BRICK_SLAB, "dungeon_brick_slab");
+		
+		registerBlock(ItemGroups.BLOCKS, ASPHALT, "asphalt");
+		registerBlock(ItemGroups.BLOCKS, ALLOS_INFUSED_ASPHALT, "allos_infused_asphalt");
+		registerBlock(ItemGroups.BLOCKS, MANOS_INFUSED_ASPHALT, "manos_infused_asphalt");
+		registerBlock(ItemGroups.BLOCKS, ASH, "ash");
 	}
 
 	public static void registerFluidBlocks() {
