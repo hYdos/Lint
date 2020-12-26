@@ -239,6 +239,7 @@ public class Biomes {
 					.waterColor(0x3f76e4)
 					.waterFogColor(0x050533)
 					.fogColor(0xc0d8ff)
+					.loopSound(Sounds.CORRUPT_FOREST)
 					.skyColor(0x77adff)
 					.build()
 					)
