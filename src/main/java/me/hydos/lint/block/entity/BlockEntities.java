@@ -1,6 +1,7 @@
 package me.hydos.lint.block.entity;
 
-import me.hydos.lint.Lint;import me.hydos.lint.block.Blocks;
+import me.hydos.lint.Lint;
+import me.hydos.lint.block.Blocks;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;

@@ -1,7 +1,7 @@
 package me.hydos.lint.screenhandler;
 
-import me.hydos.lint.util.LintInventory;
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
+import me.hydos.lint.util.LintInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;

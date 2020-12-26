@@ -1,11 +1,7 @@
 package me.hydos.lint.world.biome;
 
-import java.util.function.LongFunction;
-import java.util.stream.Collectors;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import me.hydos.lint.world.gen.HaykamTerrainGenerator;
 import me.hydos.lint.world.layer.GenericBiomes;
 import me.hydos.lint.world.layer.MountainBiomes;
@@ -21,6 +17,9 @@ import net.minecraft.world.biome.layer.util.LayerSampleContext;
 import net.minecraft.world.biome.layer.util.LayerSampler;
 import net.minecraft.world.biome.source.BiomeLayerSampler;
 import net.minecraft.world.biome.source.BiomeSource;
+
+import java.util.function.LongFunction;
+import java.util.stream.Collectors;
 
 public class HaykamBiomeSource extends BiomeSource {
 	public static final Codec<HaykamBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(

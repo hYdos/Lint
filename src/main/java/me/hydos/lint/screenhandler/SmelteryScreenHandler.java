@@ -1,6 +1,5 @@
 package me.hydos.lint.screenhandler;
 
-import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import me.hydos.lint.util.LintInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,7 +9,7 @@ import net.minecraft.screen.slot.Slot;
 
 public class SmelteryScreenHandler extends ScreenHandler {
 
-	public LintInventory inventory = new LintInventory(9);
+	public LintInventory inventory;
 
 	public SmelteryScreenHandler(int syncId, PlayerInventory playerInventory) {
 		this(syncId, playerInventory, new LintInventory(9));

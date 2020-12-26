@@ -1,7 +1,6 @@
 package me.hydos.lint.world.feature;
 
 import com.mojang.serialization.Codec;
-
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.StructureStart;

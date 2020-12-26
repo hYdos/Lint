@@ -26,7 +26,7 @@ public class GenericBiomes implements InitLayer {
 
 	@Override
 	public int sample(LayerRandomnessSource randomPawn, int x, int y) {
-		RegistryKey key = biomes[randomPawn.nextInt(biomes.length)];
+		RegistryKey<?> key = biomes[randomPawn.nextInt(biomes.length)];
 
 		int absx = MathHelper.abs(x);
 		int absy = MathHelper.abs(y);

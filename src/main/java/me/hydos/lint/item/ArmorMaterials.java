@@ -1,6 +1,5 @@
 package me.hydos.lint.item;
 
-import me.hydos.lint.item.Items;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EquipmentSlot;
@@ -40,7 +39,7 @@ public enum ArmorMaterials implements ArmorMaterial {
 		this.equipSound = equipSound;
 		this.toughness = toughness;
 		this.knockbackResistance = knockbackResistance;
-		this.repairIngredientSupplier = new Lazy(repairIngredientSupplier);
+		this.repairIngredientSupplier = new Lazy<>(repairIngredientSupplier);
 	}
 
 	public int getDurability(EquipmentSlot slot) {
@@ -60,7 +59,7 @@ public enum ArmorMaterials implements ArmorMaterial {
 	}
 
 	public Ingredient getRepairIngredient() {
-		return (Ingredient) this.repairIngredientSupplier.get();
+		return this.repairIngredientSupplier.get();
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -1,11 +1,5 @@
 package me.hydos.lint.screenhandler;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
-import org.jetbrains.annotations.Nullable;
-
 //TODO: finish porting to new api
 //public class TaterScreenHandler extends ScreenHandler {
 //

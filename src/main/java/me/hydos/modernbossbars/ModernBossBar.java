@@ -1,7 +1,7 @@
 package me.hydos.modernbossbars;
 
-import me.hydos.lint.network.Networking;
 import io.netty.buffer.Unpooled;
+import me.hydos.lint.network.Networking;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;

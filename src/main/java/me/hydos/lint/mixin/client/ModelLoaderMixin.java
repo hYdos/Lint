@@ -20,7 +20,6 @@ public class ModelLoaderMixin {
 	private void silenceMissingFluidBlockstates(Logger logger, String message, Object p0, Object p1) {
 		if (p1 instanceof ModelIdentifier) {
 			ModelIdentifier location = (ModelIdentifier) p1;
-
 			if (location.getNamespace().equals("lint") && location.getVariant().startsWith("level=")) { // Must not be a fluid. warn about it
 				return;
 			}

@@ -1,9 +1,7 @@
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-
-import me.hydos.lint.world.gen.OpenSimplexNoise;
 import me.hydos.lint.util.math.Voronoi;
+import me.hydos.lint.world.gen.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -11,6 +9,8 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+
+import java.util.Random;
 
 public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 	public VerticalShaftFeature() {
@@ -91,7 +91,7 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 				for (int zo = 0; zo <= bound; ++zo) {
 					pos.setZ(localStartZ + zo);
 
-					boolean meetsPredicate = (yo == maxYO) ? true : (xo != 0 && xo != bound) || (zo != 0 && zo != bound); // remove corners, making a circle-like shape
+					boolean meetsPredicate = yo == maxYO || (xo != 0 && xo != bound) || (zo != 0 && zo != bound); // remove corners, making a circle-like shape
 
 					if (meetsPredicate) {
 						this.setBlockState(world, pos, CAVE_AIR);

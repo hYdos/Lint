@@ -1,13 +1,7 @@
 package me.hydos.lint.world.gen;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import me.hydos.lint.block.Blocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.world.biome.HaykamBiomeSource;
@@ -34,6 +28,11 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+
+import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 public class HaykamChunkGenerator extends ChunkGenerator {
 
@@ -210,6 +209,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 						configured.generate(region, this, random, pos);
 					} catch (Exception var22) {
 						CrashReport report = CrashReport.create(var22, "Feature placement");
+						// noinspection Convert2MethodRef - Java 8 compiler bug
 						report.addElement("Feature").add("Id", Registry.FEATURE.getId(configured.feature)).add("Config", configured.config).add("Description", () -> configured.feature.toString());
 						throw new CrashException(report);
 					}

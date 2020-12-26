@@ -1,8 +1,8 @@
 package me.hydos.lint.item.group;
 
-import me.hydos.lint.Lint;import me.hydos.lint.block.Blocks;
+import me.hydos.lint.Lint;
+import me.hydos.lint.block.Blocks;
 import me.hydos.lint.item.Items;
-import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;

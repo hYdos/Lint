@@ -1,7 +1,5 @@
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-
 import me.hydos.lint.block.Blocks;
 import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.gen.HaykamTerrainGenerator;
@@ -14,6 +12,8 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
+
+import java.util.Random;
 
 public class FloatingIslandModifier {
 	public FloatingIslandModifier(long seed) {

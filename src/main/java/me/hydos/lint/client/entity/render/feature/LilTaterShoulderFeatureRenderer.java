@@ -1,8 +1,8 @@
 package me.hydos.lint.client.entity.render.feature;
 
-import me.hydos.lint.entity.Entities;
 import me.hydos.lint.client.entity.model.TinyPotatoEntityModel;
 import me.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
+import me.hydos.lint.entity.Entities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;

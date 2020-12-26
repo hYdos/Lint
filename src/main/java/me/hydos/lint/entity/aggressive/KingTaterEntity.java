@@ -5,7 +5,6 @@ import me.hydos.lint.item.Items;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -42,7 +41,6 @@ public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 
     public KingTaterEntity(EntityType<? extends KingTaterEntity> type, World world) {
         super(type, world);
-        moveControl = new KingTaterMoveControl(this);
         bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.GREEN, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
     }
 
@@ -170,41 +168,5 @@ public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 
     public static float getScaledHealth(float health, float maxHealth) {
         return health / maxHealth;
-    }
-
-    static class KingTaterMoveControl extends MoveControl {
-        private final float targetYaw;
-        private int ticksUntilJump;
-
-        public KingTaterMoveControl(KingTaterEntity kingTater) {
-            super(kingTater);
-            this.targetYaw = 180.0F * kingTater.yaw / 3.1415927F;
-        }
-
-        public void tick() {
-            this.entity.yaw = this.changeAngle(this.entity.yaw, this.targetYaw, 90.0F);
-            this.entity.headYaw = this.entity.yaw;
-            this.entity.bodyYaw = this.entity.yaw;
-            if (this.state != MoveControl.State.MOVE_TO) {
-                this.entity.setForwardSpeed(0.0F);
-            } else {
-                this.state = MoveControl.State.WAIT;
-//                if (this.entity.onGround) {//FIXME
-//                    this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue()));
-//
-//                    if (this.ticksUntilJump-- <= 0) {
-//                        this.ticksUntilJump = this.slime.getTicksUntilNextJump();
-//                        this.slime.getJumpControl().setActive();
-////                        this.slime.playSound(SoundEvents.ENTITY_SLIME_JUMP, this.slime.getSoundVolume(), ((this.slime.getRandom().nextFloat() - this.slime.getRandom().nextFloat()) * 0.2F + 1.0F) * 0.8F);
-//                    } else {
-//                        this.slime.sidewaysSpeed = 0.0F;
-//                        this.slime.forwardSpeed = 0.0F;
-//                        this.entity.setMovementSpeed(0.0F);
-//                    }
-//                } else {
-//                    this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getValue()));
-//                }
-            }
-        }
     }
 }
