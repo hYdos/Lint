@@ -10,7 +10,7 @@ import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
 
 public class GenericBiomes implements InitLayer {
 	@SuppressWarnings("rawtypes")
-	private final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY};
+	private final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.THICK_MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY};
 
 	private final Registry<Biome> biomeRegistry;
 
