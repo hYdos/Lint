@@ -3,6 +3,7 @@ package me.hydos.lint.world.feature;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.hydos.lint.block.Blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,11 +21,27 @@ import net.minecraft.world.*;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.feature.size.FeatureSize;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
+import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+import net.minecraft.world.gen.tree.TreeDecorator;
+import net.minecraft.world.gen.trunk.TrunkPlacer;
 
 import java.util.*;
 
 public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
+
+    public static final Codec<TreeFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BlockStateProvider.TYPE_CODEC
+            .fieldOf("trunk_provider")
+            .forGetter((treeFeatureConfig) -> treeFeatureConfig.trunkProvider),
+            BlockStateProvider.TYPE_CODEC.fieldOf("leaves_provider").forGetter((treeFeatureConfig) -> treeFeatureConfig.leavesProvider),
+            FoliagePlacer.TYPE_CODEC.fieldOf("foliage_placer").forGetter((treeFeatureConfig) -> treeFeatureConfig.foliagePlacer),
+            TrunkPlacer.CODEC.fieldOf("trunk_placer").forGetter((treeFeatureConfig) -> treeFeatureConfig.trunkPlacer),
+            FeatureSize.TYPE_CODEC.fieldOf("minimum_size").forGetter((treeFeatureConfig) -> treeFeatureConfig.minimumSize),
+            TreeDecorator.TYPE_CODEC.listOf().fieldOf("decorators").forGetter((treeFeatureConfig) -> treeFeatureConfig.decorators),
+            Codec.INT.fieldOf("max_water_depth").orElse(0).forGetter((treeFeatureConfig) -> treeFeatureConfig.maxWaterDepth),
+            Codec.BOOL.fieldOf("ignore_vines").orElse(false).forGetter((treeFeatureConfig) -> treeFeatureConfig.ignoreVines),
+            Heightmap.Type.CODEC.fieldOf("heightmap").forGetter((treeFeatureConfig) -> treeFeatureConfig.heightmap)).apply(instance, LintTreeFeatureConfig::new));
 
     public BetterTreeFeature(Codec<TreeFeatureConfig> codec) {
         super(codec);
@@ -241,5 +258,11 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
             }
         }
         return voxelSet;
+    }
+
+    public static class LintTreeFeatureConfig extends TreeFeatureConfig {
+        public LintTreeFeatureConfig(BlockStateProvider trunkProvider, BlockStateProvider leavesProvider, FoliagePlacer foliagePlacer, TrunkPlacer trunkPlacer, FeatureSize minimumSize, List<TreeDecorator> decorators, int maxWaterDepth, boolean ignoreVines, Heightmap.Type heightmap) {
+            super(trunkProvider, leavesProvider, foliagePlacer, trunkPlacer, minimumSize, decorators, maxWaterDepth, ignoreVines, heightmap);
+        }
     }
 }

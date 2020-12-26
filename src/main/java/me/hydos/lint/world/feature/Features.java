@@ -27,27 +27,27 @@ public class Features {
 	/**
 	 * UNCONFIGURED FEATURES
 	 **/
-	public static final Feature<TreeFeatureConfig> TREE = register("tree", new BetterTreeFeature(TreeFeatureConfig.CODEC));
+	public static final Feature<TreeFeatureConfig> TREE = register("tree", new BetterTreeFeature(BetterTreeFeature.CODEC));
 	public static final Feature<DefaultFeatureConfig> RETURN_PORTAL = register("portal", new PortalFeature());
 	public static final Feature<DefaultFeatureConfig> VERTICAL_SHAFT = register("vertical_shaft", new VerticalShaftFeature());
 
 	public static final ConfiguredFeature<?, ?> CORRUPT_TREES = register("corrupt_trees", TREE.configure((
 			new TreeFeatureConfig.Builder(
 					new SimpleBlockStateProvider(Blocks.CORRUPT_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.CORRUPT_LEAVES.getDefaultState()),
-					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new StraightTrunkPlacer(4, 2, 0),
+					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new LintTrunkPlacer(4, 2, 0),
 					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
 
 	public static final ConfiguredFeature<?, ?> MYSTICAL_TREES = register("mystical_trees", TREE.configure((
 			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_LOG.getDefaultState()),
 					new SimpleBlockStateProvider(Blocks.MYSTICAL_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
-					new StraightTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(3, 0.3F, 1))));
+					new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(3, 0.3F, 1))));
 
 	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", TREE.configure((
 			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_LOG.getDefaultState()),
 					new SimpleBlockStateProvider(Blocks.MYSTICAL_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
-					new StraightTrunkPlacer(6, 4, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(8, 0.7F, 2))));
+					new LintTrunkPlacer(6, 4, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(290, 0.6F, 9))));
 
 	/**
 	 * ORES

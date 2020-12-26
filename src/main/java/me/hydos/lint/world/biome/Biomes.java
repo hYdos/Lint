@@ -66,10 +66,17 @@ public class Biomes {
 	/**
 	 * Spawn Configurations
 	 */
-	public static final SpawnSettings.Builder LINT_SPAWN_SETTINGS = new SpawnSettings.Builder()
+	public static final SpawnSettings.Builder DEFAULT_SPAWN_SETTINGS = new SpawnSettings.Builder()
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 2, 1, 3))
-			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 1, 3, 6))
-			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
+			.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 10, 1, 1))
+//			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
+			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1))
+			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
+
+	public static final SpawnSettings.Builder FOREST_SPAWN_SETTINGS = new SpawnSettings.Builder()
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 2, 1, 3))
+			.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 1, 1, 4))
+//			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
 
@@ -91,7 +98,7 @@ public class Biomes {
 					.skyColor(0x9c76c1)
 					.build()
 					)
-			.spawnSettings(LINT_SPAWN_SETTINGS.build())
+			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CF_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
@@ -122,7 +129,7 @@ public class Biomes {
 					.loopSound(Sounds.MYSTICAL_FOREST)
 					.skyColor(0x88dfea)
 					.build())
-			.spawnSettings(LINT_SPAWN_SETTINGS.build())
+			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(MF_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
@@ -152,7 +159,7 @@ public class Biomes {
 					.loopSound(Sounds.MYSTICAL_FOREST)
 					.skyColor(0x88dfea)
 					.build())
-			.spawnSettings(LINT_SPAWN_SETTINGS.build())
+			.spawnSettings(FOREST_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(MF_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
@@ -208,7 +215,7 @@ public class Biomes {
 					.loopSound(Sounds.CORRUPT_FOREST)
 					.skyColor(0x9c76c1)
 					.build())
-			.spawnSettings(LINT_SPAWN_SETTINGS.build())
+			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CB_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
