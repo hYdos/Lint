@@ -13,14 +13,16 @@
     "ServerChunkManagerMixin",
     "SoundEventAccessor",
     "SoundManagerMixin",
-    "StructurePoolsMixin",
-    "client.ModelLoaderMixin"
+    "StructurePoolsMixin"
   ],
   "client": [
+    "client.BiomeEffectSoundPlayerMixin",
     "client.ClientPlayNetworkHandlerMixin",
     "client.GameRendererMixin",
     "client.InGameHudMixin",
     "client.LevelPropertiesMixin",
+    "client.ModelLoaderMixin",
+    "client.MusicLoopMixin",
     "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",
     "client.SplashScreenMixin",
