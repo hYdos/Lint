@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "lint:block/mystical_log_top",
+    "side": "lint:block/mystical_log"
+  }
+}
