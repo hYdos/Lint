@@ -169,7 +169,7 @@ public class LintClient implements ClientModInitializer {
 			// Want an equal experience for all players, so control it directly.
 			if (aBiome == Biomes.CORRUPT_FOREST_KEY) {
 				distChunks = 3f;
-			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY || aBiome == Biomes.INDIGO_RIDGES_KEY) {
+			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY || aBiome == Biomes.INDIGO_RIDGES_KEY || aBiome == Biomes.DAWN_SHARDLANDS_KEY) {
 				distChunks = Math.min(6.2f, 0.43f * originalResultChunks);
 			}
 		}

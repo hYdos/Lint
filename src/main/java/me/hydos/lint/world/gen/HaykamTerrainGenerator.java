@@ -108,8 +108,6 @@ public class HaykamTerrainGenerator implements TerrainData {
 		});
 
 		this.heightOperator = new LossyIntCache(512, (x, z) -> {
-			x = MathHelper.abs(x);
-			z = MathHelper.abs(z);
 			int dist = x * x + z * z;
 
 			if (dist < TERRAIN_CROB_DISTANCE) {
@@ -117,28 +115,18 @@ public class HaykamTerrainGenerator implements TerrainData {
 				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
 				return height;
 			} else if (dist > SHARDLANDS_ISLANDS_START) {
-				return AVG_FLOAT_HEIGHT + (int) (7 * (1 + this.sampleHillsNoise(x, z)));
+				return AVG_FLOAT_HEIGHT + (int) (12 * (1 + this.sampleHillsNoise(x, z)));
 			} else if (dist > SHARDLANDS_START) {
 				return 0;
 			} else {
 				double prog = (double) dist / (double) (SHARDLANDS_START - TERRAIN_CROB_DISTANCE);
-				int finalHeight = (int) ((AVG_FLOAT_HEIGHT) * flop(prog));
+				int finalHeight = (int) ((AVG_FLOAT_HEIGHT) * prog);
 
-				if (prog > 0.5) { // drop
-					return finalHeight;
-				} else { // rise
-					prog = 2 * prog;
-					int baseHeight = this.sampleBaseHeight(x, z);
-					int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
-					return (int) MathHelper.lerp(prog, height, finalHeight);
-				}
+				int baseHeight = this.sampleBaseHeight(x, z);
+				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+				return (int) MathHelper.lerp(prog, height, finalHeight);
 			}
 		});
-	}
-
-	private double flop(double prog) {
-		double val = prog - 0.5;
-		return -4 * val * val + 1;
 	}
 
 	public int getHeight(int x, int z) {
@@ -178,9 +166,6 @@ public class HaykamTerrainGenerator implements TerrainData {
 	//private static final double TERRACE_RESCALE = 1 / 0.6;
 
 	private double addTerrainCrobber(int x, int z, double scale) {
-		x = MathHelper.abs(x);
-		z = MathHelper.abs(z);
-
 		if (x * x + z * z > TERRAIN_CROB_DISTANCE) {
 			return 0;
 		}
@@ -234,27 +219,24 @@ public class HaykamTerrainGenerator implements TerrainData {
 	}
 
 	public int getLowerGenBound(int x, int z, int height) {
-		x = MathHelper.abs(x);
-		z = MathHelper.abs(z);
-
 		int sqrDist = x * x + z * z;
 
 		if (sqrDist < SHARDLANDS_FADE_START) {
 			return 0;
 		} else if (sqrDist > SHARDLANDS_START) {
 			if (sqrDist < SHARDLANDS_ISLANDS_START) {
-				return 256;
+				return 200;
 			} else {
-				int lowerBound = height - (int) (22 * (0.21 + this.sampleMountainsNoise(x * 3, z * 3)));
+				int lowerBound = height - (int) (22 * (-0.25 + this.sampleMountainsNoise(x * 3, z * 3)));
 
 				if (sqrDist > SHARDLANDS_ISLANDS_FADE_END) {
 					return lowerBound;
 				} else {
-					return (int) clampMap(sqrDist, SHARDLANDS_ISLANDS_START, SHARDLANDS_ISLANDS_FADE_END, 256, lowerBound);
+					return (int) clampMap(sqrDist, SHARDLANDS_ISLANDS_START, SHARDLANDS_ISLANDS_FADE_END, 200, lowerBound);
 				}
 			}
 		} else {
-			return (int) clampMap(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, AVG_FLOAT_HEIGHT);
+			return (int) clampMap(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, 200);
 		}
 	}
 
