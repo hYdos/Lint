@@ -108,18 +108,18 @@ public class HaykamTerrainGenerator implements TerrainData {
 		});
 
 		this.heightOperator = new LossyIntCache(512, (x, z) -> {
-			int dist = x * x + z * z;
+			int sqrDist = x * x + z * z;
 
-			if (dist < TERRAIN_CROB_DISTANCE) {
+			if (sqrDist < TERRAIN_CROB_DISTANCE) {
 				int baseHeight = this.sampleBaseHeight(x, z);
 				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
 				return height;
-			} else if (dist > SHARDLANDS_ISLANDS_START) {
+			} else if (sqrDist > SHARDLANDS_ISLANDS_START) {
 				return AVG_FLOAT_HEIGHT + (int) (18 * (1 + this.sampleHillsNoise(x * 1.3, z * 1.3)));
-			} else if (dist > SHARDLANDS_START) {
+			} else if (sqrDist > SHARDLANDS_START) {
 				return 0;
 			} else {
-				double progress = (double) dist / (double) (SHARDLANDS_START - TERRAIN_CROB_DISTANCE);
+				double progress = (double) (sqrDist - TERRAIN_CROB_DISTANCE) / (double) (SHARDLANDS_START - TERRAIN_CROB_DISTANCE);
 				int finalHeight = (int) ((AVG_FLOAT_HEIGHT) * progress);
 
 				int baseHeight = this.sampleBaseHeight(x, z);
