@@ -14,16 +14,16 @@
     "ServerChunkManagerMixin",
     "SoundEventAccessor",
     "SoundManagerMixin",
-    "StructurePoolsMixin",
-    "client.InGameHudMixin",
-    "client.LevelPropertiesMixin"
+    "StructurePoolsMixin"
   ],
   "client": [
     "client.ClientPlayNetworkHandlerMixin",
     "client.GameRendererMixin",
     "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",
-    "client.WorldRendererMixin"
+    "client.WorldRendererMixin",
+    "client.InGameHudMixin",
+    "client.LevelPropertiesMixin"
   ],
   "injectors": {
     "defaultRequire": 1

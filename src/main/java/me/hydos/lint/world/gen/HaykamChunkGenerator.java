@@ -213,7 +213,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 						configured.generate(region, this, random, pos);
 					} catch (Exception var22) {
 						CrashReport report = CrashReport.create(var22, "Feature placement");
-						report.addElement("Feature").add("Id", Registry.FEATURE.getId(configured.feature)).add("Config", configured.config).add("Description", configured.feature::toString);
+						report.addElement("Feature").add("Id", Registry.FEATURE.getId(configured.feature)).add("Config", configured.config).add("Description", () -> configured.feature.toString());
 						throw new CrashException(report);
 					}
 				} catch (ClassCastException ignored) {

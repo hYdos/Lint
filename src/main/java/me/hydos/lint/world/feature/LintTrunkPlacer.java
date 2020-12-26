@@ -46,7 +46,7 @@ public class LintTrunkPlacer extends TrunkPlacer {
     }
 
     protected static void setToDirt(ModifiableTestableWorld world, BlockPos pos) {
-        if (!canGenerate(world, pos)) {
+        if (canGenerate(world, pos)) {
             TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, Blocks.RICH_DIRT.getDefaultState());
         }
     }
