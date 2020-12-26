@@ -38,6 +38,10 @@
   "block.lint.basic_casting": "Basic Casting",
   "block.lint.cracked_basic_casting": "Cracked Basic Casting",
   "block.lint.indigo_stone": "Indigo Stone",
+  "block.lint.asphalt": "Asphalt",
+  "block.lint.ash": "Ash",
+  "block.lint.allos_infused_asphalt": "Allos Infused Asphalt",
+  "block.lint.manos_infused_asphalt": "Manos Infused Asphalt",
 
   "item.lint.oboe_disc": "Lint Music Disc",
   "item.lint.oboe_disc.desc": "Valoghese - Grimace",
