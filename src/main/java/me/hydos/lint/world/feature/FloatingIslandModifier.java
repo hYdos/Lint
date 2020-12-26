@@ -43,14 +43,12 @@ public class FloatingIslandModifier {
 				int z = zo + startZ;
 				int absz = MathHelper.abs(z);
 				int dist = absx * absx + absz * absz;
-				
+
 				if (dist > HaykamTerrainGenerator.SHARDLANDS_START) {
 					return false; // prevent unneccessary checks since it will all succeed second thing
-				} else if (dist > HaykamTerrainGenerator.SHARDLANDS_FADE_START) {
-					continue;
 				}
 
-				double floatingIsland = Voronoi.sampleFloating(x * 0.04, z * 0.04, this.seed, this.noise);
+				double floatingIsland = Voronoi.sampleFloating(x, z , this.seed, this.noise, 0.04);
 				double floatingNoise = noise.sample(x * 0.04 * 0.11, z * 0.04 * 0.11);
 				floatingIsland = smoothstep(floatingIsland);
 

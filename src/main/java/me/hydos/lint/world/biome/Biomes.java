@@ -5,6 +5,7 @@ import me.hydos.lint.block.Blocks;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.sound.Sounds;
+import me.hydos.lint.world.biome.surface.DawnShardlandsSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.OceanSurfaceBuilder;
 import me.hydos.lint.world.carver.LintConfiguredCarvers;
 import me.hydos.lint.world.feature.Features;
@@ -39,6 +40,7 @@ public class Biomes {
 	 */
 	public static final SurfaceBuilder<TernarySurfaceConfig> OCEAN_RAW_SB = new OceanSurfaceBuilder(Blocks.MYSTICAL_SAND.getDefaultState(), Blocks.WHITE_SAND.getDefaultState());
 	public static final SurfaceBuilder<TernarySurfaceConfig> CORRUPT_OCEAN_RAW_SB = new OceanSurfaceBuilder(Blocks.CORRUPT_SAND.getDefaultState(), Blocks.WHITE_SAND.getDefaultState());
+	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_RAW_SB = new DawnShardlandsSurfaceBuilder();
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(
@@ -62,6 +64,10 @@ public class Biomes {
 			new TernarySurfaceConfig(Blocks.INDIGO_STONE.getDefaultState(),
 					Blocks.INDIGO_STONE.getDefaultState(),
 					Blocks.INDIGO_STONE.getDefaultState()));
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DS_SB = DAWN_SHARDLANDS_RAW_SB.withConfig(
+			new TernarySurfaceConfig(Blocks.ASPHALT.getDefaultState(),
+					Blocks.ASPHALT.getDefaultState(),
+					Blocks.ASPHALT.getDefaultState()));
 
 	/**
 	 * Spawn Configurations
@@ -256,7 +262,7 @@ public class Biomes {
 					.build())
 			.spawnSettings(LINT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
-					.surfaceBuilder(MF_SB)
+					.surfaceBuilder(DS_SB)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					// TODO allos and manos shards (powerful crystals of the two forces that made the world) as "ores" that spawn hanging from the bottom of the floating islands
@@ -277,6 +283,8 @@ public class Biomes {
 	public static void register() {
 		Registry.register(Registry.SURFACE_BUILDER, Lint.id("ocean"), OCEAN_RAW_SB);
 		Registry.register(Registry.SURFACE_BUILDER, Lint.id("corrupt_ocean"), CORRUPT_OCEAN_RAW_SB);
+		Registry.register(Registry.SURFACE_BUILDER, Lint.id("dawn_shardlands"), DAWN_SHARDLANDS_RAW_SB);
+
 		Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_chunk_gen"), HaykamChunkGenerator.CODEC);
 
 		registerBiome(MYSTICAL_FOREST_KEY, MYSTICAL_FOREST);
