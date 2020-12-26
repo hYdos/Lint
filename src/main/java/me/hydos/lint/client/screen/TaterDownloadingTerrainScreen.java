@@ -2,7 +2,8 @@ package me.hydos.lint.client.screen;
 
 import java.util.Random;
 
-import me.hydos.lint.Lint;import net.fabricmc.api.EnvType;
+import me.hydos.lint.Lint;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
