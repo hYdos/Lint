@@ -18,6 +18,7 @@ import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.noise.OctaveSimplexNoiseSampler;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
@@ -143,9 +144,15 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 				region.getBiome(mutable.set(startX + xo, height, startZ + zo)).buildSurface(rand, chunk, x, z, height, noise,
 						Blocks.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(), region.getSeed());
+
 				// bedrock
-				mutable.setY(0);
-				chunk.setBlockState(mutable, Blocks.BEDROCK.getDefaultState(), false);
+				int absx = MathHelper.abs(x);
+				int absz = MathHelper.abs(z);
+
+				if (absx * absx + absz * absz < HaykamTerrainGenerator.SHARDLANDS_FADE_START) {
+					mutable.setY(0);
+					chunk.setBlockState(mutable, Blocks.BEDROCK.getDefaultState(), false);
+				}
 			}
 		}
 

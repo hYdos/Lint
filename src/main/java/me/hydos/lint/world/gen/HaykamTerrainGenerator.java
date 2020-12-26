@@ -153,7 +153,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 		x = MathHelper.abs(x);
 		z = MathHelper.abs(z);
 
-		if (x * x + z * z > 0.5 * (SHARDLANDS_FADE_START + SHARDLANDS_START)) {
+		if (x * x + z * z > TERRAIN_CROB_DISTANCE) {
 			return 0;
 		}
 
@@ -245,5 +245,6 @@ public class HaykamTerrainGenerator implements TerrainData {
 	public static final int SEA_LEVEL = 63;
 
 	public static final int SHARDLANDS_FADE_START = 2400 * 2400;
+	public static final int TERRAIN_CROB_DISTANCE = 2450 * 2450;
 	public static final int SHARDLANDS_START = 2500 * 2500;
 }
