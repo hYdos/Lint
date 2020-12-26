@@ -268,6 +268,6 @@ public class HaykamTerrainGenerator implements TerrainData {
 	public static final int SHARDLANDS_FADE_START = 2400 * 2400;
 	public static final int TERRAIN_CROB_DISTANCE = 2450 * 2450;
 	public static final int SHARDLANDS_START = 2500 * 2500;
-	public static final int SHARDLANDS_ISLANDS_START = 2580 * 2580;
-	public static final int SHARDLANDS_ISLANDS_FADE_END = 2600 * 2600;
+	public static final int SHARDLANDS_ISLANDS_START = 2550 * 2550;
+	public static final int SHARDLANDS_ISLANDS_FADE_END = 2590 * 2590;
 }
