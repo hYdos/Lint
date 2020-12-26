@@ -3,8 +3,8 @@ package me.hydos.lint.world.feature;
 import java.util.Random;
 
 import me.hydos.lint.block.Blocks;
-import me.hydos.lint.world.gen.OpenSimplexNoise;
 import me.hydos.lint.util.math.Voronoi;
+import me.hydos.lint.world.gen.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
@@ -24,12 +24,13 @@ public class FloatingIslandModifier {
 	private final OpenSimplexNoise noise;
 	private final int seed;
 
-	public void generate(StructureWorldAccess world, Random random, int startX, int startZ) {
+	public boolean generate(StructureWorldAccess world, Random random, int startX, int startZ) {
 		BlockPos.Mutable pos = new BlockPos.Mutable();
 		Chunk chunk = world.getChunk(new BlockPos(startX, 0, startZ));
 		Heightmap wsWG = chunk.getHeightmap(Heightmap.Type.WORLD_SURFACE_WG);
 		Heightmap ofWG = chunk.getHeightmap(Heightmap.Type.OCEAN_FLOOR_WG);
 		Heightmap mb = chunk.getHeightmap(Heightmap.Type.MOTION_BLOCKING);
+		boolean flag = false;
 
 		for (int xo = 0; xo < 16; ++xo) {
 			int x = xo + startX;
@@ -57,6 +58,7 @@ public class FloatingIslandModifier {
 					int iDepth = (int) depth;
 
 					if (iDepth < iHeight) {
+						flag = true;
 						Biome biome = world.getBiome(pos.up(64));// just in case 3d biomes in 1.17
 						SurfaceConfig surface = biome.getGenerationSettings().getSurfaceConfig();
 						BlockState filler = surface.getUnderMaterial();
@@ -80,6 +82,8 @@ public class FloatingIslandModifier {
 				}
 			}
 		}
+
+		return flag;
 	}
 
 	private static double smoothstep(double x) {

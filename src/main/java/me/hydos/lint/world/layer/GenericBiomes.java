@@ -9,32 +9,38 @@ import net.minecraft.world.biome.layer.type.InitLayer;
 import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
 
 public class GenericBiomes implements InitLayer {
-    @SuppressWarnings("rawtypes")
-    private static final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY};
+	@SuppressWarnings("rawtypes")
+	private final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY};
 
-    private final Registry<Biome> biomeRegistry;
+	private final Registry<Biome> biomeRegistry;
 
-    public GenericBiomes(Registry<Biome> biomeRegistry) {
-        this.biomeRegistry = biomeRegistry;
-    }
+	public GenericBiomes(Registry<Biome> biomeRegistry, boolean beach) {
+		this.biomeRegistry = biomeRegistry;
 
-    @Override
-    public int sample(LayerRandomnessSource randomPawn, int x, int y) {
-        RegistryKey key = biomes[randomPawn.nextInt(biomes.length)];
+		if (beach) {
+			for (int i = 0; i < this.biomes.length; ++i) {
+				this.biomes[i] = this.biomes[i] == Biomes.CORRUPT_FOREST_KEY ? Biomes.CORRUPT_BEACH_KEY : Biomes.OCEAN_KEY;
+			}
+		}
+	}
 
-        int absx = MathHelper.abs(x);
-        int absy = MathHelper.abs(y);
-        int absval = absx + absy;
+	@Override
+	public int sample(LayerRandomnessSource randomPawn, int x, int y) {
+		RegistryKey key = biomes[randomPawn.nextInt(biomes.length)];
 
-        if (absval < 2) {
-            key = Biomes.MYSTICAL_FOREST_KEY;
-        }
+		int absx = MathHelper.abs(x);
+		int absy = MathHelper.abs(y);
+		int absval = absx + absy;
 
-        return id(key);
-    }
+		if (absval < 2) {
+			key = Biomes.MYSTICAL_FOREST_KEY;
+		}
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    private int id(RegistryKey key) {
-        return biomeRegistry.getRawId(biomeRegistry.get(key));
-    }
+		return id(key);
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private int id(RegistryKey key) {
+		return biomeRegistry.getRawId(biomeRegistry.get(key));
+	}
 }

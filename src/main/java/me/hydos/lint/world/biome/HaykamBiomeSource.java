@@ -34,9 +34,11 @@ public class HaykamBiomeSource extends BiomeSource {
 
 	private final GenericBiomes genericBiomes;
 	private final MountainBiomes mountainBiomes;
+	private final GenericBiomes beachBiomes;
 
 	private final BiomeLayerSampler genericSampler;
 	private final BiomeLayerSampler mountainSampler;
+	private final BiomeLayerSampler beachSampler;
 
 	private TerrainData data;
 
@@ -45,11 +47,14 @@ public class HaykamBiomeSource extends BiomeSource {
 		this.seed = seed;
 		this.biomeRegistry = biomeRegistry;
 
-		this.genericBiomes = new GenericBiomes(biomeRegistry);
+		this.genericBiomes = new GenericBiomes(biomeRegistry, false);
 		this.genericSampler = createBiomeLayerSampler(this.genericBiomes, seed);
 
 		this.mountainBiomes = new MountainBiomes(biomeRegistry);
 		this.mountainSampler = createBiomeLayerSampler(this.mountainBiomes, seed);
+
+		this.beachBiomes = new GenericBiomes(biomeRegistry, true);
+		this.beachSampler = createBiomeLayerSampler(this.beachBiomes, seed);
 	}
 
 	public void setTerrainData(TerrainData data) {
@@ -75,13 +80,18 @@ public class HaykamBiomeSource extends BiomeSource {
 		int x = (biomeX << 2);
 		int z = (biomeZ << 2);
 		double baseHeight = this.data.sampleBaseHeight(x, z);
+		final int limit = HaykamTerrainGenerator.SEA_LEVEL + 2;
 
-		if (baseHeight < HaykamTerrainGenerator.SEA_LEVEL + 2) {
+		if (baseHeight < limit) {
 			for (GridDirection direction : GridDirection.values()) {
 				baseHeight = this.data.sampleBaseHeight(x + direction.xOff * 32, z + direction.zOff * 32);
 
-				if (baseHeight < HaykamTerrainGenerator.SEA_LEVEL + 2) {
-					return this.biomeRegistry.getOrThrow(Biomes.OCEAN_KEY);
+				if (baseHeight < limit) {
+					if (baseHeight > HaykamTerrainGenerator.SEA_LEVEL - 2) {
+						return this.beachSampler.sample(this.biomeRegistry, biomeX, biomeZ);
+					} else {
+						return this.biomeRegistry.getOrThrow(Biomes.OCEAN_KEY);
+					}
 				}
 			}
 		}

@@ -4,6 +4,7 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.block.Blocks;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.sound.Sounds;
+import me.hydos.lint.world.biome.surface.OceanSurfaceBuilder;
 import me.hydos.lint.world.carver.LintConfiguredCarvers;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.gen.HaykamChunkGenerator;
@@ -35,12 +36,24 @@ public class Biomes {
 	/**
 	 * Biome Surface Builders
 	 */
+	public static final SurfaceBuilder<TernarySurfaceConfig> OCEAN_RAW_SB = new OceanSurfaceBuilder(Blocks.MYSTICAL_SAND.getDefaultState(), Blocks.WHITE_SAND.getDefaultState());
+	public static final SurfaceBuilder<TernarySurfaceConfig> CORRUPT_OCEAN_RAW_SB = new OceanSurfaceBuilder(Blocks.CORRUPT_SAND.getDefaultState(), Blocks.WHITE_SAND.getDefaultState());
+
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(
 					Blocks.LIVELY_GRASS.getDefaultState(),
 					Blocks.RICH_DIRT.getDefaultState(),
 					Blocks.RICH_DIRT.getDefaultState()));
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CF_SB = SurfaceBuilder.DEFAULT.withConfig(
+			new TernarySurfaceConfig(Blocks.CORRUPT_GRASS.getDefaultState(),
+					Blocks.RICH_DIRT.getDefaultState(),
+					Blocks.RICH_DIRT.getDefaultState()));
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OC_SB = OCEAN_RAW_SB.withConfig(
+			new TernarySurfaceConfig(
+					Blocks.LIVELY_GRASS.getDefaultState(),
+					Blocks.RICH_DIRT.getDefaultState(),
+					Blocks.RICH_DIRT.getDefaultState()));
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CB_SB = CORRUPT_OCEAN_RAW_SB.withConfig(
 			new TernarySurfaceConfig(Blocks.CORRUPT_GRASS.getDefaultState(),
 					Blocks.RICH_DIRT.getDefaultState(),
 					Blocks.RICH_DIRT.getDefaultState()));
@@ -138,7 +151,33 @@ public class Biomes {
 					.build())
 			.spawnSettings(LINT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
-					.surfaceBuilder(MF_SB)
+					.surfaceBuilder(OC_SB)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
+					.build())
+			.build();
+
+	public static final Biome CORRUPT_BEACH = new Biome.Builder()
+			.precipitation(Biome.Precipitation.NONE)
+			.category(Biome.Category.BEACH)
+			.depth(-0.5f)
+			.scale(1)
+			.temperature(0.8f)
+			.downfall(0)
+			.effects(new BiomeEffects.Builder()
+					.waterColor(0)
+					.waterColor(0x4faad1)
+					.waterFogColor(0x4faad1)
+					.fogColor(CORRUPT_FOG_COLOUR)
+					.loopSound(Sounds.CORRUPT_FOREST)
+					.skyColor(0x9c76c1)
+					.build())
+			.spawnSettings(LINT_SPAWN_SETTINGS.build())
+			.generationSettings(new GenerationSettings.Builder()
+					.surfaceBuilder(CB_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
@@ -148,29 +187,29 @@ public class Biomes {
 			.build();
 
 	public static final Biome INDIGO_RIDGES = new Biome.Builder()
-            .precipitation(Biome.Precipitation.NONE)
-            .category(Biome.Category.EXTREME_HILLS)
-            .depth(1.5f)
-            .scale(0.5f)
-            .temperature(0.6f)
-            .downfall(1)
-            .effects(new BiomeEffects.Builder()
-                    .waterColor(0x3f76e4)
-                    .waterFogColor(0x050533)
-                    .fogColor(0xc0d8ff)
-                    .skyColor(0x77adff)
-                    .build()
-            )
-            .spawnSettings(LINT_SPAWN_SETTINGS.build())
-            .generationSettings(new GenerationSettings.Builder()
-                    .surfaceBuilder(IN_SB)
-                    .carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
-                    .feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
-                    .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
-                    .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
-                    .feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
-                    .build())
-            .build();
+			.precipitation(Biome.Precipitation.NONE)
+			.category(Biome.Category.EXTREME_HILLS)
+			.depth(1.5f)
+			.scale(0.5f)
+			.temperature(0.6f)
+			.downfall(1)
+			.effects(new BiomeEffects.Builder()
+					.waterColor(0x3f76e4)
+					.waterFogColor(0x050533)
+					.fogColor(0xc0d8ff)
+					.skyColor(0x77adff)
+					.build()
+					)
+			.spawnSettings(LINT_SPAWN_SETTINGS.build())
+			.generationSettings(new GenerationSettings.Builder()
+					.surfaceBuilder(IN_SB)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.build())
+			.build();
 
 	/**
 	 * Biome Keys
@@ -178,14 +217,18 @@ public class Biomes {
 	public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
 	public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
 	public static final RegistryKey<Biome> OCEAN_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ocean"));
+	public static final RegistryKey<Biome> CORRUPT_BEACH_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_beach"));
 	public static final RegistryKey<Biome> INDIGO_RIDGES_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("indigo_ridges"));
 
 	public static void register() {
+		Registry.register(Registry.SURFACE_BUILDER, Lint.id("ocean"), OCEAN_RAW_SB);
+		Registry.register(Registry.SURFACE_BUILDER, Lint.id("corrupt_ocean"), CORRUPT_OCEAN_RAW_SB);
 		Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_chunk_gen"), HaykamChunkGenerator.CODEC);
 
 		registerBiome(MYSTICAL_FOREST_KEY, MYSTICAL_FOREST);
 		registerBiome(CORRUPT_FOREST_KEY, CORRUPT_FOREST);
 		registerBiome(OCEAN_KEY, OCEAN);
+		registerBiome(CORRUPT_BEACH_KEY, CORRUPT_BEACH);
 		registerBiome(INDIGO_RIDGES_KEY, INDIGO_RIDGES);
 	}
 
