@@ -20,7 +20,7 @@ public class DawnShardlandsSurfaceBuilder extends SurfaceBuilder<TernarySurfaceC
 
 		if (noise > 2.3f && noise < 3.0f) {
 			SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, ALLOS_CONFIG);
-		} else if (noise < -3.0f && noise > -2.3f) {
+		} else if (noise < -2.3f && noise > -3.0f) {
 			SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, MANOS_CONFIG);
 		} else {
 			SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, surfaceBlocks);
