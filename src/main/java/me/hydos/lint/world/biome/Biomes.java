@@ -267,7 +267,7 @@ public class Biomes {
 					.loopSound(Sounds.DAWN_SHARDLANDS)
 					.skyColor(0xffd30f)
 					.build())
-			.spawnSettings(LINT_SPAWN_SETTINGS.build())
+			.spawnSettings(new SpawnSettings.Builder().build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(DS_SB)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
