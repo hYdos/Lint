@@ -9,11 +9,7 @@ public class LossyDoubleCache implements DoubleGridOperator {
 		int arrSize = 1; // 2^n = 2 * (2^(n-1))
 		int nextArrSize;
 
-		while (true) {
-			if ((nextArrSize = (arrSize << 1)) > size) {
-				break;
-			}
-
+		while ((nextArrSize = (arrSize << 1)) <= size) {
 			arrSize = nextArrSize;
 		}
 

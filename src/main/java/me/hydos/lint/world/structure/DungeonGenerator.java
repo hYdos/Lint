@@ -2,7 +2,8 @@ package me.hydos.lint.world.structure;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
-import me.hydos.lint.Lint;import net.minecraft.structure.pool.StructurePool;
+import me.hydos.lint.Lint;
+import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePools;
 import net.minecraft.structure.processor.StructureProcessorLists;
 import net.minecraft.util.Identifier;

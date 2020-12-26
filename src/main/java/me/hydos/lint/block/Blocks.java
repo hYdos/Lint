@@ -1,22 +1,11 @@
 package me.hydos.lint.block;
 
-import java.util.HashMap;
-
 import me.hydos.lint.Lint;
 import me.hydos.lint.fluid.Fluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
@@ -25,6 +14,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+
+import java.util.HashMap;
 
 public final class Blocks {
 

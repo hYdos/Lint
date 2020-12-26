@@ -1,7 +1,5 @@
 package me.hydos.lint.world.gen;
 
-import java.util.Random;
-
 import me.hydos.lint.util.LossyDoubleCache;
 import me.hydos.lint.util.LossyIntCache;
 import me.hydos.lint.util.math.DoubleGridOperator;
@@ -9,6 +7,8 @@ import me.hydos.lint.util.math.IntGridOperator;
 import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.biome.TerrainData;
 import net.minecraft.util.math.MathHelper;
+
+import java.util.Random;
 
 public class HaykamTerrainGenerator implements TerrainData {
 	private final int seed;
@@ -153,7 +153,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 			int heightMod = (int) (28 * Voronoi.sampleTerrace(x * 0.034, z * 0.034, this.seed, (sx, sz) -> {
 				double cliffsNoise = 1 + this.cliffsNoise.sample(sx, sz);
 				double limiter = Math.max(0, terraceRescaleConstant * (this.terrainDeterminerNoise.sample(sx * 0.23, sz * 0.23) - 0.48));
-				limiter = limiter < 0.2 ? 0.2 : limiter;
+				limiter = Math.max(limiter, 0.2);
 				return limiter * cliffsNoise;
 			}, 0.3));
 			heightMod = 3 * (heightMod / 3);
@@ -253,11 +253,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 		if (value > newmax) {
 			return newmax;
-		} else if (value < newmin) {
-			return newmin;
-		} else {
-			return value;
-		}
+		} else return Math.max(value, newmin);
 	}
 
 	private static final int AVG_HEIGHT = 65;

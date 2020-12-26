@@ -1,13 +1,13 @@
 package me.hydos.lint.world.biome.surface;
 
-import java.util.Random;
-
 import me.hydos.lint.block.Blocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
+
+import java.util.Random;
 
 public class DawnShardlandsSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
 	public DawnShardlandsSurfaceBuilder() {

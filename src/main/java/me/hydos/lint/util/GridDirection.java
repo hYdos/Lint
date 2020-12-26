@@ -6,7 +6,7 @@ public enum GridDirection {
 	DOWN(2, 0, -1, false),
 	LEFT(3, -1, 0, true);
 
-	private GridDirection(int id, int xOff, int zOff, boolean horizontal) {
+	GridDirection(int id, int xOff, int zOff, boolean horizontal) {
 		this.id = id;
 		this.xOff = xOff;
 		this.zOff = zOff;

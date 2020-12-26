@@ -1,14 +1,8 @@
 package me.hydos.lint.world.carver;
 
-import java.util.BitSet;
-import java.util.Random;
-import java.util.function.Function;
-
-import org.apache.commons.lang3.mutable.MutableBoolean;
-
 import com.mojang.serialization.Codec;
-
-import me.hydos.lint.Lint;import me.hydos.lint.block.Blocks;
+import me.hydos.lint.Lint;
+import me.hydos.lint.block.Blocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
@@ -19,6 +13,11 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.carver.Carver;
 import net.minecraft.world.gen.carver.CaveCarver;
+import org.apache.commons.lang3.mutable.MutableBoolean;
+
+import java.util.BitSet;
+import java.util.Random;
+import java.util.function.Function;
 
 public class LintCaveCarver extends CaveCarver {
 	public LintCaveCarver(Codec<ProbabilityConfig> codec, int i) {

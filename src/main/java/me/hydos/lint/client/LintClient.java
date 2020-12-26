@@ -1,14 +1,14 @@
 package me.hydos.lint.client;
 
+import me.hydos.lint.Lint;
 import me.hydos.lint.block.Blocks;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.render.*;
 import me.hydos.lint.client.particle.ClientParticles;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
-import me.hydos.lint.network.ClientNetworking;
-import me.hydos.lint.Lint;
 import me.hydos.lint.fluid.Fluids;
+import me.hydos.lint.network.ClientNetworking;
 import me.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.screenhandler.client.LilTaterContainerScreen;

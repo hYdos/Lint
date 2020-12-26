@@ -1,19 +1,15 @@
 package me.hydos.lint.util;
 
-import java.util.Arrays;
-
 import me.hydos.lint.util.math.IntGridOperator;
+
+import java.util.Arrays;
 
 public class LossyIntCache implements IntGridOperator {
 	public LossyIntCache(int size, IntGridOperator operator) {
 		int arrSize = 1; // 2^n = 2 * (2^(n-1))
 		int nextArrSize;
 
-		while (true) {
-			if ((nextArrSize = (arrSize << 1)) > size) {
-				break;
-			}
-
+		while ((nextArrSize = (arrSize << 1)) <= size) {
 			arrSize = nextArrSize;
 		}
 

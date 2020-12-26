@@ -1,7 +1,7 @@
 package me.hydos.lint.screenhandler.client;
 
-import me.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
+import me.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.render.VertexConsumerProvider;

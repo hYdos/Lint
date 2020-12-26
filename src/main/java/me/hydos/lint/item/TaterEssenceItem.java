@@ -1,7 +1,7 @@
 package me.hydos.lint.item;
 
-import me.hydos.lint.block.ReturnHomeBlock;
 import me.hydos.lint.block.Blocks;
+import me.hydos.lint.block.ReturnHomeBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
