@@ -17,6 +17,7 @@
     "client.ModelLoaderMixin"
   ],
   "client": [
+    "client.BiomeEffectSoundPlayerMixin",
     "client.ClientPlayNetworkHandlerMixin",
     "client.GameRendererMixin",
     "client.InGameHudMixin",
