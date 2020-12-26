@@ -10,6 +10,7 @@ import me.hydos.lint.util.GridDirection;
 import me.hydos.lint.world.gen.HaykamTerrainGenerator;
 import me.hydos.lint.world.layer.GenericBiomes;
 import me.hydos.lint.world.layer.MountainBiomes;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
@@ -79,8 +80,15 @@ public class HaykamBiomeSource extends BiomeSource {
 	public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
 		int x = (biomeX << 2);
 		int z = (biomeZ << 2);
+		int absx = MathHelper.abs(x);
+		int absz = MathHelper.abs(z);
+		int dist = absx * absx + absz * absz;
 		double baseHeight = this.data.sampleBaseHeight(x, z);
 		final int limit = HaykamTerrainGenerator.SEA_LEVEL + 2;
+
+		if (dist > HaykamTerrainGenerator.TERRAIN_CROB_DISTANCE) {
+			return this.biomeRegistry.getOrThrow(Biomes.DAWN_SHARDLANDS_KEY);
+		}
 
 		if (baseHeight < limit) {
 			/*for (GridDirection direction : GridDirection.values()) {

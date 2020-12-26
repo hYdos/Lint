@@ -39,7 +39,7 @@ public class Items {
 	 * Music Discs
 	 */
 	public static final Item SUSPICOUS_LOOKING_DISC = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
-	public static final Item OBOE_DISC = new MusicDiscItem(14, Sounds.OBOE, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
+	public static final Item OBOE_DISC = new MusicDiscItem(14, Sounds.GRIMACE, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
 	public static final Item OCEAN_DISC = new MusicDiscItem(15, Sounds.OCEAN, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
 	public static final Item MYSTICAL_FOREST_DISC = new MusicDiscItem(16, Sounds.MYSTICAL_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
 	public static final Item CORRUPT_FOREST_DISC = new MusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
