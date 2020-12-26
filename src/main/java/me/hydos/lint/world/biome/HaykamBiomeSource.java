@@ -83,17 +83,17 @@ public class HaykamBiomeSource extends BiomeSource {
 		final int limit = HaykamTerrainGenerator.SEA_LEVEL + 2;
 
 		if (baseHeight < limit) {
-			for (GridDirection direction : GridDirection.values()) {
+			/*for (GridDirection direction : GridDirection.values()) {
 				baseHeight = this.data.sampleBaseHeight(x + direction.xOff * 32, z + direction.zOff * 32);
 
-				if (baseHeight < limit) {
-					if (baseHeight > HaykamTerrainGenerator.SEA_LEVEL - 2) {
-						return this.beachSampler.sample(this.biomeRegistry, biomeX, biomeZ);
-					} else {
-						return this.biomeRegistry.getOrThrow(Biomes.OCEAN_KEY);
-					}
-				}
+				if (baseHeight < limit) {*/
+			if (baseHeight > HaykamTerrainGenerator.SEA_LEVEL - 2) {
+				return this.beachSampler.sample(this.biomeRegistry, biomeX, biomeZ);
+			} else {
+				return this.biomeRegistry.getOrThrow(Biomes.OCEAN_KEY);
 			}
+			/*}
+			}*/
 		}
 
 		double scale = this.data.sampleTerrainScale(x, z);
