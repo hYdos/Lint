@@ -25,11 +25,11 @@ public class HaykamiumPortalBlock extends Block {
 			if (haykamWorld == null) {
 				return;
 			}
-			TeleportUtils.teleport(((LivingEntity) entity), haykamWorld, new BlockPos(0, 80, 0));
 			if (entity instanceof ServerPlayerEntity) {
 				ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) entity;
 				serverPlayerEntity.networkHandler.sendPacket(new StopSoundS2CPacket());
 			}
+			TeleportUtils.teleport(((LivingEntity) entity), haykamWorld, new BlockPos(0, 80, 0));
 		}
 	}
 }

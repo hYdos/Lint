@@ -120,23 +120,13 @@ public class HaykamTerrainGenerator implements TerrainData {
 				return 0;
 			} else {
 				double prog = (double) dist / (double) (SHARDLANDS_START - TERRAIN_CROB_DISTANCE);
-				int finalHeight = (int) ((AVG_FLOAT_HEIGHT) * flop(prog));
+				int finalHeight = (int) ((AVG_FLOAT_HEIGHT) * prog);
 
-				if (prog > 0.5) { // drop
-					return finalHeight;
-				} else { // rise
-					prog = 2 * prog;
-					int baseHeight = this.sampleBaseHeight(x, z);
-					int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
-					return (int) MathHelper.lerp(prog, height, finalHeight);
-				}
+				int baseHeight = this.sampleBaseHeight(x, z);
+				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+				return (int) MathHelper.lerp(prog, height, finalHeight);
 			}
 		});
-	}
-
-	private static double flop(double progress) {
-		double val = progress - 0.5;
-		return -4 * val * val + 1;
 	}
 
 	public int getHeight(int x, int z) {
