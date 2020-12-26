@@ -117,7 +117,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
 				return height;
 			} else if (dist > SHARDLANDS_ISLANDS_START) {
-				return AVG_FLOAT_HEIGHT + (int) (5 * this.sampleHillsNoise(x, z));
+				return AVG_FLOAT_HEIGHT + (int) (7 * (1 + this.sampleHillsNoise(x, z)));
 			} else if (dist > SHARDLANDS_START) {
 				return 0;
 			} else {
@@ -245,7 +245,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 			if (sqrDist < SHARDLANDS_ISLANDS_START) {
 				return 256;
 			} else {
-				int lowerBound = height - (int) (22 * (0.12 + this.sampleMountainsNoise(x, z)));
+				int lowerBound = height - (int) (22 * (0.21 + this.sampleMountainsNoise(x * 3, z * 3)));
 
 				if (sqrDist > SHARDLANDS_ISLANDS_FADE_END) {
 					return lowerBound;
@@ -254,7 +254,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 				}
 			}
 		} else {
-			return (int) clampMap(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, 256);
+			return (int) clampMap(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, AVG_FLOAT_HEIGHT);
 		}
 	}
 
