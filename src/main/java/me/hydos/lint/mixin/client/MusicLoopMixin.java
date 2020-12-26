@@ -12,23 +12,17 @@ import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 public class MusicLoopMixin {
 	@Inject(
 			at = @At(value = "HEAD"),
-			method = "fadeIn")
+			method = "fadeIn",
+			cancellable = true)
 	private void onFadeIn(CallbackInfo info) {
-		if (SoundShitCache.prev.isPresent() && SoundShitCache.next.isPresent()) {
-			if (SoundShitCache.prev.get() == SoundShitCache.next.get()) {
-				info.cancel();
-			}
-		}
+		SoundShitCache.checkFade(info);
 	}
 
 	@Inject(
 			at = @At(value = "HEAD"),
-			method = "fadeOut")
+			method = "fadeOut",
+			cancellable = true)
 	private void onFadeOut(CallbackInfo info) {
-		if (SoundShitCache.prev.isPresent() && SoundShitCache.next.isPresent()) {
-			if (SoundShitCache.prev.get() == SoundShitCache.next.get()) {
-				info.cancel();
-			}
-		}
+		SoundShitCache.checkFade(info);
 	}
 }

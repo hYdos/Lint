@@ -10,8 +10,6 @@ import me.hydos.lint.mixinimpl.SoundShitCache;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.world.biome.Biome;
 
-// How not to write a mixin
-// Illustrated tutorial
 @Mixin(BiomeEffectSoundPlayer.class)
 public class BiomeEffectSoundPlayerMixin {
 	@Shadow
