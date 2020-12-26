@@ -142,10 +142,12 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 				region.getBiome(mutable.set(startX + xo, height, startZ + zo)).buildSurface(rand, chunk, x, z, height, noise,
 						Blocks.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(), region.getSeed());
+				// bedrock
+				mutable.setY(0);
+				chunk.setBlockState(mutable, Blocks.BEDROCK.getDefaultState(), false);
 			}
 		}
 
-		// TODO bedrock
 	}
 
 	@Override
