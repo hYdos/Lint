@@ -35,6 +35,11 @@ public class Sounds {
 	public static final SoundEvent ADVANCEMENT = new SoundEvent(Lint.id("player.advancement"));
 
 	/**
+	 * Entity Sounds
+	 */
+	public static final SoundEvent EASTERN_ROSELLA_IDLE = new SoundEvent(Lint.id("eastern_rosella.idle"));
+
+	/**
 	 * Boss Music Loops
 	 */
 	public static final MusicSound KING_TATER_LOOP = MusicType.createIngameMusic(KING_TATER);
@@ -47,6 +52,11 @@ public class Sounds {
 		register(LEX_MANOS);
 		register(MYSTICAL_FOREST);
 		register(CORRUPT_FOREST);
+		register(OCEAN);
+
+		register(ADVANCEMENT);
+
+		register(EASTERN_ROSELLA_IDLE);
 	}
 
 	private static void register(SoundEvent event) {

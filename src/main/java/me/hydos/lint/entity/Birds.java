@@ -26,6 +26,6 @@ public class Birds {
 			"Valoghese was here");
 
 	public static void register() {
-		FabricDefaultAttributeRegistry.register(EASTERN_ROSELLA, EasternRosellaEntity.createMobAttributes());
+		FabricDefaultAttributeRegistry.register(EASTERN_ROSELLA, EasternRosellaEntity.createBirdAttributes());
 	}
 }

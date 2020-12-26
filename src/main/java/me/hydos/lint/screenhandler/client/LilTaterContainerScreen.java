@@ -63,19 +63,16 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
     }
 
     public void renderBackground(MatrixStack matrix) {
-//        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        assert this.client != null;
+        matrix.push();
         this.client.getTextureManager().bindTexture(backgroundIdentifier);
-        drawTexture(matrix, x, y - 20, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);
-        assert this.client.player != null;
+        drawTexture(matrix, x, y - 32, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);
 
         TinyPotatoEntity tater = (TinyPotatoEntity) Objects.requireNonNull(this.client.world).getEntityById(container.taterId);
-
         if (tater == null) {
             onClose();
             return;
         }
-
         drawTater(matrix, x + 51, y + 20, 60, tater);
+        matrix.pop();
     }
 }
