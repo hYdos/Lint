@@ -115,7 +115,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
 				return height;
 			} else if (dist > SHARDLANDS_ISLANDS_START) {
-				return AVG_FLOAT_HEIGHT + (int) (12 * (1 + this.sampleHillsNoise(x, z)));
+				return AVG_FLOAT_HEIGHT + (int) (18 * (1 + this.sampleHillsNoise(x, z)));
 			} else if (dist > SHARDLANDS_START) {
 				return 0;
 			} else {

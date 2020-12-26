@@ -271,7 +271,6 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(DS_SB)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
-					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					// TODO allos and manos shards (powerful crystals of the two forces that made the world) as "ores" that spawn hanging from the bottom of the floating islands
 					.build())
 			.build();
