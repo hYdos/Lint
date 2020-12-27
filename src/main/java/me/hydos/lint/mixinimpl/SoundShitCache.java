@@ -19,11 +19,10 @@
 
 package me.hydos.lint.mixinimpl;
 
-import java.util.Optional;
-
+import net.minecraft.sound.SoundEvent;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.sound.SoundEvent;
+import java.util.Optional;
 
 public class SoundShitCache {
 	public static Optional<SoundEvent> prev = Optional.empty();

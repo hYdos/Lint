@@ -42,51 +42,40 @@
   "block.lint.ash": "Ash",
   "block.lint.allos_infused_asphalt": "Allos Infused Asphalt",
   "block.lint.manos_infused_asphalt": "Manos Infused Asphalt",
-
   "item.lint.oboe_disc": "Lint Music Disc",
   "item.lint.oboe_disc.desc": "Valoghese - Grimace",
-
   "item.lint.mystical_forest_disc": "Lint Music Disc",
   "item.lint.mystical_forest_disc.desc": "Valoghese - Mystical Forest",
-
   "item.lint.corrupt_forest_disc": "Lint Music Disc",
   "item.lint.corrupt_forest_disc.desc": "Valoghese - Corrupt Forest",
-
   "item.lint.ocean_disc": "Lint Music Disc",
   "item.lint.ocean_disc.desc": "Valoghese - Ocean",
-
   "item.lint.tater_essence": "Tater Essence",
   "item.lint.tarscan_shard": "Tarscan Shard",
   "item.lint.sicieron_ingot": "Sicieron Ingot",
   "item.lint.jurel_powder": "Jurel Powder",
-
   "item.lint.sicieron_helmet": "Sicieron Helmet",
   "item.lint.sicieron_chestplate": "Sicieron Chestplate",
   "item.lint.sicieron_leggings": "Sicieron Leggings",
   "item.lint.sicieron_boots": "Sicieron Boots",
-
   "item.lint.sicieron_sword": "Sicieron Sword",
   "item.lint.sicieron_axe": "Sicieron Axe",
   "item.lint.sicieron_pickaxe": "Sicieron Pickaxe",
   "item.lint.sicieron_shovel": "Sicieron Shovel",
   "item.lint.sicieron_hoe": "Sicieron Hoe",
-
   "itemGroup.lint.lint_blocks": "Lint Blocks",
   "itemGroup.lint.lint_decorations": "Lint Decorations",
   "itemGroup.lint.lint_tools": "Lint Tools",
   "itemGroup.lint.lint_items": "Lint Items",
-
   "biome.lint.mystical_forest": "Mystical Forest",
   "biome.lint.corrupt_forest": "Corrupt Forest",
   "biome.lint.ocean": "Ocean",
   "biome.lint.indigo_ridges": "Indigo Ridges",
   "biome.lint.thick_mystical_forest": "Thick Mystical Forest",
   "biome.lint.dawn_shardlands": "Dawn Shardlands",
-
   "entity.lint.tiny_potato": "Tiny Potato",
   "entity.lint.king_tater": "King Tater",
   "entity.lint.minion": "Lil Tater Minion",
-
   "advancements.enter_lint.title": "Tiny Potato",
   "advancements.enter_lint.description": "More beautiful than the aether"
 }

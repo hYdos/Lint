@@ -1,164 +1,308 @@
 {
-	"format_version": "1.8.0",
-	"animations": {
-		"animation.eastern_rosella.idle": {
-			"loop": true,
-			"animation_length": 7.255,
-			"bones": {
-				"head": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.2": {
-							"vector": [0, 0, 5],
-							"easing": "easeInQuad"
-						},
-						"0.96": {
-							"vector": [0, 0, 5],
-							"easing": "easeInQuad"
-						},
-						"1.12": {
-							"vector": [0, 0, -2.5],
-							"easing": "easeInQuad"
-						},
-						"1.2": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"leftWing": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"2.68": {
-							"vector": [0, 0, 0]
-						},
-						"2.84": {
-							"vector": [2.5, -7.5, -12.5]
-						},
-						"3.08": {
-							"vector": [2.5, -7.5, -12.5]
-						},
-						"3.2": {
-							"vector": [0, 0, 0]
-						}
-					},
-					"position": {
-						"vector": [0.3, 0.2, -0.1]
-					}
-				},
-				"rightWing": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.44": {
-							"vector": [0, 17.5, 22.5]
-						},
-						"1.0": {
-							"vector": [0, 17.5, 22.5]
-						},
-						"1.2": {
-							"vector": [0, 0, 0]
-						}
-					},
-					"position": {
-						"0.0": {
-							"vector": [-0.3, 0.1, -0.2]
-						},
-						"0.44": {
-							"vector": [-0.9, 0, -0.2]
-						},
-						"1.0": {
-							"vector": [-0.9, 0, -0.2]
-						},
-						"1.2": {
-							"vector": [-0.3, 0.1, -0.2]
-						}
-					}
-				}
-			}
-		},
-		"animation.eastern_rosella.fly": {
-			"loop": true,
-			"animation_length": 0.4,
-			"bones": {
-				"body": {
-					"rotation": {
-						"vector": [38.5, 0, 0]
-					},
-					"position": {
-						"vector": [0, 1, 4]
-					}
-				},
-				"head": {
-					"rotation": {
-						"vector": [-35, 0, 0]
-					},
-					"position": {
-						"vector": [0, 1, 0.4]
-					}
-				},
-				"leftWing": {
-					"rotation": {
-						"0.0": {
-							"vector": [37.5, -47.5, -90]
-						},
-						"0.24": {
-							"vector": [32.5, -50, -72.5],
-							"easing": "easeInSine"
-						},
-						"0.4": {
-							"vector": [50, -47.5, -105]
-						}
-					},
-					"position": {
-						"0.0": {
-							"vector": [1, 0, 0]
-						},
-						"0.24": {
-							"vector": [1, 0, 0],
-							"easing": "easeInSine"
-						},
-						"0.4": {
-							"vector": [1, 0, 0]
-						}
-					}
-				},
-				"rightWing": {
-					"rotation": {
-						"0.0": {
-							"vector": [37.5, -47.5, -90]
-						},
-						"0.24": {
-							"vector": [57.5, -45, -120],
-							"easing": "easeInSine"
-						},
-						"0.4": {
-							"vector": [25, -47.5, -70]
-						}
-					},
-					"position": {
-						"0.0": {
-							"vector": [-1, 0, 0]
-						},
-						"0.4": {
-							"vector": [-1, 0, 0]
-						}
-					}
-				},
-				"tail": {
-					"rotation": {
-						"vector": [-30, 0, 0]
-					},
-					"position": {
-						"vector": [0, -1, -1]
-					}
-				}
-			}
-		}
-	},
-	"geckolib_format_version": 2
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.eastern_rosella.idle": {
+      "loop": true,
+      "animation_length": 7.255,
+      "bones": {
+        "head": {
+          "rotation": {
+            "0.0": {
+              "vector": [
+                0,
+                0,
+                0
+              ]
+            },
+            "0.2": {
+              "vector": [
+                0,
+                0,
+                5
+              ],
+              "easing": "easeInQuad"
+            },
+            "0.96": {
+              "vector": [
+                0,
+                0,
+                5
+              ],
+              "easing": "easeInQuad"
+            },
+            "1.12": {
+              "vector": [
+                0,
+                0,
+                -2.5
+              ],
+              "easing": "easeInQuad"
+            },
+            "1.2": {
+              "vector": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        "leftWing": {
+          "rotation": {
+            "0.0": {
+              "vector": [
+                0,
+                0,
+                0
+              ]
+            },
+            "2.68": {
+              "vector": [
+                0,
+                0,
+                0
+              ]
+            },
+            "2.84": {
+              "vector": [
+                2.5,
+                -7.5,
+                -12.5
+              ]
+            },
+            "3.08": {
+              "vector": [
+                2.5,
+                -7.5,
+                -12.5
+              ]
+            },
+            "3.2": {
+              "vector": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          "position": {
+            "vector": [
+              0.3,
+              0.2,
+              -0.1
+            ]
+          }
+        },
+        "rightWing": {
+          "rotation": {
+            "0.0": {
+              "vector": [
+                0,
+                0,
+                0
+              ]
+            },
+            "0.44": {
+              "vector": [
+                0,
+                17.5,
+                22.5
+              ]
+            },
+            "1.0": {
+              "vector": [
+                0,
+                17.5,
+                22.5
+              ]
+            },
+            "1.2": {
+              "vector": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          "position": {
+            "0.0": {
+              "vector": [
+                -0.3,
+                0.1,
+                -0.2
+              ]
+            },
+            "0.44": {
+              "vector": [
+                -0.9,
+                0,
+                -0.2
+              ]
+            },
+            "1.0": {
+              "vector": [
+                -0.9,
+                0,
+                -0.2
+              ]
+            },
+            "1.2": {
+              "vector": [
+                -0.3,
+                0.1,
+                -0.2
+              ]
+            }
+          }
+        }
+      }
+    },
+    "animation.eastern_rosella.fly": {
+      "loop": true,
+      "animation_length": 0.4,
+      "bones": {
+        "body": {
+          "rotation": {
+            "vector": [
+              38.5,
+              0,
+              0
+            ]
+          },
+          "position": {
+            "vector": [
+              0,
+              1,
+              4
+            ]
+          }
+        },
+        "head": {
+          "rotation": {
+            "vector": [
+              -35,
+              0,
+              0
+            ]
+          },
+          "position": {
+            "vector": [
+              0,
+              1,
+              0.4
+            ]
+          }
+        },
+        "leftWing": {
+          "rotation": {
+            "0.0": {
+              "vector": [
+                37.5,
+                -47.5,
+                -90
+              ]
+            },
+            "0.24": {
+              "vector": [
+                32.5,
+                -50,
+                -72.5
+              ],
+              "easing": "easeInSine"
+            },
+            "0.4": {
+              "vector": [
+                50,
+                -47.5,
+                -105
+              ]
+            }
+          },
+          "position": {
+            "0.0": {
+              "vector": [
+                1,
+                0,
+                0
+              ]
+            },
+            "0.24": {
+              "vector": [
+                1,
+                0,
+                0
+              ],
+              "easing": "easeInSine"
+            },
+            "0.4": {
+              "vector": [
+                1,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        "rightWing": {
+          "rotation": {
+            "0.0": {
+              "vector": [
+                37.5,
+                -47.5,
+                -90
+              ]
+            },
+            "0.24": {
+              "vector": [
+                57.5,
+                -45,
+                -120
+              ],
+              "easing": "easeInSine"
+            },
+            "0.4": {
+              "vector": [
+                25,
+                -47.5,
+                -70
+              ]
+            }
+          },
+          "position": {
+            "0.0": {
+              "vector": [
+                -1,
+                0,
+                0
+              ]
+            },
+            "0.4": {
+              "vector": [
+                -1,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        "tail": {
+          "rotation": {
+            "vector": [
+              -30,
+              0,
+              0
+            ]
+          },
+          "position": {
+            "vector": [
+              0,
+              -1,
+              -1
+            ]
+          }
+        }
+      }
+    }
+  },
+  "geckolib_format_version": 2
 }

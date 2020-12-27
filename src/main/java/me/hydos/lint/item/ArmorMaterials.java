@@ -93,4 +93,4 @@ public enum ArmorMaterials implements ArmorMaterial {
 	public float getKnockbackResistance() {
 		return this.knockbackResistance;
 	}
-	}
+}

@@ -46,13 +46,13 @@ public class I509VCBEntityModel extends EntityModel<I509VCBEntity> {
 	}
 
 	@Override
-	public void setAngles(I509VCBEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+	public void setAngles(I509VCBEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		cone.roll = (float) (Math.PI);
 	}
 
-    @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+	@Override
+	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
 		matrices.translate(0, -3, 0);
 		cone.render(matrices, vertices, light, overlay, red, green, blue, alpha);
-    }
+	}
 }

@@ -29,12 +29,12 @@ import net.minecraft.world.BlockView;
 
 public class FallenLeavesBlock extends LeavesBlock {
 
-    public FallenLeavesBlock(Settings settings) {
-        super(settings);
-    }
+	public FallenLeavesBlock(Settings settings) {
+		super(settings);
+	}
 
-    @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 0.0625f, 0.5f);
-    }
+	@Override
+	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
+		return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 0.0625f, 0.5f);
+	}
 }

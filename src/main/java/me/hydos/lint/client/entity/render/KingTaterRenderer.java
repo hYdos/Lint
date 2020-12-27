@@ -29,20 +29,20 @@ import net.minecraft.util.Identifier;
 
 public class KingTaterRenderer extends MobEntityRenderer<KingTaterEntity, KingTaterEntityModel> {
 
-    private static final Identifier SKIN = Lint.id("textures/entity/tater_king.png");
+	private static final Identifier SKIN = Lint.id("textures/entity/tater_king.png");
 
-    public KingTaterRenderer(EntityRenderDispatcher renderManager) {
-        super(renderManager, new KingTaterEntityModel(), 1);
-    }
+	public KingTaterRenderer(EntityRenderDispatcher renderManager) {
+		super(renderManager, new KingTaterEntityModel(), 1);
+	}
 
-    @Override
-    public Identifier getTexture(KingTaterEntity entity) {
-        return SKIN;
-    }
+	@Override
+	public Identifier getTexture(KingTaterEntity entity) {
+		return SKIN;
+	}
 
-    @Override
-    protected void scale(KingTaterEntity entity, MatrixStack matrices, float tickDelta) {
-        float scale = Math.max(KingTaterEntity.getScaledHealth(entity.getHealth(), entity.getMaxHealth()), 0.125F);
-        matrices.scale(scale, scale, scale);
-    }
+	@Override
+	protected void scale(KingTaterEntity entity, MatrixStack matrices, float tickDelta) {
+		float scale = Math.max(KingTaterEntity.getScaledHealth(entity.getHealth(), entity.getMaxHealth()), 0.125F);
+		matrices.scale(scale, scale, scale);
+	}
 }

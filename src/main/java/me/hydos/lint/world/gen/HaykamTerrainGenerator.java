@@ -19,8 +19,6 @@
 
 package me.hydos.lint.world.gen;
 
-import java.util.Random;
-
 import me.hydos.lint.util.LossyDoubleCache;
 import me.hydos.lint.util.LossyIntCache;
 import me.hydos.lint.util.math.DoubleGridOperator;
@@ -29,7 +27,18 @@ import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.biome.TerrainData;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.Random;
+
 public class HaykamTerrainGenerator implements TerrainData {
+	public static final int SEA_LEVEL = 63;
+	public static final int SHARDLANDS_FADE_START = 2400 * 2400;
+	public static final int TERRAIN_CROB_DISTANCE = 2450 * 2450;
+	public static final int SHARDLANDS_START = 2500 * 2500;
+	public static final int SHARDLANDS_ISLANDS_START = 2550 * 2550;
+	public static final int SHARDLANDS_ISLANDS_FADE_END = 2590 * 2590;
+	private static final int AVG_HEIGHT = 65;
+	private static final int AVG_FLOAT_HEIGHT = 85;
+	private static final int SCALE_SMOOTH_RADIUS = 9;
 	private final int seed;
 	private final OpenSimplexNoise continentNoise;
 	private final OpenSimplexNoise mountainsNoise;
@@ -38,9 +47,10 @@ public class HaykamTerrainGenerator implements TerrainData {
 	private final OpenSimplexNoise cliffsNoise;
 	private final OpenSimplexNoise riverNoise;
 	private final OpenSimplexNoise terrainDeterminerNoise;
-
 	private final DoubleGridOperator continentOperator;
 	private final DoubleGridOperator typeScaleOperator;
+
+	//private static final double TERRACE_RESCALE = 1 / 0.6;
 	private final DoubleGridOperator terrainScaleOperator;
 	private final IntGridOperator baseHeightOperator;
 	private final IntGridOperator heightOperator;
@@ -119,7 +129,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 				if (mountains < 0) {
 					mountainsScale /= 2;
-				}   
+				}
 
 				if (hills < 0) {
 					hillsScale /= 2;
@@ -145,7 +155,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 				return 0;
 			} else {
 				double progress = (double) (sqrDist - TERRAIN_CROB_DISTANCE) / (double) (SHARDLANDS_START - TERRAIN_CROB_DISTANCE);
-				int finalHeight = AVG_FLOAT_HEIGHT;	
+				int finalHeight = AVG_FLOAT_HEIGHT;
 
 				int baseHeight = this.sampleBaseHeight(x, z);
 				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
@@ -163,6 +173,18 @@ public class HaykamTerrainGenerator implements TerrainData {
 			}, 0.3));
 			return 3 * (heightMod / 3);
 		});
+	}
+
+	private static double manhattan(double x, double y, double x1, double y1) {
+		double dx = Math.abs(x1 - x);
+		double dy = Math.abs(y1 - y);
+		return dx + dy;
+	}
+
+	public static double map(double value, double min, double max, double newmin, double newmax) {
+		value -= min;
+		value /= (max - min);
+		return newmin + value * (newmax - newmin);
 	}
 
 	public int getHeight(int x, int z) {
@@ -194,8 +216,6 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 		return height;
 	}
-
-	//private static final double TERRACE_RESCALE = 1 / 0.6;
 
 	private double addTerrainCrobber(int x, int z, double scale) {
 		if (x * x + z * z > TERRAIN_CROB_DISTANCE) {
@@ -271,27 +291,4 @@ public class HaykamTerrainGenerator implements TerrainData {
 			return (int) map(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, AVG_FLOAT_HEIGHT + 1);
 		}
 	}
-
-	private static double manhattan(double x, double y, double x1, double y1) {
-		double dx = Math.abs(x1 - x);
-		double dy = Math.abs(y1 - y);
-		return dx + dy;
-	}
-
-	public static double map(double value, double min, double max, double newmin, double newmax) {
-		value -= min;
-		value /= (max - min);
-		return newmin + value * (newmax - newmin);
-	}
-
-	private static final int AVG_HEIGHT = 65;
-	private static final int AVG_FLOAT_HEIGHT = 85;
-	private static final int SCALE_SMOOTH_RADIUS = 9;
-	public static final int SEA_LEVEL = 63;
-
-	public static final int SHARDLANDS_FADE_START = 2400 * 2400;
-	public static final int TERRAIN_CROB_DISTANCE = 2450 * 2450;
-	public static final int SHARDLANDS_START = 2500 * 2500;
-	public static final int SHARDLANDS_ISLANDS_START = 2550 * 2550;
-	public static final int SHARDLANDS_ISLANDS_FADE_END = 2590 * 2590;
 }

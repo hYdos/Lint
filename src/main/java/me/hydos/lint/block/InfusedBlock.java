@@ -36,12 +36,12 @@ import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.Explosion.DestructionType;
 
 public class InfusedBlock extends Block {
+	private final Power power;
+
 	public InfusedBlock(Settings settings, Power power) {
 		super(settings);
 		this.power = power;
 	}
-
-	private final Power power;
 
 	@Override
 	public void onPlaced(World world, BlockPos pos0, BlockState state, LivingEntity placer, ItemStack itemStack) {
@@ -70,7 +70,7 @@ public class InfusedBlock extends Block {
 	@Override
 	public void onSteppedOn(World world, BlockPos pos, Entity entity) {
 		if (entity instanceof LivingEntity) {
-			if (!entity.isFireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
+			if (!entity.isFireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity)) {
 				entity.damage(DamageSource.DRYOUT, 4.0F);
 			}
 

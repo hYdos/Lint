@@ -58,7 +58,7 @@ public class GenericBiomes implements InitLayer {
 		return id(key);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	private int id(RegistryKey key) {
 		return biomeRegistry.getRawId(biomeRegistry.get(key));
 	}

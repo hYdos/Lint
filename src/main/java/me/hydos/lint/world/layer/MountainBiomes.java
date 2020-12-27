@@ -28,32 +28,32 @@ import net.minecraft.world.biome.layer.type.InitLayer;
 import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
 
 public class MountainBiomes implements InitLayer {
-    @SuppressWarnings("rawtypes")
-    private static final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY, Biomes.INDIGO_RIDGES_KEY};
+	@SuppressWarnings("rawtypes")
+	private static final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY, Biomes.INDIGO_RIDGES_KEY};
 
-    private final Registry<Biome> biomeRegistry;
+	private final Registry<Biome> biomeRegistry;
 
-    public MountainBiomes(Registry<Biome> biomeRegistry) {
-        this.biomeRegistry = biomeRegistry;
-    }
+	public MountainBiomes(Registry<Biome> biomeRegistry) {
+		this.biomeRegistry = biomeRegistry;
+	}
 
-    @Override
-    public int sample(LayerRandomnessSource randomPawn, int x, int y) {
-        RegistryKey<?> key = biomes[randomPawn.nextInt(biomes.length)];
+	@Override
+	public int sample(LayerRandomnessSource randomPawn, int x, int y) {
+		RegistryKey<?> key = biomes[randomPawn.nextInt(biomes.length)];
 
-        int absx = MathHelper.abs(x);
-        int absy = MathHelper.abs(y);
-        int absval = absx + absy;
+		int absx = MathHelper.abs(x);
+		int absy = MathHelper.abs(y);
+		int absval = absx + absy;
 
-        if (absval < 2) {
-            key = Biomes.MYSTICAL_FOREST_KEY;
-        }
+		if (absval < 2) {
+			key = Biomes.MYSTICAL_FOREST_KEY;
+		}
 
-        return id(key);
-    }
+		return id(key);
+	}
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    private int id(RegistryKey key) {
-        return biomeRegistry.getRawId(biomeRegistry.get(key));
-    }
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	private int id(RegistryKey key) {
+		return biomeRegistry.getRawId(biomeRegistry.get(key));
+	}
 }

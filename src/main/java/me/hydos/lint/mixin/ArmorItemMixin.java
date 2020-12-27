@@ -47,11 +47,11 @@ public abstract class ArmorItemMixin {
 	private static UUID[] MODIFIERS;
 	@Shadow
 	@Final
-	@Mutable
-	private Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
+	protected float knockbackResistance;
 	@Shadow
 	@Final
-	protected float knockbackResistance;
+	@Mutable
+	private Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
 	@Inject(method = "<init>", at = @At(value = "RETURN"))
 	private void constructor(ArmorMaterial material, EquipmentSlot slot, Item.Settings settings, CallbackInfo ci) {

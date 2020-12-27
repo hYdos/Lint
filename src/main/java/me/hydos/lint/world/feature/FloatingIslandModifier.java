@@ -35,6 +35,10 @@ import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
 import java.util.Random;
 
 public class FloatingIslandModifier {
+	private static final BlockState FUSED_STONE = LintBlocks.FUSED_STONE.getDefaultState();
+	private final OpenSimplexNoise noise;
+	private final int seed;
+
 	public FloatingIslandModifier(long seed) {
 		this.noise = new OpenSimplexNoise(new Random(seed + 3));
 		// int seed
@@ -42,8 +46,10 @@ public class FloatingIslandModifier {
 		this.seed = protoSeed == 0 ? 1 : protoSeed; // 0 bad and worst in game
 	}
 
-	private final OpenSimplexNoise noise;
-	private final int seed;
+	private static double smoothstep(double x) {
+		x -= 0.5;
+		return 0.5 * (1 + x + 4 * (x * x * x));
+	}
 
 	public boolean generate(StructureWorldAccess world, Random random, int startX, int startZ) {
 		BlockPos.Mutable pos = new BlockPos.Mutable();
@@ -67,7 +73,7 @@ public class FloatingIslandModifier {
 					return false; // prevent unneccessary checks since it will all succeed second thing
 				}
 
-				double floatingIsland = Voronoi.sampleFloating(x, z , this.seed, this.noise, 0.04);
+				double floatingIsland = Voronoi.sampleFloating(x, z, this.seed, this.noise, 0.04);
 				double floatingNoise = noise.sample(x * 0.04 * 0.11, z * 0.04 * 0.11);
 				floatingIsland = smoothstep(floatingIsland);
 
@@ -114,10 +120,4 @@ public class FloatingIslandModifier {
 
 		return flag;
 	}
-
-	private static double smoothstep(double x) {
-		x -= 0.5;
-		return 0.5 * (1 + x + 4 * (x * x * x));
-	}
-	private static final BlockState FUSED_STONE = LintBlocks.FUSED_STONE.getDefaultState();
 }

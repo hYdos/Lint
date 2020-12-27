@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(GameRenderer.class)
-public class GameRendererMixin {	
+public class GameRendererMixin {
 	@Shadow
 	@Final
 	private MinecraftClient client;

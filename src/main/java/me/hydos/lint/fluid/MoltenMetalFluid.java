@@ -60,7 +60,7 @@ public abstract class MoltenMetalFluid extends ModdedFluid {
 			flowing = this;
 		}
 
-		public void setStill(FlowableFluid still){
+		public void setStill(FlowableFluid still) {
 			this.still = still;
 		}
 
@@ -87,7 +87,7 @@ public abstract class MoltenMetalFluid extends ModdedFluid {
 			still = this;
 		}
 
-		public void setFlowing(FlowableFluid flowing){
+		public void setFlowing(FlowableFluid flowing) {
 			this.flowing = flowing;
 		}
 

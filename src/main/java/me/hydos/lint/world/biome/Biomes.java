@@ -37,11 +37,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeEffects;
-import net.minecraft.world.biome.BiomeParticleConfig;
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
@@ -62,34 +58,6 @@ public class Biomes {
 	public static final SurfaceBuilder<TernarySurfaceConfig> OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks.MYSTICAL_SAND.getDefaultState(), LintBlocks.WHITE_SAND.getDefaultState());
 	public static final SurfaceBuilder<TernarySurfaceConfig> CORRUPT_OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks.CORRUPT_SAND.getDefaultState(), LintBlocks.WHITE_SAND.getDefaultState());
 	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_RAW_SB = new DawnShardlandsSurfaceBuilder();
-
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.LIVELY_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OC_SB = OCEAN_RAW_SB.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.LIVELY_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CB_SB = CORRUPT_OCEAN_RAW_SB.withConfig(
-			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> IN_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(LintBlocks.INDIGO_STONE.getDefaultState(),
-					LintBlocks.INDIGO_STONE.getDefaultState(),
-					LintBlocks.INDIGO_STONE.getDefaultState()));
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DS_SB = DAWN_SHARDLANDS_RAW_SB.withConfig(
-			new TernarySurfaceConfig(LintBlocks.ASPHALT.getDefaultState(),
-					LintBlocks.ASPHALT.getDefaultState(),
-					LintBlocks.ASPHALT.getDefaultState()));
-
 	/**
 	 * Spawn Configurations
 	 */
@@ -99,48 +67,27 @@ public class Biomes {
 //			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
-
 	public static final SpawnSettings.Builder FOREST_SPAWN_SETTINGS = new SpawnSettings.Builder()
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 2, 1, 3))
 			.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 1, 1, 4))
 //			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
-
 	/**
-	 * Biomes
+	 * Biome Keys
 	 */
-	public static final Biome CORRUPT_FOREST = new Biome.Builder()
-			.precipitation(Biome.Precipitation.NONE)
-			.category(Biome.Category.FOREST)
-			.depth(0.125f)
-			.scale(1)
-			.temperature(0.8f)
-			.downfall(1)
-			.effects(new BiomeEffects.Builder()
-					.waterColor(0x916ec1)
-					.waterFogColor(0x916ec1)
-					.fogColor(CORRUPT_FOG_COLOUR)
-					.loopSound(Sounds.CORRUPT_FOREST)
-					.skyColor(0x9c76c1)
-					.build()
-					)
-			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
-			.generationSettings(new GenerationSettings.Builder()
-					.surfaceBuilder(CF_SB)
-					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
-					.feature(GenerationStep.Feature.RAW_GENERATION, Features.CONFIGURED_VERTICAL_SHAFT)
-					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
-					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
-					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
-					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
-					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
-					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
-					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
-					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
-					.build()
-					).build();
-
+	public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
+	public static final RegistryKey<Biome> THICK_MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("thick_mystical_forest"));
+	public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
+	public static final RegistryKey<Biome> OCEAN_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ocean"));
+	public static final RegistryKey<Biome> CORRUPT_BEACH_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_beach"));
+	public static final RegistryKey<Biome> INDIGO_RIDGES_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("indigo_ridges"));
+	public static final RegistryKey<Biome> DAWN_SHARDLANDS_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands"));
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
+			new TernarySurfaceConfig(
+					LintBlocks.LIVELY_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
 	public static final Biome MYSTICAL_FOREST = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.FOREST)
@@ -169,7 +116,6 @@ public class Biomes {
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
-
 	public static final Biome DEEP_MYSTICAL_FOREST = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.FOREST)
@@ -198,7 +144,48 @@ public class Biomes {
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
-
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CF_SB = SurfaceBuilder.DEFAULT.withConfig(
+			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
+	/**
+	 * Biomes
+	 */
+	public static final Biome CORRUPT_FOREST = new Biome.Builder()
+			.precipitation(Biome.Precipitation.NONE)
+			.category(Biome.Category.FOREST)
+			.depth(0.125f)
+			.scale(1)
+			.temperature(0.8f)
+			.downfall(1)
+			.effects(new BiomeEffects.Builder()
+					.waterColor(0x916ec1)
+					.waterFogColor(0x916ec1)
+					.fogColor(CORRUPT_FOG_COLOUR)
+					.loopSound(Sounds.CORRUPT_FOREST)
+					.skyColor(0x9c76c1)
+					.build()
+			)
+			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
+			.generationSettings(new GenerationSettings.Builder()
+					.surfaceBuilder(CF_SB)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+					.feature(GenerationStep.Feature.RAW_GENERATION, Features.CONFIGURED_VERTICAL_SHAFT)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
+					.build()
+			).build();
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OC_SB = OCEAN_RAW_SB.withConfig(
+			new TernarySurfaceConfig(
+					LintBlocks.LIVELY_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
 	public static final Biome OCEAN = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.OCEAN)
@@ -223,7 +210,10 @@ public class Biomes {
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
-
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CB_SB = CORRUPT_OCEAN_RAW_SB.withConfig(
+			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
 	public static final Biome CORRUPT_BEACH = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.BEACH)
@@ -249,6 +239,10 @@ public class Biomes {
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> IN_SB = SurfaceBuilder.DEFAULT.withConfig(
+			new TernarySurfaceConfig(LintBlocks.INDIGO_STONE.getDefaultState(),
+					LintBlocks.INDIGO_STONE.getDefaultState(),
+					LintBlocks.INDIGO_STONE.getDefaultState()));
 	public static final Biome INDIGO_RIDGES = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.EXTREME_HILLS)
@@ -263,7 +257,7 @@ public class Biomes {
 					.loopSound(Sounds.CORRUPT_FOREST)
 					.skyColor(0x9c76c1)
 					.build()
-					)
+			)
 			.spawnSettings(new SpawnSettings.Builder().build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(IN_SB)
@@ -274,7 +268,10 @@ public class Biomes {
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
 					.build())
 			.build();
-
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DS_SB = DAWN_SHARDLANDS_RAW_SB.withConfig(
+			new TernarySurfaceConfig(LintBlocks.ASPHALT.getDefaultState(),
+					LintBlocks.ASPHALT.getDefaultState(),
+					LintBlocks.ASPHALT.getDefaultState()));
 	public static final Biome DAWN_SHARDLANDS = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.NONE)
@@ -297,17 +294,6 @@ public class Biomes {
 					// TODO allos and manos shards (powerful crystals of the two forces that made the world) as "ores" that spawn hanging from the bottom of the floating islands
 					.build())
 			.build();
-
-	/**
-	 * Biome Keys
-	 */
-	public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
-	public static final RegistryKey<Biome> THICK_MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("thick_mystical_forest"));
-	public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
-	public static final RegistryKey<Biome> OCEAN_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ocean"));
-	public static final RegistryKey<Biome> CORRUPT_BEACH_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_beach"));
-	public static final RegistryKey<Biome> INDIGO_RIDGES_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("indigo_ridges"));
-	public static final RegistryKey<Biome> DAWN_SHARDLANDS_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands"));
 
 	public static void register() {
 		Registry.register(Registry.SURFACE_BUILDER, Lint.id("ocean"), OCEAN_RAW_SB);

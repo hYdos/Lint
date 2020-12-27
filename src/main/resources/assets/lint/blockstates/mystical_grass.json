@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "lint:block/mystical_grass" }
+    "": {
+      "model": "lint:block/mystical_grass"
+    }
   }
 }

@@ -53,139 +53,139 @@ import java.util.function.Predicate;
 @SuppressWarnings("EntityConstructor")
 public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 
-    private static final Predicate<LivingEntity> PREDICATE = entity -> entity.getType() != Entities.MINION;
+	private static final Predicate<LivingEntity> PREDICATE = entity -> entity.getType() != Entities.MINION;
 
-    private final Set<UUID> minions = new HashSet<>();
-    private final ServerBossBar bossBar;
+	private final Set<UUID> minions = new HashSet<>();
+	private final ServerBossBar bossBar;
 
-    public KingTaterEntity(EntityType<? extends KingTaterEntity> type, World world) {
-        super(type, world);
-        bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.GREEN, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
-    }
+	public KingTaterEntity(EntityType<? extends KingTaterEntity> type, World world) {
+		super(type, world);
+		bossBar = (ServerBossBar) new ServerBossBar(getDisplayName(), BossBar.Color.GREEN, BossBar.Style.PROGRESS).setThickenFog(true).setDarkenSky(true);
+	}
 
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return LivingEntity.createLivingAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 15);
-    }
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		return LivingEntity.createLivingAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
+				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 15);
+	}
 
-    @Override
-    protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new ProjectileAttackGoal(this, 1.0D, 40, 40.0F));
-        this.goalSelector.add(3, new MeleeAttackGoal(this, 1D, false));
-        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D));
-        this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-        this.goalSelector.add(7, new LookAroundGoal(this));
+	public static float getScaledHealth(float health, float maxHealth) {
+		return health / maxHealth;
+	}
 
-        this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, false));
-        this.targetSelector.add(4, new FollowTargetGoal<>(this, LivingEntity.class, 10, false, false, PREDICATE));
-    }
+	@Override
+	protected void initGoals() {
+		this.goalSelector.add(1, new SwimGoal(this));
+		this.goalSelector.add(2, new ProjectileAttackGoal(this, 1.0D, 40, 40.0F));
+		this.goalSelector.add(3, new MeleeAttackGoal(this, 1D, false));
+		this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D));
+		this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(7, new LookAroundGoal(this));
 
-    @Override
-    protected void onKilledBy(LivingEntity killer) {
-        assert killer != null;
-        killer.dropStack(new ItemStack(LintItems.TATER_ESSENCE));
-        if (killer instanceof ServerPlayerEntity) {
-            ((ServerPlayerEntity) killer).networkHandler.sendPacket(new PlaySoundS2CPacket(Sounds.ADVANCEMENT, SoundCategory.MASTER, getX(), getY(), getZ(), 1f, 1f));
-        }
-    }
+		this.targetSelector.add(1, new RevengeGoal(this));
+		this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, false));
+		this.targetSelector.add(4, new FollowTargetGoal<>(this, LivingEntity.class, 10, false, false, PREDICATE));
+	}
 
-    @Override
-    public void attack(LivingEntity target, float f) {
-        TaterMinionEntity minion = new TaterMinionEntity(Entities.MINION, world, target);
-        minion.refreshPositionAndAngles(getX(), getY(), getZ(), 0, 0);
-        minions.add(minion.getUuid());
-        world.spawnEntity(minion);
-    }
+	@Override
+	protected void onKilledBy(LivingEntity killer) {
+		assert killer != null;
+		killer.dropStack(new ItemStack(LintItems.TATER_ESSENCE));
+		if (killer instanceof ServerPlayerEntity) {
+			((ServerPlayerEntity) killer).networkHandler.sendPacket(new PlaySoundS2CPacket(Sounds.ADVANCEMENT, SoundCategory.MASTER, getX(), getY(), getZ(), 1f, 1f));
+		}
+	}
 
-    @Override
-    public void onStartedTrackingBy(ServerPlayerEntity player) {
-        bossBar.addPlayer(player);
-    }
+	@Override
+	public void attack(LivingEntity target, float f) {
+		TaterMinionEntity minion = new TaterMinionEntity(Entities.MINION, world, target);
+		minion.refreshPositionAndAngles(getX(), getY(), getZ(), 0, 0);
+		minions.add(minion.getUuid());
+		world.spawnEntity(minion);
+	}
 
-    @Override
-    public void onStoppedTrackingBy(ServerPlayerEntity player) {
-        bossBar.removePlayer(player);
-    }
+	@Override
+	public void onStartedTrackingBy(ServerPlayerEntity player) {
+		bossBar.addPlayer(player);
+	}
 
-    @Override
-    public void remove() {
-        super.remove();
+	@Override
+	public void onStoppedTrackingBy(ServerPlayerEntity player) {
+		bossBar.removePlayer(player);
+	}
 
-        for (UUID id : minions) {
-            Entity minion = ((ServerWorld) world).getEntity(id);
+	@Override
+	public void remove() {
+		super.remove();
 
-            if (minion != null) {
-                minion.remove();
-            }
-        }
-    }
+		for (UUID id : minions) {
+			Entity minion = ((ServerWorld) world).getEntity(id);
 
-    @Override
-    protected void mobTick() {
-        bossBar.setPercent(getScaledHealth(getHealth(), getMaxHealth()));
-        if (hasStatusEffect(StatusEffects.JUMP_BOOST)) {
-            addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20, 4, true, true, true, null));
-        }
-        if (hasStatusEffect(StatusEffects.REGENERATION)) {
-            addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, true, true, true, null));
-        }
-    }
+			if (minion != null) {
+				minion.remove();
+			}
+		}
+	}
 
-    @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+	@Override
+	protected void mobTick() {
+		bossBar.setPercent(getScaledHealth(getHealth(), getMaxHealth()));
+		if (hasStatusEffect(StatusEffects.JUMP_BOOST)) {
+			addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20, 4, true, true, true, null));
+		}
+		if (hasStatusEffect(StatusEffects.REGENERATION)) {
+			addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 0, true, true, true, null));
+		}
+	}
 
-        if (this.hasCustomName()) {
-            this.bossBar.setName(this.getDisplayName());
-        }
+	@Override
+	public void readCustomDataFromTag(CompoundTag tag) {
+		super.readCustomDataFromTag(tag);
 
-        Tag t = tag.get("Minions");
-        minions.clear();
+		if (this.hasCustomName()) {
+			this.bossBar.setName(this.getDisplayName());
+		}
 
-        if (t instanceof ListTag) {
-            for (Tag id : ((ListTag) t)) {
-                minions.add(UUID.fromString(id.asString()));
-            }
-        }
-    }
+		Tag t = tag.get("Minions");
+		minions.clear();
 
-    @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
-        ListTag list = new ListTag();
-        tag.put("Minions", list);
+		if (t instanceof ListTag) {
+			for (Tag id : ((ListTag) t)) {
+				minions.add(UUID.fromString(id.asString()));
+			}
+		}
+	}
 
-        for (UUID minion : minions) {
-            list.add(StringTag.of(minion.toString()));
-        }
-    }
+	@Override
+	public void writeCustomDataToTag(CompoundTag tag) {
+		super.writeCustomDataToTag(tag);
+		ListTag list = new ListTag();
+		tag.put("Minions", list);
 
-    @Override
-    public void setCustomName(Text name) {
-        super.setCustomName(name);
-        this.bossBar.setName(this.getDisplayName());
-    }
+		for (UUID minion : minions) {
+			list.add(StringTag.of(minion.toString()));
+		}
+	}
 
-    @Override
-    protected boolean canStartRiding(Entity entity) {
-        return false;
-    }
+	@Override
+	public void setCustomName(Text name) {
+		super.setCustomName(name);
+		this.bossBar.setName(this.getDisplayName());
+	}
 
-    @Override
-    public EntityDimensions getDimensions(EntityPose pose) {
-        return getType().getDimensions().scaled(getScaledHealth(getHealth(), getMaxHealth()));
-    }
+	@Override
+	protected boolean canStartRiding(Entity entity) {
+		return false;
+	}
 
-    @Override
-    public boolean canUsePortals() {
-        return false;
-    }
+	@Override
+	public EntityDimensions getDimensions(EntityPose pose) {
+		return getType().getDimensions().scaled(getScaledHealth(getHealth(), getMaxHealth()));
+	}
 
-    public static float getScaledHealth(float health, float maxHealth) {
-        return health / maxHealth;
-    }
+	@Override
+	public boolean canUsePortals() {
+		return false;
+	}
 }

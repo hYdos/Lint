@@ -38,26 +38,26 @@ import net.minecraft.nbt.CompoundTag;
 @Environment(EnvType.CLIENT)
 public class LilTaterShoulderFeatureRenderer<T extends PlayerEntity> extends FeatureRenderer<T, PlayerEntityModel<T>> {
 
-    private final TinyPotatoEntityModel model = new TinyPotatoEntityModel();
+	private final TinyPotatoEntityModel model = new TinyPotatoEntityModel();
 
-    public LilTaterShoulderFeatureRenderer(FeatureRendererContext<T, PlayerEntityModel<T>> context) {
-        super(context);
-    }
+	public LilTaterShoulderFeatureRenderer(FeatureRendererContext<T, PlayerEntityModel<T>> context) {
+		super(context);
+	}
 
-    public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T playerEntity, float f, float g, float h, float j, float k, float l) {
-        this.renderShoulderParrot(matrixStack, vertexConsumerProvider, i, playerEntity, f, g, k, l, true);
-        this.renderShoulderParrot(matrixStack, vertexConsumerProvider, i, playerEntity, f, g, k, l, false);
-    }
+	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T playerEntity, float f, float g, float h, float j, float k, float l) {
+		this.renderShoulderParrot(matrixStack, vertexConsumerProvider, i, playerEntity, f, g, k, l, true);
+		this.renderShoulderParrot(matrixStack, vertexConsumerProvider, i, playerEntity, f, g, k, l, false);
+	}
 
-    private void renderShoulderParrot(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T playerEntity, float f, float g, float h, float j, boolean bl) {
-        CompoundTag compoundTag = bl ? playerEntity.getShoulderEntityLeft() : playerEntity.getShoulderEntityRight();
-        EntityType.get(compoundTag.getString("id")).filter((entityType) -> entityType == Entities.TINY_POTATO).ifPresent((entityType) -> {
-            matrixStack.push();
-            matrixStack.scale(0.6f, 0.6f, 0.6f);
-            matrixStack.translate(bl ? 0.6D : -0.6D, playerEntity.isInSneakingPose() ? -1.2D : -1.5D, 0.0D);
-            VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TinyPotatoEntityRenderer.TINY_POTATO));
-            this.model.renderOnShoulder(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
-            matrixStack.pop();
-        });
-    }
+	private void renderShoulderParrot(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T playerEntity, float f, float g, float h, float j, boolean bl) {
+		CompoundTag compoundTag = bl ? playerEntity.getShoulderEntityLeft() : playerEntity.getShoulderEntityRight();
+		EntityType.get(compoundTag.getString("id")).filter((entityType) -> entityType == Entities.TINY_POTATO).ifPresent((entityType) -> {
+			matrixStack.push();
+			matrixStack.scale(0.6f, 0.6f, 0.6f);
+			matrixStack.translate(bl ? 0.6D : -0.6D, playerEntity.isInSneakingPose() ? -1.2D : -1.5D, 0.0D);
+			VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(this.model.getLayer(TinyPotatoEntityRenderer.TINY_POTATO));
+			this.model.renderOnShoulder(matrixStack, vertexConsumer, i, OverlayTexture.DEFAULT_UV);
+			matrixStack.pop();
+		});
+	}
 }

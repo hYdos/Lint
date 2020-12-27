@@ -19,13 +19,12 @@
 
 package me.hydos.lint.mixin.client;
 
+import me.hydos.lint.mixinimpl.SoundShitCache;
+import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import me.hydos.lint.mixinimpl.SoundShitCache;
-import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 
 @Mixin(BiomeEffectSoundPlayer.MusicLoop.class)
 public class MusicLoopMixin {

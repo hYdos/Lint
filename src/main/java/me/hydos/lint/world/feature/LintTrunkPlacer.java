@@ -53,6 +53,19 @@ public class LintTrunkPlacer extends TrunkPlacer {
 		super(i, j, k);
 	}
 
+	private static boolean canGenerate(TestableWorld world, BlockPos pos) {
+		return world.testBlockState(pos, (state) -> {
+			Block block = state.getBlock();
+			return Feature.isSoil(block) && !state.isOf(Blocks.GRASS_BLOCK) && !state.isOf(Blocks.MYCELIUM);
+		});
+	}
+
+	protected static void setToDirt(ModifiableTestableWorld world, BlockPos pos) {
+		if (!canGenerate(world, pos)) {
+			TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
+		}
+	}
+
 	protected TrunkPlacerType<?> getType() {
 		return STRAIGHT_TRUNK_PLACER;
 	}
@@ -65,18 +78,5 @@ public class LintTrunkPlacer extends TrunkPlacer {
 		}
 
 		return ImmutableList.of(new FoliagePlacer.TreeNode(pos.up(trunkHeight), 0, false));
-	}
-
-	private static boolean canGenerate(TestableWorld world, BlockPos pos) {
-		return world.testBlockState(pos, (state) -> {
-			Block block = state.getBlock();
-			return Feature.isSoil(block) && !state.isOf(Blocks.GRASS_BLOCK) && !state.isOf(Blocks.MYCELIUM);
-		});
-	}
-
-	protected static void setToDirt(ModifiableTestableWorld world, BlockPos pos) {
-		if (!canGenerate(world, pos)) {
-			TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
-		}
 	}
 }

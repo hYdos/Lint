@@ -39,6 +39,8 @@ import java.util.Random;
 import java.util.function.Function;
 
 public class LintCaveCarver extends CaveCarver {
+	public static final Carver<ProbabilityConfig> INSTANCE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(ProbabilityConfig.CODEC, 256));
+
 	public LintCaveCarver(Codec<ProbabilityConfig> codec, int i) {
 		super(codec, i);
 	}
@@ -54,8 +56,8 @@ public class LintCaveCarver extends CaveCarver {
 
 	@Override
 	protected boolean carveAtPoint(Chunk chunk, Function<BlockPos, Biome> posToBiome, BitSet carvingMask, Random random,
-			Mutable pos1, Mutable mutable2, Mutable pos3, int seaLevel, int mainChunkX, int mainChunkZ, int x,
-			int z, int relativeX, int y, int relativeZ, MutableBoolean grassCheckerThing) {
+								   Mutable pos1, Mutable mutable2, Mutable pos3, int seaLevel, int mainChunkX, int mainChunkZ, int x,
+								   int z, int relativeX, int y, int relativeZ, MutableBoolean grassCheckerThing) {
 		int i = relativeX | relativeZ << 4 | y << 8;
 		if (carvingMask.get(i)) {
 			return false;
@@ -87,6 +89,4 @@ public class LintCaveCarver extends CaveCarver {
 			}
 		}
 	}
-
-	public static final Carver<ProbabilityConfig> INSTANCE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(ProbabilityConfig.CODEC, 256));
 }

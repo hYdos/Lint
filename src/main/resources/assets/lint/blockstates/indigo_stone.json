@@ -1,7 +1,7 @@
 {
-    "variants": {
-        "": {
-            "model": "lint:block/indigo_stone"
-        }
+  "variants": {
+    "": {
+      "model": "lint:block/indigo_stone"
     }
+  }
 }

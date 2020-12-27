@@ -41,11 +41,16 @@ public class LintItems {
 	public static final Item SICIERON_CHESTPLATE = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.CHEST, new Item.Settings().group(LintItemGroups.TOOLS));
 	public static final Item SICIERON_LEGGINGS = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.LEGS, new Item.Settings().group(LintItemGroups.TOOLS));
 	public static final Item SICIERON_BOOTS = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.FEET, new Item.Settings().group(LintItemGroups.TOOLS));
-	public static final Item SICIERON_PICKAXE = new PickaxeItem(ToolMaterials.SICIERON, 6, 1.2f, new Item.Settings().group(LintItemGroups.TOOLS)){};
-	public static final Item SICIERON_AXE = new AxeItem(ToolMaterials.SICIERON, 9, 1.2f, new Item.Settings().group(LintItemGroups.TOOLS)){};
-	public static final Item SICIERON_SHOVEL = new ShovelItem(ToolMaterials.SICIERON, 5, 1.6f, new Item.Settings().group(LintItemGroups.TOOLS)){};
-	public static final Item SICIERON_HOE = new HoeItem(ToolMaterials.SICIERON, 1, 4f, new Item.Settings().group(LintItemGroups.TOOLS).rarity(Rarity.EPIC)){};
-	public static final Item SICIERON_SWORD = new SwordItem(ToolMaterials.SICIERON, 8, 1.6f, new Item.Settings().group(LintItemGroups.TOOLS)){};
+	public static final Item SICIERON_PICKAXE = new PickaxeItem(ToolMaterials.SICIERON, 6, 1.2f, new Item.Settings().group(LintItemGroups.TOOLS)) {
+	};
+	public static final Item SICIERON_AXE = new AxeItem(ToolMaterials.SICIERON, 9, 1.2f, new Item.Settings().group(LintItemGroups.TOOLS)) {
+	};
+	public static final Item SICIERON_SHOVEL = new ShovelItem(ToolMaterials.SICIERON, 5, 1.6f, new Item.Settings().group(LintItemGroups.TOOLS)) {
+	};
+	public static final Item SICIERON_HOE = new HoeItem(ToolMaterials.SICIERON, 1, 4f, new Item.Settings().group(LintItemGroups.TOOLS).rarity(Rarity.EPIC)) {
+	};
+	public static final Item SICIERON_SWORD = new SwordItem(ToolMaterials.SICIERON, 8, 1.6f, new Item.Settings().group(LintItemGroups.TOOLS)) {
+	};
 
 	/**
 	 * Ore Materials
@@ -58,10 +63,14 @@ public class LintItems {
 	 * Music Discs
 	 */
 	public static final Item SUSPICOUS_LOOKING_DISC = new Item(new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
-	public static final Item OBOE_DISC = new MusicDiscItem(14, Sounds.GRIMACE, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
-	public static final Item OCEAN_DISC = new MusicDiscItem(15, Sounds.OCEAN, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
-	public static final Item MYSTICAL_FOREST_DISC = new MusicDiscItem(16, Sounds.MYSTICAL_FOREST, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
-	public static final Item CORRUPT_FOREST_DISC = new MusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)){};
+	public static final Item OBOE_DISC = new MusicDiscItem(14, Sounds.GRIMACE, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
+	};
+	public static final Item OCEAN_DISC = new MusicDiscItem(15, Sounds.OCEAN, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
+	};
+	public static final Item MYSTICAL_FOREST_DISC = new MusicDiscItem(16, Sounds.MYSTICAL_FOREST, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
+	};
+	public static final Item CORRUPT_FOREST_DISC = new MusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
+	};
 
 	public static void register() {
 		LintItemGroups.register();

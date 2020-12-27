@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "lint:block/corrupt_leaves" }
+    "": {
+      "model": "lint:block/corrupt_leaves"
+    }
   }
 }

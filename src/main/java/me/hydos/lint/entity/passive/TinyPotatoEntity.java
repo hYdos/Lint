@@ -69,6 +69,17 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6);
 	}
 
+	public static boolean canSpawn(EntityType<TinyPotatoEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+		if (spawnReason == SpawnReason.NATURAL) {
+			//TODO: create a mob entity cap manager and check the passive cap before spawning them.
+			if (random.nextInt(10) > 4) {
+				BlockState blockState = world.getBlockState(pos.down());
+				return (blockState.isOf(LintBlocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public void fromTag(CompoundTag tag) {
 		super.fromTag(tag);
@@ -131,16 +142,5 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 	@Override
 	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
 		return (PassiveEntity) getType().create(world);
-	}
-
-	public static boolean canSpawn(EntityType<TinyPotatoEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-		if (spawnReason == SpawnReason.NATURAL) {
-			//TODO: create a mob entity cap manager and check the passive cap before spawning them.
-			if (random.nextInt(10) > 4) {
-				BlockState blockState = world.getBlockState(pos.down());
-				return (blockState.isOf(LintBlocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
-			}
-		}
-		return true;
 	}
 }

@@ -60,11 +60,11 @@
       "lint:advancement"
     ]
   },
-    "eastern_rosella.idle": {
-      "subtitle": "subtitles.eastern_rosella.idle",
-      "volume": 10,
-      "sounds": [
-        "lint:eastern_rosella_idle"
-      ]
+  "eastern_rosella.idle": {
+    "subtitle": "subtitles.eastern_rosella.idle",
+    "volume": 10,
+    "sounds": [
+      "lint:eastern_rosella_idle"
+    ]
   }
 }

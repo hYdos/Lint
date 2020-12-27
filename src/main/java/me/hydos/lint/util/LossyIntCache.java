@@ -24,6 +24,10 @@ import me.hydos.lint.util.math.IntGridOperator;
 import java.util.Arrays;
 
 public class LossyIntCache implements IntGridOperator {
+	private final int mask;
+	private final long[] positions;
+	private final int[] data;
+	private final IntGridOperator operator;
 	public LossyIntCache(int size, IntGridOperator operator) {
 		int arrSize = 1; // 2^n = 2 * (2^(n-1))
 		int nextArrSize;
@@ -44,10 +48,23 @@ public class LossyIntCache implements IntGridOperator {
 		Arrays.fill(this.positions, Long.MAX_VALUE);
 	}
 
-	private final int mask;
-	private final long[] positions;
-	private final int[] data;
-	private final IntGridOperator operator;
+	private static int mix5(int a, int b) {
+		return (((a >> 4) & 1) << 9) |
+				(((b >> 4) & 1) << 8) |
+				(((a >> 3) & 1) << 7) |
+				(((b >> 3) & 1) << 6) |
+				(((a >> 2) & 1) << 5) |
+				(((b >> 2) & 1) << 4) |
+				(((a >> 1) & 1) << 3) |
+				(((b >> 1) & 1) << 2) |
+				((a & 1) << 1) |
+				(b & 1);
+	}
+
+	// from minecraft
+	public static long asLong(int chunkX, int chunkZ) {
+		return (long) chunkX & 4294967295L | ((long) chunkZ & 4294967295L) << 32;
+	}
 
 	@Override
 	public int get(int x, int y) {
@@ -66,23 +83,5 @@ public class LossyIntCache implements IntGridOperator {
 			System.err.println("LossyCache broke! You'll need to restart your game (or perhaps just reload the world), sadly. If this issue persists, let me (Valoeghese) know!");
 			throw new RuntimeException(e);
 		}
-	}
-
-	private static int mix5(int a, int b) {
-		return (((a >> 4) & 1) << 9) |
-				(((b >> 4) & 1) << 8) |
-				(((a >> 3) & 1) << 7) |
-				(((b >> 3) & 1) << 6) |
-				(((a >> 2) & 1) << 5) |
-				(((b >> 2) & 1) << 4) |
-				(((a >> 1) & 1) << 3) |
-				(((b >> 1) & 1) << 2) |
-				((a & 1) << 1) |
-				(b & 1);
-	}
-
-	// from minecraft
-	public static long asLong(int chunkX, int chunkZ) {
-		return (long)chunkX & 4294967295L | ((long)chunkZ & 4294967295L) << 32;
 	}
 }

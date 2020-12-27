@@ -37,16 +37,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MusicTracker.class)
 public abstract class SoundManagerMixin {
 
-	@Shadow private @Nullable SoundInstance current;
+	@Shadow
+	private @Nullable SoundInstance current;
 
-	@Shadow @Final private MinecraftClient client;
+	@Shadow
+	@Final
+	private MinecraftClient client;
 
-	@Shadow public abstract void play(MusicSound type);
+	@Shadow
+	public abstract void play(MusicSound type);
 
-	@Shadow public abstract void stop();
+	@Shadow
+	public abstract void stop();
 
 	@Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-	private void tickButGood(CallbackInfo ci){
+	private void tickButGood(CallbackInfo ci) {
 		MusicSound musicSound = this.client.getMusicType();
 
 		if (this.current == null) {
@@ -55,18 +60,18 @@ public abstract class SoundManagerMixin {
 				this.play(musicSound);
 			}
 		} else {
-			if(current.getId().getNamespace().equals("lint")){
+			if (current.getId().getNamespace().equals("lint")) {
 				ci.cancel();
 			}
 		}
 	}
-	
-	@Inject(at = @At("HEAD"), method = "play", cancellable = true)	
-	private void onPlay(MusicSound type, CallbackInfo info) {	
-		if (type == MusicType.UNDERWATER || type == MusicType.GAME || type == MusicType.CREATIVE) {	
-			if (this.client.world.getDimension() == Dimensions.HAYKAM) {	
-				info.cancel();	
-			}	
-		}	
+
+	@Inject(at = @At("HEAD"), method = "play", cancellable = true)
+	private void onPlay(MusicSound type, CallbackInfo info) {
+		if (type == MusicType.UNDERWATER || type == MusicType.GAME || type == MusicType.CREATIVE) {
+			if (this.client.world.getDimension() == Dimensions.HAYKAM) {
+				info.cancel();
+			}
+		}
 	}
 }

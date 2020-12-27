@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "lint:block/corrupt_sand" }
+    "": {
+      "model": "lint:block/corrupt_sand"
+    }
   }
 }

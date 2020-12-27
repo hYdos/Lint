@@ -40,11 +40,6 @@ import java.util.HashMap;
 public final class LintBlocks {
 
 	/**
-	 * Fluid blockstate cache
-	 */
-	private static final HashMap<MoltenMetalFluid, FluidBlock> FLUID_BLOCKSTATE_MAP = new HashMap<>();
-
-	/**
 	 * Block Settings
 	 */
 	public static final Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD)
@@ -53,7 +48,6 @@ public final class LintBlocks {
 	public static final Block.Settings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SAND);
-
 	/**
 	 * Smeltery Related
 	 */
@@ -66,7 +60,6 @@ public final class LintBlocks {
 	public static final Block BASIC_CASTING = new Block(FabricBlockSettings.of(Material.STONE)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.STONE));
-
 	/**
 	 * Misc
 	 */
@@ -83,7 +76,6 @@ public final class LintBlocks {
 	public static final Block GREEN_BUTTON = new KingTaterButton(FabricBlockSettings.of(Material.SOIL)
 			.hardness(-0.1f)
 			.sounds(BlockSoundGroup.WET_GRASS));
-
 	/**
 	 * Stone & Ores
 	 */
@@ -101,11 +93,9 @@ public final class LintBlocks {
 	public static final Block JUREL = new Block(FabricBlockSettings.of(Material.STONE)
 			.hardness(1f)
 			.sounds(BlockSoundGroup.STONE));
-
 	public static final Block ASPHALT = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
 	public static final Block ALLOS_INFUSED_ASPHALT = new InfusedBlock(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE), Power.ALLOS);
 	public static final Block MANOS_INFUSED_ASPHALT = new InfusedBlock(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE), Power.MANOS);
-	
 	/**
 	 * Corrupt Decorations
 	 */
@@ -123,7 +113,6 @@ public final class LintBlocks {
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
 	);
-
 	/**
 	 * Corrupt Building Blocks
 	 */
@@ -140,7 +129,6 @@ public final class LintBlocks {
 			.sounds(BlockSoundGroup.GRASS));
 	public static final Block CORRUPT_SAND = new FallingBlock(SAND_SETTINGS);
 	public static final Block CORRUPT_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
-
 	/**
 	 * Mystical Decorations
 	 */
@@ -151,7 +139,6 @@ public final class LintBlocks {
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
 	);
-
 	public static final FlowerBlock MYSTICAL_DAISY = new LintGrassBlock(StatusEffects.BAD_OMEN, net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
@@ -159,13 +146,13 @@ public final class LintBlocks {
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
 	);
-
 	/**
 	 * Mystical Building Blocks
 	 */
 	public static final Block MYSTICAL_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.of(Material.WOOD)
 			.hardness(2)
-			.sounds(BlockSoundGroup.WOOD)) {};
+			.sounds(BlockSoundGroup.WOOD)) {
+	};
 	public static final Block MYSTICAL_LEAVES = new LintLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
@@ -185,7 +172,6 @@ public final class LintBlocks {
 	public static final Block MYSTICAL_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
 	public static final Block WHITE_SAND = new FallingBlock(SAND_SETTINGS);
 	public static final Block ASH = new FallingBlock(SAND_SETTINGS);
-
 	/**
 	 * Misc Building Blocks
 	 */
@@ -202,6 +188,10 @@ public final class LintBlocks {
 	public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.of(Material.SOIL)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.GRASS));
+	/**
+	 * Fluid blockstate cache
+	 */
+	private static final HashMap<MoltenMetalFluid, FluidBlock> FLUID_BLOCKSTATE_MAP = new HashMap<>();
 
 	public static void register() {
 		registerBuildingBlocks();
@@ -262,7 +252,7 @@ public final class LintBlocks {
 		registerBlock(LintItemGroups.BLOCKS, MYSTICAL_SLAB, "mystical_slab");
 		registerBlock(LintItemGroups.BLOCKS, CORRUPT_SLAB, "corrupt_slab");
 		registerBlock(LintItemGroups.BLOCKS, DUNGEON_BRICK_SLAB, "dungeon_brick_slab");
-		
+
 		registerBlock(LintItemGroups.BLOCKS, ASPHALT, "asphalt");
 		registerBlock(LintItemGroups.BLOCKS, ALLOS_INFUSED_ASPHALT, "allos_infused_asphalt");
 		registerBlock(LintItemGroups.BLOCKS, MANOS_INFUSED_ASPHALT, "manos_infused_asphalt");
@@ -296,10 +286,13 @@ public final class LintBlocks {
 
 	public static BlockState getFluid(Fluid still) {
 		for (MoltenMetalFluid fluid : FLUID_BLOCKSTATE_MAP.keySet()) {
-			if(still.equals(fluid)) {
+			if (still.equals(fluid)) {
 				return FLUID_BLOCKSTATE_MAP.get(fluid).getDefaultState();
 			}
 		}
 		throw new RuntimeException("Cannot find fluid!");
 	}
+}
+
+final class Blocks {
 }

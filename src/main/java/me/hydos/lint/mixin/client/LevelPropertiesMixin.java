@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class LevelPropertiesMixin {
 
 	@Inject(method = "getLifecycle", at = @At("HEAD"), cancellable = true)
-	private void weAreAlwaysStable(CallbackInfoReturnable<Lifecycle> cir){
+	private void weAreAlwaysStable(CallbackInfoReturnable<Lifecycle> cir) {
 		cir.setReturnValue(Lifecycle.stable());
 	}
 }

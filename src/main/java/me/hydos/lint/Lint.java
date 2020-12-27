@@ -20,8 +20,6 @@
 package me.hydos.lint;
 
 import me.hydos.lint.block.LintBlocks;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.item.LintItems;
@@ -34,11 +32,17 @@ import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.structure.Structures;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
 public class Lint implements ModInitializer {
 
 	public static final Logger LOGGER = LogManager.getLogger("Lint");
+
+	public static Identifier id(String path) {
+		return new Identifier("lint", path);
+	}
 
 	@Override
 	public void onInitialize() {
@@ -60,9 +64,5 @@ public class Lint implements ModInitializer {
 		Features.register();
 		Biomes.register();
 		Dimensions.register();
-	}
-
-	public static Identifier id(String path) {
-		return new Identifier("lint", path);
 	}
 }

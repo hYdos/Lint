@@ -32,8 +32,29 @@ import net.minecraft.world.gen.feature.Feature;
 import java.util.Random;
 
 public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
+	public static final int WATER_SEARCH_RADIUS = 4;
+	public static final int MAX_DEPTH = 40;
+	public static final int MIN_Y = 22;
+	private static final OpenSimplexNoise SHIFT = new OpenSimplexNoise(new Random(0));
+	private static final OpenSimplexNoise SHIFT_CUT = new OpenSimplexNoise(new Random(1));
+	private static final BlockState CAVE_AIR = Blocks.CAVE_AIR.getDefaultState();
+
 	public VerticalShaftFeature() {
 		super(DefaultFeatureConfig.CODEC);
+	}
+
+	private static void getShift(int[] offsets, double x, int y, double z) {
+		boolean reverseX = SHIFT_CUT.sample(x, y * 0.05) > 0;
+		double noiseX = SHIFT.sample(x, y * 0.07);
+
+		boolean reverseZ = SHIFT_CUT.sample(z, y * 0.05) > 0;
+		double noiseZ = SHIFT.sample(z, y * 0.07);
+
+		reverseX &= Math.abs(noiseX) < 0.7;
+		reverseZ &= Math.abs(noiseZ) < 0.7;
+
+		offsets[0] = (int) (3 * (reverseX ? 1.0 - noiseX : noiseX));
+		offsets[1] = (int) (3 * (reverseZ ? 1.0 - noiseZ : noiseZ));
 	}
 
 	@Override
@@ -121,26 +142,4 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 
 		return true;
 	}
-
-	private static void getShift(int[] offsets, double x, int y, double z) {
-		boolean reverseX = SHIFT_CUT.sample(x, y * 0.05) > 0;
-		double noiseX = SHIFT.sample(x, y * 0.07);
-
-		boolean reverseZ = SHIFT_CUT.sample(z, y * 0.05) > 0;
-		double noiseZ = SHIFT.sample(z, y * 0.07);
-
-		reverseX &= Math.abs(noiseX) < 0.7;
-		reverseZ &= Math.abs(noiseZ) < 0.7;
-
-		offsets[0] = (int) (3 * (reverseX ? 1.0 - noiseX : noiseX));
-		offsets[1] = (int) (3 * (reverseZ ? 1.0 - noiseZ : noiseZ));
-	}
-
-	public static final int WATER_SEARCH_RADIUS = 4;
-	public static final int MAX_DEPTH = 40;
-	public static final int MIN_Y = 22;
-
-	private static final OpenSimplexNoise SHIFT = new OpenSimplexNoise(new Random(0));
-	private static final OpenSimplexNoise SHIFT_CUT = new OpenSimplexNoise(new Random(1));
-	private static final BlockState CAVE_AIR = Blocks.CAVE_AIR.getDefaultState();
 }

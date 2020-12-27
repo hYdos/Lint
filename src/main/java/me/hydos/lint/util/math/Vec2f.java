@@ -20,17 +20,16 @@
 package me.hydos.lint.util.math;
 
 public final class Vec2f {
+	private final float x;
+	private final float y;
+
 	public Vec2f(Vec2f other) {
 		this(other.x, other.y);
 	}
-
 	public Vec2f(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
-
-	private final float x;
-	private final float y;
 
 	public float getX() {
 		return this.x;

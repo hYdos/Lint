@@ -3,7 +3,7 @@
     "activated=true": {
       "model": "lint:block/return_home_on"
     },
-	"activated=false": {
+    "activated=false": {
       "model": "lint:block/return_home_off"
     }
   }

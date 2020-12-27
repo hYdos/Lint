@@ -45,105 +45,105 @@ import java.util.UUID;
 @SuppressWarnings("EntityConstructor")
 public class TaterMinionEntity extends TinyPotatoEntity implements Monster {
 
-    public TaterMinionEntity(EntityType<? extends TaterMinionEntity> type, World world, LivingEntity target) {
-        super(type, world);
-        setTarget(target);
-    }
+	public TaterMinionEntity(EntityType<? extends TaterMinionEntity> type, World world, LivingEntity target) {
+		super(type, world);
+		setTarget(target);
+	}
 
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return TinyPotatoEntity.createAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.5);
-    }
+	public static DefaultAttributeContainer.Builder createAttributes() {
+		return TinyPotatoEntity.createAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.5);
+	}
 
-    @Override
-    protected void initGoals() {
-        goalSelector.add(1, new SwimGoal(this));
-        goalSelector.add(2, new MeleeAttackGoal(this, 1D, false));
-    }
+	@Override
+	protected void initGoals() {
+		goalSelector.add(1, new SwimGoal(this));
+		goalSelector.add(2, new MeleeAttackGoal(this, 1D, false));
+	}
 
-    @Override
-    public void mobTick() {
-        super.mobTick();
-        if (getTarget() != null) {
-            if (getTarget().removed) {
-                remove();
-            }
-        }
-    }
+	@Override
+	public void mobTick() {
+		super.mobTick();
+		if (getTarget() != null) {
+			if (getTarget().removed) {
+				remove();
+			}
+		}
+	}
 
-    @Override
-    public boolean isBreedingItem(ItemStack stack) {
-        return false;
-    }
+	@Override
+	public boolean isBreedingItem(ItemStack stack) {
+		return false;
+	}
 
-    @Override
-    public ActionResult interactMob(PlayerEntity player, Hand hand) {
-        return ActionResult.FAIL;
-    }
+	@Override
+	public ActionResult interactMob(PlayerEntity player, Hand hand) {
+		return ActionResult.FAIL;
+	}
 
-    @Override
-    public UUID getOwnerUuid() {
-        return null;
-    }
+	@Override
+	public UUID getOwnerUuid() {
+		return null;
+	}
 
-    @Override
-    public void setOwnerUuid(UUID uuid) {
-    }
+	@Override
+	public void setOwnerUuid(UUID uuid) {
+	}
 
-    @Override
-    public LivingEntity getOwner() {
-        return null;
-    }
+	@Override
+	public LivingEntity getOwner() {
+		return null;
+	}
 
-    @Override
-    public void setOwner(PlayerEntity player) {
-    }
+	@Override
+	public void setOwner(PlayerEntity player) {
+	}
 
-    @Override
-    public boolean isOwner(LivingEntity entity) {
-        return false;
-    }
+	@Override
+	public boolean isOwner(LivingEntity entity) {
+		return false;
+	}
 
-    @Override
-    public boolean canAttackWithOwner(LivingEntity target, LivingEntity owner) {
-        return false;
-    }
+	@Override
+	public boolean canAttackWithOwner(LivingEntity target, LivingEntity owner) {
+		return false;
+	}
 
-    @Override
-    public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-        return null;
-    }
+	@Override
+	public @Nullable PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+		return null;
+	}
 
-    private class LookAtTargetGoal extends Goal {
+	private class LookAtTargetGoal extends Goal {
 
-        public LookAtTargetGoal() {
-            this.setControls(EnumSet.of(Goal.Control.MOVE));
-        }
+		public LookAtTargetGoal() {
+			this.setControls(EnumSet.of(Goal.Control.MOVE));
+		}
 
-        public boolean canStart() {
-            return !getMoveControl().isMoving() && random.nextInt(7) == 0;
-        }
+		public boolean canStart() {
+			return !getMoveControl().isMoving() && random.nextInt(7) == 0;
+		}
 
-        public boolean shouldContinue() {
-            return false;
-        }
+		public boolean shouldContinue() {
+			return false;
+		}
 
-        public void tick() {
-            if (getTarget() == null) {
-                Vec3d vec3d = getVelocity();
-                yaw = -((float) MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F;
-                bodyYaw = yaw;
-            } else {
-                LivingEntity livingEntity = getTarget();
-                double d = 64.0D;
-                if (livingEntity.squaredDistanceTo(TaterMinionEntity.this) < (d * d)) {
-                    double e = livingEntity.getX() - getX();
-                    double f = livingEntity.getZ() - getZ();
-                    yaw = -((float) MathHelper.atan2(e, f)) * 57.295776F;
-                    bodyYaw = yaw;
-                }
-            }
-        }
-    }
+		public void tick() {
+			if (getTarget() == null) {
+				Vec3d vec3d = getVelocity();
+				yaw = -((float) MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F;
+				bodyYaw = yaw;
+			} else {
+				LivingEntity livingEntity = getTarget();
+				double d = 64.0D;
+				if (livingEntity.squaredDistanceTo(TaterMinionEntity.this) < (d * d)) {
+					double e = livingEntity.getX() - getX();
+					double f = livingEntity.getZ() - getZ();
+					yaw = -((float) MathHelper.atan2(e, f)) * 57.295776F;
+					bodyYaw = yaw;
+				}
+			}
+		}
+	}
 }

@@ -71,7 +71,7 @@ public class GhostEntityModel extends EntityModel<GhostEntity> {
 
 	@Override
 	public void setAngles(GhostEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-		
+
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 {
   "variants": {
-    "": { "model": "lint:block/corrupt_tall_grass" }
+    "": {
+      "model": "lint:block/corrupt_tall_grass"
+    }
   }
 }

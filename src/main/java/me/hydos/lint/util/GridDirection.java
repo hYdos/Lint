@@ -25,16 +25,24 @@ public enum GridDirection {
 	DOWN(2, 0, -1, false),
 	LEFT(3, -1, 0, true);
 
+	public static final GridDirection[] BY_ID = new GridDirection[4];
+
+	static {
+		for (GridDirection d : GridDirection.values()) {
+			BY_ID[d.id] = d;
+		}
+	}
+
+	public final int id;
+	public final int xOff, zOff;
+	public final boolean horizontal;
+
 	GridDirection(int id, int xOff, int zOff, boolean horizontal) {
 		this.id = id;
 		this.xOff = xOff;
 		this.zOff = zOff;
 		this.horizontal = horizontal;
 	}
-
-	public final int id;
-	public final int xOff, zOff;
-	public final boolean horizontal;
 
 	public GridDirection reverse() {
 		switch (this) {
@@ -48,14 +56,6 @@ public enum GridDirection {
 				return LEFT;
 			default:
 				return null;
-		}
-	}
-
-	public static final GridDirection[] BY_ID = new GridDirection[4];
-
-	static {
-		for (GridDirection d : GridDirection.values()) {
-			BY_ID[d.id] = d;
 		}
 	}
 }

@@ -57,8 +57,8 @@ public class ReturnHomeBlock extends Block {
 			}
 
 			return ActionResult.SUCCESS;
-		} else if(player.getStackInHand(hand).getItem() == Items.POTATO){
-			if(!world.isClient()){
+		} else if (player.getStackInHand(hand).getItem() == Items.POTATO) {
+			if (!world.isClient()) {
 				world.setBlockState(pos, LintBlocks.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true));
 				player.getStackInHand(hand).decrement(1);
 				return ActionResult.SUCCESS;

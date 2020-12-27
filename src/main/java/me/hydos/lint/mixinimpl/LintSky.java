@@ -21,16 +21,10 @@ package me.hydos.lint.mixinimpl;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import me.hydos.lint.Lint;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
-import net.minecraft.client.render.BackgroundRenderer;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.BufferRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.*;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
@@ -41,14 +35,19 @@ import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 
 public class LintSky {
+	private static final Identifier MOON_PHASES = new Identifier("textures/environment/moon_phases.png");
+	private static final Identifier ALPHA_LINT = Lint.id("textures/environment/alpha_lint.png");
+	private static final Identifier BETA_LINT = Lint.id("textures/environment/beta_lint.png");
+	private static final float PI = (float) Math.PI;
+
 	public static void renderLintSky(MatrixStack matrices, TextureManager textureManager,
-			VertexBuffer lightSkyBuffer, VertexBuffer darkSkyBuffer, VertexBuffer starsBuffer,
-			VertexFormat skyVertexFormat, MinecraftClient client, ClientWorld world, float tickDelta) {
+									 VertexBuffer lightSkyBuffer, VertexBuffer darkSkyBuffer, VertexBuffer starsBuffer,
+									 VertexFormat skyVertexFormat, MinecraftClient client, ClientWorld world, float tickDelta) {
 		RenderSystem.disableTexture();
 		Vec3d vec3d = world.method_23777(client.gameRenderer.getCamera().getBlockPos(), tickDelta);
-		float f = (float)vec3d.x;
-		float g = (float)vec3d.y;
-		float h = (float)vec3d.z;
+		float f = (float) vec3d.x;
+		float g = (float) vec3d.y;
+		float h = (float) vec3d.z;
 		BackgroundRenderer.setFogBlack();
 		BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
 		RenderSystem.depthMask(false);
@@ -84,8 +83,8 @@ public class LintSky {
 			bufferBuilder.begin(6, VertexFormats.POSITION_COLOR);
 			bufferBuilder.vertex(matrix4f, 0.0F, 100.0F, 0.0F).color(j, size, l, fs[3]).next();
 
-			for(int n = 0; n <= 16; ++n) {
-				o = (float)n * 6.2831855F / 16.0F;
+			for (int n = 0; n <= 16; ++n) {
+				o = (float) n * 6.2831855F / 16.0F;
 				p = MathHelper.sin(o);
 				q = MathHelper.cos(o);
 				bufferBuilder.vertex(matrix4f, p * 120.0F, q * 120.0F, -q * 40.0F * fs[3]).color(fs[0], fs[1], fs[2], 0.0F).next();
@@ -114,10 +113,10 @@ public class LintSky {
 		int moonPhase = world.getMoonPhase();
 		int moonPhaseType = moonPhase % 4;
 		int moonPhaseRotation = moonPhase / 4 % 2;
-		float w = (float)(moonPhaseType + 0) / 4.0F;
-		o = (float)(moonPhaseRotation + 0) / 2.0F;
-		p = (float)(moonPhaseType + 1) / 4.0F;
-		q = (float)(moonPhaseRotation + 1) / 2.0F;
+		float w = (float) (moonPhaseType + 0) / 4.0F;
+		o = (float) (moonPhaseRotation + 0) / 2.0F;
+		p = (float) (moonPhaseType + 1) / 4.0F;
+		q = (float) (moonPhaseRotation + 1) / 2.0F;
 		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, size).texture(p, q).next();
 		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(w, q).next();
@@ -254,9 +253,4 @@ public class LintSky {
 		result[2] = (day * day + dax * dax) * 10.0f; // bc 100 is "normal", and our observer is 5 away
 		result[3] = (dby * dby + dbx * dbx) * 10.0f;
 	}
-
-	private static final Identifier MOON_PHASES = new Identifier("textures/environment/moon_phases.png");
-	private static final Identifier ALPHA_LINT = Lint.id("textures/environment/alpha_lint.png");
-	private static final Identifier BETA_LINT = Lint.id("textures/environment/beta_lint.png");
-	private static final float PI = (float) Math.PI;
 }

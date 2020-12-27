@@ -55,8 +55,8 @@ public class Entities {
 	 */
 	public static final EntityType<GhostEntity> GHOST =
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("ghost"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GhostEntity::new)
-			.dimensions(EntityDimensions.fixed(1, 2f))
-			.build());
+					.dimensions(EntityDimensions.fixed(1, 2f))
+					.build());
 
 	/**
 	 * Bosses

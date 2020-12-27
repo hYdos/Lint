@@ -32,20 +32,20 @@ import net.minecraft.world.World;
 
 public class KingTaterButton extends Block {
 
-    public KingTaterButton(Settings settings) {
-        super(settings);
-    }
+	public KingTaterButton(Settings settings) {
+		super(settings);
+	}
 
-    @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (state != LintBlocks.GREEN_BUTTON.getDefaultState()) {
-            world.setBlockState(pos, LintBlocks.GREEN_BUTTON.getDefaultState());
-            KingTaterEntity kingTater = new KingTaterEntity(Entities.KING_TATER, world);
-            kingTater.refreshPositionAndAngles(pos, 0, 0);
-            world.spawnEntity(kingTater);
-            return ActionResult.SUCCESS;
-        } else {
-            return ActionResult.FAIL;
-        }
-    }
+	@Override
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		if (state != LintBlocks.GREEN_BUTTON.getDefaultState()) {
+			world.setBlockState(pos, LintBlocks.GREEN_BUTTON.getDefaultState());
+			KingTaterEntity kingTater = new KingTaterEntity(Entities.KING_TATER, world);
+			kingTater.refreshPositionAndAngles(pos, 0, 0);
+			world.spawnEntity(kingTater);
+			return ActionResult.SUCCESS;
+		} else {
+			return ActionResult.FAIL;
+		}
+	}
 }

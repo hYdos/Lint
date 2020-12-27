@@ -19,14 +19,8 @@
 
 package me.hydos.lint.world.gen;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.world.biome.HaykamBiomeSource;
@@ -55,12 +49,17 @@ import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 
+import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
+
 public class HaykamChunkGenerator extends ChunkGenerator {
 
 	public static final Codec<HaykamChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
 			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
-			).apply(instance, instance.stable(HaykamChunkGenerator::new)));
+	).apply(instance, instance.stable(HaykamChunkGenerator::new)));
 	private final ChunkRandom random = new ChunkRandom();
 	private final long seed;
 	private final Registry<Biome> biomeRegistry;
@@ -115,7 +114,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 				int height = this.terrain.getHeight(x, z);
 				int lowerBound = this.terrain.getLowerGenBound(x, z, height);
 				boolean ash = this.surfaceNoise.sample(x * 0.09, z * 0.09, true) > 0 && (height - lowerBound) < 3;
- 
+
 				if (height - lowerBound == 1) {
 					lowerBound--;
 				}
@@ -171,13 +170,13 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 		int startZ = chunkPos.getStartZ();
 		BlockPos.Mutable mutable = new BlockPos.Mutable();
 
-		for(int xo = 0; xo < 16; ++xo) {
+		for (int xo = 0; xo < 16; ++xo) {
 			int x = startX + xo;
 
-			for(int zo = 0; zo < 16; ++zo) {
+			for (int zo = 0; zo < 16; ++zo) {
 				int z = startZ + zo;
 				int height = chunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, xo, zo) + 1;
-				double noise = this.surfaceNoise.sample((double)x * 0.0625D, (double)z * 0.0625D, 0.0625D, (double)xo * 0.0625D) * 15.0D;
+				double noise = this.surfaceNoise.sample((double) x * 0.0625D, (double) z * 0.0625D, 0.0625D, (double) xo * 0.0625D) * 15.0D;
 
 				region.getBiome(mutable.set(startX + xo, height, startZ + zo)).buildSurface(rand, chunk, x, z, height, noise,
 						LintBlocks.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(), region.getSeed());

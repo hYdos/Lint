@@ -32,6 +32,10 @@ import net.minecraft.util.registry.Registry;
 
 public class Birds {
 
+	public static final AbstractBirdEntity.BirdData EASTERN_ROSELLA_DATA = new AbstractBirdEntity.BirdData(
+			Sounds.KING_TATER,
+			"Eastern Rosella",
+			"Valoghese was here");
 	/**
 	 * Birds
 	 */
@@ -39,10 +43,6 @@ public class Birds {
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("eastern_rosella"), FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, EasternRosellaEntity::new)
 					.dimensions(EntityDimensions.fixed(0.3f, 0.4f))
 					.build());
-	public static final AbstractBirdEntity.BirdData EASTERN_ROSELLA_DATA = new AbstractBirdEntity.BirdData(
-			Sounds.KING_TATER,
-			"Eastern Rosella",
-			"Valoghese was here");
 
 	public static void register() {
 		FabricDefaultAttributeRegistry.register(EASTERN_ROSELLA, EasternRosellaEntity.createBirdAttributes());
