@@ -37,8 +37,10 @@ public class InfusedBlock extends Block {
 	}
 
 	public void onSteppedOn(World world, BlockPos pos, Entity entity) {
-		if (!entity.isFireImmune() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
-			entity.damage(DamageSource.DRYOUT, 4.0F);
+		if (entity instanceof LivingEntity) {
+			if (!entity.isFireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
+				entity.damage(DamageSource.DRYOUT, 4.0F);
+			}
 
 			switch (this.power) {
 				case ALLOS:
@@ -52,6 +54,5 @@ public class InfusedBlock extends Block {
 					break;
 			}
 		}
-		super.onSteppedOn(world, pos, entity);
 	}
 }
