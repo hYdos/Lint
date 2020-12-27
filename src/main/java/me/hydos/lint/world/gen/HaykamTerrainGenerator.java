@@ -1,5 +1,7 @@
 package me.hydos.lint.world.gen;
 
+import java.util.Random;
+
 import me.hydos.lint.util.LossyDoubleCache;
 import me.hydos.lint.util.LossyIntCache;
 import me.hydos.lint.util.math.DoubleGridOperator;
@@ -7,8 +9,6 @@ import me.hydos.lint.util.math.IntGridOperator;
 import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.biome.TerrainData;
 import net.minecraft.util.math.MathHelper;
-
-import java.util.Random;
 
 public class HaykamTerrainGenerator implements TerrainData {
 	private final int seed;
@@ -25,6 +25,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 	private final DoubleGridOperator terrainScaleOperator;
 	private final IntGridOperator baseHeightOperator;
 	private final IntGridOperator heightOperator;
+	private final IntGridOperator terraceModOperator;
 
 	HaykamTerrainGenerator(long seed, Random rand) {
 		int protoSeed = (int) (seed >> 32);
@@ -127,6 +128,17 @@ public class HaykamTerrainGenerator implements TerrainData {
 				return (int) MathHelper.lerp(progress, height, finalHeight);
 			}
 		});
+
+		this.terraceModOperator = new LossyIntCache(512, (x, z) -> {
+			double terraceRescaleConstant = 1.0 / 0.52;
+			int heightMod = (int) (28 * Voronoi.sampleTerrace(x * 0.034, z * 0.034, this.seed, (sx, sz) -> {
+				double cliffsNoise = 1 + this.cliffsNoise.sample(sx, sz);
+				double limiter = Math.max(0, terraceRescaleConstant * (this.terrainDeterminerNoise.sample(sx * 0.23, sz * 0.23) - 0.48));
+				limiter = Math.max(limiter, 0.2);
+				return limiter * cliffsNoise;
+			}, 0.3));
+			return 3 * (heightMod / 3);
+		});
 	}
 
 	public int getHeight(int x, int z) {
@@ -146,18 +158,14 @@ public class HaykamTerrainGenerator implements TerrainData {
 		return height;
 	}
 
-	private int terraceMod(int x, int z, int height, int baseHeight) {
-		double terraceRescaleConstant = 1.0 / 0.52;
+	@Override
+	public int sampleTerraceMod(int x, int z) {
+		return this.terraceModOperator.get(x, z);
+	}
 
+	private int terraceMod(int x, int z, int height, int baseHeight) {
 		if (this.sampleTypeScale(x, z) < 23.0 && baseHeight > SEA_LEVEL + 2) {
-			int heightMod = (int) (28 * Voronoi.sampleTerrace(x * 0.034, z * 0.034, this.seed, (sx, sz) -> {
-				double cliffsNoise = 1 + this.cliffsNoise.sample(sx, sz);
-				double limiter = Math.max(0, terraceRescaleConstant * (this.terrainDeterminerNoise.sample(sx * 0.23, sz * 0.23) - 0.48));
-				limiter = Math.max(limiter, 0.2);
-				return limiter * cliffsNoise;
-			}, 0.3));
-			heightMod = 3 * (heightMod / 3);
-			return height + heightMod;
+			return height + this.terraceModOperator.get(x, z);
 		}
 
 		return height;

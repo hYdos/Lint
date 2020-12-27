@@ -8,13 +8,13 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.layer.type.InitLayer;
 import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
 
-public class MountainBiomes implements InitLayer {
+public class TerraceBiomes implements InitLayer {
     @SuppressWarnings("rawtypes")
-    private static final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY};
+    private static final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY, Biomes.INDIGO_RIDGES_KEY};
 
     private final Registry<Biome> biomeRegistry;
 
-    public MountainBiomes(Registry<Biome> biomeRegistry) {
+    public TerraceBiomes(Registry<Biome> biomeRegistry) {
         this.biomeRegistry = biomeRegistry;
     }
 

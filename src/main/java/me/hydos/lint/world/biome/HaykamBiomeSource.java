@@ -1,10 +1,15 @@
 package me.hydos.lint.world.biome;
 
+import java.util.function.LongFunction;
+import java.util.stream.Collectors;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import me.hydos.lint.world.gen.HaykamTerrainGenerator;
 import me.hydos.lint.world.layer.GenericBiomes;
 import me.hydos.lint.world.layer.MountainBiomes;
+import me.hydos.lint.world.layer.TerraceBiomes;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
@@ -18,9 +23,6 @@ import net.minecraft.world.biome.layer.util.LayerSampler;
 import net.minecraft.world.biome.source.BiomeLayerSampler;
 import net.minecraft.world.biome.source.BiomeSource;
 
-import java.util.function.LongFunction;
-import java.util.stream.Collectors;
-
 public class HaykamBiomeSource extends BiomeSource {
 	public static final Codec<HaykamBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
@@ -30,13 +32,10 @@ public class HaykamBiomeSource extends BiomeSource {
 	private final Registry<Biome> biomeRegistry;
 	private final long seed;
 
-	private final GenericBiomes genericBiomes;
-	private final MountainBiomes mountainBiomes;
-	private final GenericBiomes beachBiomes;
-
 	private final BiomeLayerSampler genericSampler;
 	private final BiomeLayerSampler mountainSampler;
 	private final BiomeLayerSampler beachSampler;
+	private final BiomeLayerSampler terraceSampler;
 
 	private TerrainData data;
 
@@ -45,14 +44,10 @@ public class HaykamBiomeSource extends BiomeSource {
 		this.seed = seed;
 		this.biomeRegistry = biomeRegistry;
 
-		this.genericBiomes = new GenericBiomes(biomeRegistry, false);
-		this.genericSampler = createBiomeLayerSampler(this.genericBiomes, seed);
-
-		this.mountainBiomes = new MountainBiomes(biomeRegistry);
-		this.mountainSampler = createBiomeLayerSampler(this.mountainBiomes, seed);
-
-		this.beachBiomes = new GenericBiomes(biomeRegistry, true);
-		this.beachSampler = createBiomeLayerSampler(this.beachBiomes, seed);
+		this.genericSampler = createBiomeLayerSampler(new GenericBiomes(biomeRegistry, false), seed);
+		this.mountainSampler = createBiomeLayerSampler(new MountainBiomes(biomeRegistry), seed);
+		this.beachSampler = createBiomeLayerSampler(new GenericBiomes(biomeRegistry, true), seed);
+		this.terraceSampler = createBiomeLayerSampler(new TerraceBiomes(biomeRegistry), seed);
 	}
 
 	public void setTerrainData(TerrainData data) {
@@ -98,6 +93,12 @@ public class HaykamBiomeSource extends BiomeSource {
 			}
 			/*}
 			}*/
+		}
+
+		if (this.data.sampleTypeScale(x, z) < 23.0 && baseHeight > HaykamTerrainGenerator.SEA_LEVEL + 2) {
+			if (this.data.sampleTerraceMod(x, z) > 0) {
+				return this.terraceSampler.sample(this.biomeRegistry, biomeX, biomeZ);
+			}
 		}
 
 		double scale = this.data.sampleTerrainScale(x, z);
