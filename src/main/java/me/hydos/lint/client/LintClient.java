@@ -20,13 +20,13 @@
 package me.hydos.lint.client;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.Blocks;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.render.*;
 import me.hydos.lint.client.particle.ClientParticles;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
-import me.hydos.lint.fluid.Fluids;
+import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.network.ClientNetworking;
 import me.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import me.hydos.lint.screenhandler.ScreenHandlers;
@@ -76,17 +76,17 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerFluidRenderers() {
-		for (Fluids.FluidEntry entry : Fluids.MOLTEN_FLUID_MAP.values()) {
+		for (LintFluids.FluidEntry entry : LintFluids.MOLTEN_FLUID_MAP.values()) {
 			registerFluidRenderer(entry.getStill(), entry.getFlowing(), new Identifier("water"), entry.getColour());
 		}
 	}
 
 	private void registerBlockRenderers() {
-		BlockRenderLayerMap.INSTANCE.putBlock(Blocks.CORRUPT_STEM, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(Blocks.WILTED_FLOWER, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_GRASS, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_STEM, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(Blocks.MYSTICAL_DAISY, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CORRUPT_STEM, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.WILTED_FLOWER, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_GRASS, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_STEM, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_DAISY, RenderLayer.getCutout());
 	}
 
 	private void registerHandledScreens() {

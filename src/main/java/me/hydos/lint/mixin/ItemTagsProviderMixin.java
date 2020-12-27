@@ -19,7 +19,7 @@
 
 package me.hydos.lint.mixin;
 
-import me.hydos.lint.item.Items;
+import me.hydos.lint.item.LintItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.server.AbstractTagProvider;
 import net.minecraft.data.server.ItemTagsProvider;
@@ -40,7 +40,7 @@ public abstract class ItemTagsProviderMixin extends AbstractTagProvider<Item> {
 
 	@Inject(method = "configure", at = @At("TAIL"))
 	private void registerCustomMusicDiscs(CallbackInfo ci){
-		this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(Items.OBOE_DISC, Items.OCEAN_DISC, Items.CORRUPT_FOREST_DISC, Items.MYSTICAL_FOREST_DISC);
+		this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(LintItems.OBOE_DISC, LintItems.OCEAN_DISC, LintItems.CORRUPT_FOREST_DISC, LintItems.MYSTICAL_FOREST_DISC);
 	}
 
 }

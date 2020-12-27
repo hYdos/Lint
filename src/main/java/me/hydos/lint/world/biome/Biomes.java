@@ -20,7 +20,7 @@
 package me.hydos.lint.world.biome;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.Blocks;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.sound.Sounds;
@@ -59,36 +59,36 @@ public class Biomes {
 	/**
 	 * Biome Surface Builders
 	 */
-	public static final SurfaceBuilder<TernarySurfaceConfig> OCEAN_RAW_SB = new OceanSurfaceBuilder(Blocks.MYSTICAL_SAND.getDefaultState(), Blocks.WHITE_SAND.getDefaultState());
-	public static final SurfaceBuilder<TernarySurfaceConfig> CORRUPT_OCEAN_RAW_SB = new OceanSurfaceBuilder(Blocks.CORRUPT_SAND.getDefaultState(), Blocks.WHITE_SAND.getDefaultState());
+	public static final SurfaceBuilder<TernarySurfaceConfig> OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks.MYSTICAL_SAND.getDefaultState(), LintBlocks.WHITE_SAND.getDefaultState());
+	public static final SurfaceBuilder<TernarySurfaceConfig> CORRUPT_OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks.CORRUPT_SAND.getDefaultState(), LintBlocks.WHITE_SAND.getDefaultState());
 	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_RAW_SB = new DawnShardlandsSurfaceBuilder();
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(
-					Blocks.LIVELY_GRASS.getDefaultState(),
-					Blocks.RICH_DIRT.getDefaultState(),
-					Blocks.RICH_DIRT.getDefaultState()));
+					LintBlocks.LIVELY_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(Blocks.CORRUPT_GRASS.getDefaultState(),
-					Blocks.RICH_DIRT.getDefaultState(),
-					Blocks.RICH_DIRT.getDefaultState()));
+			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OC_SB = OCEAN_RAW_SB.withConfig(
 			new TernarySurfaceConfig(
-					Blocks.LIVELY_GRASS.getDefaultState(),
-					Blocks.RICH_DIRT.getDefaultState(),
-					Blocks.RICH_DIRT.getDefaultState()));
+					LintBlocks.LIVELY_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CB_SB = CORRUPT_OCEAN_RAW_SB.withConfig(
-			new TernarySurfaceConfig(Blocks.CORRUPT_GRASS.getDefaultState(),
-					Blocks.RICH_DIRT.getDefaultState(),
-					Blocks.RICH_DIRT.getDefaultState()));
+			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> IN_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(Blocks.INDIGO_STONE.getDefaultState(),
-					Blocks.INDIGO_STONE.getDefaultState(),
-					Blocks.INDIGO_STONE.getDefaultState()));
+			new TernarySurfaceConfig(LintBlocks.INDIGO_STONE.getDefaultState(),
+					LintBlocks.INDIGO_STONE.getDefaultState(),
+					LintBlocks.INDIGO_STONE.getDefaultState()));
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DS_SB = DAWN_SHARDLANDS_RAW_SB.withConfig(
-			new TernarySurfaceConfig(Blocks.ASPHALT.getDefaultState(),
-					Blocks.ASPHALT.getDefaultState(),
-					Blocks.ASPHALT.getDefaultState()));
+			new TernarySurfaceConfig(LintBlocks.ASPHALT.getDefaultState(),
+					LintBlocks.ASPHALT.getDefaultState(),
+					LintBlocks.ASPHALT.getDefaultState()));
 
 	/**
 	 * Spawn Configurations

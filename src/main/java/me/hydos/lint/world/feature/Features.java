@@ -20,7 +20,7 @@
 package me.hydos.lint.world.feature;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.Blocks;
+import me.hydos.lint.block.LintBlocks;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -44,40 +44,40 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> CORRUPT_TREES = register("corrupt_trees", TREE.configure((
 			new TreeFeatureConfig.Builder(
-					new SimpleBlockStateProvider(Blocks.CORRUPT_LOG.getDefaultState()), new SimpleBlockStateProvider(Blocks.CORRUPT_LEAVES.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.CORRUPT_LOG.getDefaultState()), new SimpleBlockStateProvider(LintBlocks.CORRUPT_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new LintTrunkPlacer(4, 2, 0),
 					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
 
 	public static final ConfiguredFeature<?, ?> MYSTICAL_TREES = register("mystical_trees", TREE.configure((
-			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_LOG.getDefaultState()),
-					new SimpleBlockStateProvider(Blocks.MYSTICAL_LEAVES.getDefaultState()),
+			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 					new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(3, 0.3F, 1))));
 
 	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", TREE.configure((
-			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_LOG.getDefaultState()),
-					new SimpleBlockStateProvider(Blocks.MYSTICAL_LEAVES.getDefaultState()),
+			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 					new LintTrunkPlacer(6, 4, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(290, 0.6F, 9))));
 
 	/**
 	 * ORES
 	 */
-	public static final RuleTest FUNNI_STONE = new BlockMatchRuleTest(Blocks.FUSED_STONE);
+	public static final RuleTest FUNNI_STONE = new BlockMatchRuleTest(LintBlocks.FUSED_STONE);
 
 	public static final ConfiguredFeature<?, ?> TARSCAN_ORE = register("tarscan_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					Blocks.TARSCAN.getDefaultState(),
+					LintBlocks.TARSCAN.getDefaultState(),
 					9)).rangeOf(64)).spreadHorizontally().repeat(20);
 
 	public static final ConfiguredFeature<?, ?> SICIERON_ORE = register("sicieron_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					Blocks.SICIERON.getDefaultState(),
+					LintBlocks.SICIERON.getDefaultState(),
 					12)).rangeOf(40)).spreadHorizontally().repeat(8);
 
 	public static final ConfiguredFeature<?, ?> JUREL_ORE = register("jurel_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					Blocks.TARSCAN.getDefaultState(),
+					LintBlocks.TARSCAN.getDefaultState(),
 					9)).rangeOf(10)).spreadHorizontally().repeat(6);
 
 	/**
@@ -122,13 +122,13 @@ public class Features {
 		public static final RandomPatchFeatureConfig MYSTICAL_FALLEN_LEAVES;
 
 		static {
-			MYSTICAL_DAISY_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_DAISY.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
-			MYSTICAL_STEM_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_STEM.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
-			CORRUPT_STEM_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.CORRUPT_STEM.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
-			WILTED_FLOWER_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.WILTED_FLOWER.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
+			MYSTICAL_DAISY_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_DAISY.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
+			MYSTICAL_STEM_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
+			CORRUPT_STEM_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.CORRUPT_STEM.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
+			WILTED_FLOWER_CONFIG = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.WILTED_FLOWER.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(16).build();
 
-			CORRUPT_FALLEN_LEAVES = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.CORRUPT_FALLEN_LEAVES.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(6).build();
-			MYSTICAL_FALLEN_LEAVES = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.MYSTICAL_FALLEN_LEAVES.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(6).build();
+			CORRUPT_FALLEN_LEAVES = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.CORRUPT_FALLEN_LEAVES.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(6).build();
+			MYSTICAL_FALLEN_LEAVES = (new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_FALLEN_LEAVES.getDefaultState()), SimpleBlockPlacer.INSTANCE)).tries(6).build();
 		}
 	}
 }

@@ -20,9 +20,9 @@
 package me.hydos.lint.block;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.fluid.Fluids;
+import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
-import me.hydos.lint.item.group.ItemGroups;
+import me.hydos.lint.item.group.LintItemGroups;
 import me.hydos.lint.util.Power;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -37,7 +37,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
 
-public final class Blocks {
+public final class LintBlocks {
 
 	/**
 	 * Fluid blockstate cache
@@ -172,7 +172,7 @@ public final class Blocks {
 	 */
 	public static final Block MYSTICAL_TRAPDOOR = new TrapdoorBlock(FabricBlockSettings.of(Material.WOOD)
 			.hardness(2)
-			.sounds(BlockSoundGroup.WOOD));
+			.sounds(BlockSoundGroup.WOOD)) {};
 	public static final Block MYSTICAL_LEAVES = new LintLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
@@ -225,59 +225,59 @@ public final class Blocks {
 		registerFlower(MYSTICAL_STEM, "mystical_stem");
 		registerFlower(MYSTICAL_DAISY, "yellow_daisy");
 
-		registerBlock(ItemGroups.DECORATIONS, RED_BUTTON, "red_button");
-		registerBlock(ItemGroups.DECORATIONS, GREEN_BUTTON, "green_button");
+		registerBlock(LintItemGroups.DECORATIONS, RED_BUTTON, "red_button");
+		registerBlock(LintItemGroups.DECORATIONS, GREEN_BUTTON, "green_button");
 
-		registerBlock(ItemGroups.DECORATIONS, RETURN_HOME, "return_home");
+		registerBlock(LintItemGroups.DECORATIONS, RETURN_HOME, "return_home");
 
-		registerBlock(ItemGroups.DECORATIONS, MYSTICAL_FALLEN_LEAVES, "mystical_fallen_leaves");
-		registerBlock(ItemGroups.DECORATIONS, CORRUPT_FALLEN_LEAVES, "corrupt_fallen_leaves");
+		registerBlock(LintItemGroups.DECORATIONS, MYSTICAL_FALLEN_LEAVES, "mystical_fallen_leaves");
+		registerBlock(LintItemGroups.DECORATIONS, CORRUPT_FALLEN_LEAVES, "corrupt_fallen_leaves");
 	}
 
 	public static void registerBuildingBlocks() {
-		registerBlock(ItemGroups.BLOCKS, SMELTERY, "smeltery");
-		registerBlock(ItemGroups.BLOCKS, BASIC_CASTING, "basic_casting");
-		registerBlock(ItemGroups.BLOCKS, CRACKED_BASIC_CASTING, "cracked_basic_casting");
+		registerBlock(LintItemGroups.BLOCKS, SMELTERY, "smeltery");
+		registerBlock(LintItemGroups.BLOCKS, BASIC_CASTING, "basic_casting");
+		registerBlock(LintItemGroups.BLOCKS, CRACKED_BASIC_CASTING, "cracked_basic_casting");
 
-		registerBlock(ItemGroups.BLOCKS, FUSED_STONE, "fused_stone");
-		registerBlock(ItemGroups.BLOCKS, INDIGO_STONE, "indigo_stone");
-		registerBlock(ItemGroups.BLOCKS, TARSCAN, "tarscan_ore");
-		registerBlock(ItemGroups.BLOCKS, SICIERON, "sicieron_ore");
-		registerBlock(ItemGroups.BLOCKS, JUREL, "jurel_ore");
+		registerBlock(LintItemGroups.BLOCKS, FUSED_STONE, "fused_stone");
+		registerBlock(LintItemGroups.BLOCKS, INDIGO_STONE, "indigo_stone");
+		registerBlock(LintItemGroups.BLOCKS, TARSCAN, "tarscan_ore");
+		registerBlock(LintItemGroups.BLOCKS, SICIERON, "sicieron_ore");
+		registerBlock(LintItemGroups.BLOCKS, JUREL, "jurel_ore");
 
-		registerBlock(ItemGroups.BLOCKS, MYSTICAL_TRAPDOOR, "mystical_trapdoor");
+		registerBlock(LintItemGroups.BLOCKS, MYSTICAL_TRAPDOOR, "mystical_trapdoor");
 
-		registerBlock(ItemGroups.BLOCKS, DUNGEON_BRICKS, "dungeon_bricks");
-		registerBlock(ItemGroups.BLOCKS, MOSSY_DUNGEON_BRICKS, "mossy_dungeon_bricks");
+		registerBlock(LintItemGroups.BLOCKS, DUNGEON_BRICKS, "dungeon_bricks");
+		registerBlock(LintItemGroups.BLOCKS, MOSSY_DUNGEON_BRICKS, "mossy_dungeon_bricks");
 
-		registerBlock(ItemGroups.BLOCKS, WHITE_SAND, "white_sand");
-		registerBlock(ItemGroups.BLOCKS, CORRUPT_SAND, "corrupt_sand");
+		registerBlock(LintItemGroups.BLOCKS, WHITE_SAND, "white_sand");
+		registerBlock(LintItemGroups.BLOCKS, CORRUPT_SAND, "corrupt_sand");
 
-		registerBlock(ItemGroups.BLOCKS, RICH_DIRT, "rich_dirt");
-		registerBlock(ItemGroups.BLOCKS, CORRUPT_GRASS, "corrupt_grass");
-		registerBlock(ItemGroups.BLOCKS, LIVELY_GRASS, "lively_grass");
+		registerBlock(LintItemGroups.BLOCKS, RICH_DIRT, "rich_dirt");
+		registerBlock(LintItemGroups.BLOCKS, CORRUPT_GRASS, "corrupt_grass");
+		registerBlock(LintItemGroups.BLOCKS, LIVELY_GRASS, "lively_grass");
 
-		registerBlock(ItemGroups.BLOCKS, MYSTICAL_PLANKS, "mystical_planks");
-		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LEAVES, "mystical_leaves");
-		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
-		registerBlock(ItemGroups.BLOCKS, MYSTICAL_SAND, "mystical_sand");
+		registerBlock(LintItemGroups.BLOCKS, MYSTICAL_PLANKS, "mystical_planks");
+		registerBlock(LintItemGroups.BLOCKS, MYSTICAL_LEAVES, "mystical_leaves");
+		registerBlock(LintItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
+		registerBlock(LintItemGroups.BLOCKS, MYSTICAL_SAND, "mystical_sand");
 
-		registerBlock(ItemGroups.BLOCKS, CORRUPT_PLANKS, "corrupt_planks");
-		registerBlock(ItemGroups.BLOCKS, CORRUPT_LEAVES, "corrupt_leaves");
-		registerBlock(ItemGroups.BLOCKS, CORRUPT_LOG, "corrupt_log");
+		registerBlock(LintItemGroups.BLOCKS, CORRUPT_PLANKS, "corrupt_planks");
+		registerBlock(LintItemGroups.BLOCKS, CORRUPT_LEAVES, "corrupt_leaves");
+		registerBlock(LintItemGroups.BLOCKS, CORRUPT_LOG, "corrupt_log");
 
-		registerBlock(ItemGroups.BLOCKS, MYSTICAL_SLAB, "mystical_slab");
-		registerBlock(ItemGroups.BLOCKS, CORRUPT_SLAB, "corrupt_slab");
-		registerBlock(ItemGroups.BLOCKS, DUNGEON_BRICK_SLAB, "dungeon_brick_slab");
+		registerBlock(LintItemGroups.BLOCKS, MYSTICAL_SLAB, "mystical_slab");
+		registerBlock(LintItemGroups.BLOCKS, CORRUPT_SLAB, "corrupt_slab");
+		registerBlock(LintItemGroups.BLOCKS, DUNGEON_BRICK_SLAB, "dungeon_brick_slab");
 		
-		registerBlock(ItemGroups.BLOCKS, ASPHALT, "asphalt");
-		registerBlock(ItemGroups.BLOCKS, ALLOS_INFUSED_ASPHALT, "allos_infused_asphalt");
-		registerBlock(ItemGroups.BLOCKS, MANOS_INFUSED_ASPHALT, "manos_infused_asphalt");
-		registerBlock(ItemGroups.BLOCKS, ASH, "ash");
+		registerBlock(LintItemGroups.BLOCKS, ASPHALT, "asphalt");
+		registerBlock(LintItemGroups.BLOCKS, ALLOS_INFUSED_ASPHALT, "allos_infused_asphalt");
+		registerBlock(LintItemGroups.BLOCKS, MANOS_INFUSED_ASPHALT, "manos_infused_asphalt");
+		registerBlock(LintItemGroups.BLOCKS, ASH, "ash");
 	}
 
 	public static void registerFluidBlocks() {
-		for (Fluids.FluidEntry entry : Fluids.MOLTEN_FLUID_MAP.values()) {
+		for (LintFluids.FluidEntry entry : LintFluids.MOLTEN_FLUID_MAP.values()) {
 			LintFluidBlock block = new LintFluidBlock(entry.getStill(), FabricBlockSettings.copy(net.minecraft.block.Blocks.LAVA));
 			registerHiddenBlock(block, "molten_" + entry.getMetalName());
 			FLUID_BLOCKSTATE_MAP.put((MoltenMetalFluid) entry.getStill(), block);
@@ -298,7 +298,7 @@ public final class Blocks {
 	}
 
 	private static void registerFlower(FlowerBlock flower, String path) {
-		registerBlock(ItemGroups.DECORATIONS, flower, path);
+		registerBlock(LintItemGroups.DECORATIONS, flower, path);
 	}
 
 	public static BlockState getFluid(Fluid still) {

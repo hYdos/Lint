@@ -21,7 +21,7 @@ package me.hydos.lint.world.carver;
 
 import com.mojang.serialization.Codec;
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.Blocks;
+import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
@@ -45,7 +45,7 @@ public class LintCaveCarver extends CaveCarver {
 
 	@Override
 	protected boolean canCarveBlock(BlockState state, BlockState stateAbove) {
-		return state.isOf(Blocks.FUSED_STONE) || super.canCarveBlock(state, stateAbove);
+		return state.isOf(LintBlocks.FUSED_STONE) || super.canCarveBlock(state, stateAbove);
 	}
 
 	protected float getTunnelSystemWidth(Random random) {
@@ -64,7 +64,7 @@ public class LintCaveCarver extends CaveCarver {
 			pos1.set(x, y, z);
 			BlockState state = chunk.getBlockState(pos1);
 			BlockState upState = chunk.getBlockState(mutable2.set(pos1, Direction.UP));
-			if (state.isOf(Blocks.CORRUPT_GRASS) || state.isOf(Blocks.LIVELY_GRASS)) {
+			if (state.isOf(LintBlocks.CORRUPT_GRASS) || state.isOf(LintBlocks.LIVELY_GRASS)) {
 				grassCheckerThing.setTrue();
 			}
 
@@ -77,7 +77,7 @@ public class LintCaveCarver extends CaveCarver {
 					chunk.setBlockState(pos1, CAVE_AIR, false);
 					if (grassCheckerThing.isTrue()) {
 						pos3.set(pos1, Direction.DOWN);
-						if (chunk.getBlockState(pos3).isOf(Blocks.RICH_DIRT)) {
+						if (chunk.getBlockState(pos3).isOf(LintBlocks.RICH_DIRT)) {
 							chunk.setBlockState(pos3, posToBiome.apply(pos1).getGenerationSettings().getSurfaceConfig().getTopMaterial(), false);
 						}
 					}

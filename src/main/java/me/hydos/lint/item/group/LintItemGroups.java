@@ -20,32 +20,32 @@
 package me.hydos.lint.item.group;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.Blocks;
-import me.hydos.lint.item.Items;
+import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.item.LintItems;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
-public class ItemGroups {
+public class LintItemGroups {
 
 	public static final ItemGroup BLOCKS = FabricItemGroupBuilder.create(
 			Lint.id("lint_blocks"))
-			.icon(() -> new ItemStack(Blocks.LIVELY_GRASS))
+			.icon(() -> new ItemStack(LintBlocks.LIVELY_GRASS))
 			.build();
 
 	public static final ItemGroup DECORATIONS = FabricItemGroupBuilder.create(
 			Lint.id("lint_decorations"))
-			.icon(() -> new ItemStack(Blocks.MYSTICAL_DAISY))
+			.icon(() -> new ItemStack(LintBlocks.MYSTICAL_DAISY))
 			.build();
 
 	public static final ItemGroup TOOLS = FabricItemGroupBuilder.create(
 			Lint.id("lint_tools"))
-			.icon(() -> new ItemStack(Items.SICIERON_AXE))
+			.icon(() -> new ItemStack(LintItems.SICIERON_AXE))
 			.build();
 
 	public static final ItemGroup ITEMS = FabricItemGroupBuilder.create(
 			Lint.id("lint_items"))
-			.icon(() -> new ItemStack(Items.TATER_ESSENCE))
+			.icon(() -> new ItemStack(LintItems.TATER_ESSENCE))
 			.build();
 
 	public static void register() {

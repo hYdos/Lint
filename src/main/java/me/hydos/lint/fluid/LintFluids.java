@@ -30,7 +30,7 @@ import net.minecraft.util.registry.Registry;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Fluids {
+public class LintFluids {
 
 	public static final Map<Identifier, FluidEntry> MOLTEN_FLUID_MAP = new HashMap<>();
 

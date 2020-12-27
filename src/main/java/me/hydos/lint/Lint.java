@@ -19,10 +19,10 @@
 
 package me.hydos.lint;
 
-import me.hydos.lint.block.Blocks;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Entities;
-import me.hydos.lint.fluid.Fluids;
-import me.hydos.lint.item.Items;
+import me.hydos.lint.fluid.LintFluids;
+import me.hydos.lint.item.LintItems;
 import me.hydos.lint.network.Networking;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.sound.Sounds;
@@ -31,7 +31,6 @@ import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.structure.Structures;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,9 +45,9 @@ public class Lint implements ModInitializer {
 		LOGGER.info("Lint is initializing");
 		GeckoLib.initialize();
 		Sounds.register();
-		Fluids.register();
-		Blocks.register();
-		Items.register();
+		LintFluids.register();
+		LintBlocks.register();
+		LintItems.register();
 		Entities.register();
 		ScreenHandlers.register();
 		Networking.register();

@@ -23,7 +23,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import me.hydos.lint.block.Blocks;
+import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
@@ -85,7 +85,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
     private static boolean isDirtOrGrass(TestableWorld world, BlockPos pos) {
         return world.testBlockState(pos, (state) -> {
             Block block = state.getBlock();
-            return block == Blocks.CORRUPT_GRASS || block == Blocks.LIVELY_GRASS;
+            return block == LintBlocks.CORRUPT_GRASS || block == LintBlocks.LIVELY_GRASS;
         });
     }
 

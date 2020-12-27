@@ -20,7 +20,7 @@
 package me.hydos.lint.entity.passive;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.Blocks;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.LintInventory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.BlockState;
@@ -138,7 +138,7 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 			//TODO: create a mob entity cap manager and check the passive cap before spawning them.
 			if (random.nextInt(10) > 4) {
 				BlockState blockState = world.getBlockState(pos.down());
-				return (blockState.isOf(Blocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
+				return (blockState.isOf(LintBlocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
 			}
 		}
 		return true;

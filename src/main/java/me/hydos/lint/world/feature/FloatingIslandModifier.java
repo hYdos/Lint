@@ -19,7 +19,7 @@
 
 package me.hydos.lint.world.feature;
 
-import me.hydos.lint.block.Blocks;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.gen.HaykamTerrainGenerator;
 import me.hydos.lint.world.gen.OpenSimplexNoise;
@@ -119,5 +119,5 @@ public class FloatingIslandModifier {
 		x -= 0.5;
 		return 0.5 * (1 + x + 4 * (x * x * x));
 	}
-	private static final BlockState FUSED_STONE = Blocks.FUSED_STONE.getDefaultState();
+	private static final BlockState FUSED_STONE = LintBlocks.FUSED_STONE.getDefaultState();
 }

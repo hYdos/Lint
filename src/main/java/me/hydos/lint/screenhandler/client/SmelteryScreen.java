@@ -21,7 +21,7 @@ package me.hydos.lint.screenhandler.client;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.client.render.fluid.Fluid2DRenderer;
-import me.hydos.lint.fluid.Fluids;
+import me.hydos.lint.fluid.LintFluids;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.BufferBuilder;
@@ -52,7 +52,7 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
 		this.client.getTextureManager().bindTexture(GUI);
 		drawTexture(matrices, x, y - 32, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);
-		renderFluid(matrices, Fluids.MOLTEN_FLUID_MAP.get(IRON_FLUID).getStill(), new Rectangle(new Point(x + 8, y + 49), new Dimension(72, 20)));
+		renderFluid(matrices, LintFluids.MOLTEN_FLUID_MAP.get(IRON_FLUID).getStill(), new Rectangle(new Point(x + 8, y + 49), new Dimension(72, 20)));
 	}
 
 	public void renderFluid(MatrixStack matrices, Fluid fluid, Rectangle bounds) {

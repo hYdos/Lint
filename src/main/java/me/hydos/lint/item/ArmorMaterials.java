@@ -38,7 +38,7 @@ public enum ArmorMaterials implements ArmorMaterial {
 			SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
 			2.0F,
 			0.0F,
-			() -> Ingredient.ofItems(Items.SICIERON_INGOT));
+			() -> Ingredient.ofItems(LintItems.SICIERON_INGOT));
 
 	private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
 	private final String name;

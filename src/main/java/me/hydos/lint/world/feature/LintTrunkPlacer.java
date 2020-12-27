@@ -20,7 +20,7 @@
 package me.hydos.lint.world.feature;
 
 import com.google.common.collect.ImmutableList;
-import me.hydos.lint.block.Blocks;
+import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
@@ -66,7 +66,7 @@ public class LintTrunkPlacer extends TrunkPlacer {
 
     protected static void setToDirt(ModifiableTestableWorld world, BlockPos pos) {
         if (canGenerate(world, pos)) {
-            TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, Blocks.RICH_DIRT.getDefaultState());
+            TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
         }
     }
 }

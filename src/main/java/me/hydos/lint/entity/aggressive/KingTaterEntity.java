@@ -20,7 +20,7 @@
 package me.hydos.lint.entity.aggressive;
 
 import me.hydos.lint.entity.Entities;
-import me.hydos.lint.item.Items;
+import me.hydos.lint.item.LintItems;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -87,7 +87,7 @@ public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
     @Override
     protected void onKilledBy(LivingEntity killer) {
         assert killer != null;
-        killer.dropStack(new ItemStack(Items.TATER_ESSENCE));
+        killer.dropStack(new ItemStack(LintItems.TATER_ESSENCE));
         if (killer instanceof ServerPlayerEntity) {
             ((ServerPlayerEntity) killer).networkHandler.sendPacket(new PlaySoundS2CPacket(Sounds.ADVANCEMENT, SoundCategory.MASTER, getX(), getY(), getZ(), 1f, 1f));
         }

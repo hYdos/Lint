@@ -19,6 +19,7 @@
 
 package me.hydos.lint.mixin;
 
+import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.AbstractFireBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -46,8 +47,8 @@ public class AbstractFireBlockMixin {
 				world.getBlockState(frame.up(1).west()).getBlock() ==  frameBlock && //Right lower
 				world.getBlockState(frame.up(2).west()).getBlock() ==  frameBlock //Right higher
 		) {
-			world.setBlockState(pos, me.hydos.lint.block.Blocks.HAYKAMIUM_PORTAL.getDefaultState());
-			world.setBlockState(pos.up(), me.hydos.lint.block.Blocks.HAYKAMIUM_PORTAL.getDefaultState());
+			world.setBlockState(pos, LintBlocks.HAYKAMIUM_PORTAL.getDefaultState());
+			world.setBlockState(pos.up(), LintBlocks.HAYKAMIUM_PORTAL.getDefaultState());
 		}
 	}
 }
