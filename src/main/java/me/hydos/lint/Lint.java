@@ -12,6 +12,7 @@ import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.structure.Structures;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,6 +35,8 @@ public class Lint implements ModInitializer {
 		Networking.register();
 		registerLintWorld();
 		LOGGER.info("Lint initialization successful!");
+		
+		// TODO world event
 	}
 
 	private void registerLintWorld() {

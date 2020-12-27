@@ -216,7 +216,7 @@ public class LintSky {
 
 		// observer pos
 
-		float ox = -10;
+		float ox = -5;
 		float oy = 0;
 
 		// get angles
@@ -230,8 +230,8 @@ public class LintSky {
 		result[1] = (float) MathHelper.atan2(dby, dbx); // atan(dy/dx)
 
 		// == Depths ==
-		result[2] = (day * day + dax * dax) * 10.0f; // bc 100 is "normal", and our observer is 10 away
-		result[3] = (dby * dby + dbx * dbx) * 10.0f;
+		result[2] = (day * day + dax * dax) * 20.0f; // bc 100 is "normal", and our observer is 5 away
+		result[3] = (dby * dby + dbx * dbx) * 20.0f;
 	}
 
 	private static final Identifier MOON_PHASES = new Identifier("textures/environment/moon_phases.png");
