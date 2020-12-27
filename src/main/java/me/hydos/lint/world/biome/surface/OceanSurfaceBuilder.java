@@ -19,10 +19,10 @@
 
 package me.hydos.lint.world.biome.surface;
 
-import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.world.gen.HaykamTerrainGenerator;
 import me.hydos.lint.world.gen.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
@@ -34,7 +34,7 @@ public class OceanSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
 	public OceanSurfaceBuilder(BlockState sand, BlockState sand2) {
 		super(TernarySurfaceConfig.CODEC);
 		this.sand = new TernarySurfaceConfig(sand, sand, sand);
-		this.sand2 = new TernarySurfaceConfig(LintBlocks.AIR.getDefaultState(), sand2, sand2);
+		this.sand2 = new TernarySurfaceConfig(Blocks.AIR.getDefaultState(), sand2, sand2);
 	}
 
 	private final TernarySurfaceConfig sand;

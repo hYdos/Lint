@@ -21,9 +21,9 @@
     "client.GameRendererMixin",
     "client.InGameHudMixin",
     "client.LevelPropertiesMixin",
+    "client.MinecraftClientMixin",
     "client.ModelLoaderMixin",
     "client.MusicLoopMixin",
-    "client.MinecraftClientMixin",
     "client.PlayerEntityRendererMixin",
     "client.SplashScreenMixin",
     "client.WorldRendererMixin"

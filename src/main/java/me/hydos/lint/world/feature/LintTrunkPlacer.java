@@ -20,10 +20,15 @@
 package me.hydos.lint.world.feature;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.TestableWorld;
 import net.minecraft.world.gen.feature.Feature;
@@ -39,34 +44,39 @@ import java.util.Set;
 
 public class LintTrunkPlacer extends TrunkPlacer {
 
-    public LintTrunkPlacer(int i, int j, int k) {
-        super(i, j, k);
-    }
+	public static final Codec<LintTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> method_28904(instance)
+			.apply(instance, LintTrunkPlacer::new));
 
-    protected TrunkPlacerType<?> getType() {
-        return TrunkPlacerType.STRAIGHT_TRUNK_PLACER;
-    }
+	public static final TrunkPlacerType<LintTrunkPlacer> STRAIGHT_TRUNK_PLACER = Registry.register(Registry.TRUNK_PLACER_TYPE, Lint.id("trunk_placer"), new TrunkPlacerType<>(CODEC));
 
-    public List<FoliagePlacer.TreeNode> generate(ModifiableTestableWorld world, Random random, int trunkHeight, BlockPos pos, Set<BlockPos> set, BlockBox blockBox, TreeFeatureConfig treeFeatureConfig) {
-        setToDirt(world, pos.down());
+	public LintTrunkPlacer(int i, int j, int k) {
+		super(i, j, k);
+	}
 
-        for (int i = 0; i < trunkHeight; ++i) {
-            getAndSetState(world, random, pos.up(i), set, blockBox, treeFeatureConfig);
-        }
+	protected TrunkPlacerType<?> getType() {
+		return STRAIGHT_TRUNK_PLACER;
+	}
 
-        return ImmutableList.of(new FoliagePlacer.TreeNode(pos.up(trunkHeight), 0, false));
-    }
+	public List<FoliagePlacer.TreeNode> generate(ModifiableTestableWorld world, Random random, int trunkHeight, BlockPos pos, Set<BlockPos> placedStates, BlockBox box, TreeFeatureConfig config) {
+		setToDirt(world, pos.down());
 
-    private static boolean canGenerate(TestableWorld world, BlockPos pos) {
-        return world.testBlockState(pos, (state) -> {
-            Block block = state.getBlock();
-            return Feature.isSoil(block) && !state.isOf(net.minecraft.block.Blocks.GRASS_BLOCK) && !state.isOf(net.minecraft.block.Blocks.MYCELIUM);
-        });
-    }
+		for (int i = 0; i < trunkHeight; ++i) {
+			getAndSetState(world, random, pos.up(i), placedStates, box, config);
+		}
 
-    protected static void setToDirt(ModifiableTestableWorld world, BlockPos pos) {
-        if (canGenerate(world, pos)) {
-            TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
-        }
-    }
+		return ImmutableList.of(new FoliagePlacer.TreeNode(pos.up(trunkHeight), 0, false));
+	}
+
+	private static boolean canGenerate(TestableWorld world, BlockPos pos) {
+		return world.testBlockState(pos, (state) -> {
+			Block block = state.getBlock();
+			return Feature.isSoil(block) && !state.isOf(Blocks.GRASS_BLOCK) && !state.isOf(Blocks.MYCELIUM);
+		});
+	}
+
+	protected static void setToDirt(ModifiableTestableWorld world, BlockPos pos) {
+		if (!canGenerate(world, pos)) {
+			TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
+		}
+	}
 }

@@ -104,7 +104,7 @@ public class LintSky {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, r);
 
 		// SUN
-		size = 100.0F;
+		size = 50.0F;
 		Matrix4f skyObjectMatrix = matrices.peek().getModel();
 		renderBinarySun(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, size, world.getSkyAngle(tickDelta) * 360.0F);
 
@@ -173,7 +173,9 @@ public class LintSky {
 		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
 
 		float[] data = new float[4];
-		getRelativeAnglesAndDepths(data, world.getTime() * 0.00008f);
+		final boolean debugTransit = false;
+		final float orbitPeriod = debugTransit ? 0.01f : 0.00008f;
+		getRelativeAnglesAndDepths(data, world.getTime() * orbitPeriod);
 
 		// ALPHA STAR
 		matrices.push();
@@ -197,7 +199,7 @@ public class LintSky {
 
 		// BETA STAR
 		// TODO hydos proper occlusion when big alpha star covers little beta star
-		if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.08f) {
+		if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.1f) {
 			matrices.push();
 			size *= 0.75;
 
@@ -235,7 +237,7 @@ public class LintSky {
 
 		// observer pos
 
-		float ox = -5;
+		float ox = -7.5f;
 		float oy = 0;
 
 		// get angles
@@ -249,8 +251,8 @@ public class LintSky {
 		result[1] = (float) MathHelper.atan2(dby, dbx); // atan(dy/dx)
 
 		// == Depths ==
-		result[2] = (day * day + dax * dax) * 20.0f; // bc 100 is "normal", and our observer is 5 away
-		result[3] = (dby * dby + dbx * dbx) * 20.0f;
+		result[2] = (day * day + dax * dax) * 10.0f; // bc 100 is "normal", and our observer is 5 away
+		result[3] = (dby * dby + dbx * dbx) * 10.0f;
 	}
 
 	private static final Identifier MOON_PHASES = new Identifier("textures/environment/moon_phases.png");

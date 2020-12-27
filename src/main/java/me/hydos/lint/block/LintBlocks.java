@@ -45,13 +45,6 @@ public final class LintBlocks {
 	private static final HashMap<MoltenMetalFluid, FluidBlock> FLUID_BLOCKSTATE_MAP = new HashMap<>();
 
 	/**
-	 * Bindings for easy access to minecraft blocks
-	 */
-	public static final Block WATER = net.minecraft.block.Blocks.WATER;
-	public static final Block AIR = net.minecraft.block.Blocks.AIR;
-	public static final Block BEDROCK = net.minecraft.block.Blocks.BEDROCK;
-
-	/**
 	 * Block Settings
 	 */
 	public static final Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD)

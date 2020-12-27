@@ -32,6 +32,7 @@ import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.world.biome.HaykamBiomeSource;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
@@ -137,9 +138,9 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 						chunk.setBlockState(pos, state, false);
 					} else if (y < seaLevel) {
-						chunk.setBlockState(pos, LintBlocks.WATER.getDefaultState(), false);
+						chunk.setBlockState(pos, Blocks.WATER.getDefaultState(), false);
 					} else {
-						chunk.setBlockState(pos, LintBlocks.AIR.getDefaultState(), false);
+						chunk.setBlockState(pos, Blocks.AIR.getDefaultState(), false);
 					}
 				}
 			}
@@ -149,7 +150,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	@Override
 	public int getHeight(int x, int z, Heightmap.Type heightmapType) {
 		int height = this.terrain.getHeight(x, z);
-		return heightmapType.getBlockPredicate().test(LintBlocks.WATER.getDefaultState()) ? Math.max(height, this.getSeaLevel()) : height;
+		return heightmapType.getBlockPredicate().test(Blocks.WATER.getDefaultState()) ? Math.max(height, this.getSeaLevel()) : height;
 	}
 
 	@Override
@@ -179,12 +180,12 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 				double noise = this.surfaceNoise.sample((double)x * 0.0625D, (double)z * 0.0625D, 0.0625D, (double)xo * 0.0625D) * 15.0D;
 
 				region.getBiome(mutable.set(startX + xo, height, startZ + zo)).buildSurface(rand, chunk, x, z, height, noise,
-						LintBlocks.FUSED_STONE.getDefaultState(), LintBlocks.WATER.getDefaultState(), this.getSeaLevel(), region.getSeed());
+						LintBlocks.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(), region.getSeed());
 
 				// bedrock
 				if (x * x + z * z < HaykamTerrainGenerator.SHARDLANDS_FADE_START) {
 					mutable.setY(0);
-					chunk.setBlockState(mutable, LintBlocks.BEDROCK.getDefaultState(), false);
+					chunk.setBlockState(mutable, Blocks.BEDROCK.getDefaultState(), false);
 				}
 			}
 		}
@@ -201,9 +202,9 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 			if (y < height) {
 				column[y] = LintBlocks.FUSED_STONE.getDefaultState();
 			} else if (y < seaLevel) {
-				column[y] = LintBlocks.WATER.getDefaultState();
+				column[y] = Blocks.WATER.getDefaultState();
 			} else {
-				column[y] = LintBlocks.AIR.getDefaultState();
+				column[y] = Blocks.AIR.getDefaultState();
 			}
 		}
 
