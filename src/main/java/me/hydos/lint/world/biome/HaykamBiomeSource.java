@@ -96,7 +96,7 @@ public class HaykamBiomeSource extends BiomeSource {
 		}
 
 		if (this.data.sampleTypeScale(x, z) < 23.0 && baseHeight > HaykamTerrainGenerator.SEA_LEVEL + 2) {
-			if (this.data.sampleTerraceMod(x, z) > 0) {
+			if (this.data.sampleTerraceMod((x >> 3) << 3, (z >> 3) << 3) > 0) {
 				return this.terraceSampler.sample(this.biomeRegistry, biomeX, biomeZ);
 			}
 		}

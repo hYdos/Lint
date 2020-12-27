@@ -12,15 +12,17 @@ import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.gen.HaykamChunkGenerator;
 import me.hydos.lint.world.structure.ConfiguredStructureFeatures;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeEffects;
+import net.minecraft.world.biome.BiomeParticleConfig;
+import net.minecraft.world.biome.GenerationSettings;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
@@ -285,7 +287,7 @@ public class Biomes {
 	public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
 	public static final RegistryKey<Biome> OCEAN_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ocean"));
 	public static final RegistryKey<Biome> CORRUPT_BEACH_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_beach"));
-	public static final RegistryKey<Biome> INDIGO_RIDGES_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("indigo_ridges"));
+	public static final RegistryKey<Biome> INDIGO_RIDGES_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("indigo_terraces"));
 	public static final RegistryKey<Biome> DAWN_SHARDLANDS_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands"));
 
 	public static void register() {
