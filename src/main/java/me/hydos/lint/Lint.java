@@ -19,6 +19,9 @@
 
 package me.hydos.lint;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import me.hydos.lint.block.Blocks;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.Fluids;
@@ -31,10 +34,7 @@ import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.structure.Structures;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
 public class Lint implements ModInitializer {
@@ -54,8 +54,6 @@ public class Lint implements ModInitializer {
 		Networking.register();
 		registerLintWorld();
 		LOGGER.info("Lint initialization successful!");
-		
-		// TODO world event
 	}
 
 	private void registerLintWorld() {
