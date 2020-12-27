@@ -46,7 +46,12 @@ public class HaykamTerrainGenerator implements TerrainData {
 			double scale = (0.5 * this.scaleNoise.sample(x * 0.003, z * 0.003)) + 1.0; // 0 - 1
 			scale = 30 * scale + continent; // continent 0-30, scaleNoise 0-30. Overall, 0-60.
 
-			return scale; // should be range 0-60 on return
+			// accelerate scale at higher regions
+			if (scale > 40) {
+				scale = map(scale, 40, 60, 40, 80);
+			}
+
+			return scale; // should be range 0-80 on return
 		});
 		this.terrainScaleOperator = new LossyDoubleCache(1024, (x, z) -> this.addMountainPlateaus(x, z, this.addTerrainCrobber(x, z, this.typeScaleOperator.get(x, z))));
 		this.baseHeightOperator = new LossyIntCache(512, (x, z) -> {

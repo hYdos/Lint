@@ -4,6 +4,7 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.fluid.Fluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
+import me.hydos.lint.util.Power;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
@@ -90,8 +91,8 @@ public final class Blocks {
 			.sounds(BlockSoundGroup.STONE));
 
 	public static final Block ASPHALT = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
-	public static final Block ALLOS_INFUSED_ASPHALT = new InfusedBlock(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
-	public static final Block MANOS_INFUSED_ASPHALT = new InfusedBlock(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
+	public static final Block ALLOS_INFUSED_ASPHALT = new InfusedBlock(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE), Power.ALLOS);
+	public static final Block MANOS_INFUSED_ASPHALT = new InfusedBlock(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE), Power.MANOS);
 	
 	/**
 	 * Corrupt Decorations
