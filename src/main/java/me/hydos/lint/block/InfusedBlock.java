@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.Explosion.DestructionType;
 
 public class InfusedBlock extends Block {
@@ -30,9 +31,16 @@ public class InfusedBlock extends Block {
 
 			if (b instanceof InfusedBlock) {
 				if (this.power.conflicts(((InfusedBlock) b).power)) {
-					world.createExplosion(null, pos0.getX() + 0.5, pos0.getY() + 0.5, pos0.getZ() + 0.5, 5.0F, this.power == Power.ALLOS ? DestructionType.BREAK : DestructionType.DESTROY);
+					world.createExplosion(null, pos0.getX() + 0.5, pos0.getY() + 0.5, pos0.getZ() + 0.5, 8.0F, this.power == Power.ALLOS ? DestructionType.BREAK : DestructionType.DESTROY);
 				}
 			}
+		}
+	}
+
+	@Override
+	public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
+		if (world.random.nextBoolean()) {
+			world.createExplosion(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 8.0F, this.power == Power.ALLOS ? DestructionType.BREAK : DestructionType.DESTROY);
 		}
 	}
 
@@ -44,10 +52,10 @@ public class InfusedBlock extends Block {
 
 			switch (this.power) {
 				case ALLOS:
-					((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 60));
+					((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 160));
 					break;
 				case MANOS:
-					((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 60));
+					((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 160));
 					break;
 				case NONE:
 				default:
