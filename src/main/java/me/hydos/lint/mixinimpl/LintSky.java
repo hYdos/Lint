@@ -84,10 +84,12 @@ public class LintSky {
 		r = 1.0F - world.getRainGradient(tickDelta);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, r);
 
-		size = 30.0F;
+		// SUN
+		size = 100.0F;
 		Matrix4f skyObjectMatrix = matrices.peek().getModel();
 		renderBinarySun(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, size, world.getSkyAngle(tickDelta) * 360.0F);
 
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, r);
 		size = 20.0F;
 		textureManager.bindTexture(MOON_PHASES);
 		int moonPhase = world.getMoonPhase();
@@ -147,22 +149,87 @@ public class LintSky {
 		RenderSystem.disableFog();
 	}
 
-	private static void renderBinarySun(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float size, float skyAngle) {
+	private static void renderBinarySun(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, final float size, float skyAngle) {
 		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
 
-		size *= 2;
+		float[] data = new float[4];
+		getRelativeAnglesAndDepths(data, world.getTime() * 0.01f);
+
+		// ALPHA STAR
+		matrices.push();
+
+		matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[0]));
+		float vertY = data[2] / 2.0f;
+
+		Matrix4f alphaMatrix = matrices.peek().getModel();
+
 		textureManager.bindTexture(ALPHA_LINT);
 		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
-		bufferBuilder.vertex(skyObjectMatrix, -size, 100.0F, -size).texture(0.0F, 0.0F).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, 100.0F, -size).texture(1.0F, 0.0F).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, 100.0F, size).texture(1.0F, 1.0F).next();
-		bufferBuilder.vertex(skyObjectMatrix, -size, 100.0F, size).texture(0.0F, 1.0F).next();
+		bufferBuilder.vertex(alphaMatrix, -size, vertY, -size).texture(0.0F, 0.0F).next();
+		bufferBuilder.vertex(alphaMatrix, size, vertY, -size).texture(1.0F, 0.0F).next();
+		bufferBuilder.vertex(alphaMatrix, size, vertY, size).texture(1.0F, 1.0F).next();
+		bufferBuilder.vertex(alphaMatrix, -size, vertY, size).texture(0.0F, 1.0F).next();
 		bufferBuilder.end();
 		BufferRenderer.draw(bufferBuilder);
+
+		matrices.pop();
+
+		// BETA STAR
+		matrices.push();
+
+		matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[1]));
+		vertY = data[3] / 2.0f;
+
+		textureManager.bindTexture(BETA_LINT);
+		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
+		bufferBuilder.vertex(skyObjectMatrix, -size, vertY, -size).texture(0.0F, 0.0F).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, vertY, -size).texture(1.0F, 0.0F).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, vertY, size).texture(1.0F, 1.0F).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, vertY, size).texture(0.0F, 1.0F).next();
+		bufferBuilder.end();
+		BufferRenderer.draw(bufferBuilder);
+
+		matrices.pop();
+	}
+
+	private static void getRelativeAnglesAndDepths(float[] result, float t) {
+		t = t % (2 * PI);
+		t = PI * MathHelper.sin((t - PI) * 0.5f);
+		float cosT = MathHelper.cos(t);
+
+		// alpha pos
+
+		float ax = cosT - 0.7f;
+		float ay = MathHelper.sin(t);
+
+		// beta pos
+
+		float bx = 1.25f * (-cosT + 0.6f);
+		float by = -ay;
+
+		// observer pos
+
+		float ox = -10;
+		float oy = 0;
+
+		// get angles
+		float day = ay - oy;
+		float dax = ax - ox;
+		float dby = by - oy;
+		float dbx = bx - ox;
+
+		// == Angles ==
+		result[0] = (float) MathHelper.atan2(day, dax); // atan(dy/dx)
+		result[1] = (float) MathHelper.atan2(dby, dbx); // atan(dy/dx)
+
+		// == Depths ==
+		result[2] = (day * day + dax * dax) * 10.0f; // bc 100 is "normal", and our observer is 10 away
+		result[3] = (dby * dby + dbx * dbx) * 10.0f;
 	}
 
 	private static final Identifier MOON_PHASES = new Identifier("textures/environment/moon_phases.png");
 	private static final Identifier ALPHA_LINT = Lint.id("textures/environment/alpha_lint.png");
 	private static final Identifier BETA_LINT = Lint.id("textures/environment/beta_lint.png");
+	private static final float PI = (float) Math.PI;
 }
