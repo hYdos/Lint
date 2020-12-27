@@ -26,12 +26,14 @@ public class InfusedBlock extends Block {
 
 	@Override
 	public void onPlaced(World world, BlockPos pos0, BlockState state, LivingEntity placer, ItemStack itemStack) {
-		for (Direction dir : Direction.values()) {
-			Block b = world.getBlockState(pos0.add(dir.getOffsetX(), dir.getOffsetY(), dir.getOffsetZ())).getBlock();
+		if (!world.isClient()) {
+			for (Direction dir : Direction.values()) {
+				Block b = world.getBlockState(pos0.add(dir.getOffsetX(), dir.getOffsetY(), dir.getOffsetZ())).getBlock();
 
-			if (b instanceof InfusedBlock) {
-				if (this.power.conflicts(((InfusedBlock) b).power)) {
-					world.createExplosion(null, pos0.getX() + 0.5, pos0.getY() + 0.5, pos0.getZ() + 0.5, 8.0F, this.power == Power.ALLOS ? DestructionType.BREAK : DestructionType.DESTROY);
+				if (b instanceof InfusedBlock) {
+					if (this.power.conflicts(((InfusedBlock) b).power)) {
+						world.createExplosion(null, pos0.getX() + 0.5, pos0.getY() + 0.5, pos0.getZ() + 0.5, 8.0F, this.power == Power.ALLOS ? DestructionType.BREAK : DestructionType.DESTROY);
+					}
 				}
 			}
 		}
