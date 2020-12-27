@@ -59,3 +59,9 @@ tasks.processResources {
         expand("version" to project.version)
     }
 }
+
+tasks.remapJar {
+    doLast {
+        input.get().asFile.delete()
+    }
+}
