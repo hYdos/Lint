@@ -61,7 +61,7 @@ public class MinecraftClientMixin {
 		//		}
 	}
 
-	@Inject(at = @At("HEAD"), method = "disconnect")
+	@Inject(at = @At("HEAD"), method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V")
 	private void disconnect(Screen screen, CallbackInfo info) {
 		SoundShitCache.next = Optional.empty();
 		SoundShitCache.prev = Optional.empty();
