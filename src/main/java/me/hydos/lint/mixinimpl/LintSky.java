@@ -46,7 +46,7 @@ public class LintSky {
 		RenderSystem.defaultBlendFunc();
 		float[] fs = world.getSkyProperties().getFogColorOverride(world.getSkyAngle(tickDelta), tickDelta);
 		float r;
-		float s;
+		float size;
 		float o;
 		float p;
 		float q;
@@ -59,11 +59,11 @@ public class LintSky {
 			matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(r));
 			matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(90.0F));
 			float j = fs[0];
-			s = fs[1];
+			size = fs[1];
 			float l = fs[2];
 			Matrix4f matrix4f = matrices.peek().getModel();
 			bufferBuilder.begin(6, VertexFormats.POSITION_COLOR);
-			bufferBuilder.vertex(matrix4f, 0.0F, 100.0F, 0.0F).color(j, s, l, fs[3]).next();
+			bufferBuilder.vertex(matrix4f, 0.0F, 100.0F, 0.0F).color(j, size, l, fs[3]).next();
 
 			for(int n = 0; n <= 16; ++n) {
 				o = (float)n * 6.2831855F / 16.0F;
@@ -83,34 +83,28 @@ public class LintSky {
 		matrices.push();
 		r = 1.0F - world.getRainGradient(tickDelta);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, r);
-		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
-		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(world.getSkyAngle(tickDelta) * 360.0F));
-		Matrix4f matrix4f2 = matrices.peek().getModel();
-		s = 30.0F;
-		textureManager.bindTexture(HAYKAM_SUN);
-		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
-		bufferBuilder.vertex(matrix4f2, -s, 100.0F, -s).texture(0.0F, 0.0F).next();
-		bufferBuilder.vertex(matrix4f2, s, 100.0F, -s).texture(1.0F, 0.0F).next();
-		bufferBuilder.vertex(matrix4f2, s, 100.0F, s).texture(1.0F, 1.0F).next();
-		bufferBuilder.vertex(matrix4f2, -s, 100.0F, s).texture(0.0F, 1.0F).next();
-		bufferBuilder.end();
-		BufferRenderer.draw(bufferBuilder);
-		s = 20.0F;
+
+		size = 30.0F;
+		Matrix4f skyObjectMatrix = matrices.peek().getModel();
+		renderBinarySun(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, size, world.getSkyAngle(tickDelta) * 360.0F);
+
+		size = 20.0F;
 		textureManager.bindTexture(MOON_PHASES);
-		int t = world.getMoonPhase();
-		int u = t % 4;
-		int v = t / 4 % 2;
-		float w = (float)(u + 0) / 4.0F;
-		o = (float)(v + 0) / 2.0F;
-		p = (float)(u + 1) / 4.0F;
-		q = (float)(v + 1) / 2.0F;
+		int moonPhase = world.getMoonPhase();
+		int moonPhaseType = moonPhase % 4;
+		int moonPhaseRotation = moonPhase / 4 % 2;
+		float w = (float)(moonPhaseType + 0) / 4.0F;
+		o = (float)(moonPhaseRotation + 0) / 2.0F;
+		p = (float)(moonPhaseType + 1) / 4.0F;
+		q = (float)(moonPhaseRotation + 1) / 2.0F;
 		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
-		bufferBuilder.vertex(matrix4f2, -s, -100.0F, s).texture(p, q).next();
-		bufferBuilder.vertex(matrix4f2, s, -100.0F, s).texture(w, q).next();
-		bufferBuilder.vertex(matrix4f2, s, -100.0F, -s).texture(w, o).next();
-		bufferBuilder.vertex(matrix4f2, -s, -100.0F, -s).texture(p, o).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, size).texture(p, q).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(w, q).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, -size).texture(w, o).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(p, o).next();
 		bufferBuilder.end();
 		BufferRenderer.draw(bufferBuilder);
+
 		RenderSystem.disableTexture();
 		float aa = world.method_23787(tickDelta) * r;
 		if (aa > 0.0F) {
@@ -153,6 +147,22 @@ public class LintSky {
 		RenderSystem.disableFog();
 	}
 
+	private static void renderBinarySun(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float size, float skyAngle) {
+		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
+		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
+
+		size *= 2;
+		textureManager.bindTexture(ALPHA_LINT);
+		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
+		bufferBuilder.vertex(skyObjectMatrix, -size, 100.0F, -size).texture(0.0F, 0.0F).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, 100.0F, -size).texture(1.0F, 0.0F).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, 100.0F, size).texture(1.0F, 1.0F).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, 100.0F, size).texture(0.0F, 1.0F).next();
+		bufferBuilder.end();
+		BufferRenderer.draw(bufferBuilder);
+	}
+
 	private static final Identifier MOON_PHASES = new Identifier("textures/environment/moon_phases.png");
-	private static final Identifier HAYKAM_SUN = Lint.id("textures/environment/twin_sun.png");
+	private static final Identifier ALPHA_LINT = Lint.id("textures/environment/alpha_lint.png");
+	private static final Identifier BETA_LINT = Lint.id("textures/environment/beta_lint.png");
 }
