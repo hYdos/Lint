@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
   "id": "lint",
-  "version": "1.2.0",
+  "version": "${version}",
   "name": "Lint",
   "description": "Adds lots of content to the game to extend gameplay and make it more enjoyable",
-  "license": "MIT",
+  "license": "LGPL-3.0-or-later AND CC-BY-NC-SA-4.0",
   "authors": [
     "hydos",
-    "valoghese"
+    "Valoeghese",
+    "ramidzkh"
   ],
   "icon": "assets/lint/icon.png",
-  "environment": "*",
   "entrypoints": {
     "main": [
       "me.hydos.lint.Lint"
@@ -24,7 +24,8 @@
   ],
   "accessWidener": "lint.aw",
   "depends": {
+    "minecraft": "1.16.x",
     "fabric": "*",
-    "minecraft": "1.16.x"
+    "geckolib3": ">=3.0.0"
   }
 }
