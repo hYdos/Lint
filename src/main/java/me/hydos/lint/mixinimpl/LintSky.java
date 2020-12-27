@@ -154,7 +154,7 @@ public class LintSky {
 		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
 
 		float[] data = new float[4];
-		getRelativeAnglesAndDepths(data, world.getTime() * 0.0002f);
+		getRelativeAnglesAndDepths(data, world.getTime() * 0.00008f);
 
 		// ALPHA STAR
 		matrices.push();
