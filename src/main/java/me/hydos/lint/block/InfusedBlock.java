@@ -41,8 +41,10 @@ public class InfusedBlock extends Block {
 
 	@Override
 	public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
-		if (world.random.nextBoolean()) {
-			world.createExplosion(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 8.0F, this.power == Power.ALLOS ? DestructionType.BREAK : DestructionType.DESTROY);
+		if (!world.isClient()) {
+			if (world.random.nextBoolean()) {
+				world.createExplosion(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 8.0F, this.power == Power.ALLOS ? DestructionType.BREAK : DestructionType.DESTROY);
+			}
 		}
 	}
 
