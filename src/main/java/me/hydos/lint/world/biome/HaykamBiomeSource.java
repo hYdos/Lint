@@ -9,7 +9,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.hydos.lint.world.gen.HaykamTerrainGenerator;
 import me.hydos.lint.world.layer.GenericBiomes;
 import me.hydos.lint.world.layer.MountainBiomes;
-import me.hydos.lint.world.layer.TerraceBiomes;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
@@ -35,7 +34,6 @@ public class HaykamBiomeSource extends BiomeSource {
 	private final BiomeLayerSampler genericSampler;
 	private final BiomeLayerSampler mountainSampler;
 	private final BiomeLayerSampler beachSampler;
-	private final BiomeLayerSampler terraceSampler;
 
 	private TerrainData data;
 
@@ -47,7 +45,6 @@ public class HaykamBiomeSource extends BiomeSource {
 		this.genericSampler = createBiomeLayerSampler(new GenericBiomes(biomeRegistry, false), seed);
 		this.mountainSampler = createBiomeLayerSampler(new MountainBiomes(biomeRegistry), seed);
 		this.beachSampler = createBiomeLayerSampler(new GenericBiomes(biomeRegistry, true), seed);
-		this.terraceSampler = createBiomeLayerSampler(new TerraceBiomes(biomeRegistry), seed);
 	}
 
 	public void setTerrainData(TerrainData data) {
@@ -93,12 +90,6 @@ public class HaykamBiomeSource extends BiomeSource {
 			}
 			/*}
 			}*/
-		}
-
-		if (this.data.sampleTypeScale(x, z) < 23.0 && baseHeight > HaykamTerrainGenerator.SEA_LEVEL + 2) {
-			if (this.data.sampleTerraceMod((x >> 3) << 3, (z >> 3) << 3) > 0) {
-				return this.terraceSampler.sample(this.biomeRegistry, biomeX, biomeZ);
-			}
 		}
 
 		double scale = this.data.sampleTerrainScale(x, z);
