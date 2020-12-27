@@ -90,8 +90,8 @@ public final class Blocks {
 			.sounds(BlockSoundGroup.STONE));
 
 	public static final Block ASPHALT = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
-	public static final Block ALLOS_INFUSED_ASPHALT = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
-	public static final Block MANOS_INFUSED_ASPHALT = new Block(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
+	public static final Block ALLOS_INFUSED_ASPHALT = new DangerousBlock(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
+	public static final Block MANOS_INFUSED_ASPHALT = new DangerousBlock(FabricBlockSettings.copyOf(net.minecraft.block.Blocks.STONE));
 	
 	/**
 	 * Corrupt Decorations
