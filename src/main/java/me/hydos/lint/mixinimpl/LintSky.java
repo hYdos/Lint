@@ -149,17 +149,18 @@ public class LintSky {
 		RenderSystem.disableFog();
 	}
 
-	private static void renderBinarySun(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, final float size, float skyAngle) {
+	private static void renderBinarySun(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float size, float skyAngle) {
 		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
 
 		float[] data = new float[4];
-		getRelativeAnglesAndDepths(data, world.getTime() * 0.01f);
+		getRelativeAnglesAndDepths(data, world.getTime() * 0.0002f);
 
 		// ALPHA STAR
 		matrices.push();
 
 		matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[0]));
+		matrices.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(data[0] / 2.0f));
 		float vertY = data[2] / 2.0f;
 
 		Matrix4f alphaMatrix = matrices.peek().getModel();
@@ -176,21 +177,26 @@ public class LintSky {
 		matrices.pop();
 
 		// BETA STAR
-		matrices.push();
+		// TODO hydos proper occlusion when big alpha star covers little beta star
+		if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.08f) {
+			matrices.push();
+			size *= 0.75;
 
-		matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[1]));
-		vertY = data[3] / 2.0f;
+			matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[1]));
+			matrices.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(data[1] / 2.0f));
+			vertY = data[3] / 2.0f;
 
-		textureManager.bindTexture(BETA_LINT);
-		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
-		bufferBuilder.vertex(skyObjectMatrix, -size, vertY, -size).texture(0.0F, 0.0F).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, vertY, -size).texture(1.0F, 0.0F).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, vertY, size).texture(1.0F, 1.0F).next();
-		bufferBuilder.vertex(skyObjectMatrix, -size, vertY, size).texture(0.0F, 1.0F).next();
-		bufferBuilder.end();
-		BufferRenderer.draw(bufferBuilder);
+			textureManager.bindTexture(BETA_LINT);
+			bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
+			bufferBuilder.vertex(skyObjectMatrix, -size, vertY, -size).texture(0.0F, 0.0F).next();
+			bufferBuilder.vertex(skyObjectMatrix, size, vertY, -size).texture(1.0F, 0.0F).next();
+			bufferBuilder.vertex(skyObjectMatrix, size, vertY, size).texture(1.0F, 1.0F).next();
+			bufferBuilder.vertex(skyObjectMatrix, -size, vertY, size).texture(0.0F, 1.0F).next();
+			bufferBuilder.end();
+			BufferRenderer.draw(bufferBuilder);
 
-		matrices.pop();
+			matrices.pop();
+		}
 	}
 
 	private static void getRelativeAnglesAndDepths(float[] result, float t) {
