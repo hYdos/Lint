@@ -35,9 +35,13 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public final class LintBlocks {
+
+	public static final List<BlockEntry> BLOCKS = new ArrayList<>();
 
 	/**
 	 * Block Settings
@@ -200,7 +204,7 @@ public final class LintBlocks {
 	}
 
 	public static void registerDecorations() {
-		registerHiddenBlock(HAYKAMIUM_PORTAL, "haykamium_portal");
+		registerHiddenBlock(BlockEntry.empty(HAYKAMIUM_PORTAL, "haykamium_portal"));
 
 		registerFlower(CORRUPT_STEM, "corrupt_stem");
 		registerFlower(WILTED_FLOWER, "wilted_flower");
@@ -262,26 +266,32 @@ public final class LintBlocks {
 	public static void registerFluidBlocks() {
 		for (LintFluids.FluidEntry entry : LintFluids.MOLTEN_FLUID_MAP.values()) {
 			LintFluidBlock block = new LintFluidBlock(entry.getStill(), FabricBlockSettings.copy(net.minecraft.block.Blocks.LAVA));
-			registerHiddenBlock(block, "molten_" + entry.getMetalName());
+			registerHiddenBlock(BlockEntry.empty(block, "molten_" + entry.getMetalName()));
 			FLUID_BLOCKSTATE_MAP.put((MoltenMetalFluid) entry.getStill(), block);
 		}
 	}
 
-	private static void registerHiddenBlock(Block block, String path) {
-		Registry.register(Registry.BLOCK, Lint.id(path), block);
+	private static void registerHiddenBlock(BlockEntry entry) {
+		Registry.register(Registry.BLOCK, entry.id, entry.block);
+		BLOCKS.add(entry);
 	}
 
 	private static PillarBlock createLog(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
 		return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
 	}
 
-	private static void registerBlock(ItemGroup itemGroup, Block block, String path) {
-		registerHiddenBlock(block, path);
-		Registry.register(Registry.ITEM, Lint.id(path), new BlockItem(block, new Item.Settings().group(itemGroup)));
+	@Deprecated
+	private static void registerBlock(ItemGroup group, Block block, String path) {
+		registerBlock(group, BlockEntry.empty(block, path), path);
 	}
 
-	private static void registerFlower(FlowerBlock flower, String path) {
-		registerBlock(LintItemGroups.DECORATIONS, flower, path);
+	private static void registerBlock(ItemGroup group, BlockEntry block, String path) {
+		registerHiddenBlock(block);
+		Registry.register(Registry.ITEM, Lint.id(path), new BlockItem(block.block, new Item.Settings().group(group)));
+	}
+
+	private static void registerFlower(Block flower, String path) {
+		registerBlock(LintItemGroups.DECORATIONS, BlockEntry.empty(flower, path), path);
 	}
 
 	public static BlockState getFluid(Fluid still) {
@@ -292,7 +302,4 @@ public final class LintBlocks {
 		}
 		throw new RuntimeException("Cannot find fluid!");
 	}
-}
-
-final class Blocks {
 }

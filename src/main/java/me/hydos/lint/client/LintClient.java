@@ -23,6 +23,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import me.hydos.lint.Lint;
+import me.hydos.lint.block.BlockEntry;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.render.BeeTaterEntityRenderer;
@@ -41,6 +42,12 @@ import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.screenhandler.client.LilTaterContainerScreen;
 import me.hydos.lint.screenhandler.client.SmelteryScreen;
 import me.hydos.lint.world.biome.Biomes;
+import me.hydos.simpleResources.SimpleResourcesClient;
+import net.devtech.arrp.api.RRPCallback;
+import net.devtech.arrp.api.RuntimeResourcePack;
+import net.devtech.arrp.json.blockstate.JState;
+import net.devtech.arrp.json.lang.JLang;
+import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
@@ -51,6 +58,7 @@ import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.Sprite;
@@ -122,6 +130,26 @@ public class LintClient implements ClientModInitializer {
 		registerBlockRenderers();
 		registerFluidRenderers();
 		registerHandledScreens();
+		createAssetData();
+	}
+
+	private void createAssetData() {
+		RuntimeResourcePack resourcePack = SimpleResourcesClient.createResourcePack("lint", 4);
+		JLang en_us = JLang.lang();
+		for (BlockEntry entry : LintBlocks.BLOCKS) {
+			en_us.block(entry.block, entry.translation);
+			if (entry.generic) {
+				JState blockState = SimpleResourcesClient.createBlockState(Lint.id("block/" + entry.id.getPath()));
+				JModel blockModel = SimpleResourcesClient.createBlockModel(Lint.id("block/" + entry.textureId));
+				JModel itemModel = SimpleResourcesClient.createBlockItemModel(entry.id);
+
+				resourcePack.addModel(itemModel, entry.id);
+				resourcePack.addModel(blockModel, entry.id);
+				resourcePack.addBlockState(blockState, entry.id);
+			}
+		}
+		resourcePack.addLang(new Identifier("en_us"), en_us);
+		RRPCallback.EVENT.register(c -> c.add(resourcePack));
 	}
 
 	private void registerFluidRenderers() {
