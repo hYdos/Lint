@@ -11,6 +11,16 @@ repositories {
         name = "Gecko Lib Repository"
         url = uri("https://repo.repsy.io/mvn/gandiber/geckolib")
     }
+
+    maven {
+        name = "Devan-Kerman/Devan-Repo"
+        url = uri("https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/")
+    }
+
+    maven {
+        name = "CurseMaven"
+        url = uri("https://www.cursemaven.com/")
+    }
 }
 
 dependencies {
@@ -20,10 +30,11 @@ dependencies {
     modImplementation("net.fabricmc", "fabric-loader", "0.10.8")
     modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.28.4+1.16")
 
-    modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev")
-    include("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev")
+    include(modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev"))
+    include(modImplementation("net.devtech", "arrp", "0.3.2"))
 
     modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
+    modRuntime("curse.maven", "hwyla-253449", "3033613")
 }
 
 java {
