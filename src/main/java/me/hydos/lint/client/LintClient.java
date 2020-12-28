@@ -19,10 +19,18 @@
 
 package me.hydos.lint.client;
 
+import java.util.Optional;
+import java.util.function.Function;
+
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
-import me.hydos.lint.client.entity.render.*;
+import me.hydos.lint.client.entity.render.BeeTaterEntityRenderer;
+import me.hydos.lint.client.entity.render.BirdEntityRenderer;
+import me.hydos.lint.client.entity.render.GhostEntityRenderer;
+import me.hydos.lint.client.entity.render.I509VCBRenderer;
+import me.hydos.lint.client.entity.render.KingTaterRenderer;
+import me.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
 import me.hydos.lint.client.particle.ClientParticles;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
@@ -61,9 +69,6 @@ import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-import java.util.Optional;
-import java.util.function.Function;
-
 public class LintClient implements ClientModInitializer {
 
 	public static float calculateFogDistanceChunks(World world, double x, double z, float originalResultChunks) {
@@ -98,6 +103,8 @@ public class LintClient implements ClientModInitializer {
 				distChunks = 0.5f * (3f + Math.min(6.2f, 0.43f * originalResultChunks));
 			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY || aBiome == Biomes.DAWN_SHARDLANDS_KEY) {
 				distChunks = Math.min(6.2f, 0.43f * originalResultChunks);
+			} else if (aBiome == Biomes.DAWN_SHARDLANDS_EDGE_KEY) {
+				distChunks = 0.69f * originalResultChunks;
 			}
 		}
 

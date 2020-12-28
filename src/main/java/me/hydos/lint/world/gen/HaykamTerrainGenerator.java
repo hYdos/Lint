@@ -19,6 +19,8 @@
 
 package me.hydos.lint.world.gen;
 
+import java.util.Random;
+
 import me.hydos.lint.util.LossyDoubleCache;
 import me.hydos.lint.util.LossyIntCache;
 import me.hydos.lint.util.math.DoubleGridOperator;
@@ -27,18 +29,22 @@ import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.biome.TerrainData;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.Random;
-
 public class HaykamTerrainGenerator implements TerrainData {
 	public static final int SEA_LEVEL = 63;
+
+	public static final int ASH_START = 2320 * 2320;
+	public static final int DENSE_ASH_START = 2360 * 2360;
 	public static final int SHARDLANDS_FADE_START = 2400 * 2400;
 	public static final int TERRAIN_CROB_DISTANCE = 2450 * 2450;
+	public static final int SHARDLANDS_EDGE_START = 2460 * 2460;
 	public static final int SHARDLANDS_START = 2500 * 2500;
 	public static final int SHARDLANDS_ISLANDS_START = 2550 * 2550;
 	public static final int SHARDLANDS_ISLANDS_FADE_END = 2590 * 2590;
+
 	private static final int AVG_HEIGHT = 65;
 	private static final int AVG_FLOAT_HEIGHT = 85;
 	private static final int SCALE_SMOOTH_RADIUS = 9;
+
 	private final int seed;
 	private final OpenSimplexNoise continentNoise;
 	private final OpenSimplexNoise mountainsNoise;
