@@ -91,6 +91,8 @@ public class HaykamBiomeSource extends BiomeSource {
 
 		if (dist > HaykamTerrainGenerator.SHARDLANDS_START) {
 			return this.biomeRegistry.getOrThrow(Biomes.DAWN_SHARDLANDS_KEY);
+		} else if (dist > HaykamTerrainGenerator.SHARDLANDS_EDGE_START) {
+			return this.biomeRegistry.getOrThrow(Biomes.DAWN_SHARDLANDS_EDGE_KEY);
 		}
 
 		double baseHeight = this.data.sampleBaseHeight(x, z);
