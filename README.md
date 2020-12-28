@@ -6,9 +6,7 @@ Tiny potato mod. Adds a new dimension with bosses to fight and biomes to explore
 ![](https://imgur.com/B2Q1La2.png)
 ![](https://imgur.com/VyNEJt9.png)
 
-[Imgur album](https://imgur.com/a/GhoTMlh)
-
-## Credits
+## Music Credits
 
 The music was written for Lint by [Valoeghese](https://github.com/valoeghese/) and can be found on
 YouTube [here](https://www.youtube.com/playlist?list=PLd1miv1OlwzXVUo9T7k5y9bhvAQK1CUkl)
