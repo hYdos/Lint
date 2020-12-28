@@ -34,6 +34,8 @@ dependencies {
     include(modImplementation("net.devtech", "arrp", "0.3.2"))
 
     modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
+    modRuntime("curse.maven", "worldedit-225608", "3135186")
+    modRuntime("curse.maven", "appleskin-248787", "2987255")
     modRuntime("curse.maven", "hwyla-253449", "3033613")
 }
 
