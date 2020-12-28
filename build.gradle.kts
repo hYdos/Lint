@@ -23,7 +23,7 @@ dependencies {
     modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev")
     include("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev")
 
-    //modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
+    modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
 }
 
 java {
