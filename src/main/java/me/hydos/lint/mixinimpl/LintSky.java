@@ -19,6 +19,8 @@
 
 package me.hydos.lint.mixinimpl;
 
+import org.lwjgl.opengl.GLUtil;
+
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.hydos.lint.Lint;
@@ -103,7 +105,7 @@ public class LintSky {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, r);
 
 		// SUN
-		size = 50.0F;
+		size = 22.0F;
 		Matrix4f skyObjectMatrix = matrices.peek().getModel();
 		renderBinarySun(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, size, world.getSkyAngle(tickDelta) * 360.0F);
 
@@ -198,9 +200,9 @@ public class LintSky {
 
 		// BETA STAR
 		// TODO hydos proper occlusion when big alpha star covers little beta star
-		if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.1f) {
+		if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.09f) {
 			matrices.push();
-			size *= 0.75;
+			size *= 0.87;
 
 			matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[1]));
 			matrices.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(data[1] / 2.0f));
@@ -236,7 +238,7 @@ public class LintSky {
 
 		// observer pos
 
-		float ox = -7.5f;
+		float ox = -6f;
 		float oy = 0;
 
 		// get angles
@@ -250,7 +252,7 @@ public class LintSky {
 		result[1] = (float) MathHelper.atan2(dby, dbx); // atan(dy/dx)
 
 		// == Depths ==
-		result[2] = (day * day + dax * dax) * 10.0f; // bc 100 is "normal", and our observer is 5 away
+		result[2] = (day * day + dax * dax) * 10.0f;
 		result[3] = (dby * dby + dbx * dbx) * 10.0f;
 	}
 }
