@@ -2,9 +2,12 @@
 
 Tiny potato mod. Adds a new dimension with bosses to fight and biomes to explore.
 
-![](https://imgur.com/y3uDI3h.png)
-![](https://imgur.com/B2Q1La2.png)
-![](https://imgur.com/VyNEJt9.png)
+![](https://raw.githubusercontent.com/hYdos/Lint/1.16/pictures/landscape_2.png)
+![](https://raw.githubusercontent.com/hYdos/Lint/1.16/pictures/corrupt_forest.png)
+![](https://raw.githubusercontent.com/hYdos/Lint/1.16/pictures/dawn_shardlands.png)
+![](https://raw.githubusercontent.com/hYdos/Lint/1.16/pictures/taters_and_birds.png)
+![](https://raw.githubusercontent.com/hYdos/Lint/1.16/pictures/blocks.png)
+![](https://raw.githubusercontent.com/hYdos/Lint/1.16/pictures/items.png)
 
 ## Music Credits
 
