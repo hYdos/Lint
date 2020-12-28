@@ -192,7 +192,7 @@ public class LintBlocks2 {
 	 * @param itemGroup The item group for the dropped item
 	 * @return The registered block
 	 */
-	private static Block registerGeneric(String id, Block block, @Nullable ItemGroup itemGroup) {
+	protected static Block registerGeneric(String id, Block block, @Nullable ItemGroup itemGroup) {
 		Identifier identifier = id(id);
 		Identifier modelIdentifier = id("block/" + id);
 

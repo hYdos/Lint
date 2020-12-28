@@ -136,8 +136,8 @@ public final class LintBlocks extends LintBlocks2 {
 
 		registerBlock(LintItemGroups.DECORATIONS, RETURN_HOME, "return_home");
 
-		registerBlock(LintItemGroups.DECORATIONS, MYSTICAL_FALLEN_LEAVES, "mystical_fallen_leaves");
-		registerBlock(LintItemGroups.DECORATIONS, CORRUPT_FALLEN_LEAVES, "corrupt_fallen_leaves");
+		registerGeneric("mystical_fallen_leaves", MYSTICAL_FALLEN_LEAVES, LintItemGroups.DECORATIONS);
+		registerGeneric("corrupt_fallen_leaves", CORRUPT_FALLEN_LEAVES, LintItemGroups.DECORATIONS);
 	}
 
 	public static void registerBuildingBlocks() {
@@ -177,7 +177,7 @@ public final class LintBlocks extends LintBlocks2 {
 	}
 
 	private static void registerFlower(FlowerBlock flower, String path) {
-		registerBlock(LintItemGroups.DECORATIONS, flower, path);
+		registerGeneric(path, flower, LintItemGroups.DECORATIONS);
 	}
 
 	public static BlockState getFluid(Fluid still) {
