@@ -42,5 +42,5 @@ public class DawnShardlandsEdgeSurfaceBuilder extends SurfaceBuilder<TernarySurf
 		}
 	}
 
-	private static final TernarySurfaceConfig ASH_CONFIG = new TernarySurfaceConfig(LintBlocks.ASH.getDefaultState(), LintBlocks.ASH.getDefaultState(), LintBlocks.ASH.getDefaultState());
+	private static final TernarySurfaceConfig ASH_CONFIG = new TernarySurfaceConfig(LintBlocks.ASH.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASH.getDefaultState());
 }

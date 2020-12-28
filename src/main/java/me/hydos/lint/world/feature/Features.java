@@ -99,7 +99,7 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> CONFIGURED_VERTICAL_SHAFT = register("vertical_shaft", VERTICAL_SHAFT.configure(DefaultFeatureConfig.INSTANCE)
 			.decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE.spreadHorizontally().applyChance(2)));
 
-	public static final ConfiguredFeature<?, ?> CONFIGURED_FADING_ASH = register("fading_ash", VERTICAL_SHAFT.configure(DefaultFeatureConfig.INSTANCE)
+	public static final ConfiguredFeature<?, ?> CONFIGURED_FADING_ASH = register("fading_ash", FADING_ASH.configure(DefaultFeatureConfig.INSTANCE)
 			.decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));
 
 	/**
