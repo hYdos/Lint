@@ -24,6 +24,7 @@ import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.sound.Sounds;
+import me.hydos.lint.world.biome.surface.DawnShardlandsEdgeSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.DawnShardlandsSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.OceanSurfaceBuilder;
 import me.hydos.lint.world.carver.LintConfiguredCarvers;
@@ -62,6 +63,7 @@ public class Biomes {
 	public static final SurfaceBuilder<TernarySurfaceConfig> OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks.MYSTICAL_SAND.getDefaultState(), LintBlocks.WHITE_SAND.getDefaultState());
 	public static final SurfaceBuilder<TernarySurfaceConfig> CORRUPT_OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks.CORRUPT_SAND.getDefaultState(), LintBlocks.WHITE_SAND.getDefaultState());
 	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_RAW_SB = new DawnShardlandsSurfaceBuilder();
+	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_EDGE_RAW_SB = new DawnShardlandsEdgeSurfaceBuilder();
 
 	/**
 	 * Spawn Configurations
@@ -320,6 +322,11 @@ public class Biomes {
 					.build())
 			.build();
 
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DSE_SB = DAWN_SHARDLANDS_EDGE_RAW_SB.withConfig(
+			new TernarySurfaceConfig(LintBlocks.ASPHALT.getDefaultState(),
+					LintBlocks.ASPHALT.getDefaultState(),
+					LintBlocks.ASPHALT.getDefaultState()));
+
 	public static final Biome DAWN_SHARDLANDS_EDGE = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.NONE)
@@ -336,7 +343,7 @@ public class Biomes {
 					.build())
 			.spawnSettings(new SpawnSettings.Builder().build())
 			.generationSettings(new GenerationSettings.Builder()
-					.surfaceBuilder(DS_SB)
+					.surfaceBuilder(DSE_SB)
 					.build())
 			.build();
 
@@ -344,6 +351,7 @@ public class Biomes {
 		Registry.register(Registry.SURFACE_BUILDER, Lint.id("ocean"), OCEAN_RAW_SB);
 		Registry.register(Registry.SURFACE_BUILDER, Lint.id("corrupt_ocean"), CORRUPT_OCEAN_RAW_SB);
 		Registry.register(Registry.SURFACE_BUILDER, Lint.id("dawn_shardlands"), DAWN_SHARDLANDS_RAW_SB);
+		Registry.register(Registry.SURFACE_BUILDER, Lint.id("dawn_shardlands_edge"), DAWN_SHARDLANDS_EDGE_RAW_SB);
 
 		Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_chunk_gen"), HaykamChunkGenerator.CODEC);
 
