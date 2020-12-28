@@ -18,8 +18,10 @@ dependencies {
     mappings("net.fabricmc", "yarn", "1.16.4+build.7", classifier = "v2")
 
     modImplementation("net.fabricmc", "fabric-loader", "0.10.8")
-    modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.28.1+1.16")
-    modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.0", classifier = "dev")
+    modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.28.4+1.16")
+
+    modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev")
+    include("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev")
 
     //modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
 }

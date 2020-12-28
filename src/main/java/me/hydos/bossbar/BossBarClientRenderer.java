@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.modernbossbars;
+package me.hydos.bossbar;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
