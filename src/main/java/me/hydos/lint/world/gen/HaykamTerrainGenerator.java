@@ -19,8 +19,6 @@
 
 package me.hydos.lint.world.gen;
 
-import java.util.Random;
-
 import me.hydos.lint.util.LossyDoubleCache;
 import me.hydos.lint.util.LossyIntCache;
 import me.hydos.lint.util.math.DoubleGridOperator;
@@ -28,6 +26,8 @@ import me.hydos.lint.util.math.IntGridOperator;
 import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.biome.TerrainData;
 import net.minecraft.util.math.MathHelper;
+
+import java.util.Random;
 
 public class HaykamTerrainGenerator implements TerrainData {
 	public static final int SEA_LEVEL = 63;

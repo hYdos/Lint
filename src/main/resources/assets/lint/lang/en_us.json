@@ -13,7 +13,6 @@
   "block.lint.corrupt_leaves": "Corrupt Leaves",
   "block.lint.mystical_log": "Mystical Log",
   "block.lint.corrupt_log": "Corrupt Log",
-  "block.lint.mystical_trapdoor": "Mystical Trapdoor",
   "block.lint.dungeon_bricks": "Dungeon Bricks",
   "block.lint_mystical_stem": "Mystical Stem",
   "block.lint.yellow_daisy": "Yellow Daisy",
@@ -35,8 +34,8 @@
   "block.lint.corrupt_stem": "Corrupt Stem",
   "block.lint.smeltery": "Smeltery",
   "block.lint.haykamium_portal": "Haykamium Portal",
-  "block.lint.basic_casting": "Basic Casting",
-  "block.lint.cracked_basic_casting": "Cracked Basic Casting",
+  "block.lint.basic_casing": "Basic Casing",
+  "block.lint.cracked_basic_casing": "Cracked Basic Casing",
   "block.lint.indigo_stone": "Indigo Stone",
   "block.lint.asphalt": "Asphalt",
   "block.lint.ash": "Ash",
@@ -77,5 +76,7 @@
   "entity.lint.king_tater": "King Tater",
   "entity.lint.minion": "Lil Tater Minion",
   "advancements.enter_lint.title": "Tiny Potato",
-  "advancements.enter_lint.description": "More beautiful than the aether"
+  "advancements.enter_lint.description": "More beautiful than the aether",
+  "block.lint.molten_iron": "Molten Iron",
+  "block.lint.molten_gold": "Molten Gold"
 }

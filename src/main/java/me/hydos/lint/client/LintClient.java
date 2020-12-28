@@ -19,18 +19,10 @@
 
 package me.hydos.lint.client;
 
-import java.util.Optional;
-import java.util.function.Function;
-
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
-import me.hydos.lint.client.entity.render.BeeTaterEntityRenderer;
-import me.hydos.lint.client.entity.render.BirdEntityRenderer;
-import me.hydos.lint.client.entity.render.GhostEntityRenderer;
-import me.hydos.lint.client.entity.render.I509VCBRenderer;
-import me.hydos.lint.client.entity.render.KingTaterRenderer;
-import me.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
+import me.hydos.lint.client.entity.render.*;
 import me.hydos.lint.client.particle.ClientParticles;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
@@ -68,6 +60,9 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.BlockRenderView;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+
+import java.util.Optional;
+import java.util.function.Function;
 
 public class LintClient implements ClientModInitializer {
 

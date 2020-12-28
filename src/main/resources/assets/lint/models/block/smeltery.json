@@ -2,7 +2,7 @@
   "parent": "block/cube_all",
   "textures": {
     "0": "lint:block/smeltery_front",
-    "2": "lint:block/cracked_basic_casting",
+    "2": "lint:block/cracked_basic_casing",
     "particle": "lint:block/smeltery_front"
   },
   "elements": [

@@ -19,8 +19,6 @@
 
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.world.gen.HaykamTerrainGenerator;
 import net.minecraft.block.BlockState;
@@ -32,6 +30,8 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+
+import java.util.Random;
 
 public class FadingAshFeature extends Feature<DefaultFeatureConfig> {
 	public FadingAshFeature() {

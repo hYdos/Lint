@@ -19,8 +19,6 @@
 
 package me.hydos.lint.mixinimpl;
 
-import org.lwjgl.opengl.GLUtil;
-
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.hydos.lint.Lint;

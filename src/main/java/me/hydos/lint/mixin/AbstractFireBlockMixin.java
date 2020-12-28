@@ -19,18 +19,15 @@
 
 package me.hydos.lint.mixin;
 
+import me.hydos.lint.mixinimpl.LintPortal;
+import net.minecraft.block.AbstractFireBlock;
+import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import me.hydos.lint.mixinimpl.LintPortal;
-import net.minecraft.block.AbstractFireBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 @Mixin(AbstractFireBlock.class)
 public class AbstractFireBlockMixin {

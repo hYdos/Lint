@@ -29,15 +29,7 @@ import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeatures.Decorators;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
@@ -77,17 +69,17 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> TARSCAN_ORE = register("tarscan_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					LintBlocks.TARSCAN.getDefaultState(),
+					LintBlocks.TARSCAN_ORE.getDefaultState(),
 					9)).rangeOf(64)).spreadHorizontally().repeat(20);
 
 	public static final ConfiguredFeature<?, ?> SICIERON_ORE = register("sicieron_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					LintBlocks.SICIERON.getDefaultState(),
+					LintBlocks.SICIERON_ORE.getDefaultState(),
 					12)).rangeOf(40)).spreadHorizontally().repeat(8);
 
 	public static final ConfiguredFeature<?, ?> JUREL_ORE = register("jurel_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					LintBlocks.TARSCAN.getDefaultState(),
+					LintBlocks.TARSCAN_ORE.getDefaultState(),
 					9)).rangeOf(10)).spreadHorizontally().repeat(6);
 
 	/**

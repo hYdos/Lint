@@ -30,6 +30,8 @@ import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.structure.Structures;
+import net.devtech.arrp.api.RRPCallback;
+import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
@@ -40,6 +42,8 @@ import software.bernie.geckolib3.GeckoLib;
 public class Lint implements ModInitializer {
 
 	public static final Logger LOGGER = LogManager.getLogger("Lint");
+
+	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("lint");
 
 	public static Identifier id(String path) {
 		return new Identifier("lint", path);
@@ -58,6 +62,7 @@ public class Lint implements ModInitializer {
 		ScreenHandlers.register();
 		Networking.register();
 		registerLintWorld();
+		RRPCallback.EVENT.register(resources -> resources.add(RESOURCE_PACK));
 		LOGGER.info("Lint initialization successful!");
 	}
 
