@@ -40,7 +40,11 @@ public class FadingAshFeature extends Feature<DefaultFeatureConfig> {
 
 	@Override
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos start, DefaultFeatureConfig config) {
-		if (start.getSquaredDistance(Vec3i.ZERO) > HaykamTerrainGenerator.ASH_START) {
+		double dist = start.getSquaredDistance(Vec3i.ZERO);
+
+		if (dist > HaykamTerrainGenerator.ASH_START) {
+			final int bound = dist > HaykamTerrainGenerator.DENSE_ASH_START ? 7 : 14;
+
 			BlockPos.Mutable pos = new BlockPos.Mutable();
 			Chunk chunk = world.getChunk(start);
 
@@ -50,7 +54,7 @@ public class FadingAshFeature extends Feature<DefaultFeatureConfig> {
 				for (int zo = 0; zo < 16; ++zo) {
 					pos.setZ(start.getZ() + zo);
 
-					if (random.nextInt(3) == 0) {
+					if (random.nextInt(bound) == 0) {
 						pos.setY(chunk.sampleHeightmap(Heightmap.Type.OCEAN_FLOOR_WG, xo, zo));
 						this.setBlockState(world, pos, random.nextInt(3) == 0 ? ASPHALT : ASH);
 					}

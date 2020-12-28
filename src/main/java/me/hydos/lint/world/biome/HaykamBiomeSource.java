@@ -89,7 +89,7 @@ public class HaykamBiomeSource extends BiomeSource {
 		int z = (biomeZ << 2);
 		int dist = x * x + z * z;
 
-		if (dist > HaykamTerrainGenerator.SHARDLANDS_START) {
+		if (dist > HaykamTerrainGenerator.SHARDLANDS_ISLANDS_START) {
 			return this.biomeRegistry.getOrThrow(Biomes.DAWN_SHARDLANDS_KEY);
 		} else if (dist > HaykamTerrainGenerator.SHARDLANDS_EDGE_START) {
 			return this.biomeRegistry.getOrThrow(Biomes.DAWN_SHARDLANDS_EDGE_KEY);

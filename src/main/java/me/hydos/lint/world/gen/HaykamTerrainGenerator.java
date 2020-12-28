@@ -33,6 +33,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 	public static final int SEA_LEVEL = 63;
 
 	public static final int ASH_START = 2320 * 2320;
+	public static final int DENSE_ASH_START = 2360 * 2360;
 	public static final int SHARDLANDS_FADE_START = 2400 * 2400;
 	public static final int TERRAIN_CROB_DISTANCE = 2450 * 2450;
 	public static final int SHARDLANDS_EDGE_START = 2460 * 2460;
