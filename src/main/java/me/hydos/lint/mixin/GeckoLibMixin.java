@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import software.bernie.geckolib3.GeckoLib;
 
-@Mixin(GeckoLib.class)
+@Mixin(value = GeckoLib.class, remap = false)
 public class GeckoLibMixin {
 
 	@Redirect(method = "initialize", at = @At(value = "INVOKE", target = "Lnet/fabricmc/fabric/impl/resource/loader/ResourceManagerHelperImpl;get(Lnet/minecraft/resource/ResourceType;)Lnet/fabricmc/fabric/api/resource/ResourceManagerHelper;"), require = 0)
