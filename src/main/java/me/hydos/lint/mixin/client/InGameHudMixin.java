@@ -19,7 +19,7 @@
 
 package me.hydos.lint.mixin.client;
 
-import me.hydos.modernbossbars.BossBarClientRenderer;
+import me.hydos.bossbar.BossBarClientRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
