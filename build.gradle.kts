@@ -21,7 +21,7 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.28.1+1.16")
     modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.0", classifier = "dev")
 
-    modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
+    //modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
 }
 
 java {

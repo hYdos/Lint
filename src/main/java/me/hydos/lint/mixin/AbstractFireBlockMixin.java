@@ -40,12 +40,19 @@ public class AbstractFireBlockMixin {
 		Block frameBlock = Blocks.COAL_BLOCK;
 		// Hardcoded for now yeef
 		if (
-				world.getBlockState(frame).getBlock() == frameBlock && //Bottom
+				(world.getBlockState(frame).getBlock() == frameBlock && //Bottom
 						world.getBlockState(frame.up(3)).getBlock() == frameBlock && //Top
 						world.getBlockState(frame.up(1).east()).getBlock() == frameBlock && //Left lower
 						world.getBlockState(frame.up(2).east()).getBlock() == frameBlock && //Left higher
 						world.getBlockState(frame.up(1).west()).getBlock() == frameBlock && //Right lower
-						world.getBlockState(frame.up(2).west()).getBlock() == frameBlock //Right higher
+						world.getBlockState(frame.up(2).west()).getBlock() == frameBlock) //Right higher
+				||
+				(world.getBlockState(frame).getBlock() == frameBlock && //Bottom
+				world.getBlockState(frame.up(3)).getBlock() == frameBlock && //Top
+				world.getBlockState(frame.up(1).north()).getBlock() == frameBlock && //Left lower
+				world.getBlockState(frame.up(2).north()).getBlock() == frameBlock && //Left higher
+				world.getBlockState(frame.up(1).south()).getBlock() == frameBlock && //Right lower
+				world.getBlockState(frame.up(2).south()).getBlock() == frameBlock) //Right higher
 		) {
 			world.setBlockState(pos, LintBlocks.HAYKAMIUM_PORTAL.getDefaultState());
 			world.setBlockState(pos.up(), LintBlocks.HAYKAMIUM_PORTAL.getDefaultState());
