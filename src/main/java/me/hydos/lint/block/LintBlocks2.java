@@ -40,6 +40,15 @@ import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
 
 public class LintBlocks2 {
+	/**
+	 * Block Settings
+	 */
+	public static final Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD)
+			.strength(2.0F, 3.0F)
+			.sounds(BlockSoundGroup.WOOD);
+	public static final Block.Settings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE)
+			.hardness(0.5f)
+			.sounds(BlockSoundGroup.SAND);
 
 	public static final Block BASIC_CASING = registerGeneric("basic_casing",
 			new Block(FabricBlockSettings.of(Material.STONE)
@@ -108,7 +117,7 @@ public class LintBlocks2 {
 
 	public static final Block CORRUPT_PLANKS = registerGeneric(
 			"corrupt_planks",
-			new Block(LintBlocks.PLANK_SETTINGS),
+			new Block(PLANK_SETTINGS),
 			LintItemGroups.BLOCKS);
 	public static final Block CORRUPT_LEAVES = registerGeneric(
 			"corrupt_leaves",
@@ -118,7 +127,7 @@ public class LintBlocks2 {
 			LintItemGroups.BLOCKS);
 	public static final Block CORRUPT_SAND = registerGeneric(
 			"corrupt_sand",
-			new FallingBlock(LintBlocks.SAND_SETTINGS),
+			new FallingBlock(SAND_SETTINGS),
 			LintItemGroups.BLOCKS);
 
 	public static final Block ALLOS_INFUSED_ASPHALT = registerGeneric(
@@ -132,7 +141,7 @@ public class LintBlocks2 {
 
 	public static final Block ASH = registerGeneric(
 			"ash",
-			new FallingBlock(LintBlocks.SAND_SETTINGS),
+			new FallingBlock(SAND_SETTINGS),
 			LintItemGroups.BLOCKS);
 
 	public static final Block DUNGEON_BRICKS = registerGeneric(
@@ -150,7 +159,7 @@ public class LintBlocks2 {
 
 	public static final Block MYSTICAL_PLANKS = registerGeneric(
 			"mystical_planks",
-			new Block(LintBlocks.PLANK_SETTINGS),
+			new Block(PLANK_SETTINGS),
 			LintItemGroups.BLOCKS);
 	public static final Block MYSTICAL_LEAVES = registerGeneric(
 			"mystical_leaves",
@@ -160,7 +169,7 @@ public class LintBlocks2 {
 			LintItemGroups.BLOCKS);
 	public static final Block MYSTICAL_SAND = registerGeneric(
 			"mystical_sand",
-			new FallingBlock(LintBlocks.SAND_SETTINGS),
+			new FallingBlock(SAND_SETTINGS),
 			LintItemGroups.BLOCKS);
 
 	public static final Block RICH_DIRT = registerGeneric(
@@ -171,7 +180,7 @@ public class LintBlocks2 {
 			LintItemGroups.BLOCKS);
 	public static final Block WHITE_SAND = registerGeneric(
 			"white_sand",
-			new FallingBlock(LintBlocks.SAND_SETTINGS),
+			new FallingBlock(SAND_SETTINGS),
 			LintItemGroups.BLOCKS);
 
 

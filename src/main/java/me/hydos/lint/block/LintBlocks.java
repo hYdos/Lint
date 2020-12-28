@@ -37,16 +37,6 @@ import net.minecraft.util.registry.Registry;
 import java.util.HashMap;
 
 public final class LintBlocks extends LintBlocks2 {
-
-	/**
-	 * Block Settings
-	 */
-	public static final Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD)
-			.strength(2.0F, 3.0F)
-			.sounds(BlockSoundGroup.WOOD);
-	public static final Block.Settings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE)
-			.hardness(0.5f)
-			.sounds(BlockSoundGroup.SAND);
 	/**
 	 * Smeltery Related
 	 */
