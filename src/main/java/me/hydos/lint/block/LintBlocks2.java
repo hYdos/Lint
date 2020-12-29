@@ -43,10 +43,10 @@ public class LintBlocks2 {
 	/**
 	 * Block Settings
 	 */
-	public static final Block.Settings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD)
+	public static final FabricBlockSettings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD)
 			.strength(2.0F, 3.0F)
 			.sounds(BlockSoundGroup.WOOD);
-	public static final Block.Settings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE)
+	public static final FabricBlockSettings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SAND);
 
@@ -117,15 +117,18 @@ public class LintBlocks2 {
 
 	public static final Block CORRUPT_PLANKS = registerGeneric(
 			"corrupt_planks",
-			new Block(PLANK_SETTINGS),
+			new Block(PLANK_SETTINGS
+					.materialColor(MaterialColor.PURPLE)),
 			LintItemGroups.BLOCKS);
 	public static final Block CORRUPT_LEAVES = registerGeneric(
 			"corrupt_leaves",
-			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)),
+			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
+					.materialColor(MaterialColor.PURPLE)),
 			LintItemGroups.BLOCKS);
 	public static final Block CORRUPT_SAND = registerGeneric(
 			"corrupt_sand",
-			new FallingBlock(SAND_SETTINGS),
+			new FallingBlock(SAND_SETTINGS
+					.materialColor(MaterialColor.PURPLE)),
 			LintItemGroups.BLOCKS);
 
 	public static final Block ALLOS_INFUSED_ASPHALT = registerGeneric(
@@ -157,15 +160,18 @@ public class LintBlocks2 {
 
 	public static final Block MYSTICAL_PLANKS = registerGeneric(
 			"mystical_planks",
-			new Block(PLANK_SETTINGS),
+			new Block(PLANK_SETTINGS
+					.materialColor(MaterialColor.DIAMOND)),
 			LintItemGroups.BLOCKS);
 	public static final Block MYSTICAL_LEAVES = registerGeneric(
 			"mystical_leaves",
-			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)),
+			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
+					.materialColor(MaterialColor.DIAMOND)),
 			LintItemGroups.BLOCKS);
 	public static final Block MYSTICAL_SAND = registerGeneric(
 			"mystical_sand",
-			new FallingBlock(SAND_SETTINGS),
+			new FallingBlock(SAND_SETTINGS
+					.materialColor(MaterialColor.MAGENTA)),
 			LintItemGroups.BLOCKS);
 
 	public static final Block RICH_DIRT = registerGeneric(
@@ -195,16 +201,28 @@ public class LintBlocks2 {
 		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
 		RESOURCE_PACK.addModel(JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", modelIdentifier.toString())), modelIdentifier);
 		RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
-		RESOURCE_PACK.addLootTable(modelIdentifier,
+		Registry.register(Registry.BLOCK, identifier, block);
+		registerBlockItem(block, itemGroup);
+
+		return block;
+	}
+
+	/**
+	 * Registers a BlockItem for an already registered block
+	 *
+	 * @param block     A block which has already been registered
+	 * @param itemGroup The item group to place the item in
+	 */
+	protected static void registerBlockItem(Block block, @Nullable ItemGroup itemGroup) {
+		Identifier id = Registry.BLOCK.getId(block);
+		RESOURCE_PACK.addLootTable(new Identifier(id.getNamespace(), "blocks/" + id.getPath()),
 				JLootTable.loot("minecraft:block")
 						.pool(JLootTable.pool()
 								.rolls(1)
 								.entry(JLootTable.entry()
 										.type("minecraft:item")
-										.name(identifier.toString()))
+										.name(id.toString()))
 								.condition(new JCondition("minecraft:survives_explosion"))));
-
-		Registry.register(Registry.BLOCK, identifier, block);
 
 		{
 			Item.Settings settings = new Item.Settings();
@@ -213,14 +231,8 @@ public class LintBlocks2 {
 				settings.group(itemGroup);
 			}
 
-			Registry.register(Registry.ITEM, identifier, new BlockItem(block, settings));
+			Registry.register(Registry.ITEM, id, new BlockItem(block, settings));
 		}
-
-		return block;
-	}
-
-	private static Block register(String id, Block block) {
-		return Registry.register(Registry.BLOCK, id(id), block);
 	}
 
 	LintBlocks2() {
