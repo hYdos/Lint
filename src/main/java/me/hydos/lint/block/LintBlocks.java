@@ -101,7 +101,7 @@ public final class LintBlocks extends LintBlocks2 {
 	public static final Block MYSTICAL_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.LEAVES)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-	public static final Block MYSTICAL_LOG = createLog(MaterialColor.LIME_TERRACOTTA, MaterialColor.LIME_TERRACOTTA);
+	public static final Block MYSTICAL_LOG = createLog(MaterialColor.DIAMOND, MaterialColor.DIAMOND);
 	public static final FlowerBlock MYSTICAL_GRASS = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
@@ -114,9 +114,7 @@ public final class LintBlocks extends LintBlocks2 {
 	 * Misc Building Blocks
 	 */
 	public static final Block DUNGEON_BRICK_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
-	public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.of(Material.SOIL)
-			.hardness(0.5f)
-			.sounds(BlockSoundGroup.GRASS));
+	public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK));
 	/**
 	 * Fluid blockstate cache
 	 */
