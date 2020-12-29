@@ -34,11 +34,10 @@ dependencies {
 
     modImplementation("net.fabricmc", "fabric-loader", "0.10.8")
     modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.28.4+1.16")
-	modImplementation("com.github.OnyxStudios.Cardinal-Components-API", "Cardinal-Components-API", "2.7.10")
 	
-    include("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev")
-    include("net.devtech", "arrp", "0.3.2")
-	include("com.github.OnyxStudios.Cardinal-Components-API", "Cardinal-Components-API", "2.7.10")
+    include(modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev"))
+    include(modImplementation("net.devtech", "arrp", "0.3.2"))
+	include(modImplementation("com.github.OnyxStudios.Cardinal-Components-API", "Cardinal-Components-API", "2.7.10"))
 
     modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
     modRuntime("curse.maven", "worldedit-225608", "3135186")

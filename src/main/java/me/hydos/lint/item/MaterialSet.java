@@ -51,7 +51,7 @@ public final class MaterialSet {
 		this.chestplate = new ArmorItem(armour, EquipmentSlot.CHEST, new Item.Settings().group(group));
 		this.leggings = new ArmorItem(armour, EquipmentSlot.LEGS, new Item.Settings().group(group));
 		this.boots = new ArmorItem(armour, EquipmentSlot.FEET, new Item.Settings().group(group));
-		
+
 		this.registryName = registryName;
 	}
 
