@@ -21,7 +21,7 @@ package me.hydos.lint.mixin;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import me.hydos.lint.item.ArmorMaterials;
+import me.hydos.lint.item.ArmourMaterials;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
@@ -57,7 +57,7 @@ public abstract class ArmorItemMixin {
 	private void constructor(ArmorMaterial material, EquipmentSlot slot, Item.Settings settings, CallbackInfo ci) {
 		UUID uUID = MODIFIERS[slot.getEntitySlotId()];
 
-		if (material == ArmorMaterials.SICIERON) {
+		if (material == ArmourMaterials.SICIERON) {
 			ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
 			this.attributeModifiers.forEach(builder::put);
 			builder.put(
