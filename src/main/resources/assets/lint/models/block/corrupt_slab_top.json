@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "lint:block/corrupt_planks",
-    "top": "lint:block/corrupt_planks",
-    "side": "lint:block/corrupt_planks"
-  }
-}

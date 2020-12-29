@@ -77,7 +77,20 @@ public class LintBlocks2 {
 				.put("type=double", new JBlockModel(plankModelIdentifier))
 				.put("type=top", new JBlockModel(topSlabIdentifier))
 		), identifier);
-		RESOURCE_PACK.addModel(JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", lowerSlabIdentifier.toString())), lowerSlabIdentifier);
+		RESOURCE_PACK.addModel(JModel.model()
+				.parent("block/slab")
+				.textures(JModel.textures()
+						.var("bottom", plankModelIdentifier.toString())
+						.var("top", plankModelIdentifier.toString())
+						.var("side", plankModelIdentifier.toString())
+				), lowerSlabIdentifier);
+		RESOURCE_PACK.addModel(JModel.model()
+						.parent("block/slab_top")
+				.textures(JModel.textures()
+						.var("bottom", plankModelIdentifier.toString())
+						.var("top", plankModelIdentifier.toString())
+						.var("side", plankModelIdentifier.toString())
+				), topSlabIdentifier);
 		RESOURCE_PACK.addModel(JModel.model().parent(lowerSlabIdentifier.toString()), id("item/" + id));
 		Registry.register(Registry.BLOCK, identifier, block);
 		registerBlockItem(block, itemGroup);

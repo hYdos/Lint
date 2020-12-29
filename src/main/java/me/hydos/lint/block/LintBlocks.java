@@ -222,7 +222,7 @@ public final class LintBlocks extends LintBlocks2 {
 	public static final Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC)
 			.hardness(00.5f)
 			.sounds(BlockSoundGroup.GRASS));
-	public static final Block CORRUPT_SLAB = registerSlab("corrupt_slab", new SlabBlock(FabricBlockSettings.copy(Blocks.OAK_SLAB)), ItemGroups.BLOCKS);
+	public static final Block CORRUPT_SLAB = registerSlab("corrupt_slab", "corrupt_planks", new SlabBlock(FabricBlockSettings.copy(Blocks.OAK_SLAB)), ItemGroups.BLOCKS);
 
 	/**
 	 * Mystical Decorations
@@ -255,11 +255,11 @@ public final class LintBlocks extends LintBlocks2 {
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
 	);
-	public static final Block MYSTICAL_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
+	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
 	/**
 	 * Misc Building Blocks
 	 */
-	public static final Block DUNGEON_BRICK_SLAB = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD));
+	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
 	public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK));
 	/**
 	 * Fluid blockstate cache
@@ -307,10 +307,6 @@ public final class LintBlocks extends LintBlocks2 {
 		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
 
 		registerBlock(ItemGroups.BLOCKS, CORRUPT_LOG, "corrupt_log");
-
-		registerBlock(ItemGroups.BLOCKS, MYSTICAL_SLAB, "mystical_slab");
-		registerBlock(ItemGroups.BLOCKS, CORRUPT_SLAB, "corrupt_slab");
-		registerBlock(ItemGroups.BLOCKS, DUNGEON_BRICK_SLAB, "dungeon_brick_slab");
 	}
 
 	public static void registerFluidBlocks() {
