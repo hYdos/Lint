@@ -21,16 +21,14 @@ package me.hydos.lint.entity.passive;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.entity.passive.bird.EasternRosellaEntity;
 import me.hydos.lint.util.LintInventory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.BirdNavigation;
-import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -40,6 +38,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -52,9 +51,9 @@ import java.util.Random;
 @SuppressWarnings("EntityConstructor")
 public class TinyPotatoEntity extends TameableShoulderEntity {
 
-	public final LintInventory inventory;
+	private static final Ingredient FOOD = Ingredient.ofItems(Items.POTATO, Items.BAKED_POTATO);
 
-	public float size = 0;
+	public final LintInventory inventory;
 
 	public TinyPotatoEntity(EntityType<? extends TinyPotatoEntity> type, World world) {
 		super(type, world);
@@ -77,42 +76,40 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 				return (blockState.isOf(LintBlocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
 			}
 		}
+
 		return true;
 	}
 
 	@Override
-	public void fromTag(CompoundTag tag) {
-		super.fromTag(tag);
+	public void readCustomDataFromTag(CompoundTag tag) {
+		super.readCustomDataFromTag(tag);
 		Inventories.fromTag(tag, inventory.getRawList());
-		size = 1;
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tag) {
+	public void writeCustomDataToTag(CompoundTag tag) {
+		super.writeCustomDataToTag(tag);
 		Inventories.toTag(tag, inventory.getRawList());
-		return super.toTag(tag);
-	}
-
-	@Override
-	public boolean tryAttack(Entity target) {
-		return super.tryAttack(target);
 	}
 
 	@Override
 	protected void initGoals() {
-		super.initGoals();
+		this.goalSelector.add(0, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(0, new SwimGoal(this));
-		this.goalSelector.add(1, new AttackWithOwnerGoal(this));
-		this.goalSelector.add(2, new FollowOwnerGoal(this, 0.5D, 1.0F, 3.0F, false));
-		this.goalSelector.add(2, new SitOnOwnerShoulderGoal(this));
-		this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 10));
-		this.goalSelector.add(4, new LookAtEntityGoal(this, TinyPotatoEntity.class, 10));
-		this.goalSelector.add(6, new WanderAroundGoal(this, 0.4));
+		this.goalSelector.add(1, new FleeEntityGoal<>(this, EasternRosellaEntity.class, 8.0F, 1.0D, 1.2D));
+		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(3, new SitGoal(this));
+		this.goalSelector.add(3, new TemptGoal(this, 1.1D, FOOD, false));
+		this.goalSelector.add(3, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
+		this.goalSelector.add(3, new WanderAroundGoal(this, 1.0D));
+		this.goalSelector.add(4, new SitOnOwnerShoulderGoal(this));
+		this.goalSelector.add(4, new FollowMobGoal(this, 1.0D, 3.0F, 7.0F));
+		this.goalSelector.add(5, new LookAtEntityGoal(this, TinyPotatoEntity.class, 8.0F));
 	}
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		if (!this.world.isClient()) {
-			if (!isTamed() && player.getStackInHand(hand).getItem() == Items.POTATO) {
+			if (!isTamed() && FOOD.test(player.getStackInHand(hand))) {
 				this.setOwner(player);
 				this.setTamed(true);
 				this.world.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0, 4, 0);
@@ -127,16 +124,6 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 			}
 		}
 		return ActionResult.SUCCESS;
-	}
-
-	@Override
-	public void mobTick() {
-		super.mobTick();
-	}
-
-	@Override
-	protected EntityNavigation createNavigation(World world) {
-		return new BirdNavigation(this, world);
 	}
 
 	@Override
