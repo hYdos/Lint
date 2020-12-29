@@ -121,9 +121,7 @@ public class LintBlocks2 {
 			LintItemGroups.BLOCKS);
 	public static final Block CORRUPT_LEAVES = registerGeneric(
 			"corrupt_leaves",
-			new LintLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC)
-					.hardness(0.5f)
-					.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque()),
+			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)),
 			LintItemGroups.BLOCKS);
 	public static final Block CORRUPT_SAND = registerGeneric(
 			"corrupt_sand",
@@ -163,9 +161,7 @@ public class LintBlocks2 {
 			LintItemGroups.BLOCKS);
 	public static final Block MYSTICAL_LEAVES = registerGeneric(
 			"mystical_leaves",
-			new LintLeavesBlock(FabricBlockSettings.of(Material.SOLID_ORGANIC)
-					.hardness(0.5f)
-					.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque()),
+			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)),
 			LintItemGroups.BLOCKS);
 	public static final Block MYSTICAL_SAND = registerGeneric(
 			"mystical_sand",
