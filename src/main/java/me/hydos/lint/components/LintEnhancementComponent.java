@@ -23,7 +23,9 @@ import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import it.unimi.dsi.fastutil.objects.ObjectSet;
+import me.hydos.lint.item.materialset.Enhanceable;
 import me.hydos.lint.util.Power;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -49,9 +51,31 @@ public class LintEnhancementComponent implements AutoSyncedComponent {
 
 	/**
 	 * Pls only call on the server it autosyncs ok thanks.
+	 * @return the new power level of the power if successful. Otherwise, returns 0.
 	 */
 	public float enhance(Power.Broad power, float by) {
+		final int powers = this.enhancements.keySet().size();
+
+		if (powers > 0) { // if already has powers.
+			switch (this.enhancements.keySet().iterator().next()) {
+				case ALLOS:
+				case MANOS:
+					return 0; // either one major power
+				default:
+					if (powers > 1 || power == Power.Broad.ALLOS || power == Power.Broad.MANOS) { // or 2 minor powers
+						return 0;
+					}
+					break;
+			}
+		}
+
 		float result = this.enhancements.computeFloat(power, (pwr, current) -> current + by);
+		Item item = this.stack.getItem();
+
+		if (item instanceof Enhanceable) {
+			((Enhanceable) item).update(this.stack, power, result);
+		}
+
 		Components.ITEM.sync(this.stack);
 		return result;
 	}
