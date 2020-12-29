@@ -17,19 +17,17 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.item;
+package me.hydos.lint.item.materialset;
 
 import me.hydos.lint.Lint;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.AxeItem;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
-import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
@@ -38,14 +36,12 @@ public final class MaterialSet {
 	public MaterialSet(String registryName, ArmorMaterial armour, ToolMaterial tool, ItemGroup group) {
 		this.pickaxe = new PickaxeItem(tool, 1, -2.8F, new Item.Settings().group(group)) {
 		};
-		this.axe = new AxeItem(tool, 6.0F, -3.1F, new Item.Settings().group(group)) {
-		};
+		this.axe = new LintAxeItem(tool, 6.0F, -3.1F, new Item.Settings().group(group));
 		this.shovel = new ShovelItem(tool, 1.5F, -3.0F, new Item.Settings().group(group)) {
 		};
 		this.hoe = new HoeItem(tool, 1, 4f, new Item.Settings().group(group).rarity(Rarity.EPIC)) {
 		};
-		this.sword = new SwordItem(tool, -2, -1.0F, new Item.Settings().group(group)) {
-		};
+		this.sword = new LintSwordItem(tool, -2, -1.0F, new Item.Settings().group(group));
 
 		this.helmet = new ArmorItem(armour, EquipmentSlot.HEAD, new Item.Settings().group(group));
 		this.chestplate = new ArmorItem(armour, EquipmentSlot.CHEST, new Item.Settings().group(group));

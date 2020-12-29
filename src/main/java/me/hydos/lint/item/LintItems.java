@@ -21,6 +21,7 @@ package me.hydos.lint.item;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.item.group.ItemGroups;
+import me.hydos.lint.item.materialset.MaterialSet;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.MusicDiscItem;
