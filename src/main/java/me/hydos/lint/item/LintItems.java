@@ -83,6 +83,7 @@ public class LintItems {
 
 	private static void registerMaterialSets() {
 		SICIERON_SET.registerItems();
+		JUREL_SET.registerItems();
 	}
 
 	private static void registerOreMaterials() {
