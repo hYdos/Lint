@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "lint:wilted_flower"
+    },
+    "title": {
+      "translate": "advancements.you_monster.title"
+    },
+    "description": {
+      "translate": "advancements.you_monster.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "kill_tater": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "lint:tiny_potato"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kill_tater"
+    ]
+  ]
+}
