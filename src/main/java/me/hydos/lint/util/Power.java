@@ -20,7 +20,7 @@
 package me.hydos.lint.util;
 
 /**
- * Enum for the god-powers of this world.
+ * Enum for the god-powers of this world, allowing a "NONE" option.
  */
 public enum Power {
 	NONE,
@@ -36,7 +36,10 @@ public enum Power {
 
 		return false;
 	}
-	
+
+	/**
+	 * Enum for the god and caria powers of the world, excluding a "NONE" option.
+	 */
 	public enum Broad {
 		// The two great powers, as described above. They do not associate with any one gender, as they are inherently beyond such concepts, and can appear as any gender when in the world.
 		ALLOS,

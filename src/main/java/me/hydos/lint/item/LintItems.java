@@ -39,12 +39,19 @@ public class LintItems {
 	 */
 	public static final MaterialSet SICIERON_SET = new MaterialSet("sicieron", ArmourMaterials.SICIERON, ToolMaterials.SICIERON, LintItemGroups.TOOLS);
 
+	// actually a jurel-sicieron alloy (explained below)
+	public static final MaterialSet JUREL_SET = new MaterialSet("jurel", ArmourMaterials.JUREL, ToolMaterials.JUREL, LintItemGroups.TOOLS);
+
 	/**
 	 * Ore Materials
 	 */
 	public static final Item SICIERON_INGOT = new Item(new Item.Settings().group(LintItemGroups.ITEMS).maxCount(64));
 	public static final Item TARSCAN_SHARD = new Item(new Item.Settings().group(LintItemGroups.ITEMS).maxCount(64));
 	public static final Item JUREL_POWDER = new Item(new Item.Settings().group(LintItemGroups.ITEMS).rarity(Rarity.RARE).maxCount(64));
+
+	// Alloy of Jurel and Sicieron (1 jurel : 2 sicieron ratio)
+	// Regular Jurel is fragile and becomes a powder readily. Combining it in the 1:2 ratio with regular sicieron allows its powerful properties to be fully utilised in the creation of items.
+	public static final Item HARDENED_JUREL_INGOT = new Item(new Item.Settings().group(LintItemGroups.ITEMS).rarity(Rarity.RARE).maxCount(64));
 
 	/**
 	 * Music Discs

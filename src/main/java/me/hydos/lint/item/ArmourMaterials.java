@@ -19,8 +19,8 @@
 
 package me.hydos.lint.item;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import java.util.function.Supplier;
+
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.recipe.Ingredient;
@@ -28,17 +28,23 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Lazy;
 
-import java.util.function.Supplier;
-
 public enum ArmourMaterials implements ArmorMaterial {
 	SICIERON("sicieron",
-			33,
-			new int[]{5, 8, 10, 5},
-			10,
+			22,
+			new int[]{2, 6, 7, 2},
+			4, // lower enchantability to encourage people to use the enhancement system
+			SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+			1.0F,
+			0.0F,
+			() -> Ingredient.ofItems(LintItems.SICIERON_INGOT)),
+	JUREL("sicieron",
+			39,
+			new int[]{3, 6, 8, 3},
+			4,
 			SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
 			2.0F,
-			0.0F,
-			() -> Ingredient.ofItems(LintItems.SICIERON_INGOT));
+			0.1F,
+			() -> Ingredient.ofItems(LintItems.HARDENED_JUREL_INGOT));
 
 	private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
 	private final String name;
@@ -81,7 +87,6 @@ public enum ArmourMaterials implements ArmorMaterial {
 		return this.repairIngredientSupplier.get();
 	}
 
-	@Environment(EnvType.CLIENT)
 	public String getName() {
 		return this.name;
 	}
