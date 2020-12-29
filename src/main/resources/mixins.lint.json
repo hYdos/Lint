@@ -9,6 +9,7 @@
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
     "EntityMixin",
+    "FireBlockAccessor",
     "GeckoLibMixin",
     "ItemTagsProviderMixin",
     "ServerChunkManagerMixin",

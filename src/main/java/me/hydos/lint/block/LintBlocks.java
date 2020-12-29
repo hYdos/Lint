@@ -23,6 +23,7 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.LintItemGroups;
+import me.hydos.lint.mixin.FireBlockAccessor;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
@@ -125,6 +126,19 @@ public final class LintBlocks extends LintBlocks2 {
 		registerBuildingBlocks();
 		registerDecorations();
 		registerFluidBlocks();
+		registerFlammableBlocks();
+	}
+
+	private static void registerFlammableBlocks() {
+		FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
+		fire.callRegisterFlammableBlock(MYSTICAL_LOG, 5, 5);
+		fire.callRegisterFlammableBlock(CORRUPT_LOG, 5, 5);
+		fire.callRegisterFlammableBlock(MYSTICAL_PLANKS, 5, 20);
+		fire.callRegisterFlammableBlock(CORRUPT_PLANKS, 5, 20);
+		fire.callRegisterFlammableBlock(MYSTICAL_SLAB, 5, 20);
+		fire.callRegisterFlammableBlock(CORRUPT_SLAB, 5, 20);
+		fire.callRegisterFlammableBlock(MYSTICAL_LEAVES, 30, 60);
+		fire.callRegisterFlammableBlock(CORRUPT_LEAVES, 30, 60);
 	}
 
 	public static void registerDecorations() {
