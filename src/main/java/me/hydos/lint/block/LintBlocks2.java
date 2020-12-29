@@ -201,16 +201,28 @@ public class LintBlocks2 {
 		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
 		RESOURCE_PACK.addModel(JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", modelIdentifier.toString())), modelIdentifier);
 		RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
-		RESOURCE_PACK.addLootTable(modelIdentifier,
+		Registry.register(Registry.BLOCK, identifier, block);
+		registerBlockItem(block, itemGroup);
+
+		return block;
+	}
+
+	/**
+	 * Registers a BlockItem for an already registered block
+	 *
+	 * @param block     A block which has already been registered
+	 * @param itemGroup The item group to place the item in
+	 */
+	protected static void registerBlockItem(Block block, @Nullable ItemGroup itemGroup) {
+		Identifier id = Registry.BLOCK.getId(block);
+		RESOURCE_PACK.addLootTable(new Identifier(id.getNamespace(), "blocks/" + id.getPath()),
 				JLootTable.loot("minecraft:block")
 						.pool(JLootTable.pool()
 								.rolls(1)
 								.entry(JLootTable.entry()
 										.type("minecraft:item")
-										.name(identifier.toString()))
+										.name(id.toString()))
 								.condition(new JCondition("minecraft:survives_explosion"))));
-
-		Registry.register(Registry.BLOCK, identifier, block);
 
 		{
 			Item.Settings settings = new Item.Settings();
@@ -219,14 +231,8 @@ public class LintBlocks2 {
 				settings.group(itemGroup);
 			}
 
-			Registry.register(Registry.ITEM, identifier, new BlockItem(block, settings));
+			Registry.register(Registry.ITEM, id, new BlockItem(block, settings));
 		}
-
-		return block;
-	}
-
-	private static Block register(String id, Block block) {
-		return Registry.register(Registry.BLOCK, id(id), block);
 	}
 
 	LintBlocks2() {

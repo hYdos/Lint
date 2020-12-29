@@ -28,8 +28,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
@@ -185,7 +183,7 @@ public final class LintBlocks extends LintBlocks2 {
 
 	private static void registerBlock(ItemGroup itemGroup, Block block, String path) {
 		registerHiddenBlock(block, path);
-		Registry.register(Registry.ITEM, Lint.id(path), new BlockItem(block, new Item.Settings().group(itemGroup)));
+		registerBlockItem(block, itemGroup);
 	}
 
 	private static void registerFlower(FlowerBlock flower, String path) {
