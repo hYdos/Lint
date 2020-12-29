@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:air"
+    },
+    "title": {
+      "translate": "advancements.free_taters.title"
+    },
+    "description": {
+      "translate": "advancements.free_taters.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "kill_king_tater": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "lint:king_tater"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "kill_king_tater"
+    ]
+  ]
+}
