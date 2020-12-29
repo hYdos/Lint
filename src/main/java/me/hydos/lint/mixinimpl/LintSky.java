@@ -108,7 +108,7 @@ public class LintSky {
 		renderBinarySun(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, size, world.getSkyAngle(tickDelta) * 360.0F);
 
 		RenderSystem.color4f(0.8F, 0.8F, 1.0F, r);
-		size = 20.0F;
+		size = 16.0F;
 		textureManager.bindTexture(MOON_PHASES);
 		int moonPhase = world.getMoonPhase();
 		int moonPhaseType = moonPhase % 4;
