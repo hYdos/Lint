@@ -22,6 +22,7 @@ package me.hydos.lint.components;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import it.unimi.dsi.fastutil.objects.Object2FloatArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
+import it.unimi.dsi.fastutil.objects.ObjectSet;
 import me.hydos.lint.util.Power;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -34,6 +35,26 @@ public class LintEnhancementComponent implements AutoSyncedComponent {
 
 	private final ItemStack stack;
 	private final Object2FloatMap<Power.Broad> enhancements = new Object2FloatArrayMap<>();
+
+	/**
+	 * @return the level of enhancement for the given power, with default return value of 0.
+	 */
+	public float getEnhancement(Power.Broad power) {
+		return this.enhancements.getFloat(power);
+	}
+
+	public ObjectSet<Power.Broad> getEnhancements() {
+		return this.enhancements.keySet();
+	}
+
+	/**
+	 * Pls only call on the server it autosyncs ok thanks.
+	 */
+	public float enhance(Power.Broad power, float by) {
+		float result = this.enhancements.computeFloat(power, (pwr, current) -> current + by);
+		Components.ITEM.sync(this.stack);
+		return result;
+	}
 
 	@Override
 	public boolean shouldSyncWith(ServerPlayerEntity player) {
