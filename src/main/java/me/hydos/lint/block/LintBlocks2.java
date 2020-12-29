@@ -68,14 +68,17 @@ public class LintBlocks2 {
 	 */
 	protected static Block registerSlab(String id, String planksId, Block block, @Nullable ItemGroup itemGroup) {
 		Identifier identifier = id(id);
-		Identifier plankIdentifier = id(planksId);
 		Identifier lowerSlabIdentifier = id("block/" + id);
-		Identifier topSlabIdentifier = id("block/" + id);
-		Identifier plankModelIdentifier = id("block/" + id);
+		Identifier topSlabIdentifier = id("block/" + id + "_top");
+		Identifier plankModelIdentifier = id("block/" + planksId);
 
-		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("type=bottom", new JBlockModel(modelIdentifier))), identifier);
-		RESOURCE_PACK.addModel(JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", modelIdentifier.toString())), modelIdentifier);
-		RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
+		RESOURCE_PACK.addBlockState(JState.state(JState.variant()
+				.put("type=bottom", new JBlockModel(lowerSlabIdentifier))
+				.put("type=double", new JBlockModel(plankModelIdentifier))
+				.put("type=top", new JBlockModel(topSlabIdentifier))
+		), identifier);
+		RESOURCE_PACK.addModel(JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", lowerSlabIdentifier.toString())), lowerSlabIdentifier);
+		RESOURCE_PACK.addModel(JModel.model().parent(lowerSlabIdentifier.toString()), id("item/" + id));
 		Registry.register(Registry.BLOCK, identifier, block);
 		registerBlockItem(block, itemGroup);
 

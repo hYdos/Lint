@@ -19,26 +19,41 @@
 
 package me.hydos.lint.mixin.client;
 
-import me.hydos.lint.mixinimpl.SoundShitCache;
-import net.minecraft.client.sound.BiomeEffectSoundPlayer;
-import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import me.hydos.lint.mixinimpl.SoundShit;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.sound.BiomeEffectSoundPlayer;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.world.biome.Biome;
+
 @Mixin(BiomeEffectSoundPlayer.class)
 public class BiomeEffectSoundPlayerMixin {
 	@Shadow
 	private Biome activeBiome;
 
+	@Shadow
+	private Object2ObjectArrayMap<Biome, BiomeEffectSoundPlayer.MusicLoop> soundLoops;
+
 	@Inject(
 			at = @At(value = "HEAD"),
-			method = "tick")
+			method = "tick",
+			cancellable = true)
 	public void musicGood1(CallbackInfo info) {
+		SoundEvent sound = MinecraftClient.getInstance().getMusicType().getSound();
+
+		if (SoundShit.isBossMusic(sound.getId())) {
+			SoundShit.doShit(sound, this.soundLoops);
+			info.cancel();
+		}
+
 		if (this.activeBiome != null) {
-			SoundShitCache.prev = this.activeBiome.getLoopSound();
+			SoundShit.prev = this.activeBiome.getLoopSound();
 		}
 	}
 
@@ -49,6 +64,6 @@ public class BiomeEffectSoundPlayerMixin {
 					ordinal = 1),
 			method = "tick")
 	public void musicGood2(CallbackInfo info) {
-		SoundShitCache.next = this.activeBiome.getLoopSound();
+		SoundShit.next = this.activeBiome.getLoopSound();
 	}
 }

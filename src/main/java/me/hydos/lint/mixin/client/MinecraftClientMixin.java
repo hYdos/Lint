@@ -20,7 +20,7 @@
 package me.hydos.lint.mixin.client;
 
 import me.hydos.lint.entity.Entities;
-import me.hydos.lint.mixinimpl.SoundShitCache;
+import me.hydos.lint.mixinimpl.SoundShit;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -63,7 +63,7 @@ public class MinecraftClientMixin {
 
 	@Inject(at = @At("HEAD"), method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V")
 	private void disconnect(Screen screen, CallbackInfo info) {
-		SoundShitCache.next = Optional.empty();
-		SoundShitCache.prev = Optional.empty();
+		SoundShit.next = Optional.empty();
+		SoundShit.prev = Optional.empty();
 	}
 }

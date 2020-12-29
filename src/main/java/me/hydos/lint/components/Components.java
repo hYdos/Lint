@@ -17,22 +17,20 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixinimpl;
+package me.hydos.lint.components;
 
-import net.minecraft.sound.SoundEvent;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
+import dev.onyxstudios.cca.api.v3.item.ItemComponentFactoryRegistry;
+import dev.onyxstudios.cca.api.v3.item.ItemComponentInitializer;
+import me.hydos.lint.Lint;
+import me.hydos.lint.item.LintItems;
 
-import java.util.Optional;
+public class Components implements ItemComponentInitializer {
+	public static final ComponentKey<LintEnhancementComponent> ITEM = ComponentRegistry.getOrCreate(Lint.id("lint_item"), LintEnhancementComponent.class);
 
-public class SoundShitCache {
-	public static Optional<SoundEvent> prev = Optional.empty();
-	public static Optional<SoundEvent> next = Optional.empty();
-
-	public static void checkFade(CallbackInfo info) {
-		if (prev.isPresent() && next.isPresent()) {
-			if (prev.get().getId().equals(next.get().getId())) {
-				info.cancel();
-			}
-		}
+	@Override
+	public void registerItemComponentFactories(ItemComponentFactoryRegistry registry) {
+		registry.registerFor(item -> LintItems.SICIERON_SET.contains(item), ITEM, LintEnhancementComponent::new);
 	}
 }

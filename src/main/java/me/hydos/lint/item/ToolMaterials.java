@@ -26,8 +26,11 @@ import net.minecraft.util.Lazy;
 import java.util.function.Supplier;
 
 public enum ToolMaterials implements ToolMaterial {
-	SICIERON(4, 2031, 9.0F, 4.0F, 15, () -> {
+	SICIERON(2, 350, 5.5F, 2.4F, 4, () -> {
 		return Ingredient.ofItems(LintItems.SICIERON_INGOT);
+	}),
+	JUREL(4, 2310, 7.0F, 3.4F, 4, () -> {
+		return Ingredient.ofItems(LintItems.HARDENED_JUREL_INGOT);
 	});
 
 	private final int miningLevel;

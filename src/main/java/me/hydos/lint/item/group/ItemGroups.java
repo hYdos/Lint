@@ -40,7 +40,7 @@ public class ItemGroups {
 
 	public static final ItemGroup TOOLS = FabricItemGroupBuilder.create(
 			Lint.id("lint_tools"))
-			.icon(() -> new ItemStack(LintItems.SICIERON_AXE))
+			.icon(() -> new ItemStack(LintItems.SICIERON_SET.axe))
 			.build();
 
 	public static final ItemGroup ITEMS = FabricItemGroupBuilder.create(

@@ -17,6 +17,9 @@
     ],
     "client": [
       "me.hydos.lint.client.LintClient"
+    ],
+    "cardinal-components": [
+      "me.hydos.lint.components.Components"
     ]
   },
   "mixins": [
@@ -27,5 +30,10 @@
     "minecraft": "1.16.x",
     "fabric": "*",
     "geckolib3": ">=3.0.0"
+  },
+  "custom": {
+    "cardinal-components": [
+      "lint:lint_item"
+    ]
   }
 }
