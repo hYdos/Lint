@@ -79,6 +79,15 @@
   "itemGroup.lint.lint_decorations": "Lint Decorations",
   "itemGroup.lint.lint_items": "Lint Items",
   "itemGroup.lint.lint_tools": "Lint Tools",
+  "subtitles.advancement": "King Tater is \uD83E\uDD80",
+  "subtitles.corrupt_forest": "Mystical Forest - Valoeghese",
+  "subtitles.dawn_shardlands": "Dawn Shardlands - Valoeghese",
+  "subtitles.dungeon.clandestine": "Clandestine - Valoeghese",
   "subtitles.eastern_rosella.idle": "Rosella chirps",
-  "subtitles.mystical_forest": "Mystical Forest - Valoeghese"
+  "subtitles.grimace": "Grimace - Valoeghese",
+  "subtitles.i509.boss_theme": "i509VCB - Valoeghese",
+  "subtitles.king_tater.boss_theme": "King Tater - Valoeghese",
+  "subtitles.lex_manos.boss_theme": "Lex Manos - Valoeghese",
+  "subtitles.mystical_forest": "Mystical Forest - Valoeghese",
+  "subtitles.ocean": "Ocean - Valoeghese"
 }
