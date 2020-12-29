@@ -26,7 +26,7 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
-public class LintItemGroups {
+public class ItemGroups {
 
 	public static final ItemGroup BLOCKS = FabricItemGroupBuilder.create(
 			Lint.id("lint_blocks"))

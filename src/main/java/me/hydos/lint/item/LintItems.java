@@ -20,7 +20,7 @@
 package me.hydos.lint.item;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.item.group.LintItemGroups;
+import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
@@ -32,48 +32,48 @@ public class LintItems {
 	/**
 	 * Boss Materials
 	 */
-	public static final Item TATER_ESSENCE = new TaterEssenceItem(new Item.Settings().group(LintItemGroups.ITEMS).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item TATER_ESSENCE = new TaterEssenceItem(new Item.Settings().group(ItemGroups.ITEMS).rarity(Rarity.EPIC).maxCount(1));
 
 	/**
 	 * Armor & Tool Sets
 	 */
-	public static final Item SICIERON_HELMET = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.HEAD, new Item.Settings().group(LintItemGroups.TOOLS));
-	public static final Item SICIERON_CHESTPLATE = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.CHEST, new Item.Settings().group(LintItemGroups.TOOLS));
-	public static final Item SICIERON_LEGGINGS = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.LEGS, new Item.Settings().group(LintItemGroups.TOOLS));
-	public static final Item SICIERON_BOOTS = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.FEET, new Item.Settings().group(LintItemGroups.TOOLS));
-	public static final Item SICIERON_PICKAXE = new PickaxeItem(ToolMaterials.SICIERON, 6, 1.2f, new Item.Settings().group(LintItemGroups.TOOLS)) {
+	public static final Item SICIERON_HELMET = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.HEAD, new Item.Settings().group(ItemGroups.TOOLS));
+	public static final Item SICIERON_CHESTPLATE = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.CHEST, new Item.Settings().group(ItemGroups.TOOLS));
+	public static final Item SICIERON_LEGGINGS = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.LEGS, new Item.Settings().group(ItemGroups.TOOLS));
+	public static final Item SICIERON_BOOTS = new ArmorItem(ArmorMaterials.SICIERON, EquipmentSlot.FEET, new Item.Settings().group(ItemGroups.TOOLS));
+	public static final Item SICIERON_PICKAXE = new PickaxeItem(ToolMaterials.SICIERON, 6, 1.2f, new Item.Settings().group(ItemGroups.TOOLS)) {
 	};
-	public static final Item SICIERON_AXE = new AxeItem(ToolMaterials.SICIERON, 9, 1.2f, new Item.Settings().group(LintItemGroups.TOOLS)) {
+	public static final Item SICIERON_AXE = new AxeItem(ToolMaterials.SICIERON, 9, 1.2f, new Item.Settings().group(ItemGroups.TOOLS)) {
 	};
-	public static final Item SICIERON_SHOVEL = new ShovelItem(ToolMaterials.SICIERON, 5, 1.6f, new Item.Settings().group(LintItemGroups.TOOLS)) {
+	public static final Item SICIERON_SHOVEL = new ShovelItem(ToolMaterials.SICIERON, 5, 1.6f, new Item.Settings().group(ItemGroups.TOOLS)) {
 	};
-	public static final Item SICIERON_HOE = new HoeItem(ToolMaterials.SICIERON, 1, 4f, new Item.Settings().group(LintItemGroups.TOOLS).rarity(Rarity.EPIC)) {
+	public static final Item SICIERON_HOE = new HoeItem(ToolMaterials.SICIERON, 1, 4f, new Item.Settings().group(ItemGroups.TOOLS).rarity(Rarity.EPIC)) {
 	};
-	public static final Item SICIERON_SWORD = new SwordItem(ToolMaterials.SICIERON, 8, 1.6f, new Item.Settings().group(LintItemGroups.TOOLS)) {
+	public static final Item SICIERON_SWORD = new SwordItem(ToolMaterials.SICIERON, 8, 1.6f, new Item.Settings().group(ItemGroups.TOOLS)) {
 	};
 
 	/**
 	 * Ore Materials
 	 */
-	public static final Item SICIERON_INGOT = new Item(new Item.Settings().group(LintItemGroups.ITEMS).maxCount(64));
-	public static final Item TARSCAN_SHARD = new Item(new Item.Settings().group(LintItemGroups.ITEMS).maxCount(64));
-	public static final Item JUREL_POWDER = new Item(new Item.Settings().group(LintItemGroups.ITEMS).rarity(Rarity.RARE).maxCount(64));
+	public static final Item SICIERON_INGOT = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
+	public static final Item TARSCAN_SHARD = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
+	public static final Item JUREL_POWDER = new Item(new Item.Settings().group(ItemGroups.ITEMS).rarity(Rarity.RARE).maxCount(64));
 
 	/**
 	 * Music Discs
 	 */
-	public static final Item SUSPICOUS_LOOKING_DISC = new Item(new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
-	public static final Item OBOE_DISC = new MusicDiscItem(14, Sounds.GRIMACE, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
+	public static final Item SUSPICOUS_LOOKING_DISC = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
+	public static final Item OBOE_DISC = new MusicDiscItem(14, Sounds.GRIMACE, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
 	};
-	public static final Item OCEAN_DISC = new MusicDiscItem(15, Sounds.OCEAN, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
+	public static final Item OCEAN_DISC = new MusicDiscItem(15, Sounds.OCEAN, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
 	};
-	public static final Item MYSTICAL_FOREST_DISC = new MusicDiscItem(16, Sounds.MYSTICAL_FOREST, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
+	public static final Item MYSTICAL_FOREST_DISC = new MusicDiscItem(16, Sounds.MYSTICAL_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
 	};
-	public static final Item CORRUPT_FOREST_DISC = new MusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(LintItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
+	public static final Item CORRUPT_FOREST_DISC = new MusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
 	};
 
 	public static void register() {
-		LintItemGroups.register();
+		ItemGroups.register();
 		registerOreMaterials();
 		registerArmorSets();
 		registerToolSets();
