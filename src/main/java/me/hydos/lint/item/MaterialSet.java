@@ -68,6 +68,10 @@ public final class MaterialSet {
 	public final Item leggings;
 	public final Item boots;
 	
+	public boolean contains(Item item) {
+		return pickaxe == item || axe == item || shovel == item || hoe == item || sword == item || helmet == item || chestplate == item || leggings == item || boots == item;
+	}
+
 	public void registerItems() {
 		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_sword"), this.sword);
 		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_axe"), this.axe);
