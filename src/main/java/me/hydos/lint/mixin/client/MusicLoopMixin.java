@@ -19,7 +19,7 @@
 
 package me.hydos.lint.mixin.client;
 
-import me.hydos.lint.mixinimpl.SoundShitCache;
+import me.hydos.lint.mixinimpl.SoundShit;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,7 +33,7 @@ public class MusicLoopMixin {
 			method = "fadeIn",
 			cancellable = true)
 	private void onFadeIn(CallbackInfo info) {
-		SoundShitCache.checkFade(info);
+		SoundShit.checkFade(info);
 	}
 
 	@Inject(
@@ -41,6 +41,6 @@ public class MusicLoopMixin {
 			method = "fadeOut",
 			cancellable = true)
 	private void onFadeOut(CallbackInfo info) {
-		SoundShitCache.checkFade(info);
+		SoundShit.checkFade(info);
 	}
 }
