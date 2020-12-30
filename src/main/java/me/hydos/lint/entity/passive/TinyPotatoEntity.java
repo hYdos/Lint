@@ -25,12 +25,14 @@ import me.hydos.lint.entity.passive.bird.EasternRosellaEntity;
 import me.hydos.lint.util.LintInventory;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableShoulderEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -68,16 +70,8 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6);
 	}
 
-	public static boolean canSpawn(EntityType<TinyPotatoEntity> entity, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-		if (spawnReason == SpawnReason.NATURAL) {
-			//TODO: create a mob entity cap manager and check the passive cap before spawning them.
-			if (random.nextInt(10) > 4) {
-				BlockState blockState = world.getBlockState(pos.down());
-				return (blockState.isOf(LintBlocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8);
-			}
-		}
-
-		return true;
+	public static boolean isValidNaturalSpawn(EntityType<? extends AnimalEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+		return world.getBlockState(pos.down()).isOf(LintBlocks.MYSTICAL_GRASS) && world.getBaseLightLevel(pos, 0) > 8;
 	}
 
 	@Override

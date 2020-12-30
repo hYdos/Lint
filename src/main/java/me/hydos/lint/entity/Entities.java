@@ -87,6 +87,6 @@ public class Entities {
 		FabricDefaultAttributeRegistry.register(Entities.I5, I509VCBEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.GHOST, GhostEntity.createHostileAttributes());
 
-		SpawnRestriction.register(Entities.TINY_POTATO, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TinyPotatoEntity::canSpawn);
+		SpawnRestriction.register(Entities.TINY_POTATO, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TinyPotatoEntity::isValidNaturalSpawn);
 	}
 }
