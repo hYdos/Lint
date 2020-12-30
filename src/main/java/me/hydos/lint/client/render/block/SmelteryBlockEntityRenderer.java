@@ -35,6 +35,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
@@ -52,9 +53,9 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 	@Override
 	public void render(SmelteryBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		if (entity.center != null && entity.isLit() && entity.fluidData.size() != 0) {
-			matrices.translate(0, 0, 1);
+			BlockPos relativeCenter = entity.center.subtract(entity.getPos());
+			matrices.translate(relativeCenter.getX(), relativeCenter.getY(), relativeCenter.getZ());
 			renderFluid(matrices, LintFluids.MOLTEN_FLUID_MAP.get(Lint.id("gold")).getStill(), BLOCK_BOUNDS, light, 2);
-			renderFluid(matrices, LintFluids.MOLTEN_FLUID_MAP.get(Lint.id("gold")).getStill(), BLOCK_BOUNDS, light, (float) (6.187*(10^37)));
 		}
 	}
 

@@ -1,11 +1,11 @@
 {
   "variants": {
     "facing=east,lit=false": {
-      "model": "minecraft:block/furnace",
+      "model": "lint:block/smeltery",
       "y": 90
     },
     "facing=east,lit=true": {
-      "model": "minecraft:block/furnace_on",
+      "model": "lint:block/smeltery",
       "y": 90
     },
     "facing=north,lit=false": {

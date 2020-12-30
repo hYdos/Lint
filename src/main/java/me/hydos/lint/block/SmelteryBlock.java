@@ -23,6 +23,7 @@ import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -90,5 +91,10 @@ public class SmelteryBlock extends BlockWithEntity {
 	@Override
 	public BlockEntity createBlockEntity(BlockView world) {
 		return new SmelteryBlockEntity();
+	}
+
+	@Override
+	public BlockState getPlacementState(ItemPlacementContext ctx) {
+		return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
 	}
 }
