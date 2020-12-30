@@ -47,7 +47,7 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		if (!context.getWorld().isClient()) {
-			LintEnhancements.enhance(context.getStack(), Power.Broad.ALLOS, 20.0f);
+			LintEnhancements.enhance(context.getStack(), Power.Broad.ALLOS, 1.0f);
 		}
 
 		return super.useOnBlock(context);
@@ -57,8 +57,8 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 	public void update(ItemStack stack, Power.Broad power, float increaseAmount, boolean addDefaults) {
 		if (addDefaults) {
 			stack.addHideFlag(TooltipSection.MODIFIERS);
-			stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", this.getAttackDamage(), EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
-			stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", this.getAttackSpeed(), EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+			stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", this.getAttackSpeed(), EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+			stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", this.getAttackDamage(), EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 		}
 
 		// I, valoeghese, will write this
@@ -85,8 +85,8 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 		}
 	}
 	
-	public static final double MAJOR_POWER_CONSTANT = 0.75;
-	public static final double MAJOR_CARIA_CONSTANT = 0.6;
-	public static final double MINOR_CONSTANT = 0.4;
+	public static final double MAJOR_POWER_CONSTANT = 1.0;
+	public static final double MAJOR_CARIA_CONSTANT = 0.8;
+	public static final double MINOR_CONSTANT = 0.5;
 	
 }
