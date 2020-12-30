@@ -95,7 +95,7 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 									LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
 									lightning.refreshPositionAfterTeleport(target.getPos());
 									lightning.setCosmetic(true);
-									le.damage(DamageSource.LIGHTNING_BOLT, 7); // radiant damage
+									le.damage(DamageSource.LIGHTNING_BOLT, Math.min(7, strength * 1.25f)); // radiant damage
 									world.spawnEntity(lightning);
 								} else {
 									le.damage(DamageSource.LIGHTNING_BOLT, 2); // radiant damage
@@ -154,6 +154,7 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 		// Major powers have MAJOR, MINOR and SPECIAL enhancements (which all increase in proficiency as you level up)
 		// Minor powers have only their MAJOR enhancements (but it's somewhere between a major power's major and minor level) and a SPECIAL once you reach the max level.
 		switch (power) {
+			// Major Powers. Can have one up to level 12.
 			case ALLOS: // Sword Enhancements: Speed (MAJOR), Damage (MINOR), Radiant (SPECIAL)
 				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", MAJOR_POWER_CONSTANT * ATTACK_SPEED_MOD_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
@@ -161,13 +162,14 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 			case MANOS: // Sword Enhancements: Toxin (MAJOR), Damage (MINOR), Life_Steal (SPECIAL) TODO make nausea have an actual useful effect on lint bosses
 				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
-			case THERIA:
+			// Minor Powers. Can have two up to level 12 each, with a total level cap of 14.
+			case THERIA: // Cariar of Mind:		Swiftness_Boost (MAJOR), Paralysis - (can't hit or move) (SPECIAL)
 				break;
-			case AURIA:
+			case AURIA: // Carien of War:		Damage (MAJOR), Perfect Defense (SPECIAL)
 				break;
-			case PAWERIA:
+			case PAWERIA: // Cariar of Order:	Inflict_Weakness (MAJOR) -> chance to inflict weakness. Burst - (on damage taken, you have a chance to halve that damage and let out a burst of energy - you glow for a bit when this happens) (SPECIAL)
 				break;
-			case HERIA:
+			case HERIA: // Carien of Emotion:	Passive Regeneration (MAJOR) -> natural regen treats hunger value as higher? or some other mechanism, Adrenaline (SPECIAL) - (the first time you take damage, you gain a surge of strength, regen, and swiftenss - resets 10 mins after)
 				break;
 			default:
 				break;
