@@ -4,5 +4,5 @@ import me.hydos.lint.util.Power;
 import net.minecraft.item.ItemStack;
 
 public interface Enhanceable {
-	void update(ItemStack stack, Power.Broad power, float change);
+	void update(ItemStack stack, Power.Broad power, float change, boolean addDefaults);
 }

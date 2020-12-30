@@ -42,6 +42,10 @@ public final class LintEnhancements {
 		return tag.getKeys().stream().map(Power.Broad::valueOf).collect(Collectors.toSet());
 	}
 
+	public static boolean isModified(ItemStack stack) {
+		return stack.getOrCreateSubTag("lint_enhancements").getKeys().isEmpty();
+	}
+
 	/**
 	 * Pls call on the server.
 	 * @return the new power level of the power if successful. Otherwise, returns 0.
@@ -67,11 +71,11 @@ public final class LintEnhancements {
 
 		// update data (i.e. mess with attribute tags if necessary)
 		if (item instanceof Enhanceable) {
-			((Enhanceable) item).update(stack, power, increaseAmount);
+			((Enhanceable) item).update(stack, power, increaseAmount, powers == 0);
 		}
 
 		String key = power.name();
-		
+
 		// put new value
 		float newValue = (tag.contains(key) ? tag.getFloat(key) : 0) + increaseAmount;
 		tag.putFloat(key, newValue);

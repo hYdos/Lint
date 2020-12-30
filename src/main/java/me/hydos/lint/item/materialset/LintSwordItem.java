@@ -22,6 +22,7 @@ package me.hydos.lint.item.materialset;
 import me.hydos.enhancement.Enhanceable;
 import me.hydos.enhancement.LintEnhancements;
 import me.hydos.lint.util.Power;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
@@ -52,14 +53,14 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 	}
 
 	@Override
-	public void update(ItemStack stack, Power.Broad power, float newLevel) {
+	public void update(ItemStack stack, Power.Broad power, float increaseAmount, boolean addDefaults) {
 		// I, valoeghese, will write this
 		// Major powers have MAJOR, MINOR and SPECIAL enhancements (which all increase in proficiency as you level up)
 		// Minor powers have only their MAJOR enhancements (but it's somewhere between a major power's major and minor level) and a SPECIAL once you reach the max level.
 		switch (power) {
 			case ALLOS: // Sword Enhancements: Speed (MAJOR), Damage (MINOR), Random_Glowing (SPECIAL)
-				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", 0.5 * newLevel, EntityAttributeModifier.Operation.ADDITION), null);
-				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", 0.5 * newLevel, EntityAttributeModifier.Operation.ADDITION), null);
+				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", 0.5 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", 0.5 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
 			case MANOS: // Sword Enhancements: Toxin (MAJOR), Damage (MINOR), Random_Nausea (SPECIAL) TODO make nausea have an actual useful effect on lint bosses
 				break;
