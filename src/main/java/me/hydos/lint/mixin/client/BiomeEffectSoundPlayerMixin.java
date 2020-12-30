@@ -19,6 +19,7 @@
 
 package me.hydos.lint.mixin.client;
 
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,14 +29,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.mixinimpl.SoundShit;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.source.BiomeAccess;
 
 @Mixin(BiomeEffectSoundPlayer.class)
 public class BiomeEffectSoundPlayerMixin {
 	@Shadow
 	private Biome activeBiome;
+
+	@Shadow
+	@Final
+	private BiomeAccess biomeAccess;
+
+	@Shadow
+	@Final
+	private ClientPlayerEntity player;
+
+	@Shadow
+	@Final
+	private SoundManager soundManager;
 
 	@Shadow
 	private Object2ObjectArrayMap<Biome, BiomeEffectSoundPlayer.MusicLoop> soundLoops;
@@ -49,6 +65,9 @@ public class BiomeEffectSoundPlayerMixin {
 
 		if (SoundShit.isBossMusic(sound.getId())) {
 			SoundShit.doShit(sound, this.soundLoops);
+			info.cancel();
+		} else if (SoundShit.magicBossMusicFlag) {
+			SoundShit.doOtherShit(sound, this.soundManager, this.activeBiome = biomeAccess.getBiome(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
 			info.cancel();
 		}
 

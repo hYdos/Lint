@@ -55,15 +55,17 @@ public final class LintEnhancements {
 		final int powers = tag.getKeys().size();
 
 		if (powers > 0) { // if already has powers.
-			switch (Power.Broad.valueOf(tag.getKeys().iterator().next())) {
-				case ALLOS:
-				case MANOS:
-					return 0; // either one major power
-				default:
-					if (powers > 1 || power == Power.Broad.ALLOS || power == Power.Broad.MANOS) { // or 2 minor powers
-						return 0;
-					}
-					break;
+			if (!tag.getKeys().contains(power.name())) {
+				switch (Power.Broad.valueOf(tag.getKeys().iterator().next())) {
+					case ALLOS:
+					case MANOS:
+						return 0; // either one major power
+					default:
+						if (powers > 1 || power == Power.Broad.ALLOS || power == Power.Broad.MANOS) { // or 2 minor powers
+							return 0;
+						}
+						break;
+				}
 			}
 		}
 

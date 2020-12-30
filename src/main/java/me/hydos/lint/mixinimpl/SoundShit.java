@@ -27,8 +27,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
-import net.minecraft.client.sound.MovingSoundInstance;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer.MusicLoop;
+import net.minecraft.client.sound.MovingSoundInstance;
+import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
@@ -37,6 +38,7 @@ public class SoundShit {
 	public static Optional<SoundEvent> prev = Optional.empty();
 	public static Optional<SoundEvent> next = Optional.empty();
 	private static final Set<Identifier> BOSS_MUSIC = new HashSet<>();
+	public static boolean magicBossMusicFlag = false;
 
 	public static boolean isBossMusic(Identifier id) {
 		return BOSS_MUSIC.contains(id);
@@ -57,8 +59,22 @@ public class SoundShit {
 
 	public static void doShit(SoundEvent event, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
 		next = Optional.of(event);
+		magicBossMusicFlag = true;
 		soundLoops.values().removeIf(MovingSoundInstance::isDone);
 		soundLoops.values().forEach(BiomeEffectSoundPlayer.MusicLoop::fadeOut);
 		prev = next;
+	}
+
+	public static void doOtherShit(SoundEvent sound, SoundManager manager, Biome biome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
+		magicBossMusicFlag = false;
+		biome.getLoopSound().ifPresent(soundEvent -> soundLoops.compute(biome, (biomex, musicLoop) -> {
+			if (musicLoop == null) {
+				musicLoop = new BiomeEffectSoundPlayer.MusicLoop(soundEvent);
+				manager.play(musicLoop);
+			}
+
+			musicLoop.fadeIn();
+			return musicLoop;
+		}));
 	}
 }

@@ -26,6 +26,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemStack.TooltipSection;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
@@ -55,6 +56,7 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 	@Override
 	public void update(ItemStack stack, Power.Broad power, float increaseAmount, boolean addDefaults) {
 		if (addDefaults) {
+			stack.addHideFlag(TooltipSection.MODIFIERS);
 			stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", this.getAttackDamage(), EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 			stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", this.getAttackSpeed(), EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 		}
@@ -64,13 +66,27 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 		// Minor powers have only their MAJOR enhancements (but it's somewhere between a major power's major and minor level) and a SPECIAL once you reach the max level.
 		switch (power) {
 			case ALLOS: // Sword Enhancements: Speed (MAJOR), Damage (MINOR), Random_Glowing (SPECIAL)
-				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", 0.5 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
-				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", 0.5 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", MAJOR_POWER_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
 			case MANOS: // Sword Enhancements: Toxin (MAJOR), Damage (MINOR), Random_Nausea (SPECIAL) TODO make nausea have an actual useful effect on lint bosses
+				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+				break;
+			case THERIA:
+				break;
+			case AURIA:
+				break;
+			case PAWERIA:
+				break;
+			case HERIA:
 				break;
 			default:
 				break;
 		}
 	}
+	
+	public static final double MAJOR_POWER_CONSTANT = 0.75;
+	public static final double MAJOR_CARIA_CONSTANT = 0.6;
+	public static final double MINOR_CONSTANT = 0.4;
+	
 }
