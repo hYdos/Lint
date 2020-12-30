@@ -206,9 +206,9 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 			.hardness(-1.0f)
 			.sounds(BlockSoundGroup.METAL));
 
-	public static final Block ALLOS_CRYSTAL = new PowerCrystalBlock(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F).luminance(state -> 6),
+	public static final Block ALLOS_CRYSTAL = new PowerCrystalBlock(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F).luminance(state -> 7),
 			StatusEffects.GLOWING);
-	public static final Block MANOS_CRYSTAL = new PowerCrystalBlock(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F).luminance(state -> 3),
+	public static final Block MANOS_CRYSTAL = new PowerCrystalBlock(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F).luminance(state -> 4),
 			StatusEffects.NAUSEA);
 
 	/**
