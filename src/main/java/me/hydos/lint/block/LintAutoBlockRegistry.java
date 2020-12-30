@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
 
-public class LintBlocks2 {
+public class LintAutoBlockRegistry {
 
 	/**
 	 * Registers a generic "cube all" block with an associated dropped item
@@ -126,6 +126,6 @@ public class LintBlocks2 {
 		}
 	}
 
-	LintBlocks2() {
+	LintAutoBlockRegistry() {
 	}
 }

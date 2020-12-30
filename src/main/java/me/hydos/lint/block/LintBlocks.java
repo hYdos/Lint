@@ -36,7 +36,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
 
-public final class LintBlocks extends LintBlocks2 {
+public final class LintBlocks extends LintAutoBlockRegistry {
 
 	/**
 	 * Automatically generated
