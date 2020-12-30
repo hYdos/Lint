@@ -49,6 +49,12 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 	}
 
 	@Override
+	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+		super.render(matrices, mouseX, mouseY, delta);
+		drawMouseoverTooltip(matrices, mouseX, mouseY);
+	}
+
+	@Override
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
 		this.client.getTextureManager().bindTexture(GUI);
 		drawTexture(matrices, x, y - 32, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);

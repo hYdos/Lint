@@ -19,10 +19,8 @@
 
 package me.hydos.lint.block.entity;
 
-import me.hydos.lint.Lint;
 import me.hydos.lint.block.SmelteryBlock;
-import me.hydos.lint.fluid.LintFluids;
-import me.hydos.lint.fluid.MoltenMetalFluid;
+import me.hydos.lint.fluid.SimpleFluidData;
 import me.hydos.lint.screenhandler.SmelteryScreenHandler;
 import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.LintInventory;
@@ -31,7 +29,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -51,11 +48,10 @@ public class SmelteryBlockEntity extends BlockEntity implements NamedScreenHandl
 	public BlockPos center;
 	private boolean validMultiblock;
 	public LintInventory inventory = new LintInventory(9);
-	public List<FluidState> fluidData = new ArrayList<>();
+	public List<SimpleFluidData> fluidData = new ArrayList<>();
 
 	public SmelteryBlockEntity() {
 		super(BlockEntities.SMELTERY);
-		fluidData.add(LintFluids.MOLTEN_FLUID_MAP.get(Lint.id("gold")).state().with(MoltenMetalFluid.LEVEL, 2));
 	}
 
 	@Override
@@ -67,11 +63,17 @@ public class SmelteryBlockEntity extends BlockEntity implements NamedScreenHandl
 	@Override
 	public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
 		updateMultiblock(world.getBlockState(pos));
-		return new SmelteryScreenHandler(syncId, inv, this.inventory);
+		return new SmelteryScreenHandler(syncId, inv, this.inventory, pos, world);
 	}
 
 	@Override
 	public CompoundTag toTag(CompoundTag tag) {
+		CompoundTag serialisedFluidData = new CompoundTag();
+		serialisedFluidData.putInt("size", fluidData.size());
+		for (int i = 0; i < fluidData.size(); i++) {
+			serialisedFluidData.put(String.valueOf(i), fluidData.get(i).toTag());
+		}
+		tag.put("fluidData", serialisedFluidData);
 		tag.putBoolean("valid_multiblock", validMultiblock);
 		Inventories.toTag(tag, inventory.getRawList());
 		return super.toTag(tag);
@@ -79,6 +81,12 @@ public class SmelteryBlockEntity extends BlockEntity implements NamedScreenHandl
 
 	@Override
 	public void fromTag(BlockState state, CompoundTag tag) {
+		CompoundTag serialisedFluidData = (CompoundTag) tag.get("fluidData");
+		if(serialisedFluidData != null) {
+			for (int i = 0; i < serialisedFluidData.getInt("size"); i++) {
+				fluidData.add(SimpleFluidData.fromTag((CompoundTag) serialisedFluidData.get(String.valueOf(i))));
+			}
+		}
 		validMultiblock = tag.getBoolean("valid_multiblock");
 		inventory = new LintInventory(9);
 		Inventories.fromTag(tag, inventory.getRawList());
