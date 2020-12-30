@@ -39,7 +39,6 @@ import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.block.SlabBlock;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
@@ -207,10 +206,10 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 			.hardness(-1.0f)
 			.sounds(BlockSoundGroup.METAL));
 
-	public static final Block ALLOS_CRYSTAL = new PowerCrystalBlock(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F).luminance(state -> 6).requiresTool(),
-			new StatusEffectInstance(StatusEffects.GLOWING, 20 * 4));
-	public static final Block MANOS_CRYSTAL = new PowerCrystalBlock(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F).luminance(state -> 3).requiresTool(),
-			new StatusEffectInstance(StatusEffects.NAUSEA, 20 * 4));
+	public static final Block ALLOS_CRYSTAL = new PowerCrystalBlock(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F).luminance(state -> 6),
+			StatusEffects.GLOWING);
+	public static final Block MANOS_CRYSTAL = new PowerCrystalBlock(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F).luminance(state -> 3),
+			StatusEffects.NAUSEA);
 
 	/**
 	 * Corrupt Decorations

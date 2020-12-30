@@ -24,6 +24,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -34,27 +35,29 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 public class PowerCrystalBlock extends AbstractGlassBlock {
-	public PowerCrystalBlock(Settings settings, StatusEffectInstance effect) {
+	public PowerCrystalBlock(Settings settings, StatusEffect effect) {
 		super(settings);
 		this.effect = effect;
 	}
 
-	private final StatusEffectInstance effect;
+	private final StatusEffect effect;
 
 	@Override
 	public void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
-		if (!player.isCreative()) {
-			player.addStatusEffect(this.effect);
+		if (!player.isCreative() && !world.isClient()) {
+			player.addStatusEffect(new StatusEffectInstance(this.effect, 80));
 			player.damage(DamageSource.MAGIC, 1);
 		}
 	}
 
 	@Override
 	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		if (!player.isCreative()) {
-			player.addStatusEffect(this.effect);
+		if (!player.isCreative() && !world.isClient()) {
+			player.addStatusEffect(new StatusEffectInstance(this.effect, 80));
 			player.damage(DamageSource.MAGIC, 1);
 		}
+
+		super.onBreak(world, pos, state, player);
 	}
 
 	@Override
