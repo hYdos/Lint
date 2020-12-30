@@ -27,11 +27,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 
 @Mixin(EnchantmentHelper.class)
 public class EnchantmentHelperMixin {
 	@Inject(at = @At("HEAD"), method = "onTargetDamaged")
 	private static void onOnTargetDamaged(LivingEntity user, Entity target, CallbackInfo info) {
+		ItemStack stack = user.getMainHandStack();
 		
 	}
 }
