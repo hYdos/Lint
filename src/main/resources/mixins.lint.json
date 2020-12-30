@@ -8,6 +8,7 @@
     "ArmorItemMixin",
     "DimensionTypeAccessor",
     "DimensionTypeMixin",
+    "EnchantmentHelperMixin",
     "EntityMixin",
     "FireBlockAccessor",
     "GeckoLibMixin",
