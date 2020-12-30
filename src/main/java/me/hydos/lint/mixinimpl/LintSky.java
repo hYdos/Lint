@@ -198,7 +198,8 @@ public class LintSky {
 
 		// BETA STAR
 		// TODO hydos proper occlusion when big alpha star covers little beta star
-		if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.09f) {
+		
+		if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.07f) {
 			matrices.push();
 			size *= 0.87;
 
@@ -206,12 +207,14 @@ public class LintSky {
 			matrices.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(data[1] / 2.0f));
 			vertY = data[3] / 2.0f;
 
+			Matrix4f betaMatrix = matrices.peek().getModel();
+
 			textureManager.bindTexture(BETA_LINT);
 			bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
-			bufferBuilder.vertex(skyObjectMatrix, -size, vertY, -size).texture(0.0F, 0.0F).next();
-			bufferBuilder.vertex(skyObjectMatrix, size, vertY, -size).texture(1.0F, 0.0F).next();
-			bufferBuilder.vertex(skyObjectMatrix, size, vertY, size).texture(1.0F, 1.0F).next();
-			bufferBuilder.vertex(skyObjectMatrix, -size, vertY, size).texture(0.0F, 1.0F).next();
+			bufferBuilder.vertex(betaMatrix, -size, vertY, -size).texture(0.0F, 0.0F).next();
+			bufferBuilder.vertex(betaMatrix, size, vertY, -size).texture(1.0F, 0.0F).next();
+			bufferBuilder.vertex(betaMatrix, size, vertY, size).texture(1.0F, 1.0F).next();
+			bufferBuilder.vertex(betaMatrix, -size, vertY, size).texture(0.0F, 1.0F).next();
 			bufferBuilder.end();
 			BufferRenderer.draw(bufferBuilder);
 
