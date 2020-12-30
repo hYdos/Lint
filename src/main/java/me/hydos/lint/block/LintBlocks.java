@@ -19,6 +19,8 @@
 
 package me.hydos.lint.block;
 
+import java.util.HashMap;
+
 import me.hydos.lint.Lint;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
@@ -26,15 +28,24 @@ import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixin.FireBlockAccessor;
 import me.hydos.lint.util.Power;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FallingBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.block.PillarBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
-
-import java.util.HashMap;
 
 public final class LintBlocks extends LintAutoBlockRegistry {
 
@@ -48,137 +59,137 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SAND);
 
-	public static final Block BASIC_CASING = registerGeneric("basic_casing",
+	public static final Block BASIC_CASING = registerCubeAll("basic_casing",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(0.5f)
 					.sounds(BlockSoundGroup.STONE)),
 			ItemGroups.BLOCKS);
-	public static final Block CRACKED_BASIC_CASING = registerGeneric("cracked_basic_casing",
+	public static final Block CRACKED_BASIC_CASING = registerCubeAll("cracked_basic_casing",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(0.5f)
 					.sounds(BlockSoundGroup.STONE)),
 			ItemGroups.BLOCKS);
 
-	public static final Block HAYKAMIUM_PORTAL = registerGeneric(
+	public static final Block HAYKAMIUM_PORTAL = registerCubeAll(
 			"haykamium_portal",
 			new HaykamiumPortalBlock(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
 					.sounds(BlockSoundGroup.STONE)
 					.collidable(false)),
 			null);
-	public static final Block RED_BUTTON = registerGeneric(
+	public static final Block RED_BUTTON = registerCubeAll(
 			"red_button",
 			new KingTaterButton(FabricBlockSettings.of(Material.SOIL)
 					.hardness(-0.1f)
 					.sounds(BlockSoundGroup.WET_GRASS)),
 			ItemGroups.DECORATIONS);
-	public static final Block GREEN_BUTTON = registerGeneric(
+	public static final Block GREEN_BUTTON = registerCubeAll(
 			"green_button",
 			new KingTaterButton(FabricBlockSettings.of(Material.SOIL)
 					.hardness(-0.1f)
 					.sounds(BlockSoundGroup.WET_GRASS)),
 			ItemGroups.DECORATIONS);
 
-	public static final Block INDIGO_STONE = registerGeneric(
+	public static final Block INDIGO_STONE = registerCubeAll(
 			"indigo_stone",
 			new Block(FabricBlockSettings.copyOf(Blocks.STONE)
 					.materialColor(MaterialColor.PURPLE_TERRACOTTA)),
 			ItemGroups.BLOCKS);
-	public static final Block FUSED_STONE = registerGeneric(
+	public static final Block FUSED_STONE = registerCubeAll(
 			"fused_stone",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
 					.sounds(BlockSoundGroup.STONE)),
 			ItemGroups.BLOCKS);
-	public static final Block TARSCAN_ORE = registerGeneric(
+	public static final Block TARSCAN_ORE = registerCubeAll(
 			"tarscan_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
 					.sounds(BlockSoundGroup.STONE)),
 			ItemGroups.BLOCKS);
-	public static final Block SICIERON_ORE = registerGeneric(
+	public static final Block SICIERON_ORE = registerCubeAll(
 			"sicieron_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
 					.sounds(BlockSoundGroup.STONE)),
 			ItemGroups.BLOCKS);
-	public static final Block JUREL_ORE = registerGeneric(
+	public static final Block JUREL_ORE = registerCubeAll(
 			"jurel_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
 					.sounds(BlockSoundGroup.STONE)),
 			ItemGroups.BLOCKS);
-	public static final Block ASPHALT = registerGeneric(
+	public static final Block ASPHALT = registerCubeAll(
 			"asphalt",
 			new Block(FabricBlockSettings.copyOf(Blocks.STONE)),
 			ItemGroups.BLOCKS);
 
-	public static final Block CORRUPT_PLANKS = registerGeneric(
+	public static final Block CORRUPT_PLANKS = registerCubeAll(
 			"corrupt_planks",
 			new Block(PLANK_SETTINGS
 					.materialColor(MaterialColor.PURPLE)),
 			ItemGroups.BLOCKS);
-	public static final Block CORRUPT_LEAVES = registerGeneric(
+	public static final Block CORRUPT_LEAVES = registerCubeAll(
 			"corrupt_leaves",
 			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
 					.materialColor(MaterialColor.PURPLE)),
 			ItemGroups.BLOCKS);
-	public static final Block CORRUPT_SAND = registerGeneric(
+	public static final Block CORRUPT_SAND = registerCubeAll(
 			"corrupt_sand",
 			new FallingBlock(SAND_SETTINGS
 					.materialColor(MaterialColor.PURPLE)),
 			ItemGroups.BLOCKS);
 
-	public static final Block ALLOS_INFUSED_ASPHALT = registerGeneric(
+	public static final Block ALLOS_INFUSED_ASPHALT = registerCubeAll(
 			"allos_infused_asphalt",
 			new InfusedBlock(FabricBlockSettings.copyOf(Blocks.STONE), Power.ALLOS),
 			ItemGroups.BLOCKS);
-	public static final Block MANOS_INFUSED_ASPHALT = registerGeneric(
+	public static final Block MANOS_INFUSED_ASPHALT = registerCubeAll(
 			"manos_infused_asphalt",
 			new InfusedBlock(FabricBlockSettings.copyOf(Blocks.STONE), Power.MANOS),
 			ItemGroups.BLOCKS);
 
-	public static final Block ASH = registerGeneric(
+	public static final Block ASH = registerCubeAll(
 			"ash",
 			new FallingBlock(SAND_SETTINGS),
 			ItemGroups.BLOCKS);
 
-	public static final Block DUNGEON_BRICKS = registerGeneric(
+	public static final Block DUNGEON_BRICKS = registerCubeAll(
 			"dungeon_bricks",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(4)
 					.sounds(BlockSoundGroup.STONE)),
 			ItemGroups.BLOCKS);
-	public static final Block MOSSY_DUNGEON_BRICKS = registerGeneric(
+	public static final Block MOSSY_DUNGEON_BRICKS = registerCubeAll(
 			"mossy_dungeon_bricks",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(4)
 					.sounds(BlockSoundGroup.STONE)),
 			ItemGroups.BLOCKS);
 
-	public static final Block MYSTICAL_PLANKS = registerGeneric(
+	public static final Block MYSTICAL_PLANKS = registerCubeAll(
 			"mystical_planks",
 			new Block(PLANK_SETTINGS
 					.materialColor(MaterialColor.DIAMOND)),
 			ItemGroups.BLOCKS);
-	public static final Block MYSTICAL_LEAVES = registerGeneric(
+	public static final Block MYSTICAL_LEAVES = registerCubeAll(
 			"mystical_leaves",
 			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
 					.materialColor(MaterialColor.DIAMOND)),
 			ItemGroups.BLOCKS);
-	public static final Block MYSTICAL_SAND = registerGeneric(
+	public static final Block MYSTICAL_SAND = registerCubeAll(
 			"mystical_sand",
 			new FallingBlock(SAND_SETTINGS
 					.materialColor(MaterialColor.MAGENTA)),
 			ItemGroups.BLOCKS);
 
-	public static final Block RICH_DIRT = registerGeneric(
+	public static final Block RICH_DIRT = registerCubeAll(
 			"rich_dirt",
 			new Block(FabricBlockSettings.of(Material.SOIL)
 					.hardness(0.5f)
 					.sounds(BlockSoundGroup.WET_GRASS)),
 			ItemGroups.BLOCKS);
-	public static final Block WHITE_SAND = registerGeneric(
+	public static final Block WHITE_SAND = registerCubeAll(
 			"white_sand",
 			new FallingBlock(SAND_SETTINGS),
 			ItemGroups.BLOCKS);
@@ -196,7 +207,10 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 			.hardness(-1.0f)
 			.sounds(BlockSoundGroup.METAL));
 
-	public static final Block ALLOS_CRYSTAL = new Block(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F));
+	public static final Block ALLOS_CRYSTAL = new PowerCrystalBlock(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F).luminance(state -> 6).requiresTool(),
+			new StatusEffectInstance(StatusEffects.GLOWING, 20 * 4));
+	public static final Block MANOS_CRYSTAL = new PowerCrystalBlock(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F).luminance(state -> 3).requiresTool(),
+			new StatusEffectInstance(StatusEffects.NAUSEA, 20 * 4));
 
 	/**
 	 * Corrupt Decorations
@@ -207,14 +221,14 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-	);
+			);
 	public static final FlowerBlock WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-	);
+			);
 	/**
 	 * Corrupt Building Blocks
 	 */
@@ -236,14 +250,14 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-	);
+			);
 	public static final FlowerBlock MYSTICAL_DAISY = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-	);
+			);
 	/**
 	 * Mystical Building Blocks
 	 */
@@ -257,7 +271,7 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-	);
+			);
 	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
 	/**
 	 * Misc Building Blocks
@@ -297,8 +311,10 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 
 		registerBlock(ItemGroups.DECORATIONS, RETURN_HOME, "return_home");
 
-		registerGeneric("mystical_fallen_leaves", MYSTICAL_FALLEN_LEAVES, ItemGroups.DECORATIONS);
-		registerGeneric("corrupt_fallen_leaves", CORRUPT_FALLEN_LEAVES, ItemGroups.DECORATIONS);
+		registerCubeAll("mystical_fallen_leaves", MYSTICAL_FALLEN_LEAVES, ItemGroups.DECORATIONS);
+		registerCubeAll("corrupt_fallen_leaves", CORRUPT_FALLEN_LEAVES, ItemGroups.DECORATIONS);
+		registerSimpleBlockState("allos_crystal", ALLOS_CRYSTAL, ItemGroups.DECORATIONS);
+		registerSimpleBlockState("manos_crystal", MANOS_CRYSTAL, ItemGroups.DECORATIONS);
 	}
 
 	public static void registerBuildingBlocks() {
@@ -334,7 +350,7 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 	}
 
 	private static void registerFlower(FlowerBlock flower, String path) {
-		registerGeneric(path, flower, ItemGroups.DECORATIONS);
+		registerCubeAll(path, flower, ItemGroups.DECORATIONS);
 	}
 
 	public static BlockState getFluid(Fluid still) {
