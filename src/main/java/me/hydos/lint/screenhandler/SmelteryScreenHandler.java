@@ -19,37 +19,51 @@
 
 package me.hydos.lint.screenhandler;
 
+import me.hydos.lint.block.entity.SmelteryBlockEntity;
+import me.hydos.lint.fluid.LintFluids;
+import me.hydos.lint.fluid.SimpleFluidData;
 import me.hydos.lint.util.LintInventory;
+import me.hydos.lint.util.LintUtilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class SmelteryScreenHandler extends ScreenHandler {
 
 	public LintInventory inventory;
+	public BlockPos smelteryBlockEntity;
+	public World world;
 
 	public SmelteryScreenHandler(int syncId, PlayerInventory playerInventory) {
-		this(syncId, playerInventory, new LintInventory(9));
+		this(syncId, playerInventory, new LintInventory(9), ((BlockHitResult) playerInventory.player.raycast(5, 1, false)).getBlockPos(), playerInventory.player.world);
 	}
 
-	public SmelteryScreenHandler(int syncId, PlayerInventory playerInventory, LintInventory inventory) {
+	public SmelteryScreenHandler(int syncId, PlayerInventory playerInventory, LintInventory inventory, BlockPos smelteryBlockEntity, World world) {
 		super(ScreenHandlers.SMELTERY, syncId);
 		this.inventory = inventory;
+		this.smelteryBlockEntity = smelteryBlockEntity;
+		this.world = world;
 
-		this.addSlot(new Slot(inventory, 0, 10, 10));
-		this.addSlot(new Slot(inventory, 1, 10, 10));
-		this.addSlot(new Slot(inventory, 2, 10, 10));
-		this.addSlot(new Slot(inventory, 3, 10, 10));
-		this.addSlot(new Slot(inventory, 4, 10, 10));
-		this.addSlot(new Slot(inventory, 5, 10, 10));
-		this.addSlot(new Slot(inventory, 6, 10, 10));
-		this.addSlot(new Slot(inventory, 7, 10, 10));
-		this.addSlot(new Slot(inventory, 8, 10, 10));
+		int slotIndex = 0;
+		for (int y = 0; y < 3; y++) {
+			for (int i = 0; i < 3; i++) {
+				this.addSlot(new FuelInputSlot(inventory, slotIndex, (18 * i) + 116, 17 + (18 * y)));
+				slotIndex++;
+			}
+		}
 
+		LintUtilities.addPlayerInventorySlots(playerInventory, this);
 		this.inventory.onOpen(playerInventory.player);
 	}
+
 
 	@Override
 	public boolean canUse(PlayerEntity player) {
@@ -79,5 +93,44 @@ public class SmelteryScreenHandler extends ScreenHandler {
 			}
 		}
 		return newStack;
+	}
+
+	private class FuelInputSlot extends Slot {
+
+		public FuelInputSlot(Inventory inventory, int index, int x, int y) {
+			super(inventory, index, x, y);
+		}
+
+		public SmelteryBlockEntity getBlockEntity() {
+			return (SmelteryBlockEntity) SmelteryScreenHandler.this.world.getBlockEntity(SmelteryScreenHandler.this.smelteryBlockEntity);
+		}
+
+		@Override
+		public void markDirty() {
+			super.markDirty();
+			Item item = inventory.getStack(id).getItem();
+			if (item != Items.AIR) {
+				// Check the molten fluid registries for the item.
+				for (LintFluids.FluidEntry entry : LintFluids.MOLTEN_FLUID_MAP.values()) {
+					if (entry.getNuggetItem() == item) {
+						System.out.println("Nugget item of " + LintFluids.getId(entry));
+						setStack(ItemStack.EMPTY);
+						getBlockEntity().fluidData.add(SimpleFluidData.of(entry, (1f / 9) / 9));
+					}
+
+					if (entry.getIngotItem() == item) {
+						System.out.println("Ingot item of " + LintFluids.getId(entry));
+						setStack(ItemStack.EMPTY);
+						getBlockEntity().fluidData.add(SimpleFluidData.of(entry, 1f / 9));
+					}
+
+					if (entry.getBlockItem() == item) {
+						System.out.println("Block item of " + LintFluids.getId(entry));
+						setStack(ItemStack.EMPTY);
+						getBlockEntity().fluidData.add(SimpleFluidData.of(entry, 1));
+					}
+				}
+			}
+		}
 	}
 }

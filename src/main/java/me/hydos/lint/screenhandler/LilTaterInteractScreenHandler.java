@@ -21,6 +21,7 @@ package me.hydos.lint.screenhandler;
 
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
 import me.hydos.lint.util.LintInventory;
+import me.hydos.lint.util.LintUtilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -53,18 +54,7 @@ public class LilTaterInteractScreenHandler extends ScreenHandler {
 			this.addSlot(new Slot(inv, i + 4, 8 + i * 18, 65));
 		}
 
-		//Player hotbar slots
-		for (int i = 0; i != 9; i++) {
-			this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 154));
-		}
-
-		int padding = 9;
-		for (int j = 0; j != 3; j++) {
-			for (int i = 0; i != 9; i++) {
-				this.addSlot(new Slot(playerInventory, i + padding, 8 + i * 18, 96 + j * 18));
-			}
-			padding += 9;
-		}
+		LintUtilities.addPlayerInventorySlots(playerInventory, this);
 	}
 
 	@Override
