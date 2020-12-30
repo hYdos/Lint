@@ -30,12 +30,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
 
 @Mixin(EnchantmentHelper.class)
 public class EnchantmentHelperMixin {
 	@Inject(at = @At("HEAD"), method = "onTargetDamaged")
 	private static void onOnTargetDamaged(LivingEntity user, Entity target, CallbackInfo info) {
-		ItemStack stack = user.getMainHandStack();
+		ItemStack stack = user.getStackInHand(Hand.MAIN_HAND);
 		Item item = stack.getItem();
 
 		if (item instanceof Enhanceable) {

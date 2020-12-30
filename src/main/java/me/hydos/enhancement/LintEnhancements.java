@@ -34,7 +34,7 @@ public final class LintEnhancements {
 	public static float getEnhancement(ItemStack stack, Power.Broad power) {
 		CompoundTag tag = stack.getOrCreateSubTag("lint_enhancements");
 		String key = power.name();
-		return tag.contains(key) ? tag.getFloat("power") : 0;
+		return tag.contains(key) ? tag.getFloat(key) : 0;
 	}
 
 	public static Set<Power.Broad> getEnhancements(ItemStack stack) {

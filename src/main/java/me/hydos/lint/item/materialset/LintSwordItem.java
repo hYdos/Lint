@@ -19,18 +19,28 @@
 
 package me.hydos.lint.item.materialset;
 
+import java.util.Random;
+
 import me.hydos.enhancement.Enhanceable;
 import me.hydos.enhancement.LintEnhancements;
 import me.hydos.lint.util.Power;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LightningEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipSection;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.ActionResult;
+import net.minecraft.world.World;
 
 public class LintSwordItem extends SwordItem implements Enhanceable {
 	public LintSwordItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
@@ -47,10 +57,45 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		if (!context.getWorld().isClient()) {
-			LintEnhancements.enhance(context.getStack(), Power.Broad.ALLOS, 1.0f);
+			LintEnhancements.enhance(context.getStack(), Power.Broad.ALLOS, 1.0f);			
 		}
 
 		return super.useOnBlock(context);
+	}
+
+	@Override
+	public void onAttack(ItemStack stack, Entity target) {
+		World world = target.getEntityWorld();
+
+		if (!world.isClient()) {
+			if (target instanceof LivingEntity) {
+				LivingEntity le = (LivingEntity) target;
+
+				for (Power.Broad power : LintEnhancements.getEnhancements(stack)) {
+					float strength = LintEnhancements.getEnhancement(stack, power);
+					Random rand = world.getRandom();
+
+					switch (power) {
+						case ALLOS:
+							if (rand.nextBoolean() && rand.nextFloat() * 14.0f < strength) { // 12 levels, so 50% * 6/7 = 42.86% is max chance.
+								if (rand.nextFloat() * 100.0f < strength) { // 12% * 42.86 = 5.14% chance at level 12
+									LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
+									lightning.refreshPositionAfterTeleport(target.getPos());
+									lightning.setCosmetic(true);
+									le.damage(DamageSource.LIGHTNING_BOLT, 7); // radiant damage
+									world.spawnEntity(lightning);
+								} else {
+									le.damage(DamageSource.LIGHTNING_BOLT, 2); // radiant damage
+									le.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 120));
+								}
+							}
+							break;
+						default:
+							break;
+					}
+				}
+			}
+		}
 	}
 
 	@Override
