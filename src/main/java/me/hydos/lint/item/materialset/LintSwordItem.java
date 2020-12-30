@@ -19,11 +19,15 @@
 
 package me.hydos.lint.item.materialset;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import me.hydos.enhancement.Enhanceable;
 import me.hydos.enhancement.LintEnhancements;
 import me.hydos.lint.util.Power;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -39,7 +43,10 @@ import net.minecraft.item.ItemStack.TooltipSection;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
 public class LintSwordItem extends SwordItem implements Enhanceable {
@@ -78,7 +85,7 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 					switch (power) {
 						case ALLOS:
 							if (rand.nextBoolean() && rand.nextFloat() * 14.0f < strength) { // 12 levels, so 50% * 6/7 = 42.86% is max chance.
-								if (rand.nextFloat() * 100.0f < strength) { // 12% * 42.86 = 5.14% chance at level 12
+								if (rand.nextFloat() * 100.0f < strength) { // 12% * 42.86 = 5.14% chance at level 12. Change the 100.0f to 60.0f for 8.57 chance at level 12 instead.
 									LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
 									lightning.refreshPositionAfterTeleport(target.getPos());
 									lightning.setCosmetic(true);
@@ -90,10 +97,26 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 								}
 							}
 							break;
+						case MANOS:
+							
+							break;
 						default:
 							break;
 					}
 				}
+			}
+		}
+	}
+
+	@Override
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+		Collection<Power.Broad> powers = LintEnhancements.getEnhancements(stack);
+
+		if (!powers.isEmpty()) {
+			for (Power.Broad power : powers) {
+				tooltip.add(
+						new LiteralText(power.toString().toUpperCase(Locale.ROOT)).formatted(power.formatting).formatted(Formatting.BOLD)
+						.append(new LiteralText(" Level " + (int) LintEnhancements.getEnhancement(stack, power) + "\n"))); // TODO: make translatable
 			}
 		}
 	}
