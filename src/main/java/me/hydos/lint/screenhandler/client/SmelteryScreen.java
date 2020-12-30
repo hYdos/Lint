@@ -20,7 +20,7 @@
 package me.hydos.lint.screenhandler.client;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.client.render.fluid.Fluid2DRenderer;
+import me.hydos.lint.client.render.fluid.LintFluidRenderer;
 import me.hydos.lint.fluid.LintFluids;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -56,7 +56,7 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 	}
 
 	public void renderFluid(MatrixStack matrices, Fluid fluid, Rectangle bounds) {
-		Fluid2DRenderer.CachedFluid renderingData = Fluid2DRenderer.from(fluid);
+		LintFluidRenderer.CachedFluid renderingData = LintFluidRenderer.from(fluid);
 		if (renderingData != null) {
 			Sprite sprite = renderingData.getSprite();
 			int color = renderingData.getColor();
