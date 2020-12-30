@@ -39,9 +39,9 @@ public final class MaterialSet {
 		this.axe = new LintAxeItem(tool, 6.0F, -3.1F, new Item.Settings().group(group));
 		this.shovel = new ShovelItem(tool, 1.5F, -3.0F, new Item.Settings().group(group)) {
 		};
-		this.hoe = new HoeItem(tool, 1, 4f, new Item.Settings().group(group).rarity(Rarity.EPIC)) {
+		this.hoe = new HoeItem(tool, -2, -1.0f, new Item.Settings().group(group).rarity(Rarity.EPIC)) {
 		};
-		this.sword = new LintSwordItem(tool, -2, -1.0F, new Item.Settings().group(group));
+		this.sword = new LintSwordItem(tool, 3, -2.4F, new Item.Settings().group(group));
 
 		this.helmet = new ArmorItem(armour, EquipmentSlot.HEAD, new Item.Settings().group(group));
 		this.chestplate = new ArmorItem(armour, EquipmentSlot.CHEST, new Item.Settings().group(group));
