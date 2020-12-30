@@ -34,13 +34,13 @@ import net.minecraft.util.ActionResult;
 public class LintSwordItem extends SwordItem implements Enhanceable {
 	public LintSwordItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
 		super(toolMaterial, attackDamage, attackSpeed, settings);
-		this.baseAttackSpeed = attackSpeed;
+		this.attackSpeed = attackSpeed;
 	}
 
-	private final float baseAttackSpeed;
+	private final float attackSpeed;
 
-	public float getBaseAttackSpeed() {
-		return this.baseAttackSpeed;
+	public float getAttackSpeed() {
+		return this.attackSpeed;
 	}
 
 	@Override
@@ -54,6 +54,11 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 
 	@Override
 	public void update(ItemStack stack, Power.Broad power, float increaseAmount, boolean addDefaults) {
+		if (addDefaults) {
+			stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", this.getAttackDamage(), EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+			stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", this.getAttackSpeed(), EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+		}
+
 		// I, valoeghese, will write this
 		// Major powers have MAJOR, MINOR and SPECIAL enhancements (which all increase in proficiency as you level up)
 		// Minor powers have only their MAJOR enhancements (but it's somewhere between a major power's major and minor level) and a SPECIAL once you reach the max level.
