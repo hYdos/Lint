@@ -62,7 +62,7 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 
 	public static DefaultAttributeContainer.Builder createAttributes() {
 		return LivingEntity.createLivingAttributes()
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.6)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
 				.add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1)
 				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6);

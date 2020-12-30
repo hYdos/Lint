@@ -1,88 +1,90 @@
 plugins {
-    id("fabric-loom") version "0.5.43"
-    id("org.cadixdev.licenser") version "0.5.0"
+	id("fabric-loom") version "0.5.43"
+	id("org.cadixdev.licenser") version "0.5.0"
 }
 
 group = "me.hydos"
 version = "2.0.0-SNAPSHOT"
 
 repositories {
-    maven {
-        name = "Gecko Lib Repository"
-        url = uri("https://repo.repsy.io/mvn/gandiber/geckolib")
-    }
-
-    maven {
-        name = "Devan-Kerman/Devan-Repo"
-        url = uri("https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/")
-    }
-
-    maven {
-        name = "CurseMaven"
-        url = uri("https://www.cursemaven.com/")
-    }
-	
 	maven {
-        name = "Bad Maven (jit:b:ack)"
-        url = uri("https://jitpack.io")
-    }
+		name = "Gecko Lib Repository"
+		url = uri("https://repo.repsy.io/mvn/gandiber/geckolib")
+	}
+
+	maven {
+		name = "Devan-Kerman/Devan-Repo"
+		url = uri("https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/")
+	}
+
+	maven {
+		name = "CurseMaven"
+		url = uri("https://www.cursemaven.com/")
+	}
+
+	maven {
+		name = "Bad Maven (jit:b:ack)"
+		url = uri("https://jitpack.io")
+	}
 }
 
 dependencies {
-    minecraft("net.minecraft", "minecraft", "1.16.4")
-    mappings("net.fabricmc", "yarn", "1.16.4+build.7", classifier = "v2")
+	minecraft("net.minecraft", "minecraft", "1.16.4")
+	mappings("net.fabricmc", "yarn", "1.16.4+build.7", classifier = "v2")
 
-    modImplementation("net.fabricmc", "fabric-loader", "0.10.8")
-    modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.28.4+1.16")
-	
-    include(modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev"))
-    include(modImplementation("net.devtech", "arrp", "0.3.2"))
+	modImplementation("net.fabricmc", "fabric-loader", "0.10.8")
+	modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.28.4+1.16")
+
+	include(modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev"))
+	include(modImplementation("net.devtech", "arrp", "0.3.2"))
 	include(modImplementation("com.github.OnyxStudios.Cardinal-Components-API", "Cardinal-Components-API", "2.7.10"))
 
-    modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
-    modRuntime("curse.maven", "worldedit-225608", "3135186")
-    modRuntime("curse.maven", "appleskin-248787", "2987255")
-    modRuntime("curse.maven", "hwyla-253449", "3033613")
+	include(implementation("com.github.Vatuu", "discord-rpc", "1.6.2"))
+
+	modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
+	modRuntime("curse.maven", "worldedit-225608", "3135186")
+	modRuntime("curse.maven", "appleskin-248787", "2987255")
+	modRuntime("curse.maven", "hwyla-253449", "3033613")
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 minecraft {
-    accessWidener = file("src/main/resources/lint.aw")
+	accessWidener = file("src/main/resources/lint.aw")
 }
 
 license {
-    header = file("HEADER")
-    include("**/*.java")
+	header = file("HEADER")
+	include("**/*.java")
 }
 
 tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
+	options.encoding = "UTF-8"
 
-    if (JavaVersion.current().isJava9Compatible) {
-        options.release.set(8)
-    } else {
-        sourceCompatibility = "8"
-        targetCompatibility = "8"
-    }
+	if (JavaVersion.current().isJava9Compatible) {
+		options.release.set(8)
+	} else {
+		sourceCompatibility = "8"
+		targetCompatibility = "8"
+	}
 }
 
 tasks.withType<AbstractArchiveTask> {
-    from(rootProject.file("LICENSE"))
-    from(rootProject.file("LICENSE.LESSER"))
+	from(rootProject.file("LICENSE"))
+	from(rootProject.file("LICENSE.LESSER"))
 }
 
 tasks.processResources {
-    filesMatching("fabric.mod.json") {
-        expand("version" to project.version)
-    }
+	filesMatching("fabric.mod.json") {
+		expand("version" to project.version)
+	}
 }
 
 tasks.remapJar {
-    doLast {
-        input.get().asFile.delete()
-    }
+	doLast {
+		input.get().asFile.delete()
+	}
 }

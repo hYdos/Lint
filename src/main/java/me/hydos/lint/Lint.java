@@ -19,6 +19,7 @@
 
 package me.hydos.lint;
 
+import me.hydos.lint.discord.DiscordRpc;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,7 +53,7 @@ public class Lint implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Lint is initializing");
-		GeckoLibMod.DISABLE_IN_DEV = true;
+		DiscordRpc.register();
 		GeckoLib.initialize();
 		Sounds.register();
 		LintFluids.register();
