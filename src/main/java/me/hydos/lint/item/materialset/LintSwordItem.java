@@ -65,11 +65,11 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 		// Major powers have MAJOR, MINOR and SPECIAL enhancements (which all increase in proficiency as you level up)
 		// Minor powers have only their MAJOR enhancements (but it's somewhere between a major power's major and minor level) and a SPECIAL once you reach the max level.
 		switch (power) {
-			case ALLOS: // Sword Enhancements: Speed (MAJOR), Damage (MINOR), Random_Glowing (SPECIAL)
-				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", MAJOR_POWER_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+			case ALLOS: // Sword Enhancements: Speed (MAJOR), Damage (MINOR), Radiant (SPECIAL)
+				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", MAJOR_POWER_CONSTANT * ATTACK_SPEED_MOD_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
-			case MANOS: // Sword Enhancements: Toxin (MAJOR), Damage (MINOR), Random_Nausea (SPECIAL) TODO make nausea have an actual useful effect on lint bosses
+			case MANOS: // Sword Enhancements: Toxin (MAJOR), Damage (MINOR), Life_Steal (SPECIAL) TODO make nausea have an actual useful effect on lint bosses
 				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
 			case THERIA:
@@ -84,9 +84,10 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 				break;
 		}
 	}
-	
+
 	public static final double MAJOR_POWER_CONSTANT = 1.0;
 	public static final double MAJOR_CARIA_CONSTANT = 0.8;
 	public static final double MINOR_CONSTANT = 0.5;
-	
+
+	private static final double ATTACK_SPEED_MOD_CONSTANT = 0.5;
 }
