@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lint:cracked_basic_casing",
+    "lint:basic_casing",
+    "lint:smeltery"
+  ]
+}

@@ -20,6 +20,7 @@
 package me.hydos.lint;
 
 import me.hydos.lint.discord.DiscordRpc;
+import me.hydos.lint.tag.LintBlockTags;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -56,6 +57,7 @@ public class Lint implements ModInitializer {
 		DiscordRpc.register();
 		GeckoLib.initialize();
 		Sounds.register();
+		LintBlockTags.register();
 		LintFluids.register();
 		LintBlocks.register();
 		LintItems.register();

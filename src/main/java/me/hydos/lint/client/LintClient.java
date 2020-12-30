@@ -21,9 +21,11 @@ package me.hydos.lint.client;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.render.*;
 import me.hydos.lint.client.particle.ClientParticles;
+import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
@@ -32,11 +34,11 @@ import me.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.screenhandler.client.LilTaterContainerScreen;
 import me.hydos.lint.screenhandler.client.SmelteryScreen;
-import me.hydos.lint.world.biome.Biomes;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
@@ -54,69 +56,24 @@ import net.minecraft.resource.ResourceType;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.BlockRenderView;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 
-import java.util.Optional;
 import java.util.function.Function;
 
 public class LintClient implements ClientModInitializer {
-
-	public static float calculateFogDistanceChunks(World world, double x, double z, float originalResultChunks) {
-		int xi = MathHelper.floor(x);
-		int zi = MathHelper.floor(z);
-		int xl = (xi >> 4) << 4;
-		int zl = (zi >> 4) << 4;
-		int xh = xl + 16;
-		int zh = zl + 16;
-
-		float xProgress = (float) (x - (double) xl);
-		xProgress /= 16.0f;
-		float zProgress = (float) (z - (double) zl);
-		zProgress /= 16.0f;
-
-		return MathHelper.lerp(xProgress,
-				MathHelper.lerp(zProgress, getFDC(world, xl, zl, originalResultChunks), getFDC(world, xl, zh, originalResultChunks)),
-				MathHelper.lerp(zProgress, getFDC(world, xh, zl, originalResultChunks), getFDC(world, xh, zh, originalResultChunks)));
-	}
-
-	private static float getFDC(World world, int x, int z, float originalResultChunks) {
-		//if (true) return originalResultChunks;
-		Optional<RegistryKey<Biome>> biome = world.getRegistryManager().get(Registry.BIOME_KEY).getKey(world.getBiome(new BlockPos(x, 64, z))); // get biome
-		float distChunks = originalResultChunks;
-
-		if (biome.isPresent()) {
-			RegistryKey<Biome> aBiome = biome.get();
-			// Want an equal experience for all players, so control it directly.
-			if (aBiome == Biomes.CORRUPT_FOREST_KEY) {
-				distChunks = 3f;
-			} else if (aBiome == Biomes.THICK_MYSTICAL_FOREST_KEY || aBiome == Biomes.INDIGO_RIDGES_KEY) {
-				distChunks = 0.5f * (3f + Math.min(6.2f, 0.43f * originalResultChunks));
-			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY || aBiome == Biomes.DAWN_SHARDLANDS_KEY) {
-				distChunks = Math.min(6.2f, 0.43f * originalResultChunks);
-			} else if (aBiome == Biomes.DAWN_SHARDLANDS_EDGE_KEY) {
-				distChunks = 0.69f * originalResultChunks;
-			}
-		}
-
-		if (distChunks > originalResultChunks) {
-			distChunks = originalResultChunks;
-		}
-
-		return distChunks;
-	}
-
 	@Override
 	public void onInitializeClient() {
 		registerMiscRenderers();
 		registerEntityRenderers();
-		registerBlockRenderers();
+		registerBlockEntityRenderers();
+		registerBlockRendererLayers();
 		registerFluidRenderers();
 		registerHandledScreens();
+	}
+
+	private void registerBlockEntityRenderers() {
+		BlockEntityRendererRegistry.INSTANCE.register(BlockEntities.SMELTERY, SmelteryBlockEntityRenderer::new);
 	}
 
 	private void registerFluidRenderers() {
@@ -125,7 +82,7 @@ public class LintClient implements ClientModInitializer {
 		}
 	}
 
-	private void registerBlockRenderers() {
+	private void registerBlockRendererLayers() {
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CORRUPT_STEM, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.WILTED_FLOWER, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_GRASS, RenderLayer.getCutout());
