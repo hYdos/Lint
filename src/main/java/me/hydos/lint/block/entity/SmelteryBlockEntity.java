@@ -49,15 +49,13 @@ import java.util.List;
 public class SmelteryBlockEntity extends BlockEntity implements NamedScreenHandlerFactory {
 
 	public BlockPos center;
-	private boolean basicCasting;
 	private boolean validMultiblock;
 	public LintInventory inventory = new LintInventory(9);
 	public List<FluidState> fluidData = new ArrayList<>();
 
 	public SmelteryBlockEntity() {
 		super(BlockEntities.SMELTERY);
-		Direction facingDirection = world.getBlockState(getPos()).get(SmelteryBlock.FACING);
-		center = pos.offset(facingDirection.getOpposite());
+		fluidData.add(LintFluids.MOLTEN_FLUID_MAP.get(Lint.id("gold")).state().with(MoltenMetalFluid.LEVEL, 2));
 	}
 
 	@Override
@@ -74,7 +72,6 @@ public class SmelteryBlockEntity extends BlockEntity implements NamedScreenHandl
 
 	@Override
 	public CompoundTag toTag(CompoundTag tag) {
-		tag.putBoolean("basic_casting", basicCasting);
 		tag.putBoolean("valid_multiblock", validMultiblock);
 		Inventories.toTag(tag, inventory.getRawList());
 		return super.toTag(tag);
@@ -82,10 +79,6 @@ public class SmelteryBlockEntity extends BlockEntity implements NamedScreenHandl
 
 	@Override
 	public void fromTag(BlockState state, CompoundTag tag) {
-		//FIXME: for testing
-		fluidData.add(LintFluids.MOLTEN_FLUID_MAP.get(Lint.id("gold")).state().with(MoltenMetalFluid.LEVEL, 2));
-
-		basicCasting = tag.getBoolean("basic_casting");
 		validMultiblock = tag.getBoolean("valid_multiblock");
 		inventory = new LintInventory(9);
 		Inventories.fromTag(tag, inventory.getRawList());
@@ -103,32 +96,28 @@ public class SmelteryBlockEntity extends BlockEntity implements NamedScreenHandl
 	}
 
 	public void updateMultiblock(BlockState state) {
-		if (!state.get(SmelteryBlock.LIT)) {
-			if (!world.isClient()) {
-				Direction facingDirection = state.get(SmelteryBlock.FACING);
-				center = pos.offset(facingDirection.getOpposite());
-				BlockPos topCenter = center.up(1);
+		Direction facingDirection = state.get(SmelteryBlock.FACING);
+		center = pos.offset(facingDirection.getOpposite());
+		if (!world.isClient()) {
+			BlockPos topCenter = center.up(1);
 
-				int validDirections = 0;
-				// loop through all but up and down directions and check for the casting tag
-				for (Direction direction : Direction.values()) {
-					if (direction != Direction.DOWN && direction != Direction.UP) {
-						Block lowerWall = world.getBlockState(center.offset(direction)).getBlock();
-						Block upperWall = world.getBlockState(topCenter.offset(direction)).getBlock();
-						if (lowerWall.isIn(LintBlockTags.BASIC_CASING) && upperWall.isIn(LintBlockTags.BASIC_CASING)) {
-							validDirections++;
-						}
+			int validDirections = 0;
+			// loop through all but up and down directions and check for the casting tag
+			for (Direction direction : Direction.values()) {
+				if (direction != Direction.DOWN && direction != Direction.UP) {
+					Block lowerWall = world.getBlockState(center.offset(direction)).getBlock();
+					Block upperWall = world.getBlockState(topCenter.offset(direction)).getBlock();
+					if (lowerWall.isIn(LintBlockTags.BASIC_CASING) && upperWall.isIn(LintBlockTags.BASIC_CASING)) {
+						validDirections++;
 					}
 				}
-				if (validDirections == 4) {
-					System.out.println("Valid multiblock!");
-					this.validMultiblock = true;
-					this.basicCasting = true;
-					setBlockstateProperty(SmelteryBlock.LIT, true);
-				} else {
-					setBlockstateProperty(SmelteryBlock.LIT, false);
-					this.validMultiblock = false;
-				}
+			}
+			if (validDirections == 4) {
+				this.validMultiblock = true;
+				setBlockstateProperty(SmelteryBlock.LIT, true);
+			} else {
+				setBlockstateProperty(SmelteryBlock.LIT, false);
+				this.validMultiblock = false;
 			}
 		}
 	}

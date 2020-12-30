@@ -34,11 +34,11 @@ import java.util.Map;
  * Class used to render fluids in Screens
  * based off Shedaniel's SimpleFluidRenderer
  */
-public final class Fluid2DRenderer {
+public final class LintFluidRenderer {
 	private static final Map<Fluid, CachedFluid> FLUID_CACHE = new HashMap<>();
 
 	@Nullable
-	public static Fluid2DRenderer.CachedFluid from(Fluid fluid) {
+	public static LintFluidRenderer.CachedFluid from(Fluid fluid) {
 		return FLUID_CACHE.computeIfAbsent(fluid, CachedFluid::from);
 	}
 
