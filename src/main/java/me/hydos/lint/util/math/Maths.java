@@ -29,7 +29,7 @@ import net.minecraft.world.biome.Biome;
 
 import java.util.Optional;
 
-public class Math {
+public class Maths {
 	public static float calculateFogDistanceChunks(World world, double x, double z, float originalResultChunks) {
 		int xi = MathHelper.floor(x);
 		int zi = MathHelper.floor(z);

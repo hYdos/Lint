@@ -36,7 +36,7 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
 
-public final class LintBlocks extends LintBlocks2 {
+public final class LintBlocks extends LintAutoBlockRegistry {
 
 	/**
 	 * Automatically generated
@@ -195,6 +195,9 @@ public final class LintBlocks extends LintBlocks2 {
 	public static final Block RETURN_HOME = new ReturnHomeBlock(FabricBlockSettings.of(Material.STONE)
 			.hardness(-1.0f)
 			.sounds(BlockSoundGroup.METAL));
+
+	public static final Block ALLOS_CRYSTAL = new Block(FabricBlockSettings.copy(Blocks.GLASS).strength(18.0F, 1200.0F));
+
 	/**
 	 * Corrupt Decorations
 	 */
