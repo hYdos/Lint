@@ -57,8 +57,8 @@ public class Lint implements ModInitializer {
 		DiscordRpc.register();
 		GeckoLib.initialize();
 		Sounds.register();
-		LintBlockTags.register();
 		LintFluids.register();
+		LintBlockTags.register();
 		LintBlocks.register();
 		LintItems.register();
 		Entities.register();

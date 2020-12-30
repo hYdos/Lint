@@ -22,6 +22,7 @@ package me.hydos.lint.fluid;
 import me.hydos.lint.Lint;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.FlowableFluid;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
@@ -38,7 +39,6 @@ public class LintFluids {
 		MOLTEN_FLUID_MAP.put(Lint.id("iron"), new FluidEntry(Items.IRON_NUGGET, Items.IRON_INGOT, Blocks.IRON_BLOCK.asItem(), "iron", 0x44FFFFFF));
 		MOLTEN_FLUID_MAP.put(Lint.id("gold"), new FluidEntry(Items.GOLD_NUGGET, Items.GOLD_INGOT, Blocks.GOLD_BLOCK.asItem(), "gold", 0x44ffdd30));
 	}
-
 
 	public static class FluidEntry {
 		private final Item nugget;
@@ -89,6 +89,10 @@ public class LintFluids {
 
 		public FlowableFluid getFlowing() {
 			return flowingFluid;
+		}
+
+		public FluidState state() {
+			return getStill().getDefaultState();
 		}
 	}
 }
