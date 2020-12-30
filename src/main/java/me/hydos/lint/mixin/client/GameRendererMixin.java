@@ -20,6 +20,7 @@
 package me.hydos.lint.mixin.client;
 
 import me.hydos.lint.client.LintClient;
+import me.hydos.lint.util.math.Math;
 import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
@@ -52,7 +53,7 @@ public class GameRendererMixin {
 			double x = playerPos.getX();
 			double z = playerPos.getZ();
 
-			final float modifiedResultChunks = LintClient.calculateFogDistanceChunks(world, x, z, originalResultChunks);
+			final float modifiedResultChunks = Math.calculateFogDistanceChunks(world, x, z, originalResultChunks);
 
 			float modifiedResult = modifiedResultChunks * 16.0f;
 

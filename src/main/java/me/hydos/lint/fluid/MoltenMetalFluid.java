@@ -93,12 +93,18 @@ public abstract class MoltenMetalFluid extends ModdedFluid {
 
 		@Override
 		public int getLevel(FluidState fluidState) {
-			return 8;
+			return fluidState.get(LEVEL);
 		}
 
 		@Override
 		public boolean isStill(FluidState fluidState) {
 			return true;
+		}
+
+		@Override
+		protected void appendProperties(StateManager.Builder<Fluid, FluidState> builder) {
+			super.appendProperties(builder);
+			builder.add(LEVEL);
 		}
 	}
 }

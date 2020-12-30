@@ -92,6 +92,6 @@ public class LintItems {
 		Registry.register(Registry.ITEM, Lint.id("sicieron_ingot"), SICIERON_INGOT);
 		Registry.register(Registry.ITEM, Lint.id("jurel_powder"), JUREL_POWDER);
 		Registry.register(Registry.ITEM, Lint.id("tarscan_shard"), TARSCAN_SHARD);
-		Registry.register(Registry.ITEM, Lint.id("tarscan_shard"), HARDENED_JUREL_INGOT);
+		Registry.register(Registry.ITEM, Lint.id("hardened_jurel_ingot"), HARDENED_JUREL_INGOT);
 	}
 }
