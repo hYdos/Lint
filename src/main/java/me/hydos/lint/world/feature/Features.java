@@ -101,7 +101,7 @@ public class Features {
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
 	public static final ConfiguredFeature<?, ?> MYSTICAL_STEMS = register("mystical_stems", Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_STEM_CONFIG)
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(5));
-	public static final ConfiguredFeature<?, ?> MYSTICAL_GRASS = register("mystical_stems", Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_GRASS_CONFIG)
+	public static final ConfiguredFeature<?, ?> MYSTICAL_GRASS = register("mystical_grass", Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_GRASS_CONFIG)
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
 	public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = register("corrupt_stems", Feature.RANDOM_PATCH.configure(Configs.CORRUPT_STEM_CONFIG)
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
