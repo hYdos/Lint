@@ -300,16 +300,18 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
-			.sounds(BlockSoundGroup.GRASS)
-			.nonOpaque()
-			);
+			.sounds(BlockSoundGroup.GRASS));
+
 	public static final FlowerBlock MYSTICAL_DAISY = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
-			.sounds(BlockSoundGroup.GRASS)
-			.nonOpaque()
-			);
+			.sounds(BlockSoundGroup.GRASS));
+	
+	public static final Block TATERBANE = new LintGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
+			.noCollision()
+			.hardness(0.5f)
+			.sounds(BlockSoundGroup.GRASS));
 	/**
 	 * Mystical Building Blocks
 	 */
@@ -360,6 +362,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		registerCrossPlant(MYSTICAL_GRASS, "mystical_grass");
 		registerCrossPlant(MYSTICAL_STEM, "mystical_stem");
 		registerCrossPlant(MYSTICAL_DAISY, "yellow_daisy");
+		registerSimpleBlockState("taterbane", TATERBANE, ItemGroups.DECORATIONS);
 
 		registerBlock(ItemGroups.DECORATIONS, RETURN_HOME, "return_home");
 

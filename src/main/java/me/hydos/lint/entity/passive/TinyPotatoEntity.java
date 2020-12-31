@@ -19,7 +19,12 @@
 
 package me.hydos.lint.entity.passive;
 
+import java.util.Random;
+
+import org.jetbrains.annotations.Nullable;
+
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.entity.goal.FleeBlockGoal;
 import me.hydos.lint.entity.passive.bird.EasternRosellaEntity;
 import me.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import me.hydos.lint.util.LintInventory;
@@ -28,7 +33,16 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.EscapeDangerGoal;
+import net.minecraft.entity.ai.goal.FleeEntityGoal;
+import net.minecraft.entity.ai.goal.FollowMobGoal;
+import net.minecraft.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.SitGoal;
+import net.minecraft.entity.ai.goal.SitOnOwnerShoulderGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.TemptGoal;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -50,9 +64,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 @SuppressWarnings("EntityConstructor")
 public class TinyPotatoEntity extends TameableShoulderEntity implements ExtendedScreenHandlerFactory {
@@ -95,14 +106,15 @@ public class TinyPotatoEntity extends TameableShoulderEntity implements Extended
 		this.goalSelector.add(0, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new FleeEntityGoal<>(this, EasternRosellaEntity.class, 8.0F, 1.0D, 1.2D));
-		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.add(3, new SitGoal(this));
-		this.goalSelector.add(3, new TemptGoal(this, 1.1D, FOOD, false));
-		this.goalSelector.add(3, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
-		this.goalSelector.add(3, new WanderAroundGoal(this, 1.0D));
-		this.goalSelector.add(4, new SitOnOwnerShoulderGoal(this));
-		this.goalSelector.add(4, new FollowMobGoal(this, 1.0D, 3.0F, 7.0F));
-		this.goalSelector.add(5, new LookAtEntityGoal(this, TinyPotatoEntity.class, 8.0F));
+		this.goalSelector.add(2, new FleeBlockGoal(this, LintBlocks.TATERBANE, 4, 1.0D, 1.2D));
+		this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(4, new SitGoal(this));
+		this.goalSelector.add(4, new TemptGoal(this, 1.1D, FOOD, false));
+		this.goalSelector.add(4, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
+		this.goalSelector.add(4, new WanderAroundGoal(this, 1.0D));
+		this.goalSelector.add(5, new SitOnOwnerShoulderGoal(this));
+		this.goalSelector.add(5, new FollowMobGoal(this, 1.0D, 3.0F, 7.0F));
+		this.goalSelector.add(6, new LookAtEntityGoal(this, TinyPotatoEntity.class, 8.0F));
 	}
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
