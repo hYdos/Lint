@@ -20,10 +20,8 @@
 package me.hydos.lint.client.render.block;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import me.hydos.lint.Lint;
 import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import me.hydos.lint.client.render.fluid.LintFluidRenderer;
-import me.hydos.lint.fluid.LintFluids;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
@@ -38,7 +36,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
 import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
 
 import java.awt.*;
 
@@ -51,12 +48,16 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 	}
 
 	@Override
-	public void render(SmelteryBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-		if (entity.center != null && entity.isLit() && entity.fluidData.size() != 0) {
-			BlockPos relativeCenter = entity.center.subtract(entity.getPos());
+	public void render(SmelteryBlockEntity smeltery, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+		if (shouldRenderFluid(smeltery)) {
+			BlockPos relativeCenter = smeltery.center.subtract(smeltery.getPos());
 			matrices.translate(relativeCenter.getX(), relativeCenter.getY(), relativeCenter.getZ());
-			renderFluid(matrices, LintFluids.MOLTEN_FLUID_MAP.get(Lint.id("gold")).getStill(), BLOCK_BOUNDS, light, 2);
+			renderFluid(matrices, smeltery.getFluidData().get(smeltery.getFluidData().size() - 1).get(), BLOCK_BOUNDS, light, 1.8f);
 		}
+	}
+
+	private boolean shouldRenderFluid(SmelteryBlockEntity smeltery) {
+		return smeltery.isActive() && smeltery.getFluidData().size() != 0;
 	}
 
 	public void renderFluid(MatrixStack matrices, Fluid fluid, Rectangle bounds, int light, float level) {

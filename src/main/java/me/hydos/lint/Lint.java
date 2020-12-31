@@ -19,6 +19,7 @@
 
 package me.hydos.lint;
 
+import me.hydos.lint.recipe.Recipes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,15 +55,13 @@ public class Lint implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Lint is initializing");
 		DiscordRpc.register();
+		Recipes.register();
 		GeckoLib.initialize();
 		Sounds.register();
-		LintFluids.register();
 		LintBlockTags.register();
-		LintBlocks.register();
-		LintItems.register();
-		Entities.register();
 		ScreenHandlers.register();
 		Networking.register();
+		registerLintContent();
 		registerLintWorld();
 		RRPCallback.EVENT.register(resources -> resources.add(RESOURCE_PACK));
 		LOGGER.info("Lint initialization successful!");
@@ -73,5 +72,12 @@ public class Lint implements ModInitializer {
 		Features.register();
 		Biomes.register();
 		Dimensions.register();
+	}
+
+	private void registerLintContent() {
+		LintFluids.register();
+		LintBlocks.register();
+		LintItems.register();
+		Entities.register();
 	}
 }

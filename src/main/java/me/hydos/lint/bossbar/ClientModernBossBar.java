@@ -17,17 +17,29 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.screenhandler;
+package me.hydos.lint.bossbar;
 
-import me.hydos.lint.Lint;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.screen.ScreenHandlerType;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.text.Text;
 
-public class ScreenHandlers {
+@Environment(EnvType.CLIENT)
+public class ClientModernBossBar {
+	private static ClientModernBossBar instance;
 
-	public static final ScreenHandlerType<SmelteryScreenHandler> SMELTERY = ScreenHandlerRegistry.registerExtended(Lint.id("smeltery"), SmelteryScreenHandler::new);
-	public static final ScreenHandlerType<LilTaterInteractScreenHandler> TATER_INVENTORY = ScreenHandlerRegistry.registerExtended(Lint.id("tater_inv"), LilTaterInteractScreenHandler::new);
+	public Text title;
+	public int colour;
 
-	public static void register() {
+	public int endX;
+
+	public ClientModernBossBar(Text title, int colour, int endX) {
+		this.title = title;
+		this.colour = colour;
+		instance = this;
+		this.endX = endX;
+	}
+
+	public static ClientModernBossBar getInstance() {
+		return instance;
 	}
 }

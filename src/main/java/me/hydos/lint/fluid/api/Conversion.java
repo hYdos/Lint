@@ -17,29 +17,17 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.bossbar;
+package me.hydos.lint.fluid.api;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.text.Text;
+/**
+ * Why did i make lint an fluid api :concern:
+ * Used to help convert between different measurements (blocks -> litres cubed, litres cubed -> fluid height)
+ *
+ * @author hydos
+ */
+public class Conversion {
 
-@Environment(EnvType.CLIENT)
-public class ClientModernBossBar {
-	private static ClientModernBossBar instance;
-
-	public Text title;
-	public int colour;
-
-	public int endX;
-
-	public ClientModernBossBar(Text title, int colour, int endX) {
-		this.title = title;
-		this.colour = colour;
-		instance = this;
-		this.endX = endX;
-	}
-
-	public static ClientModernBossBar getInstance() {
-		return instance;
-	}
+	public static final double NUGGET = 1d / 81d;
+	public static final double INGOT = 1d / 9d;
+	public static final double BLOCK = 1D;
 }

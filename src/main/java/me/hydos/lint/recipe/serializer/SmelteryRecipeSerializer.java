@@ -17,17 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.screenhandler;
+package me.hydos.lint.recipe.serializer;
 
-import me.hydos.lint.Lint;
-import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.screen.ScreenHandlerType;
-
-public class ScreenHandlers {
-
-	public static final ScreenHandlerType<SmelteryScreenHandler> SMELTERY = ScreenHandlerRegistry.registerExtended(Lint.id("smeltery"), SmelteryScreenHandler::new);
-	public static final ScreenHandlerType<LilTaterInteractScreenHandler> TATER_INVENTORY = ScreenHandlerRegistry.registerExtended(Lint.id("tater_inv"), LilTaterInteractScreenHandler::new);
-
-	public static void register() {
-	}
+public class SmelteryRecipeSerializer {
 }

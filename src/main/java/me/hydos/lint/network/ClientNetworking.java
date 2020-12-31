@@ -19,8 +19,8 @@
 
 package me.hydos.lint.network;
 
-import me.hydos.bossbar.ClientModernBossBar;
-import me.hydos.bossbar.ModernBossBar;
+import me.hydos.lint.bossbar.ClientModernBossBar;
+import me.hydos.lint.bossbar.ModernBossBar;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.text.Text;
 

@@ -19,7 +19,7 @@
 
 package me.hydos.lint.entity.aggressive;
 
-import me.hydos.bossbar.ModernBossBar;
+import me.hydos.lint.bossbar.ModernBossBar;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;

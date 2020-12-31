@@ -68,7 +68,7 @@ public class SmelteryBlock extends BlockWithEntity {
 
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
-		((SmelteryBlockEntity) world.getBlockEntity(pos)).updateMultiblock(state);
+		((SmelteryBlockEntity) world.getBlockEntity(pos)).updateMultiblock();
 		return state;
 	}
 

@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import me.hydos.enhancement.Enhanceable;
-import me.hydos.enhancement.LintEnhancements;
+import me.hydos.lint.enhancement.Enhanceable;
+import me.hydos.lint.enhancement.LintEnhancements;
 import me.hydos.lint.util.Power;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;

@@ -17,15 +17,21 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.enhancement;
+package me.hydos.lint.recipe;
 
-import me.hydos.lint.util.Power;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
 
-public interface Enhanceable {
-	void update(ItemStack stack, Power.Broad power, float change, boolean addDefaults);
-	default void onAttack(LivingEntity attacker, ItemStack stack, Entity target) {
+public class LintRecipeType<T extends Recipe<?>> implements RecipeType<T> {
+
+	private final String name;
+
+	public LintRecipeType(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 }

@@ -17,30 +17,15 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixin;
+package me.hydos.lint.enhancement;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import me.hydos.lint.enhancement.Enhanceable;
-import net.minecraft.enchantment.EnchantmentHelper;
+import me.hydos.lint.util.Power;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
 
-@Mixin(EnchantmentHelper.class)
-public class EnchantmentHelperMixin {
-	@Inject(at = @At("HEAD"), method = "onTargetDamaged")
-	private static void onOnTargetDamaged(LivingEntity user, Entity target, CallbackInfo info) {
-		ItemStack stack = user.getStackInHand(Hand.MAIN_HAND);
-		Item item = stack.getItem();
-
-		if (item instanceof Enhanceable) {
-			((Enhanceable) item).onAttack(user, stack, target);
-		}
+public interface Enhanceable {
+	void update(ItemStack stack, Power.Broad power, float change, boolean addDefaults);
+	default void onAttack(LivingEntity attacker, ItemStack stack, Entity target) {
 	}
 }

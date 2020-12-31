@@ -24,33 +24,29 @@ import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.SimpleFluidData;
 import me.hydos.lint.util.LintInventory;
 import me.hydos.lint.util.LintUtilities;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 public class SmelteryScreenHandler extends ScreenHandler {
 
 	public LintInventory inventory;
-	public BlockPos smelteryBlockEntity;
-	public World world;
+	public BlockPos smelteryPos;
+	public PlayerEntity player;
 
-	public SmelteryScreenHandler(int syncId, PlayerInventory playerInventory) {
-		this(syncId, playerInventory, new LintInventory(9), ((BlockHitResult) playerInventory.player.raycast(5, 1, false)).getBlockPos(), playerInventory.player.world);
-	}
-
-	public SmelteryScreenHandler(int syncId, PlayerInventory playerInventory, LintInventory inventory, BlockPos smelteryBlockEntity, World world) {
+	public SmelteryScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
 		super(ScreenHandlers.SMELTERY, syncId);
-		this.inventory = inventory;
-		this.smelteryBlockEntity = smelteryBlockEntity;
-		this.world = world;
+		this.smelteryPos = packetByteBuf.readBlockPos();
+		this.player = playerInventory.player;
+		this.inventory = getBlockEntity().inventory;
 
 		int slotIndex = 0;
 		for (int y = 0; y < 3; y++) {
@@ -62,6 +58,10 @@ public class SmelteryScreenHandler extends ScreenHandler {
 
 		LintUtilities.addPlayerInventorySlots(playerInventory, this);
 		this.inventory.onOpen(playerInventory.player);
+	}
+
+	public SmelteryScreenHandler(int syncId, PlayerInventory inv, SmelteryBlockEntity smelteryPos) {
+		this(syncId, inv, PacketByteBufs.create().writeBlockPos(smelteryPos.getPos()));
 	}
 
 
@@ -95,14 +95,14 @@ public class SmelteryScreenHandler extends ScreenHandler {
 		return newStack;
 	}
 
+	public SmelteryBlockEntity getBlockEntity() {
+		return (SmelteryBlockEntity) player.world.getBlockEntity(smelteryPos);
+	}
+
 	private class FuelInputSlot extends Slot {
 
 		public FuelInputSlot(Inventory inventory, int index, int x, int y) {
 			super(inventory, index, x, y);
-		}
-
-		public SmelteryBlockEntity getBlockEntity() {
-			return (SmelteryBlockEntity) SmelteryScreenHandler.this.world.getBlockEntity(SmelteryScreenHandler.this.smelteryBlockEntity);
 		}
 
 		@Override
@@ -115,20 +115,21 @@ public class SmelteryScreenHandler extends ScreenHandler {
 					if (entry.getNuggetItem() == item) {
 						System.out.println("Nugget item of " + LintFluids.getId(entry));
 						setStack(ItemStack.EMPTY);
-						getBlockEntity().fluidData.add(SimpleFluidData.of(entry, (1f / 9) / 9));
+						getBlockEntity().getFluidData().add(SimpleFluidData.of(entry, (1f / 9) / 9));
 					}
 
 					if (entry.getIngotItem() == item) {
 						System.out.println("Ingot item of " + LintFluids.getId(entry));
 						setStack(ItemStack.EMPTY);
-						getBlockEntity().fluidData.add(SimpleFluidData.of(entry, 1f / 9));
+						getBlockEntity().getFluidData().add(SimpleFluidData.of(entry, 1f / 9));
 					}
 
 					if (entry.getBlockItem() == item) {
 						System.out.println("Block item of " + LintFluids.getId(entry));
 						setStack(ItemStack.EMPTY);
-						getBlockEntity().fluidData.add(SimpleFluidData.of(entry, 1));
+						getBlockEntity().getFluidData().add(SimpleFluidData.of(entry, 1));
 					}
+					getBlockEntity().markDirty();
 				}
 			}
 		}

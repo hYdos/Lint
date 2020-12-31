@@ -19,13 +19,12 @@
 
 package me.hydos.lint.entity.passive;
 
-import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.passive.bird.EasternRosellaEntity;
+import me.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import me.hydos.lint.util.LintInventory;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -36,22 +35,27 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableShoulderEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
 @SuppressWarnings("EntityConstructor")
-public class TinyPotatoEntity extends TameableShoulderEntity {
+public class TinyPotatoEntity extends TameableShoulderEntity implements ExtendedScreenHandlerFactory {
 
 	private static final Ingredient FOOD = Ingredient.ofItems(Items.POTATO, Items.BAKED_POTATO);
 
@@ -110,8 +114,7 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 				player.getStackInHand(hand).decrement(1);
 			} else {
 				if (getOwner() == player) {
-					//the person who clicked owns the tater
-					ContainerProviderRegistry.INSTANCE.openContainer(Lint.id("tater_inv"), player, packetByteBuf -> packetByteBuf.writeInt(getEntityId()));
+					player.openHandledScreen(this);
 				} else {
 					return ActionResult.FAIL;
 				}
@@ -123,5 +126,16 @@ public class TinyPotatoEntity extends TameableShoulderEntity {
 	@Override
 	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
 		return (PassiveEntity) getType().create(world);
+	}
+
+	@Nullable
+	@Override
+	public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+		return new LilTaterInteractScreenHandler(syncId, inv, PacketByteBufs.create().writeInt(this.getEntityId()));
+	}
+
+	@Override
+	public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+		buf.writeInt(this.getEntityId());
 	}
 }
