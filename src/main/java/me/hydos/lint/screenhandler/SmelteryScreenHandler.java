@@ -129,6 +129,7 @@ public class SmelteryScreenHandler extends ScreenHandler {
 						setStack(ItemStack.EMPTY);
 						getBlockEntity().getFluidData().add(SimpleFluidData.of(entry, 1));
 					}
+					getBlockEntity().markDirty();
 				}
 			}
 		}

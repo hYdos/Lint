@@ -21,19 +21,14 @@ package me.hydos.lint.block.entity;
 
 import me.hydos.lint.block.SmelteryBlock;
 import me.hydos.lint.fluid.SimpleFluidData;
-import me.hydos.lint.network.Networking;
 import me.hydos.lint.screenhandler.SmelteryScreenHandler;
 import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.LintInventory;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -54,10 +49,10 @@ import java.util.List;
 
 public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, NamedScreenHandlerFactory, BlockEntityClientSerializable {
 
+	private final List<SimpleFluidData> fluidData = new ArrayList<>(5);
 	public BlockPos center;
 	private boolean validMultiblock;
 	public LintInventory inventory = new LintInventory(9);
-	private List<SimpleFluidData> fluidData = new ArrayList<>();
 
 	public SmelteryBlockEntity() {
 		super(BlockEntities.SMELTERY);
@@ -144,21 +139,15 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 		}
 	}
 
-	public void addFluid(SimpleFluidData fluid) {
-		this.fluidData.add(fluid);
-		markDirty();
-	}
-
 	public List<SimpleFluidData> getFluidData() {
 		return fluidData;
 	}
 
-	public CompoundTag writeFluidsToTag(CompoundTag tag) {
+	public void writeFluidsToTag(CompoundTag tag) {
 		tag.putInt("size", fluidData.size());
 		for (int i = 0; i < fluidData.size(); i++) {
 			tag.put(String.valueOf(i), fluidData.get(i).toTag());
 		}
-		return tag;
 	}
 
 	@Override
