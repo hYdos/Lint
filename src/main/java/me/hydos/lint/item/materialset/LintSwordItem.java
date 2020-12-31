@@ -165,7 +165,9 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 				break;
 			// Minor Powers. Can have two up to level 12 each, with a total level cap of 14.
 			case THERIA: // Cariar of Mind:		Swiftness_Boost (MAJOR), Paralysis - (can't hit or move) (SPECIAL)
-				stack.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier("Weapon modifier", 0.03 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+				double multiplier = LintEnhancements.getEnhancement(stack, power) < 6.0 ? 0.011 : 0.008;
+
+				stack.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier("Weapon modifier", multiplier * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
 			case AURIA: // Carien of War:		Damage (MAJOR), Perfect Defense (SPECIAL)
 				break;
