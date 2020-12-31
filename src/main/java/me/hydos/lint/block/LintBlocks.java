@@ -28,6 +28,7 @@ import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixin.FireBlockAccessor;
 import me.hydos.lint.util.Power;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -40,7 +41,6 @@ import net.minecraft.block.MaterialColor;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
@@ -48,45 +48,57 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
 public final class LintBlocks extends LintAutoDataRegistry {
-
 	/**
 	 * Automatically generated
 	 */
 	public static final FabricBlockSettings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD)
 			.strength(2.0F, 3.0F)
+			.breakByTool(FabricToolTags.AXES, 0)
 			.sounds(BlockSoundGroup.WOOD);
+
 	public static final FabricBlockSettings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE)
 			.hardness(0.5f)
+			.breakByTool(FabricToolTags.SHOVELS, 0)
 			.sounds(BlockSoundGroup.SAND);
 
 	public static final Block BASIC_CASING = registerCubeAll("basic_casing",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(0.5f)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()
 					.sounds(BlockSoundGroup.STONE)),
 			ItemGroups.BLOCKS);
+
 	public static final Block CRACKED_BASIC_CASING = registerCubeAll("cracked_basic_casing",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(0.5f)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()
 					.sounds(BlockSoundGroup.STONE)),
 			ItemGroups.BLOCKS);
 
 	public static final Block HAYKAMIUM_PORTAL = registerCubeAll(
 			"haykamium_portal",
 			new HaykamiumPortalBlock(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
+					.strength(-1.0f)
 					.sounds(BlockSoundGroup.STONE)
 					.collidable(false)),
 			null);
+
 	public static final Block RED_BUTTON = registerCubeAll(
 			"red_button",
 			new KingTaterButton(FabricBlockSettings.of(Material.SOIL)
 					.hardness(-0.1f)
 					.sounds(BlockSoundGroup.WET_GRASS)),
 			ItemGroups.DECORATIONS);
+
 	public static final Block CERAMIC = registerCubeAll(
 			"ceramic",
-			new Block(FabricBlockSettings.copyOf(Blocks.TERRACOTTA)),
+			new Block(FabricBlockSettings.copyOf(Blocks.TERRACOTTA)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
 			ItemGroups.DECORATIONS);
+
 	public static final Block GREEN_BUTTON = registerCubeAll(
 			"green_button",
 			new KingTaterButton(FabricBlockSettings.of(Material.SOIL)
@@ -97,35 +109,52 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block INDIGO_STONE = registerCubeAll(
 			"indigo_stone",
 			new Block(FabricBlockSettings.copyOf(Blocks.STONE)
-					.materialColor(MaterialColor.PURPLE_TERRACOTTA)),
+					.materialColor(MaterialColor.PURPLE_TERRACOTTA)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
 			ItemGroups.BLOCKS);
+
 	public static final Block FUSED_STONE = registerCubeAll(
 			"fused_stone",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
-					.sounds(BlockSoundGroup.STONE)),
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
 			ItemGroups.BLOCKS);
+
 	public static final Block TARSCAN_ORE = registerCubeAll(
 			"tarscan_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
-					.sounds(BlockSoundGroup.STONE)),
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
 			ItemGroups.BLOCKS);
+
 	public static final Block SICIERON_ORE = registerCubeAll(
 			"sicieron_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
-					.sounds(BlockSoundGroup.STONE)),
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 1)
+					.requiresTool()),
 			ItemGroups.BLOCKS);
+
 	public static final Block JUREL_ORE = registerCubeAll(
 			"jurel_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
-					.sounds(BlockSoundGroup.STONE)),
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 2)
+					.requiresTool()),
 			ItemGroups.BLOCKS);
+
 	public static final Block ASPHALT = registerCubeAll(
 			"asphalt",
-			new Block(FabricBlockSettings.copyOf(Blocks.STONE)),
+			new Block(FabricBlockSettings.copyOf(Blocks.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
 			ItemGroups.BLOCKS);
 
 	public static final Block CORRUPT_PLANKS = registerCubeAll(
@@ -133,11 +162,14 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			new Block(PLANK_SETTINGS
 					.materialColor(MaterialColor.PURPLE)),
 			ItemGroups.BLOCKS);
+
 	public static final Block CORRUPT_LEAVES = registerCubeAll(
 			"corrupt_leaves",
 			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
-					.materialColor(MaterialColor.PURPLE)),
+					.materialColor(MaterialColor.PURPLE)
+					.breakByTool(FabricToolTags.HOES, 0)),
 			ItemGroups.BLOCKS);
+
 	public static final Block CORRUPT_SAND = registerCubeAll(
 			"corrupt_sand",
 			new FallingBlock(SAND_SETTINGS
@@ -146,11 +178,16 @@ public final class LintBlocks extends LintAutoDataRegistry {
 
 	public static final Block ALLOS_INFUSED_ASPHALT = registerCubeAll(
 			"allos_infused_asphalt",
-			new InfusedBlock(FabricBlockSettings.copyOf(Blocks.STONE), Power.ALLOS),
+			new InfusedBlock(FabricBlockSettings.copyOf(Blocks.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool(), Power.ALLOS),
 			ItemGroups.BLOCKS);
+
 	public static final Block MANOS_INFUSED_ASPHALT = registerCubeAll(
 			"manos_infused_asphalt",
-			new InfusedBlock(FabricBlockSettings.copyOf(Blocks.STONE), Power.MANOS),
+			new InfusedBlock(FabricBlockSettings.copyOf(Blocks.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool(), Power.MANOS),
 			ItemGroups.BLOCKS);
 
 	public static final Block ASH = registerCubeAll(
@@ -162,13 +199,18 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			"dungeon_bricks",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(4)
-					.sounds(BlockSoundGroup.STONE)),
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 2) // yes this means require iron
+					.requiresTool()),
 			ItemGroups.BLOCKS);
+
 	public static final Block MOSSY_DUNGEON_BRICKS = registerCubeAll(
 			"mossy_dungeon_bricks",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(4)
-					.sounds(BlockSoundGroup.STONE)),
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 2)
+					.requiresTool()),
 			ItemGroups.BLOCKS);
 
 	public static final Block MYSTICAL_PLANKS = registerCubeAll(
@@ -176,11 +218,14 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			new Block(PLANK_SETTINGS
 					.materialColor(MaterialColor.DIAMOND)),
 			ItemGroups.BLOCKS);
+	
 	public static final Block MYSTICAL_LEAVES = registerCubeAll(
 			"mystical_leaves",
 			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
-					.materialColor(MaterialColor.DIAMOND)),
+					.materialColor(MaterialColor.DIAMOND)
+					.breakByTool(FabricToolTags.HOES, 0)),
 			ItemGroups.BLOCKS);
+	
 	public static final Block MYSTICAL_SAND = registerCubeAll(
 			"mystical_sand",
 			new FallingBlock(SAND_SETTINGS
@@ -191,8 +236,10 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			"rich_dirt",
 			new Block(FabricBlockSettings.of(Material.SOIL)
 					.hardness(0.5f)
-					.sounds(BlockSoundGroup.WET_GRASS)),
+					.sounds(BlockSoundGroup.WET_GRASS)
+					.breakByTool(FabricToolTags.SHOVELS, 0)),
 			ItemGroups.BLOCKS);
+
 	public static final Block WHITE_SAND = registerCubeAll(
 			"white_sand",
 			new FallingBlock(SAND_SETTINGS),
@@ -203,7 +250,8 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	 */
 	public static final Block SMELTERY = new SmelteryBlock(FabricBlockSettings.of(Material.METAL)
 			.hardness(2)
-			.sounds(BlockSoundGroup.STONE));
+			.sounds(BlockSoundGroup.STONE)
+			.breakByTool(FabricToolTags.PICKAXES, 0));
 	/**
 	 * Misc
 	 */
@@ -225,14 +273,14 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-	);
+			);
 	public static final FlowerBlock WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-	);
+			);
 	/**
 	 * Corrupt Building Blocks
 	 */
@@ -254,14 +302,14 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-	);
+			);
 	public static final FlowerBlock MYSTICAL_DAISY = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-	);
+			);
 	/**
 	 * Mystical Building Blocks
 	 */
@@ -275,7 +323,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-	);
+			);
 	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
 	/**
 	 * Misc Building Blocks

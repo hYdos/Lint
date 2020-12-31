@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "lint:mystical_planks"
+    }
+  },
+  "result": {
+    "item": "minecraft:oak_boat",
+    "count": 1
+  }
+}
