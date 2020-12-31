@@ -29,33 +29,36 @@ import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
 
 public class GenericBiomes implements InitLayer {
 	@SuppressWarnings("rawtypes")
-	private final RegistryKey[] biomes = {Biomes.MYSTICAL_FOREST_KEY, Biomes.THICK_MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.CORRUPT_FOREST_KEY};
+	private static final RegistryKey[] BIOMES = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.THICK_MYSTICAL_FOREST_KEY};
+	@SuppressWarnings("rawtypes")
+	private static final RegistryKey[] CORRUPT_BIOMES = {Biomes.CORRUPT_FOREST_KEY};
 
 	private final Registry<Biome> biomeRegistry;
+	private final boolean beach;
 
 	public GenericBiomes(Registry<Biome> biomeRegistry, boolean beach) {
 		this.biomeRegistry = biomeRegistry;
-
-		if (beach) {
-			for (int i = 0; i < this.biomes.length; ++i) {
-				this.biomes[i] = this.biomes[i] == Biomes.CORRUPT_FOREST_KEY ? Biomes.CORRUPT_BEACH_KEY : Biomes.OCEAN_KEY;
-			}
-		}
+		this.beach = beach;
 	}
 
 	@Override
 	public int sample(LayerRandomnessSource randomPawn, int x, int y) {
-		RegistryKey<?> key = biomes[randomPawn.nextInt(biomes.length)];
-
+		boolean corrupt = false;
 		int absx = MathHelper.abs(x);
 		int absy = MathHelper.abs(y);
 		int absval = absx + absy;
 
-		if (absval < 2) {
-			key = Biomes.MYSTICAL_FOREST_KEY;
+		if (absval > 1 && randomPawn.nextInt(3) == 0) {
+			corrupt = true;
 		}
 
-		return id(key);
+		if (this.beach) {
+			return id(corrupt ? Biomes.CORRUPT_BEACH_KEY : Biomes.OCEAN_KEY);
+		} else {
+			return id(corrupt ?
+					CORRUPT_BIOMES[randomPawn.nextInt(CORRUPT_BIOMES.length)] :
+						BIOMES[randomPawn.nextInt(BIOMES.length)]);
+		}
 	}
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
