@@ -19,13 +19,24 @@
 
 package me.hydos.lint.entity.passive.bird;
 
+import org.jetbrains.annotations.Nullable;
+
 import me.hydos.lint.entity.Birds;
+import me.hydos.lint.entity.aggressive.TaterMinionEntity;
+import me.hydos.lint.entity.passive.TinyPotatoEntity;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.ai.control.FlightMoveControl;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.EscapeDangerGoal;
+import net.minecraft.entity.ai.goal.FlyOntoTreeGoal;
+import net.minecraft.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.PounceAtTargetGoal;
+import net.minecraft.entity.ai.goal.SitGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -35,7 +46,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -54,8 +64,8 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 
 	public static DefaultAttributeContainer.Builder createBirdAttributes() {
 		return createMobAttributes()
-				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4000000059604645D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20000000298023224D);
+				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D);
 	}
 
 	@Override
@@ -66,6 +76,10 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 		this.goalSelector.add(2, new SitGoal(this));
 		this.goalSelector.add(2, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
 		this.goalSelector.add(2, new FlyOntoTreeGoal(this, 1.0D));
+		this.goalSelector.add(4, new PounceAtTargetGoal(this, 0.2F));
+
+		this.targetSelector.add(6, new FollowTargetGoal<>(this, TaterMinionEntity.class, false));
+		this.targetSelector.add(7, new FollowTargetGoal<>(this, TinyPotatoEntity.class, false));
 	}
 
 	@Nullable
