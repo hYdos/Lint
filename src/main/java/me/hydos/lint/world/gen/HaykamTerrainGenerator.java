@@ -153,7 +153,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 			if (sqrDist < TERRAIN_CROB_DISTANCE) {
 				int baseHeight = this.sampleBaseHeight(x, z);
-				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+				int height = riverAndOceanRidgeMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
 				return height;
 			} else if (sqrDist > SHARDLANDS_ISLANDS_START) {
 				return AVG_FLOAT_HEIGHT + (int) (18 * (1 + this.sampleHillsNoise(x * 1.3, z * 1.3)));
@@ -164,7 +164,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 				int finalHeight = AVG_FLOAT_HEIGHT;
 
 				int baseHeight = this.sampleBaseHeight(x, z);
-				int height = riverMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
+				int height = riverAndOceanRidgeMod(x, z, terraceMod(x, z, baseHeight, baseHeight));
 				return (int) MathHelper.lerp(progress, height, finalHeight);
 			}
 		});
@@ -197,7 +197,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 		return this.heightOperator.get(x, z);
 	}
 
-	private int riverMod(int x, int z, int height) {
+	private int riverAndOceanRidgeMod(int x, int z, int height) {
 		double riverNoise = this.riverNoise.sample(x * 0.003, z * 0.003);
 
 		if (riverNoise > -0.12 && riverNoise < 0.12) {

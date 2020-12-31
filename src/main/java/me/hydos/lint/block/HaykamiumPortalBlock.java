@@ -40,7 +40,7 @@ public class HaykamiumPortalBlock extends Block {
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (!world.isClient()) {
-			ServerWorld haykamWorld = ((ServerWorld) world).getServer().getWorld(Dimensions.HAYKAM_WORLD);
+			ServerWorld haykamWorld = ((ServerWorld) world).getServer().getWorld(Dimensions.FRAIYA_WORLD);
 			if (haykamWorld == null) {
 				return;
 			}

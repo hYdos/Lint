@@ -33,13 +33,12 @@ import java.util.OptionalLong;
 import static net.minecraft.world.dimension.DimensionType.OVERWORLD_ID;
 
 public class Dimensions {
-
 	/**
 	 * Dimension Registry Keys
 	 */
-	public static final RegistryKey<DimensionOptions> HAYKAM_DIM_OPTIONS = RegistryKey.of(Registry.DIMENSION_OPTIONS, Lint.id("haykam"));
-	public static final RegistryKey<DimensionType> HAYKAM_DIM = RegistryKey.of(Registry.DIMENSION_TYPE_KEY, Lint.id("haykam"));
-	public static final RegistryKey<World> HAYKAM_WORLD = RegistryKey.of(Registry.DIMENSION, Lint.id("haykam"));
+	public static final RegistryKey<DimensionOptions> FRAIYA_DIM_OPTIONS = RegistryKey.of(Registry.DIMENSION_OPTIONS, Lint.id("fraiya"));
+	public static final RegistryKey<DimensionType> FRAIYA_DIM = RegistryKey.of(Registry.DIMENSION_TYPE_KEY, Lint.id("fraiya"));
+	public static final RegistryKey<World> FRAIYA_WORLD = RegistryKey.of(Registry.DIMENSION, Lint.id("fraiya"));
 
 	/**
 	 * Haykam Dimension

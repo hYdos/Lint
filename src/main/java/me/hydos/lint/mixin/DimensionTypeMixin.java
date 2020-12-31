@@ -39,11 +39,11 @@ public class DimensionTypeMixin {
 
 	@Inject(method = "addRegistryDefaults", at = @At("TAIL"))
 	private static void addAdditionalDefaults(DynamicRegistryManager.Impl registryManager, CallbackInfoReturnable<DynamicRegistryManager.Impl> cir) {
-		Registry.register(registryManager.getDimensionTypes(), Dimensions.HAYKAM_DIM.getValue(), Dimensions.HAYKAM);
+		Registry.register(registryManager.getDimensionTypes(), Dimensions.FRAIYA_DIM.getValue(), Dimensions.HAYKAM);
 	}
 
 	@Inject(method = "createDefaultDimensionOptions", at = @At("TAIL"))
 	private static void addAdditionalDefaultDimensionOptions(Registry<DimensionType> dimensionRegistry, Registry<Biome> biomeRegistry, Registry<ChunkGeneratorSettings> chunkGeneratorSettingsRegistry, long seed, CallbackInfoReturnable<SimpleRegistry<DimensionOptions>> cir) {
-		cir.getReturnValue().add(Dimensions.HAYKAM_DIM_OPTIONS, new DimensionOptions(() -> dimensionRegistry.getOrThrow(Dimensions.HAYKAM_DIM), new HaykamChunkGenerator(seed, biomeRegistry)), Lifecycle.stable());
+		cir.getReturnValue().add(Dimensions.FRAIYA_DIM_OPTIONS, new DimensionOptions(() -> dimensionRegistry.getOrThrow(Dimensions.FRAIYA_DIM), new HaykamChunkGenerator(seed, biomeRegistry)), Lifecycle.stable());
 	}
 }

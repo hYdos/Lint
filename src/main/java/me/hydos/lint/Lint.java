@@ -19,7 +19,6 @@
 
 package me.hydos.lint;
 
-import me.hydos.lint.recipe.Recipes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +28,7 @@ import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.item.LintItems;
 import me.hydos.lint.network.Networking;
+import me.hydos.lint.recipe.Recipes;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.tag.LintBlockTags;
@@ -65,6 +65,18 @@ public class Lint implements ModInitializer {
 		registerLintWorld();
 		RRPCallback.EVENT.register(resources -> resources.add(RESOURCE_PACK));
 		LOGGER.info("Lint initialization successful!");
+
+		// Datafixer nonsense
+		// Someone help pls
+		/*
+		DataFixerBuilder builder = new DataFixerBuilder(1);
+		builder.addSchema(Schemas.LINT_V0);
+		Schema schema1 = builder.addSchema(1, Lintv1::new);
+		builder.addFixer(DimensionNameFix.create(schema1, "Rename Lint Dimension", (string) -> {
+			return Objects.equals(IdentifierNormalizingSchema.normalize(string), "lint:haykam") ? "lint:fraiya" : string;
+		}));
+		builder.build(Util.getMainWorkerExecutor());
+		*/
 	}
 
 	private void registerLintWorld() {

@@ -29,7 +29,7 @@ import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
 
 public class MountainBiomes implements InitLayer {
 	@SuppressWarnings("rawtypes")
-	private static final RegistryKey[] BIOMES = {Biomes.MYSTICAL_FOREST_KEY, Biomes.MYSTICAL_FOREST_KEY, Biomes.THICK_MYSTICAL_FOREST_KEY};
+	private static final RegistryKey[] BIOMES = {Biomes.MYSTICAL_GROVE_KEY, Biomes.MYSTICAL_GROVE_KEY, Biomes.MYSTICAL_FOREST_KEY};
 	@SuppressWarnings("rawtypes")
 	private static final RegistryKey[] CORRUPT_BIOMES = {Biomes.CORRUPT_FOREST_KEY, Biomes.INDIGO_RIDGES_KEY};
 

@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class ClientPlayNetworkHandlerMixin {
 	@Redirect(method = "onPlayerRespawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;openScreen(Lnet/minecraft/client/gui/screen/Screen;)V"))
 	private void openDownloadingTerrainScreen(MinecraftClient client, Screen screen, PlayerRespawnS2CPacket packet) {
-		if (screen instanceof DownloadingTerrainScreen && packet.getDimension().equals(Dimensions.HAYKAM_WORLD)) {
+		if (screen instanceof DownloadingTerrainScreen && packet.getDimension().equals(Dimensions.FRAIYA_WORLD)) {
 			client.openScreen(new TaterDownloadingTerrainScreen());
 		} else {
 			client.openScreen(new DownloadingTerrainScreen());

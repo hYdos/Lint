@@ -79,8 +79,8 @@ public class Biomes {
 	/**
 	 * Biome Keys
 	 */
+	public static final RegistryKey<Biome> MYSTICAL_GROVE_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_grove"));
 	public static final RegistryKey<Biome> MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("mystical_forest"));
-	public static final RegistryKey<Biome> THICK_MYSTICAL_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("thick_mystical_forest"));
 	public static final RegistryKey<Biome> CORRUPT_FOREST_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_forest"));
 	public static final RegistryKey<Biome> OCEAN_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ocean"));
 	public static final RegistryKey<Biome> CORRUPT_BEACH_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("corrupt_beach"));
@@ -94,7 +94,7 @@ public class Biomes {
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
-	public static final Biome MYSTICAL_FOREST = new Biome.Builder()
+	public static final Biome MYSTICAL_GROVE = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.FOREST)
 			.depth(0.125f)
@@ -125,7 +125,7 @@ public class Biomes {
 					.build())
 			.build();
 
-	public static final Biome DEEP_MYSTICAL_FOREST = new Biome.Builder()
+	public static final Biome MYSTICAL_FOREST = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.FOREST)
 			.depth(0.125f)
@@ -353,8 +353,8 @@ public class Biomes {
 
 		Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_chunk_gen"), HaykamChunkGenerator.CODEC);
 
+		registerBiome(MYSTICAL_GROVE_KEY, MYSTICAL_GROVE);
 		registerBiome(MYSTICAL_FOREST_KEY, MYSTICAL_FOREST);
-		registerBiome(THICK_MYSTICAL_FOREST_KEY, DEEP_MYSTICAL_FOREST);
 		registerBiome(CORRUPT_FOREST_KEY, CORRUPT_FOREST);
 		registerBiome(OCEAN_KEY, OCEAN);
 		registerBiome(CORRUPT_BEACH_KEY, CORRUPT_BEACH);
