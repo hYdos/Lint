@@ -66,7 +66,7 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		if (!context.getWorld().isClient()) {
-			LintEnhancements.enhance(context.getStack(), Power.Broad.ALLOS, 1.0f);			
+			LintEnhancements.enhance(context.getStack(), Power.Broad.THERIA, 1.0f);			
 		}
 
 		return super.useOnBlock(context);
@@ -135,9 +135,10 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 
 		if (!powers.isEmpty()) {
 			for (Power.Broad power : powers) {
-				tooltip.add(
-						new LiteralText(power.toString().toUpperCase(Locale.ROOT)).formatted(power.formatting).formatted(Formatting.BOLD)
-						.append(new LiteralText(" Level " + (int) LintEnhancements.getEnhancement(stack, power) + "\n"))); // TODO: make translatable
+				Text text = new LiteralText(power.toString().toUpperCase(Locale.ROOT)).formatted(power.formatting).formatted(Formatting.BOLD)
+						.append(new LiteralText(" Level " + (int) LintEnhancements.getEnhancement(stack, power)).formatted(Formatting.RESET).formatted(Formatting.WHITE));
+				
+				tooltip.add(text); // TODO: make translatable
 			}
 		}
 	}
@@ -156,7 +157,7 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 		switch (power) {
 			// Major Powers. Can have one up to level 12.
 			case ALLOS: // Sword Enhancements: Speed (MAJOR), Damage (MINOR), Radiant (SPECIAL)
-				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", MAJOR_POWER_CONSTANT * ATTACK_SPEED_MOD_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", MAJOR_POWER_CONSTANT * 0.5 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
 			case MANOS: // Sword Enhancements: Toxin (MAJOR), Damage (MINOR), Life_Steal (SPECIAL) TODO make nausea have an actual useful effect on lint bosses
@@ -164,6 +165,7 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 				break;
 			// Minor Powers. Can have two up to level 12 each, with a total level cap of 14.
 			case THERIA: // Cariar of Mind:		Swiftness_Boost (MAJOR), Paralysis - (can't hit or move) (SPECIAL)
+				stack.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier("Weapon modifier", 0.03 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
 			case AURIA: // Carien of War:		Damage (MAJOR), Perfect Defense (SPECIAL)
 				break;
@@ -176,9 +178,9 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 		}
 	}
 
+	// Nice simple constants for where this shit works nicely: basically the proportions for if the ability is featured multiple times.
+	// However if the ability is only featured once these aren't really necessary
 	public static final double MAJOR_POWER_CONSTANT = 1.0;
 	public static final double MAJOR_CARIA_CONSTANT = 0.8;
 	public static final double MINOR_CONSTANT = 0.5;
-
-	private static final double ATTACK_SPEED_MOD_CONSTANT = 0.5;
 }

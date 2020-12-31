@@ -46,7 +46,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 
-public final class LintBlocks extends LintAutoBlockRegistry {
+public final class LintBlocks extends LintAutoDataRegistry {
 
 	/**
 	 * Automatically generated
@@ -302,11 +302,11 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 	}
 
 	public static void registerDecorations() {
-		registerFlower(CORRUPT_STEM, "corrupt_stem");
-		registerFlower(WILTED_FLOWER, "wilted_flower");
-		registerFlower(MYSTICAL_GRASS, "mystical_grass");
-		registerFlower(MYSTICAL_STEM, "mystical_stem");
-		registerFlower(MYSTICAL_DAISY, "yellow_daisy");
+		registerCrossPlant(CORRUPT_STEM, "corrupt_stem");
+		registerCrossPlant(WILTED_FLOWER, "wilted_flower");
+		registerCrossPlant(MYSTICAL_GRASS, "mystical_grass");
+		registerCrossPlant(MYSTICAL_STEM, "mystical_stem");
+		registerCrossPlant(MYSTICAL_DAISY, "yellow_daisy");
 
 		registerBlock(ItemGroups.DECORATIONS, RETURN_HOME, "return_home");
 
@@ -348,8 +348,8 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 		registerBlockItem(block, itemGroup);
 	}
 
-	private static void registerFlower(FlowerBlock flower, String path) {
-		registerCubeAll(path, flower, ItemGroups.DECORATIONS);
+	private static void registerCrossPlant(FlowerBlock flower, String path) {
+		registerCross(path, flower, ItemGroups.DECORATIONS);
 	}
 
 	public static BlockState getFluid(Fluid still) {

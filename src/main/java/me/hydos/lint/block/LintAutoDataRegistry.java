@@ -36,11 +36,11 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class LintAutoBlockRegistry {
+public class LintAutoDataRegistry {
 	/**
 	 * Only registers the block state and the block item, as a simple block state referencing the model, and a basic BlockItem.
 	 */
-	protected static Block registerSimpleBlockState(String id, Block block, @Nullable ItemGroup itemGroup) {
+	public static Block registerSimpleBlockState(String id, Block block, @Nullable ItemGroup itemGroup) {
 		Identifier identifier = id(id);
 		Identifier modelIdentifier = id("block/" + id);
 
@@ -60,13 +60,52 @@ public class LintAutoBlockRegistry {
 	 * @param itemGroup The item group for the dropped item
 	 * @return The registered block
 	 */
-	protected static Block registerCubeAll(String id, Block block, @Nullable ItemGroup itemGroup) {
+	public static Block registerCubeAll(String id, Block block, @Nullable ItemGroup itemGroup) {
 		Identifier identifier = id(id);
 		Identifier modelIdentifier = id("block/" + id);
 
 		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
 		RESOURCE_PACK.addModel(JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", modelIdentifier.toString())), modelIdentifier);
 		RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
+
+		Registry.register(Registry.BLOCK, identifier, block);
+		registerBlockItem(block, itemGroup);
+
+		return block;
+	}
+
+	public static Item registerGenerated(String id, Item item) {
+		Identifier modelIdentifier = id("item/" + id);
+		_registerGenerated(modelIdentifier);
+		return Registry.register(Registry.ITEM, id(id), item);
+	}
+
+	public static Item registerHandheld(String id, Item item) {
+		Identifier modelIdentifier = id("item/" + id);
+		RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
+		return Registry.register(Registry.ITEM, id(id), item);
+	}
+
+	private static void _registerGenerated(Identifier modelIdentifier) {
+		RESOURCE_PACK.addModel(JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
+	}
+
+	/**
+	 * Registers a generic "cross" block with an associated dropped item
+	 *
+	 * @param id        The block ID
+	 * @param block     The block
+	 * @param itemGroup The item group for the dropped item
+	 * @return The registered block
+	 */
+	public static Block registerCross(String id, Block block, @Nullable ItemGroup itemGroup) {
+		Identifier identifier = id(id);
+		Identifier modelIdentifier = id("block/" + id);
+
+		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
+		RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", modelIdentifier.toString())), modelIdentifier);
+		_registerGenerated(id("item/" + id));
+
 		Registry.register(Registry.BLOCK, identifier, block);
 		registerBlockItem(block, itemGroup);
 
@@ -81,7 +120,7 @@ public class LintAutoBlockRegistry {
 	 * @param itemGroup The item group for the dropped item
 	 * @return The registered block
 	 */
-	protected static Block registerSlab(String id, String planksId, Block block, @Nullable ItemGroup itemGroup) {
+	public static Block registerSlab(String id, String planksId, Block block, @Nullable ItemGroup itemGroup) {
 		Identifier identifier = id(id);
 		Identifier lowerSlabIdentifier = id("block/" + id);
 		Identifier topSlabIdentifier = id("block/" + id + "_top");
@@ -119,7 +158,7 @@ public class LintAutoBlockRegistry {
 	 * @param block     A block which has already been registered
 	 * @param itemGroup The item group to place the item in
 	 */
-	protected static void registerBlockItem(Block block, @Nullable ItemGroup itemGroup) {
+	static void registerBlockItem(Block block, @Nullable ItemGroup itemGroup) {
 		Identifier id = Registry.BLOCK.getId(block);
 		RESOURCE_PACK.addLootTable(new Identifier(id.getNamespace(), "blocks/" + id.getPath()),
 				JLootTable.loot("minecraft:block")
@@ -141,6 +180,6 @@ public class LintAutoBlockRegistry {
 		}
 	}
 
-	LintAutoBlockRegistry() {
+	LintAutoDataRegistry() {
 	}
 }

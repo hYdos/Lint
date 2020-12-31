@@ -1,6 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "lint:block/yellow_daisy"
-  }
-}

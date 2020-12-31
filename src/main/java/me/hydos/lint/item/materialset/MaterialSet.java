@@ -19,7 +19,7 @@
 
 package me.hydos.lint.item.materialset;
 
-import me.hydos.lint.Lint;
+import me.hydos.lint.block.LintAutoDataRegistry;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
@@ -30,7 +30,6 @@ import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
 
 public final class MaterialSet {
 	public MaterialSet(String registryName, ArmorMaterial armour, ToolMaterial tool, ItemGroup group) {
@@ -58,26 +57,26 @@ public final class MaterialSet {
 	public final Item shovel;
 	public final Item hoe;
 	public final Item sword;
-	
+
 	public final Item helmet;
 	public final Item chestplate;
 	public final Item leggings;
 	public final Item boots;
-	
+
 	public boolean contains(Item item) {
 		return pickaxe == item || axe == item || shovel == item || hoe == item || sword == item || helmet == item || chestplate == item || leggings == item || boots == item;
 	}
 
 	public void registerItems() {
-		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_sword"), this.sword);
-		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_axe"), this.axe);
-		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_pickaxe"), this.pickaxe);
-		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_shovel"), this.shovel);
-		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_hoe"), this.hoe);
-		
-		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_helmet"), this.helmet);
-		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_chestplate"), this.chestplate);
-		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_leggings"), this.leggings);
-		Registry.register(Registry.ITEM, Lint.id(this.registryName + "_boots"), this.boots);
+		LintAutoDataRegistry.registerHandheld(this.registryName + "_sword", this.sword);
+		LintAutoDataRegistry.registerHandheld(this.registryName + "_axe", this.axe);
+		LintAutoDataRegistry.registerHandheld(this.registryName + "_pickaxe", this.pickaxe);
+		LintAutoDataRegistry.registerHandheld(this.registryName + "_shovel", this.shovel);
+		LintAutoDataRegistry.registerHandheld(this.registryName + "_hoe", this.hoe);
+
+		LintAutoDataRegistry.registerGenerated(this.registryName + "_helmet", this.helmet);
+		LintAutoDataRegistry.registerGenerated(this.registryName + "_chestplate", this.chestplate);
+		LintAutoDataRegistry.registerGenerated(this.registryName + "_leggings", this.leggings);
+		LintAutoDataRegistry.registerGenerated(this.registryName + "_boots", this.boots);
 	}
 }

@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "lint:item/corrupt_forest_disc"
-  }
-}

@@ -19,14 +19,14 @@
 
 package me.hydos.lint.item;
 
-import me.hydos.lint.Lint;
+import static me.hydos.lint.block.LintAutoDataRegistry.registerGenerated;
+
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.item.materialset.MaterialSet;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.item.Item;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
 
 public class LintItems {
 
@@ -75,11 +75,11 @@ public class LintItems {
 	}
 
 	private static void registerDiscs() {
-		Registry.register(Registry.ITEM, Lint.id("suspicous_looking_disc"), SUSPICOUS_LOOKING_DISC);
-		Registry.register(Registry.ITEM, Lint.id("oboe_disc"), OBOE_DISC);
-		Registry.register(Registry.ITEM, Lint.id("ocean_disc"), OCEAN_DISC);
-		Registry.register(Registry.ITEM, Lint.id("mystical_forest_disc"), MYSTICAL_FOREST_DISC);
-		Registry.register(Registry.ITEM, Lint.id("corrupt_forest_disc"), CORRUPT_FOREST_DISC);
+		registerGenerated("suspicous_looking_disc", SUSPICOUS_LOOKING_DISC);
+		registerGenerated("oboe_disc", OBOE_DISC);
+		registerGenerated("ocean_disc", OCEAN_DISC);
+		registerGenerated("mystical_forest_disc", MYSTICAL_FOREST_DISC);
+		registerGenerated("corrupt_forest_disc", CORRUPT_FOREST_DISC);
 	}
 
 	private static void registerMaterialSets() {
@@ -88,10 +88,10 @@ public class LintItems {
 	}
 
 	private static void registerOreMaterials() {
-		Registry.register(Registry.ITEM, Lint.id("tater_essence"), TATER_ESSENCE);
-		Registry.register(Registry.ITEM, Lint.id("sicieron_ingot"), SICIERON_INGOT);
-		Registry.register(Registry.ITEM, Lint.id("jurel_powder"), JUREL_POWDER);
-		Registry.register(Registry.ITEM, Lint.id("tarscan_shard"), TARSCAN_SHARD);
-		Registry.register(Registry.ITEM, Lint.id("hardened_jurel_ingot"), HARDENED_JUREL_INGOT);
+		registerGenerated("tater_essence", TATER_ESSENCE);
+		registerGenerated("sicieron_ingot", SICIERON_INGOT);
+		registerGenerated("jurel_powder", JUREL_POWDER);
+		registerGenerated("tarscan_shard", TARSCAN_SHARD);
+		registerGenerated("hardened_jurel_ingot", HARDENED_JUREL_INGOT);
 	}
 }
