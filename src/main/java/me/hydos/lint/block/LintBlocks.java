@@ -218,14 +218,14 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			new Block(PLANK_SETTINGS
 					.materialColor(MaterialColor.DIAMOND)),
 			ItemGroups.BLOCKS);
-	
+
 	public static final Block MYSTICAL_LEAVES = registerCubeAll(
 			"mystical_leaves",
 			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
 					.materialColor(MaterialColor.DIAMOND)
 					.breakByTool(FabricToolTags.HOES, 0)),
 			ItemGroups.BLOCKS);
-	
+
 	public static final Block MYSTICAL_SAND = registerCubeAll(
 			"mystical_sand",
 			new FallingBlock(SAND_SETTINGS
