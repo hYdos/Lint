@@ -76,7 +76,7 @@ public class LintAutoDataRegistry {
 
 	public static Item registerGenerated(String id, Item item) {
 		Identifier modelIdentifier = id("item/" + id);
-		_registerGenerated(modelIdentifier);
+		_registerGenerated(modelIdentifier, modelIdentifier);
 		return Registry.register(Registry.ITEM, id(id), item);
 	}
 
@@ -86,8 +86,8 @@ public class LintAutoDataRegistry {
 		return Registry.register(Registry.ITEM, id(id), item);
 	}
 
-	private static void _registerGenerated(Identifier modelIdentifier) {
-		RESOURCE_PACK.addModel(JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
+	private static void _registerGenerated(Identifier modelIdentifier, Identifier textureIdentifier) {
+		RESOURCE_PACK.addModel(JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString())), modelIdentifier);
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class LintAutoDataRegistry {
 
 		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
 		RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", modelIdentifier.toString())), modelIdentifier);
-		_registerGenerated(id("item/" + id));
+		_registerGenerated(id("item/" + id), modelIdentifier);
 
 		Registry.register(Registry.BLOCK, identifier, block);
 		registerBlockItem(block, itemGroup);
