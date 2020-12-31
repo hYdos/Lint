@@ -22,8 +22,11 @@ package me.hydos.lint.mixin.client;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.SplashScreen;
+import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.resource.ReloadableResourceManagerImpl;
+import net.minecraft.resource.ResourceType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,7 +45,7 @@ public class SplashScreenMixin {
 
 	@Inject(method = "init", at = @At("RETURN"))
 	private static void init(MinecraftClient client, CallbackInfo callbackInfo) {
-		// TODO: Initialize the default Minecraft font
+
 	}
 
 	@Inject(method = "render", at = @At("RETURN"))
@@ -51,7 +54,7 @@ public class SplashScreenMixin {
 		Window window = instance.getWindow();
 		TextRenderer textRenderer = instance.textRenderer;
 
-		int y = window.getScaledHeight() / 4 * 3;
+		int y = 15;
 
 		for (String line : DISCLAIMER) {
 			int width = textRenderer.getWidth(line);
