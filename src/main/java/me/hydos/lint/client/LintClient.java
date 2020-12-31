@@ -19,7 +19,6 @@
 
 package me.hydos.lint.client;
 
-import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
@@ -30,9 +29,8 @@ import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.network.ClientNetworking;
-import me.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import me.hydos.lint.screenhandler.ScreenHandlers;
-import me.hydos.lint.screenhandler.client.LilTaterContainerScreen;
+import me.hydos.lint.screenhandler.client.LilTaterScreen;
 import me.hydos.lint.screenhandler.client.SmelteryScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -40,7 +38,6 @@ import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
@@ -53,7 +50,6 @@ import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -92,7 +88,7 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerHandledScreens() {
-		ScreenProviderRegistry.INSTANCE.registerFactory(Lint.id("tater_inv"), (syncId, identifier, playerEntity, buf) -> new LilTaterContainerScreen(new LilTaterInteractScreenHandler(null, syncId, buf.readInt(), playerEntity.inventory), playerEntity.inventory, new LiteralText("")));
+		ScreenRegistry.register(ScreenHandlers.TATER_INVENTORY, LilTaterScreen::new);
 		ScreenRegistry.register(ScreenHandlers.SMELTERY, SmelteryScreen::new);
 	}
 

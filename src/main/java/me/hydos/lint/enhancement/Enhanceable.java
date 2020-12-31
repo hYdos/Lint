@@ -17,29 +17,15 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.bossbar;
+package me.hydos.lint.enhancement;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.text.Text;
+import me.hydos.lint.util.Power;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 
-@Environment(EnvType.CLIENT)
-public class ClientModernBossBar {
-	private static ClientModernBossBar instance;
-
-	public Text title;
-	public int colour;
-
-	public int endX;
-
-	public ClientModernBossBar(Text title, int colour, int endX) {
-		this.title = title;
-		this.colour = colour;
-		instance = this;
-		this.endX = endX;
-	}
-
-	public static ClientModernBossBar getInstance() {
-		return instance;
+public interface Enhanceable {
+	void update(ItemStack stack, Power.Broad power, float change, boolean addDefaults);
+	default void onAttack(LivingEntity attacker, ItemStack stack, Entity target) {
 	}
 }

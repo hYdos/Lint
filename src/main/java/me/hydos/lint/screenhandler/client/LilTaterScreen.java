@@ -34,16 +34,16 @@ import net.minecraft.util.math.Quaternion;
 
 import java.util.Objects;
 
-public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInteractScreenHandler> {
+public class LilTaterScreen extends AbstractInventoryScreen<LilTaterInteractScreenHandler> {
 
-	public final LilTaterInteractScreenHandler container;
-	public final Identifier backgroundIdentifier = new Identifier("lint", "textures/gui/container/lil_tater_inventory.png");
+	public final LilTaterInteractScreenHandler screenHandler;
+	public final Identifier backgroundIdentifier = new Identifier("lint", "textures/gui/screen/lil_tater_inventory.png");
 	public int mouseX;
 	public int mouseY;
 
-	public LilTaterContainerScreen(LilTaterInteractScreenHandler container, PlayerInventory playerInventory, Text name) {
-		super(container, playerInventory, name);
-		this.container = container;
+	public LilTaterScreen(LilTaterInteractScreenHandler screenHandler, PlayerInventory playerInventory, Text name) {
+		super(screenHandler, playerInventory, name);
+		this.screenHandler = screenHandler;
 	}
 
 	public static void drawTater(MatrixStack matrices, int x, int y, int size, TinyPotatoEntity entity) {
@@ -71,7 +71,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
 
 	@Override
 	public void render(MatrixStack stack, int mouseX, int mouseY, float delta) {
-		if (container != null) {
+		if (screenHandler != null) {
 			super.render(stack, mouseX, mouseY, delta);
 			this.mouseX = mouseX;
 			this.mouseY = mouseY;
@@ -86,7 +86,7 @@ public class LilTaterContainerScreen extends AbstractInventoryScreen<LilTaterInt
 		this.client.getTextureManager().bindTexture(backgroundIdentifier);
 		drawTexture(matrix, x, y - 32, 0, 0, this.backgroundWidth, this.backgroundHeight + 65);
 
-		TinyPotatoEntity tater = (TinyPotatoEntity) Objects.requireNonNull(this.client.world).getEntityById(container.taterId);
+		TinyPotatoEntity tater = (TinyPotatoEntity) Objects.requireNonNull(this.client.world).getEntityById(screenHandler.taterId);
 		if (tater == null) {
 			onClose();
 			return;

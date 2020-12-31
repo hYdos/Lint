@@ -60,7 +60,7 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 
 	@Override
 	public Text getDisplayName() {
-		return new LiteralText("Basic Smeltery");
+		return new LiteralText("Smeltery");
 	}
 
 	@Nullable

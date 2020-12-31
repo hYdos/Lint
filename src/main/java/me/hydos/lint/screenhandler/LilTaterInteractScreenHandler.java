@@ -19,6 +19,7 @@
 
 package me.hydos.lint.screenhandler;
 
+import io.netty.buffer.ByteBuf;
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
 import me.hydos.lint.util.LintInventory;
 import me.hydos.lint.util.LintUtilities;
@@ -26,7 +27,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
 
@@ -34,9 +34,9 @@ public class LilTaterInteractScreenHandler extends ScreenHandler {
 
 	public final int taterId;
 
-	public LilTaterInteractScreenHandler(ScreenHandlerType<?> type, int syncId, int taterId, PlayerInventory playerInventory) {
-		super(type, syncId);
-		this.taterId = taterId;
+	public LilTaterInteractScreenHandler(int syncId, PlayerInventory playerInventory, ByteBuf buf) {
+		super(ScreenHandlers.TATER_INVENTORY, syncId);
+		this.taterId = buf.readInt();
 
 		World world = playerInventory.player.world;
 
