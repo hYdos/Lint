@@ -19,17 +19,22 @@
 
 package me.hydos.lint.item.materialset;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import me.hydos.enhancement.Enhanceable;
 import me.hydos.enhancement.LintEnhancements;
 import me.hydos.lint.util.Power;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -39,7 +44,11 @@ import net.minecraft.item.ItemStack.TooltipSection;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class LintSwordItem extends SwordItem implements Enhanceable {
@@ -64,21 +73,25 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 	}
 
 	@Override
-	public void onAttack(ItemStack stack, Entity target) {
+	public void onAttack(LivingEntity attacker, ItemStack stack, Entity target) {
 		World world = target.getEntityWorld();
+
+		// TODO balance this shit.
+		// TODO Set bonuses (not modifications to the powers, but modifications to the outcomes themselves due to wearing a full set of armour. Perhaps just keep to armour instead of bleeding to tools)
 
 		if (!world.isClient()) {
 			if (target instanceof LivingEntity) {
 				LivingEntity le = (LivingEntity) target;
 
 				for (Power.Broad power : LintEnhancements.getEnhancements(stack)) {
-					float strength = LintEnhancements.getEnhancement(stack, power);
+					float strength = MathHelper.floor(LintEnhancements.getEnhancement(stack, power)); // integer value as a float from 0 to 12.
 					Random rand = world.getRandom();
 
 					switch (power) {
 						case ALLOS:
-							if (rand.nextBoolean() && rand.nextFloat() * 14.0f < strength) { // 12 levels, so 50% * 6/7 = 42.86% is max chance.
-								if (rand.nextFloat() * 100.0f < strength) { // 12% * 42.86 = 5.14% chance at level 12
+							// SPECIAL: Radiant
+							if (rand.nextFloat() * 28.0f < strength) { // 12 levels, so (12/28) = 42.86% is max chance.
+								if (rand.nextFloat() * 100.0f < strength) { // 12% * 42.86 = 5.14% chance at level 12. If you want, change the 100.0f to 60.0f for 8.57% chance at level 12 instead.
 									LightningEntity lightning = EntityType.LIGHTNING_BOLT.create(world);
 									lightning.refreshPositionAfterTeleport(target.getPos());
 									lightning.setCosmetic(true);
@@ -90,10 +103,41 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 								}
 							}
 							break;
+						case MANOS:
+							// MAJOR: Toxin
+							if (rand.nextFloat() * 24.0f < strength) { // up to 50% chance
+								if (rand.nextBoolean() && strength >= 4.0f) { // 50% * 50% = 25%, in best case scenario.
+									((LivingEntity) target).addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, (int) ((strength - 3.0f) * 10)));
+								}
+
+								((LivingEntity) target).addStatusEffect(new StatusEffectInstance(rand.nextBoolean() ? StatusEffects.SLOWNESS : StatusEffects.BLINDNESS, (int) ((strength + 1.0f) * 10)));
+							}
+
+							// SPECIAL: Life Steal
+							if (rand.nextFloat() * 100.0f < strength) {
+								attacker.heal(0.5f * (float) stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(EntityAttributes.GENERIC_ATTACK_DAMAGE).stream()
+										.filter(mod -> mod.getOperation() == Operation.ADDITION)
+										.mapToDouble(mod -> mod.getValue())
+										.sum());
+							}
+							break;
 						default:
 							break;
 					}
 				}
+			}
+		}
+	}
+
+	@Override
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+		Collection<Power.Broad> powers = LintEnhancements.getEnhancements(stack);
+
+		if (!powers.isEmpty()) {
+			for (Power.Broad power : powers) {
+				tooltip.add(
+						new LiteralText(power.toString().toUpperCase(Locale.ROOT)).formatted(power.formatting).formatted(Formatting.BOLD)
+						.append(new LiteralText(" Level " + (int) LintEnhancements.getEnhancement(stack, power) + "\n"))); // TODO: make translatable
 			}
 		}
 	}

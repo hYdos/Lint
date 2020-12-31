@@ -40,7 +40,7 @@ public class EnchantmentHelperMixin {
 		Item item = stack.getItem();
 
 		if (item instanceof Enhanceable) {
-			((Enhanceable) item).onAttack(stack, target);
+			((Enhanceable) item).onAttack(user, stack, target);
 		}
 	}
 }

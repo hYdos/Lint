@@ -32,14 +32,14 @@ import java.util.Random;
 public class HaykamTerrainGenerator implements TerrainData {
 	public static final int SEA_LEVEL = 63;
 
-	public static final int ASH_START = 2320 * 2320;
-	public static final int DENSE_ASH_START = 2360 * 2360;
-	public static final int SHARDLANDS_FADE_START = 2400 * 2400;
-	public static final int TERRAIN_CROB_DISTANCE = 2450 * 2450;
-	public static final int SHARDLANDS_EDGE_START = 2460 * 2460;
-	public static final int SHARDLANDS_START = 2500 * 2500;
-	public static final int SHARDLANDS_ISLANDS_START = 2550 * 2550;
-	public static final int SHARDLANDS_ISLANDS_FADE_END = 2590 * 2590;
+	public static final int ASH_START = 3320 * 3320;
+	public static final int DENSE_ASH_START = 3360 * 3360;
+	public static final int SHARDLANDS_FADE_START = 3400 * 3400;
+	public static final int TERRAIN_CROB_DISTANCE = 3450 * 3450;
+	public static final int SHARDLANDS_EDGE_START = 3460 * 3460;
+	public static final int SHARDLANDS_START = 3500 * 3500;
+	public static final int SHARDLANDS_ISLANDS_START = 3550 * 3550;
+	public static final int SHARDLANDS_ISLANDS_FADE_END = 3590 * 3590;
 
 	private static final int AVG_HEIGHT = 65;
 	private static final int AVG_FLOAT_HEIGHT = 85;
