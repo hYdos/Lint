@@ -82,6 +82,10 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 					.hardness(-0.1f)
 					.sounds(BlockSoundGroup.WET_GRASS)),
 			ItemGroups.DECORATIONS);
+	public static final Block CERAMIC = registerCubeAll(
+			"ceramic",
+			new Block(FabricBlockSettings.copyOf(Blocks.TERRACOTTA)),
+			ItemGroups.DECORATIONS);
 	public static final Block GREEN_BUTTON = registerCubeAll(
 			"green_button",
 			new KingTaterButton(FabricBlockSettings.of(Material.SOIL)
@@ -220,14 +224,14 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-			);
+	);
 	public static final FlowerBlock WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-			);
+	);
 	/**
 	 * Corrupt Building Blocks
 	 */
@@ -249,14 +253,14 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-			);
+	);
 	public static final FlowerBlock MYSTICAL_DAISY = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-			);
+	);
 	/**
 	 * Mystical Building Blocks
 	 */
@@ -270,7 +274,7 @@ public final class LintBlocks extends LintAutoBlockRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-			);
+	);
 	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
 	/**
 	 * Misc Building Blocks
