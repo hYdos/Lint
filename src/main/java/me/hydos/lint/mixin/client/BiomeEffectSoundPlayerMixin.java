@@ -64,7 +64,7 @@ public class BiomeEffectSoundPlayerMixin {
 			at = @At("HEAD"),
 			method = "tick",
 			cancellable = true)
-	public void musicGood1(CallbackInfo info) {
+	private void musicGood1(CallbackInfo info) {
 		SoundEvent sound = MinecraftClient.getInstance().getMusicType().getSound();
 
 		if (SoundShit.isBossMusic(sound.getId())) {
@@ -83,10 +83,10 @@ public class BiomeEffectSoundPlayerMixin {
 	@Redirect(
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/Biome;getLoopSound()Ljava/util/Optional;"),
 			method = "tick")
-	public Optional<SoundEvent> addVariants(Optional<SoundEvent> event) {
+	private Optional<SoundEvent> addVariants(Optional<SoundEvent> event) {
 		if (event.isPresent()) {
 			if (event.get().getId().equals(Sounds.MYSTICAL_FOREST.getId())) {
-				if (this.player.getEntityWorld().getRandom().nextInt(3) == 0) {
+				if (this.player.getEntityWorld().getRandom().nextInt(3) > 0) {
 					return Optional.of(Sounds.ETHEREAL_GROVES_OF_FRAIYA);
 				}
 			}
@@ -101,7 +101,7 @@ public class BiomeEffectSoundPlayerMixin {
 					target = "Lit/unimi/dsi/fastutil/objects/Object2ObjectArrayMap;values()Lit/unimi/dsi/fastutil/objects/ObjectCollection;",
 					ordinal = 1),
 			method = "tick")
-	public void musicGood2(CallbackInfo info) {
+	private void musicGood2(CallbackInfo info) {
 		SoundShit.markNext(this.activeBiome);
 	}
 }
