@@ -131,7 +131,7 @@ public class LintAutoDataRegistry {
 
 		RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", bottomModelIdentifier.toString())), bottomModelIdentifier);
 		RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", topModelIdentifier.toString())), topModelIdentifier);
-		_registerGenerated(id("item/" + id), bottomModelIdentifier);
+		_registerGenerated(id("item/" + id), topModelIdentifier);
 
 		Registry.register(Registry.BLOCK, identifier, block);
 		registerBlockItem(block, itemGroup);
