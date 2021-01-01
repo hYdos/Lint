@@ -104,7 +104,7 @@ public class SoundShit {
 
 					// if the sound isn't changing anyway
 					if (prev.get().getId().equals(event.get().getId())) {
-						if (soundLoops.values().stream().noneMatch(loop -> loop.getSound().getIdentifier().equals(Sounds.MYSTICAL_FOREST.getId()))) {
+						if (soundLoops.values().stream().noneMatch(loop -> loop.getSound().getIdentifier().equals(Sounds.MYSTICAL_FOREST.getId()) || loop.getSound().getIdentifier().equals(Sounds.ETHEREAL_GROVES_OF_FRAIYA.getId()))) {
 							// set to null bc funni hacks
 							setActiveBiomeToNull.run();
 							markClear();
