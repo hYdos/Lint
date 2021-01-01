@@ -335,6 +335,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	 */
 	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
 	public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK));
+	public static final Block WASTELAND_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK));
 	/**
 	 * Fluid blockstate cache
 	 */
@@ -383,6 +384,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 
 		registerBlock(ItemGroups.BLOCKS, CORRUPT_GRASS, "corrupt_grass");
 		registerBlock(ItemGroups.BLOCKS, LIVELY_GRASS, "lively_grass");
+		registerBlock(ItemGroups.BLOCKS, WASTELAND_GRASS, "wasteland_grass");
 
 		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
 
