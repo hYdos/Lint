@@ -18,7 +18,7 @@ public class LintTallFlowerBlock extends TallFlowerBlock {
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
 		Block block = floor.getBlock();
-		return block == LintBlocks.MYSTICAL_GRASS || block == LintBlocks.CORRUPT_GRASS;
+		return block == LintBlocks.LIVELY_GRASS || block == LintBlocks.CORRUPT_GRASS;
 	}
 
 	@Override

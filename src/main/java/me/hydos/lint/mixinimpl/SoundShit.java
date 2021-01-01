@@ -93,7 +93,13 @@ public class SoundShit {
 		next = Optional.empty();
 	}
 
-	public static void doRandomLoopSwitcheroo(Biome activeBiome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops, Runnable setActiveBiomeToNull) {
+	public static void doRandomLoopSwitcheroo(Biome activeBiome, SoundManager manager, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops, Runnable setActiveBiomeToNull) {
+		soundLoops.values().forEach(loop -> {
+			if (loop instanceof NotMusicLoop && !manager.isPlaying(loop)) {
+				((NotMusicLoop)loop).setAsDone();
+			}
+		});
+
 		if (activeBiome != null) {
 			Optional<SoundEvent> event = activeBiome.getLoopSound();
 

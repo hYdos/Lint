@@ -75,7 +75,7 @@ public class BiomeEffectSoundPlayerMixin {
 			SoundShit.doOtherShit(sound, this.soundManager, this.activeBiome = biomeAccess.getBiome(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
 			info.cancel();
 		} else {
-			SoundShit.doRandomLoopSwitcheroo(this.activeBiome, this.soundLoops, () -> {
+			SoundShit.doRandomLoopSwitcheroo(this.activeBiome, this.soundManager, this.soundLoops, () -> {
 				this.activeBiome = null;
 			});
 		}
