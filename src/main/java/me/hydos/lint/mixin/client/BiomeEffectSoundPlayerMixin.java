@@ -19,6 +19,7 @@
 
 package me.hydos.lint.mixin.client;
 
+import net.minecraft.sound.BiomeAdditionsSound;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,8 +27,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import com.google.common.base.Optional;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.mixinimpl.SoundShit;
@@ -39,6 +38,8 @@ import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
+
+import java.util.Optional;
 
 @Mixin(BiomeEffectSoundPlayer.class)
 public class BiomeEffectSoundPlayerMixin {
@@ -83,16 +84,16 @@ public class BiomeEffectSoundPlayerMixin {
 	@Redirect(
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/Biome;getLoopSound()Ljava/util/Optional;"),
 			method = "tick")
-	private Optional<SoundEvent> addVariants(Optional<SoundEvent> event) {
+	private Optional<SoundEvent> addVariants(Biome biome) {
+		Optional<BiomeAdditionsSound> event = biome.getAdditionsSound();
 		if (event.isPresent()) {
-			if (event.get().getId().equals(Sounds.MYSTICAL_FOREST.getId())) {
-				if (this.player.getEntityWorld().getRandom().nextInt(3) > 0) {
+			if (event.get().getSound().getId().equals(Sounds.MYSTICAL_FOREST.getId())) {
+				if (this.player.getEntityWorld().getRandom().nextInt(3) == 0) {
 					return Optional.of(Sounds.ETHEREAL_GROVES_OF_FRAIYA);
 				}
 			}
 		}
-
-		return event;
+		return biome.getEffects().getLoopSound();
 	}
 
 	@Inject(
