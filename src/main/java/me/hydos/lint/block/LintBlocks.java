@@ -93,7 +93,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			new Block(FabricBlockSettings.copyOf(Blocks.CAKE)),
 			ItemGroups.FOOD);
 
-	public static final Block GENERIC_BLUE_FLOWER = registerTallFlower(
+	public static final Block GENERIC_BLUE_FLOWER = registerTallCross(
 			"generic_blue_flower",
 			new LintTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.SUNFLOWER)),
 			ItemGroups.DECORATIONS);

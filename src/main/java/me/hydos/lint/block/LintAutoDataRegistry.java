@@ -22,7 +22,6 @@ package me.hydos.lint.block;
 import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
 
-import net.minecraft.block.TallFlowerBlock;
 import org.jetbrains.annotations.Nullable;
 
 import net.devtech.arrp.json.blockstate.JBlockModel;
@@ -75,20 +74,6 @@ public class LintAutoDataRegistry {
 		return block;
 	}
 
-	public static Block registerTallFlower(String id, Block block, @Nullable ItemGroup itemGroup) {
-		Identifier identifier = id(id);
-		Identifier modelIdentifier = id("block/" + id);
-
-		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
-		RESOURCE_PACK.addModel(JModel.model().parent("lint:block/tall_plant").textures(JModel.textures().var("all", modelIdentifier.toString())), modelIdentifier);
-		RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
-
-		Registry.register(Registry.BLOCK, identifier, block);
-		registerBlockItem(block, itemGroup);
-
-		return block;
-	}
-
 	public static Item registerGenerated(String id, Item item) {
 		Identifier modelIdentifier = id("item/" + id);
 		_registerGenerated(modelIdentifier, modelIdentifier);
@@ -120,6 +105,33 @@ public class LintAutoDataRegistry {
 		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
 		RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", modelIdentifier.toString())), modelIdentifier);
 		_registerGenerated(id("item/" + id), modelIdentifier);
+
+		Registry.register(Registry.BLOCK, identifier, block);
+		registerBlockItem(block, itemGroup);
+
+		return block;
+	}
+
+	/**
+	 * Registers a tall flower "cross" block with an associated dropped item
+	 *
+	 * @param id        The block ID
+	 * @param block     The block
+	 * @param itemGroup The item group for the dropped item
+	 * @return The registered block
+	 */
+	public static Block registerTallCross(String id, Block block, @Nullable ItemGroup itemGroup) {
+		Identifier identifier = id(id);
+		Identifier bottomModelIdentifier = id("block/" + id);
+		Identifier topModelIdentifier = id("block/" + id + "_top");
+		
+		RESOURCE_PACK.addBlockState(JState.state(JState.variant()
+				.put("half=lower", new JBlockModel(bottomModelIdentifier))
+				.put("half=upper", new JBlockModel(topModelIdentifier))), identifier);
+
+		RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", bottomModelIdentifier.toString())), bottomModelIdentifier);
+		RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", topModelIdentifier.toString())), topModelIdentifier);
+		_registerGenerated(id("item/" + id), bottomModelIdentifier);
 
 		Registry.register(Registry.BLOCK, identifier, block);
 		registerBlockItem(block, itemGroup);

@@ -1,16 +1,16 @@
 package me.hydos.lint.block;
 
-import net.minecraft.block.*;
-import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.TallFlowerBlock;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldView;
 
-public class LintTallFlowerBlock extends PlantBlock {
-
-
+public class LintTallFlowerBlock extends TallFlowerBlock {
 	public LintTallFlowerBlock(Settings settings) {
 		super(settings.nonOpaque());
 	}
@@ -23,17 +23,9 @@ public class LintTallFlowerBlock extends PlantBlock {
 
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return VoxelShapes.cuboid(0, 0, 0, 1, 2, 1);
+		return state.get(HALF) == DoubleBlockHalf.LOWER ? BOTTOM_MODEL : TOP_MODEL;
 	}
 
-	@Override
-	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-		BlockPos blockPos = pos.down();
-		return this.canPlantOnTop(world.getBlockState(blockPos), world, blockPos) && world.getBlockState(blockPos.up()).getBlock() != Blocks.AIR;
-	}
-
-	@Override
-	public boolean canReplace(BlockState state, ItemPlacementContext context) {
-		return false;
-	}
+	public static final VoxelShape BOTTOM_MODEL = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 1, 0.875);
+	public static final VoxelShape TOP_MODEL = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 0.75, 0.875);
 }
