@@ -34,7 +34,7 @@ public class TaterbaneBlock extends LintGrassBlock {
 
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return VoxelShapes.cuboid(2, 0, 2, 14, 6, 14);
+		return VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.875, 0.5, 0.875);
 	}
 
 	@Override
