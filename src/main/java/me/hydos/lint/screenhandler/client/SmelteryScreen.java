@@ -52,7 +52,7 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		super.render(matrices, mouseX, mouseY, delta);
-		int layerSpacing = 10;
+		int layerSpacing = 2;
 		BlockPos smelteryPos = ((SmelteryScreenHandler) getScreenHandler()).smelteryPos;
 		SmelteryBlockEntity smeltery = (SmelteryBlockEntity) MinecraftClient.getInstance().world.getBlockEntity(smelteryPos);
 		for (int i = 0; i < smeltery.getFluidData().size(); i++) {

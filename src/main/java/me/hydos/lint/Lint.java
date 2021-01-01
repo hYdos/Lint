@@ -19,11 +19,7 @@
 
 package me.hydos.lint;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.discord.DiscordRpc;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.item.LintItems;
@@ -40,6 +36,8 @@ import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
 public class Lint implements ModInitializer {
@@ -54,7 +52,6 @@ public class Lint implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Lint is initializing");
-		DiscordRpc.register();
 		Recipes.register();
 		GeckoLib.initialize();
 		Sounds.register();
@@ -68,15 +65,12 @@ public class Lint implements ModInitializer {
 
 		// Datafixer nonsense
 		// Someone help pls
-		/*
-		DataFixerBuilder builder = new DataFixerBuilder(1);
-		builder.addSchema(Schemas.LINT_V0);
-		Schema schema1 = builder.addSchema(1, Lintv1::new);
-		builder.addFixer(DimensionNameFix.create(schema1, "Rename Lint Dimension", (string) -> {
-			return Objects.equals(IdentifierNormalizingSchema.normalize(string), "lint:haykam") ? "lint:fraiya" : string;
-		}));
-		builder.build(Util.getMainWorkerExecutor());
-		*/
+//		DataFixerBuilder builder = new DataFixerBuilder(1);
+//		builder.addSchema(Schemas.LINT_V0);
+//		Schema schema1 = builder.addSchema(1, Lintv1::new);
+//		builder.addFixer(DimensionNameFix.create(schema1, "Rename Lint Dimension", (string) -> Objects.equals(IdentifierNormalizingSchema.normalize(string), "lint:haykam") ? "lint:fraiya" : string));
+//		builder.build(Util.getMainWorkerExecutor());
+
 	}
 
 	private void registerLintWorld() {

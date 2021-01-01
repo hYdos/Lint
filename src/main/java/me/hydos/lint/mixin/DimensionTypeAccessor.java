@@ -44,6 +44,6 @@ public interface DimensionTypeAccessor {
 			Identifier infiniburn,
 			Identifier skyProperties,
 			float ambientLight) {
-		throw new AssertionError("This should not occur!");
+		throw new AssertionError("Someone corbed mixin");
 	}
 }

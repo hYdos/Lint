@@ -93,26 +93,12 @@ public final class LintBlocks extends LintAutoDataRegistry {
 					.collidable(false)),
 			null);
 
-	public static final Block RED_BUTTON = registerCubeAll(
-			"red_button",
-			new KingTaterButton(FabricBlockSettings.of(Material.SOIL)
-					.hardness(-0.1f)
-					.sounds(BlockSoundGroup.WET_GRASS)),
-			ItemGroups.DECORATIONS);
-
 	public static final Block CERAMIC = registerCubeAll(
 			"ceramic",
 			new Block(FabricBlockSettings.copyOf(Blocks.TERRACOTTA)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
-			ItemGroups.DECORATIONS);
-
-	public static final Block GREEN_BUTTON = registerCubeAll(
-			"green_button",
-			new KingTaterButton(FabricBlockSettings.of(Material.SOIL)
-					.hardness(-0.1f)
-					.sounds(BlockSoundGroup.WET_GRASS)),
-			ItemGroups.DECORATIONS);
+			ItemGroups.BLOCKS);
 
 	public static final Block INDIGO_STONE = registerCubeAll(
 			"indigo_stone",
@@ -288,7 +274,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-			);
+	);
 
 	/**
 	 * Saplings
