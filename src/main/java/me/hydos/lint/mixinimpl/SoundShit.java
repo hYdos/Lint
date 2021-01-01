@@ -93,6 +93,9 @@ public class SoundShit {
 	}
 
 	public static void doRandomLoopSwitcheroo(Biome activeBiome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops, Runnable setActiveBiomeToNull) {
+		if (soundLoops.values().stream().count() == 1) {
+			soundLoops.values().stream().mapToInt(ml -> ml.isDone() ? 1 : 0).forEach(System.out::println);
+		}
 		if (activeBiome != null) {
 			Optional<SoundEvent> event = activeBiome.getLoopSound();
 
@@ -104,7 +107,7 @@ public class SoundShit {
 
 					// if the sound isn't changing anyway
 					if (prev.get().getId().equals(event.get().getId())) {
-						if (soundLoops.values().stream().noneMatch(loop -> loop.getSound().getIdentifier().equals(Sounds.MYSTICAL_FOREST.getId()) || loop.getSound().getIdentifier().equals(Sounds.ETHEREAL_GROVES_OF_FRAIYA.getId()))) {
+						if (soundLoops.values().stream().noneMatch(loop -> loop.getSound().getIdentifier().toString().equals("lint:mystical_forest") || loop.getSound().getIdentifier().toString().equals("lint:ethereal_groves_of_fraiya"))) {
 							// set to null bc funni hacks
 							setActiveBiomeToNull.run();
 							markClear();
