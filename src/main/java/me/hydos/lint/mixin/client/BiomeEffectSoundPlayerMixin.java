@@ -106,7 +106,7 @@ public class BiomeEffectSoundPlayerMixin {
 
 	@Redirect(
 			at = @At(value = "NEW", target = "net/minecraft/client/sound/BiomeEffectSoundPlayer$MusicLoop"),
-			method = "method_25460")
+			method = "method_25459")
 	private MusicLoop onMusicLoopConstruct(SoundEvent event) {
 		Identifier id = event.getId();
 
