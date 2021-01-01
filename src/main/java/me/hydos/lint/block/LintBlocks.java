@@ -31,19 +31,7 @@ import me.hydos.lint.world.tree.CorruptTree;
 import me.hydos.lint.world.tree.MysticalTree;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
@@ -104,6 +92,11 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			"cookie_block",
 			new Block(FabricBlockSettings.copyOf(Blocks.CAKE)),
 			ItemGroups.FOOD);
+
+	public static final Block GENERIC_BLUE_FLOWER = registerTallFlower(
+			"generic_blue_flower",
+			new LintTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.SUNFLOWER)),
+			ItemGroups.DECORATIONS);
 
 	public static final Block INDIGO_STONE = registerCubeAll(
 			"indigo_stone",

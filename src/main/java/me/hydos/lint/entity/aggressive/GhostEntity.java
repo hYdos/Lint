@@ -79,6 +79,14 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 		data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
 	}
 
+	@Override
+	public void tickMovement() {
+		if (this.isAffectedByDaylight()) { //TODO: make not burn in corrupt forest
+			this.setOnFireFor(8);
+		}
+		super.tickMovement();
+	}
+
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
 		event.getController().setAnimation(IDLE_ANIMATION);
 		return PlayState.CONTINUE;

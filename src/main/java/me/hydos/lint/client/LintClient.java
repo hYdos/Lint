@@ -86,6 +86,9 @@ public class LintClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_STEM, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_DAISY, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.ALLOS_CRYSTAL, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CORRUPT_SAPLING, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_SAPLING, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.GENERIC_BLUE_FLOWER, RenderLayer.getCutoutMipped());
 	}
 
 	private void registerHandledScreens() {

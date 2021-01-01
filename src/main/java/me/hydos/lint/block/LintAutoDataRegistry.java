@@ -22,6 +22,7 @@ package me.hydos.lint.block;
 import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
 
+import net.minecraft.block.TallFlowerBlock;
 import org.jetbrains.annotations.Nullable;
 
 import net.devtech.arrp.json.blockstate.JBlockModel;
@@ -66,6 +67,20 @@ public class LintAutoDataRegistry {
 
 		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
 		RESOURCE_PACK.addModel(JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", modelIdentifier.toString())), modelIdentifier);
+		RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
+
+		Registry.register(Registry.BLOCK, identifier, block);
+		registerBlockItem(block, itemGroup);
+
+		return block;
+	}
+
+	public static Block registerTallFlower(String id, Block block, @Nullable ItemGroup itemGroup) {
+		Identifier identifier = id(id);
+		Identifier modelIdentifier = id("block/" + id);
+
+		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
+		RESOURCE_PACK.addModel(JModel.model().parent("lint:block/tall_plant").textures(JModel.textures().var("all", modelIdentifier.toString())), modelIdentifier);
 		RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
 
 		Registry.register(Registry.BLOCK, identifier, block);
