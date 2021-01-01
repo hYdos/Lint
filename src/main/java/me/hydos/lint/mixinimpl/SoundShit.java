@@ -93,6 +93,9 @@ public class SoundShit {
 	}
 
 	public static void doRandomLoopSwitcheroo(Biome activeBiome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops, Runnable setActiveBiomeToNull) {
+		if(activeBiome == null){
+			return; // Yeef
+		}
 		Optional<SoundEvent> event = activeBiome.getLoopSound();
 
 		if (event.isPresent() && prev.isPresent()) {
