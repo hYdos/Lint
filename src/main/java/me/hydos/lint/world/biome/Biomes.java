@@ -74,7 +74,7 @@ public class Biomes {
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
 	public static final SpawnSettings.Builder FOREST_SPAWN_SETTINGS = new SpawnSettings.Builder()
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 2, 1, 3))
-			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 1, 1, 4))
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 1, 1, 4))
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 10, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1))
