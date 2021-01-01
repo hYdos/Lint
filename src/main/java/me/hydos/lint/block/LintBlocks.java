@@ -27,6 +27,8 @@ import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixin.FireBlockAccessor;
 import me.hydos.lint.util.Power;
+import me.hydos.lint.world.tree.CorruptTree;
+import me.hydos.lint.world.tree.MysticalTree;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.AbstractBlock;
@@ -39,6 +41,8 @@ import net.minecraft.block.FluidBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.block.PillarBlock;
+import net.minecraft.block.PlantBlock;
+import net.minecraft.block.SaplingBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
@@ -281,6 +285,16 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
 			);
+
+	/**
+	 * Saplings
+	 */
+	public static final SaplingBlock MYSTICAL_SAPLING = new SaplingBlock(new MysticalTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING)) {
+	};
+
+	public static final SaplingBlock CORRUPT_SAPLING = new SaplingBlock(new CorruptTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING)) {
+	};
+
 	/**
 	 * Corrupt Building Blocks
 	 */
@@ -364,6 +378,9 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		registerCrossPlant(MYSTICAL_DAISY, "yellow_daisy");
 		registerSimpleBlockState("taterbane", TATERBANE, ItemGroups.DECORATIONS);
 
+		registerCrossPlant(MYSTICAL_SAPLING, "mystical_sapling");
+		registerCrossPlant(CORRUPT_SAPLING, "corrupt_sapling");
+
 		registerBlock(ItemGroups.DECORATIONS, RETURN_HOME, "return_home");
 
 		registerCubeAll("mystical_fallen_leaves", MYSTICAL_FALLEN_LEAVES, ItemGroups.DECORATIONS);
@@ -404,7 +421,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		registerBlockItem(block, itemGroup);
 	}
 
-	private static void registerCrossPlant(FlowerBlock flower, String path) {
+	private static void registerCrossPlant(PlantBlock flower, String path) {
 		registerCross(path, flower, ItemGroups.DECORATIONS);
 	}
 
