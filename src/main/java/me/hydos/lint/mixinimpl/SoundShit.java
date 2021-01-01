@@ -93,23 +93,22 @@ public class SoundShit {
 	}
 
 	public static void doRandomLoopSwitcheroo(Biome activeBiome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops, Runnable setActiveBiomeToNull) {
-		if(activeBiome == null){
-			return; // Yeef
-		}
-		Optional<SoundEvent> event = activeBiome.getLoopSound();
+		if (activeBiome != null) {
+			Optional<SoundEvent> event = activeBiome.getLoopSound();
 
-		if (event.isPresent() && prev.isPresent()) {
-			SoundEvent soundEvent = event.get();
+			if (event.isPresent() && prev.isPresent()) {
+				SoundEvent soundEvent = event.get();
 
-			// if it's our sound with variants
-			if (soundEvent.getId().equals(Sounds.MYSTICAL_FOREST.getId())) {
+				// if it's our sound with variants
+				if (soundEvent.getId().equals(Sounds.MYSTICAL_FOREST.getId())) {
 
-				// if the sound isn't changing anyway
-				if (prev.get().getId().equals(event.get().getId())) {
-					if (soundLoops.values().stream().noneMatch(loop -> loop.getSound().getIdentifier().equals(Sounds.MYSTICAL_FOREST.getId()))) {
-						// set to null bc funni hacks
-						setActiveBiomeToNull.run();
-						markClear();
+					// if the sound isn't changing anyway
+					if (prev.get().getId().equals(event.get().getId())) {
+						if (soundLoops.values().stream().noneMatch(loop -> loop.getSound().getIdentifier().equals(Sounds.MYSTICAL_FOREST.getId()))) {
+							// set to null bc funni hacks
+							setActiveBiomeToNull.run();
+							markClear();
+						}
 					}
 				}
 			}
