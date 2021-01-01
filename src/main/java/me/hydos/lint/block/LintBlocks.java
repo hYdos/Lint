@@ -326,10 +326,11 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS));
 
-	public static final Block TATERBANE = new LintGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
+	public static final Block TATERBANE = new TaterbaneBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.GRASS));
+
 	/**
 	 * Mystical Building Blocks
 	 */
