@@ -76,6 +76,7 @@ public class Sounds {
 		register(CORRUPT_FOREST);
 		register(OCEAN);
 		register(DAWN_SHARDLANDS);
+		register(ETHEREAL_GROVES_OF_FRAIYA);
 
 		register(ADVANCEMENT);
 
