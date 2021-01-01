@@ -19,10 +19,16 @@
 
 package me.hydos.lint.world.structure2;
 
-public abstract class LintStructure {
-	protected LintStructure(int maxIterDepth) {
+import me.hydos.lint.util.math.IntGridOperator;
+
+public final class LintStructure {
+	public LintStructure(int maxIterDepth, Room startRoom, IntGridOperator getYStart) {
 		this.maxIterDepth = maxIterDepth;
 	}
 
 	private final int maxIterDepth;
+
+	public int getMaxIterDepth() {
+		return this.maxIterDepth;
+	}
 }

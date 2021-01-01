@@ -20,9 +20,11 @@
 package me.hydos.lint.world;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public interface PseudoWorld {
 	void setBlockState(BlockPos pos, BlockState state);
+	void setChest(BlockPos pos, Identifier lootTable);
 	BlockState getBlockState(BlockPos pos);
 }

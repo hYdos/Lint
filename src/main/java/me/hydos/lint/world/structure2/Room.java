@@ -23,10 +23,11 @@ import java.util.List;
 import java.util.Random;
 
 import me.hydos.lint.world.PseudoWorld;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
 public abstract class Room {
-	protected abstract void generate(PseudoWorld world, Random rand, final Box box);
+	protected abstract void generate(PseudoWorld world, Random rand, BlockPos startPos, final Box box);
 	protected abstract Box getBounds(Random rand);
 	protected abstract List<Room> computeNodes(Box box, Random rand);
 }
