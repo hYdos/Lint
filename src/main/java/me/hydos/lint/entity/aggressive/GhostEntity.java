@@ -81,7 +81,7 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 
 	@Override
 	public void tickMovement() {
-		if (this.isAffectedByDaylight()) {
+		if (this.isAffectedByDaylight()) { //TODO: make not burn in corrupt forest
 			this.setOnFireFor(8);
 		}
 		super.tickMovement();
