@@ -39,6 +39,7 @@ import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
+import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 
@@ -112,6 +113,8 @@ public class Features {
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
 	public static final ConfiguredFeature<?, ?> MYSTICAL_STEMS = register("mystical_stems", Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_STEM_CONFIG)
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(5));
+	public static final ConfiguredFeature<?, ?> GENERIC_BLUE_FLOWERS = register("generic_blue_flowers", Feature.RANDOM_PATCH.configure(Configs.GENERIC_BLUE_FLOWERS_CONFIG)
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(1));
 	public static final ConfiguredFeature<?, ?> MYSTICAL_GRASS = register("mystical_grass", Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_GRASS_CONFIG)
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
 	public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = register("corrupt_stems", Feature.RANDOM_PATCH.configure(Configs.CORRUPT_STEM_CONFIG)
@@ -150,6 +153,7 @@ public class Features {
 	public static final class Configs {
 		public static final RandomPatchFeatureConfig MYSTICAL_DAISY_CONFIG;
 		public static final RandomPatchFeatureConfig MYSTICAL_STEM_CONFIG;
+		public static final RandomPatchFeatureConfig GENERIC_BLUE_FLOWERS_CONFIG;
 		public static final RandomPatchFeatureConfig MYSTICAL_GRASS_CONFIG;
 		public static final RandomPatchFeatureConfig CORRUPT_STEM_CONFIG;
 		public static final RandomPatchFeatureConfig WILTED_FLOWER_CONFIG;
@@ -166,6 +170,10 @@ public class Features {
 					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE))
 					.tries(16).build();
+			GENERIC_BLUE_FLOWERS_CONFIG = (new RandomPatchFeatureConfig.Builder(
+					new SimpleBlockStateProvider(LintBlocks.GENERIC_BLUE_FLOWER.getDefaultState()),
+					new DoublePlantPlacer()))
+					.tries(8).build();
 			MYSTICAL_GRASS_CONFIG = (new RandomPatchFeatureConfig.Builder(
 					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_GRASS.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE))

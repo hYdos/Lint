@@ -1,5 +1,5 @@
 {
-	"credit": "Made with Blockbench",
+	"parent": "block/block",
 	"textures": {
 		"0": "lint:block/rich_dirt",
 		"particle": "lint:block/rich_dirt"
