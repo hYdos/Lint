@@ -17,21 +17,13 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.fluid.api;
+package me.hydos.lint.block;
 
-/**
- * Why did i make lint an fluid api :concern:
- * Used to help convert between different measurements (blocks -> litres cubed, litres cubed -> fluid height)
- *
- * @author hydos
- */
-public class Conversion {
+import net.minecraft.block.FarmlandBlock;
 
-	public static final double NUGGET = 1d / 81d;
-	public static final double INGOT = 1d / 9d;
-	public static final double BLOCK = 1D;
+public class LintFarmlandBlock extends FarmlandBlock {
 
-	public static double getVolume(int volumeWidth, int volumeHeight, int volumeDepth) {
-		return BLOCK * volumeDepth * volumeWidth * volumeHeight;
+	public LintFarmlandBlock(Settings settings) {
+		super(settings);
 	}
 }

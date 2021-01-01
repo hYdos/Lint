@@ -22,6 +22,7 @@ package me.hydos.lint.client.render.block;
 import com.mojang.blaze3d.platform.GlStateManager;
 import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import me.hydos.lint.client.render.fluid.LintFluidRenderer;
+import me.hydos.lint.fluid.SimpleFluidData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
@@ -50,9 +51,15 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 	@Override
 	public void render(SmelteryBlockEntity smeltery, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		if (shouldRenderFluid(smeltery)) {
+			float level = 0.333333333f;
 			BlockPos relativeCenter = smeltery.center.subtract(smeltery.getPos());
 			matrices.translate(relativeCenter.getX(), relativeCenter.getY(), relativeCenter.getZ());
-			renderFluid(matrices, smeltery.getFluidData().get(smeltery.getFluidData().size() - 1).get(), BLOCK_BOUNDS, light, 1.8f);
+			renderFluid(
+					matrices,
+					smeltery.getFluidData().get(smeltery.getFluidData().size() - 1).get(),
+					BLOCK_BOUNDS,
+					light,
+					smeltery.getFluidData().size() * level);
 		}
 	}
 
