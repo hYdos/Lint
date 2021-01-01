@@ -19,13 +19,16 @@
 
 package me.hydos.lint.world.structure2;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 public final class LintStructure {
-	public LintStructure(int maxIterDepth, Room startRoom, StartHeightProvider getYStart, Predicate<Biome> canStartIn) {
+	public LintStructure(long decorationSeed, int maxIterDepth, Function<BlockPos, Room> startRoom, StartHeightProvider getYStart, Predicate<Biome> canStartIn) {
+		this.decorationSeed = decorationSeed;
 		this.maxIterDepth = maxIterDepth;
 		this.startRoom = startRoom;
 		this.getYStart = getYStart;
@@ -33,16 +36,17 @@ public final class LintStructure {
 	}
 
 	private final int maxIterDepth;
-	private final Room startRoom;
+	private final Function<BlockPos, Room> startRoom;
 	private final StartHeightProvider getYStart;
 	private final Predicate<Biome> canStartIn;
+	private final long decorationSeed;
 
 	public int getMaxIterDepth() {
 		return this.maxIterDepth;
 	}
 
-	public Room getStartRoom() {
-		return this.startRoom;
+	public Room getStartRoom(BlockPos pos) {
+		return this.startRoom.apply(pos);
 	}
 
 	public int getYStart(ChunkGenerator generator, int x, int z) {
@@ -51,6 +55,10 @@ public final class LintStructure {
 
 	public boolean canStartIn(Biome biome) {
 		return this.canStartIn.test(biome);
+	}
+
+	public long getDecorationSeed() {
+		return this.decorationSeed;
 	}
 
 	@FunctionalInterface

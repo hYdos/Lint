@@ -19,12 +19,14 @@
 
 package me.hydos.lint.world.structure2;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.collect.ImmutableList;
 
 import it.unimi.dsi.fastutil.objects.Object2BooleanArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 /**
@@ -33,13 +35,34 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
  */
 public final class LintStructureInstance {
 	public LintStructureInstance(LintStructure structure, ChunkGenerator generator, int x, int z) {
-		this.rooms = computeRooms(structure.getStartRoom(), x, structure.getYStart(generator, x, z), z, 0, structure.getMaxIterDepth());
+		BlockPos pos = new BlockPos(x, structure.getYStart(generator, x, z), z);
+		ChunkRandom rand = new ChunkRandom();
+		rand.setPopulationSeed(structure.getDecorationSeed(), x, z);
+
+		this.computeRooms(structure.getStartRoom(pos), rand, 0, structure.getMaxIterDepth());
 	}
 
-	private final List<Room> rooms;
+	private final List<Room> rooms = new ArrayList<>();
 	private final Object2BooleanMap<Room> hasGenerated = new Object2BooleanArrayMap<>();
 
-	private static List<Room> computeRooms(Room startRoom, int x, int y, int z, int i, int maxIterDepth) {
-		return ImmutableList.of(); // TODO write the recursive room gen code
+	private void computeRooms(Room startRoom, ChunkRandom random, int iter, int maxIterDepth) {
+		boolean iterateDeeper = iter < maxIterDepth;
+		startRoom.computeBounds(random);
+
+		roomIterator: for (Room room : startRoom.computeNodes(startRoom.getBoundingBox(), random)) {
+			Box box = room.getBoundingBox();
+
+			for (Room existing : this.rooms) {
+				if (box.intersects(existing.getBoundingBox())) {
+					continue roomIterator;
+				}
+			}
+
+			this.rooms.add(room);
+
+			if (iterateDeeper) {
+				computeRooms(startRoom, random, iter + 1, maxIterDepth);
+			}
+		}
 	}
 }

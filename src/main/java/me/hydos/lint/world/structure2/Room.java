@@ -22,12 +22,38 @@ package me.hydos.lint.world.structure2;
 import java.util.List;
 import java.util.Random;
 
+import org.jetbrains.annotations.Nullable;
+
 import me.hydos.lint.world.StructureWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
 public abstract class Room {
-	protected abstract void generate(StructureWorld world, Random rand, BlockPos startPos, final Box box);
+	protected Room(BlockPos startPos) {
+		this.startPos = startPos;
+	}
+
+	protected final BlockPos startPos;
+	private Box box;
+
+	public final void computeBounds(Random rand) {
+		this.box = this.getBounds(rand);
+	}
+
+	public final void generate(StructureWorld world, Random rand) {
+		this.generate(world, rand, this.box);
+	}
+
+	@Nullable
+	public final Box getBoundingBox() {
+		return this.box;
+	}
+
+	public final BlockPos getStartPos() {
+		return this.startPos;
+	}
+
+	protected abstract void generate(StructureWorld world, Random rand, final Box box);
 	protected abstract Box getBounds(Random rand);
 	protected abstract List<Room> computeNodes(Box box, Random rand);
 }
