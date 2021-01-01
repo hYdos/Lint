@@ -53,6 +53,12 @@
       "lint:grimace"
     ]
   },
+  "music.ethereal_groves_of_fraiya": {
+    "subtitle": "subtitles.ethereal_groves_of_fraiya",
+    "sounds": [
+      "lint:ethereal_groves_of_fraiya"
+    ]
+  },
   "player.advancement": {
     "subtitle": "subtitles.advancement",
     "volume": 10,

@@ -35,8 +35,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 
 public class SoundShit {
-	public static Optional<SoundEvent> prev = Optional.empty();
-	public static Optional<SoundEvent> next = Optional.empty();
+	private static Optional<SoundEvent> prev = Optional.empty();
+	private static Optional<SoundEvent> next = Optional.empty();
 	private static final Set<Identifier> BOSS_MUSIC = new HashSet<>();
 	public static boolean magicBossMusicFlag = false;
 
@@ -65,6 +65,14 @@ public class SoundShit {
 		prev = next;
 	}
 
+	public static void markPrev(Biome biome) {
+		prev = biome.getLoopSound();
+	}
+
+	public static void markNext(Biome biome) {
+		next = biome.getLoopSound();
+	}
+
 	public static void doOtherShit(SoundEvent sound, SoundManager manager, Biome biome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
 		magicBossMusicFlag = false;
 		biome.getLoopSound().ifPresent(soundEvent -> soundLoops.compute(biome, (biomex, musicLoop) -> {
@@ -76,5 +84,10 @@ public class SoundShit {
 			musicLoop.fadeIn();
 			return musicLoop;
 		}));
+	}
+
+	public static void markClear() {
+		prev = Optional.empty();
+		next = Optional.empty();
 	}
 }

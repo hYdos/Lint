@@ -49,6 +49,7 @@ public class Sounds {
 	public static final SoundEvent CORRUPT_FOREST = new SoundEvent(Lint.id("music.corrupt_forest"));
 	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
 	public static final SoundEvent DAWN_SHARDLANDS = new SoundEvent(Lint.id("music.dawn_shardlands"));
+	public static final SoundEvent ETHEREAL_GROVES_OF_FRAIYA = new SoundEvent(Lint.id("music.ethereal_groves_of_fraiya"));
 
 	/**
 	 * Misc Sounds
