@@ -109,7 +109,7 @@ public class SmelteryScreenHandler extends ScreenHandler {
 		public void markDirty() {
 			super.markDirty();
 			Item item = inventory.getStack(id).getItem();
-			if (item != Items.AIR) {
+			if (item != Items.AIR && getBlockEntity().getFluidData().size() < 5) { //TODO: make levels a 9th of the size
 				// Check the molten fluid registries for the item.
 				for (LintFluids.FluidEntry entry : LintFluids.MOLTEN_FLUID_MAP.values()) {
 					if (entry.getNuggetItem() == item) {

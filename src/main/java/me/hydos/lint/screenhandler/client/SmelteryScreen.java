@@ -19,10 +19,8 @@
 
 package me.hydos.lint.screenhandler.client;
 
-import me.hydos.lint.Lint;
 import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import me.hydos.lint.client.render.fluid.LintFluidRenderer;
-import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.SimpleFluidData;
 import me.hydos.lint.screenhandler.SmelteryScreenHandler;
 import net.minecraft.client.MinecraftClient;
@@ -45,8 +43,7 @@ import java.awt.*;
 
 public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 
-	public static final Identifier GUI = new Identifier("lint", "textures/gui/container/smeltery_inventory.png");
-	private static final Identifier IRON_FLUID = Lint.id("iron");
+	public static final Identifier GUI = new Identifier("lint", "textures/gui/screen/smeltery_inventory.png");
 
 	public SmelteryScreen(ScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
@@ -60,7 +57,7 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 		SmelteryBlockEntity smeltery = (SmelteryBlockEntity) MinecraftClient.getInstance().world.getBlockEntity(smelteryPos);
 		for (int i = 0; i < smeltery.getFluidData().size(); i++) {
 			SimpleFluidData layerFluid = smeltery.getFluidData().get(i);
-			if(layerFluid != null) {
+			if (layerFluid != null) {
 				renderFluid(matrices, layerFluid.get(), new Rectangle(new Point(x + 8, (y + 59) - layerSpacing * i), new Dimension(72, layerSpacing)));
 			}
 		}

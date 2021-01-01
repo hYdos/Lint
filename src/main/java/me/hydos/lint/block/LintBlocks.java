@@ -29,17 +29,7 @@ import me.hydos.lint.mixin.FireBlockAccessor;
 import me.hydos.lint.util.Power;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
@@ -60,6 +50,10 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0.5f)
 			.breakByTool(FabricToolTags.SHOVELS, 0)
 			.sounds(BlockSoundGroup.SAND);
+
+	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
+			new LintFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)),
+			ItemGroups.BLOCKS);
 
 	public static final Block BASIC_CASING = registerCubeAll("basic_casing",
 			new Block(FabricBlockSettings.of(Material.STONE)
@@ -273,14 +267,14 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-			);
+	);
 	public static final FlowerBlock WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-			);
+	);
 	/**
 	 * Corrupt Building Blocks
 	 */
@@ -307,7 +301,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.breakInstantly()
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS));
-	
+
 	public static final Block TATERBANE = new LintGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.hardness(0.5f)
@@ -325,7 +319,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-			);
+	);
 	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
 	/**
 	 * Misc Building Blocks
