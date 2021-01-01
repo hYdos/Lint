@@ -27,5 +27,10 @@ public class NotMusicLoop extends MusicLoop {
 		super(sound);
 
 		this.repeat = false;
+		this.looping = false;
+	}
+
+	public void setAsDone() {
+		this.setDone();
 	}
 }

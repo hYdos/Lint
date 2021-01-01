@@ -31,7 +31,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.mixinimpl.SoundShit;
-import me.hydos.lint.sound.NotMusicLoop;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -39,7 +38,6 @@ import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer.MusicLoop;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
 
@@ -108,13 +106,7 @@ public class BiomeEffectSoundPlayerMixin {
 			at = @At(value = "NEW", target = "net/minecraft/client/sound/BiomeEffectSoundPlayer$MusicLoop"),
 			method = "method_25459")
 	private MusicLoop onMusicLoopConstruct(SoundEvent event) {
-		Identifier id = event.getId();
-
-		if (id.equals(Sounds.MYSTICAL_FOREST.getId()) || id.equals(Sounds.ETHEREAL_GROVES_OF_FRAIYA.getId())) {
-			return new NotMusicLoop(event);
-		} else {
-			return new MusicLoop(event);
-		}
+		return SoundShit.constructMusicLoop(event);
 	}
 
 	@Inject(

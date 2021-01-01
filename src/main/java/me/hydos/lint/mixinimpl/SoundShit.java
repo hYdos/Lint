@@ -26,6 +26,7 @@ import java.util.Set;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import me.hydos.lint.sound.NotMusicLoop;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer.MusicLoop;
@@ -115,6 +116,16 @@ public class SoundShit {
 					}
 				}
 			}
+		}
+	}
+
+	public static MusicLoop constructMusicLoop(SoundEvent event) {
+		Identifier id = event.getId();
+
+		if (id.equals(Sounds.MYSTICAL_FOREST.getId()) || id.equals(Sounds.ETHEREAL_GROVES_OF_FRAIYA.getId())) {
+			return new NotMusicLoop(event);
+		} else {
+			return new MusicLoop(event);
 		}
 	}
 }
