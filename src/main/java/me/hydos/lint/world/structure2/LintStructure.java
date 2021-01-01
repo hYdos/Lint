@@ -19,16 +19,42 @@
 
 package me.hydos.lint.world.structure2;
 
-import me.hydos.lint.util.math.IntGridOperator;
+import java.util.function.Predicate;
+
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 public final class LintStructure {
-	public LintStructure(int maxIterDepth, Room startRoom, IntGridOperator getYStart) {
+	public LintStructure(int maxIterDepth, Room startRoom, StartHeightProvider getYStart, Predicate<Biome> canStartIn) {
 		this.maxIterDepth = maxIterDepth;
+		this.startRoom = startRoom;
+		this.getYStart = getYStart;
+		this.canStartIn = canStartIn;
 	}
 
 	private final int maxIterDepth;
+	private final Room startRoom;
+	private final StartHeightProvider getYStart;
+	private final Predicate<Biome> canStartIn;
 
 	public int getMaxIterDepth() {
 		return this.maxIterDepth;
+	}
+
+	public Room getStartRoom() {
+		return this.startRoom;
+	}
+
+	public int getYStart(ChunkGenerator generator, int x, int z) {
+		return this.getYStart.findStartHeight(generator, x, z);
+	}
+
+	public boolean canStartIn(Biome biome) {
+		return this.canStartIn.test(biome);
+	}
+
+	@FunctionalInterface
+	public static interface StartHeightProvider {
+		int findStartHeight(ChunkGenerator generator, int x, int z);
 	}
 }

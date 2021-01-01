@@ -22,12 +22,12 @@ package me.hydos.lint.world.structure2;
 import java.util.List;
 import java.util.Random;
 
-import me.hydos.lint.world.PseudoWorld;
+import me.hydos.lint.world.StructureWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
 public abstract class Room {
-	protected abstract void generate(PseudoWorld world, Random rand, BlockPos startPos, final Box box);
+	protected abstract void generate(StructureWorld world, Random rand, BlockPos startPos, final Box box);
 	protected abstract Box getBounds(Random rand);
 	protected abstract List<Room> computeNodes(Box box, Random rand);
 }

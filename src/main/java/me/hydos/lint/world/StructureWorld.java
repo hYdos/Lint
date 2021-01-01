@@ -23,8 +23,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
-public interface PseudoWorld {
+public interface StructureWorld {
 	void setBlockState(BlockPos pos, BlockState state);
 	void setChest(BlockPos pos, Identifier lootTable);
-	BlockState getBlockState(BlockPos pos);
+
+	int getSeaLevel();
+	int getHeight(int x, int z);
 }
