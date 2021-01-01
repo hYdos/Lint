@@ -48,6 +48,10 @@ public class ItemGroups {
 			.icon(() -> new ItemStack(LintItems.TATER_ESSENCE))
 			.build();
 
+	public static final ItemGroup FOOD = FabricItemGroupBuilder.create(
+			Lint.id("lint_food"))
+			.icon(() -> new ItemStack(LintBlocks.COOKIE_BLOCK))
+			.build();
 	public static void register() {
 	}
 }

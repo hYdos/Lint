@@ -100,6 +100,11 @@ public final class LintBlocks extends LintAutoDataRegistry {
 					.requiresTool()),
 			ItemGroups.BLOCKS);
 
+	public static final Block COOKIE_BLOCK = registerCubeAll(
+			"cookie_block",
+			new Block(FabricBlockSettings.copyOf(Blocks.CAKE)),
+			ItemGroups.FOOD);
+
 	public static final Block INDIGO_STONE = registerCubeAll(
 			"indigo_stone",
 			new Block(FabricBlockSettings.copyOf(Blocks.STONE)
