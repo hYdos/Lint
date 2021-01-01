@@ -62,7 +62,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 public class EasternRosellaEntity extends AbstractBirdEntity implements Flutterer {
 
 	private static final AnimationBuilder FLY_ANIMATION = new AnimationBuilder().addAnimation("animation.eastern_rosella.fly", true);
-	private static final AnimationBuilder IDLE_ANiMATION = new AnimationBuilder().addAnimation("animation.eastern_rosella.idle", true);
+	private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.eastern_rosella.idle", true);
 
 	public EasternRosellaEntity(EntityType<EasternRosellaEntity> type, World world) {
 		super(Birds.EASTERN_ROSELLA, world, Birds.EASTERN_ROSELLA_DATA);
@@ -117,7 +117,7 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 		if (world.getBlockState(getBlockPos().down()) == Blocks.AIR.getDefaultState()) {
 			event.getController().setAnimation(FLY_ANIMATION);
 		} else {
-			event.getController().setAnimation(IDLE_ANiMATION);
+			event.getController().setAnimation(IDLE_ANIMATION);
 		}
 		return PlayState.CONTINUE;
 	}

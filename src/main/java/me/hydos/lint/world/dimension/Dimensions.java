@@ -41,9 +41,9 @@ public class Dimensions {
 	public static final RegistryKey<World> FRAIYA_WORLD = RegistryKey.of(Registry.DIMENSION, Lint.id("fraiya"));
 
 	/**
-	 * Haykam Dimension
+	 * Fraiya Dimension
 	 */
-	public static final DimensionType HAYKAM = DimensionTypeAccessor.create(
+	public static final DimensionType FRAIYA = DimensionTypeAccessor.create(
 			OptionalLong.empty(),
 			true,
 			false,
@@ -53,7 +53,7 @@ public class Dimensions {
 			true,
 			true,
 			false,
-			false,
+			true,
 			256,
 			BlockTags.INFINIBURN_OVERWORLD.getId(),
 			OVERWORLD_ID,

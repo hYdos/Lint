@@ -1,0 +1,64 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.ghost.idle": {
+			"loop": true,
+			"animation_length": 1.44,
+			"bones": {
+				"floaty_thing1": {
+					"rotation": {
+						"0.0": {
+							"vector": [12.5, 0, 0]
+						},
+						"0.52": {
+							"vector": [0, 0, 0]
+						},
+						"1.44": {
+							"vector": [7.5, 0, 0]
+						}
+					}
+				},
+				"floaty_thing2": {
+					"rotation": {
+						"0.0": {
+							"vector": [5, 0, 0]
+						},
+						"0.72": {
+							"vector": [-2.5, 0, 0]
+						},
+						"1.44": {
+							"vector": [10, 0, 0]
+						}
+					}
+				},
+				"floaty_thing3": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"0.72": {
+							"vector": [-2.5, 0, 0]
+						},
+						"1.44": {
+							"vector": [10, 0, 0]
+						}
+					}
+				},
+				"floaty_thing4": {
+					"rotation": {
+						"0.0": {
+							"vector": [7.5, 0, 0]
+						},
+						"0.52": {
+							"vector": [2.5, 0, 0]
+						},
+						"0.92": {
+							"vector": [7.5, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

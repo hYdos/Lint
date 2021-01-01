@@ -48,7 +48,7 @@ public class GameRendererMixin {
 		final World world = this.client.world;
 		final DimensionType dimensionType = world.getDimension();
 
-		if (dimensionType == Dimensions.HAYKAM) { // Add dimension type checks here for fog distance there
+		if (dimensionType == Dimensions.FRAIYA) { // Add dimension type checks here for fog distance there
 			final Vec3d playerPos = this.client.player.getPos();
 			double x = playerPos.getX();
 			double z = playerPos.getZ();

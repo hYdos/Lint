@@ -61,7 +61,7 @@ public class WorldRendererMixin {
 
 	@Inject(at = @At("HEAD"), method = "renderSky", cancellable = true)
 	private void renderLintSky(MatrixStack matrices, float tickDelta, CallbackInfo info) {
-		if (this.world.getDimension() == Dimensions.HAYKAM) {
+		if (this.world.getDimension() == Dimensions.FRAIYA) {
 			LintSky.renderLintSky(matrices, this.textureManager,
 					this.lightSkyBuffer, this.darkSkyBuffer, this.starsBuffer,
 					this.skyVertexFormat, this.client, this.world, tickDelta);

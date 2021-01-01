@@ -39,7 +39,7 @@ public class DimensionTypeMixin {
 
 	@Inject(method = "addRegistryDefaults", at = @At("TAIL"))
 	private static void addAdditionalDefaults(DynamicRegistryManager.Impl registryManager, CallbackInfoReturnable<DynamicRegistryManager.Impl> cir) {
-		Registry.register(registryManager.getDimensionTypes(), Dimensions.FRAIYA_DIM.getValue(), Dimensions.HAYKAM);
+		Registry.register(registryManager.getDimensionTypes(), Dimensions.FRAIYA_DIM.getValue(), Dimensions.FRAIYA);
 	}
 
 	@Inject(method = "createDefaultDimensionOptions", at = @At("TAIL"))

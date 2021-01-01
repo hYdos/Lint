@@ -20,10 +20,14 @@
 package me.hydos.lint.mixin;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.EndermanEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.Tag;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,9 +38,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Entity.class)
-public class EntityMixin {
+public abstract class EntityMixin {
 
-	@Shadow public World world;
+	@Shadow
+	public World world;
+
+	@Shadow
+	public abstract Vec3d getPos();
+
+	@Shadow
+	public abstract BlockPos getBlockPos();
 
 	@Redirect(method = "updateMovementInFluid", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/tag/Tag;)Z"))
 	private boolean isIn(FluidState state, Tag<Fluid> tag) {
@@ -49,6 +60,6 @@ public class EntityMixin {
 
 	@Inject(method = "isWet", at = @At("HEAD"), cancellable = true)
 	private void isRaining(CallbackInfoReturnable<Boolean> cir) {
-		 cir.setReturnValue(world.isRaining());
+		cir.setReturnValue(world.isRaining() || this.world.getFluidState(getBlockPos()).isIn(FluidTags.WATER));
 	}
 }
