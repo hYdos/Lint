@@ -26,6 +26,7 @@ import java.util.Set;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import me.hydos.lint.sound.Sounds;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer.MusicLoop;
 import net.minecraft.client.sound.MovingSoundInstance;
@@ -89,5 +90,26 @@ public class SoundShit {
 	public static void markClear() {
 		prev = Optional.empty();
 		next = Optional.empty();
+	}
+
+	public static void doRandomLoopSwitcheroo(Biome activeBiome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops, Runnable setActiveBiomeToNull) {
+		Optional<SoundEvent> event = activeBiome.getLoopSound();
+
+		if (event.isPresent() && prev.isPresent()) {
+			SoundEvent soundEvent = event.get();
+
+			// if it's our sound with variants
+			if (soundEvent.getId().equals(Sounds.MYSTICAL_FOREST.getId())) {
+
+				// if the sound isn't changing anyway
+				if (prev.get().getId().equals(event.get().getId())) {
+					if (soundLoops.values().stream().noneMatch(loop -> loop.getSound().getIdentifier().equals(Sounds.MYSTICAL_FOREST.getId()))) {
+						// set to null bc funni hacks
+						setActiveBiomeToNull.run();
+						markClear();
+					}
+				}
+			}
+		}
 	}
 }
