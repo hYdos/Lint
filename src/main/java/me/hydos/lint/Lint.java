@@ -66,7 +66,7 @@ public class Lint implements ModInitializer {
 		// Datafixer nonsense
 		// Someone help pls
 //		DataFixerBuilder builder = new DataFixerBuilder(1);
-//		builder.addSchema(Schemas.LINT_V0);
+//		builder.addSchema(Lintv0::new);
 //		Schema schema1 = builder.addSchema(1, Lintv1::new);
 //		builder.addFixer(DimensionNameFix.create(schema1, "Rename Lint Dimension", (string) -> Objects.equals(IdentifierNormalizingSchema.normalize(string), "lint:haykam") ? "lint:fraiya" : string));
 //		builder.build(Util.getMainWorkerExecutor());
