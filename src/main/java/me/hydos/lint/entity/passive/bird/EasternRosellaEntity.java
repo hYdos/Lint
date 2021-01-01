@@ -29,7 +29,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.ai.control.FlightMoveControl;
+import net.minecraft.entity.ai.goal.AttackGoal;
 import net.minecraft.entity.ai.goal.EscapeDangerGoal;
+import net.minecraft.entity.ai.goal.FleeEntityGoal;
 import net.minecraft.entity.ai.goal.FlyOntoTreeGoal;
 import net.minecraft.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
@@ -41,8 +43,13 @@ import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.SpiderEntity;
+import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.entity.passive.CatEntity;
+import net.minecraft.entity.passive.OcelotEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
@@ -65,21 +72,26 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 	public static DefaultAttributeContainer.Builder createBirdAttributes() {
 		return createMobAttributes()
 				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D);
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.4D);
 	}
 
 	@Override
 	protected void initGoals() {
 		this.goalSelector.add(0, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(0, new SwimGoal(this));
-		this.goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
-		this.goalSelector.add(2, new SitGoal(this));
-		this.goalSelector.add(2, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
-		this.goalSelector.add(2, new FlyOntoTreeGoal(this, 1.0D));
+		this.goalSelector.add(1, new FleeEntityGoal<>(this, CatEntity.class, 6.0F, 1.0D, 1.2D));
+		this.goalSelector.add(1, new FleeEntityGoal<>(this, OcelotEntity.class, 6.0F, 1.0D, 1.2D));
+		this.goalSelector.add(1, new FleeEntityGoal<>(this, PlayerEntity.class, le -> true, 6.0F, 1.0D, 1.2D, le -> !le.isSneaking() && EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(le))); // false in last predicate = filter *out*
+		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
+		this.goalSelector.add(3, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
+		this.goalSelector.add(3, new SitGoal(this));
+		this.goalSelector.add(4, new FlyOntoTreeGoal(this, 1.0D));
 		this.goalSelector.add(4, new PounceAtTargetGoal(this, 0.2F));
+		this.goalSelector.add(5, new AttackGoal(this));
 
-		this.targetSelector.add(6, new FollowTargetGoal<>(this, TaterMinionEntity.class, false));
-		this.targetSelector.add(7, new FollowTargetGoal<>(this, TinyPotatoEntity.class, false));
+		this.targetSelector.add(2, new FollowTargetGoal<>(this, TaterMinionEntity.class, false));
+		this.targetSelector.add(3, new FollowTargetGoal<>(this, TinyPotatoEntity.class, false));
 	}
 
 	@Nullable
