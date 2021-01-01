@@ -93,7 +93,7 @@ public class BiomeEffectSoundPlayerMixin {
 				}
 			}
 		}
-		return Optional.of(event.get().getSound());
+		return biome.getEffects().getLoopSound();
 	}
 
 	@Inject(
