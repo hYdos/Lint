@@ -45,18 +45,23 @@ public final class LintStructureInstance {
 		ChunkRandom rand = new ChunkRandom();
 		rand.setPopulationSeed(structure.getDecorationSeed(), x, z);
 
-		this.computeRooms(structure.getStartRoom(pos), rand, 0, configuredStructure.getMaxIterDepth());		
+		this.rooms = new ArrayList<>();
+		Room start = structure.getStartRoom(pos);
+		start.computeBounds(rand);
+		this.computeRooms(start, rand, 0, configuredStructure.getMaxIterDepth());		
 	}
 
 	public final Identifier id;
-	private final List<Room> rooms = new ArrayList<>();
+	private final List<Room> rooms;
 	private final StateBuffer stateBuffer;
 
 	private void computeRooms(Room startRoom, ChunkRandom random, int iter, int maxIterDepth) {
 		boolean iterateDeeper = iter < maxIterDepth;
-		startRoom.computeBounds(random);
 
-		roomIterator: for (Room room : startRoom.computeNodes(startRoom.getBoundingBox(), random)) {
+		List<Room> nodes = startRoom.computeNodes(startRoom.getBoundingBox(), random);
+
+		roomIterator: for (Room room : nodes) {
+			room.computeBounds(random);
 			Box box = room.getBoundingBox();
 
 			// stop rooms intersecting each other
@@ -69,7 +74,7 @@ public final class LintStructureInstance {
 			this.rooms.add(room);
 
 			if (iterateDeeper) {
-				computeRooms(startRoom, random, iter + 1, maxIterDepth);
+				computeRooms(room, random, iter + 1, maxIterDepth);
 			}
 		}
 	}
