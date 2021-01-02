@@ -83,4 +83,8 @@ public final class LintStructureInstance {
 			}
 		});
 	}
+
+	public StateBuffer getStateBuffer() {
+		return this.stateBuffer;
+	}
 }

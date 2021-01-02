@@ -119,6 +119,7 @@ public class Biomes {
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, Features.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_TREES)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_GRASS)
@@ -152,6 +153,7 @@ public class Biomes {
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, Features.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.THICK_MYSTICAL_TREES)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_GRASS)
@@ -194,6 +196,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.RAW_GENERATION, Features.CONFIGURED_VERTICAL_SHAFT)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, Features.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_TREES)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.CORRUPT_STEMS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WILTED_FLOWERS)
@@ -229,6 +232,7 @@ public class Biomes {
 					.surfaceBuilder(OC_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, Features.CONFIGURED_FADING_ASH)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
@@ -261,6 +265,7 @@ public class Biomes {
 					.surfaceBuilder(CB_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, Features.CONFIGURED_FADING_ASH)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
@@ -294,6 +299,7 @@ public class Biomes {
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.RAW_GENERATION, Features.CONFIGURED_VERTICAL_SHAFT)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, Features.CONFIGURED_FADING_ASH)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
@@ -324,6 +330,7 @@ public class Biomes {
 			.spawnSettings(new SpawnSettings.Builder().build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(DS_SB)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
 					// TODO lexmanos boss structure.
 					// TODO allos and manos shards (powerful crystals of the two forces that made the world) as "ores" that spawn hanging from the bottom of the floating islands
 					.build())
@@ -351,6 +358,7 @@ public class Biomes {
 			.spawnSettings(new SpawnSettings.Builder().build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(DSE_SB)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
 					.build())
 			.build();
 

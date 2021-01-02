@@ -51,6 +51,7 @@ public class Features {
 	public static final Feature<DefaultFeatureConfig> RETURN_PORTAL = register("portal", new PortalFeature());
 	public static final Feature<DefaultFeatureConfig> VERTICAL_SHAFT = register("vertical_shaft", new VerticalShaftFeature());
 	public static final Feature<DefaultFeatureConfig> FADING_ASH = register("fading_ash", new FadingAshFeature());
+	public static final Feature<DefaultFeatureConfig> STRUCTURE = register("structure", new LintStructureFeature());
 
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> CORRUPT_TREE = register("corrupt_tree", TREE.configure((
 			new TreeFeatureConfig.Builder(
@@ -105,6 +106,8 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> CONFIGURED_FADING_ASH = register("fading_ash", FADING_ASH.configure(DefaultFeatureConfig.INSTANCE)
 			.decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));
+
+	public static final ConfiguredFeature<?, ?> CONFIGURED_STRUCTURE = register("structure", STRUCTURE.configure(DefaultFeatureConfig.INSTANCE));
 
 	/**
 	 * PATCHY FEATURES

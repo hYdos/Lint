@@ -19,12 +19,20 @@
 
 package me.hydos.lint.world.gen;
 
+import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.world.biome.HaykamBiomeSource;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
+import me.hydos.lint.world.structure2.StructureChunkGenerator;
+import me.hydos.lint.world.structure2.StructureManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
@@ -49,17 +57,12 @@ import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
-
-public class HaykamChunkGenerator extends ChunkGenerator {
+public class HaykamChunkGenerator extends ChunkGenerator implements StructureChunkGenerator {
 
 	public static final Codec<HaykamChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
 			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
-	).apply(instance, instance.stable(HaykamChunkGenerator::new)));
+			).apply(instance, instance.stable(HaykamChunkGenerator::new)));
 	private final ChunkRandom random = new ChunkRandom();
 	private final long seed;
 	private final Registry<Biome> biomeRegistry;
@@ -68,6 +71,7 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 
 	private FloatingIslandModifier floatingIslands;
 	private OctaveSimplexNoiseSampler surfaceNoise;
+	private StructureManager structureManager;
 
 	public HaykamChunkGenerator(Long seed, Registry<Biome> registry) {
 		super(new HaykamBiomeSource(registry, seed), new StructuresConfig(false));
@@ -75,10 +79,13 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 		this.biomeRegistry = registry;
 
 		ServerChunkManagerCallback.EVENT.register(manager -> {
+			this.structureManager = new StructureManager(this);
+
 			long worldSeed = ((ServerWorld) manager.getWorld()).getSeed();
 			Random rand = new Random(seed);
 			this.terrain = new HaykamTerrainGenerator(worldSeed, rand);
 			((HaykamBiomeSource) this.biomeSource).setTerrainData(this.terrain);
+
 			this.floatingIslands = new FloatingIslandModifier(worldSeed);
 			this.surfaceNoise = new OctaveSimplexNoiseSampler(this.random, IntStream.rangeClosed(-3, 0));
 		});
@@ -211,7 +218,16 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 	}
 
 	@Override
+	public StructureManager getStructureManager() {
+		return this.structureManager;
+	}
+
+	@Override
 	public void generateFeatures(ChunkRegion region, StructureAccessor accessor) {
+		// prepare structures
+		this.structureManager.prepareChunkForPopulation(region, this.seed, region.getCenterChunkX(), region.getCenterChunkZ());
+
+		// generate features
 		super.generateFeatures(region, accessor);
 
 		int centreChunkX = region.getCenterChunkX();
@@ -246,7 +262,6 @@ public class HaykamChunkGenerator extends ChunkGenerator {
 						configured.generate(region, this, random, pos);
 					} catch (Exception var22) {
 						CrashReport report = CrashReport.create(var22, "Feature placement");
-						// noinspection Convert2MethodRef - Java 8 compiler bug
 						report.addElement("Feature").add("Id", Registry.FEATURE.getId(configured.feature)).add("Config", configured.config).add("Description", () -> configured.feature.toString());
 						throw new CrashException(report);
 					}
