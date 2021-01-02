@@ -17,22 +17,18 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block;
+package me.hydos.lint.block.plant;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
+import net.minecraft.util.shape.VoxelShapes;
 
-public class LintGrassBlock extends FlowerBlock {
-
-	public LintGrassBlock(StatusEffect effect, Settings settings) {
-		super(effect, 7, settings);
+public class TaterbaneBlock extends LintGrassBlock {
+	public TaterbaneBlock(StatusEffect effect, Settings settings) {
+		super(effect, settings, VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.875, 0.5, 0.875));
 	}
 
 	@Override
-	protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
-		return floor == LintBlocks.LIVELY_GRASS.getDefaultState();
+	public OffsetType getOffsetType() {
+		return OffsetType.NONE;
 	}
 }

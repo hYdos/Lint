@@ -35,6 +35,7 @@ public abstract class Room {
 
 	protected final BlockPos startPos;
 	private Box box;
+	private boolean generated;
 
 	public final void computeBounds(Random rand) {
 		this.box = this.getBounds(rand);
@@ -42,6 +43,7 @@ public abstract class Room {
 
 	public final void generate(StructureWorld world, Random rand) {
 		this.generate(world, rand, this.box);
+		this.generated = true;
 	}
 
 	@Nullable
@@ -51,6 +53,10 @@ public abstract class Room {
 
 	public final BlockPos getStartPos() {
 		return this.startPos;
+	}
+
+	public final boolean hasGenerated() {
+		return this.generated;
 	}
 
 	protected abstract void generate(StructureWorld world, Random rand, final Box box);

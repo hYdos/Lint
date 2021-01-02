@@ -21,9 +21,8 @@ package me.hydos.lint.world.structure2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import it.unimi.dsi.fastutil.objects.Object2BooleanArrayMap;
-import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import me.hydos.lint.world.StateBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -46,7 +45,6 @@ public final class LintStructureInstance {
 	}
 
 	private final List<Room> rooms = new ArrayList<>();
-	private final Object2BooleanMap<Room> hasGenerated = new Object2BooleanArrayMap<>();
 	private final StateBuffer stateBuffer;
 
 	private void computeRooms(Room startRoom, ChunkRandom random, int iter, int maxIterDepth) {
@@ -69,5 +67,15 @@ public final class LintStructureInstance {
 				computeRooms(startRoom, random, iter + 1, maxIterDepth);
 			}
 		}
+	}
+
+	public void prepareChunk(Box chunkBox, Random rand) {
+		this.rooms.forEach(room -> {
+			if (!room.hasGenerated()) {
+				if (room.getBoundingBox().intersects(chunkBox)) {
+					room.generate(this.stateBuffer, rand);
+				}
+			}
+		});
 	}
 }

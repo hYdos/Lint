@@ -22,6 +22,12 @@ package me.hydos.lint.block;
 import java.util.HashMap;
 
 import me.hydos.lint.Lint;
+import me.hydos.lint.block.plant.FallenLeavesBlock;
+import me.hydos.lint.block.plant.LintCorruptGrassBlock;
+import me.hydos.lint.block.plant.LintGrassBlock;
+import me.hydos.lint.block.plant.LintLeavesBlock;
+import me.hydos.lint.block.plant.LintTallFlowerBlock;
+import me.hydos.lint.block.plant.TaterbaneBlock;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
@@ -38,6 +44,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.shape.VoxelShapes;
 
 public final class LintBlocks extends LintAutoDataRegistry {
 	/**
@@ -327,7 +334,8 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.breakInstantly()
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
-			.nonOpaque()
+			.nonOpaque(),
+			VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.9375, 0.5, 0.875)
 	);
 	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
 	/**

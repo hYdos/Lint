@@ -17,24 +17,38 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block;
+package me.hydos.lint.block.plant;
 
+import org.jetbrains.annotations.Nullable;
+
+import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
-public class FallenLeavesBlock extends LeavesBlock {
-
-	public FallenLeavesBlock(Settings settings) {
-		super(settings);
+public class LintGrassBlock extends FlowerBlock {
+	public LintGrassBlock(StatusEffect effect, Settings settings) {
+		this(effect, settings, null);
 	}
 
+	public LintGrassBlock(StatusEffect effect, Settings settings, @Nullable VoxelShape shape) {
+		super(effect, 7, settings);
+		this.shape = shape;
+	}
+
+	private final VoxelShape shape;
+
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
-		return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 0.0625f, 1f);
+	protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
+		return floor == LintBlocks.LIVELY_GRASS.getDefaultState();
+	}
+	
+	@Override
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+		return this.shape == null ? super.getOutlineShape(state, world, pos, context) : this.shape;
 	}
 }
