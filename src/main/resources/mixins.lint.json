@@ -15,7 +15,8 @@
     "ItemTagsProviderMixin",
     "ServerChunkManagerMixin",
     "SoundEventMixin",
-    "StructurePoolsMixin"
+    "StructurePoolsMixin",
+    "WorldMixin"
   ],
   "client": [
     "client.BiomeEffectSoundPlayerMixin",
