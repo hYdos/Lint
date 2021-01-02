@@ -22,12 +22,12 @@ package me.hydos.lint.block;
 import java.util.HashMap;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.plant.FallenLeavesBlock;
-import me.hydos.lint.block.plant.LintCorruptGrassBlock;
-import me.hydos.lint.block.plant.LintGrassBlock;
-import me.hydos.lint.block.plant.LintLeavesBlock;
-import me.hydos.lint.block.plant.LintTallFlowerBlock;
-import me.hydos.lint.block.plant.TaterbaneBlock;
+import me.hydos.lint.block.organic.FallenLeavesBlock;
+import me.hydos.lint.block.organic.LintCorruptGrassBlock;
+import me.hydos.lint.block.organic.LintGrassBlock;
+import me.hydos.lint.block.organic.LintLeavesBlock;
+import me.hydos.lint.block.organic.LintTallFlowerBlock;
+import me.hydos.lint.block.organic.TaterbaneBlock;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;

@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block.plant;
+package me.hydos.lint.block.organic;
 
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
