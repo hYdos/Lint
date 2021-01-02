@@ -4,9 +4,13 @@ plugins {
 }
 
 group = "me.hydos"
-version = "2.0.0-SNAPSHOT"
+version = "2.0.0-INDEV"
 
 repositories {
+	maven {
+		name = "Curseforge Maven"
+		url = uri("https://www.cursemaven.com")
+	}
 	maven {
 		name = "Gecko Lib Repository"
 		url = uri("https://repo.repsy.io/mvn/gandiber/geckolib")
@@ -33,12 +37,12 @@ dependencies {
 	mappings("net.fabricmc", "yarn", "1.16.4+build.7", classifier = "v2")
 
 	modImplementation("net.fabricmc", "fabric-loader", "0.10.8")
-	modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.28.4+1.16")
+	modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.29.1+1.16")
 
-	include(modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev"))
+	modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev")
+
 	include(modImplementation("net.devtech", "arrp", "0.3.2"))
-
-	include(implementation("com.github.Vatuu", "discord-rpc", "1.6.2"))
+	include("curse.maven", "geckolib-398667", "3150537")
 
 	modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
 	modRuntime("curse.maven", "worldedit-225608", "3135186")
