@@ -73,4 +73,10 @@ public class Maths {
 
 		return distChunks;
 	}
+
+	public static int manhattan(int x, int y, int x1, int y1) {
+		int dx = Math.abs(x1 - x);
+		int dy = Math.abs(y1 - y);
+		return dx + dy;
+	}
 }

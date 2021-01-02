@@ -108,6 +108,9 @@ public final class StateBuffer implements StructureWorld {
 					((ChestBlockEntity) entity).setLootTable(chunk.chests.get(pos), random.nextLong());
 				}
 			});
+
+			// free memory
+			this.chunks.remove(chunkPos);
 		}
 	}
 

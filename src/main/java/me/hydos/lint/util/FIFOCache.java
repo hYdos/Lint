@@ -20,21 +20,29 @@
 package me.hydos.lint.util;
 
 import java.util.Iterator;
+import java.util.function.LongFunction;
+import java.util.function.Predicate;
 
 import org.apache.logging.log4j.core.util.ObjectArrayIterator;
 
+/**
+ * Simple First-In First-Out cache of items.
+ * @author Valoeghese
+ */
 public class FIFOCache<T> implements Iterable<T> {
 	public FIFOCache(T[] array) {
 		this.capacity = array.length;
 		this.array = array;
+		this.positions = new long[array.length];
 	}
 
 	private final int capacity;
 	private int size = 0;
 	protected int currentIndex = 0;
 	private final T[] array;
-	
-	public void add(T item) {
+	private final long[] positions;
+
+	public T add(long position, T item) {
 		if (this.capacity > this.size) {
 			this.size++;
 		}
@@ -44,13 +52,46 @@ public class FIFOCache<T> implements Iterable<T> {
 		if (this.currentIndex >= this.capacity) {
 			this.currentIndex = 0;
 		}
+
+		return item;
 	}
-	
+
+	public T getOrAdd(long position, Predicate<T> requires, LongFunction<T> constructor) {
+		if (this.size > 0) {
+			for (int i = 0; i < this.size; ++i) {
+				long l = this.positions[i]; // take the L
+
+				if (l == position) {
+					T maybeResult = this.array[i];
+
+					if (requires.test(maybeResult)) {
+						return maybeResult;
+					} else {
+						continue;
+					}
+				}
+			}
+		}
+
+		// if not exist then we get here
+		return this.add(position, constructor.apply(position));
+	}
+
+	public boolean contains(T item) {
+		for (int i = 0; i < this.size; ++i) {
+			if (this.array[i].equals(item)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public void reset() {
 		this.currentIndex = 0;
 		this.size = 0;
 	}
-	
+
 	public int getSize() {
 		return this.size;
 	}

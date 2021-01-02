@@ -22,6 +22,7 @@ package me.hydos.lint.world.structure2;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
@@ -31,23 +32,19 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
  * Class for structures that use a StateBuffer.
  */
 public final class LintStructure {
-	public LintStructure(long decorationSeed, int maxIterDepth, Function<BlockPos, Room> startRoom, StartHeightProvider getYStart, Predicate<Biome> canStartIn) {
+	public LintStructure(Identifier id, long decorationSeed, Function<BlockPos, Room> startRoom, StartHeightProvider getYStart, Predicate<Biome> canStartIn) {
+		this.id = id;
 		this.decorationSeed = decorationSeed;
-		this.maxIterDepth = maxIterDepth;
 		this.startRoom = startRoom;
 		this.getYStart = getYStart;
 		this.canStartIn = canStartIn;
 	}
 
-	private final int maxIterDepth;
+	public final Identifier id;
 	private final Function<BlockPos, Room> startRoom;
 	private final StartHeightProvider getYStart;
 	private final Predicate<Biome> canStartIn;
 	private final long decorationSeed;
-
-	public int getMaxIterDepth() {
-		return this.maxIterDepth;
-	}
 
 	public Room getStartRoom(BlockPos pos) {
 		return this.startRoom.apply(pos);

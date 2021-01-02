@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Random;
 
 import me.hydos.lint.world.StateBuffer;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.gen.ChunkRandom;
@@ -34,16 +35,20 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
  * Internal class used for handling structure generation.
  */
 public final class LintStructureInstance {
-	public LintStructureInstance(LintStructure structure, ChunkGenerator generator, int x, int z) {
+	public LintStructureInstance(LintConfiguredStructure configuredStructure, ChunkGenerator generator, int x, int z) {
 		this.stateBuffer = new StateBuffer(generator);
+
+		LintStructure structure = configuredStructure.structure;
+		this.id = structure.id;
 
 		BlockPos pos = new BlockPos(x, structure.getYStart(generator, x, z), z);
 		ChunkRandom rand = new ChunkRandom();
 		rand.setPopulationSeed(structure.getDecorationSeed(), x, z);
 
-		this.computeRooms(structure.getStartRoom(pos), rand, 0, structure.getMaxIterDepth());		
+		this.computeRooms(structure.getStartRoom(pos), rand, 0, configuredStructure.getMaxIterDepth());		
 	}
 
+	public final Identifier id;
 	private final List<Room> rooms = new ArrayList<>();
 	private final StateBuffer stateBuffer;
 
