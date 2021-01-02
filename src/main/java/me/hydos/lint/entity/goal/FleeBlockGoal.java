@@ -42,15 +42,19 @@ public class FleeBlockGoal extends Goal {
 	protected final int fleeDistance;
 	protected Path fleePath;
 	protected final EntityNavigation fleeingEntityNavigation;
-	protected final Block blockToFleeFrom;
+	protected final Predicate<Block> blockToFleeFrom;
 	protected final Predicate<LivingEntity> extraInclusionSelector;
 	protected final Predicate<LivingEntity> inclusionSelector;
 
 	public FleeBlockGoal(PathAwareEntity mob, Block fleeFromType, int distance, double slowSpeed, double fastSpeed) {
+		this(mob, blk -> blk == fleeFromType, le -> true, distance, slowSpeed, fastSpeed, EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR::test);
+	}
+
+	public FleeBlockGoal(PathAwareEntity mob, Predicate<Block> fleeFromType, int distance, double slowSpeed, double fastSpeed) {
 		this(mob, fleeFromType, le -> true, distance, slowSpeed, fastSpeed, EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR::test);
 	}
 
-	public FleeBlockGoal(PathAwareEntity mob, Block fleeFromType, Predicate<LivingEntity> extraInclusionSelector, int distance, double slowSpeed, double fastSpeed, Predicate<LivingEntity> inclusionSelector) {
+	public FleeBlockGoal(PathAwareEntity mob, Predicate<Block> fleeFromType, Predicate<LivingEntity> extraInclusionSelector, int distance, double slowSpeed, double fastSpeed, Predicate<LivingEntity> inclusionSelector) {
 		this.mob = mob;
 		this.blockToFleeFrom = fleeFromType;
 		this.extraInclusionSelector = extraInclusionSelector;
@@ -62,7 +66,7 @@ public class FleeBlockGoal extends Goal {
 		this.setControls(EnumSet.of(Goal.Control.MOVE));
 	}
 
-	public FleeBlockGoal(PathAwareEntity fleeingEntity, Block fleeFromType, int distance, double fleeSlowSpeed, double fleeFastSpeed, Predicate<LivingEntity> inclusionSelector) {
+	public FleeBlockGoal(PathAwareEntity fleeingEntity, Predicate<Block> fleeFromType, int distance, double fleeSlowSpeed, double fleeFastSpeed, Predicate<LivingEntity> inclusionSelector) {
 		this(fleeingEntity, fleeFromType, (livingEntity) -> {
 			return true;
 		}, distance, fleeSlowSpeed, fleeFastSpeed, inclusionSelector);
@@ -88,7 +92,7 @@ public class FleeBlockGoal extends Goal {
 					if (y >= 0 && y <= world.getHeight()) {
 						pos2.setY(y);
 
-						if (world.getBlockState(pos2).getBlock() == this.blockToFleeFrom) {
+						if (this.blockToFleeFrom.test(world.getBlockState(pos2).getBlock())) {
 							double newSqDist = pos2.getSquaredDistance(pos);
 
 							if (newSqDist < sqdist) {
