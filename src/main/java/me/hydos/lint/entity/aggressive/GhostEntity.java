@@ -19,6 +19,7 @@
 
 package me.hydos.lint.entity.aggressive;
 
+import me.hydos.lint.entity.goal.FleeBlockGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -52,6 +53,12 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 		super.tick();
 		this.noClip = false;
 		this.setNoGravity(true);
+	}
+
+	@Override
+	protected void initGoals() {
+		super.initGoals();
+		this.goalSelector.add(1, new FleeBlockGoal(this, b -> b.getDefaultState().getLuminance() > 8, 9, 1.0f, 2.0f));
 	}
 
 	@Override
