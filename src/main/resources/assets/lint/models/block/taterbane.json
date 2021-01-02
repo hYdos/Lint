@@ -1,5 +1,5 @@
 {
-	"credit": "Made with Blockbench",
+	"parent": "block/cube_all",
 	"textures": {
 		"0": "lint:block/taterbane",
 		"particle": "lint:block/taterbane"

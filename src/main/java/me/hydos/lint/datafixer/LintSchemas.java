@@ -21,13 +21,6 @@ package me.hydos.lint.datafixer;
 
 import com.mojang.datafixers.schemas.Schema;
 
-public class Schemas {
-	public static Schema LINT_V0 = new Lintv0(0, null);
-}
-
-class Lintv0 extends Schema {
-	public Lintv0(int versionKey, Schema parent) {
-		super(versionKey, parent);
-	}
+public class LintSchemas {
 }
 

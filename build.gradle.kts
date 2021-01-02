@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "me.hydos"
-version = "2.0.0-INDEV"
+version = "2.0.0-SNAPSHOT"
 
 repositories {
 	maven {
@@ -39,10 +39,10 @@ dependencies {
 	modImplementation("net.fabricmc", "fabric-loader", "0.10.8")
 	modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.29.1+1.16")
 
-	modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.1", classifier = "dev")
+	modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.2", classifier = "dev")
 
 	include(modImplementation("net.devtech", "arrp", "0.3.2"))
-	include("curse.maven", "geckolib-398667", "3150537")
+	include("curse.maven", "geckolib-398667", "3155712")
 
 	modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
 	modRuntime("curse.maven", "worldedit-225608", "3135186")
