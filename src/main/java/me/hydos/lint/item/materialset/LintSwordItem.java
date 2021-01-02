@@ -63,14 +63,14 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 		return this.attackSpeed;
 	}
 
-	@Override
+	/*@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		if (!context.getWorld().isClient()) {
 			LintEnhancements.enhance(context.getStack(), Power.Broad.THERIA, 1.0f);			
 		}
 
 		return super.useOnBlock(context);
-	}
+	}*/
 
 	@Override
 	public void onAttack(LivingEntity attacker, ItemStack stack, Entity target) {
