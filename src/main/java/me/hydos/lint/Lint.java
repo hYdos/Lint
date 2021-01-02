@@ -74,9 +74,9 @@ public class Lint implements ModInitializer {
 //		builder.build(Util.getMainWorkerExecutor());
 
 		// test structure
-		HaykamChunkGenerator.onStructureSetup(manager -> {
+		/*HaykamChunkGenerator.onStructureSetup(manager -> {
 			manager.addStructure(TestStructureRoom.STRUCTURE, 10, 4, 2);
-		});
+		});*/
 	}
 
 	private void registerLintWorld() {
