@@ -29,10 +29,12 @@ import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
+import me.hydos.lint.mixinimpl.SoundShit;
 import me.hydos.lint.network.ClientNetworking;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.screenhandler.client.LilTaterScreen;
 import me.hydos.lint.screenhandler.client.SmelteryScreen;
+import me.hydos.lint.sound.Sounds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
@@ -67,6 +69,13 @@ public class LintClient implements ClientModInitializer {
 		registerBlockRendererLayers();
 		registerFluidRenderers();
 		registerHandledScreens();
+		registerBossMusicFixes();
+	}
+
+	private void registerBossMusicFixes() {
+		SoundShit.registerBossMusic(Sounds.KING_TATER);
+		SoundShit.registerBossMusic(Sounds.I509);
+		SoundShit.registerBossMusic(Sounds.LEX_MANOS);
 	}
 
 	private void registerBlockEntityRenderers() {

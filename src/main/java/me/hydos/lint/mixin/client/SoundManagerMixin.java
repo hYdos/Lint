@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixin;
+package me.hydos.lint.mixin.client;
 
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.world.dimension.Dimensions;

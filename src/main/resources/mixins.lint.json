@@ -14,8 +14,7 @@
     "GeckoLibMixin",
     "ItemTagsProviderMixin",
     "ServerChunkManagerMixin",
-    "SoundEventAccessor",
-    "SoundManagerMixin",
+    "SoundEventMixin",
     "StructurePoolsMixin"
   ],
   "client": [
@@ -28,6 +27,8 @@
     "client.ModelLoaderMixin",
     "client.MusicLoopMixin",
     "client.PlayerEntityRendererMixin",
+    "client.SoundEventAccessor",
+    "client.SoundManagerMixin",
     "client.SplashScreenMixin",
     "client.WorldRendererMixin"
   ],

@@ -20,11 +20,12 @@
 package me.hydos.lint.sound;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.mixin.SoundEventAccessor;
-import me.hydos.lint.mixinimpl.SoundShit;
+import me.hydos.lint.mixinimpl.LintSoundEvent;
 import net.minecraft.client.sound.MusicType;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class Sounds {
@@ -32,9 +33,9 @@ public class Sounds {
 	/**
 	 * Boss Music
 	 */
-	public static final SoundEvent KING_TATER = SoundShit.registerBossMusic(new SoundEvent(Lint.id("music.king_tater_boss_theme")));
-	public static final SoundEvent I509 = SoundShit.registerBossMusic(new SoundEvent(Lint.id("music.i509_boss_theme")));
-	public static final SoundEvent LEX_MANOS = SoundShit.registerBossMusic(new SoundEvent(Lint.id("music.lex_manos_boss_theme")));
+	public static final SoundEvent KING_TATER = new SoundEvent(Lint.id("music.king_tater_boss_theme"));
+	public static final SoundEvent I509 = new SoundEvent(Lint.id("music.i509_boss_theme"));
+	public static final SoundEvent LEX_MANOS = new SoundEvent(Lint.id("music.lex_manos_boss_theme"));
 
 	/**
 	 * Misc Music
@@ -84,6 +85,6 @@ public class Sounds {
 	}
 
 	private static void register(SoundEvent event) {
-		Registry.register(Registry.SOUND_EVENT, ((SoundEventAccessor) event).getId(), event);
+		Registry.register(Registry.SOUND_EVENT, ((LintSoundEvent) event).getCommonId(), event);
 	}
 }
