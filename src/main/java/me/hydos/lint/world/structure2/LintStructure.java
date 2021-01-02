@@ -26,6 +26,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
+/**
+ * @author Valoeghese
+ * Class for structures that use a StateBuffer.
+ */
 public final class LintStructure {
 	public LintStructure(long decorationSeed, int maxIterDepth, Function<BlockPos, Room> startRoom, StartHeightProvider getYStart, Predicate<Biome> canStartIn) {
 		this.decorationSeed = decorationSeed;
