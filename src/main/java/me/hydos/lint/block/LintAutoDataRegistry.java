@@ -206,7 +206,4 @@ public class LintAutoDataRegistry {
 			Registry.register(Registry.ITEM, id, new BlockItem(block, settings));
 		}
 	}
-
-	LintAutoDataRegistry() {
-	}
 }

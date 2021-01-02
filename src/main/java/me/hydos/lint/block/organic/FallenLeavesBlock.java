@@ -17,33 +17,24 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block.plant;
+package me.hydos.lint.block.organic;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 
-import java.util.Random;
+public class FallenLeavesBlock extends LeavesBlock {
 
-public class LintLeavesBlock extends LeavesBlock {
-
-	public LintLeavesBlock(Settings settings) {
+	public FallenLeavesBlock(Settings settings) {
 		super(settings);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-		super.randomDisplayTick(state, world, pos, random);
-		if (random.nextInt(15) == 1) {
-			double d = (double) pos.getX() + random.nextInt(1);
-			double e = (double) pos.getY() + random.nextInt(1);
-			double f = (double) pos.getZ() + random.nextInt(1);
-			world.addParticle(ParticleTypes.SMOKE, d, e, f, 0.0D, -0.2D, 0.0D);
-		}
+	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
+		return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 0.0625f, 1f);
 	}
 }

@@ -85,7 +85,7 @@ public class TinyPotatoEntity extends TameableShoulderEntity implements Extended
 				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6);
 	}
 
-	public static boolean isValidNaturalSpawn(EntityType<? extends AnimalEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+	public static boolean isConcern(EntityType<?> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
 		return world.getBlockState(pos.down()).isOf(LintBlocks.MYSTICAL_GRASS) && world.getBaseLightLevel(pos, 0) > 8;
 	}
 

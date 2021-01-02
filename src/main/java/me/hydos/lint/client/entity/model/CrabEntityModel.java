@@ -17,24 +17,26 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block.plant;
+package me.hydos.lint.client.entity.model;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
+import me.hydos.lint.Lint;
+import me.hydos.lint.entity.aggressive.CrabEntity;
+import net.minecraft.util.Identifier;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-public class FallenLeavesBlock extends LeavesBlock {
-
-	public FallenLeavesBlock(Settings settings) {
-		super(settings);
+public class CrabEntityModel extends AnimatedGeoModel<CrabEntity> {
+	@Override
+	public Identifier getModelLocation(CrabEntity object) {
+		return Lint.id("geo/crab.geo.json");
 	}
 
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
-		return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 0.0625f, 1f);
+	public Identifier getTextureLocation(CrabEntity object) {
+		return Lint.id("textures/entity/crab.png");
+	}
+
+	@Override
+	public Identifier getAnimationFileLocation(CrabEntity animatable) {
+		return Lint.id("animations/crab.animation.json");
 	}
 }

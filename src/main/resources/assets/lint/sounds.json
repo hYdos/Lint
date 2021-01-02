@@ -72,5 +72,12 @@
     "sounds": [
       "lint:eastern_rosella_idle"
     ]
+  },
+  "crab.idle": {
+    "subtitle": "subtitles.crab.idle",
+    "volume": 10,
+    "sounds": [
+      "lint:crab_idle"
+    ]
   }
 }

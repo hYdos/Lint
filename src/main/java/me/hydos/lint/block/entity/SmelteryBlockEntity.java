@@ -21,12 +21,12 @@ package me.hydos.lint.block.entity;
 
 import me.hydos.lint.block.SmelteryBlock;
 import me.hydos.lint.fluid.SimpleFluidData;
+import me.hydos.lint.multiblock.MultiblockManager;
 import me.hydos.lint.screenhandler.SmelteryScreenHandler;
 import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.LintInventory;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -41,7 +41,6 @@ import net.minecraft.state.property.Property;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -101,29 +100,30 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 	}
 
 	public void updateMultiblock() {
-		center = pos.offset(world.getBlockState(pos).get(SmelteryBlock.FACING).getOpposite());
-		if (!world.isClient()) {
-			BlockPos topCenter = center.up(1);
-
-			int validDirections = 0;
-			// loop through all but up and down directions and check for the casting tag
-			for (Direction direction : Direction.values()) {
-				if (direction != Direction.DOWN && direction != Direction.UP) {
-					Block lowerWall = world.getBlockState(center.offset(direction)).getBlock();
-					Block upperWall = world.getBlockState(topCenter.offset(direction)).getBlock();
-					if (lowerWall.isIn(LintBlockTags.BASIC_CASING) && upperWall.isIn(LintBlockTags.BASIC_CASING)) {
-						validDirections++;
-					}
-				}
-			}
-			if (validDirections == 4) {
-				this.validMultiblock = true;
-				setBlockstateProperty(SmelteryBlock.LIT, true);
-			} else {
-				setBlockstateProperty(SmelteryBlock.LIT, false);
-				this.validMultiblock = false;
-			}
-		}
+		MultiblockManager.findCuboid(world, getPos(), LintBlockTags.BASIC_CASING);
+//		center = pos.offset(world.getBlockState(pos).get(SmelteryBlock.FACING).getOpposite());
+//		if (!world.isClient()) {
+//			BlockPos topCenter = center.up(1);
+//
+//			int validDirections = 0;
+//			// loop through all but up and down directions and check for the casting tag
+//			for (Direction direction : Direction.values()) {
+//				if (direction != Direction.DOWN && direction != Direction.UP) {
+//					Block lowerWall = world.getBlockState(center.offset(direction)).getBlock();
+//					Block upperWall = world.getBlockState(topCenter.offset(direction)).getBlock();
+//					if (lowerWall.isIn(LintBlockTags.BASIC_CASING) && upperWall.isIn(LintBlockTags.BASIC_CASING)) {
+//						validDirections++;
+//					}
+//				}
+//			}
+//			if (validDirections == 4) {
+//				this.validMultiblock = true;
+//				setBlockstateProperty(SmelteryBlock.LIT, true);
+//			} else {
+//				setBlockstateProperty(SmelteryBlock.LIT, false);
+//				this.validMultiblock = false;
+//			}
+//		}
 	}
 
 	@Override

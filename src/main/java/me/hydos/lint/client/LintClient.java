@@ -21,6 +21,7 @@ package me.hydos.lint.client;
 
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.entity.BlockEntities;
+import me.hydos.lint.client.entity.model.CrabEntityModel;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.model.GhostEntityModel;
 import me.hydos.lint.client.entity.render.*;
@@ -111,6 +112,7 @@ public class LintClient implements ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(Entities.TINY_POTATO, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.BEE_TATER, (entityRenderDispatcher, context) -> new BeeTaterEntityRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.GHOST, (entityRenderDispatcher, context) -> new GhostEntityRenderer(entityRenderDispatcher, new GhostEntityModel()));
+		EntityRendererRegistry.INSTANCE.register(Entities.CRAB, (entityRenderDispatcher, context) -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
 		EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.KING_TATER, (entityRenderDispatcher, context) -> new KingTaterRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.I5, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));

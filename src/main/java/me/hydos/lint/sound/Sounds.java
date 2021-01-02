@@ -61,6 +61,7 @@ public class Sounds {
 	 * Entity Sounds
 	 */
 	public static final SoundEvent EASTERN_ROSELLA_IDLE = new SoundEvent(Lint.id("eastern_rosella.idle"));
+	public static final SoundEvent CRAB_IDLE = new SoundEvent(Lint.id("crab.idle"));
 
 	/**
 	 * Boss Music Loops
