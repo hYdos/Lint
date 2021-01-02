@@ -106,6 +106,6 @@ public class FIFOCache<T> implements Iterable<T> {
 
 	@Override
 	public Iterator<T> iterator() {
-		return new ObjectArrayIterator<>(this.array);
+		return new ObjectArrayIterator<>(this.array, 0, this.size);
 	}
 }

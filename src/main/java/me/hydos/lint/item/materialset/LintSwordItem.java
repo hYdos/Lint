@@ -41,12 +41,10 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemStack.TooltipSection;
-import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -153,17 +151,18 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 
 		// I, valoeghese, will write this
 		// Major powers have MAJOR, MINOR and SPECIAL enhancements (which all increase in proficiency as you level up)
-		// Minor powers have only their MAJOR enhancements (but it's somewhere between a major power's major and minor level) and a SPECIAL once you reach the max level.
+		// Minor powers have only their MAJOR enhancements and a SPECIAL once you reach the max level.
+		// More difficult to get stuff for major powers.
 		switch (power) {
 			// Major Powers. Can have one up to level 12.
 			case ALLOS: // Sword Enhancements: Attack Speed (MAJOR), Damage (MINOR), Radiant (SPECIAL)
-				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", MAJOR_POWER_CONSTANT * 0.5 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", MAJOR_CONSTANT * 0.5 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
 			case MANOS: // Sword Enhancements: Toxin (MAJOR), Damage (MINOR), Life_Steal (SPECIAL) TODO make nausea have an actual useful effect on lint bosses
 				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
-			// Minor Powers. Can have two up to level 12 each, with a total level cap of 14.
+			// Minor Powers. Can have two up to level 12 each, with a total level cap of 12.
 			case THERIA: // Cariar of Mind:		Swiftness_Boost (MAJOR), Paralysis - (can't hit or move) (SPECIAL)
 				double multiplier = LintEnhancements.getEnhancement(stack, power) < 6.0 ? 0.011 : 0.008;
 
@@ -182,7 +181,6 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 
 	// Nice simple constants for where this shit works nicely: basically the proportions for if the ability is featured multiple times.
 	// However if the ability is only featured once these aren't really necessary
-	public static final double MAJOR_POWER_CONSTANT = 1.0;
-	public static final double MAJOR_CARIA_CONSTANT = 0.8;
+	public static final double MAJOR_CONSTANT = 1.0;
 	public static final double MINOR_CONSTANT = 0.5;
 }

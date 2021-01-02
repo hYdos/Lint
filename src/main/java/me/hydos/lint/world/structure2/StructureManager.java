@@ -21,11 +21,14 @@ package me.hydos.lint.world.structure2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import me.hydos.lint.util.FIFOCache;
 import me.hydos.lint.util.math.Maths;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
@@ -38,49 +41,59 @@ public final class StructureManager {
 	private final ChunkRandom random = new ChunkRandom();
 	private final FIFOCache<LintStructureInstance> activeInstances = new FIFOCache<>(new LintStructureInstance[16]);
 
-	public void prepareChunkForPopulation(long worldSeed, int chunkX, int chunkZ) {
-		long seed = worldSeed + 1;
-		int blockStartX = (chunkX << 4);
-		int blockStartZ = (chunkZ << 4);
+	public void prepareChunkForPopulation(WorldAccess world, long worldSeed, int chunkX, int chunkZ) {
+		if (!this.structures.isEmpty()) {
+			long seed = worldSeed + 1;
+			int blockStartX = (chunkX << 4);
+			int blockStartZ = (chunkZ << 4);
 
-		Box chunkBox = new Box(blockStartX, 0, blockStartZ, blockStartX + 16, this.generator.getWorldHeight(), blockStartZ + 16);
+			Box chunkBox = new Box(blockStartX, 0, blockStartZ, blockStartX + 16, this.generator.getWorldHeight(), blockStartZ + 16);
 
-		for (LintConfiguredStructure structure : this.structures) {
-			final int gridS = structure.getGridSize();
-			final int startX = chunkX / gridS;
-			final int startZ = chunkZ / gridS;
-			final int prepareDist = structure.getPrepareChunkDistance();
+			for (LintConfiguredStructure structure : this.structures) {
+				final int gridS = structure.getGridSize();
+				final int startX = chunkX / gridS;
+				final int startZ = chunkZ / gridS;
+				final int prepareDist = structure.getPrepareChunkDistance();
 
-			for (int xo = -1; xo <= 1; ++xo) {
-				final int gridX = startX + xo;
+				for (int xo = -1; xo <= 1; ++xo) {
+					final int gridX = startX + xo;
 
-				for (int zo = -1; zo <= 1; ++zo) {
-					final int gridZ = startZ + zo;
+					for (int zo = -1; zo <= 1; ++zo) {
+						final int gridZ = startZ + zo;
 
-					this.random.setPopulationSeed(seed, gridX, gridZ);
+						this.random.setPopulationSeed(seed, gridX, gridZ);
 
-					// structure start chunk coords
-					final int sChunkX = (gridX * gridS) + this.random.nextInt(gridS);
-					final int sChunkZ = (gridZ * gridS) + this.random.nextInt(gridS);
+						// structure start chunk coords
+						final int sChunkX = (gridX * gridS) + this.random.nextInt(gridS);
+						final int sChunkZ = (gridZ * gridS) + this.random.nextInt(gridS);
 
-					// if should make sure the structure is prepared and maybe generate
-					if (Maths.manhattan(chunkX, chunkZ, sChunkX, sChunkZ) <= prepareDist) {
-						long position = ChunkPos.toLong(sChunkX, sChunkZ);
-						LintStructureInstance structureInstance = this.activeInstances.getOrAdd(
-								position,
-								t -> t.id == structure.structure.id,
-								pos -> new LintStructureInstance(
-										structure,
-										this.generator,
-										(sChunkX << 4) + this.random.nextInt(16),
-										(sChunkZ << 4) + this.random.nextInt(16)));
-						this.random.setPopulationSeed(seed, chunkX, chunkZ);
-						structureInstance.prepareChunk(chunkBox, this.random);
+						// if should make sure the structure is prepared and maybe generate
+						if (Maths.manhattan(chunkX, chunkZ, sChunkX, sChunkZ) <= prepareDist) {
+							if (structure.structure.canStartIn(world.getBiome(new BlockPos(8 + (sChunkX << 4), 200, 8 + (sChunkZ << 4))))) {
+								long position = ChunkPos.toLong(sChunkX, sChunkZ);
+								LintStructureInstance structureInstance = this.activeInstances.getOrAdd(
+										position,
+										t -> t.id == structure.structure.id,
+										pos -> new LintStructureInstance(
+												structure,
+												this.generator,
+												(sChunkX << 4) + this.random.nextInt(16),
+												(sChunkZ << 4) + this.random.nextInt(16)));
+								this.random.setPopulationSeed(seed, chunkX, chunkZ);
+								structureInstance.prepareChunk(chunkBox, this.random);
+							}
+						}
 					}
 				}
-			}
 
-			++seed;
+				++seed;
+			}
+		}
+	}
+
+	public void generateLoadedStructures(WorldAccess world, Random random, int chunkX, int chunkZ) {
+		for (LintStructureInstance structure : this.activeInstances) {
+			structure.getStateBuffer().pasteChunk(world, random, chunkX, chunkZ);
 		}
 	}
 
