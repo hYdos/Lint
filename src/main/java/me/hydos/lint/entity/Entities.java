@@ -44,7 +44,7 @@ public class Entities {
 	 */
 	public static final EntityType<BeeTaterEntity> BEE_TATER =
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("bee_tater"), FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, BeeTaterEntity::new)
-					.dimensions(EntityDimensions.fixed(0.3f, 0.4f))
+					.dimensions(EntityDimensions.fixed(0.3f, 2f))
 					.build());
 	public static final EntityType<TinyPotatoEntity> TINY_POTATO =
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("tiny_potato"), FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, TinyPotatoEntity::new)

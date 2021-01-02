@@ -40,6 +40,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
@@ -223,7 +224,7 @@ public class Biomes {
 					.loopSound(Sounds.OCEAN)
 					.skyColor(0x88dfea)
 					.build())
-			.spawnSettings(new SpawnSettings.Builder().build())
+			.spawnSettings(createOceanSpawnSettings())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(OC_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
@@ -374,5 +375,11 @@ public class Biomes {
 	private static void registerBiome(RegistryKey<Biome> key, Biome biome) {
 		Registry.register(BuiltinRegistries.BIOME, key.getValue(), biome);
 		BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(biome), key);
+	}
+
+	private static SpawnSettings createOceanSpawnSettings() {
+		SpawnSettings.Builder builder = new SpawnSettings.Builder();
+		DefaultBiomeFeatures.addOceanMobs(builder, 1, 4, 10);
+		return builder.build();
 	}
 }

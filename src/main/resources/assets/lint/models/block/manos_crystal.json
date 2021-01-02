@@ -1,5 +1,5 @@
 {
-	"credit": "Made with Blockbench",
+	"parent": "block/cube_all",
 	"textures": {
 		"0": "lint:block/manos_crystal",
 		"particle": "lint:block/manos_crystal"

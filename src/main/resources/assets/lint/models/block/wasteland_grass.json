@@ -1,10 +1,10 @@
 {
   "parent": "block/block",
   "textures": {
-    "particle": "lint:block/illgivethisanamelater_grass_top",
+    "particle": "lint:block/wasteland_grass_top",
     "bottom": "lint:block/rich_dirt",
-    "top": "lint:block/illgivethisanamelater_grass_top",
-    "side": "lint:block/illgivethisanamelater_grass_side"
+    "top": "lint:block/wasteland_grass_top",
+    "side": "lint:block/wasteland_grass_side"
   },
   "elements": [
     {
