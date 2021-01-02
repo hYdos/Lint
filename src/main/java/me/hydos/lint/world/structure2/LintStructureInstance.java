@@ -24,6 +24,7 @@ import java.util.List;
 
 import it.unimi.dsi.fastutil.objects.Object2BooleanArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
+import me.hydos.lint.world.StateBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.gen.ChunkRandom;
@@ -35,15 +36,18 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
  */
 public final class LintStructureInstance {
 	public LintStructureInstance(LintStructure structure, ChunkGenerator generator, int x, int z) {
+		this.stateBuffer = new StateBuffer(generator);
+
 		BlockPos pos = new BlockPos(x, structure.getYStart(generator, x, z), z);
 		ChunkRandom rand = new ChunkRandom();
 		rand.setPopulationSeed(structure.getDecorationSeed(), x, z);
 
-		this.computeRooms(structure.getStartRoom(pos), rand, 0, structure.getMaxIterDepth());
+		this.computeRooms(structure.getStartRoom(pos), rand, 0, structure.getMaxIterDepth());		
 	}
 
 	private final List<Room> rooms = new ArrayList<>();
 	private final Object2BooleanMap<Room> hasGenerated = new Object2BooleanArrayMap<>();
+	private final StateBuffer stateBuffer;
 
 	private void computeRooms(Room startRoom, ChunkRandom random, int iter, int maxIterDepth) {
 		boolean iterateDeeper = iter < maxIterDepth;
@@ -52,6 +56,7 @@ public final class LintStructureInstance {
 		roomIterator: for (Room room : startRoom.computeNodes(startRoom.getBoundingBox(), random)) {
 			Box box = room.getBoundingBox();
 
+			// stop rooms intersecting each other
 			for (Room existing : this.rooms) {
 				if (box.intersects(existing.getBoundingBox())) {
 					continue roomIterator;
