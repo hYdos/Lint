@@ -114,19 +114,16 @@ public class SmelteryScreenHandler extends ScreenHandler {
 				// Check the molten fluid registries for the item.
 				for (LintFluids.FluidEntry entry : LintFluids.MOLTEN_FLUID_MAP.values()) {
 					if (entry.getNuggetItem() == item) {
-						System.out.println("Nugget item of " + LintFluids.getId(entry));
 						setStack(ItemStack.EMPTY);
 						getBlockEntity().getFluidData().add(FluidStack.of(entry, ((1f / 9) / 9) * count));
 					}
 
 					if (entry.getIngotItem() == item) {
-						System.out.println("Ingot item of " + LintFluids.getId(entry));
 						setStack(ItemStack.EMPTY);
 						getBlockEntity().getFluidData().add(FluidStack.of(entry, (1f / 9) * count));
 					}
 
 					if (entry.getBlockItem() == item) {
-						System.out.println("Block item of " + LintFluids.getId(entry));
 						setStack(ItemStack.EMPTY);
 						getBlockEntity().getFluidData().add(FluidStack.of(entry, count));
 					}
