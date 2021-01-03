@@ -139,7 +139,16 @@ public class Features {
 			.spreadY(1)
 			.spreadZ(1)
 			.build())
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP.applyChance(6)));
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP.applyChance(9)));
+
+	public static final ConfiguredFeature<?, ?> SPEARMINTS = register("spearmints", Feature.RANDOM_PATCH.configure(Configs.SPEARMINT_CONFIG)
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(4));
+	public static final ConfiguredFeature<?, ?> WATERMINTS = register("watermints", Feature.RANDOM_PATCH.configure(Configs.WATERMINT_CONFIG)
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(2));
+	public static final ConfiguredFeature<?, ?> DILLS = register("dills", Feature.RANDOM_PATCH.configure(Configs.DILL_CONFIG)
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(4));
+	public static final ConfiguredFeature<?, ?> KUREI = register("kurei", Feature.RANDOM_PATCH.configure(Configs.KUREI_CONFIG)
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(3));
 
 	private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
 		return Registry.register(Registry.FEATURE, Lint.id(name), feature);
@@ -160,6 +169,11 @@ public class Features {
 		public static final RandomPatchFeatureConfig MYSTICAL_GRASS_CONFIG;
 		public static final RandomPatchFeatureConfig CORRUPT_STEM_CONFIG;
 		public static final RandomPatchFeatureConfig WILTED_FLOWER_CONFIG;
+
+		public static final RandomPatchFeatureConfig SPEARMINT_CONFIG;
+		public static final RandomPatchFeatureConfig WATERMINT_CONFIG;
+		public static final RandomPatchFeatureConfig DILL_CONFIG;
+		public static final RandomPatchFeatureConfig KUREI_CONFIG;
 
 		public static final RandomPatchFeatureConfig CORRUPT_FALLEN_LEAVES;
 		public static final RandomPatchFeatureConfig MYSTICAL_FALLEN_LEAVES;
@@ -198,6 +212,23 @@ public class Features {
 					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_FALLEN_LEAVES.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE))
 					.tries(6).build();
+
+			SPEARMINT_CONFIG = (new RandomPatchFeatureConfig.Builder(
+					new SimpleBlockStateProvider(LintBlocks.SPEARMINT.getDefaultState()),
+					SimpleBlockPlacer.INSTANCE))
+					.tries(8).build();
+			WATERMINT_CONFIG = (new RandomPatchFeatureConfig.Builder( // quite rare as it needs not only the dirt/grass but also to be next to water. Most water is by sand.
+					new SimpleBlockStateProvider(LintBlocks.WATERMINT.getDefaultState()),
+					SimpleBlockPlacer.INSTANCE))
+					.tries(16).cannotProject().needsWater().build();
+			DILL_CONFIG = (new RandomPatchFeatureConfig.Builder(
+					new SimpleBlockStateProvider(LintBlocks.DILL.getDefaultState()),
+					SimpleBlockPlacer.INSTANCE))
+					.tries(8).build();
+			KUREI_CONFIG = (new RandomPatchFeatureConfig.Builder(
+					new SimpleBlockStateProvider(LintBlocks.KUREI.getDefaultState()),
+					SimpleBlockPlacer.INSTANCE))
+					.tries(8).build();
 		}
 	}
 }

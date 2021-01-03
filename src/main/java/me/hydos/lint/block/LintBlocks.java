@@ -300,6 +300,13 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
 	);
+	public static final FlowerBlock KUREI = new LintCorruptGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
+			.noCollision()
+			.breakInstantly()
+			.hardness(0)
+			.sounds(BlockSoundGroup.GRASS)
+			.nonOpaque()
+			);
 	public static final FlowerBlock WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
@@ -416,6 +423,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		registerCrossPlant(SPEARMINT, "spearmint");
 		registerCrossPlant(WATERMINT, "watermint");
 		registerCrossPlant(DILL, "dill");
+		registerCrossPlant(KUREI, "kurei");
 		registerSimpleBlockState("taterbane", TATERBANE, ItemGroups.DECORATIONS);
 
 		registerCrossPlant(MYSTICAL_SAPLING, "mystical_sapling");
