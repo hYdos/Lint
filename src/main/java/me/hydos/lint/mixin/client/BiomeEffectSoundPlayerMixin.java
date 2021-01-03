@@ -68,7 +68,7 @@ public class BiomeEffectSoundPlayerMixin {
 	private void musicGood1(CallbackInfo info) {
 		SoundEvent sound = MinecraftClient.getInstance().getMusicType().getSound();
 
-		if (SoundShit.isBossMusic(sound.getId())) {
+		if (SoundShit.recordIsPlaying() || SoundShit.isBossMusic(sound.getId())) {
 			SoundShit.doShit(sound, this.soundLoops);
 			info.cancel();
 		} else if (SoundShit.magicBossMusicFlag) {

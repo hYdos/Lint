@@ -132,4 +132,8 @@ public class SoundShit {
 			return new MusicLoop(event);
 		}
 	}
+
+	public static boolean recordIsPlaying() {
+		return false;
+	}
 }
