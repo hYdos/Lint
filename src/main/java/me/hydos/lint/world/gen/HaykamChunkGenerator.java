@@ -31,6 +31,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
+import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.HaykamBiomeSource;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
 import me.hydos.lint.world.structure2.StructureChunkGenerator;
@@ -42,6 +43,7 @@ import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.noise.OctaveSimplexNoiseSampler;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
@@ -75,6 +77,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 	private OctaveSimplexNoiseSampler surfaceNoise;
 	private StructureManager structureManager;
 
+	private final List<Vec2i> villageCentres = new ArrayList<>();
 	public static List<Consumer<StructureManager>> onStructureSetup = new ArrayList<>();
 
 	public HaykamChunkGenerator(Long seed, Registry<Biome> registry) {
@@ -93,6 +96,14 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 
 			this.floatingIslands = new FloatingIslandModifier(worldSeed);
 			this.surfaceNoise = new OctaveSimplexNoiseSampler(this.random, IntStream.rangeClosed(-3, 0));
+			
+			rand.setSeed(seed + 1);
+			double angleRadians = (rand.nextDouble() * Math.PI / 4) - Math.PI / 8;
+			final double rightAngle = Math.PI / 2;
+			this.villageCentres.add(fromRTheta(1000, angleRadians));
+			this.villageCentres.add(fromRTheta(1000, angleRadians + rightAngle));
+			this.villageCentres.add(fromRTheta(1000, angleRadians + 2 * rightAngle));
+			this.villageCentres.add(fromRTheta(1000, angleRadians + 3 * rightAngle));
 		});
 	}
 
@@ -227,6 +238,10 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 		return this.structureManager;
 	}
 
+	public Vec2i[] getVillageCentres() {
+		return this.villageCentres.toArray(new Vec2i[4]);
+	}
+
 	@Override
 	public void generateFeatures(ChunkRegion region, StructureAccessor accessor) {
 		// prepare structures
@@ -279,5 +294,11 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 
 	public static void onStructureSetup(Consumer<StructureManager> callback) {
 		onStructureSetup.add(callback);
+	}
+	
+	private static Vec2i fromRTheta(double r, double theta) {
+		return new Vec2i(
+				MathHelper.floor(Math.cos(theta) * r),
+				MathHelper.floor(Math.sin(theta) * r));
 	}
 }
