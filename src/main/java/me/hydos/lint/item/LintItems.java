@@ -49,6 +49,7 @@ public class LintItems {
 	public static final Item SICIERON_INGOT = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
 	public static final Item TARSCAN_SHARD = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
 	public static final Item JUREL_POWDER = new Item(new Item.Settings().group(ItemGroups.ITEMS).rarity(Rarity.RARE).maxCount(64));
+	public static final Item MAGNETITE_POWDER = new Item(new Item.Settings().group(ItemGroups.ITEMS).rarity(Rarity.RARE).maxCount(64));
 
 	// Alloy of Jurel and Sicieron (1 jurel : 2 sicieron ratio)
 	// Regular Jurel is fragile and becomes a powder readily. Combining it in the 1:2 ratio with regular sicieron allows its powerful properties to be fully utilised in the creation of items.
@@ -91,6 +92,7 @@ public class LintItems {
 		registerGenerated("tater_essence", TATER_ESSENCE);
 		registerGenerated("sicieron_ingot", SICIERON_INGOT);
 		registerGenerated("jurel_powder", JUREL_POWDER);
+		registerGenerated("magnetite_powder", MAGNETITE_POWDER);
 		registerGenerated("tarscan_shard", TARSCAN_SHARD);
 		registerGenerated("hardened_jurel_ingot", HARDENED_JUREL_INGOT);
 	}
