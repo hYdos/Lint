@@ -100,6 +100,7 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 	}
 
 	public void updateMultiblock() {
+		// TODO hydos use new multiblock system
 		MultiblockManager.findCuboid(world, getPos(), LintBlockTags.BASIC_CASING);
 //		center = pos.offset(world.getBlockState(pos).get(SmelteryBlock.FACING).getOpposite());
 //		if (!world.isClient()) {
