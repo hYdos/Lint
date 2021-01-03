@@ -60,6 +60,6 @@ public class Dimensions {
 			0.1F
 	);
 
-	public static void register() {
+	public static void initialize() {
 	}
 }

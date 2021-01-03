@@ -22,7 +22,6 @@ package me.hydos.lint.client.render.block;
 import com.mojang.blaze3d.platform.GlStateManager;
 import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import me.hydos.lint.client.render.fluid.LintFluidRenderer;
-import me.hydos.lint.fluid.SimpleFluidData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
@@ -48,23 +47,23 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 		super(dispatcher);
 	}
 
+	// Fluid stack max level is 8.
 	@Override
 	public void render(SmelteryBlockEntity smeltery, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		if (shouldRenderFluid(smeltery)) {
-			float level = 0.1f;
-			BlockPos relativeCenter = smeltery.center.subtract(smeltery.getPos());
+			BlockPos relativeCenter = smeltery.multiblock.center.subtract(smeltery.getPos());
 			matrices.translate(relativeCenter.getX(), relativeCenter.getY(), relativeCenter.getZ());
 			renderFluid(
 					matrices,
 					smeltery.getFluidData().get(smeltery.getFluidData().size() - 1).get(),
 					BLOCK_BOUNDS,
 					light,
-					smeltery.getFluidData().size() * level);
+					smeltery.getFluidData().get(smeltery.getFluidData().size() - 1).level * 0.24f); //TODO: use some sortof getvolume check from multiblock.
 		}
 	}
 
 	private boolean shouldRenderFluid(SmelteryBlockEntity smeltery) {
-		return smeltery.isActive() && smeltery.getFluidData().size() != 0;
+		return smeltery.isActive() && smeltery.getFluidData().size() != 0 && smeltery.multiblock != null;
 	}
 
 	public void renderFluid(MatrixStack matrices, Fluid fluid, Rectangle bounds, int light, float level) {

@@ -21,7 +21,7 @@ package me.hydos.lint.screenhandler.client;
 
 import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import me.hydos.lint.client.render.fluid.LintFluidRenderer;
-import me.hydos.lint.fluid.SimpleFluidData;
+import me.hydos.lint.fluid.FluidStack;
 import me.hydos.lint.screenhandler.SmelteryScreenHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -56,7 +56,7 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 		BlockPos smelteryPos = ((SmelteryScreenHandler) getScreenHandler()).smelteryPos;
 		SmelteryBlockEntity smeltery = (SmelteryBlockEntity) MinecraftClient.getInstance().world.getBlockEntity(smelteryPos);
 		for (int i = 0; i < smeltery.getFluidData().size(); i++) {
-			SimpleFluidData layerFluid = smeltery.getFluidData().get(i);
+			FluidStack layerFluid = smeltery.getFluidData().get(i);
 			if (layerFluid != null) {
 				renderFluid(matrices, layerFluid.get(), new Rectangle(new Point(x + 8, (y + 59) - layerSpacing * i), new Dimension(72, layerSpacing)));
 			}

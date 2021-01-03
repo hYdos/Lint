@@ -96,7 +96,7 @@ public class SoundShit {
 	public static void doRandomLoopSwitcheroo(Biome activeBiome, SoundManager manager, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops, Runnable setActiveBiomeToNull) {
 		soundLoops.values().forEach(loop -> {
 			if (loop instanceof NotMusicLoop && !manager.isPlaying(loop)) {
-				System.out.println(loop.getId());
+//				System.out.println(loop.getId());
 				((NotMusicLoop)loop).setAsDone();
 			}
 		});

@@ -67,7 +67,7 @@ public class LintItems {
 	public static final Item CORRUPT_FOREST_DISC = new MusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE)) {
 	};
 
-	public static void register() {
+	public static void initialize() {
 		ItemGroups.register();
 		registerOreMaterials();
 		registerMaterialSets();

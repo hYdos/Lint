@@ -25,7 +25,8 @@ import net.minecraft.util.Identifier;
 public class Networking {
 
 	public static final Identifier SEND_BOSSBAR_INFO = Lint.id("send_bossbar_info");
+	public static final Identifier OPEN_NPC_INTERACTION_WINDOW = Lint.id("open_npc_interaction_window");
 
-	public static void register() {
+	public static void initialize() {
 	}
 }

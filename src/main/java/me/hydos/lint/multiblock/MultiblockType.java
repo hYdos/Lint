@@ -34,7 +34,6 @@ import net.minecraft.world.WorldAccess;
 
 /**
  * A type of multiblock. Specifies the tag and shape.
- * @author Valoeghese
  */
 public final class MultiblockType {
 	public MultiblockType(Tag<Block> block) {
@@ -42,21 +41,21 @@ public final class MultiblockType {
 	}
 
 	public final Tag<Block> block;
-	private Collection<Vec3i> shape = new ArrayList<>();
-	private Collection<Vec3i> air = new ArrayList<>();
+	private final Collection<Vec3i> shape = new ArrayList<>();
+	private final Collection<Vec3i> air = new ArrayList<>();
+
 	private BlockPos.Mutable min; // it's a mutable vec3i that's all I need
 	private BlockPos.Mutable max;
 
 	/**
 	 * Adds a position in the structure relative to the controller.
+	 *
 	 * @param xo the relative-rotated x offset
 	 * @param yo the y offset
 	 * @param zo the relative-rotated z offset
 	 * @return this
 	 */
 	public MultiblockType addPosition(int xo, int yo, int zo) {
-		this.shape.add(new Vec3i(xo, yo, zo));
-
 		if (this.shape.isEmpty()) {
 			this.min = new BlockPos.Mutable().set(xo, yo, zo);
 			this.max = new BlockPos.Mutable().set(xo, yo, zo);
@@ -80,6 +79,7 @@ public final class MultiblockType {
 			}
 		}
 
+		this.shape.add(new Vec3i(xo, yo, zo));
 		return this;
 	}
 
@@ -103,6 +103,7 @@ public final class MultiblockType {
 
 		for (GridDirection direction : GridDirection.values()) {
 			shapeSearch: {
+				// check for the multiblock shape
 				for (Vec3i offset : this.shape) {
 					if (direction.horizontal) {
 						pos.set(startX + direction.off * offset.getX(), startY + offset.getY(), startZ + direction.off * offset.getZ());
@@ -115,9 +116,22 @@ public final class MultiblockType {
 					}
 				}
 				
+				// check for air
+				for (Vec3i offset : this.air) {
+					if (direction.horizontal) {
+						pos.set(startX + direction.off * offset.getX(), startY + offset.getY(), startZ + direction.off * offset.getZ());
+					} else {
+						pos.set(startX + direction.off * offset.getZ(), startY + offset.getY(), startZ + direction.off * offset.getX());
+					}
+	
+					if (!world.getBlockState(pos).isAir()) {
+						break shapeSearch;
+					}
+				}
+	
 				BlockPos min;
 				BlockPos max;
-
+	
 				if (direction.horizontal) {
 					min = new BlockPos(startX + direction.off * this.min.getX(), startY + this.min.getY(), startZ + direction.off * this.min.getZ());
 					max = new BlockPos(startX + direction.off * this.max.getX(), startY + this.max.getY(), startZ + direction.off * this.max.getZ());
@@ -125,8 +139,9 @@ public final class MultiblockType {
 					min = new BlockPos(startX + direction.off * this.min.getZ(), startY + this.min.getY(), startZ + direction.off * this.min.getX());
 					max = new BlockPos(startX + direction.off * this.max.getZ(), startY + this.max.getY(), startZ + direction.off * this.max.getX());
 				}
-
-				return new Multiblock(new Box(min, max), controllerPos);
+	
+				Box box = new Box(min, max);
+				return new Multiblock(box, controllerPos, new BlockPos(box.getCenter()));
 			}
 		}
 

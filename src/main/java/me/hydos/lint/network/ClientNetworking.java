@@ -21,7 +21,9 @@ package me.hydos.lint.network;
 
 import me.hydos.lint.bossbar.ClientModernBossBar;
 import me.hydos.lint.bossbar.ModernBossBar;
+import me.hydos.lint.client.screen.NpcInteractionScreen;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 
 public class ClientNetworking {
@@ -42,6 +44,10 @@ public class ClientNetworking {
 				case SET_TITLE:
 					ClientModernBossBar.getInstance().title = buf.readText();
 			}
+		});
+
+		ClientPlayNetworking.registerGlobalReceiver(Networking.OPEN_NPC_INTERACTION_WINDOW, (minecraftClient, clientPlayNetworkHandler, packetByteBuf, packetSender) -> {
+			MinecraftClient.getInstance().openScreen(new NpcInteractionScreen(packetByteBuf));
 		});
 	}
 }

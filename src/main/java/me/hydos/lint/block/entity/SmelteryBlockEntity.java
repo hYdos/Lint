@@ -19,14 +19,9 @@
 
 package me.hydos.lint.block.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import me.hydos.lint.fluid.FluidStack;
+import me.hydos.lint.multiblock.Multiblock;
 import me.hydos.lint.multiblock.Multiblocks;
-import org.jetbrains.annotations.Nullable;
-
-import me.hydos.lint.block.SmelteryBlock;
-import me.hydos.lint.fluid.SimpleFluidData;
 import me.hydos.lint.screenhandler.SmelteryScreenHandler;
 import me.hydos.lint.util.LintInventory;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
@@ -41,17 +36,18 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.property.Property;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, NamedScreenHandlerFactory, BlockEntityClientSerializable {
 
-	private final List<SimpleFluidData> fluidData = new ArrayList<>(5);
-	public BlockPos center;
-	private boolean validMultiblock;
+	public final List<FluidStack> fluidData = new ArrayList<>(5);
 	public LintInventory inventory = new LintInventory(9);
+	public Multiblock multiblock;
 
 	public SmelteryBlockEntity() {
 		super(BlockEntities.SMELTERY);
@@ -74,7 +70,6 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 		CompoundTag serialisedFluidData = new CompoundTag();
 		writeFluidsToTag(serialisedFluidData);
 		tag.put("fluidData", serialisedFluidData);
-		tag.putBoolean("valid_multiblock", validMultiblock);
 		Inventories.toTag(tag, inventory.getRawList());
 		return super.toTag(tag);
 	}
@@ -82,17 +77,9 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 	@Override
 	public void fromTag(BlockState state, CompoundTag tag) {
 		super.fromTag(state, tag);
-		center = pos.offset(state.get(SmelteryBlock.FACING).getOpposite());
 		updateFluids(tag.getCompound("fluidData"));
-		validMultiblock = tag.getBoolean("valid_multiblock");
 		inventory = new LintInventory(9);
 		Inventories.fromTag(tag, inventory.getRawList());
-	}
-
-	public <T extends Comparable<T>> void setBlockstateProperty(Property<T> property, T value) {
-		if (world.getBlockState(pos).get(property) != value) {
-			world.setBlockState(pos, world.getBlockState(pos).with(property, value));
-		}
 	}
 
 	public boolean isActive() {
@@ -100,31 +87,7 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 	}
 
 	public void updateMultiblock() {
-		Multiblocks.SMELTERY.find(world, getPos());
-		//MultiblockManager.findCuboid(world, getPos(), LintBlockTags.BASIC_CASING);
-//		center = pos.offset(world.getBlockState(pos).get(SmelteryBlock.FACING).getOpposite());
-//		if (!world.isClient()) {
-//			BlockPos topCenter = center.up(1);
-//
-//			int validDirections = 0;
-//			// loop through all but up and down directions and check for the casting tag
-//			for (Direction direction : Direction.values()) {
-//				if (direction != Direction.DOWN && direction != Direction.UP) {
-//					Block lowerWall = world.getBlockState(center.offset(direction)).getBlock();
-//					Block upperWall = world.getBlockState(topCenter.offset(direction)).getBlock();
-//					if (lowerWall.isIn(LintBlockTags.BASIC_CASING) && upperWall.isIn(LintBlockTags.BASIC_CASING)) {
-//						validDirections++;
-//					}
-//				}
-//			}
-//			if (validDirections == 4) {
-//				this.validMultiblock = true;
-//				setBlockstateProperty(SmelteryBlock.LIT, true);
-//			} else {
-//				setBlockstateProperty(SmelteryBlock.LIT, false);
-//				this.validMultiblock = false;
-//			}
-//		}
+		multiblock = Multiblocks.SMELTERY.find(world, getPos());
 	}
 
 	@Override
@@ -133,14 +96,14 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 	}
 
 	public void updateFluids(CompoundTag fluidInformation) {
-		if(fluidInformation != null) {
+		if (fluidInformation != null) {
 			for (int i = 0; i < fluidInformation.getInt("size"); i++) {
-				fluidData.add(SimpleFluidData.fromTag((CompoundTag) fluidInformation.get(String.valueOf(i))));
+				fluidData.add(FluidStack.fromTag((CompoundTag) fluidInformation.get(String.valueOf(i))));
 			}
 		}
 	}
 
-	public List<SimpleFluidData> getFluidData() {
+	public List<FluidStack> getFluidData() {
 		return fluidData;
 	}
 

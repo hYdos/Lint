@@ -21,6 +21,7 @@ package me.hydos.lint.client.entity.render;
 
 import me.hydos.lint.client.entity.model.TinyPotatoEntityModel;
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
+import me.hydos.lint.entity.passive.TinyPotatoNpcEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
@@ -46,6 +47,6 @@ public class TinyPotatoEntityRenderer extends MobEntityRenderer<TinyPotatoEntity
 
 	@Override
 	public Identifier getTexture(TinyPotatoEntity entity) {
-		return entity.isTamed() ? TINY_POTATO : IRRITATER;
+		return entity.isTamed() || entity instanceof TinyPotatoNpcEntity ? TINY_POTATO : IRRITATER;
 	}
 }

@@ -17,17 +17,27 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.tag;
+package me.hydos.lint.client.screen;
 
-import me.hydos.lint.Lint;
-import net.fabricmc.fabric.api.tag.TagRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.tag.Tag;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
-public class LintBlockTags {
+public class NpcInteractionScreen extends Screen {
 
-	public static final Tag<Block> BASIC_CASING = TagRegistry.block(Lint.id("basic_smeltery_casing"));
+	public Text text;
 
-	public static void initialize() {
+	public NpcInteractionScreen(PacketByteBuf byteBuf) {
+		super(new LiteralText(byteBuf.readString()));
+		text = byteBuf.readText();
+	}
+
+	@Override
+	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+		super.render(matrices, mouseX, mouseY, delta);
+		fill(matrices, 0, (int) (height/ 1.5f), width, height, 0x99111111);
+		client.textRenderer.draw(matrices, text, 10, height / 1.4f, 0xFFFFFFFF);
 	}
 }
