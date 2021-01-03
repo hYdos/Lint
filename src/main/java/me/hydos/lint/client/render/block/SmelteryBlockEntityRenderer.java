@@ -64,7 +64,7 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 	}
 
 	private boolean shouldRenderFluid(SmelteryBlockEntity smeltery) {
-		return smeltery.isActive() && smeltery.getFluidData().size() != 0;
+		return smeltery.isActive() && smeltery.getFluidData().size() != 0 && smeltery.multiblock != null;
 	}
 
 	public void renderFluid(MatrixStack matrices, Fluid fluid, Rectangle bounds, int light, float level) {

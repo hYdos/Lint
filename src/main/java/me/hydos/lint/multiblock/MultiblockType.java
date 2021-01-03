@@ -47,6 +47,7 @@ public final class MultiblockType {
 
 	/**
 	 * Adds a position relative to the controller.
+	 *
 	 * @param xo the relative-rotated x offset
 	 * @param yo the y offset
 	 * @param zo the relative-rotated z offset
@@ -59,23 +60,23 @@ public final class MultiblockType {
 		}
 
 		this.shape.add(new Vec3i(xo, yo, zo));
-			if (xo < this.min.getX()) {
-				this.min.setX(xo);
-			} else if (xo > this.max.getX()) {
-				this.max.setX(xo);
-			}
+		if (xo < this.min.getX()) {
+			this.min.setX(xo);
+		} else if (xo > this.max.getX()) {
+			this.max.setX(xo);
+		}
 
-			if (yo < this.min.getY()) {
-				this.min.setY(yo);
-			} else if (yo > this.max.getY()) {
-				this.max.setY(yo);
-			}
+		if (yo < this.min.getY()) {
+			this.min.setY(yo);
+		} else if (yo > this.max.getY()) {
+			this.max.setY(yo);
+		}
 
-			if (zo < this.min.getZ()) {
-				this.min.setZ(zo);
-			} else if (zo > this.max.getZ()) {
-				this.max.setZ(zo);
-			}
+		if (zo < this.min.getZ()) {
+			this.min.setZ(zo);
+		} else if (zo > this.max.getZ()) {
+			this.max.setZ(zo);
+		}
 		return this;
 	}
 
@@ -94,12 +95,12 @@ public final class MultiblockType {
 					} else {
 						pos.set(startX + direction.off * offset.getZ(), startY + offset.getY(), startZ + direction.off * offset.getX());
 					}
-	
+
 					if (!world.getBlockState(pos).isIn(this.block)) {
 						break shapeSearch;
 					}
 				}
-				
+
 				BlockPos min;
 				BlockPos max;
 
