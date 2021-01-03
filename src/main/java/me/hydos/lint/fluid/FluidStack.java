@@ -24,13 +24,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Identifier;
 
 /**
- * Used for storing fluids where {@link net.minecraft.fluid.FluidState} is an overcomplicated system
+ * Used for storing fluids where {@link net.minecraft.fluid.FluidState} can't be used
+ * @author hydos
  */
-public class SimpleFluidData {
+public class FluidStack {
 	public float level;
 	public Identifier fluid;
 
-	public SimpleFluidData(float level, Identifier fluid) {
+	public FluidStack(float level, Identifier fluid) {
 		this.level = level;
 		this.fluid = fluid;
 	}
@@ -42,16 +43,16 @@ public class SimpleFluidData {
 		return tag;
 	}
 
-	public static SimpleFluidData fromTag(CompoundTag tag) {
-		return new SimpleFluidData(tag.getFloat("level"), new Identifier(tag.getString("fluid")));
+	public static FluidStack fromTag(CompoundTag tag) {
+		return new FluidStack(tag.getFloat("level"), new Identifier(tag.getString("fluid")));
 	}
 
-	public static SimpleFluidData of(LintFluids.FluidEntry entry) {
+	public static FluidStack of(LintFluids.FluidEntry entry) {
 		return of(entry, 1);
 	}
 
-	public static SimpleFluidData of(LintFluids.FluidEntry entry, float level) {
-		return new SimpleFluidData(level, LintFluids.getId(entry));
+	public static FluidStack of(LintFluids.FluidEntry entry, float level) {
+		return new FluidStack(level, LintFluids.getId(entry));
 	}
 
 	public Fluid get() {

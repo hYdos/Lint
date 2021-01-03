@@ -78,7 +78,7 @@ public class Entities {
 					.dimensions(EntityDimensions.changing(1f, 4f))
 					.build());
 
-	public static void register() {
+	public static void initialize() {
 		Birds.register();
 
 		FabricDefaultAttributeRegistry.register(Entities.TINY_POTATO, TinyPotatoEntity.createAttributes());

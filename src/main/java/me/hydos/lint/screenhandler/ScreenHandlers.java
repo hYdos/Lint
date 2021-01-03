@@ -28,6 +28,6 @@ public class ScreenHandlers {
 	public static final ScreenHandlerType<SmelteryScreenHandler> SMELTERY = ScreenHandlerRegistry.registerExtended(Lint.id("smeltery"), SmelteryScreenHandler::new);
 	public static final ScreenHandlerType<LilTaterInteractScreenHandler> TATER_INVENTORY = ScreenHandlerRegistry.registerExtended(Lint.id("tater_inv"), LilTaterInteractScreenHandler::new);
 
-	public static void register() {
+	public static void initialize() {
 	}
 }

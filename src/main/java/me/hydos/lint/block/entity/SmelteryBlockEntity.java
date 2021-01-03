@@ -19,7 +19,7 @@
 
 package me.hydos.lint.block.entity;
 
-import me.hydos.lint.fluid.SimpleFluidData;
+import me.hydos.lint.fluid.FluidStack;
 import me.hydos.lint.multiblock.Multiblock;
 import me.hydos.lint.multiblock.Multiblocks;
 import me.hydos.lint.screenhandler.SmelteryScreenHandler;
@@ -45,7 +45,7 @@ import java.util.List;
 
 public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, NamedScreenHandlerFactory, BlockEntityClientSerializable {
 
-	public final List<SimpleFluidData> fluidData = new ArrayList<>(5);
+	public final List<FluidStack> fluidData = new ArrayList<>(5);
 	public LintInventory inventory = new LintInventory(9);
 	public Multiblock multiblock;
 
@@ -98,12 +98,12 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 	public void updateFluids(CompoundTag fluidInformation) {
 		if (fluidInformation != null) {
 			for (int i = 0; i < fluidInformation.getInt("size"); i++) {
-				fluidData.add(SimpleFluidData.fromTag((CompoundTag) fluidInformation.get(String.valueOf(i))));
+				fluidData.add(FluidStack.fromTag((CompoundTag) fluidInformation.get(String.valueOf(i))));
 			}
 		}
 	}
 
-	public List<SimpleFluidData> getFluidData() {
+	public List<FluidStack> getFluidData() {
 		return fluidData;
 	}
 

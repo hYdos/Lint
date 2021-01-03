@@ -388,7 +388,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	 */
 	private static final HashMap<MoltenMetalFluid, FluidBlock> FLUID_BLOCKSTATE_MAP = new HashMap<>();
 
-	public static void register() {
+	public static void initialize() {
 		registerBuildingBlocks();
 		registerDecorations();
 		registerFluidBlocks();

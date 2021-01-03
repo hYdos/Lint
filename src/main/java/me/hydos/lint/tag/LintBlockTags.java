@@ -28,6 +28,6 @@ public class LintBlockTags {
 
 	public static final Tag<Block> BASIC_CASING = TagRegistry.block(Lint.id("basic_smeltery_casing"));
 
-	public static void register() {
+	public static void initialize() {
 	}
 }

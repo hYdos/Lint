@@ -44,7 +44,7 @@ public class Structures {
 			.defaultConfig(32, 8, 6969420)
 			.register();
 
-	public static void register() {
+	public static void initialize() {
 	}
 
 	public static Function<StructurePool.Projection, LegacySinglePoolElement> createLegacySinglePoolElement(String path, StructureProcessorList structureProcessorList) {

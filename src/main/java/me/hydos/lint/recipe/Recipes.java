@@ -29,6 +29,6 @@ public class Recipes {
 //			Lint.id("smeltery_recipe"),
 //			new CookingRecipeSerializer<>(SmelteryRecipe::new, 200));
 
-	public static void register() {
+	public static void initialize() {
 	}
 }

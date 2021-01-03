@@ -22,7 +22,6 @@ package me.hydos.lint.client.render.block;
 import com.mojang.blaze3d.platform.GlStateManager;
 import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import me.hydos.lint.client.render.fluid.LintFluidRenderer;
-import me.hydos.lint.fluid.SimpleFluidData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;

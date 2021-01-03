@@ -70,7 +70,7 @@ public class Sounds {
 	public static final MusicSound I509_LOOP = MusicType.createIngameMusic(I509);
 	public static final MusicSound LEX_MANOS_LOOP = MusicType.createIngameMusic(LEX_MANOS);
 
-	public static void register() {
+	public static void initialize() {
 		register(KING_TATER);
 		register(I509);
 		register(LEX_MANOS);

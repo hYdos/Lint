@@ -23,6 +23,7 @@ import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.item.LintItems;
+import me.hydos.lint.item.potion.LintPotions;
 import me.hydos.lint.network.Networking;
 import me.hydos.lint.recipe.Recipes;
 import me.hydos.lint.screenhandler.ScreenHandlers;
@@ -31,9 +32,7 @@ import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
-import me.hydos.lint.world.gen.HaykamChunkGenerator;
 import me.hydos.lint.world.structure.Structures;
-import me.hydos.lint.world.structure.TestStructureRoom;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
@@ -54,12 +53,12 @@ public class Lint implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Lint is initializing");
-		Recipes.register();
+		Recipes.initialize();
 		GeckoLib.initialize();
-		Sounds.register();
-		LintBlockTags.register();
-		ScreenHandlers.register();
-		Networking.register();
+		Sounds.initialize();
+		LintBlockTags.initialize();
+		ScreenHandlers.initialize();
+		Networking.initialize();
 		registerLintContent();
 		registerLintWorld();
 		RRPCallback.EVENT.register(resources -> resources.add(RESOURCE_PACK));
@@ -80,16 +79,17 @@ public class Lint implements ModInitializer {
 	}
 
 	private void registerLintWorld() {
-		Structures.register();
-		Features.register();
-		Biomes.register();
-		Dimensions.register();
+		Structures.initialize();
+		Features.initialize();
+		Biomes.initialize();
+		Dimensions.initialize();
 	}
 
 	private void registerLintContent() {
-		LintFluids.register();
-		LintBlocks.register();
-		LintItems.register();
-		Entities.register();
+		LintFluids.initialize();
+		LintBlocks.initialize();
+		LintItems.initialize();
+		LintPotions.initialize();
+		Entities.initialize();
 	}
 }

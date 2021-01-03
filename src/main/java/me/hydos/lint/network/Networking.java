@@ -26,6 +26,6 @@ public class Networking {
 
 	public static final Identifier SEND_BOSSBAR_INFO = Lint.id("send_bossbar_info");
 
-	public static void register() {
+	public static void initialize() {
 	}
 }

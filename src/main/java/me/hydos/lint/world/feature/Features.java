@@ -149,7 +149,7 @@ public class Features {
 		return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, Lint.id(id), configuredFeature);
 	}
 
-	public static void register() {
+	public static void initialize() {
 
 	}
 
