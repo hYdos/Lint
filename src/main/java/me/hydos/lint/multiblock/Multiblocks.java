@@ -22,7 +22,7 @@ package me.hydos.lint.multiblock;
 import me.hydos.lint.tag.LintBlockTags;
 
 public class Multiblocks {
-	public static final MultiblockType SMELTERY = new MultiblockType(LintBlockTags.BASIC_CASING)
+	public static final SimpleMultiblockType SMELTERY = new SimpleMultiblockType(LintBlockTags.BASIC_CASING)
 			.addPosition(0, 1, 0) // block above smeltery
 			.addPosition(0, 0, 2) // far column
 			.addPosition(0, 1, 2)
