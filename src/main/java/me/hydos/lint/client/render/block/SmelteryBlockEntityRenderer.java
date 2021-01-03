@@ -51,7 +51,6 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 	@Override
 	public void render(SmelteryBlockEntity smeltery, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		if (shouldRenderFluid(smeltery)) {
-			float level = 0.1f;
 			BlockPos relativeCenter = smeltery.multiblock.center.subtract(smeltery.getPos());
 			matrices.translate(relativeCenter.getX(), relativeCenter.getY(), relativeCenter.getZ());
 			renderFluid(
@@ -59,7 +58,7 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 					smeltery.getFluidData().get(smeltery.getFluidData().size() - 1).get(),
 					BLOCK_BOUNDS,
 					light,
-					smeltery.getFluidData().size() * level);
+					smeltery.getFluidData().get(smeltery.getFluidData().size() - 1).level * 0.24f); //TODO: use some sortof getvolume check from multiblock.
 		}
 	}
 
