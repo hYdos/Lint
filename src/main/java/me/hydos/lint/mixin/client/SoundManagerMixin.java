@@ -69,7 +69,7 @@ public abstract class SoundManagerMixin {
 	@Inject(at = @At("HEAD"), method = "play", cancellable = true)
 	private void onPlay(MusicSound type, CallbackInfo info) {
 		if (type == MusicType.UNDERWATER || type == MusicType.GAME || type == MusicType.CREATIVE) {
-			if (this.client.world.getDimension() == Dimensions.FRAIYA) {
+			if (this.client.world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
 				info.cancel();
 			}
 		}
