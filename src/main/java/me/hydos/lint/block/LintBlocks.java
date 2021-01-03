@@ -158,6 +158,15 @@ public final class LintBlocks extends LintAutoDataRegistry {
 					.requiresTool()),
 			ItemGroups.BLOCKS);
 
+	public static final Block MAGNETITE_DEPOSIT = registerCubeAll(
+			"magnetite_deposit",
+			new Block(FabricBlockSettings.of(Material.STONE)
+					.hardness(1f)
+					.sounds(BlockSoundGroup.METAL)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
+			ItemGroups.BLOCKS);
+
 	public static final Block SICIERON_ORE = registerCubeAll(
 			"sicieron_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
