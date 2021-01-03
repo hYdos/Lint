@@ -57,7 +57,7 @@ public class Entities {
 					.build());
 	public static final EntityType<CrabEntity> CRAB = // crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("crab"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, CrabEntity::new)
-					.dimensions(EntityDimensions.fixed(1, 1f))
+					.dimensions(EntityDimensions.fixed(0.75f, 0.25f))
 					.build());
 
 	/**
@@ -88,7 +88,7 @@ public class Entities {
 		FabricDefaultAttributeRegistry.register(Entities.KING_TATER, KingTaterEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.I5, I509VCBEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.GHOST, GhostEntity.createHostileAttributes());
-		FabricDefaultAttributeRegistry.register(Entities.CRAB, CrabEntity.createMobAttributes());
+		FabricDefaultAttributeRegistry.register(Entities.CRAB, CrabEntity.createCrobAttributes());
 
 		SpawnRestriction.register(Entities.TINY_POTATO, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TinyPotatoEntity::isConcern);
 		SpawnRestriction.register(Entities.GHOST, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
