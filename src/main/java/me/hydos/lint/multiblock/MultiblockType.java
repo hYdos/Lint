@@ -42,12 +42,13 @@ public final class MultiblockType {
 	}
 
 	public final Tag<Block> block;
-	private Collection<Vec3i> shape = new ArrayList<>(); 
+	private Collection<Vec3i> shape = new ArrayList<>();
+	private Collection<Vec3i> air = new ArrayList<>();
 	private BlockPos.Mutable min; // it's a mutable vec3i that's all I need
 	private BlockPos.Mutable max;
 
 	/**
-	 * Adds a position relative to the controller.
+	 * Adds a position in the structure relative to the controller.
 	 * @param xo the relative-rotated x offset
 	 * @param yo the y offset
 	 * @param zo the relative-rotated z offset
@@ -79,6 +80,17 @@ public final class MultiblockType {
 			}
 		}
 
+		return this;
+	}
+
+	/**
+	 * Adds a position that must be air relative to the controller.
+	 * @param xo the relative-rotated x offset
+	 * @param yo the y offset
+	 * @param zo the relative-rotated z offset
+	 * @return this
+	 */
+	public MultiblockType addAir(int xo, int yo, int zo) {
 		return this;
 	}
 
