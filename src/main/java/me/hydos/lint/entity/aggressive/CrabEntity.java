@@ -1,12 +1,37 @@
+/*
+ * Lint
+ * Copyright (C) 2020 hYdos, Valoeghese, ramidzkh
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 package me.hydos.lint.entity.aggressive;
 
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.entity.ai.goal.AttackGoal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -36,7 +61,18 @@ public class CrabEntity extends MobEntity implements IAnimatable {
 	@Override
 	protected void initGoals() {
 		goalSelector.add(3, new LookAtEntityGoal(this, LivingEntity.class, 10));
+		goalSelector.add(2, new AttackGoal(this));
 		goalSelector.add(1, new LookAroundGoal(this));
+	}
+
+	public static DefaultAttributeContainer.Builder createCrobAttributes() {
+		return createMobAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1d);
+	}
+
+	@Override
+	public void tickMovement() {
+		super.tickMovement();
+		setTarget(world.getClosestPlayer(this, 10));
 	}
 
 	@Nullable
