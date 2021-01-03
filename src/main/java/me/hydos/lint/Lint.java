@@ -31,7 +31,9 @@ import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
+import me.hydos.lint.world.gen.HaykamChunkGenerator;
 import me.hydos.lint.world.structure.Structures;
+import me.hydos.lint.world.structure.TestStructureRoom;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
@@ -71,6 +73,10 @@ public class Lint implements ModInitializer {
 //		builder.addFixer(DimensionNameFix.create(schema1, "Rename Lint Dimension", (string) -> Objects.equals(IdentifierNormalizingSchema.normalize(string), "lint:haykam") ? "lint:fraiya" : string));
 //		builder.build(Util.getMainWorkerExecutor());
 
+		// test structure
+		/*HaykamChunkGenerator.onStructureSetup(manager -> {
+			manager.addStructure(TestStructureRoom.STRUCTURE, 10, 4, 2);
+		});*/
 	}
 
 	private void registerLintWorld() {

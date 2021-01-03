@@ -19,8 +19,10 @@
 
 package me.hydos.lint.world.gen;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
@@ -73,6 +75,8 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 	private OctaveSimplexNoiseSampler surfaceNoise;
 	private StructureManager structureManager;
 
+	public static List<Consumer<StructureManager>> onStructureSetup = new ArrayList<>();
+
 	public HaykamChunkGenerator(Long seed, Registry<Biome> registry) {
 		super(new HaykamBiomeSource(registry, seed), new StructuresConfig(false));
 		this.seed = seed;
@@ -80,6 +84,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 
 		ServerChunkManagerCallback.EVENT.register(manager -> {
 			this.structureManager = new StructureManager(this);
+			onStructureSetup.forEach(c -> c.accept(this.structureManager));
 
 			long worldSeed = ((ServerWorld) manager.getWorld()).getSeed();
 			Random rand = new Random(seed);
@@ -270,5 +275,9 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 				}
 			}
 		}
+	}
+
+	public static void onStructureSetup(Consumer<StructureManager> callback) {
+		onStructureSetup.add(callback);
 	}
 }
