@@ -34,7 +34,7 @@ public class WorldMixin {
 		@SuppressWarnings("resource")
 		World self = (World) (Object) this;
 
-		if (self.getDimension() == Dimensions.FRAIYA) {
+		if (self.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
 			cir.setReturnValue(false);
 		}
 	}
@@ -43,8 +43,8 @@ public class WorldMixin {
 	private void onIsThundering(CallbackInfoReturnable<Boolean> cir) {
 		@SuppressWarnings("resource")
 		World self = (World) (Object) this;
-		
-		if (self.getDimension() == Dimensions.FRAIYA) {
+
+		if (self.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
 			cir.setReturnValue(false);
 		}
 	}
