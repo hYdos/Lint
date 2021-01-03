@@ -46,8 +46,10 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 public class CrabEntity extends MobEntity implements IAnimatable {
 
 	private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", true);
+	private static final AnimationBuilder CRAB_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.rave", true);
 
 	private final AnimationFactory factory = new AnimationFactory(this);
+	private boolean raving = true;
 
 	public CrabEntity(EntityType<? extends MobEntity> entityType, World world) {
 		super(entityType, world);
@@ -82,7 +84,11 @@ public class CrabEntity extends MobEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		event.getController().setAnimation(IDLE_ANIMATION);
+		if(raving){
+			event.getController().setAnimation(CRAB_ANIMATION);
+		}else {
+			event.getController().setAnimation(IDLE_ANIMATION);
+		}
 		return PlayState.CONTINUE;
 	}
 

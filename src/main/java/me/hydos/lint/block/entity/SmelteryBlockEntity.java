@@ -22,6 +22,7 @@ package me.hydos.lint.block.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.hydos.lint.multiblock.Multiblocks;
 import org.jetbrains.annotations.Nullable;
 
 import me.hydos.lint.block.SmelteryBlock;
@@ -99,7 +100,7 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 	}
 
 	public void updateMultiblock() {
-		// TODO hydos use new multiblock system
+		Multiblocks.SMELTERY.find(world, getPos());
 		//MultiblockManager.findCuboid(world, getPos(), LintBlockTags.BASIC_CASING);
 //		center = pos.offset(world.getBlockState(pos).get(SmelteryBlock.FACING).getOpposite());
 //		if (!world.isClient()) {
