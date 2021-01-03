@@ -21,7 +21,6 @@ package me.hydos.lint.block.entity;
 
 import me.hydos.lint.block.SmelteryBlock;
 import me.hydos.lint.fluid.SimpleFluidData;
-import me.hydos.lint.multiblock.MultiblockManager;
 import me.hydos.lint.screenhandler.SmelteryScreenHandler;
 import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.LintInventory;
@@ -101,7 +100,7 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 
 	public void updateMultiblock() {
 		// TODO hydos use new multiblock system
-		MultiblockManager.findCuboid(world, getPos(), LintBlockTags.BASIC_CASING);
+		//MultiblockManager.findCuboid(world, getPos(), LintBlockTags.BASIC_CASING);
 //		center = pos.offset(world.getBlockState(pos).get(SmelteryBlock.FACING).getOpposite());
 //		if (!world.isClient()) {
 //			BlockPos topCenter = center.up(1);
