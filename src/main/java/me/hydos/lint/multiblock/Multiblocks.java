@@ -19,19 +19,15 @@
 
 package me.hydos.lint.multiblock;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
+import me.hydos.lint.tag.LintBlockTags;
 
-/**
- * Represents a multiblock situated in the world.
- * @author Valoeghese
- */
-public class Multiblock {
-	Multiblock(Box box, BlockPos controller) {
-		this.box = box;
-		this.controller = controller;
-	}
-
-	public final Box box;
-	public final BlockPos controller;
+public class Multiblocks {
+	public static final MultiblockType SMELTERY = new MultiblockType(LintBlockTags.BASIC_CASING)
+			.addPosition(0, 1, 0) // block above smeltery
+			.addPosition(0, 0, 2) // far column
+			.addPosition(0, 1, 2)
+			.addPosition(-1, 0, 1) // left column
+			.addPosition(-1, 1, 1)
+			.addPosition(1, 0, 1) // right column
+			.addPosition(1, 1, 1);
 }
