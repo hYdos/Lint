@@ -17,21 +17,19 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixin;
+package me.hydos.lint.mixin.gecko;
 
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.impl.resource.loader.ResourceManagerHelperImpl;
-import net.minecraft.resource.ResourceType;
+import net.fabricmc.loader.FabricLoader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import software.bernie.geckolib3.GeckoLib;
+import software.bernie.example.registry.EntityRegistry;
 
-@Mixin(value = GeckoLib.class, remap = false)
-public class GeckoLibMixin {
+@Mixin(value = EntityRegistry.class, remap = false)
+public class EntityRegistryMixin {
 
-	@Redirect(method = "initialize", at = @At(value = "INVOKE", target = "Lnet/fabricmc/fabric/impl/resource/loader/ResourceManagerHelperImpl;get(Lnet/minecraft/resource/ResourceType;)Lnet/fabricmc/fabric/api/resource/ResourceManagerHelper;"), require = 0)
-	private static ResourceManagerHelper get(ResourceType type) {
-		return ResourceManagerHelperImpl.get(type);
+	@Redirect(method = "buildEntity", at = @At(value = "INVOKE", target = "Lnet/fabricmc/loader/FabricLoader;isDevelopmentEnvironment()Z"), require = 0)
+	private static boolean isDevelopmentEnvironment(FabricLoader fabricLoader) {
+		return false;
 	}
 }
