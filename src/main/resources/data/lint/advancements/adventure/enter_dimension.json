@@ -19,7 +19,7 @@
     "enter_dim": {
       "trigger": "minecraft:changed_dimension",
       "conditions": {
-        "to": "lint:haykam"
+        "to": "lint:fraiya"
       }
     }
   },

@@ -11,12 +11,15 @@
     "EnchantmentHelperMixin",
     "EntityMixin",
     "FireBlockAccessor",
-    "GeckoLibMixin",
     "ItemTagsProviderMixin",
     "ServerChunkManagerMixin",
     "SoundEventMixin",
     "StructurePoolsMixin",
-    "WorldMixin"
+    "WorldMixin",
+    "gecko.ClientListenerMixin",
+    "gecko.EntityRegistryMixin",
+    "gecko.GeckoLibModMixin",
+    "gecko.RegistryUtilsMixin"
   ],
   "client": [
     "client.BiomeEffectSoundPlayerMixin",
