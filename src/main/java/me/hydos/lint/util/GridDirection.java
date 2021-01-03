@@ -20,10 +20,10 @@
 package me.hydos.lint.util;
 
 public enum GridDirection {
-	UP(0, 0, 1, false),
-	RIGHT(1, 1, 0, true),
-	DOWN(2, 0, -1, false),
-	LEFT(3, -1, 0, true);
+	UP(0, 0, 1, false, false),
+	RIGHT(1, 1, 0, true, false),
+	DOWN(2, 0, -1, false, true),
+	LEFT(3, -1, 0, true, true);
 
 	public static final GridDirection[] BY_ID = new GridDirection[4];
 
@@ -36,12 +36,16 @@ public enum GridDirection {
 	public final int id;
 	public final int xOff, zOff;
 	public final boolean horizontal;
+	public final boolean mirror;
+	public final int off;
 
-	GridDirection(int id, int xOff, int zOff, boolean horizontal) {
+	GridDirection(int id, int xOff, int zOff, boolean horizontal, boolean mirror) {
 		this.id = id;
 		this.xOff = xOff;
 		this.zOff = zOff;
 		this.horizontal = horizontal;
+		this.mirror = mirror;
+		this.off = mirror ? -1 : 1;
 	}
 
 	public GridDirection reverse() {
