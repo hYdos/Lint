@@ -29,5 +29,7 @@ public class Multiblocks {
 			.addPosition(-1, 0, 1) // left column
 			.addPosition(-1, 1, 1)
 			.addPosition(1, 0, 1) // right column
-			.addPosition(1, 1, 1);
+			.addPosition(1, 1, 1)
+			.addAir(0, 0, 1) // air in centre
+			.addAir(0, 1, 1);
 }
