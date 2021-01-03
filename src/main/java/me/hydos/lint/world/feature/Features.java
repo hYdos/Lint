@@ -52,6 +52,7 @@ public class Features {
 	public static final Feature<DefaultFeatureConfig> VERTICAL_SHAFT = register("vertical_shaft", new VerticalShaftFeature());
 	public static final Feature<DefaultFeatureConfig> FADING_ASH = register("fading_ash", new FadingAshFeature());
 	public static final Feature<DefaultFeatureConfig> STRUCTURE = register("structure", new LintStructureFeature());
+	public static final Feature<DefaultFeatureConfig> TOWN = register("town", new TownFeature());
 
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> CORRUPT_TREE = register("corrupt_tree", TREE.configure((
 			new TreeFeatureConfig.Builder(
@@ -109,6 +110,9 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> CONFIGURED_STRUCTURE = register("structure", STRUCTURE.configure(DefaultFeatureConfig.INSTANCE));
 
+	public static final ConfiguredFeature<?, ?> CONFIGURED_TOWN = register("town", TOWN.configure(DefaultFeatureConfig.INSTANCE))
+			.decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE.spreadHorizontally().repeat(1));
+
 	/**
 	 * PATCHY FEATURES
 	 **/
@@ -144,7 +148,7 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> SPEARMINTS = register("spearmints", Feature.RANDOM_PATCH.configure(Configs.SPEARMINT_CONFIG)
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(4));
 	public static final ConfiguredFeature<?, ?> WATERMINTS = register("watermints", Feature.RANDOM_PATCH.configure(Configs.WATERMINT_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(2));
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(1));
 	public static final ConfiguredFeature<?, ?> DILLS = register("dills", Feature.RANDOM_PATCH.configure(Configs.DILL_CONFIG)
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(4));
 	public static final ConfiguredFeature<?, ?> KUREI = register("kurei", Feature.RANDOM_PATCH.configure(Configs.KUREI_CONFIG)
@@ -216,19 +220,19 @@ public class Features {
 			SPEARMINT_CONFIG = (new RandomPatchFeatureConfig.Builder(
 					new SimpleBlockStateProvider(LintBlocks.SPEARMINT.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE))
-					.tries(8).build();
+					.tries(16).build();
 			WATERMINT_CONFIG = (new RandomPatchFeatureConfig.Builder( // quite rare as it needs not only the dirt/grass but also to be next to water. Most water is by sand.
 					new SimpleBlockStateProvider(LintBlocks.WATERMINT.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE))
-					.tries(16).cannotProject().needsWater().build();
+					.tries(32).needsWater().build();
 			DILL_CONFIG = (new RandomPatchFeatureConfig.Builder(
 					new SimpleBlockStateProvider(LintBlocks.DILL.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE))
-					.tries(8).build();
+					.tries(16).build();
 			KUREI_CONFIG = (new RandomPatchFeatureConfig.Builder(
 					new SimpleBlockStateProvider(LintBlocks.KUREI.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE))
-					.tries(8).build();
+					.tries(16).build();
 		}
 	}
 }
