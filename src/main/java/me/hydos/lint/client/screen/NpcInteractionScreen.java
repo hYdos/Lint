@@ -19,6 +19,7 @@
 
 package me.hydos.lint.client.screen;
 
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.util.math.MatrixStack;
@@ -38,7 +39,7 @@ public class NpcInteractionScreen extends Screen {
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		super.render(matrices, mouseX, mouseY, delta);
-		drawTexture(matrices, 0, 0, 0, 0, width, 50);
-		client.textRenderer.draw(matrices, text, 10, height / 1.4f, 0xFF444444);
+		fill(matrices, 0, (int) (height/ 1.5f), width, height, 0x99111111);
+		client.textRenderer.draw(matrices, text, 10, height / 1.4f, 0xFFFFFFFF);
 	}
 }
