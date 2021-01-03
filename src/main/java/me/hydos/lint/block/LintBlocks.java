@@ -24,8 +24,9 @@ import java.util.HashMap;
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.organic.FallenLeavesBlock;
 import me.hydos.lint.block.organic.LintCorruptGrassBlock;
-import me.hydos.lint.block.organic.LintGrassBlock;
+import me.hydos.lint.block.organic.LintFlowerBlock;
 import me.hydos.lint.block.organic.LintLeavesBlock;
+import me.hydos.lint.block.organic.LintSaplingBlock;
 import me.hydos.lint.block.organic.LintTallFlowerBlock;
 import me.hydos.lint.block.organic.TaterbaneBlock;
 import me.hydos.lint.fluid.LintFluids;
@@ -36,11 +37,25 @@ import me.hydos.lint.util.Power;
 import me.hydos.lint.world.tree.CorruptTree;
 import me.hydos.lint.world.tree.MysticalTree;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FallingBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.block.PillarBlock;
+import net.minecraft.block.PlantBlock;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
@@ -60,9 +75,23 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.breakByTool(FabricToolTags.SHOVELS, 0)
 			.sounds(BlockSoundGroup.SAND);
 
+	/**
+	 * Soils
+	 */
+	public static final Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC)
+			.hardness(00.5f)
+			.sounds(BlockSoundGroup.GRASS));
+
+	public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK));
+	public static final Block WASTELAND_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK));
+
 	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
 			new LintFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)),
 			ItemGroups.BLOCKS);
+
+	/**
+	 * Yes
+	 */
 
 	public static final Block BASIC_CASING = registerCubeAll("basic_casing",
 			new Block(FabricBlockSettings.of(Material.STONE)
@@ -284,11 +313,9 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	/**
 	 * Saplings
 	 */
-	public static final SaplingBlock MYSTICAL_SAPLING = new SaplingBlock(new MysticalTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING)) {
-	};
+	public static final SaplingBlock MYSTICAL_SAPLING = new LintSaplingBlock(new MysticalTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks.LIVELY_GRASS.getDefaultState());
 
-	public static final SaplingBlock CORRUPT_SAPLING = new SaplingBlock(new CorruptTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING)) {
-	};
+	public static final SaplingBlock CORRUPT_SAPLING = new LintSaplingBlock(new CorruptTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks.CORRUPT_GRASS.getDefaultState());
 
 	/**
 	 * Corrupt Building Blocks
@@ -297,21 +324,18 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
 	public static final Block CORRUPT_LOG = createLog(MaterialColor.PURPLE, MaterialColor.PURPLE);
-	public static final Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC)
-			.hardness(00.5f)
-			.sounds(BlockSoundGroup.GRASS));
 	public static final Block CORRUPT_SLAB = registerSlab("corrupt_slab", "corrupt_planks", new SlabBlock(FabricBlockSettings.copy(Blocks.OAK_SLAB)), ItemGroups.BLOCKS);
 
 	/**
 	 * Mystical Decorations
 	 */
-	public static final FlowerBlock MYSTICAL_STEM = new LintGrassBlock(StatusEffects.RESISTANCE, FabricBlockSettings.of(Material.PLANT)
+	public static final FlowerBlock MYSTICAL_STEM = new LintFlowerBlock(StatusEffects.RESISTANCE, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS));
 
-	public static final FlowerBlock MYSTICAL_DAISY = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
+	public static final FlowerBlock MYSTICAL_DAISY = new LintFlowerBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
@@ -322,6 +346,24 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.GRASS));
 
+	public static final FlowerBlock SPEARMINT = new LintFlowerBlock(StatusEffects.HASTE, FabricBlockSettings.of(Material.PLANT)
+			.noCollision()
+			.breakInstantly()
+			.hardness(0)
+			.sounds(BlockSoundGroup.GRASS));
+
+	public static final FlowerBlock WATERMINT = new LintFlowerBlock(StatusEffects.HASTE, FabricBlockSettings.of(Material.PLANT)
+			.noCollision()
+			.breakInstantly()
+			.hardness(0)
+			.sounds(BlockSoundGroup.GRASS));
+
+	public static final FlowerBlock DILL = new LintFlowerBlock(StatusEffects.LUCK, FabricBlockSettings.of(Material.PLANT)
+			.noCollision()
+			.breakInstantly()
+			.hardness(0)
+			.sounds(BlockSoundGroup.GRASS));
+
 	/**
 	 * Mystical Building Blocks
 	 */
@@ -329,7 +371,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
 	public static final Block MYSTICAL_LOG = createLog(MaterialColor.DIAMOND, MaterialColor.DIAMOND);
-	public static final FlowerBlock MYSTICAL_GRASS = new LintGrassBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
+	public static final FlowerBlock MYSTICAL_GRASS = new LintFlowerBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
@@ -342,8 +384,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	 * Misc Building Blocks
 	 */
 	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
-	public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK));
-	public static final Block WASTELAND_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK));
+
 	/**
 	 * Fluid blockstate cache
 	 */
@@ -374,6 +415,9 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		registerCrossPlant(MYSTICAL_GRASS, "mystical_grass");
 		registerCrossPlant(MYSTICAL_STEM, "mystical_stem");
 		registerCrossPlant(MYSTICAL_DAISY, "yellow_daisy");
+		registerCrossPlant(SPEARMINT, "spearmint");
+		registerCrossPlant(WATERMINT, "watermint");
+		registerCrossPlant(DILL, "dill");
 		registerSimpleBlockState("taterbane", TATERBANE, ItemGroups.DECORATIONS);
 
 		registerCrossPlant(MYSTICAL_SAPLING, "mystical_sapling");

@@ -19,16 +19,22 @@
 
 package me.hydos.lint.block.organic;
 
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 
-public class TaterbaneBlock extends LintFlowerBlock {
-	public TaterbaneBlock(StatusEffect effect, Settings settings) {
-		super(effect, settings, VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.875, 0.5, 0.875));
+public class LintSaplingBlock extends SaplingBlock {
+	public LintSaplingBlock(SaplingGenerator generator, Settings settings, BlockState requires) {
+		super(generator, settings);
+		this.requires = requires;
 	}
 
+	private final BlockState requires;
+
 	@Override
-	public OffsetType getOffsetType() {
-		return OffsetType.NONE;
+	protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
+		return floor == this.requires;
 	}
 }

@@ -17,18 +17,12 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block.organic;
+package me.hydos.lint.potion;
 
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.potion.Potion;
 
-public class TaterbaneBlock extends LintFlowerBlock {
-	public TaterbaneBlock(StatusEffect effect, Settings settings) {
-		super(effect, settings, VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.875, 0.5, 0.875));
-	}
-
-	@Override
-	public OffsetType getOffsetType() {
-		return OffsetType.NONE;
-	}
+public class Potions {
+	public static final Potion MINT_TEA = new Potion(new StatusEffectInstance[] {new StatusEffectInstance(StatusEffects.HASTE, 40)});
 }

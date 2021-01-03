@@ -30,12 +30,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
-public class LintGrassBlock extends FlowerBlock {
-	public LintGrassBlock(StatusEffect effect, Settings settings) {
+public class LintFlowerBlock extends FlowerBlock {
+	public LintFlowerBlock(StatusEffect effect, Settings settings) {
 		this(effect, settings, null);
 	}
 
-	public LintGrassBlock(StatusEffect effect, Settings settings, @Nullable VoxelShape shape) {
+	public LintFlowerBlock(StatusEffect effect, Settings settings, @Nullable VoxelShape shape) {
 		super(effect, 7, settings);
 		this.shape = shape;
 	}
