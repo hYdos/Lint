@@ -40,15 +40,17 @@ public class HaykamiumPortalBlock extends Block {
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (!world.isClient()) {
-			ServerWorld haykamWorld = ((ServerWorld) world).getServer().getWorld(Dimensions.FRAIYA_WORLD);
-			if (haykamWorld == null) {
+			ServerWorld fraiya = ((ServerWorld) world).getServer().getWorld(Dimensions.FRAIYA_WORLD);
+			if (fraiya == null) {
 				return;
 			}
 			if (entity instanceof ServerPlayerEntity) {
 				ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) entity;
 				serverPlayerEntity.networkHandler.sendPacket(new StopSoundS2CPacket());
 			}
-			TeleportUtils.teleport(((LivingEntity) entity), haykamWorld, new BlockPos(0, 80, 0));
+			if(entity instanceof LivingEntity) {
+				TeleportUtils.teleport(((LivingEntity) entity), fraiya, new BlockPos(0, 80, 0));
+			}
 		}
 	}
 }

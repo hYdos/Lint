@@ -22,16 +22,13 @@ package me.hydos.lint.entity.aggressive;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.ai.goal.AttackGoal;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.world.EntityView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -43,13 +40,15 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 @SuppressWarnings("EntityConstructor")
-public class CrabEntity extends MobEntity implements IAnimatable {
+public class CrabEntity extends PathAwareEntity implements IAnimatable {
 
 	private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.idle", true);
+	private static final AnimationBuilder CRAB_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.rave", true);
 
 	private final AnimationFactory factory = new AnimationFactory(this);
+	private boolean raving = true;
 
-	public CrabEntity(EntityType<? extends MobEntity> entityType, World world) {
+	public CrabEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
 	}
 
@@ -61,7 +60,7 @@ public class CrabEntity extends MobEntity implements IAnimatable {
 	@Override
 	protected void initGoals() {
 		goalSelector.add(3, new LookAtEntityGoal(this, LivingEntity.class, 10));
-		goalSelector.add(2, new AttackGoal(this));
+		goalSelector.add(2, new RevengeGoal(this));
 		goalSelector.add(1, new LookAroundGoal(this));
 	}
 
@@ -82,7 +81,11 @@ public class CrabEntity extends MobEntity implements IAnimatable {
 	}
 
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		event.getController().setAnimation(IDLE_ANIMATION);
+		if(raving){
+			event.getController().setAnimation(CRAB_ANIMATION);
+		}else {
+			event.getController().setAnimation(IDLE_ANIMATION);
+		}
 		return PlayState.CONTINUE;
 	}
 
