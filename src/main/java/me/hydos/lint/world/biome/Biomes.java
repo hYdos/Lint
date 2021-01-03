@@ -40,6 +40,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
@@ -251,6 +252,9 @@ public class Biomes {
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.WARM_OCEAN_VEGETATION)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.SEAGRASS_WARM)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.KELP_COLD)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
@@ -405,6 +409,9 @@ public class Biomes {
 	private static SpawnSettings createOceanSpawnSettings() {
 		SpawnSettings.Builder builder = new SpawnSettings.Builder();
 		DefaultBiomeFeatures.addOceanMobs(builder, 1, 4, 10);
+		builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.PUFFERFISH, 5, 1, 3))
+				.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.TROPICAL_FISH, 25, 8, 8))
+				.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.DOLPHIN, 2, 1, 2));
 		return builder.build();
 	}
 }
