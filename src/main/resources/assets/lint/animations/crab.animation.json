@@ -3,11 +3,46 @@
 	"animations": {
 		"animation.crab.idle": {
 			"loop": true,
-			"animation_length": 0.643,
+			"animation_length": 6.76,
 			"bones": {
-				"whataretheesecalled2": {
+				"whataretheesecalled": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					},
 					"position": {
-						"vector": [-1, 0, 0]
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"whataretheesecalled2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.2": {
+							"vector": [5, 0, 0],
+							"easing": "easeInBack"
+						},
+						"0.64": {
+							"vector": [0, 0, 0]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [-1, 0, 0]
+						},
+						"0.64": {
+							"vector": [-1, 0, 0]
+						}
 					}
 				}
 			}
@@ -16,32 +51,6 @@
 			"loop": true,
 			"animation_length": 0.76,
 			"bones": {
-				"left_eye": {
-					"position": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.32": {
-							"vector": [0, 0.3, 0]
-						},
-						"0.76": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"right_eye": {
-					"position": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.32": {
-							"vector": [0, 0.3, 0]
-						},
-						"0.76": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
 				"body": {
 					"rotation": {
 						"vector": [0, 0, 0]
@@ -50,8 +59,14 @@
 						"0.0": {
 							"vector": [0, 0, 0]
 						},
+						"0.12": {
+							"vector": [0.2, 0.41, 0]
+						},
 						"0.32": {
 							"vector": [0, 0.3, 0]
+						},
+						"0.48": {
+							"vector": [-0.4, 0.38, 0]
 						},
 						"0.72": {
 							"vector": [0, 0, 0]

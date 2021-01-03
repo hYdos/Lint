@@ -53,12 +53,12 @@ public final class MultiblockType {
 	 * @return this
 	 */
 	public MultiblockType addPosition(int xo, int yo, int zo) {
-		this.shape.add(new Vec3i(xo, yo, zo));
-
 		if (this.shape.isEmpty()) {
 			this.min = new BlockPos.Mutable().set(xo, yo, zo);
 			this.max = new BlockPos.Mutable().set(xo, yo, zo);
-		} else {
+		}
+
+		this.shape.add(new Vec3i(xo, yo, zo));
 			if (xo < this.min.getX()) {
 				this.min.setX(xo);
 			} else if (xo > this.max.getX()) {
@@ -76,8 +76,6 @@ public final class MultiblockType {
 			} else if (zo > this.max.getZ()) {
 				this.max.setZ(zo);
 			}
-		}
-
 		return this;
 	}
 
