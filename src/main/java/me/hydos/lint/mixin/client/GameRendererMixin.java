@@ -32,7 +32,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
@@ -46,9 +45,8 @@ public class GameRendererMixin {
 		final float originalResultChunks = originalResult * 0.0625f; // originalResult / 16.0f
 
 		final World world = this.client.world;
-		final DimensionType dimensionType = world.getDimension();
 
-		if (dimensionType == Dimensions.FRAIYA) { // Add dimension type checks here for fog distance there
+		if (world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) { // Add dimension checks here for fog distance there
 			final Vec3d playerPos = this.client.player.getPos();
 			double x = playerPos.getX();
 			double z = playerPos.getZ();

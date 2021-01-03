@@ -19,10 +19,14 @@
 
 package me.hydos.lint.block.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jetbrains.annotations.Nullable;
+
 import me.hydos.lint.block.SmelteryBlock;
 import me.hydos.lint.fluid.SimpleFluidData;
 import me.hydos.lint.screenhandler.SmelteryScreenHandler;
-import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.LintInventory;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -40,10 +44,6 @@ import net.minecraft.state.property.Property;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, NamedScreenHandlerFactory, BlockEntityClientSerializable {
 
