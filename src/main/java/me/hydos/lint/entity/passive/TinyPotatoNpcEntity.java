@@ -19,6 +19,7 @@
 
 package me.hydos.lint.entity.passive;
 
+import io.netty.buffer.ByteBuf;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.goal.FleeBlockGoal;
 import me.hydos.lint.entity.passive.bird.EasternRosellaEntity;
@@ -69,12 +70,15 @@ public class TinyPotatoNpcEntity extends TinyPotatoEntity {
 	@Override
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
 		if (!world.isClient()) {
+			PacketByteBuf buf = PacketByteBufs.create()
+					.writeString("Mr. Potato")
+					.writeText(new LiteralText("Hi i am Mr. Potato! i sell crabs and corbs"));
+			buf.writeInt(getEntityId());
 			ServerPlayNetworking.send(
 					(ServerPlayerEntity) player,
 					Networking.OPEN_NPC_INTERACTION_WINDOW,
-					PacketByteBufs.create()
-							.writeString("Mr. Potato")
-							.writeText(new LiteralText("Hi i am Mr. Potato! i sell crabs and corbs")));
+					buf
+			);
 		}
 		return ActionResult.SUCCESS;
 	}

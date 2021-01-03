@@ -20,7 +20,9 @@
 package me.hydos.lint.client.screen;
 
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -28,16 +30,22 @@ import net.minecraft.text.Text;
 public class NpcInteractionScreen extends Screen {
 
 	public Text text;
+	public int entityId;
 
 	public NpcInteractionScreen(PacketByteBuf byteBuf) {
 		super(new LiteralText(byteBuf.readString()));
 		text = byteBuf.readText();
+		entityId = byteBuf.readInt();
 	}
 
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		super.render(matrices, mouseX, mouseY, delta);
-		fill(matrices, 0, (int) (height/ 1.5f), width, height, 0x99111111);
+		fill(matrices, 0, (int) (height / 1.5f), width, height, 0x99111111);
 		client.textRenderer.draw(matrices, text, 10, height / 1.4f, 0xFFFFFFFF);
+		LivingEntity entity = (LivingEntity) client.player.world.getEntityById(entityId);
+		if (entity != null) {
+			InventoryScreen.drawEntity(40, (int) (height / 1.5f), 80, mouseX, mouseY, entity);
+		}
 	}
 }
