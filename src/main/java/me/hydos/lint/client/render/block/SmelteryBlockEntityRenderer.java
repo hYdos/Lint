@@ -52,7 +52,7 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 	public void render(SmelteryBlockEntity smeltery, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		if (shouldRenderFluid(smeltery)) {
 			float level = 0.1f;
-			BlockPos relativeCenter = smeltery.center.subtract(smeltery.getPos());
+			BlockPos relativeCenter = smeltery.multiblock.center.subtract(smeltery.getPos());
 			matrices.translate(relativeCenter.getX(), relativeCenter.getY(), relativeCenter.getZ());
 			renderFluid(
 					matrices,

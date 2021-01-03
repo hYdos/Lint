@@ -34,7 +34,6 @@ import net.minecraft.world.WorldAccess;
 
 /**
  * A type of multiblock. Specifies the tag and shape.
- * @author Valoeghese
  */
 public final class MultiblockType {
 	public MultiblockType(Tag<Block> block) {
@@ -42,7 +41,7 @@ public final class MultiblockType {
 	}
 
 	public final Tag<Block> block;
-	private Collection<Vec3i> shape = new ArrayList<>(); 
+	private final Collection<Vec3i> shape = new ArrayList<>();
 	private BlockPos.Mutable min; // it's a mutable vec3i that's all I need
 	private BlockPos.Mutable max;
 
@@ -114,7 +113,8 @@ public final class MultiblockType {
 					max = new BlockPos(startX + direction.off * this.max.getZ(), startY + this.max.getY(), startZ + direction.off * this.max.getX());
 				}
 
-				return new Multiblock(new Box(min, max), controllerPos);
+				Box box = new Box(min, max);
+				return new Multiblock(box, controllerPos, new BlockPos(box.getCenter()));
 			}
 		}
 
