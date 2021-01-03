@@ -3,4 +3,5 @@ accessible	method	net/minecraft/entity/SpawnRestriction	register	(Lnet/minecraft
 accessible	method	net/minecraft/structure/pool/LegacySinglePoolElement	<init>	(Lcom/mojang/datafixers/util/Either;Ljava/util/function/Supplier;Lnet/minecraft/structure/pool/StructurePool$Projection;)V
 accessible  method  net/minecraft/world/gen/trunk/TrunkPlacerType   <init>  (Lcom/mojang/serialization/Codec;)V
 accessible	method	net/minecraft/screen/ScreenHandler	addSlot	(Lnet/minecraft/screen/slot/Slot;)Lnet/minecraft/screen/slot/Slot;
+accessible	method	net/minecraft/recipe/BrewingRecipeRegistry	registerPotionRecipe	(Lnet/minecraft/potion/Potion;Lnet/minecraft/item/Item;Lnet/minecraft/potion/Potion;)V
 accessible	class	net/minecraft/recipe/CookingRecipeSerializer$RecipeFactory
