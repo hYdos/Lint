@@ -38,7 +38,6 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 	@Override
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
-		System.out.println("Generating at " + pos);
 		this.generateHouse(world, pos, random);
 		return true;
 	}
