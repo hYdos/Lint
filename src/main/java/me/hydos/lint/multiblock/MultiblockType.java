@@ -57,26 +57,27 @@ public final class MultiblockType {
 		if (this.shape.isEmpty()) {
 			this.min = new BlockPos.Mutable().set(xo, yo, zo);
 			this.max = new BlockPos.Mutable().set(xo, yo, zo);
+		} else {
+			if (xo < this.min.getX()) {
+				this.min.setX(xo);
+			} else if (xo > this.max.getX()) {
+				this.max.setX(xo);
+			}
+
+			if (yo < this.min.getY()) {
+				this.min.setY(yo);
+			} else if (yo > this.max.getY()) {
+				this.max.setY(yo);
+			}
+
+			if (zo < this.min.getZ()) {
+				this.min.setZ(zo);
+			} else if (zo > this.max.getZ()) {
+				this.max.setZ(zo);
+			}
 		}
 
 		this.shape.add(new Vec3i(xo, yo, zo));
-		if (xo < this.min.getX()) {
-			this.min.setX(xo);
-		} else if (xo > this.max.getX()) {
-			this.max.setX(xo);
-		}
-
-		if (yo < this.min.getY()) {
-			this.min.setY(yo);
-		} else if (yo > this.max.getY()) {
-			this.max.setY(yo);
-		}
-
-		if (zo < this.min.getZ()) {
-			this.min.setZ(zo);
-		} else if (zo > this.max.getZ()) {
-			this.max.setZ(zo);
-		}
 		return this;
 	}
 
@@ -88,7 +89,8 @@ public final class MultiblockType {
 		final int startZ = controllerPos.getZ();
 
 		for (GridDirection direction : GridDirection.values()) {
-			shapeSearch: {
+			shapeSearch:
+			{
 				for (Vec3i offset : this.shape) {
 					if (direction.horizontal) {
 						pos.set(startX + direction.off * offset.getX(), startY + offset.getY(), startZ + direction.off * offset.getZ());

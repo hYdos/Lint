@@ -32,6 +32,9 @@ public class FluidStack {
 	public Identifier fluid;
 
 	public FluidStack(float level, Identifier fluid) {
+		if(level > 8) {
+			throw new RuntimeException("Level of fluid is beyond maximum value (8)");
+		}
 		this.level = level;
 		this.fluid = fluid;
 	}

@@ -47,6 +47,7 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 		super(dispatcher);
 	}
 
+	// Fluid stack max level is 8.
 	@Override
 	public void render(SmelteryBlockEntity smeltery, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		if (shouldRenderFluid(smeltery)) {

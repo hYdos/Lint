@@ -23,6 +23,7 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.entity.aggressive.*;
 import me.hydos.lint.entity.passive.BeeTaterEntity;
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
+import me.hydos.lint.entity.passive.TinyPotatoNpcEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
@@ -45,6 +46,14 @@ public class Entities {
 					.build());
 	public static final EntityType<TinyPotatoEntity> TINY_POTATO =
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("tiny_potato"), FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, TinyPotatoEntity::new)
+					.dimensions(EntityDimensions.fixed(0.3f, 0.4f))
+					.build());
+
+	/**
+	 * Npc entities
+	 */
+	public static final EntityType<TinyPotatoNpcEntity> NPC_TINY_POTATO =
+			Registry.register(Registry.ENTITY_TYPE, Lint.id("npc_tiny_potato"), FabricEntityTypeBuilder.create(SpawnGroup.MISC, TinyPotatoNpcEntity::new)
 					.dimensions(EntityDimensions.fixed(0.3f, 0.4f))
 					.build());
 
@@ -82,6 +91,7 @@ public class Entities {
 		Birds.register();
 
 		FabricDefaultAttributeRegistry.register(Entities.TINY_POTATO, TinyPotatoEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(Entities.NPC_TINY_POTATO, TinyPotatoNpcEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.BEE_TATER, TinyPotatoEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.MINION, TaterMinionEntity.createAttributes());
 
