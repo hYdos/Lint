@@ -172,9 +172,12 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 		}
 
 		public boolean shouldContinue() {
-			boolean b0 = GhostEntity.this.getMoveControl().isMoving() && GhostEntity.this.isCharging() && GhostEntity.this.getTarget() != null && GhostEntity.this.getTarget().isAlive();
-			b0 &= GhostEntity.this.world.getLightLevel(GhostEntity.this.getTarget().getBlockPos()) < 9;
-			return b0;
+			if(GhostEntity.this.getTarget() != null){
+				boolean b0 = GhostEntity.this.getMoveControl().isMoving() && GhostEntity.this.isCharging() && GhostEntity.this.getTarget() != null && GhostEntity.this.getTarget().isAlive();
+				b0 &= GhostEntity.this.world.getLightLevel(GhostEntity.this.getTarget().getBlockPos()) < 9;
+				return b0;
+			}
+			return false;
 		}
 
 		public void start() {
