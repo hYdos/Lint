@@ -50,7 +50,7 @@ public class ItemGroups {
 
 	public static final ItemGroup FOOD = FabricItemGroupBuilder.create(
 			Lint.id("lint_food"))
-			.icon(() -> new ItemStack(LintBlocks.COOKIE_BLOCK))
+			.icon(() -> new ItemStack(LintBlocks.COOKIE))
 			.build();
 	public static void register() {
 	}

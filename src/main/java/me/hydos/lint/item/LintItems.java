@@ -75,7 +75,7 @@ public class LintItems {
 	}
 
 	private static void registerDiscs() {
-		registerGenerated("suspicous_looking_disc", SUSPICOUS_LOOKING_DISC);
+		registerGenerated("suspicious_looking_disc", SUSPICOUS_LOOKING_DISC);
 		registerGenerated("oboe_disc", OBOE_DISC);
 		registerGenerated("ocean_disc", OCEAN_DISC);
 		registerGenerated("mystical_forest_disc", MYSTICAL_FOREST_DISC);

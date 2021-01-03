@@ -115,7 +115,7 @@ public class LintClient implements ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(Entities.CRAB, (entityRenderDispatcher, context) -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
 		EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.KING_TATER, (entityRenderDispatcher, context) -> new KingTaterRenderer(entityRenderDispatcher));
-		EntityRendererRegistry.INSTANCE.register(Entities.I5, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));
+		EntityRendererRegistry.INSTANCE.register(Entities.I509VCB, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));
 	}
 
 	private void registerMiscRenderers() {

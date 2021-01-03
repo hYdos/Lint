@@ -95,8 +95,8 @@ public final class LintBlocks extends LintAutoDataRegistry {
 					.requiresTool()),
 			ItemGroups.BLOCKS);
 
-	public static final Block COOKIE_BLOCK = registerCubeAll(
-			"cookie_block",
+	public static final Block COOKIE = registerCubeAll(
+			"cookie",
 			new Block(FabricBlockSettings.copyOf(Blocks.CAKE)),
 			ItemGroups.FOOD);
 
