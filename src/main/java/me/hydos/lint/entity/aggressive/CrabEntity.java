@@ -20,6 +20,8 @@
 package me.hydos.lint.entity.aggressive;
 
 import me.hydos.lint.sound.Sounds;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -29,6 +31,8 @@ import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -46,7 +50,9 @@ public class CrabEntity extends PathAwareEntity implements IAnimatable {
 	private static final AnimationBuilder CRAB_ANIMATION = new AnimationBuilder().addAnimation("animation.crab.rave", true);
 
 	private final AnimationFactory factory = new AnimationFactory(this);
-	private boolean raving = true;
+
+	private boolean raving;
+	private BlockPos songPosition;
 
 	public CrabEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
 		super(entityType, world);
@@ -80,12 +86,19 @@ public class CrabEntity extends PathAwareEntity implements IAnimatable {
 		return Sounds.CRAB_IDLE;
 	}
 
+	@Environment(EnvType.CLIENT)
+	public void setNearbySongPlaying(BlockPos songPosition, boolean playing) {
+		this.songPosition = songPosition;
+		this.raving = playing;
+	}
+
 	private <P extends IAnimatable> PlayState predicate(AnimationEvent<P> event) {
-		if(raving){
+		if (raving && songPosition != null && getPos().squaredDistanceTo(Vec3d.ofCenter(songPosition)) < 144) {
 			event.getController().setAnimation(CRAB_ANIMATION);
-		}else {
+		} else {
 			event.getController().setAnimation(IDLE_ANIMATION);
 		}
+
 		return PlayState.CONTINUE;
 	}
 
