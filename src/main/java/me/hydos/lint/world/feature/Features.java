@@ -146,11 +146,11 @@ public class Features {
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP.applyChance(9)));
 
 	public static final ConfiguredFeature<?, ?> SPEARMINTS = register("spearmints", Feature.RANDOM_PATCH.configure(Configs.SPEARMINT_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(4));
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(6));
 	public static final ConfiguredFeature<?, ?> WATERMINTS = register("watermints", Feature.RANDOM_PATCH.configure(Configs.WATERMINT_CONFIG)
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(1));
 	public static final ConfiguredFeature<?, ?> DILLS = register("dills", Feature.RANDOM_PATCH.configure(Configs.DILL_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(4));
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(6));
 	public static final ConfiguredFeature<?, ?> KUREI = register("kurei", Feature.RANDOM_PATCH.configure(Configs.KUREI_CONFIG)
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(3));
 
