@@ -73,7 +73,7 @@ public class Entities {
 					.dimensions(EntityDimensions.changing(2f, 2f))
 					.build());
 
-	public static final EntityType<I509VCBEntity> I5 =
+	public static final EntityType<I509VCBEntity> I509VCB =
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("i509vcb"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, I509VCBEntity::new)
 					.dimensions(EntityDimensions.changing(1f, 4f))
 					.build());
@@ -86,13 +86,12 @@ public class Entities {
 		FabricDefaultAttributeRegistry.register(Entities.MINION, TaterMinionEntity.createAttributes());
 
 		FabricDefaultAttributeRegistry.register(Entities.KING_TATER, KingTaterEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(Entities.I5, I509VCBEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(Entities.I509VCB, I509VCBEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.GHOST, GhostEntity.createHostileAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.CRAB, CrabEntity.createCrobAttributes());
 
 		SpawnRestriction.register(Entities.TINY_POTATO, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TinyPotatoEntity::isConcern);
 		SpawnRestriction.register(Entities.GHOST, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
 		SpawnRestriction.register(Entities.CRAB, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TinyPotatoEntity::isConcern);
-
 	}
 }

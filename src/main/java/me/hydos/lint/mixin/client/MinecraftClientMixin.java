@@ -19,13 +19,6 @@
 
 package me.hydos.lint.mixin.client;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.mixinimpl.SoundShit;
 import me.hydos.lint.sound.Sounds;
@@ -34,6 +27,12 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.sound.MusicSound;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
@@ -52,7 +51,7 @@ public class MinecraftClientMixin {
 		if (world != null && entity != null && !world.getEntitiesByType(Entities.KING_TATER, entity.getBoundingBox().expand(40), $ -> true).isEmpty()) {
 			callbackInfoReturnable.setReturnValue(Sounds.KING_TATER_LOOP);
 		}
-		if (world != null && entity != null && !world.getEntitiesByType(Entities.I5, entity.getBoundingBox().expand(40), $ -> true).isEmpty()) {
+		if (world != null && entity != null && !world.getEntitiesByType(Entities.I509VCB, entity.getBoundingBox().expand(40), $ -> true).isEmpty()) {
 			callbackInfoReturnable.setReturnValue(Sounds.I509_LOOP);
 		}
 		//		if (world != null && entity != null && !world.getEntitiesByType(Entities.LEX_MANOS, entity.getBoundingBox().expand(40), $ -> true).isEmpty()) {
