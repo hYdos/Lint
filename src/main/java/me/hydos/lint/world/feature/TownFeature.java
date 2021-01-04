@@ -62,15 +62,15 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				if (new ChunkPos(pos).equals(closest.chunkPos())) {
 					Features.RETURN_PORTAL.generate(world, random, pos, true);
 				} else {
-					this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random);
+					this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random, false);
 				}
 			} else if (mindist < RURAL_DIST) {
 				if (random.nextInt(4) == 0) {
-					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random);
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false);
 				}
 			} else if (mindist < OUTSKIRTS_DIST) {
 				if (random.nextInt(10) == 0) {
-					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random);
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, true);
 				}
 			}
 		}
@@ -78,7 +78,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 		return true;
 	}
 
-	private void generateHouse(StructureWorldAccess world, BlockPos start, Random random) {
+	private void generateHouse(StructureWorldAccess world, BlockPos start, Random random, boolean outskirts) {
 		int width = (random.nextInt(3) + 4) * 2 - 1;
 		int breadth = (random.nextInt(3) + 4) * 2 - 1;
 		int floor = world.getChunk(start).sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, start.getX(), start.getZ());
@@ -91,6 +91,10 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 		// platform
 		if (floor < seaLevel) {
+			if (outskirts) { // no underwater outskirt stuff
+				return;
+			}
+
 			final int w2 = width + 5;
 			final int b2 = breadth + 5;
 
@@ -107,7 +111,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 					boolean corner = xedg && zedg;
 					int height = world.getChunk(pos).sampleHeightmap(Heightmap.Type.OCEAN_FLOOR_WG, x, z);
 
-					if (height < seaLevel) {
+					if (height < seaLevel - 1) {
 						if (corner) { // corners
 							for (int y = height; y < floor; ++y) {
 								pos.setY(y);
