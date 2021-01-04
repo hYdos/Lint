@@ -19,7 +19,10 @@
 
 package me.hydos.lint.world.feature;
 
+import java.util.Random;
+
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.ReturnHomeBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.block.SlabBlock;
@@ -31,8 +34,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-
-import java.util.Random;
 
 public class PortalFeature extends Feature<DefaultFeatureConfig> {
 
@@ -47,14 +48,18 @@ public class PortalFeature extends Feature<DefaultFeatureConfig> {
 
 	@Override
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
+		this.generate(world, random, pos, false);
+		return true;
+	}
+
+	public void generate(StructureWorldAccess world, Random random, BlockPos pos, boolean activated) {
 		makeBase(world, pos);
 		makePillar(world, pos.add(1, 0, 1));
 		makePillar(world, pos.add(3, 0, 1));
 		makePillar(world, pos.add(1, 0, 3));
 		makePillar(world, pos.add(3, 0, 3));
 		makeRoof(world, pos);
-		this.setBlockState(world, pos.add(2, 1, 2), LintBlocks.RETURN_HOME.getDefaultState());
-		return true;
+		this.setBlockState(world, pos.add(2, 1, 2), LintBlocks.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, activated));
 	}
 
 	private void makeBase(WorldAccess world, BlockPos pos) {

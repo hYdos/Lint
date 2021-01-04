@@ -19,6 +19,7 @@
 
 package me.hydos.lint.util.math;
 
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 
 public final class Vec2i {
@@ -44,6 +45,10 @@ public final class Vec2i {
 
 	public Vec2i add(Vec2i other) {
 		return this.add(other.x, other.y);
+	}
+
+	public ChunkPos chunkPos() {
+		return new ChunkPos(this.x >> 4, this.y >> 4);
 	}
 
 	public int squaredDist(int x, int y) {

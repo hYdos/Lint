@@ -45,6 +45,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
 		if (chunkGenerator instanceof HaykamChunkGenerator) {
 			int mindist = Integer.MAX_VALUE;
+			Vec2i closest = null;
 			int x = pos.getX();
 			int z = pos.getZ();
 
@@ -53,11 +54,16 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 				if (mindist > dist) {
 					mindist = dist;
+					closest = loc;
 				}
 			}
 
 			if (mindist < DENSE_DIST) {
-				this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random);
+				if (new ChunkPos(pos).equals(closest.chunkPos())) {
+					Features.RETURN_PORTAL.generate(world, random, pos, true);
+				} else {
+					this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random);
+				}
 			} else if (mindist < RURAL_DIST) {
 				if (random.nextInt(4) == 0) {
 					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random);
