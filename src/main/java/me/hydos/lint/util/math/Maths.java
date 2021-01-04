@@ -19,6 +19,8 @@
 
 package me.hydos.lint.util.math;
 
+import java.util.Optional;
+
 import me.hydos.lint.world.biome.Biomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -26,8 +28,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-
-import java.util.Optional;
 
 public class Maths {
 	public static float calculateFogDistanceChunks(World world, double x, double z, float originalResultChunks) {
@@ -75,8 +75,8 @@ public class Maths {
 	}
 
 	public static int manhattan(int x, int y, int x1, int y1) {
-		int dx = Math.abs(x1 - x);
-		int dy = Math.abs(y1 - y);
+		int dx = MathHelper.abs(x1 - x);
+		int dy = MathHelper.abs(y1 - y);
 		return dx + dy;
 	}
 }

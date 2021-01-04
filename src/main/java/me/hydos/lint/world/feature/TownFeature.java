@@ -22,9 +22,12 @@ package me.hydos.lint.world.feature;
 import java.util.Random;
 
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.util.math.Vec2i;
+import me.hydos.lint.world.gen.HaykamChunkGenerator;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Heightmap;
@@ -40,7 +43,36 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 	@Override
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
-		this.generateHouse(world, pos, random);
+		if (chunkGenerator instanceof HaykamChunkGenerator) {
+			int mindist = Integer.MAX_VALUE;
+			int x = pos.getX();
+			int z = pos.getZ();
+
+			for (Vec2i loc : ((HaykamChunkGenerator) chunkGenerator).getVillageCentres()) {
+				int dist = loc.squaredDist(x, z);
+
+				if (mindist < dist) {
+					mindist = dist;
+				}
+			}
+			
+			if (mindist < DENSE_DIST) {
+				ChunkPos chunkPos = new ChunkPos(pos);
+
+				if ((chunkPos.x & 0b11) == 0 && (chunkPos.z & 0b11) == 0) {
+					this.generateHouse(world, pos, random);
+				}
+			} else if (mindist < RURAL_DIST) {
+				if (random.nextInt(5) == 0) {
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random);
+				}
+			} else if (mindist < OUTSKIRTS_DIST) {
+				if (random.nextInt(12) == 0) {
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random);
+				}
+			}
+		}
+
 		return true;
 	}
 
@@ -156,4 +188,8 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 			}
 		}
 	}
+
+	private static int DENSE_DIST = 80 * 80;
+	private static int RURAL_DIST = 180 * 180;
+	private static int OUTSKIRTS_DIST = 320 * 320;
 }
