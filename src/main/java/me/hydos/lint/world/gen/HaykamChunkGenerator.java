@@ -90,20 +90,21 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 			onStructureSetup.forEach(c -> c.accept(this.structureManager));
 
 			long worldSeed = ((ServerWorld) manager.getWorld()).getSeed();
-			Random rand = new Random(seed);
-			this.terrain = new HaykamTerrainGenerator(worldSeed, rand);
-			((HaykamBiomeSource) this.biomeSource).setTerrainData(this.terrain);
-
-			this.floatingIslands = new FloatingIslandModifier(worldSeed);
-			this.surfaceNoise = new OctaveSimplexNoiseSampler(this.random, IntStream.rangeClosed(-3, 0));
 			
-			rand.setSeed(seed + 1);
+			Random rand = new Random(worldSeed + 1);
 			double angleRadians = (rand.nextDouble() * Math.PI / 4) - Math.PI / 8;
 			final double rightAngle = Math.PI / 2;
 			this.villageCentres.add(fromRTheta(1000, angleRadians));
 			this.villageCentres.add(fromRTheta(1000, angleRadians + rightAngle));
 			this.villageCentres.add(fromRTheta(1000, angleRadians + 2 * rightAngle));
 			this.villageCentres.add(fromRTheta(1000, angleRadians + 3 * rightAngle));
+			
+			rand.setSeed(worldSeed);
+			this.terrain = new HaykamTerrainGenerator(worldSeed, rand, this.getVillageCentres());
+			((HaykamBiomeSource) this.biomeSource).setTerrainData(this.terrain);
+
+			this.floatingIslands = new FloatingIslandModifier(worldSeed);
+			this.surfaceNoise = new OctaveSimplexNoiseSampler(this.random, IntStream.rangeClosed(-3, 0));
 		});
 	}
 

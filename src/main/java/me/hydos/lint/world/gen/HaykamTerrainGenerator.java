@@ -19,15 +19,17 @@
 
 package me.hydos.lint.world.gen;
 
+import java.util.Random;
+
 import me.hydos.lint.util.LossyDoubleCache;
 import me.hydos.lint.util.LossyIntCache;
 import me.hydos.lint.util.math.DoubleGridOperator;
 import me.hydos.lint.util.math.IntGridOperator;
+import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.biome.TerrainData;
+import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.util.math.MathHelper;
-
-import java.util.Random;
 
 public class HaykamTerrainGenerator implements TerrainData {
 	public static final int SEA_LEVEL = 63;
@@ -62,9 +64,12 @@ public class HaykamTerrainGenerator implements TerrainData {
 	private final IntGridOperator heightOperator;
 	private final IntGridOperator terraceModOperator;
 
-	HaykamTerrainGenerator(long seed, Random rand) {
+	private final Vec2i[] townAreas;
+
+	HaykamTerrainGenerator(long seed, Random rand, Vec2i[] townAreas) {
 		int protoSeed = (int) (seed >> 32);
 		this.seed = protoSeed == 0 ? 1 : protoSeed; // 0 bad and worst in game
+		this.townAreas = townAreas;
 
 		this.continentNoise = new OpenSimplexNoise(rand);
 		this.mountainsNoise = new OpenSimplexNoise(rand);
@@ -88,7 +93,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 			return scale; // should be range 0-80 on return
 		});
-		this.terrainScaleOperator = new LossyDoubleCache(1024, (x, z) -> this.addMountainPlateaus(x, z, this.addTerrainCrobber(x, z, this.typeScaleOperator.get(x, z))));
+		this.terrainScaleOperator = new LossyDoubleCache(1024, (x, z) -> this.addPlateaus(x, z, this.addTerrainCrobber(x, z, this.typeScaleOperator.get(x, z))));
 		this.baseHeightOperator = new LossyIntCache(512, (x, z) -> {
 			double continent = 3 + 1.2 * this.continentOperator.get(x, z);
 
@@ -231,9 +236,29 @@ public class HaykamTerrainGenerator implements TerrainData {
 		return scale;
 	}
 
-	private double addMountainPlateaus(int x, int z, double scale) {
-		if (scale > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325) { // approx 240 blocks period
+	private double addPlateaus(int x, int z, double scale) {
+		boolean bl = scale > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325; // approx 240 blocks period
+
+		// town plateaus
+		int mindist = Integer.MAX_VALUE;
+
+		for (Vec2i loc : this.townAreas) {
+			int dist = loc.squaredDist(x, z);
+
+			if (mindist < dist) {
+				mindist = dist;
+			}
+		}
+
+		if (mindist < TownFeature.DENSE_DIST) {
+			bl = true;
+		}
+
+		if (bl) {
 			scale -= 35;
+			scale = Math.max(0, scale);
+		} else if (mindist < TownFeature.RURAL_DIST) {
+			scale -= 18;
 			scale = Math.max(0, scale);
 		}
 

@@ -189,7 +189,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 		}
 	}
 
-	private static int DENSE_DIST = 80 * 80;
-	private static int RURAL_DIST = 180 * 180;
+	public static int DENSE_DIST = 80 * 80;
+	public static int RURAL_DIST = 180 * 180;
 	private static int OUTSKIRTS_DIST = 320 * 320;
 }
