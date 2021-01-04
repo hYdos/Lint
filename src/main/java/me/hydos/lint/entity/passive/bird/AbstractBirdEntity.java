@@ -20,6 +20,8 @@
 package me.hydos.lint.entity.passive.bird;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.TameableShoulderEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
@@ -39,6 +41,17 @@ public abstract class AbstractBirdEntity extends TameableShoulderEntity implemen
 	protected AbstractBirdEntity(EntityType<? extends TameableShoulderEntity> entityType, World world, BirdData birdData) {
 		super(entityType, world);
 		this.birdData = birdData;
+	}
+
+	public BirdData getBirdData() {
+		return birdData;
+	}
+
+	public static DefaultAttributeContainer.Builder createBirdAttributes() {
+		return createMobAttributes()
+				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.4D);
 	}
 
 	@Override
