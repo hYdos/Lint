@@ -42,7 +42,7 @@ dependencies {
 	modImplementation("software.bernie.geckolib", "fabric-1.16.4-geckolib", "3.0.3", classifier = "dev")
 
 	include(modImplementation("net.devtech", "arrp", "0.3.2"))
-	include("curse.maven", "geckolib-398667", "3157816")
+	include("curse.maven", "geckolib-398667", "3155712")
 
 	modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
 	modRuntime("curse.maven", "worldedit-225608", "3135186")
