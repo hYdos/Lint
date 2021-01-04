@@ -51,23 +51,19 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 			for (Vec2i loc : ((HaykamChunkGenerator) chunkGenerator).getVillageCentres()) {
 				int dist = loc.squaredDist(x, z);
 
-				if (mindist < dist) {
+				if (mindist > dist) {
 					mindist = dist;
 				}
 			}
-			
-			if (mindist < DENSE_DIST) {
-				ChunkPos chunkPos = new ChunkPos(pos);
 
-				if ((chunkPos.x & 0b11) == 0 && (chunkPos.z & 0b11) == 0) {
-					this.generateHouse(world, pos, random);
-				}
+			if (mindist < DENSE_DIST) {
+				this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random);
 			} else if (mindist < RURAL_DIST) {
-				if (random.nextInt(5) == 0) {
+				if (random.nextInt(4) == 0) {
 					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random);
 				}
 			} else if (mindist < OUTSKIRTS_DIST) {
-				if (random.nextInt(12) == 0) {
+				if (random.nextInt(10) == 0) {
 					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random);
 				}
 			}
@@ -79,7 +75,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 	private void generateHouse(StructureWorldAccess world, BlockPos start, Random random) {
 		int width = (random.nextInt(3) + 4) * 2 - 1;
 		int breadth = (random.nextInt(3) + 4) * 2 - 1;
-		int floor = start.getY();
+		int floor = world.getChunk(start).sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, start.getX(), start.getZ());
 		int startX = start.getX() - (width/2);
 		int startZ = start.getZ() - (breadth/2);
 		final int seaLevel = world.getSeaLevel();

@@ -239,27 +239,28 @@ public class HaykamTerrainGenerator implements TerrainData {
 	private double addPlateaus(int x, int z, double scale) {
 		boolean bl = scale > 30 && this.terrainDeterminerNoise.sample(x * 0.0041, z * 0.0041) > 0.325; // approx 240 blocks period
 
-		// town plateaus
-		int mindist = Integer.MAX_VALUE;
-
-		for (Vec2i loc : this.townAreas) {
-			int dist = loc.squaredDist(x, z);
-
-			if (mindist < dist) {
-				mindist = dist;
-			}
-		}
-
-		if (mindist < TownFeature.DENSE_DIST) {
-			bl = true;
-		}
-
 		if (bl) {
 			scale -= 35;
 			scale = Math.max(0, scale);
-		} else if (mindist < TownFeature.RURAL_DIST) {
-			scale -= 18;
-			scale = Math.max(0, scale);
+		} else {
+			// town plateaus
+			int mindist = Integer.MAX_VALUE;
+
+			for (Vec2i loc : this.townAreas) {
+				int dist = loc.squaredDist(x, z);
+
+				if (mindist > dist) {
+					mindist = dist;
+				}
+			}
+
+			if (mindist < TownFeature.DENSE_DIST) {
+				scale -= 18;
+				scale = Math.max(0, scale);
+			} else if (mindist < TownFeature.RURAL_DIST) {
+				scale -= 9;
+				scale = Math.max(0, scale);
+			}
 		}
 
 		return scale;
