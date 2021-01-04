@@ -52,16 +52,19 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		super.render(matrices, mouseX, mouseY, delta);
-		int layerSpacing = 2;
 		BlockPos smelteryPos = ((SmelteryScreenHandler) getScreenHandler()).smelteryPos;
 		SmelteryBlockEntity smeltery = (SmelteryBlockEntity) MinecraftClient.getInstance().world.getBlockEntity(smelteryPos);
-		for (int i = 0; i < smeltery.getFluidData().size(); i++) {
-			FluidStack layerFluid = smeltery.getFluidData().get(i);
-			if (layerFluid != null) {
-				renderFluid(matrices, layerFluid.get(), new Rectangle(new Point(x + 8, (y + 59) - layerSpacing * i), new Dimension(72, layerSpacing)));
+		if(smeltery.multiblock != null) {
+			for (int i = 0; i < smeltery.getFluidData().size(); i++) {
+				FluidStack layerFluid = smeltery.getFluidData().get(i);
+				if (layerFluid != null) {
+					int j = (int) (layerFluid.level * (6.5f / smeltery.multiblock.volume));
+					int magicVariable = (int) (layerFluid.level * 5); //TODO: figure out magic variable for different volumes
+					renderFluid(matrices, layerFluid.get(), new Rectangle(new Point(x + 8, (height / 2) - magicVariable - (j * i)), new Dimension(72, j)));
+				}
 			}
+			drawMouseoverTooltip(matrices, mouseX, mouseY);
 		}
-		drawMouseoverTooltip(matrices, mouseX, mouseY);
 	}
 
 	@Override
