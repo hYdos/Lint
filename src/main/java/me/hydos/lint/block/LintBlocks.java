@@ -19,16 +19,8 @@
 
 package me.hydos.lint.block;
 
-import java.util.HashMap;
-
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.organic.FallenLeavesBlock;
-import me.hydos.lint.block.organic.LintCorruptGrassBlock;
-import me.hydos.lint.block.organic.LintFlowerBlock;
-import me.hydos.lint.block.organic.LintLeavesBlock;
-import me.hydos.lint.block.organic.LintSaplingBlock;
-import me.hydos.lint.block.organic.LintTallFlowerBlock;
-import me.hydos.lint.block.organic.TaterbaneBlock;
+import me.hydos.lint.block.organic.*;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
@@ -46,6 +38,8 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShapes;
+
+import java.util.HashMap;
 
 public final class LintBlocks extends LintAutoDataRegistry {
 	/**

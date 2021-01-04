@@ -19,7 +19,6 @@
 
 package me.hydos.lint.item;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.MusicDiscItem;
 import net.minecraft.sound.SoundEvent;
 

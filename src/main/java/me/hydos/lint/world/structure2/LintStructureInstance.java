@@ -19,16 +19,16 @@
 
 package me.hydos.lint.world.structure2;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import me.hydos.lint.world.StateBuffer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * @author Valoeghese

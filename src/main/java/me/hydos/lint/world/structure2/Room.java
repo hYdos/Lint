@@ -19,14 +19,13 @@
 
 package me.hydos.lint.world.structure2;
 
-import java.util.List;
-import java.util.Random;
-
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.world.StructureWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Random;
 
 public abstract class Room {
 	protected Room(BlockPos startPos) {

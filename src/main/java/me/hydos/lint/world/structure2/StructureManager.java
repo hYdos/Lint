@@ -19,10 +19,6 @@
 
 package me.hydos.lint.world.structure2;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import me.hydos.lint.util.FIFOCache;
 import me.hydos.lint.util.math.Maths;
 import net.minecraft.util.math.BlockPos;
@@ -31,6 +27,10 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public final class StructureManager {
 	public StructureManager(ChunkGenerator generator) {

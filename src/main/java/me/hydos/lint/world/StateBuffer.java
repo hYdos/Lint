@@ -19,10 +19,6 @@
 
 package me.hydos.lint.world;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import it.unimi.dsi.fastutil.longs.Long2ObjectArrayMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import net.minecraft.block.BlockState;
@@ -37,6 +33,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public final class StateBuffer implements StructureWorld {
 	public StateBuffer(ChunkGenerator generator) {

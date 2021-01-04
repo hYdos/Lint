@@ -19,11 +19,11 @@
 
 package me.hydos.lint.util;
 
+import org.apache.logging.log4j.core.util.ObjectArrayIterator;
+
 import java.util.Iterator;
 import java.util.function.LongFunction;
 import java.util.function.Predicate;
-
-import org.apache.logging.log4j.core.util.ObjectArrayIterator;
 
 /**
  * Simple First-In First-Out cache of items.

@@ -19,16 +19,9 @@
 
 package me.hydos.lint.mixinimpl;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.sound.NotMusicLoop;
 import me.hydos.lint.sound.Sounds;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer.MusicLoop;
 import net.minecraft.client.sound.MovingSoundInstance;
@@ -36,6 +29,11 @@ import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 public class SoundShit {
 	private static Optional<SoundEvent> prev = Optional.empty();

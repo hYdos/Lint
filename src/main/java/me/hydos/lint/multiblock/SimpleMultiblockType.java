@@ -19,11 +19,6 @@
 
 package me.hydos.lint.multiblock;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.util.GridDirection;
 import net.minecraft.block.Block;
 import net.minecraft.tag.Tag;
@@ -31,6 +26,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * A type of simple multiblock of an inflexible defined shape. Specifies the tag and shape.

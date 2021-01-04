@@ -19,19 +19,18 @@
 
 package me.hydos.lint.datafixer;
 
-import java.util.Objects;
-import java.util.function.Function;
-
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.DataFix;
 import com.mojang.datafixers.TypeRewriteRule;
 import com.mojang.datafixers.schemas.Schema;
 import com.mojang.datafixers.types.Type;
 import com.mojang.datafixers.util.Pair;
-
 import net.minecraft.datafixer.TypeReferences;
 import net.minecraft.datafixer.fix.ItemNameFix;
 import net.minecraft.datafixer.schema.IdentifierNormalizingSchema;
+
+import java.util.Objects;
+import java.util.function.Function;
 
 public abstract class DimensionNameFix extends DataFix {
 	private final String name;

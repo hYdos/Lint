@@ -21,10 +21,6 @@ package me.hydos.lint.client.entity.model;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.entity.aggressive.GhostEntity;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

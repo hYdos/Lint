@@ -19,12 +19,7 @@
 
 package me.hydos.lint.world.structure;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.ImmutableList;
-
 import me.hydos.lint.world.StructureWorld;
 import me.hydos.lint.world.structure2.LintStructure;
 import me.hydos.lint.world.structure2.Room;
@@ -32,6 +27,10 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class TestStructureRoom extends Room {
 	public TestStructureRoom(BlockPos startPos) {

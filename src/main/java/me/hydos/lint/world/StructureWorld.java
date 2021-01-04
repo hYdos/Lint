@@ -19,11 +19,11 @@
 
 package me.hydos.lint.world;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.Random;
 
 public interface StructureWorld {
 	void setBlockState(BlockPos pos, BlockState state);

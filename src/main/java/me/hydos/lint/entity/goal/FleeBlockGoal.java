@@ -19,9 +19,6 @@
 
 package me.hydos.lint.entity.goal;
 
-import java.util.EnumSet;
-import java.util.function.Predicate;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetFinder;
@@ -33,6 +30,9 @@ import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.function.Predicate;
 
 public class FleeBlockGoal extends Goal {
 	protected final PathAwareEntity mob;

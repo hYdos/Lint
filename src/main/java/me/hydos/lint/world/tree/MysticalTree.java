@@ -19,12 +19,12 @@
 
 package me.hydos.lint.world.tree;
 
-import java.util.Random;
-
 import me.hydos.lint.world.feature.Features;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
+
+import java.util.Random;
 
 public final class MysticalTree extends SaplingGenerator {
 	@Override

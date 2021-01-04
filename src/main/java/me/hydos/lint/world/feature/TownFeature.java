@@ -19,8 +19,6 @@
 
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.gen.HaykamChunkGenerator;
@@ -35,6 +33,8 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+
+import java.util.Random;
 
 public class TownFeature extends Feature<DefaultFeatureConfig> {
 	public TownFeature() {

@@ -19,13 +19,13 @@
 
 package me.hydos.lint.enhancement;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import me.hydos.lint.util.Power;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class LintEnhancements {
 	/**

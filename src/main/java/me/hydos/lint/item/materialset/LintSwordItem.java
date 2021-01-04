@@ -19,20 +19,11 @@
 
 package me.hydos.lint.item.materialset;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-
 import me.hydos.lint.enhancement.Enhanceable;
 import me.hydos.lint.enhancement.LintEnhancements;
 import me.hydos.lint.util.Power;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LightningEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -48,6 +39,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 public class LintSwordItem extends SwordItem implements Enhanceable {
 	public LintSwordItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {

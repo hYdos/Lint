@@ -19,8 +19,6 @@
 
 package me.hydos.lint.block.organic;
 
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
@@ -29,6 +27,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
+import org.jetbrains.annotations.Nullable;
 
 public class LintFlowerBlock extends FlowerBlock {
 	public LintFlowerBlock(StatusEffect effect, Settings settings) {

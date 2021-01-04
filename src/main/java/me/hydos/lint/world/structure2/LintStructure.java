@@ -19,13 +19,13 @@
 
 package me.hydos.lint.world.structure2;
 
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * @author Valoeghese
