@@ -110,8 +110,8 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> CONFIGURED_STRUCTURE = register("structure", STRUCTURE.configure(DefaultFeatureConfig.INSTANCE));
 
-	public static final ConfiguredFeature<?, ?> CONFIGURED_TOWN = register("town", TOWN.configure(DefaultFeatureConfig.INSTANCE))
-			.decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE.spreadHorizontally().repeat(1));
+	public static final ConfiguredFeature<?, ?> CONFIGURED_TOWN = register("town", TOWN.configure(DefaultFeatureConfig.INSTANCE)
+			.decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE.spreadHorizontally().applyChance(3)));
 
 	/**
 	 * PATCHY FEATURES

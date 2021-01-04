@@ -38,7 +38,6 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 	@Override
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
-		System.out.println("Generating at " + pos);
 		this.generateHouse(world, pos, random);
 		return true;
 	}
@@ -80,7 +79,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 							this.setBlockState(world, pos, LintBlocks.MYSTICAL_LOG.getDefaultState());
 						}
 					}
-				} else if (height < floor) {
+				} else if (height < floor && !edge) {
 					for (int y = height; y < floor; ++y) {
 						pos.setY(y);
 						this.setBlockState(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
@@ -91,9 +90,9 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				if (!edge || height < seaLevel) {
 					pos.setY(floor);
 					this.setBlockState(world, pos, LintBlocks.MYSTICAL_PLANKS.getDefaultState());
-					int distX = MathHelper.abs(xo - (width / 2)) - 1;
-					int distZ = MathHelper.abs(zo - (breadth / 2)) - 1;
-					int dist = distX + distZ;
+					int distX = (width / 2) - MathHelper.abs(xo - (width / 2));
+					int distZ = (breadth / 2) - MathHelper.abs(zo - (breadth / 2));
+					int dist = Math.max(distX, distZ);
 
 					if (dist > 0) {
 						for (int yo = 0; yo < dist; ++yo) {
@@ -104,6 +103,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 					}
 				}
 
+				/*
 				// pillars
 				if (corner) {
 					final int pillarHeight = houseHeight + 1;
@@ -120,7 +120,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 						pos.setY(floor + yo);
 						this.setBlockState(world, pos, LintBlocks.MYSTICAL_PLANKS.getDefaultState());
 					}
-				}
+				}*/
 			}
 		}
 	}
