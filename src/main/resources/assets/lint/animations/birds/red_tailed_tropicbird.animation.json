@@ -1,0 +1,168 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.red_tailed_tropicbird.idle": {
+			"loop": true,
+			"bones": {
+				"legs": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"head": {
+					"rotation": {
+						"vector": [-20, 0, 0]
+					}
+				},
+				"tail": {
+					"rotation": {
+						"vector": [-25, 0, 0]
+					}
+				},
+				"notLeg": {
+					"rotation": {
+						"vector": [22.5, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.red_tailed_tropicbird.fly": {
+			"loop": true,
+			"bones": {
+				"leftWing": {
+					"rotation": {
+						"vector": [132.5, 40, 100]
+					},
+					"position": {
+						"vector": [5.9, 1.8, -2.4]
+					}
+				},
+				"rightWing": {
+					"rotation": {
+						"vector": [125, -37.5, -82.5]
+					},
+					"position": {
+						"vector": [-6, 3, -2]
+					}
+				}
+			}
+		},
+		"animation.red_tailed_tropicbird.tpose": {
+			"loop": true,
+			"bones": {
+				"leftWing": {
+					"rotation": {
+						"vector": [132.5, 40, 100]
+					},
+					"position": {
+						"vector": [5.9, 1.8, -2.4]
+					}
+				},
+				"rightWing": {
+					"rotation": {
+						"vector": [125, -37.5, -82.5]
+					},
+					"position": {
+						"vector": [-6, 3, -2]
+					}
+				}
+			}
+		},
+		"animation.red_tailed_tropicbird.fly2": {
+			"animation_length": 6.52,
+			"bones": {
+				"leftWing": {
+					"rotation": {
+						"0.0": {
+							"vector": [132.5, 32.5, 95]
+						},
+						"3.28": {
+							"vector": [132.5, 32.5, 110]
+						},
+						"6.48": {
+							"vector": [132.5, 32.5, 95]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [5.9, 1.8, -2.4]
+						},
+						"3.28": {
+							"vector": [5.1, 0.8, -2.4]
+						},
+						"6.48": {
+							"vector": [5.9, 1.8, -2.4]
+						}
+					}
+				},
+				"rightWing": {
+					"rotation": {
+						"0.0": {
+							"vector": [125, -32.5, -87.5]
+						},
+						"3.28": {
+							"vector": [137.5, -32.5, -115]
+						},
+						"6.48": {
+							"vector": [125, -32.5, -87.5]
+						}
+					},
+					"position": {
+						"0.0": {
+							"vector": [-6, 2.4, -1.3]
+						},
+						"3.28": {
+							"vector": [-5, 0.4, -3.3]
+						},
+						"6.48": {
+							"vector": [-6, 2.4, -1.3]
+						}
+					}
+				},
+				"body": {
+					"rotation": {
+						"0.0": {
+							"vector": [10, 0, 0]
+						},
+						"1.52": {
+							"vector": [10, 0, -7.5]
+						},
+						"2.88": {
+							"vector": [10, 0, -2.5]
+						},
+						"4.72": {
+							"vector": [10, 0, 10]
+						},
+						"6.12": {
+							"vector": [10, 0, 0]
+						}
+					}
+				},
+				"legs": {
+					"rotation": {
+						"vector": [17.5, 0, 0]
+					}
+				},
+				"head": {
+					"rotation": {
+						"vector": [-24, 0, 0]
+					},
+					"position": {
+						"vector": [0, 0.3, -1.2]
+					}
+				},
+				"tail": {
+					"rotation": {
+						"vector": [-17.5, 0, 0]
+					}
+				},
+				"notLeg": {
+					"rotation": {
+						"vector": [12.5, 0, 0]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
