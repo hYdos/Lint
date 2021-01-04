@@ -17,14 +17,18 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.client.particle;
+package me.hydos.lint.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import me.hydos.lint.Lint;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.util.registry.Registry;
 
-@Environment(EnvType.CLIENT)
-public class ClientParticles {
+public class Particles {
+
+	public static final DefaultParticleType FALLEN_MYSTICAL_LEAF = FabricParticleTypes.simple();
 
 	public static void register() {
+		Registry.register(Registry.PARTICLE_TYPE, Lint.id("fallen_mystical_leaf"), FALLEN_MYSTICAL_LEAF);
 	}
 }
