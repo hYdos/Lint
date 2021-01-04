@@ -69,13 +69,6 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 		this.moveControl = new FlightMoveControl(this, 10, false);
 	}
 
-	public static DefaultAttributeContainer.Builder createBirdAttributes() {
-		return createMobAttributes()
-				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4D)
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.4D);
-	}
-
 	@Override
 	protected void initGoals() {
 		this.goalSelector.add(0, new EscapeDangerGoal(this, 1.25D));
