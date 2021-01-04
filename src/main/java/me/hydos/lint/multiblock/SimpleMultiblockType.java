@@ -142,7 +142,7 @@ public final class SimpleMultiblockType implements MultiblockType {
 				}
 	
 				Box box = new Box(min, max);
-				return new Multiblock(box, controllerPos, new BlockPos(box.getCenter()));
+				return new Multiblock(box, controllerPos, new BlockPos(box.getCenter()), 4);
 			}
 		}
 

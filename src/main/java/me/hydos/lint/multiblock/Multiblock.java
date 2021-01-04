@@ -26,12 +26,14 @@ import net.minecraft.util.math.Box;
  * Represents a multiblock situated in the world.
  */
 public class Multiblock {
-	Multiblock(Box box, BlockPos controller, BlockPos center) {
+	Multiblock(Box box, BlockPos controller, BlockPos center, int volume) {
+		this.volume = volume;
 		this.box = box;
 		this.controller = controller;
 		this.center = center;
 	}
 
+	public final int volume;
 	public final Box box;
 	public final BlockPos controller;
 	public final BlockPos center;

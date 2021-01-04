@@ -58,7 +58,7 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 					smeltery.getFluidData().get(smeltery.getFluidData().size() - 1).get(),
 					BLOCK_BOUNDS,
 					light,
-					smeltery.getFluidData().get(smeltery.getFluidData().size() - 1).level * 0.24f); //TODO: use some sortof getvolume check from multiblock.
+					smeltery.getFluidData().get(smeltery.getFluidData().size() - 1).level * (0.48f / smeltery.multiblock.volume));
 		}
 	}
 

@@ -436,7 +436,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 
 		registerBlock(ItemGroups.BLOCKS, CORRUPT_GRASS, "corrupt_grass");
 		registerBlock(ItemGroups.BLOCKS, LIVELY_GRASS, "lively_grass");
-		registerBlock(ItemGroups.BLOCKS, WASTELAND_GRASS, "wasteland_grass");
+		registerBlock(ItemGroups.BLOCKS, WASTELAND_GRASS, "frosted_grass");
 
 		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
 

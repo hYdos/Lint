@@ -2,17 +2,17 @@
   "variants": {
     "": [
       {
-        "model": "lint:block/wasteland_grass"
+        "model": "lint:block/frosted_grass"
       },
       {
-        "model": "lint:block/wasteland_grass_mirrored"
+        "model": "lint:block/frosted_grass_mirrored"
       },
       {
-        "model": "lint:block/wasteland_grass",
+        "model": "lint:block/frosted_grass",
         "y": 180
       },
       {
-        "model": "lint:block/wasteland_grass_mirrored",
+        "model": "lint:block/frosted_grass_mirrored",
         "y": 180
       }
     ]

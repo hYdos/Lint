@@ -115,17 +115,17 @@ public class SmelteryScreenHandler extends ScreenHandler {
 				for (LintFluids.FluidEntry entry : LintFluids.MOLTEN_FLUID_MAP.values()) {
 					if (entry.getNuggetItem() == item) {
 						setStack(ItemStack.EMPTY);
-						getBlockEntity().getFluidData().add(FluidStack.of(entry, ((1f / 9) / 9) * count));
+						getBlockEntity().getFluidData().add(FluidStack.of(entry, 0.111111f));
 					}
 
 					if (entry.getIngotItem() == item) {
 						setStack(ItemStack.EMPTY);
-						getBlockEntity().getFluidData().add(FluidStack.of(entry, (1f / 9) * count));
+						getBlockEntity().getFluidData().add(FluidStack.of(entry, 1));
 					}
 
 					if (entry.getBlockItem() == item) {
 						setStack(ItemStack.EMPTY);
-						getBlockEntity().getFluidData().add(FluidStack.of(entry, count));
+						getBlockEntity().getFluidData().add(FluidStack.of(entry, 8));
 					}
 					getBlockEntity().markDirty();
 				}
