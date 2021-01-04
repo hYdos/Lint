@@ -23,7 +23,9 @@ import java.util.Random;
 
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
@@ -43,8 +45,8 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 	}
 
 	private void generateHouse(StructureWorldAccess world, BlockPos start, Random random) {
-		int width = random.nextInt(5) + 7;
-		int breadth = random.nextInt(5) + 7;
+		int width = (random.nextInt(3) + 4) * 2 - 1;
+		int breadth = (random.nextInt(3) + 4) * 2 - 1;
 		int floor = start.getY();
 		int startX = start.getX() - (width/2);
 		int startZ = start.getZ() - (breadth/2);
@@ -53,11 +55,11 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 		BlockPos.Mutable pos = new BlockPos.Mutable();
 
-		for (int xo = 0; xo <= width; ++xo) {
+		for (int xo = 0; xo < width; ++xo) {
 			final int x = startX + xo;
 			pos.setX(x);
 
-			for (int zo = 0; zo <= breadth; ++zo) {
+			for (int zo = 0; zo < breadth; ++zo) {
 				final int z = startZ + zo;
 				pos.setZ(z);
 
@@ -69,7 +71,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 				boolean innerXedg = (xo == 1 || xo == width - 2);
 				boolean innerZedg = (zo == 1 || zo == breadth - 2);
-				boolean innerEdge = innerXedg || innerZedg;
+				boolean innerEdge = (innerXedg || innerZedg) && !edge;
 
 				// platform
 				if (height < seaLevel) {
@@ -86,24 +88,54 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 					}
 				}
 
-				// floor and roof
+				// floor
 				if (!edge || height < seaLevel) {
 					pos.setY(floor);
 					this.setBlockState(world, pos, LintBlocks.MYSTICAL_PLANKS.getDefaultState());
-					int distX = (width / 2) - MathHelper.abs(xo - (width / 2));
-					int distZ = (breadth / 2) - MathHelper.abs(zo - (breadth / 2));
-					int dist = Math.max(distX, distZ);
+				}
+
+				// roof
+				if (!edge) {
+					int dxo = xo - (width / 2); // directional xo. negative = lower xo, positive = higher xo.
+					int dzo = zo - (breadth / 2);
+					int distX = (width / 2) - MathHelper.abs(dxo);
+					int distZ = (breadth / 2) - MathHelper.abs(dzo);
+					int dist = Math.min(distX, distZ);
 
 					if (dist > 0) {
 						for (int yo = 0; yo < dist; ++yo) {
 							pos.setY(floor + houseHeight + yo);
-							// TODO directional stair placing by checking the non-abs distX vs non-abs distZ
-							this.setBlockState(world, pos, Blocks.STONE_BRICKS.getDefaultState());
+
+							if (yo == dist - 1) {
+								if (distX == distZ || (dxo == 0 && dzo == 0)) {
+									this.setBlockState(world, pos, Blocks.STONE_BRICK_SLAB.getDefaultState());
+								} else {
+									Direction direction = null;
+
+									if (distX > distZ) {
+										if (dzo < 0) {
+											direction = Direction.SOUTH; // face opposite direction
+										} else {
+											direction = Direction.NORTH;
+										}
+									} else if (dxo < 0) {
+										direction = Direction.EAST; // face opposite direction
+									} else {
+										direction = Direction.WEST;
+									}
+
+									this.setBlockState(world, pos, Blocks.STONE_BRICK_STAIRS.getDefaultState().with(StairsBlock.FACING, direction));
+								}
+							} else {
+								this.setBlockState(world, pos, Blocks.STONE_BRICKS.getDefaultState());
+							}
 						}
 					}
+				} else if (!corner) {
+					pos.setY(floor + houseHeight - 1);
+					this.setBlockState(world, pos, Blocks.STONE_BRICKS.getDefaultState());
 				}
 
-				/*
 				// pillars
 				if (corner) {
 					final int pillarHeight = houseHeight + 1;
@@ -120,7 +152,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 						pos.setY(floor + yo);
 						this.setBlockState(world, pos, LintBlocks.MYSTICAL_PLANKS.getDefaultState());
 					}
-				}*/
+				}
 			}
 		}
 	}
