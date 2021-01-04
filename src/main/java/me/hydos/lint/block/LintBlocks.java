@@ -38,19 +38,7 @@ import me.hydos.lint.world.tree.CorruptTree;
 import me.hydos.lint.world.tree.MysticalTree;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
@@ -76,15 +64,12 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	/**
 	 * Soils
 	 */
-	public static final Block CORRUPT_GRASS = new Block(FabricBlockSettings.of(Material.SOLID_ORGANIC)
-			.hardness(00.5f)
-			.sounds(BlockSoundGroup.GRASS));
-
-	public static final Block LIVELY_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK));
-	public static final Block WASTELAND_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_BLOCK));
+	public static final Block CORRUPT_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.MYCELIUM)) {};
+	public static final Block LIVELY_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {};
+	public static final Block WASTELAND_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_PATH));
 
 	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
-			new LintFarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)),
+			new FarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)) {},
 			ItemGroups.BLOCKS);
 
 	/**
@@ -269,7 +254,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 
 	public static final Block RICH_DIRT = registerCubeAll(
 			"rich_dirt",
-			new Block(FabricBlockSettings.of(Material.SOIL)
+			new DirtLikeBlock(FabricBlockSettings.of(Material.SOIL)
 					.hardness(0.5f)
 					.sounds(BlockSoundGroup.WET_GRASS)
 					.breakByTool(FabricToolTags.SHOVELS, 0)),

@@ -19,11 +19,16 @@
 
 package me.hydos.lint.block;
 
-import net.minecraft.block.FarmlandBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 
-public class LintFarmlandBlock extends FarmlandBlock {
-
-	public LintFarmlandBlock(Settings settings) {
+public class DirtLikeBlock extends Block {
+	public DirtLikeBlock(Settings settings) {
 		super(settings);
+	}
+
+	@Override
+	public boolean is(Block block) {
+		return this == block || Blocks.DIRT == block;
 	}
 }
