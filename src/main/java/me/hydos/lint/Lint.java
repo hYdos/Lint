@@ -19,7 +19,11 @@
 
 package me.hydos.lint;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.commands.Commands;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.item.LintItems;
@@ -37,8 +41,6 @@ import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
 public class Lint implements ModInitializer {
@@ -64,6 +66,7 @@ public class Lint implements ModInitializer {
 		RRPCallback.EVENT.register(resources -> resources.add(RESOURCE_PACK));
 		LOGGER.info("Lint initialization successful!");
 
+		Commands.initialize();
 		// Datafixer nonsense
 		// Someone help pls
 //		DataFixerBuilder builder = new DataFixerBuilder(1);

@@ -89,6 +89,40 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 		BlockPos.Mutable pos = new BlockPos.Mutable();
 
+		// platform
+		if (floor < seaLevel) {
+			final int w2 = width + 5;
+			final int b2 = breadth + 5;
+
+			for (int xo = -5; xo < w2; ++xo) {
+				final int x = startX + xo;
+				pos.setX(x);
+
+				for (int zo = -5; zo < b2; ++zo) {
+					final int z = startZ + zo;
+					pos.setZ(z);
+
+					boolean xedg = (xo == -5 || xo == width + 4);
+					boolean zedg = (zo == -5 || zo == breadth + 4);
+					boolean corner = xedg && zedg;
+					int height = world.getChunk(pos).sampleHeightmap(Heightmap.Type.OCEAN_FLOOR_WG, x, z);
+
+					if (height < seaLevel) {
+						if (corner) { // corners
+							for (int y = height; y < floor; ++y) {
+								pos.setY(y);
+								this.setBlockState(world, pos, LintBlocks.MYSTICAL_LOG.getDefaultState());
+							}
+						}
+
+						pos.setY(floor);
+						this.setBlockState(world, pos, LintBlocks.MYSTICAL_PLANKS.getDefaultState());
+					}
+				}				
+			}
+		}
+
+		// house
 		for (int xo = 0; xo < width; ++xo) {
 			final int x = startX + xo;
 			pos.setX(x);
