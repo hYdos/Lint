@@ -25,7 +25,6 @@ import me.hydos.lint.client.entity.model.CrabEntityModel;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.model.GhostEntityModel;
 import me.hydos.lint.client.entity.render.*;
-import me.hydos.lint.client.particle.ClientParticles;
 import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
@@ -124,7 +123,6 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerMiscRenderers() {
-		ClientParticles.register();
 		ClientNetworking.register();
 	}
 
