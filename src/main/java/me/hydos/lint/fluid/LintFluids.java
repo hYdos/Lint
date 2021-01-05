@@ -48,7 +48,7 @@ public class LintFluids {
 
 	public static Identifier getId(FluidEntry entry) {
 		for (Identifier identifier : MOLTEN_FLUID_MAP.keySet()) {
-			if(MOLTEN_FLUID_MAP.get(identifier) == entry){
+			if (MOLTEN_FLUID_MAP.get(identifier) == entry) {
 				return identifier;
 			}
 		}

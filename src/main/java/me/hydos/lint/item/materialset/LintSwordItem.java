@@ -19,20 +19,11 @@
 
 package me.hydos.lint.item.materialset;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-
 import me.hydos.lint.enhancement.Enhanceable;
 import me.hydos.lint.enhancement.LintEnhancements;
 import me.hydos.lint.util.Power;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LightningEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -49,17 +40,17 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+
 public class LintSwordItem extends SwordItem implements Enhanceable {
-	public LintSwordItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
-		super(toolMaterial, attackDamage, attackSpeed, settings);
-		this.attackSpeed = attackSpeed;
-	}
-
+	// Nice simple constants for where this shit works nicely: basically the proportions for if the ability is featured multiple times.
+	// However if the ability is only featured once these aren't really necessary
+	public static final double MAJOR_CONSTANT = 1.0;
+	public static final double MINOR_CONSTANT = 0.5;
 	private final float attackSpeed;
-
-	public float getAttackSpeed() {
-		return this.attackSpeed;
-	}
 
 	/*@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
@@ -69,6 +60,15 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 
 		return super.useOnBlock(context);
 	}*/
+
+	public LintSwordItem(ToolMaterial toolMaterial, int attackDamage, float attackSpeed, Settings settings) {
+		super(toolMaterial, attackDamage, attackSpeed, settings);
+		this.attackSpeed = attackSpeed;
+	}
+
+	public float getAttackSpeed() {
+		return this.attackSpeed;
+	}
 
 	@Override
 	public void onAttack(LivingEntity attacker, ItemStack stack, Entity target) {
@@ -135,7 +135,7 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 			for (Power.Broad power : powers) {
 				Text text = new LiteralText(power.toString().toUpperCase(Locale.ROOT)).formatted(power.formatting).formatted(Formatting.BOLD)
 						.append(new LiteralText(" Level " + (int) LintEnhancements.getEnhancement(stack, power)).formatted(Formatting.RESET).formatted(Formatting.WHITE));
-				
+
 				tooltip.add(text); // TODO: make translatable
 			}
 		}
@@ -178,9 +178,4 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 				break;
 		}
 	}
-
-	// Nice simple constants for where this shit works nicely: basically the proportions for if the ability is featured multiple times.
-	// However if the ability is only featured once these aren't really necessary
-	public static final double MAJOR_CONSTANT = 1.0;
-	public static final double MINOR_CONSTANT = 0.5;
 }

@@ -58,6 +58,10 @@ public class CrabEntity extends PathAwareEntity implements IAnimatable {
 		super(entityType, world);
 	}
 
+	public static DefaultAttributeContainer.Builder createCrobAttributes() {
+		return createMobAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1d).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3d);
+	}
+
 	@Override
 	public void registerControllers(AnimationData data) {
 		data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
@@ -68,10 +72,6 @@ public class CrabEntity extends PathAwareEntity implements IAnimatable {
 		goalSelector.add(3, new LookAtEntityGoal(this, LivingEntity.class, 10));
 		goalSelector.add(2, new RevengeGoal(this).setGroupRevenge(CrabEntity.class));
 		goalSelector.add(1, new LookAroundGoal(this));
-	}
-
-	public static DefaultAttributeContainer.Builder createCrobAttributes() {
-		return createMobAttributes().add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1d).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3d);
 	}
 
 	@Override

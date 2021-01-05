@@ -28,6 +28,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
 public class LintPortal {
+	public static final BlockState FRAME = Blocks.COAL_BLOCK.getDefaultState();
+
 	public static void resolve(World world, BlockPos firePos) {
 		boolean blowUp = false;
 		if (world.getRegistryKey() != World.OVERWORLD) {
@@ -188,8 +190,8 @@ public class LintPortal {
 		pos.setY(fireY);
 
 		// place portal
-		if(blowUp){
-			if(!world.isClient()){
+		if (blowUp) {
+			if (!world.isClient()) {
 				world.createExplosion(null, fireX, fireY, fireZ, 10, Explosion.DestructionType.DESTROY);
 			}
 			return;
@@ -204,6 +206,4 @@ public class LintPortal {
 			}
 		}
 	}
-
-	public static final BlockState FRAME = Blocks.COAL_BLOCK.getDefaultState();
 }

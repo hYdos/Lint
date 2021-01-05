@@ -19,8 +19,6 @@
 
 package me.hydos.lint.datafixer;
 
-import com.mojang.datafixers.schemas.Schema;
-
 public class LintSchemas {
 }
 

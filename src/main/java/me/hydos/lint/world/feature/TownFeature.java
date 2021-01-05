@@ -19,8 +19,6 @@
 
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.gen.HaykamChunkGenerator;
@@ -36,7 +34,13 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
+import java.util.Random;
+
 public class TownFeature extends Feature<DefaultFeatureConfig> {
+	private static final int OUTSKIRTS_DIST = 320 * 320;
+	public static int DENSE_DIST = 80 * 80;
+	public static int RURAL_DIST = 180 * 180;
+
 	public TownFeature() {
 		super(DefaultFeatureConfig.CODEC);
 	}
@@ -82,8 +86,8 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 		int width = (random.nextInt(3) + 4) * 2 - 1;
 		int breadth = (random.nextInt(3) + 4) * 2 - 1;
 		int floor = world.getChunk(start).sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, start.getX(), start.getZ());
-		int startX = start.getX() - (width/2);
-		int startZ = start.getZ() - (breadth/2);
+		int startX = start.getX() - (width / 2);
+		int startZ = start.getZ() - (breadth / 2);
 		final int seaLevel = world.getSeaLevel();
 		final int houseHeight = random.nextInt(3) + 4;
 
@@ -122,7 +126,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 						pos.setY(floor);
 						this.setBlockState(world, pos, LintBlocks.MYSTICAL_PLANKS.getDefaultState());
 					}
-				}				
+				}
 			}
 		}
 
@@ -228,8 +232,4 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 			}
 		}
 	}
-
-	public static int DENSE_DIST = 80 * 80;
-	public static int RURAL_DIST = 180 * 180;
-	private static int OUTSKIRTS_DIST = 320 * 320;
 }

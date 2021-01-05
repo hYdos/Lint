@@ -25,6 +25,7 @@ import net.minecraft.util.Identifier;
 
 /**
  * Used for storing fluids where {@link net.minecraft.fluid.FluidState} can't be used
+ *
  * @author hydos
  */
 public class FluidStack {
@@ -32,18 +33,11 @@ public class FluidStack {
 	public Identifier fluid;
 
 	public FluidStack(float level, Identifier fluid) {
-		if(level > 8) {
+		if (level > 8) {
 			throw new RuntimeException("Level of fluid is beyond maximum value (8)");
 		}
 		this.level = level;
 		this.fluid = fluid;
-	}
-
-	public CompoundTag toTag() {
-		CompoundTag tag = new CompoundTag();
-		tag.putFloat("level", level);
-		tag.putString("fluid", fluid.toString());
-		return tag;
 	}
 
 	public static FluidStack fromTag(CompoundTag tag) {
@@ -56,6 +50,13 @@ public class FluidStack {
 
 	public static FluidStack of(LintFluids.FluidEntry entry, float level) {
 		return new FluidStack(level, LintFluids.getId(entry));
+	}
+
+	public CompoundTag toTag() {
+		CompoundTag tag = new CompoundTag();
+		tag.putFloat("level", level);
+		tag.putString("fluid", fluid.toString());
+		return tag;
 	}
 
 	public Fluid get() {

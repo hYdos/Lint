@@ -52,6 +52,7 @@ public class ItemGroups {
 			Lint.id("lint_food"))
 			.icon(() -> new ItemStack(LintBlocks.COOKIE))
 			.build();
+
 	public static void register() {
 	}
 }

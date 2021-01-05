@@ -19,16 +19,8 @@
 
 package me.hydos.lint.world.gen;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.util.math.Vec2i;
@@ -61,24 +53,28 @@ import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
+
 public class HaykamChunkGenerator extends ChunkGenerator implements StructureChunkGenerator {
 
+	public static List<Consumer<StructureManager>> onStructureSetup = new ArrayList<>();
 	public static final Codec<HaykamChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
 			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
-			).apply(instance, instance.stable(HaykamChunkGenerator::new)));
+	).apply(instance, instance.stable(HaykamChunkGenerator::new)));
 	private final ChunkRandom random = new ChunkRandom();
 	private final long seed;
 	private final Registry<Biome> biomeRegistry;
-
+	private final List<Vec2i> villageCentres = new ArrayList<>();
 	private HaykamTerrainGenerator terrain;
-
 	private FloatingIslandModifier floatingIslands;
 	private OctaveSimplexNoiseSampler surfaceNoise;
 	private StructureManager structureManager;
-
-	private final List<Vec2i> villageCentres = new ArrayList<>();
-	public static List<Consumer<StructureManager>> onStructureSetup = new ArrayList<>();
 
 	public HaykamChunkGenerator(Long seed, Registry<Biome> registry) {
 		super(new HaykamBiomeSource(registry, seed), new StructuresConfig(false));
@@ -90,7 +86,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 			onStructureSetup.forEach(c -> c.accept(this.structureManager));
 
 			long worldSeed = ((ServerWorld) manager.getWorld()).getSeed();
-			
+
 			Random rand = new Random(worldSeed + 1);
 			double angleRadians = (rand.nextDouble() * Math.PI / 4) - Math.PI / 8;
 			final double rightAngle = Math.PI / 2;
@@ -98,7 +94,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 			this.villageCentres.add(fromRTheta(1000, angleRadians + rightAngle));
 			this.villageCentres.add(fromRTheta(1000, angleRadians + 2 * rightAngle));
 			this.villageCentres.add(fromRTheta(1000, angleRadians + 3 * rightAngle));
-			
+
 			rand.setSeed(worldSeed);
 			this.terrain = new HaykamTerrainGenerator(worldSeed, rand, this.getVillageCentres());
 			((HaykamBiomeSource) this.biomeSource).setTerrainData(this.terrain);
@@ -106,6 +102,16 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 			this.floatingIslands = new FloatingIslandModifier(worldSeed);
 			this.surfaceNoise = new OctaveSimplexNoiseSampler(this.random, IntStream.rangeClosed(-3, 0));
 		});
+	}
+
+	public static void onStructureSetup(Consumer<StructureManager> callback) {
+		onStructureSetup.add(callback);
+	}
+
+	private static Vec2i fromRTheta(double r, double theta) {
+		return new Vec2i(
+				MathHelper.floor(Math.cos(theta) * r),
+				MathHelper.floor(Math.sin(theta) * r));
 	}
 
 	@Override
@@ -291,15 +297,5 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 				}
 			}
 		}
-	}
-
-	public static void onStructureSetup(Consumer<StructureManager> callback) {
-		onStructureSetup.add(callback);
-	}
-	
-	private static Vec2i fromRTheta(double r, double theta) {
-		return new Vec2i(
-				MathHelper.floor(Math.cos(theta) * r),
-				MathHelper.floor(Math.sin(theta) * r));
 	}
 }

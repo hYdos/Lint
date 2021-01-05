@@ -19,23 +19,22 @@
 
 package me.hydos.lint.world.structure2;
 
-import java.util.List;
-import java.util.Random;
-
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.world.StructureWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Random;
 
 public abstract class Room {
-	protected Room(BlockPos startPos) {
-		this.startPos = startPos;
-	}
-
 	protected final BlockPos startPos;
 	private Box box;
 	private boolean generated;
+
+	protected Room(BlockPos startPos) {
+		this.startPos = startPos;
+	}
 
 	public final void computeBounds(Random rand) {
 		this.box = this.getBounds(rand);
@@ -60,6 +59,8 @@ public abstract class Room {
 	}
 
 	protected abstract void generate(StructureWorld world, Random rand, final Box box);
+
 	protected abstract Box getBounds(Random rand);
+
 	protected abstract List<Room> computeNodes(Box box, Random rand);
 }

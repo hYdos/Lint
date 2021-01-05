@@ -198,7 +198,7 @@ public class LintSky {
 
 		// BETA STAR
 		// TODO hydos proper occlusion when big alpha star covers little beta star
-		
+
 		if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.07f) {
 			matrices.push();
 			size *= 0.87;

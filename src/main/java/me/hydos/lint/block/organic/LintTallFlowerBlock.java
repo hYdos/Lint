@@ -31,6 +31,9 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
 public class LintTallFlowerBlock extends TallFlowerBlock {
+	public static final VoxelShape BOTTOM_MODEL = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 1, 0.875);
+	public static final VoxelShape TOP_MODEL = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 0.75, 0.875);
+
 	public LintTallFlowerBlock(Settings settings) {
 		super(settings.nonOpaque());
 	}
@@ -45,7 +48,4 @@ public class LintTallFlowerBlock extends TallFlowerBlock {
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return state.get(HALF) == DoubleBlockHalf.LOWER ? BOTTOM_MODEL : TOP_MODEL;
 	}
-
-	public static final VoxelShape BOTTOM_MODEL = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 1, 0.875);
-	public static final VoxelShape TOP_MODEL = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 0.75, 0.875);
 }

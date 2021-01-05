@@ -19,28 +19,29 @@
 
 package me.hydos.lint.util;
 
+import org.apache.logging.log4j.core.util.ObjectArrayIterator;
+
 import java.util.Iterator;
 import java.util.function.LongFunction;
 import java.util.function.Predicate;
 
-import org.apache.logging.log4j.core.util.ObjectArrayIterator;
-
 /**
  * Simple First-In First-Out cache of items.
+ *
  * @author Valoeghese
  */
 public class FIFOCache<T> implements Iterable<T> {
+	private final int capacity;
+	private final T[] array;
+	private final long[] positions;
+	protected int currentIndex = 0;
+	private int size = 0;
+
 	public FIFOCache(T[] array) {
 		this.capacity = array.length;
 		this.array = array;
 		this.positions = new long[array.length];
 	}
-
-	private final int capacity;
-	private int size = 0;
-	protected int currentIndex = 0;
-	private final T[] array;
-	private final long[] positions;
 
 	public T add(long position, T item) {
 		if (this.capacity > this.size) {

@@ -19,14 +19,13 @@
 
 package me.hydos.lint.item;
 
-import static me.hydos.lint.block.LintAutoDataRegistry.registerGenerated;
-
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.item.materialset.MaterialSet;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.item.Item;
-import net.minecraft.item.MusicDiscItem;
 import net.minecraft.util.Rarity;
+
+import static me.hydos.lint.block.LintAutoDataRegistry.registerGenerated;
 
 public class LintItems {
 

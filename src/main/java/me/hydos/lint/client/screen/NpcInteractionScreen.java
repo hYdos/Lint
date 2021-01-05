@@ -41,7 +41,7 @@ public class NpcInteractionScreen extends Screen {
 	@Override
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		super.render(matrices, mouseX, mouseY, delta);
-		if(client != null) { // im not sure how or why, but this happened to me
+		if (client != null) { // im not sure how or why, but this happened to me
 			fill(matrices, 0, (int) (height / 1.5f), width, height, 0x99111111);
 			client.textRenderer.draw(matrices, text, 10, height / 1.4f, 0xFFFFFFFF);
 			LivingEntity entity = (LivingEntity) client.player.world.getEntityById(entityId);

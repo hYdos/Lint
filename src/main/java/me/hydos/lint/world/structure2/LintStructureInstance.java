@@ -19,10 +19,6 @@
 
 package me.hydos.lint.world.structure2;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import me.hydos.lint.world.StateBuffer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -30,11 +26,19 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 /**
  * @author Valoeghese
  * Internal class used for handling structure generation.
  */
 public final class LintStructureInstance {
+	public final Identifier id;
+	private final List<Room> rooms;
+	private final StateBuffer stateBuffer;
+
 	public LintStructureInstance(LintConfiguredStructure configuredStructure, ChunkGenerator generator, int x, int z) {
 		this.stateBuffer = new StateBuffer(generator);
 
@@ -48,19 +52,16 @@ public final class LintStructureInstance {
 		this.rooms = new ArrayList<>();
 		Room start = structure.getStartRoom(pos);
 		start.computeBounds(rand);
-		this.computeRooms(start, rand, 0, configuredStructure.getMaxIterDepth());		
+		this.computeRooms(start, rand, 0, configuredStructure.getMaxIterDepth());
 	}
-
-	public final Identifier id;
-	private final List<Room> rooms;
-	private final StateBuffer stateBuffer;
 
 	private void computeRooms(Room startRoom, ChunkRandom random, int iter, int maxIterDepth) {
 		boolean iterateDeeper = iter < maxIterDepth;
 
 		List<Room> nodes = startRoom.computeNodes(startRoom.getBoundingBox(), random);
 
-		roomIterator: for (Room room : nodes) {
+		roomIterator:
+		for (Room room : nodes) {
 			room.computeBounds(random);
 			Box box = room.getBoundingBox();
 

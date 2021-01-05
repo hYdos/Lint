@@ -26,12 +26,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 
 public class LintSaplingBlock extends SaplingBlock {
+	private final BlockState requires;
+
 	public LintSaplingBlock(SaplingGenerator generator, Settings settings, BlockState requires) {
 		super(generator, settings);
 		this.requires = requires;
 	}
-
-	private final BlockState requires;
 
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {

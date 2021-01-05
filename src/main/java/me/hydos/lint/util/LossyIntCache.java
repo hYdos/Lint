@@ -28,6 +28,7 @@ public class LossyIntCache implements IntGridOperator {
 	private final long[] positions;
 	private final int[] data;
 	private final IntGridOperator operator;
+
 	public LossyIntCache(int size, IntGridOperator operator) {
 		int arrSize = 1; // 2^n = 2 * (2^(n-1))
 		int nextArrSize;

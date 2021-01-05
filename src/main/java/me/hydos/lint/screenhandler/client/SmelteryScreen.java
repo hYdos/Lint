@@ -54,7 +54,7 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 		super.render(matrices, mouseX, mouseY, delta);
 		BlockPos smelteryPos = ((SmelteryScreenHandler) getScreenHandler()).smelteryPos;
 		SmelteryBlockEntity smeltery = (SmelteryBlockEntity) MinecraftClient.getInstance().world.getBlockEntity(smelteryPos);
-		if(smeltery.multiblock != null) {
+		if (smeltery.multiblock != null) {
 			for (int i = 0; i < smeltery.getFluidData().size(); i++) {
 				FluidStack layerFluid = smeltery.getFluidData().get(i);
 				if (layerFluid != null) {

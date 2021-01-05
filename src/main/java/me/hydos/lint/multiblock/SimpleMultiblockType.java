@@ -19,11 +19,6 @@
 
 package me.hydos.lint.multiblock;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.util.GridDirection;
 import net.minecraft.block.Block;
 import net.minecraft.tag.Tag;
@@ -31,21 +26,24 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * A type of simple multiblock of an inflexible defined shape. Specifies the tag and shape.
  */
 public final class SimpleMultiblockType implements MultiblockType {
-	public SimpleMultiblockType(Tag<Block> block) {
-		this.block = block;
-	}
-
 	public final Tag<Block> block;
 	private final Collection<Vec3i> shape = new ArrayList<>();
 	private final Collection<Vec3i> air = new ArrayList<>();
-
 	private BlockPos.Mutable min; // it's a mutable vec3i that's all I need
 	private BlockPos.Mutable max;
+
+	public SimpleMultiblockType(Tag<Block> block) {
+		this.block = block;
+	}
 
 	/**
 	 * Adds a position in the structure relative to the controller.
@@ -85,6 +83,7 @@ public final class SimpleMultiblockType implements MultiblockType {
 
 	/**
 	 * Adds a position that must be air relative to the controller.
+	 *
 	 * @param xo the relative-rotated x offset
 	 * @param yo the y offset
 	 * @param zo the relative-rotated z offset
@@ -103,7 +102,8 @@ public final class SimpleMultiblockType implements MultiblockType {
 		final int startZ = controllerPos.getZ();
 
 		for (GridDirection direction : GridDirection.values()) {
-			shapeSearch: {
+			shapeSearch:
+			{
 				// check for the multiblock shape
 				for (Vec3i offset : this.shape) {
 					if (direction.horizontal) {
@@ -111,12 +111,12 @@ public final class SimpleMultiblockType implements MultiblockType {
 					} else {
 						pos.set(startX + direction.off * offset.getZ(), startY + offset.getY(), startZ + direction.off * offset.getX());
 					}
-	
+
 					if (!world.getBlockState(pos).isIn(this.block)) {
 						break shapeSearch;
 					}
 				}
-				
+
 				// check for air
 				for (Vec3i offset : this.air) {
 					if (direction.horizontal) {
@@ -124,15 +124,15 @@ public final class SimpleMultiblockType implements MultiblockType {
 					} else {
 						pos.set(startX + direction.off * offset.getZ(), startY + offset.getY(), startZ + direction.off * offset.getX());
 					}
-	
+
 					if (!world.getBlockState(pos).isAir()) {
 						break shapeSearch;
 					}
 				}
-	
+
 				BlockPos min;
 				BlockPos max;
-	
+
 				if (direction.horizontal) {
 					min = new BlockPos(startX + direction.off * this.min.getX(), startY + this.min.getY(), startZ + direction.off * this.min.getZ());
 					max = new BlockPos(startX + direction.off * this.max.getX(), startY + this.max.getY(), startZ + direction.off * this.max.getZ());
@@ -140,7 +140,7 @@ public final class SimpleMultiblockType implements MultiblockType {
 					min = new BlockPos(startX + direction.off * this.min.getZ(), startY + this.min.getY(), startZ + direction.off * this.min.getX());
 					max = new BlockPos(startX + direction.off * this.max.getZ(), startY + this.max.getY(), startZ + direction.off * this.max.getX());
 				}
-	
+
 				Box box = new Box(min, max);
 				return new Multiblock(box, controllerPos, new BlockPos(box.getCenter()), 2);
 			}

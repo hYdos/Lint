@@ -29,14 +29,7 @@ import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
 import net.minecraft.world.gen.placer.DoublePlantPlacer;
@@ -138,11 +131,11 @@ public class Features {
 			new RandomPatchFeatureConfig.Builder(
 					new SimpleBlockStateProvider(LintBlocks.TATERBANE.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE)
-			.tries(1)
-			.spreadX(1)
-			.spreadY(1)
-			.spreadZ(1)
-			.build())
+					.tries(1)
+					.spreadX(1)
+					.spreadY(1)
+					.spreadZ(1)
+					.build())
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP.applyChance(9)));
 
 	public static final ConfiguredFeature<?, ?> SPEARMINTS = register("spearmints", Feature.RANDOM_PATCH.configure(Configs.SPEARMINT_CONFIG)

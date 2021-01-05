@@ -19,16 +19,8 @@
 
 package me.hydos.lint.block;
 
-import java.util.HashMap;
-
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.organic.FallenLeavesBlock;
-import me.hydos.lint.block.organic.LintCorruptGrassBlock;
-import me.hydos.lint.block.organic.LintFlowerBlock;
-import me.hydos.lint.block.organic.LintLeavesBlock;
-import me.hydos.lint.block.organic.LintSaplingBlock;
-import me.hydos.lint.block.organic.LintTallFlowerBlock;
-import me.hydos.lint.block.organic.TaterbaneBlock;
+import me.hydos.lint.block.organic.*;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
@@ -47,6 +39,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShapes;
 
+import java.util.HashMap;
+
 public final class LintBlocks extends LintAutoDataRegistry {
 	/**
 	 * Automatically generated
@@ -64,12 +58,15 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	/**
 	 * Soils
 	 */
-	public static final Block CORRUPT_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.MYCELIUM)) {};
-	public static final Block LIVELY_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {};
+	public static final Block CORRUPT_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.MYCELIUM)) {
+	};
+	public static final Block LIVELY_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
+	};
 	public static final Block WASTELAND_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_PATH));
 
 	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
-			new FarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)) {},
+			new FarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)) {
+			},
 			ItemGroups.BLOCKS);
 
 	/**
@@ -300,7 +297,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS)
 			.nonOpaque()
-			);
+	);
 	public static final FlowerBlock WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()

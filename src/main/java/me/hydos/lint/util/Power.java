@@ -54,10 +54,10 @@ public enum Power {
 		PAWERIA(Formatting.YELLOW), // Cariar of order. Likes strict hierarchies and social structures, and those who follow such laws of their land. Although not fine with theft, will not disdain higher-ups if they take from lower-downs, if it follows the order of society.
 		HERIA(Formatting.AQUA); // Carien of emotions. Admires love, passion, fury, hate, and acting on one's emotions.
 
+		public final Formatting formatting;
+
 		Broad(Formatting format) {
 			this.formatting = format;
 		}
-
-		public final Formatting formatting;
 	}
 }

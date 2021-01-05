@@ -34,6 +34,9 @@ import net.minecraft.world.gen.feature.Feature;
 import java.util.Random;
 
 public class FadingAshFeature extends Feature<DefaultFeatureConfig> {
+	private static final BlockState ASH = LintBlocks.ASH.getDefaultState();
+	private static final BlockState ASPHALT = LintBlocks.ASPHALT.getDefaultState();
+
 	public FadingAshFeature() {
 		super(DefaultFeatureConfig.CODEC);
 	}
@@ -64,7 +67,4 @@ public class FadingAshFeature extends Feature<DefaultFeatureConfig> {
 
 		return true;
 	}
-
-	private static final BlockState ASH = LintBlocks.ASH.getDefaultState();
-	private static final BlockState ASPHALT = LintBlocks.ASPHALT.getDefaultState();
 }

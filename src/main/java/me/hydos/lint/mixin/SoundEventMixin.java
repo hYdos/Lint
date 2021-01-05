@@ -28,7 +28,9 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(SoundEvent.class)
 public class SoundEventMixin implements LintSoundEvent {
-	@Shadow @Final private Identifier id;
+	@Shadow
+	@Final
+	private Identifier id;
 
 	@Override
 	public Identifier getCommonId() {

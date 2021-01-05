@@ -43,15 +43,15 @@ public abstract class AbstractBirdEntity extends TameableShoulderEntity implemen
 		this.birdData = birdData;
 	}
 
-	public BirdData getBirdData() {
-		return birdData;
-	}
-
 	public static DefaultAttributeContainer.Builder createBirdAttributes() {
 		return createMobAttributes()
 				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.4D)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.4D);
+	}
+
+	public BirdData getBirdData() {
+		return birdData;
 	}
 
 	@Override
