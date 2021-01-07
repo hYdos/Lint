@@ -87,19 +87,11 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 			BufferBuilder bb = tessellator.getBuffer();
 			Matrix4f matrix = matrices.peek().getModel();
 			bb.begin(7, VertexFormats.POSITION_TEXTURE_COLOR);
-			bb.vertex(matrix, (float) bounds.getMaxX(), (float) bounds.y, this.getFluidZ()).texture(sprite.getMaxU(), sprite.getMinV()).color(r, g, b, a).next();
-			bb.vertex(matrix, (float) bounds.x, (float) bounds.y, this.getFluidZ()).texture(sprite.getMinU(), sprite.getMinV()).color(r, g, b, a).next();
-			bb.vertex(matrix, (float) bounds.x, (float) bounds.getMaxY(), this.getFluidZ()).texture(sprite.getMinU(), sprite.getMaxV()).color(r, g, b, a).next();
-			bb.vertex(matrix, (float) bounds.getMaxX(), (float) bounds.getMaxY(), this.getFluidZ()).texture(sprite.getMaxU(), sprite.getMaxV()).color(r, g, b, a).next();
+			bb.vertex(matrix, (float) bounds.getMaxX(), (float) bounds.y, 1f).texture(sprite.getMaxU(), sprite.getMinV()).color(r, g, b, a).next();
+			bb.vertex(matrix, (float) bounds.x, (float) bounds.y, 1f).texture(sprite.getMinU(), sprite.getMinV()).color(r, g, b, a).next();
+			bb.vertex(matrix, (float) bounds.x, (float) bounds.getMaxY(), 1f).texture(sprite.getMinU(), sprite.getMaxV()).color(r, g, b, a).next();
+			bb.vertex(matrix, (float) bounds.getMaxX(), (float) bounds.getMaxY(), 1f).texture(sprite.getMaxU(), sprite.getMaxV()).color(r, g, b, a).next();
 			tessellator.draw();
 		}
-	}
-
-	public void renderAdvancedFluidTm(MatrixStack matrices, Fluid fluid, Rectangle bounds) {
-		//TODO: this will work by rendering many small fluids and putting them together thus removing the stretching artifact i hope. this will be interesting also someone remind me to finish overworld -> lint and lint -> overworld portal thank
-	}
-
-	private float getFluidZ() {
-		return 1f;
 	}
 }

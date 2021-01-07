@@ -16,11 +16,6 @@ repositories {
 		name = "Devan-Kerman/Devan-Repo"
 		url = uri("https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/")
 	}
-
-	maven {
-		name = "CurseMaven"
-		url = uri("https://www.cursemaven.com/")
-	}
 }
 
 dependencies {

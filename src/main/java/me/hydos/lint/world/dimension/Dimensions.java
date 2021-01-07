@@ -59,7 +59,4 @@ public class Dimensions {
 			OVERWORLD_ID,
 			0.1F
 	);
-
-	public static void initialize() {
-	}
 }
