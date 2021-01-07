@@ -85,7 +85,7 @@ public class Lint implements ModInitializer {
 		Structures.initialize();
 		Features.initialize();
 		Biomes.initialize();
-		Dimensions.initialize();
+//		Dimensions.initialize();
 	}
 
 	private void registerLintContent() {
