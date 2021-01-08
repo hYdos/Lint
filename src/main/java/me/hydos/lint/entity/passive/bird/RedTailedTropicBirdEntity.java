@@ -31,7 +31,7 @@ import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 
 @SuppressWarnings("EntityConstructor")
-public class RedTailedTropicBirdEntity extends AbstractBirdEntity{
+public class RedTailedTropicBirdEntity extends AbstractBirdEntity {
 
 	private static final AnimationBuilder FLY_ANIMATION = new AnimationBuilder().addAnimation("animation.red_tailed_tropicbird.fly", true);
 	private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.red_tailed_tropicbird.idle", true);

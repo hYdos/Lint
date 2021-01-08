@@ -90,7 +90,7 @@ public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 
 	@Override
 	protected void onKilledBy(LivingEntity killer) {
-		if(killer != null) {
+		if (killer != null) {
 			killer.dropStack(new ItemStack(LintItems.TATER_ESSENCE));
 			if (killer instanceof ServerPlayerEntity) {
 				((ServerPlayerEntity) killer).networkHandler.sendPacket(new PlaySoundS2CPacket(Sounds.ADVANCEMENT, SoundCategory.MASTER, getX(), getY(), getZ(), 1f, 1f));

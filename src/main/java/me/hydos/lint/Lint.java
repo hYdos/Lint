@@ -19,9 +19,6 @@
 
 package me.hydos.lint;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.commands.Commands;
 import me.hydos.lint.entity.Entities;
@@ -41,6 +38,8 @@ import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
 public class Lint implements ModInitializer {

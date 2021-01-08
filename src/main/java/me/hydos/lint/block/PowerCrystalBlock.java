@@ -35,12 +35,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
 public class PowerCrystalBlock extends AbstractGlassBlock {
+	private final StatusEffect effect;
+
 	public PowerCrystalBlock(Settings settings, StatusEffect effect) {
 		super(settings);
 		this.effect = effect;
 	}
-
-	private final StatusEffect effect;
 
 	@Override
 	public void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {

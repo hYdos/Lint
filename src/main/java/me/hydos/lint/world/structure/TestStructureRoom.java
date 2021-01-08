@@ -19,12 +19,7 @@
 
 package me.hydos.lint.world.structure;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.ImmutableList;
-
 import me.hydos.lint.world.StructureWorld;
 import me.hydos.lint.world.structure2.LintStructure;
 import me.hydos.lint.world.structure2.Room;
@@ -33,7 +28,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class TestStructureRoom extends Room {
+	public static final LintStructure STRUCTURE = new LintStructure(new Identifier("lint:test"), 123L, TestStructureRoom::new, (generator, x, z) -> 200, biome -> true);
+
 	public TestStructureRoom(BlockPos startPos) {
 		super(startPos);
 	}
@@ -68,7 +69,7 @@ public class TestStructureRoom extends Room {
 	@Override
 	protected List<Room> computeNodes(Box box, Random rand) {
 		List<Room> result = new ArrayList<>();
-		
+
 		result.add(new ExtraRoom(this.startPos.add(box.getXLength(), 0, box.getZLength() / 2)));
 		result.add(new ExtraRoom(this.startPos.add(box.getXLength() / 2, 0, box.getZLength())));
 		return result;
@@ -111,6 +112,4 @@ public class TestStructureRoom extends Room {
 			return ImmutableList.of();
 		}
 	}
-
-	public static final LintStructure STRUCTURE = new LintStructure(new Identifier("lint:test"), 123L, TestStructureRoom::new, (generator, x, z) -> 200, biome -> true);
 }

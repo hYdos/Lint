@@ -25,7 +25,7 @@ import net.minecraft.screen.slot.Slot;
 
 public class LintUtilities {
 
-	public static void addPlayerInventorySlots(PlayerInventory playerInventory, ScreenHandler screenHandler){
+	public static void addPlayerInventorySlots(PlayerInventory playerInventory, ScreenHandler screenHandler) {
 		// Hotbar
 		for (int i = 0; i < 9; i++) {
 			screenHandler.addSlot(new Slot(playerInventory, i, (18 * i) + 8, 142));

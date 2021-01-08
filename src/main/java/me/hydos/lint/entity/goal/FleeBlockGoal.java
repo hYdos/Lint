@@ -19,9 +19,6 @@
 
 package me.hydos.lint.entity.goal;
 
-import java.util.EnumSet;
-import java.util.function.Predicate;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetFinder;
@@ -34,17 +31,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import java.util.EnumSet;
+import java.util.function.Predicate;
+
 public class FleeBlockGoal extends Goal {
 	protected final PathAwareEntity mob;
-	private final double slowSpeed;
-	private final double fastSpeed;
-	protected BlockPos targetBlock;
 	protected final int fleeDistance;
-	protected Path fleePath;
 	protected final EntityNavigation fleeingEntityNavigation;
 	protected final Predicate<Block> blockToFleeFrom;
 	protected final Predicate<LivingEntity> extraInclusionSelector;
 	protected final Predicate<LivingEntity> inclusionSelector;
+	private final double slowSpeed;
+	private final double fastSpeed;
+	protected BlockPos targetBlock;
+	protected Path fleePath;
 
 	public FleeBlockGoal(PathAwareEntity mob, Block fleeFromType, int distance, double slowSpeed, double fastSpeed) {
 		this(mob, blk -> blk == fleeFromType, le -> true, distance, slowSpeed, fastSpeed, EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR::test);
@@ -116,7 +116,7 @@ public class FleeBlockGoal extends Goal {
 				return false;
 			} else {
 				this.fleePath = this.fleeingEntityNavigation.findPathTo(target.x, target.y, target.z, 0);
-				
+
 				if (this.fleePath != null) {
 					this.targetBlock = fleePosCache;
 				}

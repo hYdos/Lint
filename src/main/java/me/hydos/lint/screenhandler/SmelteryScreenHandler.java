@@ -20,8 +20,8 @@
 package me.hydos.lint.screenhandler;
 
 import me.hydos.lint.block.entity.SmelteryBlockEntity;
-import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.FluidStack;
+import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.util.LintInventory;
 import me.hydos.lint.util.LintUtilities;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;

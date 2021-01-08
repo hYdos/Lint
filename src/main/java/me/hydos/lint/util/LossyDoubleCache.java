@@ -28,6 +28,7 @@ public class LossyDoubleCache implements DoubleGridOperator {
 	private final long[] positions;
 	private final double[] data;
 	private final DoubleGridOperator operator;
+
 	public LossyDoubleCache(int size, DoubleGridOperator operator) {
 		int arrSize = 1; // 2^n = 2 * (2^(n-1))
 		int nextArrSize;

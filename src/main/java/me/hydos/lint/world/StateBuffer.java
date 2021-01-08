@@ -19,10 +19,6 @@
 
 package me.hydos.lint.world;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import it.unimi.dsi.fastutil.longs.Long2ObjectArrayMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import net.minecraft.block.BlockState;
@@ -38,13 +34,17 @@ import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
 public final class StateBuffer implements StructureWorld {
+	private final Long2ObjectMap<Chunk> chunks = new Long2ObjectArrayMap<>();
+	private final ChunkGenerator generator;
+
 	public StateBuffer(ChunkGenerator generator) {
 		this.generator = generator;
 	}
-
-	private final Long2ObjectMap<Chunk> chunks = new Long2ObjectArrayMap<>();
-	private final ChunkGenerator generator;
 
 	private Chunk getOrCreateChunk(BlockPos pos) {
 		return this.chunks.computeIfAbsent(

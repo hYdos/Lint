@@ -22,10 +22,8 @@ package me.hydos.lint.sound;
 import me.hydos.lint.Lint;
 import me.hydos.lint.mixinimpl.LintSoundEvent;
 import net.minecraft.client.sound.MusicType;
-import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class Sounds {

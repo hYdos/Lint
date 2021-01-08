@@ -19,8 +19,6 @@
 
 package me.hydos.lint.util.math;
 
-import java.util.Optional;
-
 import me.hydos.lint.world.biome.Biomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -28,6 +26,8 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+
+import java.util.Optional;
 
 public class Maths {
 	public static float calculateFogDistanceChunks(World world, double x, double z, float originalResultChunks) {

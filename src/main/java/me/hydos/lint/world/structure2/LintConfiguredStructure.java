@@ -20,17 +20,17 @@
 package me.hydos.lint.world.structure2;
 
 class LintConfiguredStructure {
+	final LintStructure structure;
+	private final int gridSize;
+	private final int maxIterDepth;
+	private final int prepareChunkDistance;
+
 	LintConfiguredStructure(LintStructure structure, int maxIterDepth, int prepareChunkDistance, int gridSize) {
 		this.structure = structure;
 		this.gridSize = gridSize;
 		this.maxIterDepth = maxIterDepth;
 		this.prepareChunkDistance = prepareChunkDistance;
 	}
-
-	final LintStructure structure;
-	private final int gridSize;
-	private final int maxIterDepth;
-	private final int prepareChunkDistance;
 
 	public int getMaxIterDepth() {
 		return this.maxIterDepth;

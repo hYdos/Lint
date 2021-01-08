@@ -21,17 +21,21 @@ package me.hydos.lint.item.materialset;
 
 import me.hydos.lint.block.LintAutoDataRegistry;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.*;
 import net.minecraft.util.Rarity;
 
 public final class MaterialSet {
+	public final Item pickaxe;
+	public final Item axe;
+	public final Item shovel;
+	public final Item hoe;
+	public final Item sword;
+	public final Item helmet;
+	public final Item chestplate;
+	public final Item leggings;
+	public final Item boots;
+	private final String registryName;
+
 	public MaterialSet(String registryName, ArmorMaterial armour, ToolMaterial tool, ItemGroup group) {
 		this.pickaxe = new PickaxeItem(tool, 1, -2.8F, new Item.Settings().group(group)) {
 		};
@@ -49,19 +53,6 @@ public final class MaterialSet {
 
 		this.registryName = registryName;
 	}
-
-	private final String registryName;
-
-	public final Item pickaxe;
-	public final Item axe;
-	public final Item shovel;
-	public final Item hoe;
-	public final Item sword;
-
-	public final Item helmet;
-	public final Item chestplate;
-	public final Item leggings;
-	public final Item boots;
 
 	public boolean contains(Item item) {
 		return pickaxe == item || axe == item || shovel == item || hoe == item || sword == item || helmet == item || chestplate == item || leggings == item || boots == item;

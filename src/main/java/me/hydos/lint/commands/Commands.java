@@ -33,33 +33,33 @@ public class Commands {
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
 			dispatcher.register(
 					CommandManager.literal("lint")
-					.then(CommandManager.literal("debug")
-							.requires(sc -> sc.hasPermissionLevel(2))
-							.then(CommandManager.literal("towns")
-									.executes(src -> {
-										ServerWorld world = src.getSource().getMinecraftServer().getWorld(Dimensions.FRAIYA_WORLD);
-										ChunkGenerator generator = world.getChunkManager().getChunkGenerator();
+							.then(CommandManager.literal("debug")
+									.requires(sc -> sc.hasPermissionLevel(2))
+									.then(CommandManager.literal("towns")
+											.executes(src -> {
+												ServerWorld world = src.getSource().getMinecraftServer().getWorld(Dimensions.FRAIYA_WORLD);
+												ChunkGenerator generator = world.getChunkManager().getChunkGenerator();
 
-										if (generator instanceof HaykamChunkGenerator) {
-											Vec2i[] towns = ((HaykamChunkGenerator) generator).getVillageCentres();
-											
-											StringBuilder result = new StringBuilder();
-											
-											for (int i = 0; i < 4; ++i) {
-												result.append(towns[i]);
-												
-												if (i < 3) {
-													result.append("\n");
+												if (generator instanceof HaykamChunkGenerator) {
+													Vec2i[] towns = ((HaykamChunkGenerator) generator).getVillageCentres();
+
+													StringBuilder result = new StringBuilder();
+
+													for (int i = 0; i < 4; ++i) {
+														result.append(towns[i]);
+
+														if (i < 3) {
+															result.append("\n");
+														}
+													}
+
+													src.getSource().sendFeedback(new LiteralText(result.toString()), false);
+													return 1;
 												}
-											}
 
-											src.getSource().sendFeedback(new LiteralText(result.toString()), false);
-											return 1;
-										}
-
-										return 0;
-									})))
-					);
+												return 0;
+											})))
+			);
 		});
 	}
 

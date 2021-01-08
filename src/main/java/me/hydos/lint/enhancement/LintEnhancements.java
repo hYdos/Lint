@@ -19,13 +19,13 @@
 
 package me.hydos.lint.enhancement;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import me.hydos.lint.util.Power;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class LintEnhancements {
 	/**
@@ -48,6 +48,7 @@ public final class LintEnhancements {
 
 	/**
 	 * Pls call on the server.
+	 *
 	 * @return the new power level of the power if successful. Otherwise, returns 0.
 	 */
 	public static float enhance(ItemStack stack, Power.Broad power, float increaseAmount) {

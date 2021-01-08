@@ -52,7 +52,7 @@ public class MountainBiomes implements InitLayer {
 
 		return id(corrupt ?
 				CORRUPT_BIOMES[randomPawn.nextInt(CORRUPT_BIOMES.length)] :
-					BIOMES[randomPawn.nextInt(BIOMES.length)]);
+				BIOMES[randomPawn.nextInt(BIOMES.length)]);
 	}
 
 	@SuppressWarnings({"rawtypes", "unchecked"})

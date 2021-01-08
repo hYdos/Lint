@@ -19,16 +19,10 @@
 
 package me.hydos.lint.entity.aggressive;
 
-import java.util.EnumSet;
-
 import me.hydos.lint.entity.goal.FleeBlockGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.RevengeGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.damage.DamageSource;
@@ -48,6 +42,8 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+import java.util.EnumSet;
 
 @SuppressWarnings({"EntityConstructor"})
 public class GhostEntity extends VexEntity implements IAnimatable {
@@ -76,7 +72,7 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 		this.goalSelector.add(8, new LookAtTargetGoal());
 		this.goalSelector.add(9, new LookAtEntityGoal(this, PlayerEntity.class, 3.0F, 1.0F));
 		this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
-		this.targetSelector.add(1, (new RevengeGoal(this, new Class[]{RaiderEntity.class})).setGroupRevenge());
+		this.targetSelector.add(1, (new RevengeGoal(this, RaiderEntity.class)).setGroupRevenge());
 		this.targetSelector.add(3, new FollowTargetGoal<>(this, PlayerEntity.class, true));
 	}
 
@@ -142,12 +138,12 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 				blockPos = GhostEntity.this.getBlockPos();
 			}
 
-			for(int i = 0; i < 3; ++i) {
+			for (int i = 0; i < 3; ++i) {
 				BlockPos blockPos2 = blockPos.add(GhostEntity.this.random.nextInt(15) - 7, GhostEntity.this.random.nextInt(11) - 5, GhostEntity.this.random.nextInt(15) - 7);
 				if (GhostEntity.this.world.isAir(blockPos2)) {
-					GhostEntity.this.moveControl.moveTo((double)blockPos2.getX() + 0.5D, (double)blockPos2.getY() + 0.5D, (double)blockPos2.getZ() + 0.5D, 0.25D);
+					GhostEntity.this.moveControl.moveTo((double) blockPos2.getX() + 0.5D, (double) blockPos2.getY() + 0.5D, (double) blockPos2.getZ() + 0.5D, 0.25D);
 					if (GhostEntity.this.getTarget() == null) {
-						GhostEntity.this.getLookControl().lookAt((double)blockPos2.getX() + 0.5D, (double)blockPos2.getY() + 0.5D, (double)blockPos2.getZ() + 0.5D, 180.0F, 20.0F);
+						GhostEntity.this.getLookControl().lookAt((double) blockPos2.getX() + 0.5D, (double) blockPos2.getY() + 0.5D, (double) blockPos2.getZ() + 0.5D, 180.0F, 20.0F);
 					}
 					break;
 				}
@@ -172,7 +168,7 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 		}
 
 		public boolean shouldContinue() {
-			if(GhostEntity.this.getTarget() != null){
+			if (GhostEntity.this.getTarget() != null) {
 				boolean b0 = GhostEntity.this.getMoveControl().isMoving() && GhostEntity.this.isCharging() && GhostEntity.this.getTarget() != null && GhostEntity.this.getTarget().isAlive();
 				b0 &= GhostEntity.this.world.getLightLevel(GhostEntity.this.getTarget().getBlockPos()) < 9;
 				return b0;

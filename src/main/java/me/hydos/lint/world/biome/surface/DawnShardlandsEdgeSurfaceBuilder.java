@@ -29,6 +29,8 @@ import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 import java.util.Random;
 
 public class DawnShardlandsEdgeSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
+	private static final TernarySurfaceConfig ASH_CONFIG = new TernarySurfaceConfig(LintBlocks.ASH.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASH.getDefaultState());
+
 	public DawnShardlandsEdgeSurfaceBuilder() {
 		super(TernarySurfaceConfig.CODEC);
 	}
@@ -41,6 +43,4 @@ public class DawnShardlandsEdgeSurfaceBuilder extends SurfaceBuilder<TernarySurf
 			SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, surfaceBlocks);
 		}
 	}
-
-	private static final TernarySurfaceConfig ASH_CONFIG = new TernarySurfaceConfig(LintBlocks.ASH.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASH.getDefaultState());
 }

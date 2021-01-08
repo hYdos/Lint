@@ -19,10 +19,6 @@
 
 package me.hydos.lint.world.structure2;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import me.hydos.lint.util.FIFOCache;
 import me.hydos.lint.util.math.Maths;
 import net.minecraft.util.math.BlockPos;
@@ -32,14 +28,19 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
-public final class StructureManager {
-	public StructureManager(ChunkGenerator generator) {
-		this.generator = generator;
-	}
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
+public final class StructureManager {
 	private final ChunkGenerator generator;
 	private final ChunkRandom random = new ChunkRandom();
 	private final FIFOCache<LintStructureInstance> activeInstances = new FIFOCache<>(new LintStructureInstance[16]);
+	private final List<LintConfiguredStructure> structures = new ArrayList<>();
+
+	public StructureManager(ChunkGenerator generator) {
+		this.generator = generator;
+	}
 
 	public void prepareChunkForPopulation(WorldAccess world, long worldSeed, int chunkX, int chunkZ) {
 		if (!this.structures.isEmpty()) {
@@ -99,14 +100,13 @@ public final class StructureManager {
 
 	/**
 	 * Add a structure to this lint structure generator.
-	 * @param structure the structure to generate.
-	 * @param gridSize the grid size of the structure.
+	 *
+	 * @param structure            the structure to generate.
+	 * @param gridSize             the grid size of the structure.
 	 * @param prepareChunkDistance the manhatttan distance in chunks away to prepare the structure for generation.
-	 * @param maxIterDepth the maximum iterations of room appendage for the structure.
+	 * @param maxIterDepth         the maximum iterations of room appendage for the structure.
 	 */
 	public void addStructure(LintStructure structure, int gridSize, int prepareChunkDistance, int maxIterDepth) {
 		this.structures.add(new LintConfiguredStructure(structure, maxIterDepth, prepareChunkDistance, gridSize));
 	}
-
-	private final List<LintConfiguredStructure> structures = new ArrayList<>();
 }
