@@ -29,7 +29,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.StairsBlock;
-import net.minecraft.block.TorchBlock;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.util.math.BlockPos;
@@ -45,7 +44,7 @@ import net.minecraft.world.gen.feature.Feature;
 public class TownFeature extends Feature<DefaultFeatureConfig> {
 	private static final int OUTSKIRTS_DIST = 320 * 320;
 	public static int DENSE_DIST = 80 * 80;
-	//public static int SUBURB_DIST = 127 * 127;
+	public static int SUBURB_DIST = 127 * 127;
 	public static int RURAL_DIST = 180 * 180;
 
 	public TownFeature() {
@@ -75,7 +74,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				} else {
 					this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random, false);
 				}
-			} else if (mindist < 127 * 127) {
+			} else if (mindist < SUBURB_DIST) {
 				if (random.nextInt(4) == 0) {
 					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false);
 				}
