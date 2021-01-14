@@ -19,11 +19,19 @@
 
 package me.hydos.lint.world.feature;
 
+import java.util.Random;
+
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.util.GridDirection;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.gen.HaykamChunkGenerator;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.DoorBlock;
 import net.minecraft.block.StairsBlock;
+import net.minecraft.block.TorchBlock;
+import net.minecraft.block.WallTorchBlock;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
@@ -34,11 +42,10 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
-import java.util.Random;
-
 public class TownFeature extends Feature<DefaultFeatureConfig> {
 	private static final int OUTSKIRTS_DIST = 320 * 320;
 	public static int DENSE_DIST = 80 * 80;
+	//public static int SUBURB_DIST = 127 * 127;
 	public static int RURAL_DIST = 180 * 180;
 
 	public TownFeature() {
@@ -68,12 +75,16 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				} else {
 					this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random, false);
 				}
-			} else if (mindist < RURAL_DIST) {
+			} else if (mindist < 127 * 127) {
 				if (random.nextInt(4) == 0) {
 					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false);
 				}
-			} else if (mindist < OUTSKIRTS_DIST) {
+			} else if (mindist < RURAL_DIST) {
 				if (random.nextInt(10) == 0) {
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false);
+				}
+			} else if (mindist < OUTSKIRTS_DIST) {
+				if (random.nextInt(27) == 0) {
 					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, true);
 				}
 			}
@@ -90,6 +101,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 		int startZ = start.getZ() - (breadth / 2);
 		final int seaLevel = world.getSeaLevel();
 		final int houseHeight = random.nextInt(3) + 4;
+		final GridDirection door = GridDirection.random(random);
 
 		BlockPos.Mutable pos = new BlockPos.Mutable();
 
@@ -148,6 +160,12 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				boolean innerXedg = (xo == 1 || xo == width - 2);
 				boolean innerZedg = (zo == 1 || zo == breadth - 2);
 				boolean innerEdge = (innerXedg || innerZedg) && !edge;
+
+				// air go brrrrr
+				for (int yo = 1; yo < houseHeight; ++yo) {
+					pos.setY(floor + yo);
+					this.setBlockState(world, pos, Blocks.AIR.getDefaultState());
+				}
 
 				// platform
 				if (height < seaLevel) {
@@ -231,5 +249,52 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				}
 			}
 		}
+
+		// door
+		int x = startX;
+		int z = startZ;
+
+		if (door.horizontal) {
+			z += breadth / 2; // avg(0, breadth)
+			x += door.mirror ? 1 : width - 2;
+		} else {
+			x += width / 2; // avg(0, width)
+			z += door.mirror ? 1 : breadth - 2;
+		}
+
+		int y = floor + 1;
+		pos.set(x, y, z);
+
+		BlockState state = LintBlocks.MYSTICAL_DOOR.getDefaultState().with(DoorBlock.FACING, door.reverse().direction);
+		this.setBlockState(world, pos, state);
+		pos.setY(y + 1);
+		this.setBlockState(world, pos, state.with(DoorBlock.HALF, DoubleBlockHalf.UPPER));
+		state = Blocks.WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, door.direction);
+
+		// torches
+		if (door.horizontal) {
+			z += 1;
+			x += door.mirror ? -1 : 1;
+			pos.set(x, y + 1, z);
+			this.setBlockState(world, pos, state);
+			z -= 2;
+			pos.setZ(z);
+			this.setBlockState(world, pos, state);
+		} else {
+			x += 1;
+			z += door.mirror ? -1 : 1;
+			pos.set(x, y + 1, z);
+			this.setBlockState(world, pos, state);
+			x -= 2;
+			pos.setX(x);
+			this.setBlockState(world, pos, state);
+		}
+
+		// glowstone
+		x = startX + width / 2;
+		z = startZ + breadth / 2;
+		y = floor + houseHeight - 1;
+		pos.set(x, y, z);
+		this.setBlockState(world, pos, Blocks.GLOWSTONE.getDefaultState());
 	}
 }

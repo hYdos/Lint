@@ -381,6 +381,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	 */
 	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
 
+	public static final Block MYSTICAL_DOOR = Blocks.OAK_DOOR; // TODO
 	/**
 	 * Fluid blockstate cache
 	 */
