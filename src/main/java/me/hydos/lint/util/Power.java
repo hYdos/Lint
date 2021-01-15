@@ -26,7 +26,7 @@ import net.minecraft.util.Formatting;
  */
 public enum Power {
 	NONE,
-	ALLOS, // light, creation, production, preservation
+	ALLOS, // light, creation, production
 	MANOS; // darkness, destruction, consumption, corruption
 
 	public boolean conflicts(Power other) {
