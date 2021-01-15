@@ -19,13 +19,16 @@
 
 package me.hydos.lint.item;
 
+import static me.hydos.lint.block.LintAutoDataRegistry.registerGenerated;
+import static me.hydos.lint.block.LintAutoDataRegistry.registerHandheld;
+
+import me.hydos.lint.Lint;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.item.materialset.MaterialSet;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.item.Item;
 import net.minecraft.util.Rarity;
-
-import static me.hydos.lint.block.LintAutoDataRegistry.registerGenerated;
+import net.minecraft.util.registry.Registry;
 
 public class LintItems {
 
@@ -63,18 +66,19 @@ public class LintItems {
 	public static final Item MYSTICAL_FOREST_DISC = new LintMusicDiscItem(16, Sounds.MYSTICAL_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 	public static final Item CORRUPT_FOREST_DISC = new LintMusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 
-	
 	/**
 	 * yes
 	 */
 	public static final Item DUSKBLADE = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1).rarity(Rarity.EPIC));
+	public static final Item ATTUNER = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1));
 
 	public static void initialize() {
 		ItemGroups.register();
 		registerOreMaterials();
 		registerMaterialSets();
 		registerDiscs();
-		registerGenerated("duskblade", DUSKBLADE);
+		Registry.register(Registry.ITEM, Lint.id("duskblade"), DUSKBLADE);
+		registerHandheld("attuner", ATTUNER);
 	}
 
 	private static void registerDiscs() {
