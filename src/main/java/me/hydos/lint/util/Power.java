@@ -49,10 +49,10 @@ public enum Power {
 		// The powers of the Caria, immortal beings created by Allos using both the powers of Allos and Manos - closer to people than gods - blessed with power.
 		// There are two male Cariar and two female Carien.
 		// Each Caria is associated with a town.
-		THERIA(Formatting.GREEN), // Cariar of the mind. Admires wit, courage, strategy, cunning, and generally messing with people's heads in mind games
-		AURIA(Formatting.RED), // Carien of War. Admires physical strength and combat.
+		THERIA(Formatting.GREEN), // Cariar of the mind (pre-manos: wisdom). Admires wit, courage, strategy, cunning, and generally messing with people's heads in mind games
+		AURIA(Formatting.RED), // Carien of War (pre-manos: strength). Admires physical strength and combat.
 		PAWERIA(Formatting.YELLOW), // Cariar of order. Likes strict hierarchies and social structures, and those who follow such laws of their land. Although not fine with theft, will not disdain higher-ups if they take from lower-downs, if it follows the order of society.
-		HERIA(Formatting.AQUA); // Carien of emotions. Admires love, passion, fury, hate, and acting on one's emotions.
+		HERIA(Formatting.AQUA); // Carien of emotions (pre-manos: hope). Admires love, passion, fury, hate, and acting on one's emotions.
 
 		public final Formatting formatting;
 

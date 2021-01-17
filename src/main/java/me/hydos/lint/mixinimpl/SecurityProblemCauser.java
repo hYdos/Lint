@@ -17,30 +17,25 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixin.client;
+package me.hydos.lint.mixinimpl;
 
-import me.hydos.lint.mixinimpl.LintSoundManager;
-import net.minecraft.client.sound.BiomeEffectSoundPlayer;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import me.hydos.lint.util.math.Vec2i;
+import net.minecraft.network.PacketByteBuf;
 
-@Mixin(BiomeEffectSoundPlayer.MusicLoop.class)
-public class MusicLoopMixin {
-	@Inject(
-			at = @At(value = "HEAD"),
-			method = "fadeIn",
-			cancellable = true)
-	private void onFadeIn(CallbackInfo info) {
-		LintSoundManager.checkFade(info);
+// DONT change this UNLESS you can make this stuff work identically
+public class SecurityProblemCauser {
+	public static void deserialiseLocations(PacketByteBuf data) {
+		Vec2i[] next = new Vec2i[4];
+
+		for (int i = 0; i < 4; ++i) {
+			next[i] = new Vec2i(data.readInt(), data.readInt());
+		}
+
+		synchronized (lock) {
+			townLocs = next;
+		}
 	}
 
-	@Inject(
-			at = @At(value = "HEAD"),
-			method = "fadeOut",
-			cancellable = true)
-	private void onFadeOut(CallbackInfo info) {
-		LintSoundManager.checkFade(info);
-	}
+	public static Object lock = new Object();
+	public static Vec2i[] townLocs;
 }

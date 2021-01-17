@@ -19,19 +19,29 @@
 
 package me.hydos.lint.client;
 
+import java.util.function.Function;
+
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.client.entity.model.CrabEntityModel;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.model.GhostEntityModel;
 import me.hydos.lint.client.entity.model.RedTailedTropicBirdModel;
-import me.hydos.lint.client.entity.render.*;
+import me.hydos.lint.client.entity.render.BeeTaterEntityRenderer;
+import me.hydos.lint.client.entity.render.BirdEntityRenderer;
+import me.hydos.lint.client.entity.render.CrabEntityRenderer;
+import me.hydos.lint.client.entity.render.GhostEntityRenderer;
+import me.hydos.lint.client.entity.render.I509VCBRenderer;
+import me.hydos.lint.client.entity.render.KingTaterRenderer;
+import me.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
 import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
-import me.hydos.lint.mixinimpl.SoundShit;
+import me.hydos.lint.mixinimpl.LintSoundManager;
+import me.hydos.lint.mixinimpl.SecurityProblemCauser;
 import me.hydos.lint.network.ClientNetworking;
+import me.hydos.lint.network.Networking;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.screenhandler.client.LilTaterScreen;
 import me.hydos.lint.screenhandler.client.SmelteryScreen;
@@ -44,6 +54,7 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegi
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.MinecraftClient;
@@ -59,10 +70,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
 
-import java.util.function.Function;
-
 public class LintClient implements ClientModInitializer {
 	@Override
+	@SuppressWarnings("deprecation")
 	public void onInitializeClient() {
 		registerMiscRenderers();
 		registerEntityRenderers();
@@ -71,12 +81,16 @@ public class LintClient implements ClientModInitializer {
 		registerFluidRenderers();
 		registerHandledScreens();
 		registerBossMusicFixes();
+
+		ClientSidePacketRegistry.INSTANCE.register(Networking.TOWN_LOCATIONS, (context, data) -> {
+			SecurityProblemCauser.deserialiseLocations(data);
+		});
 	}
 
 	private void registerBossMusicFixes() {
-		SoundShit.registerBossMusic(Sounds.KING_TATER);
-		SoundShit.registerBossMusic(Sounds.I509);
-		SoundShit.registerBossMusic(Sounds.LEX_MANOS);
+		LintSoundManager.registerBossMusic(Sounds.KING_TATER);
+		LintSoundManager.registerBossMusic(Sounds.I509);
+		LintSoundManager.registerBossMusic(Sounds.LEX_MANOS);
 	}
 
 	private void registerBlockEntityRenderers() {

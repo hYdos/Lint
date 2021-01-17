@@ -94,7 +94,7 @@ public class Biomes {
 	public static final RegistryKey<Biome> DAWN_SHARDLANDS_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands"));
 	public static final RegistryKey<Biome> DAWN_SHARDLANDS_EDGE_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands_edge"));
 
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
+	public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(
 					LintBlocks.LIVELY_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),

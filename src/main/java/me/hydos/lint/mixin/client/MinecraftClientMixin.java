@@ -20,7 +20,8 @@
 package me.hydos.lint.mixin.client;
 
 import me.hydos.lint.entity.Entities;
-import me.hydos.lint.mixinimpl.SoundShit;
+import me.hydos.lint.mixinimpl.LintSoundManager;
+import me.hydos.lint.mixinimpl.SecurityProblemCauser;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -61,6 +62,9 @@ public class MinecraftClientMixin {
 
 	@Inject(at = @At("HEAD"), method = "disconnect(Lnet/minecraft/client/gui/screen/Screen;)V")
 	private void disconnect(Screen screen, CallbackInfo info) {
-		SoundShit.markClear();
+		LintSoundManager.markClear();
+		synchronized (SecurityProblemCauser.lock) {
+			SecurityProblemCauser.townLocs = null;
+		}
 	}
 }

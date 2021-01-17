@@ -19,6 +19,10 @@
 
 package me.hydos.lint;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import io.netty.buffer.Unpooled;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.commands.Commands;
 import me.hydos.lint.entity.Entities;
@@ -30,16 +34,19 @@ import me.hydos.lint.recipe.Recipes;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.tag.LintBlockTags;
+import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
+import me.hydos.lint.world.gen.HaykamChunkGenerator;
 import me.hydos.lint.world.structure.Structures;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
 public class Lint implements ModInitializer {
@@ -51,6 +58,7 @@ public class Lint implements ModInitializer {
 		return new Identifier("lint", path);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Lint is initializing");
@@ -66,13 +74,33 @@ public class Lint implements ModInitializer {
 		LOGGER.info("Lint initialization successful!");
 
 		Commands.initialize();
+
+		ServerSidePacketRegistry.INSTANCE.register(Networking.GIB_INFO_PLS, (context, data) -> {
+			try {
+				System.out.println("loevly");
+				Vec2i[] towns = ((HaykamChunkGenerator) (((ServerPlayerEntity) context.getPlayer()).getServer().getWorld(Dimensions.FRAIYA_WORLD).getChunkManager().getChunkGenerator())).getTownCentres();
+
+				PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+
+				for (Vec2i v2i : towns) {
+					buf.writeInt(v2i.getX());
+					buf.writeInt(v2i.getY());
+				}
+
+				System.out.println("delicious");
+				ServerSidePacketRegistry.INSTANCE.sendToPlayer(context.getPlayer(), Networking.TOWN_LOCATIONS, buf);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+
 		// Datafixer nonsense
 		// Someone help pls
-//		DataFixerBuilder builder = new DataFixerBuilder(1);
-//		builder.addSchema(Lintv0::new);
-//		Schema schema1 = builder.addSchema(1, Lintv1::new);
-//		builder.addFixer(DimensionNameFix.create(schema1, "Rename Lint Dimension", (string) -> Objects.equals(IdentifierNormalizingSchema.normalize(string), "lint:haykam") ? "lint:fraiya" : string));
-//		builder.build(Util.getMainWorkerExecutor());
+		//		DataFixerBuilder builder = new DataFixerBuilder(1);
+		//		builder.addSchema(Lintv0::new);
+		//		Schema schema1 = builder.addSchema(1, Lintv1::new);
+		//		builder.addFixer(DimensionNameFix.create(schema1, "Rename Lint Dimension", (string) -> Objects.equals(IdentifierNormalizingSchema.normalize(string), "lint:haykam") ? "lint:fraiya" : string));
+		//		builder.build(Util.getMainWorkerExecutor());
 
 		// test structure
 		/*HaykamChunkGenerator.onStructureSetup(manager -> {
@@ -84,7 +112,7 @@ public class Lint implements ModInitializer {
 		Structures.initialize();
 		Features.initialize();
 		Biomes.initialize();
-//		Dimensions.initialize();
+		//		Dimensions.initialize();
 	}
 
 	private void registerLintContent() {

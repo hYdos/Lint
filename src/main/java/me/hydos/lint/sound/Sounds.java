@@ -21,7 +21,6 @@ package me.hydos.lint.sound;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.mixinimpl.LintSoundEvent;
-import net.minecraft.client.sound.MusicType;
 import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.registry.Registry;
@@ -40,6 +39,7 @@ public class Sounds {
 	 */
 	public static final SoundEvent DUNGEON = new SoundEvent(Lint.id("music.clandestine"));
 	public static final SoundEvent GRIMACE = new SoundEvent(Lint.id("music.grimace"));
+	public static final SoundEvent HERIA_AND_THE_TOWN_OF_HOPE = new SoundEvent(Lint.id("music.heria_and_the_town_of_hope"));
 
 	/**
 	 * Biome Music
@@ -49,6 +49,7 @@ public class Sounds {
 	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
 	public static final SoundEvent DAWN_SHARDLANDS = new SoundEvent(Lint.id("music.dawn_shardlands"));
 	public static final SoundEvent ETHEREAL_GROVES_OF_FRAIYA = new SoundEvent(Lint.id("music.ethereal_groves_of_fraiya"));
+	public static final SoundEvent CAVERNS = new SoundEvent(Lint.id("music.caverns"));
 
 	/**
 	 * Misc Sounds
@@ -61,12 +62,16 @@ public class Sounds {
 	public static final SoundEvent EASTERN_ROSELLA_IDLE = new SoundEvent(Lint.id("eastern_rosella.idle"));
 	public static final SoundEvent CRAB_IDLE = new SoundEvent(Lint.id("crab.idle"));
 
+	private static final MusicSound createBossMusic(SoundEvent event) {
+		return new MusicSound(event, 0, 0, true);
+	}
+
 	/**
 	 * Boss Music Loops
 	 */
-	public static final MusicSound KING_TATER_LOOP = MusicType.createIngameMusic(KING_TATER);
-	public static final MusicSound I509_LOOP = MusicType.createIngameMusic(I509);
-	public static final MusicSound LEX_MANOS_LOOP = MusicType.createIngameMusic(LEX_MANOS);
+	public static final MusicSound KING_TATER_LOOP = createBossMusic(KING_TATER);
+	public static final MusicSound I509_LOOP = createBossMusic(I509);
+	public static final MusicSound LEX_MANOS_LOOP = createBossMusic(LEX_MANOS);
 
 	public static void initialize() {
 		register(KING_TATER);
@@ -77,6 +82,8 @@ public class Sounds {
 		register(OCEAN);
 		register(DAWN_SHARDLANDS);
 		register(ETHEREAL_GROVES_OF_FRAIYA);
+		register(CAVERNS);
+		register(HERIA_AND_THE_TOWN_OF_HOPE);
 
 		register(ADVANCEMENT);
 

@@ -59,7 +59,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 			int x = pos.getX();
 			int z = pos.getZ();
 
-			for (Vec2i loc : ((HaykamChunkGenerator) chunkGenerator).getVillageCentres()) {
+			for (Vec2i loc : ((HaykamChunkGenerator) chunkGenerator).getTownCentres()) {
 				int dist = loc.squaredDist(x, z);
 
 				if (mindist > dist) {

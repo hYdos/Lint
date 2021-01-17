@@ -19,8 +19,18 @@
 
 package me.hydos.lint.mixin.client;
 
+import java.util.Optional;
+
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
-import me.hydos.lint.mixinimpl.SoundShit;
+import me.hydos.lint.mixinimpl.LintSoundManager;
 import me.hydos.lint.sound.Sounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -30,15 +40,6 @@ import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Optional;
 
 @Mixin(BiomeEffectSoundPlayer.class)
 public class BiomeEffectSoundPlayerMixin {
@@ -64,23 +65,23 @@ public class BiomeEffectSoundPlayerMixin {
 			at = @At("HEAD"),
 			method = "tick",
 			cancellable = true)
-	private void musicGood1(CallbackInfo info) {
+	private void musicGood(CallbackInfo info) {
 		SoundEvent sound = MinecraftClient.getInstance().getMusicType().getSound();
 
-		if (SoundShit.recordIsPlaying() || SoundShit.isBossMusic(sound.getId())) {
-			SoundShit.doShit(sound, this.soundLoops);
+		if (LintSoundManager.recordIsPlaying() || LintSoundManager.isBossMusic(sound.getId())) {
+			LintSoundManager.stopSounds(sound, this.soundLoops);
 			info.cancel();
-		} else if (SoundShit.magicBossMusicFlag) {
-			SoundShit.doOtherShit(sound, this.soundManager, this.activeBiome = biomeAccess.getBiome(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
+		} else if (LintSoundManager.magicBossMusicFlag) {
+			LintSoundManager.restartSounds(sound, this.soundManager, this.activeBiome = biomeAccess.getBiome(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
 			info.cancel();
 		} else {
-			SoundShit.doRandomLoopSwitcheroo(this.activeBiome, this.soundManager, this.soundLoops, () -> {
+			LintSoundManager.doRandomLoopSwitcheroo(this.activeBiome, this.soundManager, this.soundLoops, () -> {
 				this.activeBiome = null;
 			});
 		}
 
 		if (this.activeBiome != null) {
-			SoundShit.markPrev(this.activeBiome);
+			LintSoundManager.markPrev(this.activeBiome);
 		}
 	}
 
@@ -105,7 +106,7 @@ public class BiomeEffectSoundPlayerMixin {
 			at = @At(value = "NEW", target = "net/minecraft/client/sound/BiomeEffectSoundPlayer$MusicLoop"),
 			method = "method_25459")
 	private MusicLoop onMusicLoopConstruct(SoundEvent event) {
-		return SoundShit.constructMusicLoop(event);
+		return LintSoundManager.constructMusicLoop(event);
 	}
 
 	@Inject(
@@ -114,7 +115,14 @@ public class BiomeEffectSoundPlayerMixin {
 					target = "Lit/unimi/dsi/fastutil/objects/Object2ObjectArrayMap;values()Lit/unimi/dsi/fastutil/objects/ObjectCollection;",
 					ordinal = 1),
 			method = "tick")
-	private void musicGood2(CallbackInfo info) {
-		SoundShit.markNext(this.activeBiome);
+	private void markNext(CallbackInfo info) {
+		LintSoundManager.markNext(this.activeBiome);
+	}
+	
+	@Redirect(
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/source/BiomeAccess;getBiome(DDD)Lnet/minecraft/world/biome/Biome;"),
+			method = "tick")
+	private Biome injectBiomeSoundDummies(BiomeAccess access, double x, double y, double z) {
+		return LintSoundManager.injectBiomeSoundDummies(access, x, y, z);
 	}
 }

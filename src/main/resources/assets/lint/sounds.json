@@ -59,6 +59,18 @@
       "lint:ethereal_groves_of_fraiya"
     ]
   },
+  "music.heria_and_the_town_of_hope": {
+    "subtitle": "subtitles.heria_and_the_town_of_hope",
+    "sounds": [
+      "lint:heria_and_the_town_of_hope"
+    ]
+  },
+  "music.caverns": {
+    "subtitle": "subtitles.caverns",
+    "sounds": [
+      "lint:caverns"
+    ]
+  },
   "player.advancement": {
     "subtitle": "subtitles.advancement",
     "volume": 10,

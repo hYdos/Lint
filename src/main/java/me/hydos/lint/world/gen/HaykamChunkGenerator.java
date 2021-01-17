@@ -96,7 +96,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 			this.villageCentres.add(fromRTheta(1000, angleRadians + 3 * rightAngle));
 
 			rand.setSeed(worldSeed);
-			this.terrain = new HaykamTerrainGenerator(worldSeed, rand, this.getVillageCentres());
+			this.terrain = new HaykamTerrainGenerator(worldSeed, rand, this.getTownCentres());
 			((HaykamBiomeSource) this.biomeSource).setTerrainData(this.terrain);
 
 			this.floatingIslands = new FloatingIslandModifier(worldSeed);
@@ -245,7 +245,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 		return this.structureManager;
 	}
 
-	public Vec2i[] getVillageCentres() {
+	public Vec2i[] getTownCentres() {
 		return this.villageCentres.toArray(new Vec2i[4]);
 	}
 

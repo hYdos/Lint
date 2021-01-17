@@ -19,16 +19,25 @@
 
 package me.hydos.lint.mixin.client;
 
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import io.netty.buffer.Unpooled;
 import me.hydos.lint.client.screen.TaterDownloadingTerrainScreen;
+import me.hydos.lint.network.Networking;
 import me.hydos.lint.world.dimension.Dimensions;
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlayerRespawnS2CPacket;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import net.minecraft.util.thread.ThreadExecutor;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandlerMixin {
@@ -39,5 +48,17 @@ public class ClientPlayNetworkHandlerMixin {
 		} else {
 			client.openScreen(new DownloadingTerrainScreen());
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	@Inject(at = @At("RETURN"), method = "onGameJoin")
+	private void onOnGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
+		PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+		try {
+			ClientSidePacketRegistry.INSTANCE.sendToServer(Networking.GIB_INFO_PLS, data);
+		} catch (Exception e) {
+			e.printStackTrace();//java.lang.IllegalStateException: Cannot send packet to server while not in game!
+		}
+		System.out.println("sent data yes ok");
 	}
 }

@@ -26,6 +26,8 @@ public class Networking {
 
 	public static final Identifier SEND_BOSSBAR_INFO = Lint.id("send_bossbar_info");
 	public static final Identifier OPEN_NPC_INTERACTION_WINDOW = Lint.id("open_npc_interaction_window");
+	public static final Identifier GIB_INFO_PLS = Lint.id("gib_info_pls"); // c2s
+	public static final Identifier TOWN_LOCATIONS = Lint.id("town_locations"); // s2c
 
 	public static void initialize() {
 	}

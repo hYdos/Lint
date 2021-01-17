@@ -19,9 +19,17 @@
 
 package me.hydos.lint.mixinimpl;
 
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.sound.NotMusicLoop;
 import me.hydos.lint.sound.Sounds;
+import me.hydos.lint.util.math.Vec2i;
+import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer.MusicLoop;
 import net.minecraft.client.sound.MovingSoundInstance;
@@ -29,13 +37,9 @@ import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.world.biome.source.BiomeAccess;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-
-public class SoundShit {
+public class LintSoundManager {
 	private static final Set<Identifier> BOSS_MUSIC = new HashSet<>();
 	public static boolean magicBossMusicFlag = false;
 	private static Optional<SoundEvent> prev = Optional.empty();
@@ -58,7 +62,7 @@ public class SoundShit {
 		}
 	}
 
-	public static void doShit(SoundEvent event, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
+	public static void stopSounds(SoundEvent event, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
 		next = Optional.of(event);
 		magicBossMusicFlag = true;
 		soundLoops.values().removeIf(MovingSoundInstance::isDone);
@@ -74,7 +78,7 @@ public class SoundShit {
 		next = biome.getLoopSound();
 	}
 
-	public static void doOtherShit(SoundEvent sound, SoundManager manager, Biome biome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
+	public static void restartSounds(SoundEvent sound, SoundManager manager, Biome biome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
 		magicBossMusicFlag = false;
 		biome.getLoopSound().ifPresent(soundEvent -> soundLoops.compute(biome, (biomex, musicLoop) -> {
 			if (musicLoop == null) {
@@ -134,5 +138,22 @@ public class SoundShit {
 
 	public static boolean recordIsPlaying() {
 		return false;
+	}
+
+	public static Biome injectBiomeSoundDummies(BiomeAccess access, double x, double y, double z) {
+		synchronized (SecurityProblemCauser.lock) {
+			if (SecurityProblemCauser.townLocs != null) {
+				for (Vec2i townLoc : SecurityProblemCauser.townLocs) {
+					double dx = x - townLoc.getX();
+					double dz = z - townLoc.getY();
+
+					if (dx * dx + dz * dz < TownFeature.SUBURB_DIST) {
+						return DummyBiomes.DUMMY_TOWN_HERIA;
+					}
+				}
+			}
+		}
+
+		return access.getBiome(x, y, z);
 	}
 }

@@ -41,7 +41,7 @@ public class Commands {
 												ChunkGenerator generator = world.getChunkManager().getChunkGenerator();
 
 												if (generator instanceof HaykamChunkGenerator) {
-													Vec2i[] towns = ((HaykamChunkGenerator) generator).getVillageCentres();
+													Vec2i[] towns = ((HaykamChunkGenerator) generator).getTownCentres();
 
 													StringBuilder result = new StringBuilder();
 
