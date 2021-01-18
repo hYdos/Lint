@@ -118,7 +118,7 @@ public class BiomeEffectSoundPlayerMixin {
 	private void markNext(CallbackInfo info) {
 		LintSoundManager.markNext(this.activeBiome);
 	}
-	
+
 	@Redirect(
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/source/BiomeAccess;getBiome(DDD)Lnet/minecraft/world/biome/Biome;"),
 			method = "tick")

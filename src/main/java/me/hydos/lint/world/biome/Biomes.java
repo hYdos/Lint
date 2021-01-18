@@ -53,6 +53,7 @@ public class Biomes {
 	 */
 	public static final int MYSTICAL_FOG_COLOUR = 0x8cfff5;
 	public static final int CORRUPT_FOG_COLOUR = 0x916ec1;
+	public static final int CAVERN_FOG_COLOUR = 0x7f7f7f;
 	public static final int DAWN_FOG_COLOUR = 0xe5c14b;
 
 	/**
