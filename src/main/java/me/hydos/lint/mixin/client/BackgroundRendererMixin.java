@@ -24,11 +24,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import me.hydos.lint.mixinimpl.LintSky;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.source.BiomeAccess;
@@ -51,13 +51,8 @@ public class BackgroundRendererMixin {
 				info.setReturnValue(Vec3d.unpackRgb(Biomes.CAVERN_FOG_COLOUR));
 			} else {
 				Vec3d fogColour = Vec3d.unpackRgb(access.getBiomeForNoiseGen(noiseGenX, noiseGenY, noiseGenZ).getFogColor());
-				Vec3d other = world.getSkyProperties().adjustFogColor(fogColour, skyAngleThing);
-				fogColour.multiply(fogColour);
-				other.multiply(other);
-				info.setReturnValue(new Vec3d(
-						Math.sqrt((fogColour.getX() + other.getX()) * 0.5),
-						Math.sqrt((fogColour.getY() + other.getY()) * 0.5),
-						Math.sqrt((fogColour.getZ() + other.getZ()) * 0.5)));
+				fogColour = LintSky.adjustFogColor(fogColour, skyAngleThing);
+				info.setReturnValue(fogColour);
 			}
 		}
 	}
