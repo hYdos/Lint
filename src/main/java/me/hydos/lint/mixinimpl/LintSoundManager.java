@@ -145,6 +145,14 @@ public class LintSoundManager {
 	}
 
 	public static Biome injectBiomeSoundDummies(ClientPlayerEntity player, BiomeAccess access, double x, double y, double z) {
+		Chunk chunk = player.getEntityWorld().getChunk(new BlockPos(x, y, z));
+		int targetWS = chunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE, (int) x, (int) z) - 15;
+		int targetMB = chunk.sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, (int) x, (int) z) - 2;
+
+		if (y < player.getEntityWorld().getSeaLevel() && y < targetWS && y < targetMB) {
+			return DummyBiomes.DUMMY_CAVERNS;
+		}
+
 		synchronized (SecurityProblemCauser.lock) {
 			if (SecurityProblemCauser.townLocs != null) {
 				for (Vec2i townLoc : SecurityProblemCauser.townLocs) {
@@ -156,12 +164,6 @@ public class LintSoundManager {
 					}
 				}
 			}
-		}
-
-		Chunk chunk = player.getEntityWorld().getChunk(new BlockPos(x, y, z));
-
-		if (y < chunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, (int) x, (int) z) - 15 && y < chunk.sampleHeightmap(Heightmap.Type.OCEAN_FLOOR_WG, (int) x, (int) z) - 2) {
-			return DummyBiomes.DUMMY_CAVERNS;
 		}
 
 		return access.getBiome(x, y, z);
