@@ -22,6 +22,7 @@
     "gecko.RegistryUtilsMixin"
   ],
   "client": [
+    "client.BackgroundRendererMixin",
     "client.BiomeEffectSoundPlayerMixin",
     "client.ClientPlayNetworkHandlerMixin",
     "client.GameRendererMixin",

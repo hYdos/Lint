@@ -30,14 +30,18 @@ import me.hydos.lint.sound.NotMusicLoop;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.feature.TownFeature;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer.MusicLoop;
 import net.minecraft.client.sound.MovingSoundInstance;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
+import net.minecraft.world.chunk.Chunk;
 
 public class LintSoundManager {
 	private static final Set<Identifier> BOSS_MUSIC = new HashSet<>();
@@ -140,7 +144,7 @@ public class LintSoundManager {
 		return false;
 	}
 
-	public static Biome injectBiomeSoundDummies(BiomeAccess access, double x, double y, double z) {
+	public static Biome injectBiomeSoundDummies(ClientPlayerEntity player, BiomeAccess access, double x, double y, double z) {
 		synchronized (SecurityProblemCauser.lock) {
 			if (SecurityProblemCauser.townLocs != null) {
 				for (Vec2i townLoc : SecurityProblemCauser.townLocs) {
@@ -152,6 +156,12 @@ public class LintSoundManager {
 					}
 				}
 			}
+		}
+
+		Chunk chunk = player.getEntityWorld().getChunk(new BlockPos(x, y, z));
+
+		if (y < chunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, (int) x, (int) z) - 15 && y < chunk.sampleHeightmap(Heightmap.Type.OCEAN_FLOOR_WG, (int) x, (int) z) - 2) {
+			return DummyBiomes.DUMMY_CAVERNS;
 		}
 
 		return access.getBiome(x, y, z);

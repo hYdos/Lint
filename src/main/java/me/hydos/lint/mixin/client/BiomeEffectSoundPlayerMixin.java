@@ -123,6 +123,6 @@ public class BiomeEffectSoundPlayerMixin {
 			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/source/BiomeAccess;getBiome(DDD)Lnet/minecraft/world/biome/Biome;"),
 			method = "tick")
 	private Biome injectBiomeSoundDummies(BiomeAccess access, double x, double y, double z) {
-		return LintSoundManager.injectBiomeSoundDummies(access, x, y, z);
+		return LintSoundManager.injectBiomeSoundDummies(this.player, access, x, y, z);
 	}
 }
