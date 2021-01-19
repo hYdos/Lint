@@ -36,7 +36,7 @@ public class Birds {
 	public static final AbstractBirdEntity.BirdData EASTERN_ROSELLA_DATA = new AbstractBirdEntity.BirdData(
 			Sounds.EASTERN_ROSELLA_IDLE,
 			"Eastern Rosella",
-			"Valoghese was here");
+			"Valoeghese was here");
 	public static final AbstractBirdEntity.BirdData RED_TAILED_TROPICBIRD_DATA = new AbstractBirdEntity.BirdData(
 			Sounds.EASTERN_ROSELLA_IDLE,
 			"Red Tailed Tropic bird",
@@ -57,5 +57,6 @@ public class Birds {
 
 	public static void register() {
 		FabricDefaultAttributeRegistry.register(EASTERN_ROSELLA, EasternRosellaEntity.createBirdAttributes());
+		FabricDefaultAttributeRegistry.register(RED_TAILED_TROPICBIRD, RedTailedTropicBirdEntity.createBirdAttributes());
 	}
 }
