@@ -413,7 +413,8 @@ public class Biomes {
 		DefaultBiomeFeatures.addOceanMobs(builder, 1, 4, 10);
 		builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.PUFFERFISH, 5, 1, 3))
 				.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.TROPICAL_FISH, 25, 8, 8))
-				.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.DOLPHIN, 2, 1, 2));
+				.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.DOLPHIN, 2, 1, 2))
+				.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.RED_TAILED_TROPICBIRD, 10, 1, 1));
 		return builder.build();
 	}
 }
