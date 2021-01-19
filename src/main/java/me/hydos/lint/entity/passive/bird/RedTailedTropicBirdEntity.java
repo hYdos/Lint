@@ -162,7 +162,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 		}
 
 		public void stop() {
-			RedTailedTropicBirdEntity.this.circlingCentre = RedTailedTropicBirdEntity.this.world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, RedTailedTropicBirdEntity.this.circlingCentre).up(5 + RedTailedTropicBirdEntity.this.random.nextInt(10));
+			RedTailedTropicBirdEntity.this.circlingCentre = RedTailedTropicBirdEntity.this.world.getTopPosition(Heightmap.Type.WORLD_SURFACE, RedTailedTropicBirdEntity.this.circlingCentre).up(10 + RedTailedTropicBirdEntity.this.random.nextInt(10));
 		}
 
 		public void tick() {
@@ -179,7 +179,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 		}
 
 		private void startSwoop() {
-			RedTailedTropicBirdEntity.this.circlingCentre = RedTailedTropicBirdEntity.this.getTarget().getBlockPos().up(5 + RedTailedTropicBirdEntity.this.random.nextInt(10));
+			RedTailedTropicBirdEntity.this.circlingCentre = RedTailedTropicBirdEntity.this.getTarget().getBlockPos().up(10 + RedTailedTropicBirdEntity.this.random.nextInt(10));
 			if (RedTailedTropicBirdEntity.this.circlingCentre.getY() < RedTailedTropicBirdEntity.this.world.getSeaLevel()) {
 				RedTailedTropicBirdEntity.this.circlingCentre = new BlockPos(RedTailedTropicBirdEntity.this.circlingCentre.getX(), RedTailedTropicBirdEntity.this.world.getSeaLevel() + 1, RedTailedTropicBirdEntity.this.circlingCentre.getZ());
 			}
