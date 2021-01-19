@@ -172,7 +172,6 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 					RedTailedTropicBirdEntity.this.movementType = RedTailedTropicBirdEntity.PhantomStyleHuntMovement.ATTACKING;
 					this.startSwoop();
 					this.cooldown = (8 + RedTailedTropicBirdEntity.this.random.nextInt(4)) * 20;
-					//RedTailedTropicBirdEntity.this.playSound(SoundEvents.A, 10.0F, 0.95F + RedTailedTropicBirdEntity.this.random.nextFloat() * 0.1F);
 				}
 			}
 
