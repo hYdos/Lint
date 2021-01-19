@@ -28,16 +28,16 @@ public class RedTailedTropicBirdModel extends AnimatedGeoModel<AbstractBirdEntit
 
 	@Override
 	public Identifier getModelLocation(AbstractBirdEntity abstractBirdEntity) {
-		return Lint.id("geo/birds/eastern_rosella.geo.json");
+		return Lint.id("geo/birds/red_tailed_tropicbird.geo.json");
 	}
 
 	@Override
 	public Identifier getTextureLocation(AbstractBirdEntity abstractBirdEntity) {
-		return Lint.id("textures/entity/birds/eastern_rosella.png");
+		return Lint.id("textures/entity/birds/red_tailed_tropicbird.png");
 	}
 
 	@Override
 	public Identifier getAnimationFileLocation(AbstractBirdEntity abstractBirdEntity) {
-		return Lint.id("animations/birds/eastern_rosella.animation.json");
+		return Lint.id("animations/birds/red_tailed_tropicbird.animation.json");
 	}
 }
