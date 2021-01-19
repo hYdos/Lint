@@ -46,13 +46,12 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 
-// TODO alternate between FISHING (phantom style) and NESTING (bird style) movements
+// TODO alternate between FISHING (phantom style) and NESTING (normal bird style) movements
 @SuppressWarnings("EntityConstructor")
 public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soaring {
 	private static final AnimationBuilder FLY_ANIMATION = new AnimationBuilder().addAnimation("animation.red_tailed_tropicbird.fly", true);
