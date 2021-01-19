@@ -56,7 +56,7 @@ public class Birds {
 					.build());
 
 	public static void register() {
-		FabricDefaultAttributeRegistry.register(EASTERN_ROSELLA, EasternRosellaEntity.createBirdAttributes(6.0D));
-		FabricDefaultAttributeRegistry.register(RED_TAILED_TROPICBIRD, RedTailedTropicBirdEntity.createBirdAttributes(8.0D));
+		FabricDefaultAttributeRegistry.register(EASTERN_ROSELLA, EasternRosellaEntity.createBirdAttributes(0.4D, 6.0D));
+		FabricDefaultAttributeRegistry.register(RED_TAILED_TROPICBIRD, RedTailedTropicBirdEntity.createBirdAttributes(1.0D, 8.0D));
 	}
 }

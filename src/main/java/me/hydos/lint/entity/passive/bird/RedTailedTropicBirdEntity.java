@@ -26,6 +26,7 @@ import java.util.List;
 import org.jetbrains.annotations.Nullable;
 
 import me.hydos.lint.entity.Birds;
+import me.hydos.lint.entity.goal.FlyOutOfWaterGoal;
 import me.hydos.lint.entity.passive.bird.SoaringMoveControl.Soaring;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -40,7 +41,6 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.SchoolingFishEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -77,8 +77,9 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 
 	protected void initGoals() {
 		this.goalSelector.add(1, new RedTailedTropicBirdEntity.StartAttackGoal());
-		this.goalSelector.add(2, new RedTailedTropicBirdEntity.SwoopMovementGoal());
-		this.goalSelector.add(3, new RedTailedTropicBirdEntity.CircleMovementGoal());
+		this.goalSelector.add(2, new RedTailedTropicBirdEntity.SwoopMovementGoal()); // TODO make DIVE movement goal
+		this.goalSelector.add(3, new FlyOutOfWaterGoal(this));
+		this.goalSelector.add(4, new RedTailedTropicBirdEntity.CircleMovementGoal());
 		this.targetSelector.add(1, new RedTailedTropicBirdEntity.FindTargetGoal());
 	}
 
@@ -123,7 +124,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 				return false;
 			} else {
 				this.delay = 60;
-				List<SchoolingFishEntity> list = RedTailedTropicBirdEntity.this.world.getEntitiesByClass(SchoolingFishEntity.class, RedTailedTropicBirdEntity.this.getBoundingBox().expand(20.0D, 64.0D, 20.0D), se -> true);
+				List<SchoolingFishEntity> list = RedTailedTropicBirdEntity.this.world.getEntitiesByClass(SchoolingFishEntity.class, RedTailedTropicBirdEntity.this.getBoundingBox().expand(18.0D, 64.0D, 18.0D), se -> true);
 				if (!list.isEmpty()) {
 					list.sort(Comparator.comparing(Entity::getY).reversed());
 					for (SchoolingFishEntity fish : list) {
