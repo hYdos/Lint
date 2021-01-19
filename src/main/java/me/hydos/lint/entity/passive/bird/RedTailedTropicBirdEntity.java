@@ -123,7 +123,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 				return false;
 			} else {
 				this.delay = 60;
-				List<SchoolingFishEntity> list = RedTailedTropicBirdEntity.this.world.getEntitiesByClass(SchoolingFishEntity.class, RedTailedTropicBirdEntity.this.getBoundingBox().expand(16.0D, 64.0D, 16.0D), se -> true);
+				List<SchoolingFishEntity> list = RedTailedTropicBirdEntity.this.world.getEntitiesByClass(SchoolingFishEntity.class, RedTailedTropicBirdEntity.this.getBoundingBox().expand(20.0D, 64.0D, 20.0D), se -> true);
 				if (!list.isEmpty()) {
 					list.sort(Comparator.comparing(Entity::getY).reversed());
 					for (SchoolingFishEntity fish : list) {
@@ -172,7 +172,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 					RedTailedTropicBirdEntity.this.movementType = RedTailedTropicBirdEntity.PhantomStyleHuntMovement.ATTACKING;
 					this.startSwoop();
 					this.cooldown = (8 + RedTailedTropicBirdEntity.this.random.nextInt(4)) * 20;
-					RedTailedTropicBirdEntity.this.playSound(SoundEvents.ENTITY_PHANTOM_SWOOP, 10.0F, 0.95F + RedTailedTropicBirdEntity.this.random.nextFloat() * 0.1F);
+					//RedTailedTropicBirdEntity.this.playSound(SoundEvents.A, 10.0F, 0.95F + RedTailedTropicBirdEntity.this.random.nextFloat() * 0.1F);
 				}
 			}
 
