@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "T",
+	"#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+	"S": {
+      "item": "lint:sicieron_ingot"
+    },
+	"T": {
+      "item": "lint:tater_essence"
+    }
+  },
+  "result": {
+    "item": "lint:attuner",
+    "count": 1
+  }
+}
