@@ -77,17 +77,17 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> TARSCAN_ORE = register("tarscan_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
 					LintBlocks.TARSCAN_ORE.getDefaultState(),
-					9)).rangeOf(64)).spreadHorizontally().repeat(20);
+					9)).rangeOf(64).spreadHorizontally().repeat(20));
 
 	public static final ConfiguredFeature<?, ?> SICIERON_ORE = register("sicieron_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
 					LintBlocks.SICIERON_ORE.getDefaultState(),
-					12)).rangeOf(40)).spreadHorizontally().repeat(8);
+					12)).rangeOf(40).spreadHorizontally().repeat(8));
 
 	public static final ConfiguredFeature<?, ?> JUREL_ORE = register("jurel_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
 					LintBlocks.TARSCAN_ORE.getDefaultState(),
-					9)).rangeOf(10)).spreadHorizontally().repeat(6);
+					9)).rangeOf(10).spreadHorizontally().repeat(6));
 
 	/**
 	 * MISC
