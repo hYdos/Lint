@@ -77,7 +77,6 @@ public class Lint implements ModInitializer {
 
 		ServerSidePacketRegistry.INSTANCE.register(Networking.GIB_INFO_PLS, (context, data) -> {
 			try {
-				System.out.println("loevly");
 				Vec2i[] towns = ((HaykamChunkGenerator) (((ServerPlayerEntity) context.getPlayer()).getServer().getWorld(Dimensions.FRAIYA_WORLD).getChunkManager().getChunkGenerator())).getTownCentres();
 
 				PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
@@ -87,7 +86,6 @@ public class Lint implements ModInitializer {
 					buf.writeInt(v2i.getY());
 				}
 
-				System.out.println("delicious");
 				ServerSidePacketRegistry.INSTANCE.sendToPlayer(context.getPlayer(), Networking.TOWN_LOCATIONS, buf);
 			} catch (Exception e) {
 				e.printStackTrace();
