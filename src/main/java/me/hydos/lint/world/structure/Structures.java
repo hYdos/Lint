@@ -57,13 +57,7 @@ public class Structures {
 	}
 
 	public static Function<StructurePool.Projection, SinglePoolElement> createSinglePoolElement(String path, StructureProcessorList structureProcessorList) {
-		return (projection) -> new AccessibleSinglePoolElement(Either.left(Lint.id(path)), () -> structureProcessorList, projection);
+		return (projection) -> new SinglePoolElement(Either.left(Lint.id(path)), () -> structureProcessorList, projection){};
 	}
 
-}
-
-class AccessibleSinglePoolElement extends SinglePoolElement {
-	protected AccessibleSinglePoolElement(Either<Identifier, Structure> either, Supplier<StructureProcessorList> supplier, Projection projection) {
-		super(either, supplier, projection);
-	}	
 }
