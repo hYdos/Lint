@@ -50,6 +50,9 @@ public class DummyBiomes {
 	}
 
 	public static final Biome DUMMY_TOWN_HERIA = createLoopSound(Sounds.HERIA_AND_THE_TOWN_OF_HOPE);
+	public static final Biome DUMMY_TOWN_PAWERIA = createLoopSound(Sounds.PAWERIA_CARIAR_OF_ORDER);
 	public static final Biome DUMMY_CAVERNS = createLoopSound(Sounds.CAVERNS);
 	public static final Biome DUMMY_DUNGEON = createLoopSound(Sounds.DUNGEON);
+
+	public static final Biome[] TOWNS = new Biome[] {DUMMY_TOWN_PAWERIA, DUMMY_TOWN_HERIA, DUMMY_TOWN_HERIA, DUMMY_TOWN_HERIA};
 }

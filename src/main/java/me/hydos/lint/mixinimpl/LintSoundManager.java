@@ -26,10 +26,13 @@ import java.util.Set;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.sound.NotMusicLoop;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.feature.TownFeature;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer.MusicLoop;
@@ -39,6 +42,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.chunk.Chunk;
@@ -145,7 +149,34 @@ public class LintSoundManager {
 	}
 
 	public static Biome injectBiomeSoundDummies(ClientPlayerEntity player, BiomeAccess access, double x, double y, double z) {
-		Chunk chunk = player.getEntityWorld().getChunk(new BlockPos(x, y, z));
+		BlockPos playerPos = player.getBlockPos();
+		World world = player.getEntityWorld();
+
+		int playerY = playerPos.getY();
+		
+		// test blocks below for dungeon
+		// you can't get dungeon boxes on the client ok structures are SERVER side this is a good compromise
+		if (playerY > 0 && playerY < 256) {			
+			for (int i = 1; i < 4; ++i) {
+				if (playerY < i) {
+					break;
+				}
+				
+				BlockPos pos = playerPos.down(i);
+				BlockState bs = world.getBlockState(pos);
+
+				if (bs.isFullCube(world, pos)) {
+					Block b = bs.getBlock();
+					
+					if (b == LintBlocks.DUNGEON_BRICKS || b == LintBlocks.DUNGEON_BRICK_SLAB || b == LintBlocks.DUNGEON_BRICK_SLAB) {
+						return DummyBiomes.DUMMY_DUNGEON;
+					}
+					break;
+				}
+			}
+		}
+
+		Chunk chunk = world.getChunk(new BlockPos(x, y, z));
 		int targetWS = chunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE, (int) x, (int) z) - 15;
 		int targetMB = chunk.sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, (int) x, (int) z) - 2;
 		int checky = (int) y;
@@ -156,13 +187,17 @@ public class LintSoundManager {
 
 		synchronized (SecurityProblemCauser.lock) {
 			if (SecurityProblemCauser.townLocs != null) {
+				int i = 0;
+
 				for (Vec2i townLoc : SecurityProblemCauser.townLocs) {
 					double dx = x - townLoc.getX();
 					double dz = z - townLoc.getY();
 
 					if (dx * dx + dz * dz < TownFeature.SUBURB_DIST) {
-						return DummyBiomes.DUMMY_TOWN_HERIA;
+						return DummyBiomes.TOWNS[i];
 					}
+
+					i++;
 				}
 			}
 		}

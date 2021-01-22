@@ -90,10 +90,10 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 			Random rand = new Random(worldSeed + 1);
 			double angleRadians = (rand.nextDouble() * Math.PI / 4) - Math.PI / 8;
 			final double rightAngle = Math.PI / 2;
-			this.villageCentres.add(fromRTheta(1000, angleRadians));
-			this.villageCentres.add(fromRTheta(1000, angleRadians + rightAngle));
-			this.villageCentres.add(fromRTheta(1000, angleRadians + 2 * rightAngle));
-			this.villageCentres.add(fromRTheta(1000, angleRadians + 3 * rightAngle));
+			this.villageCentres.add(fromRTheta(1000, angleRadians)); // east, paweria
+			this.villageCentres.add(fromRTheta(1000, angleRadians + rightAngle)); // south, heria
+			this.villageCentres.add(fromRTheta(1000, angleRadians + 2 * rightAngle)); // west, auria
+			this.villageCentres.add(fromRTheta(1000, angleRadians + 3 * rightAngle)); // north, theria
 
 			rand.setSeed(worldSeed);
 			this.terrain = new HaykamTerrainGenerator(worldSeed, rand, this.getTownCentres());
@@ -108,7 +108,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 		onStructureSetup.add(callback);
 	}
 
-	private static Vec2i fromRTheta(double r, double theta) {
+	private static Vec2i fromRTheta(double r, double theta) { // 0 = +x, pi/2 = +z, etc
 		return new Vec2i(
 				MathHelper.floor(Math.cos(theta) * r),
 				MathHelper.floor(Math.sin(theta) * r));
