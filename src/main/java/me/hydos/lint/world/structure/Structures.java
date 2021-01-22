@@ -23,14 +23,19 @@ import com.mojang.datafixers.util.Either;
 import me.hydos.lint.Lint;
 import me.hydos.lint.world.feature.DungeonFeature;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
+import net.minecraft.structure.Structure;
 import net.minecraft.structure.pool.LegacySinglePoolElement;
+import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePool;
+import net.minecraft.structure.pool.StructurePool.Projection;
 import net.minecraft.structure.processor.StructureProcessorList;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Structures {
 
@@ -51,7 +56,14 @@ public class Structures {
 		return (projection) -> new LegacySinglePoolElement(Either.left(Lint.id(path)), () -> structureProcessorList, projection);
 	}
 
-	public static Function<StructurePool.Projection, LegacySinglePoolElement> createSinglePoolElement(String path, StructureProcessorList structureProcessorList) {
-		return (projection) -> new LegacySinglePoolElement(Either.left(Lint.id(path)), () -> structureProcessorList, projection);
+	public static Function<StructurePool.Projection, SinglePoolElement> createSinglePoolElement(String path, StructureProcessorList structureProcessorList) {
+		return (projection) -> new AccessibleSinglePoolElement(Either.left(Lint.id(path)), () -> structureProcessorList, projection);
 	}
+
+}
+
+class AccessibleSinglePoolElement extends SinglePoolElement {
+	protected AccessibleSinglePoolElement(Either<Identifier, Structure> either, Supplier<StructureProcessorList> supplier, Projection projection) {
+		super(either, supplier, projection);
+	}	
 }
