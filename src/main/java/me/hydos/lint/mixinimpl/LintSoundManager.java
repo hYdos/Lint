@@ -177,6 +177,8 @@ public class LintSoundManager {
 							break;
 						}
 					}
+				} else if (!bs.isAir()) {
+					++i;
 				}
 			}
 		}
