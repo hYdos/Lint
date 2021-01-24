@@ -154,10 +154,12 @@ public class LintSoundManager {
 
 		int playerY = playerPos.getY();
 		
+		int passthroughs = 2;
+
 		// test blocks below for dungeon
 		// you can't get dungeon boxes on the client ok structures are SERVER side this is a good compromise
 		if (playerY > 0 && playerY < 256) {			
-			for (int i = 1; i < 4; ++i) {
+			for (int i = 1; i < 7; ++i) {
 				if (playerY < i) {
 					break;
 				}
@@ -170,8 +172,11 @@ public class LintSoundManager {
 					
 					if (b == LintBlocks.DUNGEON_BRICKS || b == LintBlocks.DUNGEON_BRICK_SLAB || b == LintBlocks.DUNGEON_BRICK_SLAB) {
 						return DummyBiomes.DUMMY_DUNGEON;
+					} else {
+						if (passthroughs-- == 0) {
+							break;
+						}
 					}
-					break;
 				}
 			}
 		}
