@@ -71,6 +71,12 @@
       "lint:paweria_cariar_of_order"
     ]
   },
+  "music.steelbranch": {
+    "subtitle": "subtitles.steelbranch",
+    "sounds": [
+      "lint:steelbranch"
+    ]
+  },
   "music.caverns": {
     "subtitle": "subtitles.caverns",
     "sounds": [

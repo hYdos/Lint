@@ -41,6 +41,7 @@ public class Sounds {
 	public static final SoundEvent GRIMACE = new SoundEvent(Lint.id("music.grimace"));
 	public static final SoundEvent HERIA_AND_THE_TOWN_OF_HOPE = new SoundEvent(Lint.id("music.heria_and_the_town_of_hope"));
 	public static final SoundEvent PAWERIA_CARIAR_OF_ORDER = new SoundEvent(Lint.id("music.paweria_cariar_of_order"));
+	public static final SoundEvent STEELBRANCH = new SoundEvent(Lint.id("music.steelbranch"));
 
 	/**
 	 * Biome Music
@@ -87,6 +88,7 @@ public class Sounds {
 		register(CAVERNS);
 		register(HERIA_AND_THE_TOWN_OF_HOPE);
 		register(PAWERIA_CARIAR_OF_ORDER);
+		register(STEELBRANCH);
 
 		register(ADVANCEMENT);
 		register(ACTIVATE_SHRINE);
