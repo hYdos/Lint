@@ -57,7 +57,7 @@ public class Sounds {
 	 * Misc Sounds
 	 */
 	public static final SoundEvent ADVANCEMENT = new SoundEvent(Lint.id("player.advancement"));
-	public static final SoundEvent ACTIVATE_SHRINE = new SoundEvent(Lint.id("player.activate_shrine"));
+	public static final SoundEvent SHRINE_ACTIVATE = new SoundEvent(Lint.id("player.shrine_activate"));
 
 	/**
 	 * Entity Sounds
@@ -91,7 +91,7 @@ public class Sounds {
 		register(STEELBRANCH);
 
 		register(ADVANCEMENT);
-		register(ACTIVATE_SHRINE);
+		register(SHRINE_ACTIVATE);
 
 		register(EASTERN_ROSELLA_IDLE);
 	}

@@ -63,7 +63,7 @@ public class ReturnHomeBlock extends Block {
 			return ActionResult.SUCCESS;
 		} else if (player.getStackInHand(hand).getItem() == LintItems.TATER_ESSENCE) {
 			if (!world.isClient()) {
-				((ServerPlayerEntity) player).networkHandler.sendPacket(new PlaySoundS2CPacket(Sounds.ACTIVATE_SHRINE, SoundCategory.MASTER, pos.getX(), pos.getY(), pos.getZ(), 1f, 1f));
+				((ServerPlayerEntity) player).networkHandler.sendPacket(new PlaySoundS2CPacket(Sounds.SHRINE_ACTIVATE, SoundCategory.MASTER, pos.getX(), pos.getY(), pos.getZ(), 1f, 1f));
 				world.setBlockState(pos, LintBlocks.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true));
 				player.getStackInHand(hand).decrement(1);
 				return ActionResult.SUCCESS;

@@ -90,8 +90,8 @@
       "lint:advancement"
     ]
   },
-  "player.activate_shrine": {
-    "subtitle": "subtitles.activate_shrine",
+  "player.shrine_activate": {
+    "subtitle": "subtitles.shrine_activate",
     "volume": 10,
     "sounds": [
       "lint:activate_shrine"
