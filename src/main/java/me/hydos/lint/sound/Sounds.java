@@ -40,6 +40,8 @@ public class Sounds {
 	public static final SoundEvent DUNGEON = new SoundEvent(Lint.id("music.clandestine"));
 	public static final SoundEvent GRIMACE = new SoundEvent(Lint.id("music.grimace"));
 	public static final SoundEvent HERIA_AND_THE_TOWN_OF_HOPE = new SoundEvent(Lint.id("music.heria_and_the_town_of_hope"));
+	public static final SoundEvent PAWERIA_CARIAR_OF_ORDER = new SoundEvent(Lint.id("music.paweria_cariar_of_order"));
+	public static final SoundEvent STEELBRANCH = new SoundEvent(Lint.id("music.steelbranch"));
 
 	/**
 	 * Biome Music
@@ -55,6 +57,7 @@ public class Sounds {
 	 * Misc Sounds
 	 */
 	public static final SoundEvent ADVANCEMENT = new SoundEvent(Lint.id("player.advancement"));
+	public static final SoundEvent SHRINE_ACTIVATE = new SoundEvent(Lint.id("player.shrine_activate"));
 
 	/**
 	 * Entity Sounds
@@ -84,8 +87,11 @@ public class Sounds {
 		register(ETHEREAL_GROVES_OF_FRAIYA);
 		register(CAVERNS);
 		register(HERIA_AND_THE_TOWN_OF_HOPE);
+		register(PAWERIA_CARIAR_OF_ORDER);
+		register(STEELBRANCH);
 
 		register(ADVANCEMENT);
+		register(SHRINE_ACTIVATE);
 
 		register(EASTERN_ROSELLA_IDLE);
 	}

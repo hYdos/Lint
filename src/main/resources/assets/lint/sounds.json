@@ -65,6 +65,18 @@
       "lint:heria_and_the_town_of_hope"
     ]
   },
+  "music.paweria_cariar_of_order": {
+    "subtitle": "subtitles.paweria_cariar_of_order",
+    "sounds": [
+      "lint:paweria_cariar_of_order"
+    ]
+  },
+  "music.steelbranch": {
+    "subtitle": "subtitles.steelbranch",
+    "sounds": [
+      "lint:steelbranch"
+    ]
+  },
   "music.caverns": {
     "subtitle": "subtitles.caverns",
     "sounds": [
@@ -76,6 +88,13 @@
     "volume": 10,
     "sounds": [
       "lint:advancement"
+    ]
+  },
+  "player.shrine_activate": {
+    "subtitle": "subtitles.shrine_activate",
+    "volume": 10,
+    "sounds": [
+      "lint:activate_shrine"
     ]
   },
   "eastern_rosella.idle": {

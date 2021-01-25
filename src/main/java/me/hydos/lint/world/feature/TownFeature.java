@@ -41,6 +41,11 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
+// N: Theria
+// E: Paweria
+// S: Heria
+// W: Auria
+
 public class TownFeature extends Feature<DefaultFeatureConfig> {
 	private static final int OUTSKIRTS_DIST = 320 * 320;
 	public static int DENSE_DIST = 80 * 80;

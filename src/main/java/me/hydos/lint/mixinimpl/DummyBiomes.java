@@ -49,7 +49,14 @@ public class DummyBiomes {
 				.build();
 	}
 
+	public static final Biome DUMMY_TOWN_THERIA = createLoopSound(Sounds.HERIA_AND_THE_TOWN_OF_HOPE); // TODO write music for theria's town
+	public static final Biome DUMMY_TOWN_AURIA = createLoopSound(Sounds.STEELBRANCH);
+	public static final Biome DUMMY_TOWN_PAWERIA = createLoopSound(Sounds.PAWERIA_CARIAR_OF_ORDER);
 	public static final Biome DUMMY_TOWN_HERIA = createLoopSound(Sounds.HERIA_AND_THE_TOWN_OF_HOPE);
+
 	public static final Biome DUMMY_CAVERNS = createLoopSound(Sounds.CAVERNS);
 	public static final Biome DUMMY_DUNGEON = createLoopSound(Sounds.DUNGEON);
+
+	// in the correct order to designate whose town is whose.
+	public static final Biome[] TOWNS = new Biome[] {DUMMY_TOWN_PAWERIA, DUMMY_TOWN_HERIA, DUMMY_TOWN_AURIA, DUMMY_TOWN_THERIA};
 }

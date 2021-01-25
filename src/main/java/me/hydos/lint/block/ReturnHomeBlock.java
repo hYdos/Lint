@@ -19,13 +19,17 @@
 
 package me.hydos.lint.block;
 
+import me.hydos.lint.item.LintItems;
+import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.util.TeleportUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
+import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
@@ -57,8 +61,9 @@ public class ReturnHomeBlock extends Block {
 			}
 
 			return ActionResult.SUCCESS;
-		} else if (player.getStackInHand(hand).getItem() == Items.POTATO) {
+		} else if (player.getStackInHand(hand).getItem() == LintItems.TATER_ESSENCE) {
 			if (!world.isClient()) {
+				((ServerPlayerEntity) player).networkHandler.sendPacket(new PlaySoundS2CPacket(Sounds.SHRINE_ACTIVATE, SoundCategory.MASTER, pos.getX(), pos.getY(), pos.getZ(), 1f, 1f));
 				world.setBlockState(pos, LintBlocks.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true));
 				player.getStackInHand(hand).decrement(1);
 				return ActionResult.SUCCESS;
