@@ -19,11 +19,14 @@
 
 package me.hydos.lint.mixin;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.Tag;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -34,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(Entity.class)
+@Mixin(value = Entity.class, priority = 10000000)
 public abstract class EntityMixin {
 
 	@Shadow
@@ -46,17 +49,29 @@ public abstract class EntityMixin {
 	@Shadow
 	public abstract BlockPos getBlockPos();
 
+	@Shadow public boolean inanimate;
+
+	@Shadow public abstract Text getName();
+
+	boolean doNormalCheck;
+
 	@Redirect(method = "updateMovementInFluid", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/tag/Tag;)Z"))
 	private boolean isIn(FluidState state, Tag<Fluid> tag) {
-		if (!state.getFluid().isIn(tag) && !tag.equals(FluidTags.LAVA)) {
-			return !state.isEmpty();
-		} else {
+		if(doNormalCheck){
 			return state.isIn(tag);
 		}
+		if(!(((Object) this) instanceof EndermanEntity)) {
+			if (!state.getFluid().isIn(tag) && !tag.equals(FluidTags.LAVA)) {
+				return !state.isEmpty();
+			} else {
+				return state.isIn(tag);
+			}
+		}
+		return state.isIn(tag);
 	}
 
 	@Inject(method = "isWet", at = @At("HEAD"), cancellable = true)
 	private void isRaining(CallbackInfoReturnable<Boolean> cir) {
-		cir.setReturnValue(world.isRaining() || this.world.getFluidState(getBlockPos()).isIn(FluidTags.WATER));
+		cir.setReturnValue(world.isRaining() || this.world.getFluidState(getBlockPos()).isIn(FluidTags.WATER) && world.getBlockState(getBlockPos()).getBlock() != Blocks.AIR);
 	}
 }
