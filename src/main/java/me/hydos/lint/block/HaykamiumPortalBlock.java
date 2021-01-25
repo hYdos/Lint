@@ -19,6 +19,7 @@
 
 package me.hydos.lint.block;
 
+import me.hydos.lint.mixinimpl.LintPortal;
 import me.hydos.lint.util.TeleportUtils;
 import me.hydos.lint.world.dimension.Dimensions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -35,6 +36,11 @@ import net.minecraft.world.World;
 public class HaykamiumPortalBlock extends Block {
 	public HaykamiumPortalBlock(FabricBlockSettings settings) {
 		super(settings);
+	}
+
+	@Override
+	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+		LintPortal.resolve(world, pos, true); // TODO be more efficient
 	}
 
 	@Override

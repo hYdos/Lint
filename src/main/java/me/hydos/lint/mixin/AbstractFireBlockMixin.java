@@ -33,7 +33,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class AbstractFireBlockMixin {
 	@Inject(method = "onBlockAdded", at = @At("HEAD"))
 	private void checkForLintPortal(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify, CallbackInfo ci) {
-		// Hardcoded for now yeef
-		LintPortal.resolve(world, pos);
+		LintPortal.resolve(world, pos, false);
 	}
 }

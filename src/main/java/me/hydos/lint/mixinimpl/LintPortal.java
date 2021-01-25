@@ -30,7 +30,7 @@ import net.minecraft.world.explosion.Explosion;
 public class LintPortal {
 	public static final BlockState FRAME = Blocks.COAL_BLOCK.getDefaultState();
 
-	public static void resolve(World world, BlockPos firePos) {
+	public static void resolve(World world, BlockPos firePos, boolean destroy) {
 		boolean blowUp = false;
 		if (world.getRegistryKey() != World.OVERWORLD) {
 			blowUp = true;
@@ -41,8 +41,46 @@ public class LintPortal {
 
 		final int fireX = firePos.getX();
 		final int fireZ = firePos.getZ();
-		BlockPos.Mutable pos = new BlockPos.Mutable().set(firePos);
+		final int fireY = firePos.getY();
 
+		int[] data = new int[4];
+		boolean portal = test(world, firePos, searchSize, size, data);
+		BlockPos.Mutable pos = new BlockPos.Mutable().set(firePos);
+		pos.setY(fireY);
+
+		// place portal
+		if (destroy) {
+			if (!portal) {
+				world.breakBlock(firePos, false);
+			}
+		} else if (portal) {
+			int widthP = data[0];
+			int widthN = data[1];
+			int breadthP = data[2];
+			int breadthN = data[3];
+
+			if (blowUp) {
+				if (!world.isClient()) {
+					world.createExplosion(null, fireX, fireY, fireZ, 10, Explosion.DestructionType.DESTROY);
+				}
+				return;
+			}
+			for (int xo = -widthN; xo <= widthP; ++xo) {
+				pos.setX(fireX + xo);
+
+				for (int zo = -breadthN; zo <= breadthP; ++zo) {
+					pos.setZ(fireZ + zo);
+
+					world.setBlockState(pos, LintBlocks.HAYKAMIUM_PORTAL.getDefaultState());
+				}
+			}
+		}
+	}
+
+	private static boolean test(World world, BlockPos firePos, final int searchSize, final int size, int[] data) {
+		final int fireX = firePos.getX();
+		final int fireZ = firePos.getZ();
+		BlockPos.Mutable pos = new BlockPos.Mutable().set(firePos);
 		int widthP = 0; // the amount of "gap" on +x
 		int widthN = 0; // the amount of "gap" on -x
 		int breadthP = 0; // the amount of "gap" on +z
@@ -51,7 +89,7 @@ public class LintPortal {
 		// find encapsulation of portal.
 		for (int xo = 1; xo <= searchSize; ++xo) {
 			if (xo == searchSize) {
-				return;
+				return false;
 			}
 
 			pos.setX(fireX + xo);
@@ -65,7 +103,7 @@ public class LintPortal {
 
 		for (int xo = 1; xo <= searchSize; ++xo) {
 			if (xo == searchSize) {
-				return;
+				return false;
 			}
 
 			pos.setX(fireX - xo);
@@ -78,14 +116,14 @@ public class LintPortal {
 		}
 
 		if (1 + widthP + widthN != size) {
-			return;
+			return false;
 		}
 
 		pos.setX(fireX);
 
 		for (int zo = 1; zo <= searchSize; ++zo) {
 			if (zo == searchSize) {
-				return;
+				return false;
 			}
 
 			pos.setZ(fireZ + zo);
@@ -99,7 +137,7 @@ public class LintPortal {
 
 		for (int zo = 1; zo <= searchSize; ++zo) {
 			if (zo == searchSize) {
-				return;
+				return false;
 			}
 
 			pos.setZ(fireZ - zo);
@@ -112,7 +150,7 @@ public class LintPortal {
 		}
 
 		if (1 + breadthP + breadthN != size) {
-			return;
+			return false;
 		}
 
 		// Check Edges
@@ -122,7 +160,7 @@ public class LintPortal {
 			pos.setX(fireX + xo);
 
 			if (world.getBlockState(pos) != FRAME) {
-				return;
+				return false;
 			}
 		}
 
@@ -132,7 +170,7 @@ public class LintPortal {
 			pos.setX(fireX + xo);
 
 			if (world.getBlockState(pos) != FRAME) {
-				return;
+				return false;
 			}
 		}
 
@@ -142,7 +180,7 @@ public class LintPortal {
 			pos.setZ(fireZ + zo);
 
 			if (world.getBlockState(pos) != FRAME) {
-				return;
+				return false;
 			}
 		}
 
@@ -152,7 +190,7 @@ public class LintPortal {
 			pos.setZ(fireZ + zo);
 
 			if (world.getBlockState(pos) != FRAME) {
-				return;
+				return false;
 			}
 		}
 
@@ -165,7 +203,7 @@ public class LintPortal {
 
 				if (xo != 0 || zo != 0) {
 					if (!world.getBlockState(pos).isAir()) {
-						return;
+						return false;
 					}
 				}
 			}
@@ -182,28 +220,15 @@ public class LintPortal {
 				pos.setZ(fireZ + zo);
 
 				if (!BlockTags.LOGS.contains(world.getBlockState(pos).getBlock())) {
-					return;
+					return false;
 				}
 			}
 		}
 
-		pos.setY(fireY);
-
-		// place portal
-		if (blowUp) {
-			if (!world.isClient()) {
-				world.createExplosion(null, fireX, fireY, fireZ, 10, Explosion.DestructionType.DESTROY);
-			}
-			return;
-		}
-		for (int xo = -widthN; xo <= widthP; ++xo) {
-			pos.setX(fireX + xo);
-
-			for (int zo = -breadthN; zo <= breadthP; ++zo) {
-				pos.setZ(fireZ + zo);
-
-				world.setBlockState(pos, LintBlocks.HAYKAMIUM_PORTAL.getDefaultState());
-			}
-		}
+		data[0] = widthP;
+		data[1] = widthN;
+		data[2] = breadthP;
+		data[3] = breadthN;
+		return true;
 	}
 }
