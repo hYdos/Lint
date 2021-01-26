@@ -40,7 +40,7 @@ public class HaykamiumPortalBlock extends Block {
 
 	@Override
 	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
-		LintPortal.resolve(world, pos, true); // TODO be more efficient
+		LintPortal.resolve(world, pos, fromPos, true); // TODO be more efficient
 	}
 
 	@Override

@@ -19,7 +19,9 @@
 
 package me.hydos.lint.mixinimpl;
 
-import java.util.function.Predicate;
+import java.util.function.BiPredicate;
+
+import org.jetbrains.annotations.Nullable;
 
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.Block;
@@ -33,7 +35,7 @@ import net.minecraft.world.explosion.Explosion;
 public class LintPortal {
 	public static final BlockState FRAME = Blocks.COAL_BLOCK.getDefaultState();
 
-	public static void resolve(World world, BlockPos startPos, boolean destroy) {
+	public static void resolve(World world, BlockPos startPos, @Nullable BlockPos fromPos, boolean destroy) {
 		boolean blowUp = false;
 		if (world.getRegistryKey() != World.OVERWORLD) {
 			blowUp = true;
@@ -54,7 +56,7 @@ public class LintPortal {
 		// place portal
 		if (destroy) {
 			if (!portal) {
-				destroyPortalLattice(world, startPos, 4);
+				destroyPortalLattice(world, startPos, fromPos, 4);
 			}
 		} else if (portal) {
 			int widthP = data[0];
@@ -80,10 +82,10 @@ public class LintPortal {
 		}
 	}
 
-	private static void destroyPortalLattice(World world, BlockPos startPos, final int searchSize) {
+	private static void destroyPortalLattice(World world, BlockPos startPos, BlockPos ignorePos, final int searchSize) {
 		int[] data = new int[4];
 
-		if (!findLattice(world, startPos, -1, searchSize, data, state -> state != HAYKAMIUM_PORTAL)) {
+		if (!findLattice(world, startPos, 3, searchSize, data, ($pos, state) -> state != HAYKAMIUM_PORTAL && !$pos.equals(ignorePos))) {
 			return;
 		}
 
@@ -91,6 +93,8 @@ public class LintPortal {
 		int widthN = data[1];
 		int breadthP = data[2];
 		int breadthN = data[3];
+
+//		System.out.println("E " + widthP + ", " + widthN + ", " + breadthP + ", " + breadthN);
 
 		BlockPos.Mutable pos = new BlockPos.Mutable().set(startPos);
 		final int startX = startPos.getX();
@@ -104,12 +108,12 @@ public class LintPortal {
 				pos.setZ(startZ + zo);
 
 				world.syncWorldEvent(2001, pos, rawId);
-				world.setBlockState(pos, AIR, 2);				
+				world.setBlockState(pos, AIR, 2);	
 			}
 		}
 	}
 
-	private static boolean findLattice(World world, BlockPos startPos, final int size, final int searchSize, int[] data, Predicate<BlockState> isBorder) {
+	private static boolean findLattice(World world, BlockPos startPos, final int size, final int searchSize, int[] data, BiPredicate<BlockPos, BlockState> isBorder) {
 		BlockPos.Mutable pos = new BlockPos.Mutable().set(startPos);
 		final int startX = startPos.getX();
 		final int startZ = startPos.getZ();
@@ -126,7 +130,7 @@ public class LintPortal {
 
 			pos.setX(startX + xo);
 
-			if (isBorder.test(world.getBlockState(pos))) {
+			if (isBorder.test(pos, world.getBlockState(pos))) {
 				break;
 			}
 
@@ -140,7 +144,7 @@ public class LintPortal {
 
 			pos.setX(startX - xo);
 
-			if (isBorder.test(world.getBlockState(pos))) {
+			if (isBorder.test(pos, world.getBlockState(pos))) {
 				break;
 			}
 
@@ -162,7 +166,7 @@ public class LintPortal {
 
 			pos.setZ(startZ + zo);
 
-			if (isBorder.test(world.getBlockState(pos))) {
+			if (isBorder.test(pos, world.getBlockState(pos))) {
 				break;
 			}
 
@@ -176,7 +180,7 @@ public class LintPortal {
 
 			pos.setZ(startZ - zo);
 
-			if (isBorder.test(world.getBlockState(pos))) {
+			if (isBorder.test(pos, world.getBlockState(pos))) {
 				break;
 			}
 
@@ -203,7 +207,7 @@ public class LintPortal {
 		BlockPos.Mutable pos = new BlockPos.Mutable().set(firePos);
 
 		// find encapsulation of portal.
-		if (!findLattice(world, firePos, size, searchSize, data, state -> state == FRAME)) {
+		if (!findLattice(world, firePos, size, searchSize, data, ($pos, state) -> state == FRAME)) {
 			return false;
 		}
 
