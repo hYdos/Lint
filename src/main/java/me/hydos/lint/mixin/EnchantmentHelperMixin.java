@@ -35,11 +35,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class EnchantmentHelperMixin {
 	@Inject(at = @At("HEAD"), method = "onTargetDamaged")
 	private static void onOnTargetDamaged(LivingEntity user, Entity target, CallbackInfo info) {
-		ItemStack stack = user.getStackInHand(Hand.MAIN_HAND);
-		Item item = stack.getItem();
+		if (user != null) {
+			ItemStack stack = user.getStackInHand(Hand.MAIN_HAND);
+			Item item = stack.getItem();
 
-		if (item instanceof Enhanceable) {
-			((Enhanceable) item).onAttack(user, stack, target);
+			if (item instanceof Enhanceable) {
+				((Enhanceable) item).onAttack(user, stack, target);
+			}
 		}
 	}
 }
