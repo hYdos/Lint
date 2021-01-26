@@ -37,6 +37,7 @@ public class LintPortal {
 
 	public static void resolve(World world, BlockPos startPos, @Nullable BlockPos fromPos, boolean destroy) {
 		boolean blowUp = false;
+
 		if (world.getRegistryKey() != World.OVERWORLD) {
 			blowUp = true;
 		}
@@ -86,7 +87,9 @@ public class LintPortal {
 		int[] data = new int[4];
 
 		if (!findLattice(world, startPos, 3, searchSize, data, ($pos, state) -> state != HAYKAMIUM_PORTAL && !$pos.equals(ignorePos))) {
-			return;
+			if (!findLattice(world, startPos, 3, searchSize, data, ($pos, state) -> state != HAYKAMIUM_PORTAL)) {
+				return;
+			}
 		}
 
 		int widthP = data[0];
@@ -94,7 +97,7 @@ public class LintPortal {
 		int breadthP = data[2];
 		int breadthN = data[3];
 
-//		System.out.println("E " + widthP + ", " + widthN + ", " + breadthP + ", " + breadthN);
+		// System.out.println("E " + widthP + ", " + widthN + ", " + breadthP + ", " + breadthN);
 
 		BlockPos.Mutable pos = new BlockPos.Mutable().set(startPos);
 		final int startX = startPos.getX();
@@ -265,7 +268,9 @@ public class LintPortal {
 				pos.setZ(fireZ + zo);
 
 				if (xo != 0 || zo != 0) {
-					if (!world.getBlockState(pos).isAir()) {
+					BlockState state = world.getBlockState(pos);
+
+					if (!state.isAir() && state != HAYKAMIUM_PORTAL) {
 						return false;
 					}
 				}
