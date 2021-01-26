@@ -20,6 +20,8 @@
 package me.hydos.lint.mixinimpl;
 
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.util.GridDirection;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.tag.BlockTags;
@@ -30,7 +32,7 @@ import net.minecraft.world.explosion.Explosion;
 public class LintPortal {
 	public static final BlockState FRAME = Blocks.COAL_BLOCK.getDefaultState();
 
-	public static void resolve(World world, BlockPos firePos, boolean destroy) {
+	public static void resolve(World world, BlockPos startPos, boolean destroy) {
 		boolean blowUp = false;
 		if (world.getRegistryKey() != World.OVERWORLD) {
 			blowUp = true;
@@ -39,19 +41,19 @@ public class LintPortal {
 		final int size = 3;
 		final int searchSize = 4;
 
-		final int fireX = firePos.getX();
-		final int fireZ = firePos.getZ();
-		final int fireY = firePos.getY();
+		final int startX = startPos.getX();
+		final int startZ = startPos.getZ();
+		final int startY = startPos.getY();
 
 		int[] data = new int[4];
-		boolean portal = test(world, firePos, searchSize, size, data);
-		BlockPos.Mutable pos = new BlockPos.Mutable().set(firePos);
-		pos.setY(fireY);
+		boolean portal = test(world, startPos, searchSize, size, data);
+		BlockPos.Mutable pos = new BlockPos.Mutable().set(startPos);
+		pos.setY(startY);
 
 		// place portal
 		if (destroy) {
 			if (!portal) {
-				world.breakBlock(firePos, false);
+				recursivelyBreakPortal(world, startPos, LintBlocks.HAYKAMIUM_PORTAL.getDefaultState(), 0);
 			}
 		} else if (portal) {
 			int widthP = data[0];
@@ -61,17 +63,46 @@ public class LintPortal {
 
 			if (blowUp) {
 				if (!world.isClient()) {
-					world.createExplosion(null, fireX, fireY, fireZ, 10, Explosion.DestructionType.DESTROY);
+					world.createExplosion(null, startX, startY, startZ, 10, Explosion.DestructionType.DESTROY);
 				}
 				return;
 			}
 			for (int xo = -widthN; xo <= widthP; ++xo) {
-				pos.setX(fireX + xo);
+				pos.setX(startX + xo);
 
 				for (int zo = -breadthN; zo <= breadthP; ++zo) {
-					pos.setZ(fireZ + zo);
+					pos.setZ(startZ + zo);
 
-					world.setBlockState(pos, LintBlocks.HAYKAMIUM_PORTAL.getDefaultState());
+					world.setBlockState(pos, LintBlocks.HAYKAMIUM_PORTAL.getDefaultState(), 2);
+				}
+			}
+		}
+	}
+
+	private static void recursivelyBreakPortal(World world, BlockPos currentPos, BlockState state, int i) {
+		world.syncWorldEvent(2001, currentPos, Block.getRawIdFromState(state));
+		world.setBlockState(currentPos, AIR, 2);
+
+		BlockPos[] positions = new BlockPos[4];
+		BlockState[] states = new BlockState[4];
+
+		for (int j = 0; j < 4; ++j) {
+			GridDirection direction = GridDirection.values()[j];
+			BlockPos pos = currentPos.offset(direction.direction);
+			BlockState nextState = world.getBlockState(pos);
+
+			if (nextState.getBlock() == LintBlocks.HAYKAMIUM_PORTAL) {
+				positions[j] = pos;
+				states[j] = nextState;
+			}
+		}
+
+		for (int j = 0; j < 4; ++j) {
+			BlockPos pos = positions[j];
+
+			if (pos != null) {
+				if (i < 4) {
+					recursivelyBreakPortal(world, pos, states[j], i + 1);
 				}
 			}
 		}
@@ -231,4 +262,6 @@ public class LintPortal {
 		data[3] = breadthN;
 		return true;
 	}
+
+	private static final BlockState AIR = Blocks.AIR.getDefaultState();
 }

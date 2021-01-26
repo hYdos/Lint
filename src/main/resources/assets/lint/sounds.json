@@ -94,7 +94,7 @@
     "subtitle": "subtitles.shrine_activate",
     "volume": 10,
     "sounds": [
-      "lint:activate_shrine"
+      "lint:shrine_activate"
     ]
   },
   "eastern_rosella.idle": {
