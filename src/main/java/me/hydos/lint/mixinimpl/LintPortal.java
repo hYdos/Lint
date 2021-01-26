@@ -19,8 +19,9 @@
 
 package me.hydos.lint.mixinimpl;
 
+import java.util.function.Predicate;
+
 import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.util.GridDirection;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -53,7 +54,7 @@ public class LintPortal {
 		// place portal
 		if (destroy) {
 			if (!portal) {
-				recursivelyBreakPortal(world, startPos, LintBlocks.HAYKAMIUM_PORTAL.getDefaultState(), 0);
+				destroyPortalLattice(world, startPos, 4);
 			}
 		} else if (portal) {
 			int widthP = data[0];
@@ -73,59 +74,59 @@ public class LintPortal {
 				for (int zo = -breadthN; zo <= breadthP; ++zo) {
 					pos.setZ(startZ + zo);
 
-					world.setBlockState(pos, LintBlocks.HAYKAMIUM_PORTAL.getDefaultState(), 2);
+					world.setBlockState(pos, HAYKAMIUM_PORTAL, 2);
 				}
 			}
 		}
 	}
 
-	private static void recursivelyBreakPortal(World world, BlockPos currentPos, BlockState state, int i) {
-		world.syncWorldEvent(2001, currentPos, Block.getRawIdFromState(state));
-		world.setBlockState(currentPos, AIR, 2);
+	private static void destroyPortalLattice(World world, BlockPos startPos, final int searchSize) {
+		int[] data = new int[4];
 
-		BlockPos[] positions = new BlockPos[4];
-		BlockState[] states = new BlockState[4];
-
-		for (int j = 0; j < 4; ++j) {
-			GridDirection direction = GridDirection.values()[j];
-			BlockPos pos = currentPos.offset(direction.direction);
-			BlockState nextState = world.getBlockState(pos);
-
-			if (nextState.getBlock() == LintBlocks.HAYKAMIUM_PORTAL) {
-				positions[j] = pos;
-				states[j] = nextState;
-			}
+		if (!findLattice(world, startPos, -1, searchSize, data, state -> state != HAYKAMIUM_PORTAL)) {
+			return;
 		}
 
-		for (int j = 0; j < 4; ++j) {
-			BlockPos pos = positions[j];
+		int widthP = data[0];
+		int widthN = data[1];
+		int breadthP = data[2];
+		int breadthN = data[3];
 
-			if (pos != null) {
-				if (i < 4) {
-					recursivelyBreakPortal(world, pos, states[j], i + 1);
-				}
+		BlockPos.Mutable pos = new BlockPos.Mutable().set(startPos);
+		final int startX = startPos.getX();
+		final int startZ = startPos.getZ();
+		final int rawId = Block.getRawIdFromState(HAYKAMIUM_PORTAL);
+
+		for (int xo = -widthN; xo <= widthP; ++xo) {
+			pos.setX(startX + xo);
+
+			for (int zo = -breadthN; zo <= breadthP; ++zo) {
+				pos.setZ(startZ + zo);
+
+				world.syncWorldEvent(2001, pos, rawId);
+				world.setBlockState(pos, AIR, 2);				
 			}
 		}
 	}
 
-	private static boolean test(World world, BlockPos firePos, final int searchSize, final int size, int[] data) {
-		final int fireX = firePos.getX();
-		final int fireZ = firePos.getZ();
-		BlockPos.Mutable pos = new BlockPos.Mutable().set(firePos);
-		int widthP = 0; // the amount of "gap" on +x
-		int widthN = 0; // the amount of "gap" on -x
-		int breadthP = 0; // the amount of "gap" on +z
-		int breadthN = 0; // the amount of "gap" on -z
+	private static boolean findLattice(World world, BlockPos startPos, final int size, final int searchSize, int[] data, Predicate<BlockState> isBorder) {
+		BlockPos.Mutable pos = new BlockPos.Mutable().set(startPos);
+		final int startX = startPos.getX();
+		final int startZ = startPos.getZ();
 
-		// find encapsulation of portal.
+		int widthP = 0;
+		int widthN = 0;
+		int breadthP = 0;
+		int breadthN = 0;
+
 		for (int xo = 1; xo <= searchSize; ++xo) {
 			if (xo == searchSize) {
 				return false;
 			}
 
-			pos.setX(fireX + xo);
+			pos.setX(startX + xo);
 
-			if (world.getBlockState(pos) == FRAME) {
+			if (isBorder.test(world.getBlockState(pos))) {
 				break;
 			}
 
@@ -137,29 +138,31 @@ public class LintPortal {
 				return false;
 			}
 
-			pos.setX(fireX - xo);
+			pos.setX(startX - xo);
 
-			if (world.getBlockState(pos) == FRAME) {
+			if (isBorder.test(world.getBlockState(pos))) {
 				break;
 			}
 
 			widthN++;
 		}
 
-		if (1 + widthP + widthN != size) {
-			return false;
+		if (size > -1) {
+			if (1 + widthP + widthN != size) {
+				return false;
+			}
 		}
 
-		pos.setX(fireX);
+		pos.setX(startX);
 
 		for (int zo = 1; zo <= searchSize; ++zo) {
 			if (zo == searchSize) {
 				return false;
 			}
 
-			pos.setZ(fireZ + zo);
+			pos.setZ(startZ + zo);
 
-			if (world.getBlockState(pos) == FRAME) {
+			if (isBorder.test(world.getBlockState(pos))) {
 				break;
 			}
 
@@ -171,18 +174,43 @@ public class LintPortal {
 				return false;
 			}
 
-			pos.setZ(fireZ - zo);
+			pos.setZ(startZ - zo);
 
-			if (world.getBlockState(pos) == FRAME) {
+			if (isBorder.test(world.getBlockState(pos))) {
 				break;
 			}
 
 			breadthN++;
 		}
 
-		if (1 + breadthP + breadthN != size) {
+		if (size > -1) {
+			if (1 + breadthP + breadthN != size) {
+				return false;
+			}
+		}
+
+		data[0] = widthP;
+		data[1] = widthN;
+		data[2] = breadthP;
+		data[3] = breadthN;
+
+		return true;
+	}
+
+	private static boolean test(World world, BlockPos firePos, final int searchSize, final int size, int[] data) {
+		final int fireX = firePos.getX();
+		final int fireZ = firePos.getZ();
+		BlockPos.Mutable pos = new BlockPos.Mutable().set(firePos);
+
+		// find encapsulation of portal.
+		if (!findLattice(world, firePos, size, searchSize, data, state -> state == FRAME)) {
 			return false;
 		}
+
+		int widthP = data[0]; // the amount of "gap" on +x
+		int widthN = data[1]; // the amount of "gap" on -x
+		int breadthP = data[2]; // the amount of "gap" on +z
+		int breadthN = data[3]; // the amount of "gap" on -z
 
 		// Check Edges
 		pos.setZ(fireZ + breadthP + 1);
@@ -256,12 +284,9 @@ public class LintPortal {
 			}
 		}
 
-		data[0] = widthP;
-		data[1] = widthN;
-		data[2] = breadthP;
-		data[3] = breadthN;
 		return true;
 	}
 
 	private static final BlockState AIR = Blocks.AIR.getDefaultState();
+	private static final BlockState HAYKAMIUM_PORTAL = LintBlocks.HAYKAMIUM_PORTAL.getDefaultState();
 }
