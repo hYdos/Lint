@@ -261,7 +261,9 @@ public class LintPortal {
 		}
 
 		// check air space for portal
-		for (int xo = -widthN; xo <= widthP; ++xo) {
+		boolean checkActive = false;
+
+		checkAir: for (int xo = -widthN; xo <= widthP; ++xo) {
 			pos.setX(fireX + xo);
 
 			for (int zo = -breadthN; zo <= breadthP; ++zo) {
@@ -270,8 +272,28 @@ public class LintPortal {
 				if (xo != 0 || zo != 0) {
 					BlockState state = world.getBlockState(pos);
 
-					if (!state.isAir() && state != HAYKAMIUM_PORTAL) {
-						return false;
+					if (!state.isAir()) {
+						checkActive = true;
+						break checkAir;
+					}
+				}
+			}
+		}
+
+		// might be activated
+		if (checkActive) {
+			for (int xo = -widthN; xo <= widthP; ++xo) {
+				pos.setX(fireX + xo);
+
+				for (int zo = -breadthN; zo <= breadthP; ++zo) {
+					pos.setZ(fireZ + zo);
+
+					if (xo != 0 || zo != 0) {
+						BlockState state = world.getBlockState(pos);
+
+						if (state != HAYKAMIUM_PORTAL) {
+							return false;
+						}
 					}
 				}
 			}
