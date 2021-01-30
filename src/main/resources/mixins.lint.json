@@ -32,9 +32,9 @@
     "client.ModelLoaderMixin",
     "client.MusicLoopMixin",
     "client.MusicTrackerMixin",
+    "client.MusicTrackerMixin",
     "client.PlayerEntityRendererMixin",
     "client.SoundEventAccessor",
-    "client.SoundManagerMixin",
     "client.WorldRendererMixin"
   ],
   "injectors": {

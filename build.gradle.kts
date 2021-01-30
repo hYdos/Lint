@@ -28,10 +28,10 @@ dependencies {
 	include(modImplementation("net.devtech", "arrp", "0.3.2"))
 	include(modImplementation("curse.maven", "geckolib-fabric-398667", "3155712"))
 
-	modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
+	/*modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
 	modRuntime("curse.maven", "worldedit-225608", "3135186")
 	modRuntime("curse.maven", "appleskin-248787", "2987255")
-	modRuntime("curse.maven", "hwyla-253449", "3033613")
+	modRuntime("curse.maven", "hwyla-253449", "3033613")*/
 }
 
 java {
