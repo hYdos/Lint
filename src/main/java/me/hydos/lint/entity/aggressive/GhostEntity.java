@@ -64,13 +64,14 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 	@Override
 	public void refreshPositionAndAngles(double x, double y, double z, float yaw, float pitch) {
 		super.refreshPositionAndAngles(x, y, z, yaw, pitch);
-		BlockPos pos = this.getBlockPos();
-
-		if (y < this.world.getChunk(pos).sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ())) {
-			this.cavern = true;
-		}
+		this.cavern = this.isInCaverns(y);
 	}
 
+	private boolean isInCaverns(double y) {
+		BlockPos pos = this.getBlockPos();
+
+		return y < this.world.getChunk(pos).sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ());
+	}
 	@Override
 	public void tick() {
 		this.noClip = true;
@@ -220,6 +221,9 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 	}
 	
 	class RetreatToCavernsGoal extends Goal {
-		
+		@Override
+		public boolean canStart() {
+			return GhostEntity.this.cavern && !GhostEntity.this.isInCaverns(GhostEntity.this.getY());
+		}
 	}
 }
