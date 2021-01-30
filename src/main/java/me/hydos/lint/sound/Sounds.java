@@ -50,7 +50,6 @@ public class Sounds {
 	public static final SoundEvent CORRUPT_FOREST = new SoundEvent(Lint.id("music.corrupt_forest"));
 	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
 	public static final SoundEvent DAWN_SHARDLANDS = new SoundEvent(Lint.id("music.dawn_shardlands"));
-	public static final SoundEvent ETHEREAL_GROVES_OF_FRAIYA = new SoundEvent(Lint.id("music.ethereal_groves_of_fraiya"));
 	public static final SoundEvent CAVERNS = new SoundEvent(Lint.id("music.caverns"));
 
 	/**
@@ -84,7 +83,6 @@ public class Sounds {
 		register(CORRUPT_FOREST);
 		register(OCEAN);
 		register(DAWN_SHARDLANDS);
-		register(ETHEREAL_GROVES_OF_FRAIYA);
 		register(CAVERNS);
 		register(HERIA_AND_THE_TOWN_OF_HOPE);
 		register(PAWERIA_CARIAR_OF_ORDER);

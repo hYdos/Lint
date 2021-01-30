@@ -26,7 +26,8 @@
   "music.mystical_forest": {
     "subtitle": "subtitles.mystical_forest",
     "sounds": [
-      "lint:mystical_forest"
+      "lint:mystical_forest",
+      "lint:ethereal_groves_of_fraiya"
     ]
   },
   "music.ocean": {
@@ -51,12 +52,6 @@
     "subtitle": "subtitles.grimace",
     "sounds": [
       "lint:grimace"
-    ]
-  },
-  "music.ethereal_groves_of_fraiya": {
-    "subtitle": "subtitles.ethereal_groves_of_fraiya",
-    "sounds": [
-      "lint:ethereal_groves_of_fraiya"
     ]
   },
   "music.heria_and_the_town_of_hope": {

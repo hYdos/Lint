@@ -27,8 +27,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.sound.NotMusicLoop;
-import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.block.Block;
@@ -104,37 +102,7 @@ public class LintSoundManager {
 		next = Optional.empty();
 	}
 
-	public static void doRandomLoopSwitcheroo(Biome activeBiome, SoundManager manager, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops, Runnable setActiveBiomeToNull) {
-		soundLoops.values().forEach(loop -> {
-			if (loop instanceof NotMusicLoop && !manager.isPlaying(loop)) {
-//				System.out.println(loop.getId());
-				((NotMusicLoop) loop).setAsDone();
-			}
-		});
-
-		if (activeBiome != null) {
-			Optional<SoundEvent> event = activeBiome.getLoopSound();
-
-			if (event.isPresent() && prev.isPresent()) {
-				SoundEvent soundEvent = event.get();
-
-				// if it's our sound with variants
-				if (soundEvent.getId().equals(Sounds.MYSTICAL_FOREST.getId())) {
-
-					// if the sound isn't changing anyway
-					if (prev.get().getId().equals(event.get().getId())) {
-						if (soundLoops.values().stream().noneMatch(loop -> loop.getSound().getIdentifier().toString().equals("lint:mystical_forest") || loop.getSound().getIdentifier().toString().equals("lint:ethereal_groves_of_fraiya"))) {
-							// set to null bc funni hacks
-							setActiveBiomeToNull.run();
-							markClear();
-						}
-					}
-				}
-			}
-		}
-	}
-
-	public static MusicLoop constructMusicLoop(SoundEvent event) {
+	/*public static MusicLoop constructMusicLoop(SoundEvent event) {
 		Identifier id = event.getId();
 
 		if (id.equals(Sounds.MYSTICAL_FOREST.getId()) || id.equals(Sounds.ETHEREAL_GROVES_OF_FRAIYA.getId())) {
@@ -142,7 +110,7 @@ public class LintSoundManager {
 		} else {
 			return new MusicLoop(event);
 		}
-	}
+	}*/
 
 	public static boolean recordIsPlaying() {
 		return false;

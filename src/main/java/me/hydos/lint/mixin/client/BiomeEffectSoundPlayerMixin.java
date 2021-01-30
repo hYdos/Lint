@@ -19,8 +19,6 @@
 
 package me.hydos.lint.mixin.client;
 
-import java.util.Optional;
-
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,11 +29,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.mixinimpl.LintSoundManager;
-import me.hydos.lint.sound.Sounds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
-import net.minecraft.client.sound.BiomeEffectSoundPlayer.MusicLoop;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
@@ -74,10 +70,6 @@ public class BiomeEffectSoundPlayerMixin {
 		} else if (LintSoundManager.magicBossMusicFlag) {
 			LintSoundManager.restartSounds(sound, this.soundManager, this.activeBiome = biomeAccess.getBiome(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
 			info.cancel();
-		} else {
-			LintSoundManager.doRandomLoopSwitcheroo(this.activeBiome, this.soundManager, this.soundLoops, () -> {
-				this.activeBiome = null;
-			});
 		}
 
 		if (this.activeBiome != null) {
@@ -85,29 +77,12 @@ public class BiomeEffectSoundPlayerMixin {
 		}
 	}
 
-	@Redirect(
-			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/Biome;getLoopSound()Ljava/util/Optional;"),
-			method = "tick")
-	private Optional<SoundEvent> addVariants(Biome biome) {
-		Optional<SoundEvent> event = biome.getLoopSound();
-
-		if (event.isPresent()) {
-			if (event.get().getId().equals(Sounds.MYSTICAL_FOREST.getId())) {
-				if (this.player.getEntityWorld().getRandom().nextInt(3) == 0) {
-					return Optional.of(Sounds.ETHEREAL_GROVES_OF_FRAIYA);
-				}
-			}
-		}
-
-		return biome.getEffects().getLoopSound();
-	}
-
-	@Redirect(
+	/*@Redirect(
 			at = @At(value = "NEW", target = "net/minecraft/client/sound/BiomeEffectSoundPlayer$MusicLoop"),
 			method = "method_25459")
 	private MusicLoop onMusicLoopConstruct(SoundEvent event) {
 		return LintSoundManager.constructMusicLoop(event);
-	}
+	}*/ // Might need this to add music delays through configs
 
 	@Inject(
 			at = @At(
