@@ -19,18 +19,36 @@
 
 package me.hydos.lint.mixin.client;
 
+import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import me.hydos.lint.world.dimension.Dimensions;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.MusicTracker;
+import net.minecraft.client.sound.MusicType;
+import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.sound.MusicSound;
 
 @Mixin(MusicTracker.class)
-public class MusicTrackerMixin {
-	@Inject(at = @At("HEAD"), method = "play")
-	private void onplay(MusicSound type, CallbackInfo info) {
-		System.out.println(type.getSound().getId());
+public abstract class MusicTrackerMixin  {
+	@Shadow
+	private @Nullable SoundInstance current;
+
+	@Shadow
+	@Final
+	private MinecraftClient client;
+
+	@Inject(at = @At("HEAD"), method = "play", cancellable = true)
+	private void onPlay(MusicSound type, CallbackInfo info) {
+		if (type == MusicType.UNDERWATER || type == MusicType.GAME || type == MusicType.CREATIVE) {
+			if (this.client.world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
+				info.cancel();
+			}
+		}
 	}
 }

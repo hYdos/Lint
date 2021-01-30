@@ -27,6 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.entity.Entities;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.block.Block;
@@ -47,16 +48,31 @@ import net.minecraft.world.chunk.Chunk;
 
 public class LintSoundManager {
 	private static final Set<Identifier> BOSS_MUSIC = new HashSet<>();
-	public static boolean magicBossMusicFlag = false;
+	private static final Set<Identifier> RECORD_MUSIC = new HashSet<>();
+	private static boolean isRecordPlaying = false;
 	private static Optional<SoundEvent> prev = Optional.empty();
 	private static Optional<SoundEvent> next = Optional.empty();
 
-	public static boolean isBossMusic(Identifier id) {
-		return BOSS_MUSIC.contains(id);
+	public static boolean isPlayingRecordMusic(SoundManager manager) {
+		/*for (Identifier identifier : RECORD_MUSIC) { TODO how doth vanilla do its record playing
+			if (manager.isPlaying(soundInstance)) {
+				return true;
+			}
+		}*/
+		return false;
+	}
+	
+	public static boolean isCachedAsRecordPlaying() {
+		return isRecordPlaying;
 	}
 
 	public static SoundEvent registerBossMusic(SoundEvent event) {
 		BOSS_MUSIC.add(event.getId());
+		return event;
+	}
+
+	public static SoundEvent registerRecordMusic(SoundEvent event) {
+		RECORD_MUSIC.add(event.getId());
 		return event;
 	}
 
@@ -70,7 +86,7 @@ public class LintSoundManager {
 
 	public static void stopSounds(SoundEvent event, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
 		next = Optional.of(event);
-		magicBossMusicFlag = true;
+		isRecordPlaying = true;
 		soundLoops.values().removeIf(MovingSoundInstance::isDone);
 		soundLoops.values().forEach(BiomeEffectSoundPlayer.MusicLoop::fadeOut);
 		prev = next;
@@ -85,7 +101,7 @@ public class LintSoundManager {
 	}
 
 	public static void restartSounds(SoundEvent sound, SoundManager manager, Biome biome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
-		magicBossMusicFlag = false;
+		isRecordPlaying = false;
 		biome.getLoopSound().ifPresent(soundEvent -> soundLoops.compute(biome, (biomex, musicLoop) -> {
 			if (musicLoop == null) {
 				musicLoop = new BiomeEffectSoundPlayer.MusicLoop(soundEvent);
@@ -102,24 +118,18 @@ public class LintSoundManager {
 		next = Optional.empty();
 	}
 
-	/*public static MusicLoop constructMusicLoop(SoundEvent event) {
-		Identifier id = event.getId();
-
-		if (id.equals(Sounds.MYSTICAL_FOREST.getId()) || id.equals(Sounds.ETHEREAL_GROVES_OF_FRAIYA.getId())) {
-			return new NotMusicLoop(event);
-		} else {
-			return new MusicLoop(event);
-		}
-	}*/
-
-	public static boolean recordIsPlaying() {
-		return false;
-	}
-
 	public static Biome injectBiomeSoundDummies(ClientPlayerEntity player, BiomeAccess access, double x, double y, double z) {
-		BlockPos playerPos = player.getBlockPos();
 		World world = player.getEntityWorld();
 
+		if (world != null && !world.getEntitiesByType(Entities.KING_TATER, player.getBoundingBox().expand(40), $ -> true).isEmpty()) {
+			return DummyBiomes.DUMMY_KING_TATER;
+		}
+
+		if (world != null && !world.getEntitiesByType(Entities.I509VCB, player.getBoundingBox().expand(40), $ -> true).isEmpty()) {
+			return DummyBiomes.DUMMY_I509;
+		}
+
+		BlockPos playerPos = player.getBlockPos();
 		int playerY = playerPos.getY();
 		
 		int passthroughs = 2;

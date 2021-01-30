@@ -57,6 +57,9 @@ public class DummyBiomes {
 	public static final Biome DUMMY_CAVERNS = createLoopSound(Sounds.CAVERNS);
 	public static final Biome DUMMY_DUNGEON = createLoopSound(Sounds.DUNGEON);
 
+	public static final Biome DUMMY_KING_TATER = createLoopSound(Sounds.KING_TATER);
+	public static final Biome DUMMY_I509 = createLoopSound(Sounds.I509);
+
 	// in the correct order to designate whose town is whose.
 	public static final Biome[] TOWNS = new Biome[] {DUMMY_TOWN_PAWERIA, DUMMY_TOWN_HERIA, DUMMY_TOWN_AURIA, DUMMY_TOWN_THERIA};
 }

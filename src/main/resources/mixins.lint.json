@@ -31,6 +31,7 @@
     "client.MinecraftClientMixin",
     "client.ModelLoaderMixin",
     "client.MusicLoopMixin",
+    "client.MusicTrackerMixin",
     "client.PlayerEntityRendererMixin",
     "client.SoundEventAccessor",
     "client.SoundManagerMixin",

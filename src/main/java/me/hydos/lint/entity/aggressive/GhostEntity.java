@@ -46,7 +46,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.EnumSet;
 
 @SuppressWarnings({"EntityConstructor"})
-public class GhostEntity extends VexEntity implements IAnimatable {
+public class GhostEntity extends VexEntity implements IAnimatable { // TODO (valo) cavern ghosts
 
 	private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.ghost.idle", true);
 

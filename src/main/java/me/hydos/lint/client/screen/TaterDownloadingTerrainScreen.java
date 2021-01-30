@@ -19,17 +19,20 @@
 
 package me.hydos.lint.client.screen;
 
+import java.util.Random;
+
 import me.hydos.lint.Lint;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
+import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
-
-import java.util.Random;
 
 @Environment(EnvType.CLIENT)
 public class TaterDownloadingTerrainScreen extends DownloadingTerrainScreen {
@@ -39,6 +42,14 @@ public class TaterDownloadingTerrainScreen extends DownloadingTerrainScreen {
 
 	private final long seed = new Random().nextLong();
 	private float progress = 0;
+
+	private static final String[] DISCLAIMER = {
+			"This is a work of fiction. Names, characters, businesses, places,",
+			"events, locales, and incidents are either the products of the",
+			"author's imagination or used in a fictitious manner. Any",
+			"resemblance to actual persons, living or dead, or actual events",
+			"is purely coincidental."
+	};
 
 	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		Random random = new Random(this.seed);
@@ -57,5 +68,17 @@ public class TaterDownloadingTerrainScreen extends DownloadingTerrainScreen {
 		}
 
 		DrawableHelper.drawCenteredText(matrices, this.textRenderer, TEXT, this.width / 2, this.height / 2 - 50, 0xFFFFFF);
+
+		MinecraftClient instance = MinecraftClient.getInstance();
+		Window window = instance.getWindow();
+		TextRenderer textRenderer = instance.textRenderer;
+
+		int y = window.getScaledHeight() / 4 * 3;
+
+		for (String line : DISCLAIMER) {
+			int width = textRenderer.getWidth(line);
+			textRenderer.drawWithShadow(matrices, line, (window.getScaledWidth() - width) / 2F, y, 0xFFFFFFFF);
+			y += 10;
+		}
 	}
 }

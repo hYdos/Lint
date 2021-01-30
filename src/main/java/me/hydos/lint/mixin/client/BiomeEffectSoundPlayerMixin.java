@@ -64,10 +64,10 @@ public class BiomeEffectSoundPlayerMixin {
 	private void musicGood(CallbackInfo info) {
 		SoundEvent sound = MinecraftClient.getInstance().getMusicType().getSound();
 
-		if (LintSoundManager.recordIsPlaying() || LintSoundManager.isBossMusic(sound.getId())) {
+		if (LintSoundManager.isPlayingRecordMusic(this.soundManager)) {
 			LintSoundManager.stopSounds(sound, this.soundLoops);
 			info.cancel();
-		} else if (LintSoundManager.magicBossMusicFlag) {
+		} else if (LintSoundManager.isCachedAsRecordPlaying()) {
 			LintSoundManager.restartSounds(sound, this.soundManager, this.activeBiome = biomeAccess.getBiome(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
 			info.cancel();
 		}
@@ -76,13 +76,6 @@ public class BiomeEffectSoundPlayerMixin {
 			LintSoundManager.markPrev(this.activeBiome);
 		}
 	}
-
-	/*@Redirect(
-			at = @At(value = "NEW", target = "net/minecraft/client/sound/BiomeEffectSoundPlayer$MusicLoop"),
-			method = "method_25459")
-	private MusicLoop onMusicLoopConstruct(SoundEvent event) {
-		return LintSoundManager.constructMusicLoop(event);
-	}*/ // Might need this to add music delays through configs
 
 	@Inject(
 			at = @At(
