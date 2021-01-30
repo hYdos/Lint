@@ -30,6 +30,7 @@ import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.VexEntity;
@@ -49,9 +50,8 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-@SuppressWarnings({"EntityConstructor"})
+@SuppressWarnings("EntityConstructor")
 public class GhostEntity extends VexEntity implements IAnimatable {
-
 	private static final AnimationBuilder IDLE_ANIMATION = new AnimationBuilder().addAnimation("animation.ghost.idle", true);
 
 	private final AnimationFactory factory = new AnimationFactory(this);
@@ -70,8 +70,9 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 	private boolean isInCaverns(double y) {
 		BlockPos pos = this.getBlockPos();
 
-		return y < this.world.getChunk(pos).sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ());
+		return y < Math.max(this.world.getSeaLevel(), this.world.getChunk(pos).sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ()));
 	}
+
 	@Override
 	public void tick() {
 		this.noClip = true;
@@ -219,11 +220,32 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 			}
 		}
 	}
-	
+
 	class RetreatToCavernsGoal extends Goal {
+		RetreatToCavernsGoal() {
+			this.nav = GhostEntity.this.getNavigation();
+		}
+
+		private final EntityNavigation nav;
+		private Path path;
+
 		@Override
 		public boolean canStart() {
-			return GhostEntity.this.cavern && !GhostEntity.this.isInCaverns(GhostEntity.this.getY());
+			if (GhostEntity.this.cavern && !GhostEntity.this.isInCaverns(GhostEntity.this.getY())) {
+				this.path = this.nav.findPathTo(GhostEntity.this.getX() + random.nextInt(9) - 4, Math.max(0, GhostEntity.this.getY() - 20), GhostEntity.this.getZ() + random.nextInt(9) - 4, 0);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		@Override
+		public void start() {
+			this.nav.startMovingAlong(this.path, 1.5f);
+		}
+
+		public boolean shouldContinue() {
+			return !this.nav.isIdle();
 		}
 	}
 }
