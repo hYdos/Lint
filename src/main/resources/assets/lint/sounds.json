@@ -72,6 +72,12 @@
       "lint:steelbranch"
     ]
   },
+  "music.eye_of_gold": {
+    "subtitle": "subtitles.eye_of_gold",
+    "sounds": [
+      "lint:eye_of_gold"
+    ]
+  },
   "music.caverns": {
     "subtitle": "subtitles.caverns",
     "sounds": [

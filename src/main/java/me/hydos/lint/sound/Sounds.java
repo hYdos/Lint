@@ -42,6 +42,7 @@ public class Sounds {
 	public static final SoundEvent HERIA_AND_THE_TOWN_OF_HOPE = new SoundEvent(Lint.id("music.heria_and_the_town_of_hope"));
 	public static final SoundEvent PAWERIA_CARIAR_OF_ORDER = new SoundEvent(Lint.id("music.paweria_cariar_of_order"));
 	public static final SoundEvent STEELBRANCH = new SoundEvent(Lint.id("music.steelbranch"));
+	public static final SoundEvent EYE_OF_GOLD = new SoundEvent(Lint.id("music.eye_of_gold"));
 
 	/**
 	 * Biome Music
@@ -76,6 +77,7 @@ public class Sounds {
 	public static final MusicSound LEX_MANOS_LOOP = createBossMusic(LEX_MANOS);
 
 	public static void initialize() {
+		// music
 		register(KING_TATER);
 		register(I509);
 		register(LEX_MANOS);
@@ -87,10 +89,13 @@ public class Sounds {
 		register(HERIA_AND_THE_TOWN_OF_HOPE);
 		register(PAWERIA_CARIAR_OF_ORDER);
 		register(STEELBRANCH);
+		register(EYE_OF_GOLD);
 
+		// progression related short tunes
 		register(ADVANCEMENT);
 		register(SHRINE_ACTIVATE);
 
+		// sounds
 		register(EASTERN_ROSELLA_IDLE);
 	}
 
