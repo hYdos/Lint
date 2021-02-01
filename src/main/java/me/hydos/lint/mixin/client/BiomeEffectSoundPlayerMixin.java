@@ -19,6 +19,8 @@
 
 package me.hydos.lint.mixin.client;
 
+import java.util.Optional;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,9 +33,9 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.mixinimpl.LintSoundManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.client.sound.SoundManager;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
 
@@ -62,13 +64,14 @@ public class BiomeEffectSoundPlayerMixin {
 			method = "tick",
 			cancellable = true)
 	private void musicGood(CallbackInfo info) {
-		SoundEvent sound = MinecraftClient.getInstance().getMusicType().getSound();
+		MinecraftClient client = MinecraftClient.getInstance();
+		WorldRenderer wr = client.worldRenderer;
 
-		if (LintSoundManager.isPlayingRecordMusic(this.soundManager)) {
-			LintSoundManager.stopSounds(sound, this.soundLoops);
+		if (LintSoundManager.isPlayingRecordMusic(this.player, this.soundManager, wr)) {
+			LintSoundManager.stopSounds(Optional.empty(), this.soundLoops);
 			info.cancel();
 		} else if (LintSoundManager.isCachedAsRecordPlaying()) {
-			LintSoundManager.restartSounds(sound, this.soundManager, this.activeBiome = biomeAccess.getBiome(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
+			LintSoundManager.restartSounds(this.soundManager, this.activeBiome = biomeAccess.getBiome(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
 			info.cancel();
 		}
 

@@ -33,6 +33,7 @@ import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer.MusicLoop;
 import net.minecraft.client.sound.MovingSoundInstance;
@@ -40,6 +41,7 @@ import net.minecraft.client.sound.SoundManager;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -53,15 +55,11 @@ public class LintSoundManager {
 	private static Optional<SoundEvent> prev = Optional.empty();
 	private static Optional<SoundEvent> next = Optional.empty();
 
-	public static boolean isPlayingRecordMusic(SoundManager manager) {
-		/*for (Identifier identifier : RECORD_MUSIC) { TODO how doth vanilla do its record playing
-			if (manager.isPlaying(soundInstance)) {
-				return true;
-			}
-		}*/
-		return false;
+	public static boolean isPlayingRecordMusic(ClientPlayerEntity player, SoundManager soundManager, WorldRenderer worldRenderer) {
+		Box box = player.getBoundingBox().expand(6.0);
+		return worldRenderer.playingSongs.entrySet().stream().anyMatch(entry -> box.contains(entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ()) && soundManager.isPlaying(entry.getValue()));
 	}
-	
+
 	public static boolean isCachedAsRecordPlaying() {
 		return isRecordPlaying;
 	}
@@ -84,8 +82,8 @@ public class LintSoundManager {
 		}
 	}
 
-	public static void stopSounds(SoundEvent event, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
-		next = Optional.of(event);
+	public static void stopSounds(Optional<SoundEvent> event, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
+		next = event;
 		isRecordPlaying = true;
 		soundLoops.values().removeIf(MovingSoundInstance::isDone);
 		soundLoops.values().forEach(BiomeEffectSoundPlayer.MusicLoop::fadeOut);
@@ -100,7 +98,7 @@ public class LintSoundManager {
 		next = biome.getLoopSound();
 	}
 
-	public static void restartSounds(SoundEvent sound, SoundManager manager, Biome biome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
+	public static void restartSounds(SoundManager manager, Biome biome, Object2ObjectArrayMap<Biome, MusicLoop> soundLoops) {
 		isRecordPlaying = false;
 		biome.getLoopSound().ifPresent(soundEvent -> soundLoops.compute(biome, (biomex, musicLoop) -> {
 			if (musicLoop == null) {

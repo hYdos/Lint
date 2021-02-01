@@ -6,3 +6,4 @@ accessible	method	net/minecraft/screen/ScreenHandler	addSlot	(Lnet/minecraft/scr
 accessible	method	net/minecraft/recipe/BrewingRecipeRegistry	registerPotionRecipe	(Lnet/minecraft/potion/Potion;Lnet/minecraft/item/Item;Lnet/minecraft/potion/Potion;)V
 accessible	class	net/minecraft/recipe/CookingRecipeSerializer$RecipeFactory
 mutable field net/minecraft/client/sound/AbstractSoundInstance category Lnet/minecraft/sound/SoundCategory;
+accessible field net/minecraft/client/render/WorldRenderer playingSongs Ljava/util/Map;

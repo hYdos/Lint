@@ -20,10 +20,15 @@
 package me.hydos.lint.entity;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.entity.aggressive.*;
+import me.hydos.lint.entity.aggressive.CrabEntity;
+import me.hydos.lint.entity.aggressive.GhostEntity;
+import me.hydos.lint.entity.aggressive.I509VCBEntity;
+import me.hydos.lint.entity.aggressive.KingTaterEntity;
+import me.hydos.lint.entity.aggressive.TaterMinionEntity;
 import me.hydos.lint.entity.passive.BeeTaterEntity;
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
 import me.hydos.lint.entity.passive.TinyPotatoNpcEntity;
+import me.hydos.lint.entity.passive.human.NPCHumanEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
@@ -54,6 +59,11 @@ public class Entities {
 	 */
 	public static final EntityType<TinyPotatoNpcEntity> NPC_TINY_POTATO =
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("npc_tiny_potato"), FabricEntityTypeBuilder.create(SpawnGroup.MISC, TinyPotatoNpcEntity::new)
+					.dimensions(EntityDimensions.fixed(0.3f, 0.4f))
+					.build());
+
+	public static final EntityType<TinyPotatoNpcEntity> NPC_HUMAN =
+			Registry.register(Registry.ENTITY_TYPE, Lint.id("npc_human"), FabricEntityTypeBuilder.create(SpawnGroup.MISC, NPCHumanEntity::new)
 					.dimensions(EntityDimensions.fixed(0.3f, 0.4f))
 					.build());
 

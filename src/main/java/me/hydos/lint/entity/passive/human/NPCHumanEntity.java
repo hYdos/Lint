@@ -19,24 +19,14 @@
 
 package me.hydos.lint.entity.passive.human;
 
-import com.mojang.authlib.GameProfile;
-
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
+import me.hydos.lint.entity.Entities;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.world.World;
 
-public class NPCHumanEntity extends PlayerEntity {
-	public NPCHumanEntity(World world, BlockPos pos, float yaw, String name) {
-		super(world, pos, yaw, new GameProfile(null, name));
+public class NPCHumanEntity extends PathAwareEntity {
+	public NPCHumanEntity(World world) {
+		super(Entities.NPC_HUMAN, world);
 	}
 
-	@Override
-	public boolean isSpectator() {
-		return false;
-	}
-
-	@Override
-	public boolean isCreative() {
-		return false;
-	}
+	
 }
