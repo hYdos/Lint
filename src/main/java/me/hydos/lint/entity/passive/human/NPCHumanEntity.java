@@ -19,14 +19,44 @@
 
 package me.hydos.lint.entity.passive.human;
 
+import me.hydos.lint.Lint;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Entities;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class NPCHumanEntity extends PathAwareEntity {
-	public NPCHumanEntity(World world) {
-		super(Entities.NPC_HUMAN, world);
+	public NPCHumanEntity(EntityType<? extends NPCHumanEntity> type, World world) {
+		super(type, world);
+		this.npc = NONE;
 	}
 
-	
+	private NPCHumanEntity(World world, Identifier id) { // This has to be private to shut up the generic nonsense in entity types
+		this(Entities.NPC_HUMAN, world);
+		this.npc = id;
+	}
+
+	private Identifier npc;
+
+	public static NPCHumanEntity createNew(World world, Identifier id) { // see the constructor for why
+		return new NPCHumanEntity(world, id);
+	}
+
+	@Override
+	public void readCustomDataFromTag(CompoundTag tag) {
+		super.readCustomDataFromTag(tag);
+		this.npc = new Identifier(tag.getString("npc"));
+	}
+
+	@Override
+	public void writeCustomDataToTag(CompoundTag tag) {
+		super.writeCustomDataToTag(tag);
+
+		tag.putString("npc", this.npc.toString());
+	}
+
+	private static final Identifier NONE = Lint.id("none");
 }

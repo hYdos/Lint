@@ -62,9 +62,9 @@ public class Entities {
 					.dimensions(EntityDimensions.fixed(0.3f, 0.4f))
 					.build());
 
-	public static final EntityType<TinyPotatoNpcEntity> NPC_HUMAN =
+	public static final EntityType<NPCHumanEntity> NPC_HUMAN =
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("npc_human"), FabricEntityTypeBuilder.create(SpawnGroup.MISC, NPCHumanEntity::new)
-					.dimensions(EntityDimensions.fixed(0.3f, 0.4f))
+					.dimensions(EntityDimensions.fixed(1f, 1.8f))
 					.build());
 
 	/**
