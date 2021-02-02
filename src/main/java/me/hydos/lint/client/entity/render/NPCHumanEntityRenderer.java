@@ -55,6 +55,18 @@ public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity,
 	}
 
 	// Code Stolen From Player Entity Renderer
+
+	@Override
+	public void render(NPCHumanEntity npcHuman, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+		this.setModelPose(npcHuman);
+		super.render(npcHuman, f, g, matrixStack, vertexConsumerProvider, i);
+	}
+
+	@Override
+	public Vec3d getPositionOffset(NPCHumanEntity npcHuman, float f) {
+		return npcHuman.isInSneakingPose() ? new Vec3d(0.0D, -0.125D, 0.0D) : super.getPositionOffset(npcHuman, f);
+	}
+
 	private void setModelPose(NPCHumanEntity NPCHumanEntity) {
 		PlayerEntityModel<NPCHumanEntity> playerEntityModel = (PlayerEntityModel)this.getModel();
 
