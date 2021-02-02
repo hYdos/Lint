@@ -21,6 +21,9 @@ package me.hydos.lint.entity.passive.human;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.entity.Entities;
+import me.hydos.lint.npc.NPC;
+import me.hydos.lint.npc.NPCRegistry;
+import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.nbt.CompoundTag;
@@ -32,7 +35,7 @@ import net.minecraft.world.World;
 public class NPCHumanEntity extends PathAwareEntity {
 	public NPCHumanEntity(EntityType<? extends NPCHumanEntity> type, World world) {
 		super(type, world);
-		this.npc = NONE;
+		this.npc = MISSINGNO;
 	}
 
 	private NPCHumanEntity(World world, Identifier id) { // This has to be private to shut up the generic nonsense in entity types
@@ -44,7 +47,8 @@ public class NPCHumanEntity extends PathAwareEntity {
 
 	@Override
 	public Text getCustomName() {
-		return new LiteralText("Bob");
+		NPC npc = NPCRegistry.getById(this.npc);
+		return new LiteralText(npc == null ? "Unregistered NPC" : npc.getName());
 	}
 
 	public static NPCHumanEntity create(World world, Identifier id) { // see the constructor for why
@@ -64,9 +68,10 @@ public class NPCHumanEntity extends PathAwareEntity {
 		tag.putString("npc", this.npc.toString());
 	}
 
-	private static final Identifier NONE = Lint.id("none");
+	private static final Identifier MISSINGNO = Lint.id("missingno");
 
 	public Identifier getSkinTexture() {
-		return Lint.id("textures/npc/knavian_stablemaster.png");
+		NPC npc = NPCRegistry.getById(this.npc);
+		return npc == null ? DefaultSkinHelper.getTexture() : npc.getTextureLocation();
 	}
 }

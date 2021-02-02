@@ -30,6 +30,7 @@ import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.item.LintItems;
 import me.hydos.lint.item.potion.LintPotions;
 import me.hydos.lint.network.Networking;
+import me.hydos.lint.npc.NPCs;
 import me.hydos.lint.recipe.Recipes;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.sound.Sounds;
@@ -92,6 +93,7 @@ public class Lint implements ModInitializer {
 			}
 		});
 
+		NPCs.initialise();
 		// Datafixer nonsense
 		// Someone help pls
 		//		DataFixerBuilder builder = new DataFixerBuilder(1);
