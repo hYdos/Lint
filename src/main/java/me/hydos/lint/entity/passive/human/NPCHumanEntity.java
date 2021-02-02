@@ -60,6 +60,6 @@ public class NPCHumanEntity extends PathAwareEntity {
 	private static final Identifier NONE = Lint.id("none");
 
 	public Identifier getSkinTexture() {
-		return Lint.id("textures/npc/knavian_stablemaster");
+		return Lint.id("textures/npc/knavian_stablemaster.png");
 	}
 }
