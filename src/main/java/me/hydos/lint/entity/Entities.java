@@ -36,6 +36,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
@@ -104,6 +105,7 @@ public class Entities {
 		FabricDefaultAttributeRegistry.register(Entities.NPC_TINY_POTATO, TinyPotatoNpcEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.BEE_TATER, TinyPotatoEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.MINION, TaterMinionEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(Entities.NPC_HUMAN, PlayerEntity.createPlayerAttributes());
 
 		FabricDefaultAttributeRegistry.register(Entities.KING_TATER, KingTaterEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.I509VCB, I509VCBEntity.createAttributes());

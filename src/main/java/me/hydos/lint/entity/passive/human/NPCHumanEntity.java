@@ -20,7 +20,6 @@
 package me.hydos.lint.entity.passive.human;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Entities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -59,4 +58,10 @@ public class NPCHumanEntity extends PathAwareEntity {
 	}
 
 	private static final Identifier NONE = Lint.id("none");
+
+	public Identifier getSkinTexture() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

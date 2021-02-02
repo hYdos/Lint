@@ -33,6 +33,7 @@ import me.hydos.lint.client.entity.render.CrabEntityRenderer;
 import me.hydos.lint.client.entity.render.GhostEntityRenderer;
 import me.hydos.lint.client.entity.render.I509VCBRenderer;
 import me.hydos.lint.client.entity.render.KingTaterRenderer;
+import me.hydos.lint.client.entity.render.NPCHumanEntityRenderer;
 import me.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
 import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
 import me.hydos.lint.entity.Birds;
@@ -136,6 +137,7 @@ public class LintClient implements ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.KING_TATER, (entityRenderDispatcher, context) -> new KingTaterRenderer(entityRenderDispatcher));
 		EntityRendererRegistry.INSTANCE.register(Entities.I509VCB, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));
+		EntityRendererRegistry.INSTANCE.register(Entities.NPC_HUMAN, (entityRenderDispatcher, context) -> new NPCHumanEntityRenderer(entityRenderDispatcher));
 	}
 
 	private void registerMiscRenderers() {
