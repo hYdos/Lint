@@ -39,8 +39,8 @@ public class Birds {
 			"Valoeghese was here");
 	public static final AbstractBirdEntity.BirdData RED_TAILED_TROPICBIRD_DATA = new AbstractBirdEntity.BirdData(
 			Sounds.EASTERN_ROSELLA_IDLE,
-			"Red Tailed Tropic bird",
-			"crob");
+			"Red Tailed Tropicbird",
+			"Lint's primary Seabird");
 
 	/**
 	 * Birds
