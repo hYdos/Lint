@@ -51,10 +51,6 @@ public class NPCHumanEntity extends PathAwareEntity {
 		return new LiteralText(npc == null ? "Unregistered NPC" : npc.getName());
 	}
 
-	public static NPCHumanEntity create(World world, Identifier id) { // see the constructor for why
-		return new NPCHumanEntity(world, id);
-	}
-
 	@Override
 	public void readCustomDataFromTag(CompoundTag tag) {
 		super.readCustomDataFromTag(tag);
@@ -68,10 +64,14 @@ public class NPCHumanEntity extends PathAwareEntity {
 		tag.putString("npc", this.npc.toString());
 	}
 
-	private static final Identifier MISSINGNO = Lint.id("missingno");
-
 	public Identifier getSkinTexture() {
 		NPC npc = NPCRegistry.getById(this.npc);
 		return npc == null ? DefaultSkinHelper.getTexture() : npc.getTextureLocation();
 	}
+
+	public static NPCHumanEntity create(World world, Identifier id) { // see the constructor for why
+		return new NPCHumanEntity(world, id);
+	}
+
+	private static final Identifier MISSINGNO = Lint.id("missingno");
 }

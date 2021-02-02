@@ -19,6 +19,7 @@
 
 package me.hydos.lint.npc;
 
+import me.hydos.lint.Lint;
 import net.minecraft.util.Identifier;
 
 /**
@@ -58,5 +59,5 @@ public class NPC {
 		private static final Identifier TEXTURE_MISSINGNO = new Identifier("missingno");
 	}
 
-	private static final NPC MISSINGNO = new NPC(new NPC.Settings().name("missingno").texture(new Identifier("missing_texture")));
+	private static final NPC MISSINGNO = NPCRegistry.register(Lint.id("missingno"), new NPC(new NPC.Settings().name("missingno").texture(new Identifier("missing_texture"))));
 }
