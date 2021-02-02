@@ -25,9 +25,11 @@ import me.hydos.lint.npc.NPC;
 import me.hydos.lint.npc.NPCRegistry;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Packet;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -36,42 +38,40 @@ import net.minecraft.world.World;
 public class NPCHumanEntity extends PathAwareEntity {
 	public NPCHumanEntity(EntityType<? extends NPCHumanEntity> type, World world) {
 		super(type, world);
-		this.npc = MISSINGNO;
 	}
 
 	private NPCHumanEntity(World world, Identifier id) { // This has to be private to shut up the generic nonsense in entity types
 		super(Entities.NPC_HUMAN, world);
-		this.npc = id;
+		this.dataTracker.set(NPC_ID, id.toString());
 	}
-
-	private Identifier npc;
 
 	@Override
 	public Text getCustomName() {
-		NPC npc = NPCRegistry.getById(this.npc);
+		NPC npc = NPCRegistry.getById(new Identifier(this.dataTracker.get(NPC_ID)));
 		return new LiteralText(npc == null ? "Unregistered NPC" : npc.getName());
 	}
 
 	@Override
 	public void readCustomDataFromTag(CompoundTag tag) {
 		super.readCustomDataFromTag(tag);
-		this.npc = new Identifier(tag.getString("npc"));
+		this.dataTracker.set(NPC_ID, tag.getString("npc"));
 	}
 
 	@Override
 	public void writeCustomDataToTag(CompoundTag tag) {
 		super.writeCustomDataToTag(tag);
 
-		tag.putString("npc", this.npc.toString());
+		tag.putString("npc", this.dataTracker.get(NPC_ID));
 	}
 
 	@Override
-	public Packet<?> createSpawnPacket() {
-		return super.createSpawnPacket();
+	protected void initDataTracker() {
+		super.initDataTracker();
+		dataTracker.startTracking(NPC_ID, MISSINGNO.toString());
 	}
 
 	public Identifier getSkinTexture() {
-		NPC npc = NPCRegistry.getById(this.npc);
+		NPC npc = NPCRegistry.getById(new Identifier(this.dataTracker.get(NPC_ID)));
 		return npc == null ? DefaultSkinHelper.getTexture() : npc.getTextureLocation();
 	}
 
@@ -80,4 +80,5 @@ public class NPCHumanEntity extends PathAwareEntity {
 	}
 
 	private static final Identifier MISSINGNO = Lint.id("missingno");
+	private static final TrackedData<String> NPC_ID = DataTracker.registerData(NPCHumanEntity.class, TrackedDataHandlerRegistry.STRING);
 }
