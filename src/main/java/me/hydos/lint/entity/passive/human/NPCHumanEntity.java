@@ -27,6 +27,7 @@ import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -39,7 +40,7 @@ public class NPCHumanEntity extends PathAwareEntity {
 	}
 
 	private NPCHumanEntity(World world, Identifier id) { // This has to be private to shut up the generic nonsense in entity types
-		this(Entities.NPC_HUMAN, world);
+		super(Entities.NPC_HUMAN, world);
 		this.npc = id;
 	}
 
@@ -62,6 +63,11 @@ public class NPCHumanEntity extends PathAwareEntity {
 		super.writeCustomDataToTag(tag);
 
 		tag.putString("npc", this.npc.toString());
+	}
+
+	@Override
+	public Packet<?> createSpawnPacket() {
+		return super.createSpawnPacket();
 	}
 
 	public Identifier getSkinTexture() {
