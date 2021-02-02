@@ -24,6 +24,8 @@ import me.hydos.lint.entity.Entities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -39,6 +41,11 @@ public class NPCHumanEntity extends PathAwareEntity {
 	}
 
 	private Identifier npc;
+
+	@Override
+	public Text getCustomName() {
+		return new LiteralText("Bob");
+	}
 
 	public static NPCHumanEntity createNew(World world, Identifier id) { // see the constructor for why
 		return new NPCHumanEntity(world, id);
