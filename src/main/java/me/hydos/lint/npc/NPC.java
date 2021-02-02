@@ -19,7 +19,10 @@
 
 package me.hydos.lint.npc;
 
+import org.jetbrains.annotations.Nullable;
+
 import me.hydos.lint.Lint;
+import me.hydos.lint.npc.ai.NPCPathing;
 import net.minecraft.util.Identifier;
 
 /**
@@ -29,10 +32,14 @@ public class NPC {
 	public NPC(Settings settings) {
 		this.name = settings.name;
 		this.texture = new Identifier(settings.texture.getNamespace(), "textures/npc/" + settings.texture.getPath() + ".png");
+		this.pathing = settings.pathing;
 	}
 
 	private final String name;
 	private final Identifier texture;
+
+	@Nullable
+	private final NPCPathing pathing;
 
 	public String getName() {
 		return this.name;
@@ -42,9 +49,15 @@ public class NPC {
 		return this.texture;
 	}
 
+	@Nullable
+	public NPCPathing getPathing() {
+		return this.pathing;
+	}
+
 	public static class Settings {
 		private String name = "Missingno";
 		private Identifier texture = TEXTURE_MISSINGNO;
+		private NPCPathing pathing;
 
 		public Settings name(String name) {
 			this.name = name;
@@ -56,8 +69,13 @@ public class NPC {
 			return this;
 		}
 
+		public Settings pathing(NPCPathing pathing) {
+			this.pathing = pathing;
+			return this;
+		}
+
 		private static final Identifier TEXTURE_MISSINGNO = new Identifier("missingno");
 	}
 
-	private static final NPC MISSINGNO = NPCRegistry.register(Lint.id("missingno"), new NPC(new NPC.Settings().name("missingno").texture(new Identifier("missing_texture"))));
+	public static final NPC MISSINGNO = NPCRegistry.register(Lint.id("missingno"), new NPC(new NPC.Settings().name("missingno").texture(new Identifier("missing_texture"))));
 }

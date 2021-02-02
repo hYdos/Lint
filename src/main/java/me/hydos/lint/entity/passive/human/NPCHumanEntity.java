@@ -21,48 +21,61 @@ package me.hydos.lint.entity.passive.human;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.entity.Entities;
-import me.hydos.lint.entity.goal.SeekBlockGoal;
 import me.hydos.lint.npc.NPC;
 import me.hydos.lint.npc.NPCRegistry;
+import me.hydos.lint.npc.ai.NPCPathing;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.FleeEntityGoal;
-import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.ai.goal.GoalSelector;
+import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.LightType;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class NPCHumanEntity extends PathAwareEntity {
-	public NPCHumanEntity(EntityType<? extends NPCHumanEntity> type, World world) {
+	public NPCHumanEntity(EntityType<? extends NPCHumanEntity> type, World world) { // client or missingno
 		super(type, world);
 	}
 
 	private NPCHumanEntity(World world, Identifier id) { // This has to be private to shut up the generic nonsense in entity types
 		super(Entities.NPC_HUMAN, world);
 		this.dataTracker.set(NPC_ID, id.toString());
+
+		((MobNavigation)this.getNavigation()).setCanPathThroughDoors(true);
+		this.getNavigation().setCanSwim(true);
+		
+		NPCPathing pathing = NPCRegistry.getById(id).getPathing();
+		
+		if (pathing != null) {
+			pathing.accept(this);
+		}
 	}
+
+	private Vec3d home = null;
 
 	// Speeds
 	// 1.5f = saunter
 	// 2.0f = walk
 	// 2.5f = power walk
 	// 3.0f = run
+	// TODO teleport home if trapped (inject at NPCPathing)
+	// TODO enter home at night and leave it at day (NPCPathing)
+
 	@Override
-	protected void initGoals() {
-		this.goalSelector.add(0, new FleeEntityGoal<>(this, HostileEntity.class, 4.0f, 2.5f, 3.0f));
-		this.goalSelector.add(1, new PredicatedGoal(new SeekBlockGoal(this, b -> b.getDefaultState().getLuminance() > 8 && this.world.getLightLevel(LightType.BLOCK, this.getBlockPos()) < 10, 16, 2.0f, 2.5f), () -> this.world.isNight()));
-		this.goalSelector.add(2, new WanderAroundGoal(this, 1.5f, 16));
-		this.goalSelector.add(2, new WanderAroundGoal(this, 2.0f, 32));
+	public void refreshPositionAfterTeleport(Vec3d vec3d) {
+		super.refreshPositionAfterTeleport(vec3d);
+		this.home = vec3d;
+	}
+
+	public GoalSelector getGoalSelector() {		
+		return this.goalSelector;
 	}
 
 	@Override
@@ -82,13 +95,22 @@ public class NPCHumanEntity extends PathAwareEntity {
 	public void readCustomDataFromTag(CompoundTag tag) {
 		super.readCustomDataFromTag(tag);
 		this.dataTracker.set(NPC_ID, tag.getString("npc"));
+
+		if (tag.contains("home")) {
+			CompoundTag home = tag.getCompound("home");
+			this.home = new Vec3d(home.getDouble("x"), home.getDouble("y"), home.getDouble("z"));
+		}
 	}
 
 	@Override
 	public void writeCustomDataToTag(CompoundTag tag) {
 		super.writeCustomDataToTag(tag);
-
 		tag.putString("npc", this.dataTracker.get(NPC_ID));
+
+		CompoundTag home = new CompoundTag();
+		home.putDouble("x", this.home.x);
+		home.putDouble("y", this.home.y);
+		home.putDouble("z", this.home.z);
 	}
 
 	@Override

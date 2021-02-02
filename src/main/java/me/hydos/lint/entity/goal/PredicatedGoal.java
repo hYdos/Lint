@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.entity.passive.human;
+package me.hydos.lint.entity.goal;
 
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;

@@ -20,12 +20,25 @@
 package me.hydos.lint.npc;
 
 import me.hydos.lint.Lint;
+import me.hydos.lint.npc.ai.NPCPathing;
+import me.hydos.lint.npc.ai.Task;
 
 /**
  * Lint NPCS.
  */
-public class NPCs {
-	public static final NPC TEST = new NPC(new NPC.Settings().name("Bob").texture(Lint.id("knavian_stablemaster")));
+public final class NPCs {
+	private static NPCPathing createCitizenAI() {
+		return new NPCPathing()
+				.survival(Task.FLEE_HOSTILE_ENEMIES)
+				.leisure(Task.SAUNTER_AROUND)
+				.leisure(Task.WALK_AROUND)
+				.when(Task.Predicate.NIGHT, pathing -> pathing.habit(Task.SEEK_LIGHT));
+	}
+
+	public static final NPC TEST = new NPC(new NPC.Settings()
+			.name("Bob")
+			.texture(Lint.id("knavian_stablemaster"))
+			.pathing(createCitizenAI()));
 
 	public static void initialise() {
 		NPCRegistry.register(Lint.id("test"), TEST);
