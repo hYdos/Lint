@@ -21,6 +21,7 @@ package me.hydos.lint.entity.passive.human;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.entity.Entities;
+import me.hydos.lint.entity.goal.SeekBlockGoal;
 import me.hydos.lint.npc.NPC;
 import me.hydos.lint.npc.NPCRegistry;
 import net.minecraft.client.util.DefaultSkinHelper;
@@ -43,6 +44,11 @@ public class NPCHumanEntity extends PathAwareEntity {
 	private NPCHumanEntity(World world, Identifier id) { // This has to be private to shut up the generic nonsense in entity types
 		super(Entities.NPC_HUMAN, world);
 		this.dataTracker.set(NPC_ID, id.toString());
+	}
+
+	@Override
+	protected void initGoals() {
+		this.goalSelector.add(1, new PredicatedGoal(new SeekBlockGoal(this, b -> b.getDefaultState().getLuminance() > 8, 9, 1.0f, 2.0f), () -> this.world.isNight()));
 	}
 
 	@Override
