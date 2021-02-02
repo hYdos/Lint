@@ -47,7 +47,14 @@ public class NPCHumanEntity extends PathAwareEntity {
 
 	@Override
 	public Text getCustomName() {
-		NPC npc = NPCRegistry.getById(new Identifier(this.dataTracker.get(NPC_ID)));
+		// Corrective stuff for making summoning one without data into a missingno
+		String npcId = this.dataTracker.get(NPC_ID);
+
+		if (npcId == null || npcId.isEmpty()) {
+			this.dataTracker.set(NPC_ID, MISSINGNO.toString());
+		}
+
+		NPC npc = NPCRegistry.getById(new Identifier(npcId));
 		return new LiteralText(npc == null ? "Unregistered NPC" : npc.getName());
 	}
 
@@ -67,7 +74,7 @@ public class NPCHumanEntity extends PathAwareEntity {
 	@Override
 	protected void initDataTracker() {
 		super.initDataTracker();
-		dataTracker.startTracking(NPC_ID, MISSINGNO.toString());
+		this.dataTracker.startTracking(NPC_ID, MISSINGNO.toString());
 	}
 
 	public Identifier getSkinTexture() {
