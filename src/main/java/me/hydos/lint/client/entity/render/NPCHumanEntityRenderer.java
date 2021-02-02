@@ -26,7 +26,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.PlayerModelPart;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
@@ -36,16 +35,9 @@ import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.scoreboard.ScoreboardObjective;
-import net.minecraft.scoreboard.ScoreboardPlayerScore;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -65,34 +57,28 @@ public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity,
 	// Code Stolen From Player Entity Renderer
 	private void setModelPose(NPCHumanEntity NPCHumanEntity) {
 		PlayerEntityModel<NPCHumanEntity> playerEntityModel = (PlayerEntityModel)this.getModel();
-		if (NPCHumanEntity.isSpectator()) {
-			playerEntityModel.setVisible(false);
-			playerEntityModel.head.visible = true;
-			playerEntityModel.helmet.visible = true;
-		} else {
-			playerEntityModel.setVisible(true);
-			playerEntityModel.helmet.visible = true;
-			playerEntityModel.jacket.visible = true;
-			playerEntityModel.leftPantLeg.visible = true;
-			playerEntityModel.rightPantLeg.visible = true;
-			playerEntityModel.leftSleeve.visible = true;
-			playerEntityModel.rightSleeve.visible = true;
-			playerEntityModel.sneaking = NPCHumanEntity.isInSneakingPose();
-			BipedEntityModel.ArmPose armPose = getArmPose(NPCHumanEntity, Hand.MAIN_HAND);
-			BipedEntityModel.ArmPose armPose2 = getArmPose(NPCHumanEntity, Hand.OFF_HAND);
-			if (armPose.method_30156()) {
-				armPose2 = NPCHumanEntity.getOffHandStack().isEmpty() ? BipedEntityModel.ArmPose.EMPTY : BipedEntityModel.ArmPose.ITEM;
-			}
 
-			if (NPCHumanEntity.getMainArm() == Arm.RIGHT) {
-				playerEntityModel.rightArmPose = armPose;
-				playerEntityModel.leftArmPose = armPose2;
-			} else {
-				playerEntityModel.rightArmPose = armPose2;
-				playerEntityModel.leftArmPose = armPose;
-			}
+		playerEntityModel.setVisible(true);
+		playerEntityModel.helmet.visible = true;
+		playerEntityModel.jacket.visible = true;
+		playerEntityModel.leftPantLeg.visible = true;
+		playerEntityModel.rightPantLeg.visible = true;
+		playerEntityModel.leftSleeve.visible = true;
+		playerEntityModel.rightSleeve.visible = true;
+		playerEntityModel.sneaking = NPCHumanEntity.isInSneakingPose();
+		BipedEntityModel.ArmPose armPose = getArmPose(NPCHumanEntity, Hand.MAIN_HAND);
+		BipedEntityModel.ArmPose armPose2 = getArmPose(NPCHumanEntity, Hand.OFF_HAND);
+		if (armPose.method_30156()) {
+			armPose2 = NPCHumanEntity.getOffHandStack().isEmpty() ? BipedEntityModel.ArmPose.EMPTY : BipedEntityModel.ArmPose.ITEM;
 		}
 
+		if (NPCHumanEntity.getMainArm() == Arm.RIGHT) {
+			playerEntityModel.rightArmPose = armPose;
+			playerEntityModel.leftArmPose = armPose2;
+		} else {
+			playerEntityModel.rightArmPose = armPose2;
+			playerEntityModel.leftArmPose = armPose;
+		}
 	}
 
 	private static BipedEntityModel.ArmPose getArmPose(NPCHumanEntity NPCHumanEntity, Hand hand) {
