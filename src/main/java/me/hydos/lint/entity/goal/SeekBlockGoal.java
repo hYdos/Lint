@@ -24,12 +24,14 @@ import java.util.function.Predicate;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.TargetFinder;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SeekBlockGoal extends Goal {
@@ -106,13 +108,19 @@ public class SeekBlockGoal extends Goal {
 		if (seekPosCache == null) {
 			return false;
 		} else {
-			this.path = this.seekingNav.findPathTo(seekPosCache.getX(), seekPosCache.getY(), seekPosCache.getZ(), 0);
+			Vec3d target = TargetFinder.findTargetTowards(this.mob, 2, 2, new Vec3d(seekPosCache.getX(), seekPosCache.getY(), seekPosCache.getZ()));
 
-			if (this.path != null) {
-				this.targetBlock = seekPosCache;
+			if (target == null) {
+				return false;
+			} else {
+				this.path = this.seekingNav.findPathTo(target.getX(), target.getY(), target.getZ(), 0);
+
+				if (this.path != null) {
+					this.targetBlock = seekPosCache;
+				}
+
+				return this.path != null;
 			}
-
-			return this.path != null;
 		}
 	}
 

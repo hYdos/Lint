@@ -34,6 +34,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
 public class NPCHumanEntity extends PathAwareEntity {
@@ -48,7 +49,7 @@ public class NPCHumanEntity extends PathAwareEntity {
 
 	@Override
 	protected void initGoals() {
-		this.goalSelector.add(1, new PredicatedGoal(new SeekBlockGoal(this, b -> b.getDefaultState().getLuminance() > 8, 9, 1.0f, 2.0f), () -> this.world.isNight()));
+		this.goalSelector.add(1, new PredicatedGoal(new SeekBlockGoal(this, b -> b.getDefaultState().getLuminance() > 8 && this.world.getLightLevel(LightType.BLOCK, this.getBlockPos()) < 10, 16, 1.0f, 2.0f), () -> this.world.isNight()));
 	}
 
 	@Override
