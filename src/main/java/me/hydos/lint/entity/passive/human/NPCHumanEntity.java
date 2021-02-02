@@ -60,8 +60,6 @@ public class NPCHumanEntity extends PathAwareEntity {
 	private static final Identifier NONE = Lint.id("none");
 
 	public Identifier getSkinTexture() {
-		// TODO Auto-generated method stub
-		return null;
+		return Lint.id("textures/npc/knavian_stablemaster");
 	}
-
 }
