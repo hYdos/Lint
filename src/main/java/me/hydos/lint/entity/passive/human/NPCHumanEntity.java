@@ -47,7 +47,7 @@ public class NPCHumanEntity extends PathAwareEntity {
 		return new LiteralText("Bob");
 	}
 
-	public static NPCHumanEntity createNew(World world, Identifier id) { // see the constructor for why
+	public static NPCHumanEntity create(World world, Identifier id) { // see the constructor for why
 		return new NPCHumanEntity(world, id);
 	}
 

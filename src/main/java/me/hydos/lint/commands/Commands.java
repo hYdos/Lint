@@ -19,13 +19,17 @@
 
 package me.hydos.lint.commands;
 
+import me.hydos.lint.entity.passive.human.NPCHumanEntity;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.gen.HaykamChunkGenerator;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.minecraft.command.argument.IdentifierArgumentType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.LiteralText;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 public class Commands {
@@ -58,7 +62,18 @@ public class Commands {
 												}
 
 												return 0;
-											})))
+											}))
+									.then(CommandManager.literal("npc")
+											.requires(src -> src.getEntity() != null && src.getEntity() instanceof PlayerEntity)
+											.then(CommandManager.argument("id", IdentifierArgumentType.identifier())
+													.executes(src -> {
+														Identifier id = IdentifierArgumentType.getIdentifier(src, "id");
+														ServerWorld world = src.getSource().getWorld();
+														NPCHumanEntity npc = NPCHumanEntity.create(world, id);
+														npc.refreshPositionAfterTeleport(src.getSource().getPlayer().getPos());
+														world.spawnEntity(npc);
+														return 1;
+													}))))
 			);
 		});
 	}
