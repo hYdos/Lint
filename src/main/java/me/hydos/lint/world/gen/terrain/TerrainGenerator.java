@@ -17,9 +17,9 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.world.biome;
+package me.hydos.lint.world.gen.terrain;
 
-public interface TerrainData {
+public interface TerrainGenerator {
 	double sampleTypeScale(int x, int z);
 
 	double sampleTerrainScale(int x, int z);
@@ -27,4 +27,8 @@ public interface TerrainData {
 	int sampleBaseHeight(int x, int z);
 
 	int sampleTerraceMod(int x, int z);
+
+	int getHeight(int x, int z);
+
+	int getLowerGenBound(int x, int z, int height);
 }

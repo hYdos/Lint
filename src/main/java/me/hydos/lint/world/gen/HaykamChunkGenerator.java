@@ -21,16 +21,20 @@ package me.hydos.lint.world.gen;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.HaykamBiomeSource;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
+import me.hydos.lint.world.gen.terrain.TerrainGenerator;
 import me.hydos.lint.world.structure2.StructureChunkGenerator;
 import me.hydos.lint.world.structure2.StructureManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.math.BlockPos;
@@ -65,21 +69,24 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 	public static List<Consumer<StructureManager>> onStructureSetup = new ArrayList<>();
 	public static final Codec<HaykamChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
+			Identifier.CODEC.fieldOf("terrainType").stable().forGetter(generator -> generator.terrainType),
 			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
 	).apply(instance, instance.stable(HaykamChunkGenerator::new)));
 	private final ChunkRandom random = new ChunkRandom();
 	private final long seed;
 	private final Registry<Biome> biomeRegistry;
 	private final List<Vec2i> villageCentres = new ArrayList<>();
-	private HaykamTerrainGenerator terrain;
+	private TerrainGenerator terrain;
 	private FloatingIslandModifier floatingIslands;
 	private OctaveSimplexNoiseSampler surfaceNoise;
 	private StructureManager structureManager;
+	private Identifier terrainType;
 
-	public HaykamChunkGenerator(Long seed, Registry<Biome> registry) {
+	public HaykamChunkGenerator(long seed, Identifier terrainType, Registry<Biome> registry) {
 		super(new HaykamBiomeSource(registry, seed), new StructuresConfig(false));
 		this.seed = seed;
 		this.biomeRegistry = registry;
+		this.terrainType = terrainType;
 
 		ServerChunkManagerCallback.EVENT.register(manager -> {
 			this.structureManager = new StructureManager(this);
@@ -121,7 +128,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 
 	@Override
 	public ChunkGenerator withSeed(long seed) {
-		return new HaykamChunkGenerator(seed, biomeRegistry);
+		return new HaykamChunkGenerator(seed, this.terrainType, this.biomeRegistry);
 	}
 
 	@Override

@@ -37,9 +37,12 @@ import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
+import me.hydos.lint.world.biome.HaykamBiomeSource;
 import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.gen.HaykamChunkGenerator;
+import me.hydos.lint.world.gen.HaykamTerrainGenerator;
+import me.hydos.lint.world.gen.terrain.TerrainType;
 import me.hydos.lint.world.structure.Structures;
 import net.devtech.arrp.api.RRPCallback;
 import net.devtech.arrp.api.RuntimeResourcePack;
@@ -112,6 +115,9 @@ public class Lint implements ModInitializer {
 		Structures.initialize();
 		Features.initialize();
 		Biomes.initialize();
+		TerrainType.REGISTRY.put(Lint.id("fraiya"), new TerrainType(
+				(seed, rand, keyLocs) -> new HaykamTerrainGenerator(seed, rand, keyLocs),
+				(seed, registry) -> new HaykamBiomeSource(registry, seed)));
 		//		Dimensions.initialize();
 	}
 

@@ -19,9 +19,15 @@
 
 package me.hydos.lint.world.biome;
 
+import java.util.function.LongFunction;
+import java.util.stream.Collectors;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.gen.HaykamTerrainGenerator;
+import me.hydos.lint.world.gen.terrain.TerrainBiomeSource;
 import me.hydos.lint.world.layer.GenericBiomes;
 import me.hydos.lint.world.layer.MountainBiomes;
 import net.minecraft.util.registry.Registry;
@@ -37,10 +43,7 @@ import net.minecraft.world.biome.layer.util.LayerSampler;
 import net.minecraft.world.biome.source.BiomeLayerSampler;
 import net.minecraft.world.biome.source.BiomeSource;
 
-import java.util.function.LongFunction;
-import java.util.stream.Collectors;
-
-public class HaykamBiomeSource extends BiomeSource {
+public class HaykamBiomeSource extends TerrainBiomeSource {
 	public static final Codec<HaykamBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
 			Codec.LONG.fieldOf("seed").stable().forGetter(source -> source.seed))
@@ -52,8 +55,6 @@ public class HaykamBiomeSource extends BiomeSource {
 	private final BiomeLayerSampler genericSampler;
 	private final BiomeLayerSampler mountainSampler;
 	private final BiomeLayerSampler beachSampler;
-
-	private TerrainData data;
 
 	public HaykamBiomeSource(Registry<Biome> biomeRegistry, long seed) {
 		super(biomeRegistry.stream().collect(Collectors.toList()));
@@ -77,10 +78,6 @@ public class HaykamBiomeSource extends BiomeSource {
 		}
 		result = SmoothLayer.INSTANCE.create(contextProvider.apply(4L), result);
 		return result;
-	}
-
-	public void setTerrainData(TerrainData data) {
-		this.data = data;
 	}
 
 	@Override

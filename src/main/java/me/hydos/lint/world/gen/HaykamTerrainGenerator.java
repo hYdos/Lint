@@ -25,13 +25,13 @@ import me.hydos.lint.util.math.DoubleGridOperator;
 import me.hydos.lint.util.math.IntGridOperator;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.util.math.Voronoi;
-import me.hydos.lint.world.biome.TerrainData;
 import me.hydos.lint.world.feature.TownFeature;
+import me.hydos.lint.world.gen.terrain.TerrainGenerator;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 
-public class HaykamTerrainGenerator implements TerrainData {
+public class HaykamTerrainGenerator implements TerrainGenerator {
 	public static final int SEA_LEVEL = 63;
 
 	public static final int ASH_START = 3320 * 3320;
@@ -66,7 +66,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 
 	private final Vec2i[] townAreas;
 
-	HaykamTerrainGenerator(long seed, Random rand, Vec2i[] townAreas) {
+	public HaykamTerrainGenerator(long seed, Random rand, Vec2i[] townAreas) {
 		int protoSeed = (int) (seed >> 32);
 		this.seed = protoSeed == 0 ? 1 : protoSeed; // 0 bad and worst in game
 		this.townAreas = townAreas;
@@ -198,6 +198,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 		return newmin + value * (newmax - newmin);
 	}
 
+	@Override
 	public int getHeight(int x, int z) {
 		return this.heightOperator.get(x, z);
 	}
@@ -302,6 +303,7 @@ public class HaykamTerrainGenerator implements TerrainData {
 		return this.baseHeightOperator.get(x, z);
 	}
 
+	@Override
 	public int getLowerGenBound(int x, int z, int height) {
 		int sqrDist = x * x + z * z;
 
