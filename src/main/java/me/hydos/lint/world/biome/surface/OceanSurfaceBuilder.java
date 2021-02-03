@@ -19,7 +19,7 @@
 
 package me.hydos.lint.world.biome.surface;
 
-import me.hydos.lint.world.gen.HaykamTerrainGenerator;
+import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import me.hydos.lint.world.gen.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -44,8 +44,8 @@ public class OceanSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
 
 	@Override
 	public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, TernarySurfaceConfig surfaceBlocks) {
-		double limit = HaykamTerrainGenerator.SEA_LEVEL + 1.2 + 1.5 * NOISE.sample(x * 0.022, z * 0.022);
-		double limit2 = HaykamTerrainGenerator.SEA_LEVEL + 1.2 + 1.5 * NOISE_2.sample(x * 0.022, z * 0.022);
+		double limit = FraiyaTerrainGenerator.SEA_LEVEL + 1.2 + 1.5 * NOISE.sample(x * 0.022, z * 0.022);
+		double limit2 = FraiyaTerrainGenerator.SEA_LEVEL + 1.2 + 1.5 * NOISE_2.sample(x * 0.022, z * 0.022);
 
 		if (height < limit) {
 			SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, this.sand);

@@ -22,7 +22,7 @@ package me.hydos.lint.commands;
 import me.hydos.lint.entity.passive.human.NPCHumanEntity;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.dimension.Dimensions;
-import me.hydos.lint.world.gen.HaykamChunkGenerator;
+import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.command.argument.IdentifierArgumentType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -44,8 +44,8 @@ public class Commands {
 												ServerWorld world = src.getSource().getMinecraftServer().getWorld(Dimensions.FRAIYA_WORLD);
 												ChunkGenerator generator = world.getChunkManager().getChunkGenerator();
 
-												if (generator instanceof HaykamChunkGenerator) {
-													Vec2i[] towns = ((HaykamChunkGenerator) generator).getTownCentres();
+												if (generator instanceof TerrainChunkGenerator) {
+													Vec2i[] towns = ((TerrainChunkGenerator) generator).getTownCentres();
 
 													StringBuilder result = new StringBuilder();
 

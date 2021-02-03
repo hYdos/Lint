@@ -24,7 +24,7 @@ import java.util.Random;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.GridDirection;
 import me.hydos.lint.util.math.Vec2i;
-import me.hydos.lint.world.gen.HaykamChunkGenerator;
+import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DoorBlock;
@@ -58,13 +58,13 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 	@Override
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
-		if (chunkGenerator instanceof HaykamChunkGenerator) {
+		if (chunkGenerator instanceof TerrainChunkGenerator) {
 			int mindist = Integer.MAX_VALUE;
 			Vec2i closest = null;
 			int x = pos.getX();
 			int z = pos.getZ();
 
-			for (Vec2i loc : ((HaykamChunkGenerator) chunkGenerator).getTownCentres()) {
+			for (Vec2i loc : ((TerrainChunkGenerator) chunkGenerator).getTownCentres()) {
 				int dist = loc.squaredDist(x, z);
 
 				if (mindist > dist) {

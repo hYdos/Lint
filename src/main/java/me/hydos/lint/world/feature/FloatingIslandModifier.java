@@ -21,7 +21,7 @@ package me.hydos.lint.world.feature;
 
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.math.Voronoi;
-import me.hydos.lint.world.gen.HaykamTerrainGenerator;
+import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import me.hydos.lint.world.gen.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -69,7 +69,7 @@ public class FloatingIslandModifier {
 				int absz = MathHelper.abs(z);
 				int dist = absx * absx + absz * absz;
 
-				if (dist > HaykamTerrainGenerator.SHARDLANDS_START) {
+				if (dist > FraiyaTerrainGenerator.SHARDLANDS_START) {
 					return false; // prevent unneccessary checks since it will all succeed second thing
 				}
 

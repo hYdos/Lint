@@ -27,24 +27,22 @@ import me.hydos.lint.util.math.Vec2i;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.source.BiomeSource;
 
 public final class TerrainType {
-	public TerrainType(TerrainGeneratorFunction terrainGeneratorProvider, BiomeProviderFunction biomeSourceProvider) {
+	public TerrainType(TerrainGeneratorFunction terrainGeneratorProvider, BiomeGeneratorFunction biomeGeneratorProvider) {
 		this.terrainGeneratorProvider = terrainGeneratorProvider;
-		this.biomeSourceProvider = biomeSourceProvider;
+		this.biomeGeneratorProvider = biomeGeneratorProvider;
 	}
 
 	private final TerrainGeneratorFunction terrainGeneratorProvider;
-	private final BiomeProviderFunction biomeSourceProvider;
+	private final BiomeGeneratorFunction biomeGeneratorProvider;
 
 	public TerrainGenerator createTerrainGenerator(long seed, Random rand, Vec2i[] keyLocations) {
 		return this.terrainGeneratorProvider.apply(seed, rand, keyLocations);
 	}
 
-	public BiomeSource createBiomeSource(TerrainGenerator terrain, long seed, Registry<Biome> registry) {
-		TerrainBiomeSource result = this.biomeSourceProvider.apply(seed, registry);
-		result.setTerrainData(terrain);
+	public BiomeGenerator createBiomeGenerator(TerrainGenerator terrain, long seed, Registry<Biome> registry) {
+		BiomeGenerator result = this.biomeGeneratorProvider.apply(terrain, registry, seed);
 		return result;
 	}
 
@@ -56,7 +54,7 @@ public final class TerrainType {
 	}
 
 	@FunctionalInterface
-	public interface BiomeProviderFunction {
-		TerrainBiomeSource apply(long seed, Registry<Biome> registry);
+	public interface BiomeGeneratorFunction {
+		BiomeGenerator apply(TerrainGenerator generator, Registry<Biome> registry, long seed);
 	}
 }

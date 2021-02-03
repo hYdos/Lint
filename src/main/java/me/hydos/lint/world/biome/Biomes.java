@@ -29,7 +29,7 @@ import me.hydos.lint.world.biome.surface.DawnShardlandsSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.OceanSurfaceBuilder;
 import me.hydos.lint.world.carver.LintConfiguredCarvers;
 import me.hydos.lint.world.feature.Features;
-import me.hydos.lint.world.gen.HaykamChunkGenerator;
+import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
 import me.hydos.lint.world.structure.ConfiguredStructureFeatures;
 import net.fabricmc.fabric.mixin.biome.BuiltinBiomesAccessor;
 import net.minecraft.entity.EntityType;
@@ -391,7 +391,7 @@ public class Biomes {
 		Registry.register(Registry.SURFACE_BUILDER, Lint.id("dawn_shardlands"), DAWN_SHARDLANDS_RAW_SB);
 		Registry.register(Registry.SURFACE_BUILDER, Lint.id("dawn_shardlands_edge"), DAWN_SHARDLANDS_EDGE_RAW_SB);
 
-		Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_chunk_gen"), HaykamChunkGenerator.CODEC);
+		Registry.register(Registry.CHUNK_GENERATOR, Lint.id("haykam_chunk_gen"), TerrainChunkGenerator.CODEC);
 
 		registerBiome(MYSTICAL_GROVE_KEY, MYSTICAL_GROVE);
 		registerBiome(MYSTICAL_FOREST_KEY, MYSTICAL_FOREST);

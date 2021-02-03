@@ -20,7 +20,7 @@
 package me.hydos.lint.world.feature;
 
 import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.world.gen.HaykamTerrainGenerator;
+import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
@@ -45,8 +45,8 @@ public class FadingAshFeature extends Feature<DefaultFeatureConfig> {
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos start, DefaultFeatureConfig config) {
 		double dist = start.getSquaredDistance(Vec3i.ZERO);
 
-		if (dist > HaykamTerrainGenerator.ASH_START) {
-			final int bound = dist > HaykamTerrainGenerator.DENSE_ASH_START ? 7 : 14;
+		if (dist > FraiyaTerrainGenerator.ASH_START) {
+			final int bound = dist > FraiyaTerrainGenerator.DENSE_ASH_START ? 7 : 14;
 
 			BlockPos.Mutable pos = new BlockPos.Mutable();
 			Chunk chunk = world.getChunk(start);

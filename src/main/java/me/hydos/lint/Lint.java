@@ -37,11 +37,12 @@ import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
-import me.hydos.lint.world.biome.HaykamBiomeSource;
 import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
-import me.hydos.lint.world.gen.HaykamChunkGenerator;
-import me.hydos.lint.world.gen.HaykamTerrainGenerator;
+import me.hydos.lint.world.gen.FraiyaBiomeGenerator;
+import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
+import me.hydos.lint.world.gen.terrain.TerrainBiomeSource;
+import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
 import me.hydos.lint.world.gen.terrain.TerrainType;
 import me.hydos.lint.world.structure.Structures;
 import net.devtech.arrp.api.RRPCallback;
@@ -81,7 +82,7 @@ public class Lint implements ModInitializer {
 
 		ServerSidePacketRegistry.INSTANCE.register(Networking.GIB_INFO_PLS, (context, data) -> {
 			try {
-				Vec2i[] towns = ((HaykamChunkGenerator) (((ServerPlayerEntity) context.getPlayer()).getServer().getWorld(Dimensions.FRAIYA_WORLD).getChunkManager().getChunkGenerator())).getTownCentres();
+				Vec2i[] towns = ((TerrainChunkGenerator) (((ServerPlayerEntity) context.getPlayer()).getServer().getWorld(Dimensions.FRAIYA_WORLD).getChunkManager().getChunkGenerator())).getTownCentres();
 
 				PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 
@@ -116,8 +117,8 @@ public class Lint implements ModInitializer {
 		Features.initialize();
 		Biomes.initialize();
 		TerrainType.REGISTRY.put(Lint.id("fraiya"), new TerrainType(
-				(seed, rand, keyLocs) -> new HaykamTerrainGenerator(seed, rand, keyLocs),
-				(seed, registry) -> new HaykamBiomeSource(registry, seed)));
+				(seed, rand, keyLocs) -> new FraiyaTerrainGenerator(seed, rand, keyLocs),
+				(terrain, registry, seed) -> new FraiyaBiomeGenerator(seed, registry, terrain)));
 		//		Dimensions.initialize();
 	}
 

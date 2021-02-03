@@ -20,8 +20,10 @@
 package me.hydos.lint.mixin;
 
 import com.mojang.serialization.Lifecycle;
+
+import me.hydos.lint.Lint;
 import me.hydos.lint.world.dimension.Dimensions;
-import me.hydos.lint.world.gen.HaykamChunkGenerator;
+import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.SimpleRegistry;
@@ -44,6 +46,6 @@ public class DimensionTypeMixin {
 
 	@Inject(method = "createDefaultDimensionOptions", at = @At("TAIL"))
 	private static void addAdditionalDefaultDimensionOptions(Registry<DimensionType> dimensionRegistry, Registry<Biome> biomeRegistry, Registry<ChunkGeneratorSettings> chunkGeneratorSettingsRegistry, long seed, CallbackInfoReturnable<SimpleRegistry<DimensionOptions>> cir) {
-		cir.getReturnValue().add(Dimensions.FRAIYA_DIM_OPTIONS, new DimensionOptions(() -> dimensionRegistry.getOrThrow(Dimensions.FRAIYA_DIM), new HaykamChunkGenerator(seed, biomeRegistry)), Lifecycle.stable());
+		cir.getReturnValue().add(Dimensions.FRAIYA_DIM_OPTIONS, new DimensionOptions(() -> dimensionRegistry.getOrThrow(Dimensions.FRAIYA_DIM), new TerrainChunkGenerator(seed, Lint.id("fraiya"), biomeRegistry)), Lifecycle.stable());
 	}
 }

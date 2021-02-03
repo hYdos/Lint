@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.world.gen;
+package me.hydos.lint.world.gen.terrain;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -26,10 +26,8 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.util.math.Vec2i;
-import me.hydos.lint.world.biome.HaykamBiomeSource;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
-import me.hydos.lint.world.gen.terrain.TerrainGenerator;
-import me.hydos.lint.world.gen.terrain.TerrainType;
+import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import me.hydos.lint.world.structure2.StructureChunkGenerator;
 import me.hydos.lint.world.structure2.StructureManager;
 import net.minecraft.block.BlockState;
@@ -65,14 +63,14 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
-public class HaykamChunkGenerator extends ChunkGenerator implements StructureChunkGenerator {
+public class TerrainChunkGenerator extends ChunkGenerator implements StructureChunkGenerator {
 
 	public static List<Consumer<StructureManager>> onStructureSetup = new ArrayList<>();
-	public static final Codec<HaykamChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
+	public static final Codec<TerrainChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
 			Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
-			Identifier.CODEC.fieldOf("terrainType").stable().forGetter(generator -> generator.terrainType),
+			Identifier.CODEC.fieldOf("terrainType").orElse(Lint.id("fraiya")).stable().forGetter(generator -> generator.terrainType),
 			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
-	).apply(instance, instance.stable(HaykamChunkGenerator::new)));
+	).apply(instance, instance.stable(TerrainChunkGenerator::new)));
 	private final ChunkRandom random = new ChunkRandom();
 	private final long seed;
 	private final Registry<Biome> biomeRegistry;
@@ -83,8 +81,8 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 	private StructureManager structureManager;
 	private Identifier terrainType;
 
-	public HaykamChunkGenerator(long seed, Identifier terrainType, Registry<Biome> registry) {
-		super(new HaykamBiomeSource(registry, seed), new StructuresConfig(false));
+	public TerrainChunkGenerator(long seed, Identifier terrainType, Registry<Biome> registry) {
+		super(new TerrainBiomeSource(registry, terrainType, seed), new StructuresConfig(false));
 		this.seed = seed;
 		this.biomeRegistry = registry;
 		this.terrainType = terrainType;
@@ -106,7 +104,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 			rand.setSeed(worldSeed);
 			TerrainType tt = TerrainType.REGISTRY.get(terrainType);
 			this.terrain = tt.createTerrainGenerator(worldSeed, rand, this.getTownCentres());
-			((HaykamBiomeSource) this.biomeSource).setTerrainData(this.terrain);
+			((TerrainBiomeSource) this.biomeSource).createBiomeGenerator(this.terrain);
 
 			this.floatingIslands = new FloatingIslandModifier(worldSeed);
 			this.surfaceNoise = new OctaveSimplexNoiseSampler(this.random, IntStream.rangeClosed(-3, 0));
@@ -130,7 +128,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 
 	@Override
 	public ChunkGenerator withSeed(long seed) {
-		return new HaykamChunkGenerator(seed, this.terrainType, this.biomeRegistry);
+		return new TerrainChunkGenerator(seed, this.terrainType, this.biomeRegistry);
 	}
 
 	@Override
@@ -164,7 +162,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 					if (y < height) {
 						BlockState state;
 
-						if (dist > HaykamTerrainGenerator.SHARDLANDS_ISLANDS_START) {
+						if (dist > FraiyaTerrainGenerator.SHARDLANDS_ISLANDS_START) {
 							if (ash && y > lowerBound) {
 								state = LintBlocks.ASH.getDefaultState();
 							} else {
@@ -193,7 +191,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 
 	@Override
 	public int getSeaLevel() {
-		return HaykamTerrainGenerator.SEA_LEVEL;
+		return FraiyaTerrainGenerator.SEA_LEVEL;
 	}
 
 	@Override
@@ -221,7 +219,7 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 						LintBlocks.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(), region.getSeed());
 
 				// bedrock
-				if (x * x + z * z < HaykamTerrainGenerator.SHARDLANDS_FADE_START) {
+				if (x * x + z * z < FraiyaTerrainGenerator.SHARDLANDS_FADE_START) {
 					mutable.setY(0);
 					chunk.setBlockState(mutable, Blocks.BEDROCK.getDefaultState(), false);
 				}

@@ -31,7 +31,7 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
 
-public class HaykamTerrainGenerator implements TerrainGenerator {
+public class FraiyaTerrainGenerator implements TerrainGenerator {
 	public static final int SEA_LEVEL = 63;
 
 	public static final int ASH_START = 3320 * 3320;
@@ -66,7 +66,7 @@ public class HaykamTerrainGenerator implements TerrainGenerator {
 
 	private final Vec2i[] townAreas;
 
-	public HaykamTerrainGenerator(long seed, Random rand, Vec2i[] townAreas) {
+	public FraiyaTerrainGenerator(long seed, Random rand, Vec2i[] townAreas) {
 		int protoSeed = (int) (seed >> 32);
 		this.seed = protoSeed == 0 ? 1 : protoSeed; // 0 bad and worst in game
 		this.townAreas = townAreas;

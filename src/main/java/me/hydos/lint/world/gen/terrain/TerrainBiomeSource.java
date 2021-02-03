@@ -19,25 +19,53 @@
 
 package me.hydos.lint.world.gen.terrain;
 
-import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
+import me.hydos.lint.Lint;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeSource;
 
-public abstract class TerrainBiomeSource extends BiomeSource {
-	protected TerrainBiomeSource(List<Biome> biomes) {
-		super(biomes);
+public final class TerrainBiomeSource extends BiomeSource {
+	public static final Codec<TerrainBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
+			Identifier.CODEC.fieldOf("terrainType").orElse(Lint.id("fraiya")).stable().forGetter(generator -> generator.terrainType),
+			Codec.LONG.fieldOf("seed").stable().forGetter(source -> source.seed))
+			.apply(instance, instance.stable(TerrainBiomeSource::new)));
+
+	private final Registry<Biome> biomeRegistry;
+	private final long seed;
+	private Identifier terrainType;
+	private BiomeGenerator biomeGenerator;
+
+	public TerrainBiomeSource(Registry<Biome> biomeRegistry, Identifier terrainType, long seed) {
+		super(biomeRegistry.stream().collect(Collectors.toList()));
+		this.seed = seed;
+		this.biomeRegistry = biomeRegistry;
+		this.terrainType = terrainType;
 	}
 
-	protected TerrainBiomeSource(Stream<Supplier<Biome>> biomes) {
-		super(biomes);
+	public void createBiomeGenerator(TerrainGenerator terrainData) {
+		this.biomeGenerator = TerrainType.REGISTRY.get(terrainType).createBiomeGenerator(terrainData, seed, this.biomeRegistry);
 	}
 
-	protected TerrainGenerator data;
+	@Override
+	public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
+		return this.biomeGenerator.getBiomeForNoiseGen(biomeX, biomeZ);
+	}
 
-	public void setTerrainData(TerrainGenerator data) {
-		this.data = data;
+	@Override
+	protected Codec<? extends BiomeSource> getCodec() {
+		return CODEC;
+	}
+
+	@Override
+	public BiomeSource withSeed(long seed) {
+		return new TerrainBiomeSource(this.biomeRegistry, this.terrainType, seed);
 	}
 }

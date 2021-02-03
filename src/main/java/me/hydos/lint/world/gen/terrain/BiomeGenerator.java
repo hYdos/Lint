@@ -19,8 +19,19 @@
 
 package me.hydos.lint.world.gen.terrain;
 
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 
-public interface BiomeGenerator {
-	Biome getBiomeForNoiseGen(int genX, int genZ);
+public abstract class BiomeGenerator {
+	protected final TerrainGenerator terrainData;
+	protected final Registry<Biome> biomeRegistry;
+	protected final long seed;
+
+	protected BiomeGenerator(TerrainGenerator terrainData, Registry<Biome> registry, long seed) {
+		this.terrainData = terrainData;
+		this.biomeRegistry = registry;
+		this.seed = seed;
+	}
+
+	public abstract Biome getBiomeForNoiseGen(int genX, int genZ);
 }

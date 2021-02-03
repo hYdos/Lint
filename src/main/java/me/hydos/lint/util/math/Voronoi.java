@@ -19,7 +19,7 @@
 
 package me.hydos.lint.util.math;
 
-import me.hydos.lint.world.gen.HaykamTerrainGenerator;
+import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import me.hydos.lint.world.gen.OpenSimplexNoise;
 import net.minecraft.util.math.MathHelper;
 
@@ -76,7 +76,7 @@ public final class Voronoi {
 				double uGridY = Math.abs(gridY / xyscale);
 				double uDist = uGridY * uGridY + uGridX * uGridX;
 
-				if (uDist < HaykamTerrainGenerator.TERRAIN_CROB_DISTANCE) {
+				if (uDist < FraiyaTerrainGenerator.TERRAIN_CROB_DISTANCE) {
 					// if a floating island point
 					double noiseSample = noise.sample(gridX * 0.11, gridY * 0.11);
 					if (noiseSample * 2 + 0.25 * random(gridX + 32, gridY, seed, 1) > 1.4) {

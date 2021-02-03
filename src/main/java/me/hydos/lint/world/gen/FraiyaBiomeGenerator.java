@@ -17,21 +17,16 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.world.biome;
+package me.hydos.lint.world.gen;
 
 import java.util.function.LongFunction;
-import java.util.stream.Collectors;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-
-import me.hydos.lint.util.math.Vec2i;
-import me.hydos.lint.world.gen.HaykamTerrainGenerator;
-import me.hydos.lint.world.gen.terrain.TerrainBiomeSource;
+import me.hydos.lint.world.biome.Biomes;
+import me.hydos.lint.world.gen.terrain.BiomeGenerator;
+import me.hydos.lint.world.gen.terrain.TerrainGenerator;
 import me.hydos.lint.world.layer.GenericBiomes;
 import me.hydos.lint.world.layer.MountainBiomes;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.layer.ScaleLayer;
 import net.minecraft.world.biome.layer.SmoothLayer;
@@ -41,29 +36,18 @@ import net.minecraft.world.biome.layer.util.LayerFactory;
 import net.minecraft.world.biome.layer.util.LayerSampleContext;
 import net.minecraft.world.biome.layer.util.LayerSampler;
 import net.minecraft.world.biome.source.BiomeLayerSampler;
-import net.minecraft.world.biome.source.BiomeSource;
 
-public class HaykamBiomeSource extends TerrainBiomeSource {
-	public static final Codec<HaykamBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
-			Codec.LONG.fieldOf("seed").stable().forGetter(source -> source.seed))
-			.apply(instance, instance.stable(HaykamBiomeSource::new)));
-
-	private final Registry<Biome> biomeRegistry;
-	private final long seed;
-
+public class FraiyaBiomeGenerator extends BiomeGenerator {
 	private final BiomeLayerSampler genericSampler;
 	private final BiomeLayerSampler mountainSampler;
 	private final BiomeLayerSampler beachSampler;
 
-	public HaykamBiomeSource(Registry<Biome> biomeRegistry, long seed) {
-		super(biomeRegistry.stream().collect(Collectors.toList()));
-		this.seed = seed;
-		this.biomeRegistry = biomeRegistry;
+	public FraiyaBiomeGenerator(long seed, Registry<Biome> registry, TerrainGenerator generator) {
+		super(generator, registry, seed);
 
-		this.genericSampler = createBiomeLayerSampler(new GenericBiomes(biomeRegistry, false), seed);
-		this.mountainSampler = createBiomeLayerSampler(new MountainBiomes(biomeRegistry), seed);
-		this.beachSampler = createBiomeLayerSampler(new GenericBiomes(biomeRegistry, true), seed);
+		this.genericSampler = createBiomeLayerSampler(new GenericBiomes(registry, false), seed);
+		this.mountainSampler = createBiomeLayerSampler(new MountainBiomes(registry), seed);
+		this.beachSampler = createBiomeLayerSampler(new GenericBiomes(registry, true), seed);
 	}
 
 	public static BiomeLayerSampler createBiomeLayerSampler(InitLayer biomes, long seed) {
@@ -81,26 +65,26 @@ public class HaykamBiomeSource extends TerrainBiomeSource {
 	}
 
 	@Override
-	public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
+	public Biome getBiomeForNoiseGen(int biomeX, int biomeZ) {
 		int x = (biomeX << 2);
 		int z = (biomeZ << 2);
 		int dist = x * x + z * z;
 
-		if (dist > HaykamTerrainGenerator.SHARDLANDS_ISLANDS_START) {
+		if (dist > FraiyaTerrainGenerator.SHARDLANDS_ISLANDS_START) {
 			return this.biomeRegistry.getOrThrow(Biomes.DAWN_SHARDLANDS_KEY);
-		} else if (dist > HaykamTerrainGenerator.SHARDLANDS_EDGE_START) {
+		} else if (dist > FraiyaTerrainGenerator.SHARDLANDS_EDGE_START) {
 			return this.biomeRegistry.getOrThrow(Biomes.DAWN_SHARDLANDS_EDGE_KEY);
 		}
 
-		double baseHeight = this.data.sampleBaseHeight(x, z);
+		double baseHeight = this.terrainData.sampleBaseHeight(x, z);
 		//final int limit = HaykamTerrainGenerator.SEA_LEVEL + 2;
 
-		if (baseHeight < HaykamTerrainGenerator.SEA_LEVEL + 2) {
+		if (baseHeight < FraiyaTerrainGenerator.SEA_LEVEL + 2) {
 			/*for (GridDirection direction : GridDirection.values()) {
 				baseHeight = this.data.sampleBaseHeight(x + direction.xOff * 32, z + direction.zOff * 32);
 
 				if (baseHeight < limit) {*/
-			if (baseHeight > HaykamTerrainGenerator.SEA_LEVEL - 2) {
+			if (baseHeight > FraiyaTerrainGenerator.SEA_LEVEL - 2) {
 				return this.beachSampler.sample(this.biomeRegistry, biomeX, biomeZ);
 			} else {
 				return this.biomeRegistry.getOrThrow(Biomes.OCEAN_KEY);
@@ -109,17 +93,7 @@ public class HaykamBiomeSource extends TerrainBiomeSource {
 			}*/
 		}
 
-		double scale = this.data.sampleTerrainScale(x, z);
+		double scale = this.terrainData.sampleTerrainScale(x, z);
 		return (scale > 40.0 ? this.mountainSampler : this.genericSampler).sample(this.biomeRegistry, biomeX, biomeZ);
-	}
-
-	@Override
-	protected Codec<? extends BiomeSource> getCodec() {
-		return CODEC;
-	}
-
-	@Override
-	public BiomeSource withSeed(long seed) {
-		return new HaykamBiomeSource(biomeRegistry, seed);
 	}
 }
