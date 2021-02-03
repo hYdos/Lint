@@ -29,6 +29,7 @@ import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.HaykamBiomeSource;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
 import me.hydos.lint.world.gen.terrain.TerrainGenerator;
+import me.hydos.lint.world.gen.terrain.TerrainType;
 import me.hydos.lint.world.structure2.StructureChunkGenerator;
 import me.hydos.lint.world.structure2.StructureManager;
 import net.minecraft.block.BlockState;
@@ -103,7 +104,8 @@ public class HaykamChunkGenerator extends ChunkGenerator implements StructureChu
 			this.villageCentres.add(fromRTheta(1000, angleRadians + 3 * rightAngle)); // north, theria
 
 			rand.setSeed(worldSeed);
-			this.terrain = new HaykamTerrainGenerator(worldSeed, rand, this.getTownCentres());
+			TerrainType tt = TerrainType.REGISTRY.get(terrainType);
+			this.terrain = tt.createTerrainGenerator(worldSeed, rand, this.getTownCentres());
 			((HaykamBiomeSource) this.biomeSource).setTerrainData(this.terrain);
 
 			this.floatingIslands = new FloatingIslandModifier(worldSeed);
