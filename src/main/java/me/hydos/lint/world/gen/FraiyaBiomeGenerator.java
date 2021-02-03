@@ -21,7 +21,9 @@ package me.hydos.lint.world.gen;
 
 import java.util.function.LongFunction;
 
+import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
+import me.hydos.lint.world.feature.TownFeature;
 import me.hydos.lint.world.gen.terrain.BiomeGenerator;
 import me.hydos.lint.world.gen.terrain.TerrainGenerator;
 import me.hydos.lint.world.layer.GenericBiomes;
@@ -77,23 +79,25 @@ public class FraiyaBiomeGenerator extends BiomeGenerator {
 		}
 
 		double baseHeight = this.terrainData.sampleBaseHeight(x, z);
-		//final int limit = HaykamTerrainGenerator.SEA_LEVEL + 2;
 
 		if (baseHeight < FraiyaTerrainGenerator.SEA_LEVEL + 2) {
-			/*for (GridDirection direction : GridDirection.values()) {
-				baseHeight = this.data.sampleBaseHeight(x + direction.xOff * 32, z + direction.zOff * 32);
-
-				if (baseHeight < limit) {*/
 			if (baseHeight > FraiyaTerrainGenerator.SEA_LEVEL - 2) {
 				return this.beachSampler.sample(this.biomeRegistry, biomeX, biomeZ);
 			} else {
 				return this.biomeRegistry.getOrThrow(Biomes.OCEAN_KEY);
 			}
-			/*}
-			}*/
 		}
 
 		double scale = this.terrainData.sampleTerrainScale(x, z);
-		return (scale > 40.0 ? this.mountainSampler : this.genericSampler).sample(this.biomeRegistry, biomeX, biomeZ);
+		Biome result = (scale > 40.0 ? this.mountainSampler : this.genericSampler).sample(this.biomeRegistry, biomeX, biomeZ);
+
+		for (Vec2i town : ((FraiyaTerrainGenerator) this.terrainData).townAreas) {
+			if (town.squaredDist(x, z) < TownFeature.SUBURB_DIST) {
+				// remove corrupt forest in town suburbs and centres. Yes indigo ridges can still apply.
+				return this.biomeRegistry.getKey(result).get().equals(Biomes.CORRUPT_FOREST_KEY) ? this.biomeRegistry.get(Biomes.MYSTICAL_GROVE_KEY) : result;
+			}
+		}
+
+		return result;
 	}
 }

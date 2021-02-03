@@ -29,13 +29,15 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 
 public final class TerrainType {
-	public TerrainType(TerrainGeneratorFunction terrainGeneratorProvider, BiomeGeneratorFunction biomeGeneratorProvider) {
+	public TerrainType(TerrainGeneratorFunction terrainGeneratorProvider, BiomeGeneratorFunction biomeGeneratorProvider, boolean floatingIslands) {
 		this.terrainGeneratorProvider = terrainGeneratorProvider;
 		this.biomeGeneratorProvider = biomeGeneratorProvider;
+		this.floatingIslands = floatingIslands;
 	}
 
 	private final TerrainGeneratorFunction terrainGeneratorProvider;
 	private final BiomeGeneratorFunction biomeGeneratorProvider;
+	public final boolean floatingIslands;
 
 	public TerrainGenerator createTerrainGenerator(long seed, Random rand, Vec2i[] keyLocations) {
 		return this.terrainGeneratorProvider.apply(seed, rand, keyLocations);

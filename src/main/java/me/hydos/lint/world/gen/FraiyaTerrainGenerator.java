@@ -64,7 +64,7 @@ public class FraiyaTerrainGenerator implements TerrainGenerator {
 	private final IntGridOperator heightOperator;
 	private final IntGridOperator terraceModOperator;
 
-	private final Vec2i[] townAreas;
+	public final Vec2i[] townAreas;
 
 	public FraiyaTerrainGenerator(long seed, Random rand, Vec2i[] townAreas) {
 		int protoSeed = (int) (seed >> 32);

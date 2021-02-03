@@ -70,7 +70,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 			Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
 			Identifier.CODEC.fieldOf("terrainType").orElse(Lint.id("fraiya")).stable().forGetter(generator -> generator.terrainType),
 			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
-	).apply(instance, instance.stable(TerrainChunkGenerator::new)));
+			).apply(instance, instance.stable(TerrainChunkGenerator::new)));
 	private final ChunkRandom random = new ChunkRandom();
 	private final long seed;
 	private final Registry<Biome> biomeRegistry;
@@ -106,7 +106,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 			this.terrain = tt.createTerrainGenerator(worldSeed, rand, this.getTownCentres());
 			((TerrainBiomeSource) this.biomeSource).createBiomeGenerator(this.terrain);
 
-			this.floatingIslands = new FloatingIslandModifier(worldSeed);
+			this.floatingIslands = tt.floatingIslands ? new FloatingIslandModifier(worldSeed) : null;
 			this.surfaceNoise = new OctaveSimplexNoiseSampler(this.random, IntStream.rangeClosed(-3, 0));
 		});
 	}
@@ -273,14 +273,16 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 		ChunkRandom genRand = new ChunkRandom();
 		genRand.setTerrainSeed(centreChunkX, centreChunkZ);
 
-		if (this.floatingIslands.generate(region, genRand, startX, startZ)) { // Only run vegetal decoration if floating island is in chunk
-			Biome biome = this.populationSource.getBiomeForNoiseGen((centreChunkX << 2) + 2, 2, (centreChunkZ << 2) + 2);
-			BlockPos startPos = new BlockPos(startX, 0, startZ);
-			ChunkRandom rand = new ChunkRandom();
-			rand.setPopulationSeed(region.getSeed() + 1, startX, startZ);
+		if (this.floatingIslands != null) {
+			if (this.floatingIslands.generate(region, genRand, startX, startZ)) { // Only run vegetal decoration if floating island is in chunk
+				Biome biome = this.populationSource.getBiomeForNoiseGen((centreChunkX << 2) + 2, 2, (centreChunkZ << 2) + 2);
+				BlockPos startPos = new BlockPos(startX, 0, startZ);
+				ChunkRandom rand = new ChunkRandom();
+				rand.setPopulationSeed(region.getSeed() + 1, startX, startZ);
 
-			List<List<Supplier<ConfiguredFeature<?, ?>>>> list = biome.getGenerationSettings().getFeatures();
-			this.postVegetalPlacement(list, region, startPos, rand);
+				List<List<Supplier<ConfiguredFeature<?, ?>>>> list = biome.getGenerationSettings().getFeatures();
+				this.postVegetalPlacement(list, region, startPos, rand);
+			}
 		}
 	}
 

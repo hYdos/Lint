@@ -41,7 +41,6 @@ import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.gen.FraiyaBiomeGenerator;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
-import me.hydos.lint.world.gen.terrain.TerrainBiomeSource;
 import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
 import me.hydos.lint.world.gen.terrain.TerrainType;
 import me.hydos.lint.world.structure.Structures;
@@ -118,7 +117,8 @@ public class Lint implements ModInitializer {
 		Biomes.initialize();
 		TerrainType.REGISTRY.put(Lint.id("fraiya"), new TerrainType(
 				(seed, rand, keyLocs) -> new FraiyaTerrainGenerator(seed, rand, keyLocs),
-				(terrain, registry, seed) -> new FraiyaBiomeGenerator(seed, registry, terrain)));
+				(terrain, registry, seed) -> new FraiyaBiomeGenerator(seed, registry, terrain),
+				true));
 		//		Dimensions.initialize();
 	}
 

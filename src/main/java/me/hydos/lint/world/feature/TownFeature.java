@@ -45,12 +45,13 @@ import net.minecraft.world.gen.feature.Feature;
 // E: Paweria
 // S: Heria
 // W: Auria
+// TODO different blocks in different towns. Especially Theria and Auria, and change the composition of houses by location in Paweria. Current one should be Heria's construction.
 
 public class TownFeature extends Feature<DefaultFeatureConfig> {
-	private static final int OUTSKIRTS_DIST = 320 * 320;
 	public static int DENSE_DIST = 80 * 80;
 	public static int SUBURB_DIST = 127 * 127;
 	public static int RURAL_DIST = 180 * 180;
+	private static final int OUTSKIRTS_DIST = 320 * 320;
 
 	public TownFeature() {
 		super(DefaultFeatureConfig.CODEC);
