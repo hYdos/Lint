@@ -52,7 +52,8 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 	public static int SUBURB_DIST = 127 * 127;
 	public static int RURAL_DIST = 180 * 180;
 	private static final int OUTSKIRTS_DIST = 320 * 320;
-	private static final TownBlocks NORMAL = new TownBlocks()
+
+	private static final TownBlocks HERIA = new TownBlocks()
 			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
 			.walls(LintBlocks.MYSTICAL_PLANKS.getDefaultState(), LintBlocks.MYSTICAL_LOG.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
@@ -63,11 +64,16 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
 	private static final TownBlocks PAWERIA_CENTRE = new TownBlocks()
-			.floor(LintBlocks.CORRUPT_PLANKS.getDefaultState())
+			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
 			.walls(LintBlocks.CORRUPT_PLANKS.getDefaultState(), LintBlocks.CORRUPT_LOG.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
-	private static final TownBlocks[] BLOCK_SETS = new TownBlocks[] {PAWERIA_CENTRE, NORMAL, AURIA, NORMAL};
+	private static final TownBlocks THERIA = new TownBlocks()
+			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
+			.walls(Blocks.COBBLESTONE.getDefaultState(), LintBlocks.MYSTICAL_LOG.getDefaultState())
+			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
+
+	private static final TownBlocks[] BLOCK_SETS = new TownBlocks[] {PAWERIA_CENTRE, HERIA, AURIA, THERIA};
 
 	public TownFeature() {
 		super(DefaultFeatureConfig.CODEC);
@@ -105,15 +111,15 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				}
 			} else if (mindist < SUBURB_DIST) {
 				if (random.nextInt(4) == 0) {
-					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false, blocks == PAWERIA_CENTRE ? NORMAL : blocks);
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false, blocks == PAWERIA_CENTRE ? HERIA : blocks);
 				}
 			} else if (mindist < RURAL_DIST) {
 				if (random.nextInt(10) == 0) {
-					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false, blocks == PAWERIA_CENTRE ? NORMAL : blocks);
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false, blocks == PAWERIA_CENTRE ? HERIA : blocks);
 				}
 			} else if (mindist < OUTSKIRTS_DIST) {
 				if (random.nextInt(27) == 0) {
-					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, true, blocks == PAWERIA_CENTRE ? NORMAL : blocks);
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, true, blocks == PAWERIA_CENTRE ? HERIA : blocks);
 				}
 			}
 		}
