@@ -52,6 +52,22 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 	public static int SUBURB_DIST = 127 * 127;
 	public static int RURAL_DIST = 180 * 180;
 	private static final int OUTSKIRTS_DIST = 320 * 320;
+	private static final TownBlocks NORMAL = new TownBlocks()
+			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
+			.walls(LintBlocks.MYSTICAL_PLANKS.getDefaultState(), LintBlocks.MYSTICAL_LOG.getDefaultState())
+			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
+
+	private static final TownBlocks AURIA = new TownBlocks()
+			.floor(Blocks.SMOOTH_STONE.getDefaultState())
+			.walls(Blocks.BRICKS.getDefaultState(), LintBlocks.CORRUPT_LOG.getDefaultState())
+			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
+
+	private static final TownBlocks PAWERIA_CENTRE = new TownBlocks()
+			.floor(LintBlocks.CORRUPT_PLANKS.getDefaultState())
+			.walls(LintBlocks.CORRUPT_PLANKS.getDefaultState(), LintBlocks.CORRUPT_LOG.getDefaultState())
+			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
+
+	private static final TownBlocks[] BLOCK_SETS = new TownBlocks[] {PAWERIA_CENTRE, NORMAL, AURIA, NORMAL};
 
 	public TownFeature() {
 		super(DefaultFeatureConfig.CODEC);
@@ -64,6 +80,8 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 			Vec2i closest = null;
 			int x = pos.getX();
 			int z = pos.getZ();
+			int blockSet = 0;
+			int i = 0;
 
 			for (Vec2i loc : ((TerrainChunkGenerator) chunkGenerator).getTownCentres()) {
 				int dist = loc.squaredDist(x, z);
@@ -71,26 +89,31 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				if (mindist > dist) {
 					mindist = dist;
 					closest = loc;
+					blockSet = i;
 				}
+				
+				++i;
 			}
+
+			TownBlocks blocks = BLOCK_SETS[blockSet];
 
 			if (mindist < DENSE_DIST) {
 				if (new ChunkPos(pos).equals(closest.chunkPos())) {
 					Features.RETURN_PORTAL.generate(world, random, pos, true);
 				} else {
-					this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random, false);
+					this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random, false, blocks);
 				}
 			} else if (mindist < SUBURB_DIST) {
 				if (random.nextInt(4) == 0) {
-					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false);
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false, blocks == PAWERIA_CENTRE ? NORMAL : blocks);
 				}
 			} else if (mindist < RURAL_DIST) {
 				if (random.nextInt(10) == 0) {
-					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false);
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, false, blocks == PAWERIA_CENTRE ? NORMAL : blocks);
 				}
 			} else if (mindist < OUTSKIRTS_DIST) {
 				if (random.nextInt(27) == 0) {
-					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, true);
+					this.generateHouse(world, pos.add(random.nextInt(16), 0, random.nextInt(16)), random, true, blocks == PAWERIA_CENTRE ? NORMAL : blocks);
 				}
 			}
 		}
@@ -98,7 +121,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 		return true;
 	}
 
-	private void generateHouse(StructureWorldAccess world, BlockPos start, Random random, boolean outskirts) {
+	private void generateHouse(StructureWorldAccess world, BlockPos start, Random random, boolean outskirts, TownBlocks blocks) {
 		int width = (random.nextInt(3) + 4) * 2 - 1;
 		int breadth = (random.nextInt(3) + 4) * 2 - 1;
 		int floor = world.getChunk(start).sampleHeightmap(Heightmap.Type.WORLD_SURFACE_WG, start.getX(), start.getZ());
@@ -136,12 +159,12 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 						if (corner) { // corners
 							for (int y = height; y < floor; ++y) {
 								pos.setY(y);
-								this.setBlockState(world, pos, LintBlocks.MYSTICAL_LOG.getDefaultState());
+								this.setBlockState(world, pos, blocks.log);
 							}
 						}
 
 						pos.setY(floor);
-						this.setBlockState(world, pos, LintBlocks.MYSTICAL_PLANKS.getDefaultState());
+						this.setBlockState(world, pos, blocks.floor);
 					}
 				}
 			}
@@ -177,7 +200,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 					if (corner) { // corners
 						for (int y = height; y < floor; ++y) {
 							pos.setY(y);
-							this.setBlockState(world, pos, LintBlocks.MYSTICAL_LOG.getDefaultState());
+							this.setBlockState(world, pos, blocks.log);
 						}
 					}
 				} else if (height < floor && !edge) {
@@ -190,7 +213,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				// floor
 				if (!edge || height < seaLevel) {
 					pos.setY(floor);
-					this.setBlockState(world, pos, LintBlocks.MYSTICAL_PLANKS.getDefaultState());
+					this.setBlockState(world, pos, blocks.floor);
 				}
 
 				// roof
@@ -207,7 +230,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 							if (yo == dist - 1) {
 								if (distX == distZ || (dxo == 0 && dzo == 0)) {
-									this.setBlockState(world, pos, Blocks.STONE_BRICK_SLAB.getDefaultState());
+									this.setBlockState(world, pos, blocks.roof_slab);
 								} else {
 									Direction direction = null;
 
@@ -223,16 +246,16 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 										direction = Direction.WEST;
 									}
 
-									this.setBlockState(world, pos, Blocks.STONE_BRICK_STAIRS.getDefaultState().with(StairsBlock.FACING, direction));
+									this.setBlockState(world, pos, blocks.roof_stair.with(StairsBlock.FACING, direction));
 								}
 							} else {
-								this.setBlockState(world, pos, Blocks.STONE_BRICKS.getDefaultState());
+								this.setBlockState(world, pos, blocks.roof);
 							}
 						}
 					}
 				} else if (!corner) {
 					pos.setY(floor + houseHeight - 1);
-					this.setBlockState(world, pos, Blocks.STONE_BRICKS.getDefaultState());
+					this.setBlockState(world, pos, blocks.roof);
 				}
 
 				// pillars
@@ -241,7 +264,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 					for (int yo = 0; yo < pillarHeight; ++yo) {
 						pos.setY(floor + yo);
-						this.setBlockState(world, pos, LintBlocks.MYSTICAL_LOG.getDefaultState());
+						this.setBlockState(world, pos, blocks.log);
 					}
 				}
 
@@ -249,7 +272,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				if (innerEdge) {
 					for (int yo = 1; yo < houseHeight; ++yo) {
 						pos.setY(floor + yo);
-						this.setBlockState(world, pos, LintBlocks.MYSTICAL_PLANKS.getDefaultState());
+						this.setBlockState(world, pos, blocks.walls);
 					}
 				}
 			}
@@ -301,5 +324,27 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 		y = floor + houseHeight - 1;
 		pos.set(x, y, z);
 		this.setBlockState(world, pos, Blocks.GLOWSTONE.getDefaultState());
+	}
+
+	private static class TownBlocks {
+		BlockState floor, walls, roof, roof_stair, roof_slab, log;
+		
+		public TownBlocks floor(BlockState floor) {
+			this.floor = floor;
+			return this;
+		}
+		
+		public TownBlocks walls(BlockState walls, BlockState log) {
+			this.walls = walls;
+			this.log = log;
+			return this;
+		}
+		
+		public TownBlocks roof(BlockState normal, BlockState stair, BlockState slab) {
+			this.roof = normal;
+			this.roof_stair = stair;
+			this.roof_slab = slab;
+			return this;
+		}
 	}
 }
