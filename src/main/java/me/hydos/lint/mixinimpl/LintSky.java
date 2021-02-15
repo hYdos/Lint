@@ -167,9 +167,9 @@ public class LintSky {
 	}
 
 	private static void renderFraiyaMoons(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float skyAngle, float r) {
-		final boolean debugTransit = true;
-		float iOrbitRate = 0.005f;
-		float cOrbitRate = 0.01f;
+		final boolean debugTransit = false;
+		float iOrbitRate = 0.01f;
+		float cOrbitRate = 0.03f;
 
 		if (debugTransit) {
 			iOrbitRate *= 100.0f;
@@ -206,7 +206,29 @@ public class LintSky {
 
 		matrices.pop();
 
+		// Cair
 		matrices.push();
+		
+		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(cairAngle));
+		skyObjectMatrix = matrices.peek().getModel();
+		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+
+		RenderSystem.color4f(1.0F, 0.8F, 0.8F, r);
+		size = 16.0F;
+		moonPhase = getMoonPhaseAndDirection(skyAngle, cairAngle);
+
+		texRight = (float)(moonPhase[0] + 0) / 4.0F;
+		texTop = (float) (moonPhase[1] + 0) / 2.0F;
+		texLeft = (float) (moonPhase[0] + 1) / 4.0F;
+		texBottom = (float) (moonPhase[1] + 1) / 2.0F;
+		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, size).texture(texLeft, texBottom).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(texLeft, texTop).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, -size).texture(texRight, texTop).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(texRight, texBottom).next();
+		bufferBuilder.end();
+		BufferRenderer.draw(bufferBuilder);
+
 		matrices.pop();
 	}
 
