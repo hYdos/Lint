@@ -97,18 +97,23 @@ public class LintSky {
 		}
 
 		RenderSystem.enableTexture();
-		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_COLOR, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.DST_ALPHA);
+		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+
 		matrices.push();
 		r = 1.0F;//- world.getRainGradient(tickDelta); LINT: rain bad
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, r);
 
 		// SUN
 		size = 22.0F;
+		float skyAngle = world.getSkyAngle(tickDelta) * 360.0F;
+
 		Matrix4f skyObjectMatrix = matrices.peek().getModel();
-		renderBinarySun(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, size, world.getSkyAngle(tickDelta) * 360.0F);
+		renderBinarySun(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, size, skyAngle);
+
+		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
 		RenderSystem.color4f(0.8F, 0.8F, 1.0F, r);
-		size = 16.0F;
+		size = 12.0F;
 		textureManager.bindTexture(MOON_PHASES);
 		int moonPhase = world.getMoonPhase();
 		int moonPhaseType = moonPhase % 4;
@@ -125,6 +130,7 @@ public class LintSky {
 		bufferBuilder.end();
 		BufferRenderer.draw(bufferBuilder);
 
+		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		RenderSystem.disableTexture();
 		float aa = world.method_23787(tickDelta) * r;
 		if (aa > 0.0F) {
