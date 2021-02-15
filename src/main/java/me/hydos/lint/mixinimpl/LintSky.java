@@ -97,7 +97,6 @@ public class LintSky {
 		}
 
 		RenderSystem.enableTexture();
-		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
 		matrices.push();
 		alpha = 1.0F - world.getRainGradient(tickDelta);
@@ -106,12 +105,14 @@ public class LintSky {
 		// SUN
 		size = 22.0F;
 		float skyAngle = world.getSkyAngle(tickDelta) * 360.0F;
-
 		Matrix4f skyObjectMatrix = matrices.peek().getModel();
-		renderBinarySun(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, size, skyAngle);
+
+		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		renderFraiyaMoons(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, skyAngle, alpha);
 
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+		renderBinarySun(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, size, skyAngle);
+
 		RenderSystem.disableTexture();
 		
 		// does this do rain or night? I am inclined to think the latter
@@ -157,7 +158,22 @@ public class LintSky {
 	}
 
 	private static void renderFraiyaMoons(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float skyAngle, float r) {
-		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+		final boolean debugTransit = false;
+		float iOrbitRate = 0.00005f;
+		float cOrbitRate = 0.0001f;
+		
+		if (debugTransit) {
+			iOrbitRate *= 100.0f;
+			cOrbitRate *= 100.0f;
+		}
+
+		float time = world.getTime();
+		float ieseAngle = time * iOrbitRate + 0.01f;
+		float cairAngle = time * cOrbitRate;
+
+		// Iese
+		matrices.push();
+		RenderSystem.blendFuncSeparate(ieseAngle < 90 || ieseAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
 		RenderSystem.color4f(0.8F, 0.8F, 1.0F, r);
 		float size = 12.0F;
@@ -176,10 +192,13 @@ public class LintSky {
 		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(p, o).next();
 		bufferBuilder.end();
 		BufferRenderer.draw(bufferBuilder);
+		matrices.pop();
+
+		matrices.push();
+		matrices.pop();
 	}
 
 	private static void renderBinarySun(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float size, float skyAngle) {
-		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
 
 		float[] data = new float[4];
