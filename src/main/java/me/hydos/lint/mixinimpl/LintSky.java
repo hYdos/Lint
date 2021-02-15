@@ -63,7 +63,7 @@ public class LintSky {
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		float[] fs = world.getSkyProperties().getFogColorOverride(world.getSkyAngle(tickDelta), tickDelta);
-		float r;
+		float alpha;
 		float size;
 		float o;
 		float p;
@@ -73,8 +73,8 @@ public class LintSky {
 			RenderSystem.shadeModel(7425);
 			matrices.push();
 			matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90.0F));
-			r = MathHelper.sin(world.getSkyAngleRadians(tickDelta)) < 0.0F ? 180.0F : 0.0F;
-			matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(r));
+			alpha = MathHelper.sin(world.getSkyAngleRadians(tickDelta)) < 0.0F ? 180.0F : 0.0F;
+			matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(alpha));
 			matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(90.0F));
 			float j = fs[0];
 			size = fs[1];
@@ -100,8 +100,8 @@ public class LintSky {
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
 		matrices.push();
-		r = 1.0F - world.getRainGradient(tickDelta);
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, r);
+		alpha = 1.0F - world.getRainGradient(tickDelta);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, alpha);
 
 		// SUN
 		size = 22.0F;
@@ -109,32 +109,15 @@ public class LintSky {
 
 		Matrix4f skyObjectMatrix = matrices.peek().getModel();
 		renderBinarySun(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, size, skyAngle);
-
-		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
-
-		RenderSystem.color4f(0.8F, 0.8F, 1.0F, r);
-		size = 12.0F;
-		textureManager.bindTexture(MOON_PHASES);
-		int moonPhase = world.getMoonPhase();
-		int moonPhaseType = moonPhase % 4;
-		int moonPhaseRotation = moonPhase / 4 % 2;
-		float w = (float) (moonPhaseType + 0) / 4.0F;
-		o = (float) (moonPhaseRotation + 0) / 2.0F;
-		p = (float) (moonPhaseType + 1) / 4.0F;
-		q = (float) (moonPhaseRotation + 1) / 2.0F;
-		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
-		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, size).texture(p, q).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(w, q).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, -size).texture(w, o).next();
-		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(p, o).next();
-		bufferBuilder.end();
-		BufferRenderer.draw(bufferBuilder);
+		renderFraiyaMoons(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, skyAngle, alpha);
 
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 		RenderSystem.disableTexture();
-		float aa = world.method_23787(tickDelta) * r;
-		if (aa > 0.0F) {
-			RenderSystem.color4f(aa, aa, aa, aa);
+		
+		// does this do rain or night? I am inclined to think the latter
+		float greyAlpha = world.method_23787(tickDelta) * alpha;
+		if (greyAlpha > 0.0F) {
+			RenderSystem.color4f(greyAlpha, greyAlpha, greyAlpha, greyAlpha);
 			starsBuffer.bind();
 			skyVertexFormat.startDrawing(0L);
 			starsBuffer.draw(matrices.peek().getModel(), 7);
@@ -171,6 +154,28 @@ public class LintSky {
 		RenderSystem.enableTexture();
 		RenderSystem.depthMask(true);
 		RenderSystem.disableFog();
+	}
+
+	private static void renderFraiyaMoons(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float skyAngle, float r) {
+		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+
+		RenderSystem.color4f(0.8F, 0.8F, 1.0F, r);
+		float size = 12.0F;
+		textureManager.bindTexture(MOON_PHASES);
+		int moonPhase = world.getMoonPhase();
+		int moonPhaseType = moonPhase % 4;
+		int moonPhaseRotation = moonPhase / 4 % 2;
+		float w = (float) (moonPhaseType + 0) / 4.0F;
+		float o = (float) (moonPhaseRotation + 0) / 2.0F;
+		float p = (float) (moonPhaseType + 1) / 4.0F;
+		float q = (float) (moonPhaseRotation + 1) / 2.0F;
+		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, size).texture(p, q).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(w, q).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, -size).texture(w, o).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(p, o).next();
+		bufferBuilder.end();
+		BufferRenderer.draw(bufferBuilder);
 	}
 
 	private static void renderBinarySun(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float size, float skyAngle) {
