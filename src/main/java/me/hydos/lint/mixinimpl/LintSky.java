@@ -65,7 +65,7 @@ public class LintSky {
 		float[] fs = world.getSkyProperties().getFogColorOverride(world.getSkyAngle(tickDelta), tickDelta);
 		float alpha;
 		float size;
-		float o;
+		float someMagicAngle;
 		float p;
 		float q;
 		if (fs != null) {
@@ -84,9 +84,9 @@ public class LintSky {
 			bufferBuilder.vertex(matrix4f, 0.0F, 100.0F, 0.0F).color(j, size, l, fs[3]).next();
 
 			for (int n = 0; n <= 16; ++n) {
-				o = (float) n * 6.2831855F / 16.0F;
-				p = MathHelper.sin(o);
-				q = MathHelper.cos(o);
+				someMagicAngle = (float) n * 6.2831855F / 16.0F;
+				p = MathHelper.sin(someMagicAngle);
+				q = MathHelper.cos(someMagicAngle);
 				bufferBuilder.vertex(matrix4f, p * 120.0F, q * 120.0F, -q * 40.0F * fs[3]).color(fs[0], fs[1], fs[2], 0.0F).next();
 			}
 
@@ -171,13 +171,16 @@ public class LintSky {
 		}
 
 		float time = world.getTime();
-		float ieseAngle = time * iOrbitRate + 0.01f;
-		float cairAngle = time * cOrbitRate;
+		float ieseAngle = (time * iOrbitRate + 0.01f) % 360.0f;
+		float cairAngle = (time * cOrbitRate) % 360.0f;
 
+		//System.out.println();
 		// Iese
 		matrices.push();
-		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
-		RenderSystem.blendFuncSeparate(ieseAngle < 90 || ieseAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90.0f));
+		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90.0f));
+		skyObjectMatrix = matrices.peek().getModel();
+		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
 		RenderSystem.color4f(0.8F, 0.8F, 1.0F, r);
 		float size = 12.0F;
@@ -185,15 +188,15 @@ public class LintSky {
 		int moonPhase = world.getMoonPhase();
 		int moonPhaseType = moonPhase % 4;
 		int moonPhaseRotation = moonPhase / 4 % 2;
-		float w = (float) (moonPhaseType + 0) / 4.0F;
-		float o = (float) (moonPhaseRotation + 0) / 2.0F;
-		float p = (float) (moonPhaseType + 1) / 4.0F;
-		float q = (float) (moonPhaseRotation + 1) / 2.0F;
+		float texRight = (float) (moonPhaseType + 0) / 4.0F;
+		float texTop = (float) (moonPhaseRotation + 0) / 2.0F;
+		float texLeft = (float) (moonPhaseType + 1) / 4.0F;
+		float texBottom = (float) (moonPhaseRotation + 1) / 2.0F;
 		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
-		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, size).texture(p, q).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(w, q).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, -size).texture(w, o).next();
-		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(p, o).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, size).texture(texLeft, texBottom).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(texRight, texBottom).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, -size).texture(texRight, texTop).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(texLeft, texTop).next();
 		bufferBuilder.end();
 		BufferRenderer.draw(bufferBuilder);
 
