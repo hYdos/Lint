@@ -167,18 +167,18 @@ public class LintSky {
 	}
 
 	private static void renderFraiyaMoons(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float skyAngle, float r) {
-		final boolean debugTransit = false;
+		final boolean debugTransit = true;
 		float iOrbitRate = 0.005f;
 		float cOrbitRate = 0.01f;
 
 		if (debugTransit) {
-			iOrbitRate *= 75.0f;
-			cOrbitRate *= 75.0f;
+			iOrbitRate *= 100.0f;
+			cOrbitRate *= 100.0f;
 		}
 
 		float time = world.getTime();
-		float ieseAngle = MathHelper.wrapDegrees((time * iOrbitRate + 10.0f));
-		float cairAngle = MathHelper.wrapDegrees((time * cOrbitRate));
+		float ieseAngle = MathHelper.wrapDegrees(time * iOrbitRate + 10.0f);
+		float cairAngle = MathHelper.wrapDegrees(time * cOrbitRate);
 
 		//System.out.println();
 		// Iese
@@ -213,7 +213,7 @@ public class LintSky {
 	private static int[] getMoonPhaseAndDirection(float skyAngle, float moonAngle) {
 		float diff = MathHelper.wrapDegrees(skyAngle - moonAngle);
 		float absDiff = MathHelper.abs(diff);
-		int moonPhaseType = 0; // 0/4 = full/new moon 1 = crescent... 3 = gibbous
+		int moonPhaseType = 0; // 0/4 = full/new moon. [Inverse] 1 = crescent... 3 = gibbous
 		int moonPhaseInverse = 0; // 0 = facing +ve rotation, 1 = facing -ve rotation.
 
 		if (absDiff >= 170) {
@@ -228,8 +228,9 @@ public class LintSky {
 				moonPhaseType = 3;
 			}
 
-			if (diff < 0) {
+			if (diff > 0) {
 				moonPhaseInverse = 1;
+				moonPhaseType = 4 - moonPhaseType;
 			}
 		}
 
