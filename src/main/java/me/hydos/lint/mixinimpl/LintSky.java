@@ -98,6 +98,8 @@ public class LintSky {
 
 		RenderSystem.enableTexture();
 
+		// SOLAR AND LUNAR STUFF
+
 		matrices.push();
 		alpha = 1.0F - world.getRainGradient(tickDelta);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, alpha);
@@ -160,8 +162,8 @@ public class LintSky {
 
 	private static void renderFraiyaMoons(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float skyAngle, float r) {
 		final boolean debugTransit = true;
-		float iOrbitRate = 0.5f;
-		float cOrbitRate = 1f;
+		float iOrbitRate = 0.005f;
+		float cOrbitRate = 0.01f;
 
 		if (debugTransit) {
 			iOrbitRate *= 100.0f;
@@ -174,7 +176,7 @@ public class LintSky {
 
 		// Iese
 		matrices.push();
-		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(ieseAngle));
+		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
 		RenderSystem.blendFuncSeparate(ieseAngle < 90 || ieseAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
 		RenderSystem.color4f(0.8F, 0.8F, 1.0F, r);
@@ -194,6 +196,7 @@ public class LintSky {
 		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(p, o).next();
 		bufferBuilder.end();
 		BufferRenderer.draw(bufferBuilder);
+
 		matrices.pop();
 
 		matrices.push();
