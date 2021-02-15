@@ -100,7 +100,7 @@ public class LintSky {
 		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
 		matrices.push();
-		r = 1.0F;//- world.getRainGradient(tickDelta); LINT: rain bad
+		r = 1.0F - world.getRainGradient(tickDelta);
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, r);
 
 		// SUN
