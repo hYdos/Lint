@@ -97,9 +97,9 @@ public class LintSky {
 		}
 
 		RenderSystem.enableTexture();
-		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
+		RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_COLOR, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.DST_ALPHA);
 		matrices.push();
-		r = 1.0F - world.getRainGradient(tickDelta);
+		r = 1.0F;//- world.getRainGradient(tickDelta); LINT: rain bad
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, r);
 
 		// SUN
