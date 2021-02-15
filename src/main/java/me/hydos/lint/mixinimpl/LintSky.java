@@ -21,10 +21,16 @@ package me.hydos.lint.mixinimpl;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import me.hydos.lint.Lint;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.BackgroundRenderer;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.BufferRenderer;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
@@ -161,42 +167,40 @@ public class LintSky {
 	}
 
 	private static void renderFraiyaMoons(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float skyAngle, float r) {
-		final boolean debugTransit = true;
+		final boolean debugTransit = false;
 		float iOrbitRate = 0.005f;
 		float cOrbitRate = 0.01f;
 
 		if (debugTransit) {
-			iOrbitRate *= 100.0f;
-			cOrbitRate *= 100.0f;
+			iOrbitRate *= 75.0f;
+			cOrbitRate *= 75.0f;
 		}
 
 		float time = world.getTime();
-		float ieseAngle = (time * iOrbitRate + 0.01f) % 360.0f;
-		float cairAngle = (time * cOrbitRate) % 360.0f;
+		float ieseAngle = MathHelper.wrapDegrees((time * iOrbitRate + 10.0f));
+		float cairAngle = MathHelper.wrapDegrees((time * cOrbitRate));
 
 		//System.out.println();
 		// Iese
 		matrices.push();
-		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90.0f));
-		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90.0f));
+		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(ieseAngle));
 		skyObjectMatrix = matrices.peek().getModel();
 		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
 		RenderSystem.color4f(0.8F, 0.8F, 1.0F, r);
-		float size = 12.0F;
+		float size = 10.0F;
 		textureManager.bindTexture(MOON_PHASES);
-		int moonPhase = world.getMoonPhase();
-		int moonPhaseType = moonPhase % 4;
-		int moonPhaseRotation = moonPhase / 4 % 2;
-		float texRight = (float) (moonPhaseType + 0) / 4.0F;
-		float texTop = (float) (moonPhaseRotation + 0) / 2.0F;
-		float texLeft = (float) (moonPhaseType + 1) / 4.0F;
-		float texBottom = (float) (moonPhaseRotation + 1) / 2.0F;
+		int[] moonPhase = getMoonPhaseAndDirection(skyAngle, ieseAngle);
+
+		float texRight = (float)(moonPhase[0] + 0) / 4.0F;
+		float texTop = (float) (moonPhase[1] + 0) / 2.0F;
+		float texLeft = (float) (moonPhase[0] + 1) / 4.0F;
+		float texBottom = (float) (moonPhase[1] + 1) / 2.0F;
 		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, size).texture(texLeft, texBottom).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(texRight, texBottom).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(texLeft, texTop).next();
 		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, -size).texture(texRight, texTop).next();
-		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(texLeft, texTop).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(texRight, texBottom).next();
 		bufferBuilder.end();
 		BufferRenderer.draw(bufferBuilder);
 
@@ -204,6 +208,32 @@ public class LintSky {
 
 		matrices.push();
 		matrices.pop();
+	}
+
+	private static int[] getMoonPhaseAndDirection(float skyAngle, float moonAngle) {
+		float diff = MathHelper.wrapDegrees(skyAngle - moonAngle);
+		float absDiff = MathHelper.abs(diff);
+		int moonPhaseType = 0; // 0/4 = full/new moon 1 = crescent... 3 = gibbous
+		int moonPhaseInverse = 0; // 0 = facing +ve rotation, 1 = facing -ve rotation.
+
+		if (absDiff >= 170) {
+			moonPhaseInverse = 1;
+		} else if (absDiff > 10) {
+			// I could use basic maths and properly divide the area into 3rds but I'm being lazy
+			if (absDiff < 62.5) {
+				moonPhaseType = 1;
+			} else if (absDiff < 117.5) {
+				moonPhaseType = 2;
+			} else {
+				moonPhaseType = 3;
+			}
+
+			if (diff < 0) {
+				moonPhaseInverse = 1;
+			}
+		}
+
+		return new int[] {moonPhaseType, moonPhaseInverse};
 	}
 
 	private static void renderBinarySun(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float size, float skyAngle) {
