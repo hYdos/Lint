@@ -45,6 +45,10 @@ public class NPCPathing implements Consumer<NPCHumanEntity> {
 		return this.addTask(HABIT, task);
 	}
 
+	public NPCPathing strongHabit(Task task) {
+		return this.addTask(STRONG_HABIT, task);
+	}
+
 	public NPCPathing order(Task task) {
 		return this.addTask(ORDER, task);
 	}
@@ -100,9 +104,10 @@ public class NPCPathing implements Consumer<NPCHumanEntity> {
 	}
 
 	private static final int SURVIVAL = 0; // survival things like running from enemies
-	private static final int HABIT = 1; // habitual things light going to bed at night
-	private static final int ORDER = 2; // law, orders from a boss, etc
-	private static final int WORK = 3; // work related things
-	private static final int FULFILMENT = 4; // things for physical/mental/social fulfilment, like meeting with friends and stuff
-	private static final int LEISURE = 5; // stuff for their own leisure, less important than fulfilling tasks.
+	private static final int STRONG_HABIT = 1; // survival things like running from enemies
+	private static final int HABIT = 2; // habitual things light going to bed at night
+	private static final int ORDER = 3; // law, orders from a boss, etc
+	private static final int WORK = 4; // work related things
+	private static final int FULFILMENT = 5; // things for physical/mental/social fulfilment, like meeting with friends and stuff
+	private static final int LEISURE = 6; // stuff for their own leisure, less important than fulfilling tasks.
 }

@@ -263,7 +263,7 @@ public class LintSky {
 		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
 
 		float[] data = new float[4];
-		final boolean debugTransit = true;
+		final boolean debugTransit = false;
 		final float orbitPeriod = debugTransit ? 0.01f : 0.00008f;
 		getRelativeAnglesAndDepths(data, world.getTime() * orbitPeriod);
 

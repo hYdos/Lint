@@ -32,7 +32,9 @@ public final class NPCs {
 				.survival(Task.FLEE_HOSTILE_ENEMIES)
 				.leisure(Task.SAUNTER_AROUND)
 				.leisure(Task.WALK_AROUND)
-				.when(Task.Predicate.NIGHT, pathing -> pathing.habit(Task.SEEK_LIGHT));
+				.when(Task.Predicate.NIGHT, pathing -> pathing
+						//.strongHabit(Task.SEEK_HOME)
+						.habit(Task.SEEK_LIGHT));
 	}
 
 	public static final NPC TEST = new NPC(new NPC.Settings()

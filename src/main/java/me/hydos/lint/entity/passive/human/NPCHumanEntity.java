@@ -58,7 +58,7 @@ public class NPCHumanEntity extends PathAwareEntity {
 		}
 	}
 
-	private Vec3d home = null;
+	private Vec3d home = Vec3d.ZERO;
 
 	// Speeds
 	// 1.5f = saunter
@@ -71,7 +71,10 @@ public class NPCHumanEntity extends PathAwareEntity {
 	@Override
 	public void refreshPositionAfterTeleport(Vec3d vec3d) {
 		super.refreshPositionAfterTeleport(vec3d);
-		this.home = vec3d;
+
+		if (this.home.equals(Vec3d.ZERO)) { // if unchanged
+			this.home = vec3d;
+		}
 	}
 
 	public GoalSelector getGoalSelector() {		
