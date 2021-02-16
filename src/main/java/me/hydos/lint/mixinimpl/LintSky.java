@@ -267,20 +267,15 @@ public class LintSky {
 		final float orbitPeriod = debugTransit ? 0.01f : 0.00008f;
 		getRelativeAnglesAndDepths(data, world.getTime() * orbitPeriod);
 
-		if (data[2] > data[3]) {
-			// ALPHA STAR
-			renderAlphaLint(matrices, size, textureManager, bufferBuilder, data);
-			renderBetaLint(matrices, size * 0.87f, textureManager, bufferBuilder, data);			
-		} else {
-			renderBetaLint(matrices, size * 0.87f, textureManager, bufferBuilder, data);			
-			renderAlphaLint(matrices, size, textureManager, bufferBuilder, data);
-		}
+		// ALPHA STAR
+		renderAlphaLint(matrices, size, textureManager, bufferBuilder, data);
 
 		// BETA STAR
 		// TODO hydos proper occlusion when big alpha star covers little beta star
 
-		//if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.07f) {
-		//}
+		if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.07f) {
+			renderBetaLint(matrices, size * 0.87f, textureManager, bufferBuilder, data);			
+		}
 	}
 
 	private static void renderAlphaLint(MatrixStack matrices, final float size, TextureManager textureManager, BufferBuilder bufferBuilder, final float[] data) {
