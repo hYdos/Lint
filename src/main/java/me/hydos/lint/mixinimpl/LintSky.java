@@ -177,8 +177,8 @@ public class LintSky {
 		}
 
 		float time = world.getTime();
-		float ieseAngle = MathHelper.wrapDegrees(time * iOrbitRate + 10.0f);
-		float cairAngle = MathHelper.wrapDegrees(time * cOrbitRate);
+		float ieseAngle = MathHelper.wrapDegrees(time * iOrbitRate + 10.0f + skyAngle);
+		float cairAngle = MathHelper.wrapDegrees(time * cOrbitRate + skyAngle);
 
 		//System.out.println();
 		// Iese
