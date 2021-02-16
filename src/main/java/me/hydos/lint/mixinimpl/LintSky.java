@@ -168,8 +168,8 @@ public class LintSky {
 
 	private static void renderFraiyaMoons(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float skyAngle, float r) {
 		final boolean debugTransit = false;
-		float iOrbitRate = 0.01f;
-		float cOrbitRate = 0.03f;
+		float iOrbitRate = 0.008f;
+		float cOrbitRate = 0.012f;
 
 		if (debugTransit) {
 			iOrbitRate *= 100.0f;
