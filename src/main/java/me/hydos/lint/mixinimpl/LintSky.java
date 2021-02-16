@@ -208,7 +208,7 @@ public class LintSky {
 
 		// Cair
 		matrices.push();
-		
+
 		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(cairAngle));
 		skyObjectMatrix = matrices.peek().getModel();
 		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
@@ -263,11 +263,27 @@ public class LintSky {
 		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
 
 		float[] data = new float[4];
-		final boolean debugTransit = false;
+		final boolean debugTransit = true;
 		final float orbitPeriod = debugTransit ? 0.01f : 0.00008f;
 		getRelativeAnglesAndDepths(data, world.getTime() * orbitPeriod);
 
-		// ALPHA STAR
+		if (data[2] > data[3]) {
+			// ALPHA STAR
+			renderAlphaLint(matrices, size, textureManager, bufferBuilder, data);
+			renderBetaLint(matrices, size * 0.87f, textureManager, bufferBuilder, data);			
+		} else {
+			renderBetaLint(matrices, size * 0.87f, textureManager, bufferBuilder, data);			
+			renderAlphaLint(matrices, size, textureManager, bufferBuilder, data);
+		}
+
+		// BETA STAR
+		// TODO hydos proper occlusion when big alpha star covers little beta star
+
+		//if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.07f) {
+		//}
+	}
+
+	private static void renderAlphaLint(MatrixStack matrices, final float size, TextureManager textureManager, BufferBuilder bufferBuilder, final float[] data) {
 		matrices.push();
 
 		matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[0]));
@@ -286,33 +302,29 @@ public class LintSky {
 		BufferRenderer.draw(bufferBuilder);
 
 		matrices.pop();
-
-		// BETA STAR
-		// TODO hydos proper occlusion when big alpha star covers little beta star
-
-		if (data[3] <= data[2] || Math.abs(data[0] - data[1]) > 0.07f) {
-			matrices.push();
-			size *= 0.87;
-
-			matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[1]));
-			matrices.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(data[1] / 2.0f));
-			vertY = data[3] / 2.0f;
-
-			Matrix4f betaMatrix = matrices.peek().getModel();
-
-			textureManager.bindTexture(BETA_LINT);
-			bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
-			bufferBuilder.vertex(betaMatrix, -size, vertY, -size).texture(0.0F, 0.0F).next();
-			bufferBuilder.vertex(betaMatrix, size, vertY, -size).texture(1.0F, 0.0F).next();
-			bufferBuilder.vertex(betaMatrix, size, vertY, size).texture(1.0F, 1.0F).next();
-			bufferBuilder.vertex(betaMatrix, -size, vertY, size).texture(0.0F, 1.0F).next();
-			bufferBuilder.end();
-			BufferRenderer.draw(bufferBuilder);
-
-			matrices.pop();
-		}
 	}
 
+	private static void renderBetaLint(MatrixStack matrices, final float size, TextureManager textureManager, BufferBuilder bufferBuilder, final float[] data) {
+		matrices.push();
+
+		matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[1]));
+		matrices.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(data[1] / 2.0f));
+		float vertY = data[3] / 2.0f;
+
+		Matrix4f betaMatrix = matrices.peek().getModel();
+
+		textureManager.bindTexture(BETA_LINT);
+		bufferBuilder.begin(7, VertexFormats.POSITION_TEXTURE);
+		bufferBuilder.vertex(betaMatrix, -size, vertY, -size).texture(0.0F, 0.0F).next();
+		bufferBuilder.vertex(betaMatrix, size, vertY, -size).texture(1.0F, 0.0F).next();
+		bufferBuilder.vertex(betaMatrix, size, vertY, size).texture(1.0F, 1.0F).next();
+		bufferBuilder.vertex(betaMatrix, -size, vertY, size).texture(0.0F, 1.0F).next();
+		bufferBuilder.end();
+		BufferRenderer.draw(bufferBuilder);
+
+		matrices.pop();
+
+	}
 	private static void getRelativeAnglesAndDepths(float[] result, float t) {
 		t = t % (2 * PI);
 		t = PI * MathHelper.sin((t - PI) * 0.5f);
