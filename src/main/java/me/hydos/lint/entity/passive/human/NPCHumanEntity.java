@@ -114,6 +114,7 @@ public class NPCHumanEntity extends PathAwareEntity {
 		home.putDouble("x", this.home.x);
 		home.putDouble("y", this.home.y);
 		home.putDouble("z", this.home.z);
+		tag.put("home", home);
 	}
 
 	@Override
