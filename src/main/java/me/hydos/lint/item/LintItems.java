@@ -71,6 +71,7 @@ public class LintItems {
 	 */
 	public static final Item DUSKBLADE = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1).rarity(Rarity.EPIC));
 	public static final Item ATTUNER = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1));
+	public static final Item QUESTBOOK = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 
 	public static void initialize() {
 		ItemGroups.register();
@@ -78,6 +79,7 @@ public class LintItems {
 		registerMaterialSets();
 		registerDiscs();
 		Registry.register(Registry.ITEM, Lint.id("duskblade"), DUSKBLADE);
+		registerGenerated("questbook", QUESTBOOK);
 		registerHandheld("attuner", ATTUNER);
 	}
 

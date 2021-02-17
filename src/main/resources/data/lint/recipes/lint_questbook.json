@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:ink_sac"
+    },
+    {
+      "item": "minecraft:feather"
+    },
+    {
+      "item": "lint:tarscan_shard"
+    },
+    {
+      "item": "minecraft:book"
+    }
+  ],
+  "result": {
+    "item": "lint:questbook",
+    "count": 1
+  }
+}

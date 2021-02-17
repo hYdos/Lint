@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "/"
+  ],
+  "key": {
+    "#": {
+      "item": "lint:tarscan_shard"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "minecraft:torch",
+    "count": 1
+  }
+}
