@@ -3,7 +3,7 @@
   "landing_text": "item.lint.guide_book.landing_text",
   "subtitle": "item.lint.guide_book.subtitle",
   "book_texture": "patchouli:textures/gui/book_purple.png",
-  "model": "patchouli:book_purple",
+  "model": "lint:guide_book",
   "dont_generate_book": true,
   "custom_book_item": "lint:guide_book",
   "show_progress": false,

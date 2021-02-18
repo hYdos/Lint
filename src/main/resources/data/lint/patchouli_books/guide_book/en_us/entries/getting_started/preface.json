@@ -1,0 +1,15 @@
+{
+  "category": "lint:getting_started",
+  "name": "Preface",
+  "sortnum": 0,
+  "icon": "minecraft:oak_log",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Before entering Fraiya and beginning your adventure, it is strongly recommended that you have the following items: $(br) - A Compass to find the world spawn$(br) - Iron tools and weapons$(br) - A Bed to skip the night$(br) - Torches, or any other light source$(br) - Essentials such as food"
+    },
+    {
+      "type": "empty"
+    }
+  ]
+}

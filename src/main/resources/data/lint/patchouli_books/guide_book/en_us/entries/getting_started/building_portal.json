@@ -1,0 +1,55 @@
+{
+  "category": "lint:getting_started",
+  "name": "Building a Portal",
+  "sortnum": 1,
+  "icon": "minecraft:coal_block",
+  "pages": [
+    {
+      "type": "text",
+      "text": "To create a portal to Fraiya you need sixteen blocks of coal and nine logs (any kind). You will also need Flint and Steel to ignite it, though in reality, you can use any source of fire.$(br2)Do not build a portal to Fraiya outside the Overworld. This will cause it to explode with a crater larger than that of a charged creeper's."
+    },
+    {
+      "type": "multiblock",
+      "enable_visualize": true,
+      "text": "How your portal should look (before ignition)",
+      "multiblock": {
+        "mapping": {
+          "C": "minecraft:coal_block",
+          "L": "#minecraft:logs"
+        },
+        "pattern": [
+          [
+            "CCCCC",
+            "C   C",
+            "C 0 C",
+            "C   C",
+            "CCCCC"
+          ],
+          [
+            "_____",
+            "_LLL_",
+            "_LLL_",
+            "_LLL_",
+            "_____"
+          ]
+        ],
+        "symmetrical": true
+      }
+    },
+    {
+      "type": "image",
+      "title": "Lit Portal",
+      "border": true,
+      "text": "To ignite your portal, simply set fire to one of the logs",
+      "images": [
+        "lint:textures/book/finished_portal.png"
+      ]
+    },
+    {
+      "type": "spotlight",
+      "item": "lint:yellow_daisy",
+      "title": " ",
+      "text": "You are now ready to enter Fraiya! Please carry all necessary items as you will be stuck in there for a while."
+    }
+  ]
+}

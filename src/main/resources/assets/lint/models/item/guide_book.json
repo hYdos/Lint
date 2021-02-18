@@ -1,4 +1,6 @@
 {
-  "parent": "patchouli:item/book_purple",
-  "_comment": "CHANGE THE MODEL"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "lint:item/guide_book"
+  }
 }

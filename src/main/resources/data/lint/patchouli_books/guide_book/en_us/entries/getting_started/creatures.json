@@ -1,0 +1,26 @@
+{
+  "category": "lint:getting_started",
+  "name": "Creatures",
+  "sortnum": 2,
+  "icon": "minecraft:iron_sword",
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "lint:ghost",
+      "text": "The creature which rules the dark"
+    },
+    {
+      "type": "text",
+      "text": "Ghosts are creatures which live in dark areas. They act similar to Vexes. They thrive in the dark and burn in sunlight. They tend to flee towards caves. Repelling them is as easy as lighting up the area."
+    },
+    {
+      "type": "entity",
+      "entity": "lint:crab",
+      "text": "Sharp creatures which live on beaches"
+    },
+    {
+      "type": "text",
+      "text": "Crabs are defensive creatures that reside on beaches. They dance when crab rave is being played."
+    }
+  ]
+}
