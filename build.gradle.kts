@@ -13,6 +13,11 @@ repositories {
 	}
 
 	maven {
+		name = "Jared Maven"
+		url = uri("https://maven.blamejared.com")
+	}
+
+	maven {
 		name = "Devan-Kerman/Devan-Repo"
 		url = uri("https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/")
 	}
@@ -27,6 +32,7 @@ dependencies {
 
 	include(modImplementation("net.devtech", "arrp", "0.3.2"))
 	include(modImplementation("curse.maven", "geckolib-fabric-398667", "3155712"))
+	include(modImplementation("vazkii.patchouli", "Patchouli", "1.16.2-44-FABRIC"))
 
 	modRuntime("me.shedaniel", "RoughlyEnoughItems", "5.8.10")
 	modRuntime("curse.maven", "worldedit-225608", "3135186")

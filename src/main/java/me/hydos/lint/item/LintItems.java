@@ -26,9 +26,17 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.item.materialset.MaterialSet;
 import me.hydos.lint.sound.Sounds;
+import vazkii.patchouli.api.PatchouliAPI;
+
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Rarity;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 
 public class LintItems {
 
@@ -72,6 +80,16 @@ public class LintItems {
 	public static final Item DUSKBLADE = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1).rarity(Rarity.EPIC));
 	public static final Item ATTUNER = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1));
 	public static final Item QUESTBOOK = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
+	public static final Item GUIDE_BOOK = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.UNCOMMON).fireproof()) {
+		@Override
+		public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+			if (!world.isClient && user instanceof ServerPlayerEntity) {
+				PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) user, Lint.id("guide_book"));
+				return TypedActionResult.success(user.getStackInHand(hand));
+			}
+			return TypedActionResult.consume(user.getStackInHand(hand));
+		}
+	};
 
 	public static void initialize() {
 		ItemGroups.register();
@@ -79,6 +97,7 @@ public class LintItems {
 		registerMaterialSets();
 		registerDiscs();
 		Registry.register(Registry.ITEM, Lint.id("duskblade"), DUSKBLADE);
+		Registry.register(Registry.ITEM, Lint.id("guide_book"), GUIDE_BOOK);
 		registerGenerated("questbook", QUESTBOOK);
 		registerHandheld("attuner", ATTUNER);
 	}
