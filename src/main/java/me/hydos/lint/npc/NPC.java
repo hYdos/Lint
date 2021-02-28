@@ -19,10 +19,13 @@
 
 package me.hydos.lint.npc;
 
+import java.util.Optional;
+
 import org.jetbrains.annotations.Nullable;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.npc.ai.NPCPathing;
+import me.hydos.lint.npc.quest.Quest;
 import net.minecraft.util.Identifier;
 
 /**
@@ -33,10 +36,12 @@ public class NPC {
 		this.name = settings.name;
 		this.texture = new Identifier(settings.texture.getNamespace(), "textures/npc/" + settings.texture.getPath() + ".png");
 		this.pathing = settings.pathing;
+		this.quest = settings.quest;
 	}
 
 	private final String name;
 	private final Identifier texture;
+	private final Optional<Quest> quest;
 
 	@Nullable
 	private final NPCPathing pathing;
@@ -54,10 +59,15 @@ public class NPC {
 		return this.pathing;
 	}
 
+	public Optional<Quest> getQuest() {
+		return this.quest;
+	}
+
 	public static class Settings {
 		private String name = "Missingno";
 		private Identifier texture = TEXTURE_MISSINGNO;
 		private NPCPathing pathing;
+		private Optional<Quest> quest = Optional.empty();
 
 		public Settings name(String name) {
 			this.name = name;
@@ -71,6 +81,11 @@ public class NPC {
 
 		public Settings pathing(NPCPathing pathing) {
 			this.pathing = pathing;
+			return this;
+		}
+
+		public Settings quest(Quest quest) {
+			this.quest = Optional.of(quest);
 			return this;
 		}
 
