@@ -57,7 +57,7 @@ public class LintSoundManager {
 	private static Optional<SoundEvent> next = Optional.empty();
 
 	public static boolean isPlayingRecordMusic(ClientPlayerEntity player, SoundManager soundManager, WorldRenderer worldRenderer) {
-		Box box = player.getBoundingBox().expand(6.0);
+		Box box = player.getBoundingBox().expand(55.0);
 		return worldRenderer.playingSongs.entrySet().stream().anyMatch(entry -> box.contains(entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ()) && soundManager.isPlaying(entry.getValue()));
 	}
 
