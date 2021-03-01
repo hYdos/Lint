@@ -26,7 +26,12 @@
   "music.mystical_forest": {
     "subtitle": "subtitles.mystical_forest",
     "sounds": [
-      "lint:mystical_forest",
+      "lint:mystical_forest"
+    ]
+  },
+  "music.ethereal_groves_of_fraiya": {
+    "subtitle": "subtitles.ethereal_groves_of_fraiya",
+    "sounds": [
       "lint:ethereal_groves_of_fraiya"
     ]
   },
@@ -52,6 +57,12 @@
     "subtitle": "subtitles.grimace",
     "sounds": [
       "lint:grimace"
+    ]
+  },
+  "music.grimace_violins": {
+    "subtitle": "subtitles.grimace_violins",
+    "sounds": [
+      "lint:grimace_violins"
     ]
   },
   "music.heria_and_the_town_of_hope": {
@@ -82,6 +93,12 @@
     "subtitle": "subtitles.caverns",
     "sounds": [
       "lint:caverns"
+    ]
+  },
+  "music.frozen_forest": {
+    "subtitle": "subtitles.frozen_forest",
+    "sounds": [
+      "lint:frozen_forest"
     ]
   },
   "player.advancement": {

@@ -40,15 +40,19 @@ public abstract class Quest {
 	private final Identifier id;
 	private final QuestCategory category;
 
+	public final Identifier getId() {
+		return this.id;
+	}
+
 	public final QuestCategory getCategory() {
 		return this.category;
 	}
 
-	public final Text getTitle() {
+	public Text getTitle() {
 		return new TranslatableText(this.title);
 	}
 
-	public final Text getDescription() {
+	public Text getDescription() {
 		return new TranslatableText(this.description);
 	}
 

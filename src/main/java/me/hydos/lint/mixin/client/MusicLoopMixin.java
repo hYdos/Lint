@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import me.hydos.lint.mixinimpl.LintSoundManager;
+import me.hydos.lint.sound.LintSoundManager;
 import net.minecraft.client.sound.AbstractSoundInstance;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.sound.SoundCategory;
