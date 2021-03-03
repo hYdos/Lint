@@ -62,7 +62,8 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	};
 	public static final Block LIVELY_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
 	};
-	public static final Block FROSTED_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_PATH));
+	public static final Block FROSTED_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
+	};
 
 	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
 			new FarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)) {
