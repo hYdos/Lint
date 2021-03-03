@@ -29,9 +29,17 @@ import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.ConfiguredFeatures;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
+import net.minecraft.world.gen.foliage.SpruceFoliagePlacer;
 import net.minecraft.world.gen.placer.DoublePlantPlacer;
 import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
@@ -59,9 +67,17 @@ public class Features {
 			new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
 			new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 			new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build()));
+	
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+			new SimpleBlockStateProvider(LintBlocks.FROZEN_LEAVES.getDefaultState()),
+			new SpruceFoliagePlacer(UniformIntDistribution.of(2, 1), UniformIntDistribution.of(0, 2), UniformIntDistribution.of(1, 1)),
+			new LintTrunkPlacer(4, 2, 1), new TwoLayersFeatureSize(2, 0, 1)).ignoreVines().build()));
 
 	public static final ConfiguredFeature<?, ?> MYSTICAL_TREES = register("mystical_trees", MYSTICAL_TREE
 			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(3, 0.3F, 1))));
+
+	public static final ConfiguredFeature<?, ?> FROZEN_TREES = register("frozen_trees", FROZEN_TREE
+			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.3F, 1))));
 
 	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", TREE.configure((
 			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
@@ -189,7 +205,7 @@ public class Features {
 					new DoublePlantPlacer()))
 					.tries(8).build();
 			MYSTICAL_GRASS_CONFIG = (new RandomPatchFeatureConfig.Builder(
-					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_GRASS.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_GRASS_PLANT.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE))
 					.tries(16).build();
 			CORRUPT_STEM_CONFIG = (new RandomPatchFeatureConfig.Builder(

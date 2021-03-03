@@ -53,6 +53,7 @@ public class Biomes {
 	 */
 	public static final int MYSTICAL_FOG_COLOUR = 0x8cfff5;
 	public static final int CORRUPT_FOG_COLOUR = 0x916ec1;
+	public static final int FROZEN_FOG_COLOUR = 0xdbfffc;
 	public static final int CAVERN_FOG_COLOUR = 0x7f7f7f;
 	public static final int DAWN_FOG_COLOUR = 0xe5c14b;
 
@@ -94,6 +95,7 @@ public class Biomes {
 	public static final RegistryKey<Biome> INDIGO_RIDGES_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("indigo_ridges"));
 	public static final RegistryKey<Biome> DAWN_SHARDLANDS_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands"));
 	public static final RegistryKey<Biome> DAWN_SHARDLANDS_EDGE_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands_edge"));
+	public static final RegistryKey<Biome> ETHEREAL_WOODLAND_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ethereal_woodland"));
 
 	public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(
@@ -165,6 +167,48 @@ public class Biomes {
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_GRASS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.GENERIC_BLUE_FLOWERS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_STEMS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.TATERBANES)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.SPEARMINTS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WATERMINTS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.DILLS)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
+					.build())
+			.build();
+
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> FF_SB = SurfaceBuilder.DEFAULT.withConfig(
+			new TernarySurfaceConfig(LintBlocks.FROSTED_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
+
+	public static final Biome ETHEREAL_WOODLAND = new Biome.Builder()
+			.precipitation(Biome.Precipitation.NONE)
+			.category(Biome.Category.FOREST)
+			.depth(0.125f)
+			.scale(1)
+			.temperature(-1.0f)
+			.downfall(0)
+			.effects(new BiomeEffects.Builder()
+					.waterColor(0x32e686)
+					.waterFogColor(0x32e686)
+					.fogColor(FROZEN_FOG_COLOUR)
+					.loopSound(Sounds.FROZEN_FOREST)
+					.skyColor(0xcdf0f4)
+					.build())
+			.spawnSettings(FOREST_SPAWN_SETTINGS.build())
+			.generationSettings(new GenerationSettings.Builder()
+					.surfaceBuilder(FF_SB)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
+					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, Features.CONFIGURED_FADING_ASH)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_TOWN)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.FROZEN_TREES)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_GRASS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_STEMS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.TATERBANES)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.SPEARMINTS)
@@ -401,6 +445,7 @@ public class Biomes {
 		registerBiome(INDIGO_RIDGES_KEY, INDIGO_RIDGES);
 		registerBiome(DAWN_SHARDLANDS_KEY, DAWN_SHARDLANDS);
 		registerBiome(DAWN_SHARDLANDS_EDGE_KEY, DAWN_SHARDLANDS_EDGE);
+		registerBiome(ETHEREAL_WOODLAND_KEY, ETHEREAL_WOODLAND);
 	}
 
 	private static void registerBiome(RegistryKey<Biome> key, Biome biome) {

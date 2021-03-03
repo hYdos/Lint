@@ -88,6 +88,12 @@ public class FraiyaBiomeGenerator extends BiomeGenerator {
 			}
 		}
 
+		int z_ = z + 6000;
+
+		if (z_ * z_ + x * x < 5000 * 5000) {
+			return this.biomeRegistry.get(Biomes.ETHEREAL_WOODLAND_KEY);
+		}
+
 		double scale = this.terrainData.sampleTerrainScale(x, z);
 		Biome result = (scale > 40.0 ? this.mountainSampler : this.genericSampler).sample(this.biomeRegistry, biomeX, biomeZ);
 

@@ -62,7 +62,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	};
 	public static final Block LIVELY_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
 	};
-	public static final Block WASTELAND_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_PATH));
+	public static final Block FROSTED_GRASS = new Block(FabricBlockSettings.copy(Blocks.GRASS_PATH));
 
 	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
 			new FarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)) {
@@ -243,6 +243,13 @@ public final class LintBlocks extends LintAutoDataRegistry {
 					.breakByTool(FabricToolTags.HOES, 0)),
 			ItemGroups.BLOCKS);
 
+	public static final Block FROZEN_LEAVES = registerCubeAll(
+			"frozen_leaves",
+			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_LEAVES)
+					.materialColor(MaterialColor.WHITE)
+					.breakByTool(FabricToolTags.HOES, 0)),
+			ItemGroups.BLOCKS);
+
 	public static final Block MYSTICAL_SAND = registerCubeAll(
 			"mystical_sand",
 			new FallingBlock(SAND_SETTINGS
@@ -367,7 +374,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
 	public static final Block MYSTICAL_LOG = createLog(MaterialColor.DIAMOND, MaterialColor.DIAMOND);
-	public static final FlowerBlock MYSTICAL_GRASS = new LintFlowerBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
+	public static final FlowerBlock MYSTICAL_GRASS_PLANT = new LintFlowerBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
@@ -409,7 +416,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static void registerDecorations() {
 		registerCrossPlant(CORRUPT_STEM, "corrupt_stem");
 		registerCrossPlant(WILTED_FLOWER, "wilted_flower");
-		registerCrossPlant(MYSTICAL_GRASS, "mystical_grass");
+		registerCrossPlant(MYSTICAL_GRASS_PLANT, "mystical_grass");
 		registerCrossPlant(MYSTICAL_STEM, "mystical_stem");
 		registerCrossPlant(MYSTICAL_DAISY, "yellow_daisy");
 		registerCrossPlant(SPEARMINT, "spearmint");
@@ -434,7 +441,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 
 		registerBlock(ItemGroups.BLOCKS, CORRUPT_GRASS, "corrupt_grass");
 		registerBlock(ItemGroups.BLOCKS, LIVELY_GRASS, "lively_grass");
-		registerBlock(ItemGroups.BLOCKS, WASTELAND_GRASS, "frosted_grass");
+		registerBlock(ItemGroups.BLOCKS, FROSTED_GRASS, "frosted_grass");
 
 		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
 
