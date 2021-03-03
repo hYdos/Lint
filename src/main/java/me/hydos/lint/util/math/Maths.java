@@ -65,7 +65,7 @@ public class Maths {
 			// Want an equal experience for all players, so control it directly.
 			if (aBiome == Biomes.CORRUPT_FOREST_KEY) {
 				distChunks = 3f;
-			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY || aBiome == Biomes.INDIGO_RIDGES_KEY) {
+			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY || aBiome == Biomes.INDIGO_RIDGES_KEY || aBiome == Biomes.ETHEREAL_WOODLAND_KEY) {
 				distChunks = 0.5f * (3f + 9.2f);
 			} else if (aBiome == Biomes.MYSTICAL_GROVE_KEY || aBiome == Biomes.DAWN_SHARDLANDS_KEY) {
 				distChunks = 9.2f;
