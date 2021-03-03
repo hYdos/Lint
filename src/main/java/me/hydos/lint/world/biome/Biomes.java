@@ -137,6 +137,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
@@ -175,6 +176,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
@@ -192,8 +194,8 @@ public class Biomes {
 			.temperature(-1.0f)
 			.downfall(0)
 			.effects(new BiomeEffects.Builder()
-					.waterColor(0x32e686)
-					.waterFogColor(0x32e686)
+					.waterColor(0xa4fcef)
+					.waterFogColor(0xd5f2ed)
 					.fogColor(FROZEN_FOG_COLOUR)
 					.loopSound(Sounds.FROZEN_FOREST)
 					.skyColor(0xcdf0f4)
@@ -217,6 +219,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
@@ -259,6 +262,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build()
 			).build();
@@ -300,6 +304,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.WARM_OCEAN_VEGETATION)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.SEAGRASS_WARM)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.KELP_COLD)
+					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
@@ -335,6 +340,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build())
 			.build();
@@ -349,7 +355,7 @@ public class Biomes {
 			.category(Biome.Category.EXTREME_HILLS)
 			.depth(1.5f)
 			.scale(0.5f)
-			.temperature(0.6f)
+			.temperature(0.8f)
 			.downfall(1)
 			.effects(new BiomeEffects.Builder()
 					.waterColor(0x3f76e4)
@@ -371,6 +377,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
+					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
 					.build())
 			.build();
 
@@ -426,6 +433,7 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(DSE_SB)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
+					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
 					.build())
 			.build();
 
