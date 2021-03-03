@@ -85,7 +85,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 	private static boolean isDirtOrGrass(TestableWorld world, BlockPos pos) {
 		return world.testBlockState(pos, (state) -> {
 			Block block = state.getBlock();
-			return block == LintBlocks.CORRUPT_GRASS || block == LintBlocks.LIVELY_GRASS;
+			return block == LintBlocks.CORRUPT_GRASS || block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
 		});
 	}
 
