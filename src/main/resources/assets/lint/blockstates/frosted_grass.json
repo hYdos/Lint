@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "lint:block/frosted_grass"
+      },
+      {
+        "model": "lint:block/frosted_grass_mirrored"
+      },
+      {
+        "model": "lint:block/frosted_grass",
+        "y": 180
+      },
+      {
+        "model": "lint:block/frosted_grass_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

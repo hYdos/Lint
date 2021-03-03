@@ -88,7 +88,7 @@ public class FraiyaBiomeGenerator extends BiomeGenerator {
 			}
 		}
 
-		int z_ = z + 6000;
+		int z_ = z + 6200;
 
 		if (z_ * z_ + x * x < 5000 * 5000) {
 			return this.biomeRegistry.get(Biomes.ETHEREAL_WOODLAND_KEY);
