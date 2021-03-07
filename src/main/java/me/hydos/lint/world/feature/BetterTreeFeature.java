@@ -19,14 +19,19 @@
 
 package me.hydos.lint.world.feature;
 
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.OptionalInt;
+import java.util.Random;
+import java.util.Set;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import me.hydos.lint.block.DirtLikeBlock;
-import me.hydos.lint.block.LintBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.state.property.Properties;
@@ -38,7 +43,12 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.shape.BitSetVoxelSet;
 import net.minecraft.util.shape.VoxelSet;
-import net.minecraft.world.*;
+import net.minecraft.world.Heightmap;
+import net.minecraft.world.ModifiableTestableWorld;
+import net.minecraft.world.ModifiableWorld;
+import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.TestableWorld;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -47,8 +57,6 @@ import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.tree.TreeDecorator;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
-
-import java.util.*;
 
 public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 
