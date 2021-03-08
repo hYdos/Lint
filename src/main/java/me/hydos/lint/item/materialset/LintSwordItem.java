@@ -46,10 +46,6 @@ import java.util.Locale;
 import java.util.Random;
 
 public class LintSwordItem extends SwordItem implements Enhanceable {
-	// Nice simple constants for where this shit works nicely: basically the proportions for if the ability is featured multiple times.
-	// However if the ability is only featured once these aren't really necessary
-	public static final double MAJOR_CONSTANT = 1.0;
-	public static final double MINOR_CONSTANT = 0.5;
 	private final float attackSpeed;
 
 	/*@Override
@@ -149,30 +145,22 @@ public class LintSwordItem extends SwordItem implements Enhanceable {
 			stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", this.getAttackDamage(), EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 		}
 
-		// I, valoeghese, will write this
-		// Major powers have MAJOR, MINOR and SPECIAL enhancements (which all increase in proficiency as you level up)
-		// Minor powers have only their MAJOR enhancements and a SPECIAL once you reach the max level.
-		// More difficult to get stuff for major powers.
 		switch (power) {
 			// Major Powers. Can have one up to level 12.
-			case ALLOS: // Sword Enhancements: Attack Speed (MAJOR), Damage (MINOR), Radiant (SPECIAL)
-				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", MAJOR_CONSTANT * 0.5 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
-				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
+			case ALLOS: // Sword Enhancements: Attack Speed (MAJOR), Radiant (SPECIAL)
+				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier("Weapon modifier", 0.5 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
-			case MANOS: // Sword Enhancements: Toxin (MAJOR), Damage (MINOR), Life_Steal (SPECIAL) TODO make nausea have an actual useful effect on lint bosses
-				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", MINOR_CONSTANT * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
-				break;
-			// Minor Powers. Can have two up to level 12 each, with a total level cap of 12.
-			case THERIA: // Cariar of Mind:		Swiftness_Boost (MAJOR), Paralysis - (can't hit or move) (SPECIAL)
+			case THERIA: // Cariar of Mind: Swiftness_Boost (MAJOR), Paralysis - (can't hit or move) (SPECIAL)
 				double multiplier = LintEnhancements.getEnhancement(stack, power) < 6.0 ? 0.011 : 0.008;
-
 				stack.addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier("Weapon modifier", multiplier * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
-			case AURIA: // Carien of War:		Damage (MAJOR), Perfect Defense (SPECIAL)
+			case AURIA: // Carien of War: Damage (MAJOR), Perfect Defense (SPECIAL)
+				stack.addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier("Weapon modifier", 0.5 * increaseAmount, EntityAttributeModifier.Operation.ADDITION), EquipmentSlot.MAINHAND);
 				break;
-			case PAWERIA: // Cariar of Order:	Inflict_Weakness (MAJOR) -> chance to inflict weakness. Burst - (on damage taken, you have a chance to halve that damage and let out a burst of energy - you glow for a bit when this happens) (SPECIAL)
-				break;
-			case HERIA: // Carien of Emotion:	Passive Regeneration (MAJOR) -> natural regen treats hunger value as higher? or some other mechanism, Adrenaline (SPECIAL) - (the first time you take damage, you gain a surge of strength, regen, and swiftenss - resets 10 mins after)
+			// These three are not stat increases
+			case MANOS: // Sword Enhancements: Toxin (MAJOR), Life_Steal (SPECIAL) TODO make nausea have an actual useful effect on lint bosses
+			case PAWERIA: // Cariar of Order: Inflict_Weakness (MAJOR) -> chance to inflict weakness. Burst - (on damage taken, you have a chance to halve that damage and let out a burst of energy - you glow for a bit when this happens) (SPECIAL)
+			case HERIA: // Carien of Emotion: Passive Regeneration (MAJOR) -> natural regen treats hunger value as higher? or some other mechanism, Adrenaline (SPECIAL) - (the first time you take damage, you gain a surge of strength, regen, and swiftenss - resets 10 mins after)
 				break;
 			default:
 				break;
