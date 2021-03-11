@@ -37,4 +37,9 @@ public class DirtLikeBlock extends Block {
 		Block block = state.getBlock();
 		return block == LintBlocks.CORRUPT_GRASS || block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
 	}
+	
+	public static boolean isUntaintedGrass(BlockState state) {
+		Block block = state.getBlock();
+		return block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
+	}
 }
