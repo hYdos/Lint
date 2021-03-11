@@ -22,11 +22,15 @@ package me.hydos.lint.world.feature;
 import java.util.Random;
 
 import me.hydos.lint.block.DirtLikeBlock;
+import me.hydos.lint.block.LintBlocks;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.TreeFeature;
 
 public class CanopyTreeFeature extends Feature<DefaultFeatureConfig> {
 	public CanopyTreeFeature(DefaultFeatureConfig config) {
@@ -42,17 +46,46 @@ public class CanopyTreeFeature extends Feature<DefaultFeatureConfig> {
 
 		if (DirtLikeBlock.isUntaintedGrass(world.getBlockState(start.down()))) {
 			int trunkHeight = 10 + random.nextInt(10);
-			int trueHeight = trunkHeight + 3;
+			int trueHeight = trunkHeight + 3; // 3 blocks above trunk height
 
-			if (startY + trunkHeight < world.getHeight()) {
+			if (startY + trueHeight < world.getHeight()) {
 				for (int y = 0; y < trunkHeight; ++y) {
 					pos.setY(startY + y);
 
-					if (world.testBlockState(pos, )) {
-						
+					if (!TreeFeature.canTreeReplace(world, pos)) {
+						return false;
 					}
 				}
+
+				// 1. Canopy Leaves
+				for (int dy = -4; dy < 0; ++dy) {
+					float r = 1 - dy + 0.15f * dy * dy; // radius
+					int max = MathHelper.ceil(r);
+					pos.setY(startY + trueHeight + dy);
+
+					for (int dx = -max; dx <= max; ++dx) {
+						for (int dz = -max; dz <= max; ++dz) {
+							if (dx * dx + dz * dz <= r) {
+								pos.setX(startX + dx);
+								pos.setZ(startZ + dz);
+
+								if (TreeFeature.canReplace(world, pos)) {
+									this.setBlockState(world, pos, LEAVES);
+								}
+							}
+						}
+					}
+				}
+
+				// 2. Branches
+
+				// 3. Trunk
 			}
 		}
+
+		return false;
 	}
+
+	public static final BlockState LEAVES = LintBlocks.CANOPY_LEAVES.getDefaultState();
+	public static final BlockState LOG = LintBlocks.MYSTICAL_LOG.getDefaultState();
 }

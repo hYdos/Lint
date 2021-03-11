@@ -244,6 +244,13 @@ public final class LintBlocks extends LintAutoDataRegistry {
 					.breakByTool(FabricToolTags.HOES, 0)),
 			ItemGroups.BLOCKS);
 
+	public static final Block CANOPY_LEAVES = registerCubeAll(
+			"canopy_leaves",
+			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
+					.materialColor(MaterialColor.DIAMOND)
+					.breakByTool(FabricToolTags.HOES, 0)),
+			ItemGroups.BLOCKS);
+
 	public static final Block FROZEN_LEAVES = registerCubeAll(
 			"frozen_leaves",
 			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_LEAVES)
@@ -411,6 +418,8 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		fire.callRegisterFlammableBlock(MYSTICAL_SLAB, 5, 20);
 		fire.callRegisterFlammableBlock(CORRUPT_SLAB, 5, 20);
 		fire.callRegisterFlammableBlock(MYSTICAL_LEAVES, 30, 60);
+		fire.callRegisterFlammableBlock(CANOPY_LEAVES, 30, 60);
+		fire.callRegisterFlammableBlock(FROZEN_LEAVES, 30, 60);
 		fire.callRegisterFlammableBlock(CORRUPT_LEAVES, 30, 60);
 	}
 
