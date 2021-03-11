@@ -105,6 +105,7 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerBlockRendererLayers() {
+		// TODO automate this in our registry system
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CORRUPT_STEM, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.WILTED_FLOWER, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_GRASS_PLANT, RenderLayer.getCutoutMipped());
