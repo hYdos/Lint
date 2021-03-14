@@ -39,6 +39,7 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.RandomFeatureConfig;
 import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
+import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.BlobFoliagePlacer;
@@ -91,11 +92,18 @@ public class Features {
 			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.3F, 1))));
 
 	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", Feature.RANDOM_SELECTOR.configure(
-			new RandomFeatureConfig(ImmutableList.of(CANOPY_TREE.configure(FeatureConfig.DEFAULT).withChance(0.15f)), TALL_MYSTICAL_TREE))
+			new RandomFeatureConfig(ImmutableList.of(CANOPY_TREE.configure(FeatureConfig.DEFAULT).withChance(0.15f), MYSTICAL_TREE.withChance(0.33f)), TALL_MYSTICAL_TREE))
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(18, 0.3F, 1))));
 
-	// TODO mystical field? or apply the changes I considered doing to the grove or forest?
-	
+	public static final ConfiguredFeature<?, ?> MYSTICAL_ROCKS = register("mystical_rocks", Feature.RANDOM_SELECTOR.configure(
+			new RandomFeatureConfig(
+					ImmutableList.of(
+							Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.MAGNETITE_DEPOSIT.getDefaultState())).withChance(0.03f)
+							),
+					Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.FUSED_STONE.getDefaultState()))
+					))
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP.repeatRandomly(4).applyChance(3))
+			 );
 	/**
 	 * ORES
 	 */
@@ -136,23 +144,22 @@ public class Features {
 	/**
 	 * PATCHY FEATURES
 	 **/
-	public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS = register("mystical_flowers", Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_DAISY_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
-	public static final ConfiguredFeature<?, ?> MYSTICAL_STEMS = register("mystical_stems", Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_STEM_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(5));
-	public static final ConfiguredFeature<?, ?> GENERIC_BLUE_FLOWERS = register("generic_blue_flowers", Feature.RANDOM_PATCH.configure(Configs.GENERIC_BLUE_FLOWERS_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(1));
-	public static final ConfiguredFeature<?, ?> MYSTICAL_GRASS = register("mystical_grass", Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_GRASS_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
-	public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = register("corrupt_stems", Feature.RANDOM_PATCH.configure(Configs.CORRUPT_STEM_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
-	public static final ConfiguredFeature<?, ?> WILTED_FLOWERS = register("wilted_flowers", Feature.RANDOM_PATCH.configure(Configs.WILTED_FLOWER_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+	private static ConfiguredFeature<?, ?> registerPatch(String id, RandomPatchFeatureConfig config, int count) {
+		return register(id, Feature.RANDOM_PATCH.configure(config).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(count));
+	}
 
-	public static final ConfiguredFeature<?, ?> CORRUPT_FALLEN_LEAVES = register("corrupt_fallen_leaves", Feature.RANDOM_PATCH.configure(Configs.CORRUPT_FALLEN_LEAVES)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
-	public static final ConfiguredFeature<?, ?> MYSTICAL_FALLEN_LEAVES = register("mystical_fallen_leaves", Feature.RANDOM_PATCH.configure(Configs.MYSTICAL_FALLEN_LEAVES)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(3));
+	private static ConfiguredFeature<?, ?> registerChancePatch(String id, RandomPatchFeatureConfig config, int count) {
+		return register(id, Feature.RANDOM_PATCH.configure(config).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(count));
+	}
+
+	public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS = registerPatch("mystical_flowers", Configs.MYSTICAL_DAISY_CONFIG, 3);
+	public static final ConfiguredFeature<?, ?> MYSTICAL_STEMS = registerPatch("mystical_stems", Configs.MYSTICAL_STEM_CONFIG, 5);
+	public static final ConfiguredFeature<?, ?> GENERIC_BLUE_FLOWERS = registerPatch("generic_blue_flowers", Configs.GENERIC_BLUE_FLOWERS_CONFIG, 1);
+	public static final ConfiguredFeature<?, ?> MYSTICAL_GRASS = registerPatch("mystical_grass",Configs.MYSTICAL_GRASS_CONFIG, 3);
+	public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = registerPatch("corrupt_stems", Configs.CORRUPT_STEM_CONFIG, 3);
+	public static final ConfiguredFeature<?, ?> WILTED_FLOWERS = registerPatch("wilted_flowers", Configs.WILTED_FLOWER_CONFIG, 3);
+	public static final ConfiguredFeature<?, ?> CORRUPT_FALLEN_LEAVES = registerPatch("corrupt_fallen_leaves", Configs.CORRUPT_FALLEN_LEAVES, 3);
+	public static final ConfiguredFeature<?, ?> MYSTICAL_FALLEN_LEAVES = registerPatch("mystical_fallen_leaves", Configs.MYSTICAL_FALLEN_LEAVES, 3);
 
 	public static final ConfiguredFeature<?, ?> TATERBANES = register("taterbanes", Feature.RANDOM_PATCH.configure(
 			new RandomPatchFeatureConfig.Builder(
@@ -165,14 +172,10 @@ public class Features {
 					.build())
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP.applyChance(9)));
 
-	public static final ConfiguredFeature<?, ?> SPEARMINTS = register("spearmints", Feature.RANDOM_PATCH.configure(Configs.SPEARMINT_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(6));
-	public static final ConfiguredFeature<?, ?> WATERMINTS = register("watermints", Feature.RANDOM_PATCH.configure(Configs.WATERMINT_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(1));
-	public static final ConfiguredFeature<?, ?> DILLS = register("dills", Feature.RANDOM_PATCH.configure(Configs.DILL_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(6));
-	public static final ConfiguredFeature<?, ?> KUREI = register("kurei", Feature.RANDOM_PATCH.configure(Configs.KUREI_CONFIG)
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(3));
+	public static final ConfiguredFeature<?, ?> SPEARMINTS = registerChancePatch("spearmints", Configs.SPEARMINT_CONFIG, 6);	
+	public static final ConfiguredFeature<?, ?> WATERMINTS = registerPatch("watermints", Configs.WATERMINT_CONFIG, 1);
+	public static final ConfiguredFeature<?, ?> DILLS = registerChancePatch("dills", Configs.DILL_CONFIG, 6);
+	public static final ConfiguredFeature<?, ?> KUREI = registerChancePatch("kurei", Configs.KUREI_CONFIG, 3);
 
 	private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
 		return Registry.register(Registry.FEATURE, Lint.id(name), feature);
