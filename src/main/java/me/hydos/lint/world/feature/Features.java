@@ -38,7 +38,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.RandomFeatureConfig;
-import net.minecraft.world.gen.feature.RandomFeatureEntry;
 import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -92,8 +91,8 @@ public class Features {
 			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.3F, 1))));
 
 	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", Feature.RANDOM_SELECTOR.configure(
-			new RandomFeatureConfig(ImmutableList.of(new RandomFeatureEntry(CANOPY_TREE.configure(FeatureConfig.DEFAULT), 0.15f)), TALL_MYSTICAL_TREE))
-			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(22, 0.3F, 1))));
+			new RandomFeatureConfig(ImmutableList.of(CANOPY_TREE.configure(FeatureConfig.DEFAULT).withChance(0.15f)), TALL_MYSTICAL_TREE))
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(18, 0.3F, 1))));
 
 	// TODO mystical field? or apply the changes I considered doing to the grove or forest?
 	

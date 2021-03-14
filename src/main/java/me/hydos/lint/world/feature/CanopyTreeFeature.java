@@ -108,10 +108,10 @@ public class CanopyTreeFeature extends Feature<DefaultFeatureConfig> {
 							pos.setY(startY + dy + ddy);
 
 							for (int ddx = -2; ddx <= 3; ++ddx) {
-								pos.setX(startX + leavesBlobX + ddx);
+								pos.setX(leavesBlobX + ddx);
 
 								for (int ddz = -2; ddz <= 3; ++ddz) {
-									pos.setZ(startZ + leavesBlobZ + ddz);
+									pos.setZ(leavesBlobZ + ddz);
 
 									if (ddy * ddy + ddx * ddx + ddz * ddz < 3) {
 										if (TreeFeature.canReplace(world, pos)) {
