@@ -36,6 +36,7 @@ public class LintItems {
 	 * Boss Materials
 	 */
 	public static final Item TATER_ESSENCE = new TaterEssenceItem(new Item.Settings().group(ItemGroups.ITEMS).rarity(Rarity.EPIC).maxCount(1));
+	public static final Item HERB_MIX = new Item(new Item.Settings().group(ItemGroups.ITEMS));
 
 	/**
 	 * Armor & Tool Sets
@@ -100,6 +101,7 @@ public class LintItems {
 
 	private static void registerMaterials() {
 		registerGenerated("tater_essence", TATER_ESSENCE);
+		registerGenerated("herb_mix", HERB_MIX);
 		registerGenerated("sicieron_ingot", SICIERON_INGOT);
 		registerGenerated("jurel_powder", JUREL_POWDER);
 		registerGenerated("magnetite_powder", MAGNETITE_POWDER);
