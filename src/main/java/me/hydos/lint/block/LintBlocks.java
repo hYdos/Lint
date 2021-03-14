@@ -340,10 +340,24 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	/**
 	 * Mystical Decorations
 	 */
-	public static final FlowerBlock MYSTICAL_STEM = new LintFlowerBlock(StatusEffects.RESISTANCE, FabricBlockSettings.of(Material.PLANT)
+
+	public static final FlowerBlock MYSTICAL_STEM = new LintFlowerBlock(StatusEffects.JUMP_BOOST, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
 			.hardness(0)
+			.sounds(BlockSoundGroup.GRASS));
+
+	// Resistance because tussock is somewhat "hard"
+	public static final FlowerBlock TUSSOCK = new LintFlowerBlock(StatusEffects.RESISTANCE, FabricBlockSettings.of(Material.PLANT)
+			.noCollision()
+			.breakInstantly()
+			.hardness(0.1f)
+			.sounds(BlockSoundGroup.GRASS));
+
+	public static final FlowerBlock RED_TUSSOCK = new LintFlowerBlock(StatusEffects.FIRE_RESISTANCE, FabricBlockSettings.of(Material.PLANT)
+			.noCollision()
+			.breakInstantly()
+			.hardness(0.1f)
 			.sounds(BlockSoundGroup.GRASS));
 
 	public static final FlowerBlock MYSTICAL_DAISY = new LintFlowerBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
@@ -428,6 +442,8 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		registerCrossPlant(WILTED_FLOWER, "wilted_flower");
 		registerCrossPlant(MYSTICAL_GRASS_PLANT, "mystical_grass");
 		registerCrossPlant(MYSTICAL_STEM, "mystical_stem");
+		registerCrossPlant(TUSSOCK, "tussock");
+		registerCrossPlant(RED_TUSSOCK, "red_tussock");
 		registerCrossPlant(MYSTICAL_DAISY, "yellow_daisy");
 		registerCrossPlant(SPEARMINT, "spearmint");
 		registerCrossPlant(WATERMINT, "watermint");

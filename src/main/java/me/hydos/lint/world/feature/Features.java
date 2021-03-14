@@ -19,6 +19,8 @@
 
 package me.hydos.lint.world.feature;
 
+import com.google.common.collect.ImmutableList;
+
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
@@ -35,6 +37,8 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.RandomFeatureConfig;
+import net.minecraft.world.gen.feature.RandomFeatureEntry;
 import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -49,6 +53,7 @@ public class Features {
 	 * UNCONFIGURED FEATURES
 	 **/
 	public static final Feature<TreeFeatureConfig> TREE = register("tree", new BetterTreeFeature(BetterTreeFeature.CODEC));
+	public static final Feature<DefaultFeatureConfig> CANOPY_TREE = register("canopy_tree", new CanopyTreeFeature());
 	public static final PortalFeature RETURN_PORTAL = register("portal", new PortalFeature());
 	public static final Feature<DefaultFeatureConfig> VERTICAL_SHAFT = register("vertical_shaft", new VerticalShaftFeature());
 	public static final Feature<DefaultFeatureConfig> FADING_ASH = register("fading_ash", new FadingAshFeature());
@@ -67,7 +72,14 @@ public class Features {
 			new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
 			new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 			new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build()));
-	
+
+	// Not registered bc not used directly anywhere, only used in THICK_MYSTICAL_TREES
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> TALL_MYSTICAL_TREE = TREE.configure((
+			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
+					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
+					new LintTrunkPlacer(6, 4, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
+
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
 			new SimpleBlockStateProvider(LintBlocks.FROZEN_LEAVES.getDefaultState()),
 			new SpruceFoliagePlacer(UniformIntDistribution.of(2, 1), UniformIntDistribution.of(0, 2), UniformIntDistribution.of(1, 1)),
@@ -79,12 +91,12 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> FROZEN_TREES = register("frozen_trees", FROZEN_TREE
 			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.3F, 1))));
 
-	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", TREE.configure((
-			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
-					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
-					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
-					new LintTrunkPlacer(6, 4, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(190, 0.3F, 1))));
+	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", Feature.RANDOM_SELECTOR.configure(
+			new RandomFeatureConfig(ImmutableList.of(new RandomFeatureEntry(CANOPY_TREE.configure(FeatureConfig.DEFAULT), 0.15f)), TALL_MYSTICAL_TREE))
+			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(22, 0.3F, 1))));
 
+	// TODO mystical field? or apply the changes I considered doing to the grove or forest?
+	
 	/**
 	 * ORES
 	 */
