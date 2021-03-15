@@ -1,0 +1,5 @@
+# Blender MTL File: 'tiny_potato.blend'
+# Material Count: 1
+
+newmtl tiny_potato
+map_Kd lint:misc/transmutation

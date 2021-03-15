@@ -16,6 +16,11 @@ repositories {
 		name = "Devan-Kerman/Devan-Repo"
 		url = uri("https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/")
 	}
+
+	maven {
+		name = "Haven King"
+		url = uri("https://hephaestus.dev/release/")
+	}
 }
 
 dependencies {
@@ -27,6 +32,7 @@ dependencies {
 
 	include(modImplementation("net.devtech", "arrp", "0.3.2"))
 	include(modImplementation("curse.maven", "geckolib-fabric-398667", "3155712"))
+	include(modImplementation("dev.monarkhes", "myron", "1.5.1"))
 
 	if (! file("ignoreruntime.txt").exists()) {
 		println("Setting Up Mod Runtimes")
