@@ -20,11 +20,15 @@
 package me.hydos.lint.mixin.client;
 
 import me.hydos.lint.client.entity.render.feature.LilTaterShoulderFeatureRenderer;
+import me.hydos.lint.item.potion.LintStatusEffects;
+import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -39,5 +43,12 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 	@Inject(at = @At("TAIL"), method = "<init>(Lnet/minecraft/client/render/entity/EntityRenderDispatcher;Z)V")
 	public void addFeatures(EntityRenderDispatcher entityRenderDispatcher, boolean bl, CallbackInfo ci) {
 		this.addFeature(new LilTaterShoulderFeatureRenderer<>(this));
+	}
+
+	@Inject(method = "renderArm", at = @At("HEAD"), cancellable = true)
+	private void shouldRenderArm(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, ModelPart arm, ModelPart sleeve, CallbackInfo callbackInfo) {
+		if (player.hasStatusEffect(LintStatusEffects.TRANSMUTATION)) {
+			callbackInfo.cancel();
+		}
 	}
 }
