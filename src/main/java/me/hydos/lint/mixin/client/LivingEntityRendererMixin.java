@@ -50,6 +50,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, M extends EntityM
 				VertexConsumer consumer = vertexConsumerProvider.getBuffer(RenderLayer.getSolid());
 
 				matrices.push();
+				matrices.scale(1, -1, 1);
 				MatrixStack.Entry entry = matrices.peek();
 
 				model.getQuads(null, null, livingEntity.world.random).forEach(quad -> {
