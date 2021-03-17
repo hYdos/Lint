@@ -26,6 +26,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import me.hydos.lint.block.organic.LintLeavesBlock;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -48,7 +49,7 @@ import net.minecraft.world.WorldAccess;
 
 public class DistantLeavesBlock extends LintLeavesBlock {
 	public DistantLeavesBlock(int distanceMax, Settings settings) {
-		super(settings);
+		super(new Fuck(settings).fuck(distanceMax));
 		this.distanceMax = distanceMax;
 		this.setDefaultState(this.getStateManager().getDefaultState().with(PERSISTENT, false).with(distance(this), distanceMax));
 	}
@@ -118,7 +119,7 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(distance(this), PERSISTENT);
+		builder.add(distance(((Fuck) this.settings).distanceMax), PERSISTENT);
 	}
 
 	@Override
@@ -129,8 +130,30 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 	// Valoeghese: remove getSidesShape override from original terrestria code. Reason: Redundant.
 
 	public static final IntProperty distance(DistantLeavesBlock block) {
-		return DISTANCE.computeIfAbsent(block.distanceMax, val -> IntProperty.of("distance", 1, val));
+		try {
+			return distance(block.distanceMax);
+		} catch (IllegalArgumentException e) {
+			System.out.println(block.distanceMax);
+			throw e;
+		}
+	}
+
+	private static final IntProperty distance(int dist) {
+		return DISTANCE.computeIfAbsent(dist, val -> IntProperty.of("distance", 1, val));
 	}
 
 	public static final Int2ObjectMap<IntProperty> DISTANCE = new Int2ObjectArrayMap<>();
+
+	private static class Fuck extends FabricBlockSettings {
+		public Fuck(Settings parent) {
+			super(parent);
+		}
+
+		private int distanceMax;
+
+		public Fuck fuck(int distanceMax) {
+			this.distanceMax = distanceMax;
+			return this;
+		}
+	}
 }
