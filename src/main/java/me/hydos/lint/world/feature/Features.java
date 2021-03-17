@@ -158,8 +158,8 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS = registerPatch("mystical_flowers", Configs.MYSTICAL_DAISY_CONFIG, 3);
 	public static final ConfiguredFeature<?, ?> MYSTICAL_STEMS = registerPatch("mystical_stems", Configs.MYSTICAL_STEM_CONFIG, 5);
-	public static final ConfiguredFeature<?, ?> TUSSOCKS = registerPatch("tussocks", Configs.TUSSOCK_CONFIG, 3);
-	public static final ConfiguredFeature<?, ?> RED_TUSSOCKS = registerPatch("red_tussocks", Configs.RED_TUSSOCK_CONFIG, 3);
+	public static final ConfiguredFeature<?, ?> TUSSOCKS = registerPatch("tussocks", Configs.TUSSOCK_CONFIG, 2);
+	public static final ConfiguredFeature<?, ?> RED_TUSSOCKS = registerPatch("red_tussocks", Configs.RED_TUSSOCK_CONFIG, 2);
 	public static final ConfiguredFeature<?, ?> GENERIC_BLUE_FLOWERS = registerPatch("generic_blue_flowers", Configs.GENERIC_BLUE_FLOWERS_CONFIG, 1);
 	public static final ConfiguredFeature<?, ?> MYSTICAL_GRASS = registerPatch("mystical_grass",Configs.MYSTICAL_GRASS_CONFIG, 3);
 	public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = registerPatch("corrupt_stems", Configs.CORRUPT_STEM_CONFIG, 3);
