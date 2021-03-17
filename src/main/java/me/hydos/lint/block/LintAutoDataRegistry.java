@@ -59,7 +59,7 @@ public class LintAutoDataRegistry {
 	 * @param itemGroup The item group for the dropped item
 	 * @return The registered block
 	 */
-	public static Block registerCubeAll(String id, Block block, @Nullable ItemGroup itemGroup) {
+	public static <T extends Block> T registerCubeAll(String id, T block, @Nullable ItemGroup itemGroup) {
 		Identifier identifier = id(id);
 		Identifier modelIdentifier = id("block/" + id);
 

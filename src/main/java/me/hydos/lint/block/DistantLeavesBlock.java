@@ -21,6 +21,8 @@ package me.hydos.lint.block;
 
 import java.util.Random;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import me.hydos.lint.block.organic.LintLeavesBlock;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,6 +33,7 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -47,7 +50,7 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 	public DistantLeavesBlock(int distanceMax, Settings settings) {
 		super(settings);
 		this.distanceMax = distanceMax;
-		this.setDefaultState(this.getStateManager().getDefaultState().with(PERSISTENT, false).with(DISTANCE, distanceMax));
+		this.setDefaultState(this.getStateManager().getDefaultState().with(PERSISTENT, false).with(distance(this), distanceMax));
 	}
 
 	// Valoeghese: Replace distanceMax with a field.
@@ -55,12 +58,12 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 
 	@Override
 	public boolean hasRandomTicks(BlockState state) {
-		return state.get(DISTANCE) == this.distanceMax && !state.get(PERSISTENT);
+		return state.get(distance(this)) == this.distanceMax && !state.get(PERSISTENT);
 	}
 
 	@Override
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		if (!state.get(PERSISTENT) && state.get(DISTANCE) == this.distanceMax) {
+		if (!state.get(PERSISTENT) && state.get(distance(this)) == this.distanceMax) {
 			dropStacks(state, world, pos);
 			world.removeBlock(pos, false);
 		}
@@ -76,7 +79,7 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
 		int distance = getDistance(neighborState) + 1;
-		if (distance != 1 || state.get(DISTANCE) != distance) {
+		if (distance != 1 || state.get(distance(this)) != distance) {
 			world.getBlockTickScheduler().schedule(pos, this, 1);
 		}
 
@@ -95,7 +98,7 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 			}
 		}
 
-		return state.with(DISTANCE, result);
+		return state.with(distance(this), result);
 	}
 
 	// Valoeghese: Edit check to work with all leaf blocks. This might cause some bugs but I prefer compatibility.
@@ -103,7 +106,7 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 		if (BlockTags.LOGS.contains(state.getBlock())) {
 			return 0;
 		} else {
-			return state.getBlock() instanceof LeavesBlock ? state.get(DISTANCE) : this.distanceMax;
+			return state.getBlock() instanceof DistantLeavesBlock ? state.get(distance(this)) : (state.getBlock() instanceof LeavesBlock ? state.get(LeavesBlock.DISTANCE) : this.distanceMax);
 		}
 	}
 
@@ -115,7 +118,7 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(DISTANCE, PERSISTENT);
+		builder.add(distance(this), PERSISTENT);
 	}
 
 	@Override
@@ -124,4 +127,10 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 	}
 
 	// Valoeghese: remove getSidesShape override from original terrestria code. Reason: Redundant.
+
+	public static final IntProperty distance(DistantLeavesBlock block) {
+		return DISTANCE.computeIfAbsent(block.distanceMax, val -> IntProperty.of("distance", 1, val));
+	}
+
+	public static final Int2ObjectMap<IntProperty> DISTANCE = new Int2ObjectArrayMap<>();
 }
