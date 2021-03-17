@@ -50,7 +50,7 @@ import net.minecraft.world.WorldAccess;
  * Plus I needed to make a few modifications.
  */
 
-public class DistantLeavesBlock extends LeavesBlock {
+public class DistantLeavesBlock extends Block {
 	public DistantLeavesBlock(int distanceMax, Settings settings) {
 		super(new Fuck(settings).fuck(distanceMax));
 		this.distanceMax = distanceMax;
