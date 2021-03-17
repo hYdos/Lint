@@ -71,15 +71,15 @@ public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 				}
 
 				// 1. Canopy Leaves
-				for (int dy = -4; dy < 0; ++dy) {
+				for (int dy = -5; dy < 0; ++dy) {
 					float dymod = dy + 3;
-					float r = 4 - 0.5f * dymod * (1 + 0.1f * dymod * dymod); // radius
+					float r = dy == 0 ? 1.01f : 4 - 0.5f * dymod * (1 + 0.1f * dymod * dymod); // radius
 					int max = MathHelper.ceil(r);
 					pos.setY(startY + trueHeight + dy);
 
 					for (int dx = -max; dx <= max; ++dx) {
 						for (int dz = -max; dz <= max; ++dz) {
-							if (dx * dx + dz * dz <= r) {
+							if (dx * dx + dz * dz <= r * r) {
 								pos.setX(startX + dx);
 								pos.setZ(startZ + dz);
 

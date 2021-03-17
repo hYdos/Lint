@@ -106,7 +106,7 @@ public class Features {
 							),
 					Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.FUSED_STONE.getDefaultState()))
 					))
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP.repeatRandomly(4).applyChance(3))
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeatRandomly(2)
 			);
 	/**
 	 * ORES
