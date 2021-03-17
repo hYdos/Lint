@@ -32,23 +32,25 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 
-public class CanopyTreeFeature extends Feature<DefaultFeatureConfig> {
+// Should be default feature config bc I ignore every parameter but i have to use this
+public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 	public CanopyTreeFeature() {
-		super(DefaultFeatureConfig.CODEC);
+		super(TreeFeatureConfig.CODEC);
 	}
 
 	@Override
-	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos start, DefaultFeatureConfig config) {
+	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos start, TreeFeatureConfig config) {
 		// TODO
 		// - taller
 		// - cooler angles
 		// - cool spread out shape at top
 		// the leaves don't decay easily like they do
 		// larger decay distance for leaves (I think terrestria does this already)
+		// - switch to trunk placer and leaf placer that does the equivalent. Will need a custom config bc I use multiple leaf placement methods.
 
 		int startX = start.getX();
 		int startY = start.getY();
@@ -70,7 +72,8 @@ public class CanopyTreeFeature extends Feature<DefaultFeatureConfig> {
 
 				// 1. Canopy Leaves
 				for (int dy = -4; dy < 0; ++dy) {
-					float r = 1 - dy + 0.15f * dy * dy; // radius
+					float dymod = dy + 3;
+					float r = 4 - 0.5f * dymod * (1 + 0.1f * dymod * dymod); // radius
 					int max = MathHelper.ceil(r);
 					pos.setY(startY + trueHeight + dy);
 

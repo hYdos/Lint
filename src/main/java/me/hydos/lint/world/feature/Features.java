@@ -53,7 +53,7 @@ public class Features {
 	 * UNCONFIGURED FEATURES
 	 **/
 	public static final Feature<TreeFeatureConfig> TREE = register("tree", new BetterTreeFeature(BetterTreeFeature.CODEC));
-	public static final Feature<DefaultFeatureConfig> CANOPY_TREE = register("canopy_tree", new CanopyTreeFeature());
+	public static final Feature<TreeFeatureConfig> CANOPY_TREE = register("canopy_tree", new CanopyTreeFeature());
 	public static final PortalFeature RETURN_PORTAL = register("portal", new PortalFeature());
 	public static final Feature<DefaultFeatureConfig> VERTICAL_SHAFT = register("vertical_shaft", new VerticalShaftFeature());
 	public static final Feature<DefaultFeatureConfig> FADING_ASH = register("fading_ash", new FadingAshFeature());
@@ -68,10 +68,12 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> CORRUPT_TREES = register("corrupt_trees", CORRUPT_TREE.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> MYSTICAL_TREE = register("mystical_tree", TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+	private static final TreeFeatureConfig BASED_CONFIG = new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
 			new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
 			new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
-			new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build()));
+			new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build();
+
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> MYSTICAL_TREE = register("mystical_tree", TREE.configure(BASED_CONFIG));
 
 	// Not registered bc not used directly anywhere, only used in THICK_MYSTICAL_TREES
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> TALL_MYSTICAL_TREE = TREE.configure((
@@ -91,8 +93,10 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> FROZEN_TREES = register("frozen_trees", FROZEN_TREE
 			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.3F, 1))));
 
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> CANOPY_TREE_CONFIGURED = register("canopy_tree", CANOPY_TREE.configure(BASED_CONFIG));
+
 	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", Feature.RANDOM_SELECTOR.configure(
-			new RandomFeatureConfig(ImmutableList.of(CANOPY_TREE.configure(FeatureConfig.DEFAULT).withChance(0.15f), MYSTICAL_TREE.withChance(0.33f)), TALL_MYSTICAL_TREE))
+			new RandomFeatureConfig(ImmutableList.of(CANOPY_TREE_CONFIGURED.withChance(0.15f), MYSTICAL_TREE.withChance(0.33f)), TALL_MYSTICAL_TREE))
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(18, 0.3F, 1))));
 
 	public static final ConfiguredFeature<?, ?> MYSTICAL_ROCKS = register("mystical_rocks", Feature.RANDOM_SELECTOR.configure(

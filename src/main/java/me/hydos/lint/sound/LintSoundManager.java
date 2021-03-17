@@ -188,9 +188,15 @@ public class LintSoundManager {
 
 		Biome biome = access.getBiome(x, y, z);
 
-		if (biome.getEffects().getFogColor() == Biomes.MYSTICAL_FOG_COLOUR) { // Good ol' performance hax. This is probably faster than getting the registry and checking the key.
+		int fg = biome.getEffects().getFogColor();
+
+		if (fg == Biomes.MYSTICAL_FOG_COLOUR) { // Good ol' performance hax. This is probably faster than getting the registry and checking the key.
 			if ((System.currentTimeMillis() & 0x80000) == 0) { // about an 8-9 minute delay
 				return DummyBiomes.DUMMY_MYSTICAL_FOREST_ALTER;
+			}
+		} else if (fg == Biomes.CORRUPT_FOG_COLOUR) {
+			if (((System.currentTimeMillis() + 0x40000) & 0x80000) == 0) { // about an 8-9 minute delay, offset by half of the mystical one
+				return DummyBiomes.DUMMY_CORRUPT_FOREST_ALTER;
 			}
 		}
 

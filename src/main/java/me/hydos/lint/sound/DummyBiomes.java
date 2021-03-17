@@ -60,6 +60,7 @@ public class DummyBiomes {
 
 	// Alternative Tunes
 	public static final Biome DUMMY_MYSTICAL_FOREST_ALTER = createLoopSound(Sounds.ETHEREAL_GROVES);
+	public static final Biome DUMMY_CORRUPT_FOREST_ALTER = createLoopSound(Sounds.MANOS_TOUCH);
 
 	// Boss Music
 	public static final Biome DUMMY_KING_TATER = createLoopSound(Sounds.KING_TATER);

@@ -50,6 +50,7 @@ public class Sounds {
 	public static final SoundEvent MYSTICAL_FOREST = new SoundEvent(Lint.id("music.mystical_forest"));
 	public static final SoundEvent ETHEREAL_GROVES = new SoundEvent(Lint.id("music.ethereal_groves_of_fraiya"));
 	public static final SoundEvent CORRUPT_FOREST = new SoundEvent(Lint.id("music.corrupt_forest"));
+	public static final SoundEvent MANOS_TOUCH = new SoundEvent(Lint.id("music.manos_touch"));
 	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
 	public static final SoundEvent DAWN_SHARDLANDS = new SoundEvent(Lint.id("music.dawn_shardlands"));
 	public static final SoundEvent CAVERNS = new SoundEvent(Lint.id("music.caverns"));
@@ -85,6 +86,7 @@ public class Sounds {
 		register(FROZEN_FOREST);
 		register(GRIMACE_OBOE);
 		register(GRIMACE_VIOLINS);
+		register(MANOS_TOUCH);
 
 		// progression related short tunes
 		register(ADVANCEMENT);

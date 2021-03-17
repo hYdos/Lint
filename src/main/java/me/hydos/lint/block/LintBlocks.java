@@ -246,7 +246,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 
 	public static final Block CANOPY_LEAVES = registerCubeAll(
 			"canopy_leaves",
-			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
+			new DistantLeavesBlock(9, FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
 					.materialColor(MaterialColor.DIAMOND)
 					.breakByTool(FabricToolTags.HOES, 0)),
 			ItemGroups.BLOCKS);
