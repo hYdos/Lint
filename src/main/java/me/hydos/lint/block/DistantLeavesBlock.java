@@ -23,21 +23,24 @@ import java.util.Random;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import me.hydos.lint.block.organic.LintLeavesBlock;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
@@ -47,7 +50,7 @@ import net.minecraft.world.WorldAccess;
  * Plus I needed to make a few modifications.
  */
 
-public class DistantLeavesBlock extends LintLeavesBlock {
+public class DistantLeavesBlock extends LeavesBlock {
 	public DistantLeavesBlock(int distanceMax, Settings settings) {
 		super(new Fuck(settings).fuck(distanceMax));
 		this.distanceMax = distanceMax;
@@ -75,7 +78,13 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 		world.setBlockState(pos, this.calculateAndUpdateDistance(state, world, pos)); // Flags are 3 in the original however this is default so optimise by removing that
 	}
 
-	// Valoeghese: Remove Optileaves from original terrestria code. Reason: No longer overrides getOpacity and isSideInvisible
+	// Valoeghese: Remove Optileaves from original terrestria code. Reason: No longer overrides isSideInvisible
+
+	// Valoeghese: Match getOpacity to original LeavesBlock method
+	@Override
+	public int getOpacity(BlockState state, BlockView world, BlockPos pos) {
+		return 1;
+	}
 
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
@@ -111,10 +120,16 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-		Blocks.OAK_LEAVES.randomDisplayTick(state, world, pos, random);
+		Blocks.BIRCH_LEAVES.randomDisplayTick(state, world, pos, random);
+
+		if (random.nextInt(15) == 1) {
+			double x = (double) pos.getX() + random.nextInt(1);
+			double y = (double) pos.getY() + random.nextInt(1);
+			double z = (double) pos.getZ() + random.nextInt(1);
+			world.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0D, -0.2D, 0.0D);
+		}
 	}
 
 	@Override
@@ -127,13 +142,15 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 		return this.calculateAndUpdateDistance(this.getDefaultState().with(PERSISTENT, true), context.getWorld(), context.getBlockPos());
 	}
 
-	// Valoeghese: remove getSidesShape override from original terrestria code. Reason: Redundant.
+	@Override
+	public VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
+		return VoxelShapes.empty();
+	}
 
 	public static final IntProperty distance(DistantLeavesBlock block) {
 		try {
 			return distance(block.distanceMax);
 		} catch (IllegalArgumentException e) {
-			System.out.println(block.distanceMax);
 			throw e;
 		}
 	}
@@ -143,6 +160,7 @@ public class DistantLeavesBlock extends LintLeavesBlock {
 	}
 
 	public static final Int2ObjectMap<IntProperty> DISTANCE = new Int2ObjectArrayMap<>();
+	public static final BooleanProperty PERSISTENT = Properties.PERSISTENT;
 
 	private static class Fuck extends FabricBlockSettings {
 		public Fuck(Settings parent) {
