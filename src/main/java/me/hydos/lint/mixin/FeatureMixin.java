@@ -33,7 +33,7 @@ import net.minecraft.world.gen.feature.Feature;
  */
 @Mixin(Feature.class)
 public class FeatureMixin {
-	@Inject(at = @At("HEAD"), method = "isSoil")
+	@Inject(at = @At("HEAD"), method = "isSoil", cancellable = true)
 	private static void isSoil(Block block, CallbackInfoReturnable<Boolean> info) {
 		if (DirtLikeBlock.isLintGrass(block)) {
 			info.setReturnValue(true);
