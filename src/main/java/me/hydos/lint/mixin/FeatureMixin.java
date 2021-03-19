@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import me.hydos.lint.block.DirtLikeBlock;
 import net.minecraft.block.Block;
-import software.bernie.shadowed.fasterxml.jackson.core.JsonFactory.Feature;
+import net.minecraft.world.gen.feature.Feature;
 
 /**
  * @reason Make forest rocks generate.
