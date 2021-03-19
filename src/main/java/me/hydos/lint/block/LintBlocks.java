@@ -26,6 +26,7 @@ import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixin.FireBlockAccessor;
 import me.hydos.lint.util.Power;
+import me.hydos.lint.world.tree.CanopyTree;
 import me.hydos.lint.world.tree.CorruptTree;
 import me.hydos.lint.world.tree.MysticalTree;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -125,6 +126,33 @@ public final class LintBlocks extends LintAutoDataRegistry {
 
 	public static final Block FUSED_STONE = registerCubeAll(
 			"fused_stone",
+			new Block(FabricBlockSettings.of(Material.STONE)
+					.hardness(1f)
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
+			ItemGroups.BLOCKS);
+	
+	public static final Block FUSED_COBBLESTONE = registerCubeAll(
+			"fused_cobblestone",
+			new Block(FabricBlockSettings.of(Material.STONE)
+					.hardness(1f)
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
+			ItemGroups.BLOCKS);
+	
+	public static final Block PEARLESCENT_STONE = registerCubeAll(
+			"pearlescent_stone",
+			new Block(FabricBlockSettings.of(Material.STONE)
+					.hardness(1f)
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
+			ItemGroups.BLOCKS);
+	
+	public static final Block PEARLESCENT_COBBLESTONE = registerCubeAll(
+			"pearlescent_cobblestone",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
 					.sounds(BlockSoundGroup.STONE)
@@ -327,6 +355,8 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final SaplingBlock MYSTICAL_SAPLING = new LintSaplingBlock(new MysticalTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks.LIVELY_GRASS.getDefaultState());
 
 	public static final SaplingBlock CORRUPT_SAPLING = new LintSaplingBlock(new CorruptTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks.CORRUPT_GRASS.getDefaultState());
+
+	public static final SaplingBlock CANOPY_SAPLING = new LintSaplingBlock(new CanopyTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks.LIVELY_GRASS.getDefaultState());
 
 	/**
 	 * Corrupt Building Blocks
