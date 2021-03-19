@@ -17,33 +17,26 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block;
+package me.hydos.lint.mixin;
 
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import me.hydos.lint.block.DirtLikeBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import software.bernie.shadowed.fasterxml.jackson.core.JsonFactory.Feature;
 
-public class DirtLikeBlock extends Block {
-	public DirtLikeBlock(Settings settings) {
-		super(settings);
-	}
-
-	@Override
-	public boolean is(Block block) {
-		return this == block || Blocks.DIRT == block;
-	}
-
-	public static boolean isLintGrass(BlockState state) {
-		Block block = state.getBlock();
-		return isLintGrass(block);
-	}
-
-	public static boolean isLintGrass(Block block) {
-		return block == LintBlocks.CORRUPT_GRASS || block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
-	}
-
-	public static boolean isUntaintedGrass(BlockState state) {
-		Block block = state.getBlock();
-		return block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
+/**
+ * @reason Make forest rocks generate.
+ */
+@Mixin(Feature.class)
+public class FeatureMixin {
+	@Inject(at = @At("HEAD"), method = "isSoil")
+	private static void isSoil(Block block, CallbackInfoReturnable<Boolean> info) {
+		if (DirtLikeBlock.isLintGrass(block)) {
+			info.setReturnValue(true);
+		}
 	}
 }
