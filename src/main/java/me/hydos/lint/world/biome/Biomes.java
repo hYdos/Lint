@@ -406,8 +406,8 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(DS_SB)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
-					// TODO lexmanos boss structure.
-					// TODO allos and manos shards (powerful crystals of the two forces that made the world) as "ores" that spawn hanging from the bottom of the floating islands
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.DAWN_SHARDLANDS_SHARDS)
+					// TODO lexmanos boss structure
 					.build())
 			.build();
 

@@ -19,6 +19,10 @@
 
 package me.hydos.lint.world.feature;
 
+import java.util.Arrays;
+import java.util.function.Supplier;
+
+import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 
 import me.hydos.lint.Lint;
@@ -31,6 +35,7 @@ import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
+import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -39,6 +44,7 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.RandomFeatureConfig;
 import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
+import net.minecraft.world.gen.feature.SimpleRandomFeatureConfig;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -60,6 +66,11 @@ public class Features {
 	public static final Feature<DefaultFeatureConfig> STRUCTURE = register("structure", new LintStructureFeature());
 	public static final Feature<DefaultFeatureConfig> TOWN = register("town", new TownFeature());
 	public static final Feature<SingleStateFeatureConfig> HANGING_BLOCK = register("hanging_block", new HangingBlockFeature());
+	
+	/**
+	 * UNCONFIGURED DECORATORS
+	 */
+	public static final Decorator<NopeDecoratorConfig> UNDER_ISLAND = register("under_island", new UnderIslandDecorator());
 
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> CORRUPT_TREE = register("corrupt_tree", TREE.configure((
 			new TreeFeatureConfig.Builder(
@@ -116,6 +127,15 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> FLOATING_ISLAND_ALLOS_CRYSTAL = register("floating_island_allos_crystal", HANGING_BLOCK
 			.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState()))
 			.rangeOf(60).spreadHorizontally().repeatRandomly(3));
+	
+	@SuppressWarnings("unchecked")
+	public static final ConfiguredFeature<?, ?> DAWN_SHARDLANDS_SHARDS = register("dawn_shardlands_shards", Feature.SIMPLE_RANDOM_SELECTOR.configure(
+			new SimpleRandomFeatureConfig(Arrays.asList(ImmutableList.of(
+					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState())),
+					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks.MANOS_CRYSTAL.getDefaultState())))
+					.stream().map(Suppliers::ofInstance).toArray(Supplier[]::new))
+					))
+			.decorate(UNDER_ISLAND.configure(new NopeDecoratorConfig()).spreadHorizontally().repeat(UniformIntDistribution.of(3, 5)).applyChance(20)));
 
 	/**
 	 * ORES
@@ -195,6 +215,10 @@ public class Features {
 
 	private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
 		return Registry.register(Registry.FEATURE, Lint.id(name), feature);
+	}
+
+	private static <T extends DecoratorConfig> Decorator<T> register(String name, Decorator<T> decorator) {
+		return Registry.register(Registry.DECORATOR, Lint.id(name), decorator);
 	}
 
 	private static <FC extends FeatureConfig> ConfiguredFeature<FC, ?> register(String id, ConfiguredFeature<FC, ?> configuredFeature) {

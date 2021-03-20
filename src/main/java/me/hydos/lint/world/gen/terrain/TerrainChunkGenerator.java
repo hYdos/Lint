@@ -162,6 +162,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 					if (y < height) {
 						BlockState state;
 
+						// TODO move this logic to the surface builder, or some other property
 						if (dist > FraiyaTerrainGenerator.SHARDLANDS_ISLANDS_START) {
 							if (ash && y > lowerBound) {
 								state = LintBlocks.ASH.getDefaultState();
@@ -181,6 +182,11 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 				}
 			}
 		}
+	}
+
+	public int getLowerGenBound(int x, int z) {
+		int height = this.terrain.getHeight(x, z);
+		return this.terrain.getLowerGenBound(x, z, height);
 	}
 
 	@Override

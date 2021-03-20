@@ -142,7 +142,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 					.requiresTool()),
 			ItemGroups.BLOCKS);
 	
-	public static final Block PEARLESCENT_STONE = registerCubeAll(
+	public static final Block PEARLESCENT_STONE = registerCubeAll( // This will be used with specific underground sub-biome-like stuff.
 			"pearlescent_stone",
 			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
@@ -150,7 +150,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
 			ItemGroups.BLOCKS);
-	
+
 	public static final Block PEARLESCENT_COBBLESTONE = registerCubeAll(
 			"pearlescent_cobblestone",
 			new Block(FabricBlockSettings.of(Material.STONE)

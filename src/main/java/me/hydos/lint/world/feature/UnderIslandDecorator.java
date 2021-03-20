@@ -17,11 +17,13 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.world.decorator;
+package me.hydos.lint.world.feature;
 
 import java.util.Random;
 import java.util.stream.Stream;
 
+import me.hydos.lint.Lint;
+import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorContext;
@@ -34,10 +36,15 @@ public class UnderIslandDecorator extends Decorator<NopeDecoratorConfig> {
 
 	@Override
 	public Stream<BlockPos> getPositions(DecoratorContext context, Random random, NopeDecoratorConfig config, BlockPos pos) {
-		int i = pos.getX();
-		int j = pos.getZ();
-		int k = context.generator;//todo shit
-		return k > 0 ? Stream.of(new BlockPos(i, k, j)) : Stream.of();
-	}
+		int x = pos.getX();
+		int z = pos.getZ();
 
+		try {
+			int y = ((TerrainChunkGenerator) context.generator).getLowerGenBound(x, z) - 1;
+			return y > 0 ? Stream.of(new BlockPos(x, y, z)) : Stream.of();
+		} catch (ClassCastException e) {
+			Lint.LOGGER.warn("Under Island Decorator can only be used with lint's chunk generators.");
+			return Stream.of();
+		}
+	}
 }
