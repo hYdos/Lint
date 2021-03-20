@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "lint:sicieron_ingot"
+    },
+    {
+      "item": "lint:jurel_powder"
+    }
+  ],
+  "result": {
+    "item": "lint:jurel_ingot",
+    "count": 1
+  }
+}

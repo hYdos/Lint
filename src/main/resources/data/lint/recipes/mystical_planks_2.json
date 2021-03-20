@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "lint:stripped_mystical_log"
+    }
+  ],
+  "result": {
+    "item": "lint:mystical_planks",
+    "count": 4
+  }
+}

@@ -65,6 +65,8 @@
   "block.lint.return_home": "Return Portal",
   "block.lint.rich_dirt": "Rich Dirt",
   "block.lint.rich_soil": "Rich Soil",
+  "block.lint.stripped_mystical_log": "Stripped Mystical Log",
+  "block.lint.stripped_corrupt_log": "Stripped Corrupt Log",
   "block.lint.sicieron_ore": "Sicieron Ore",
   "block.lint.smeltery": "Smeltery",
   "block.lint.tarscan_ore": "Tarscan Ore",
