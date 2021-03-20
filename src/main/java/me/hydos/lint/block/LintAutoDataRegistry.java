@@ -24,6 +24,11 @@ import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.loot.JCondition;
 import net.devtech.arrp.json.loot.JLootTable;
 import net.devtech.arrp.json.models.JModel;
+import net.devtech.arrp.json.recipe.JIngredient;
+import net.devtech.arrp.json.recipe.JKeys;
+import net.devtech.arrp.json.recipe.JPattern;
+import net.devtech.arrp.json.recipe.JRecipe;
+import net.devtech.arrp.json.recipe.JResult;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -31,6 +36,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.Nullable;
+
+import me.hydos.lint.Lint;
 
 import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
@@ -156,22 +163,30 @@ public class LintAutoDataRegistry {
 				.put("type=bottom", new JBlockModel(lowerSlabIdentifier))
 				.put("type=double", new JBlockModel(plankModelIdentifier))
 				.put("type=top", new JBlockModel(topSlabIdentifier))
-		), identifier);
+				), identifier);
 		RESOURCE_PACK.addModel(JModel.model()
 				.parent("block/slab")
 				.textures(JModel.textures()
 						.var("bottom", plankModelIdentifier.toString())
 						.var("top", plankModelIdentifier.toString())
 						.var("side", plankModelIdentifier.toString())
-				), lowerSlabIdentifier);
+						), lowerSlabIdentifier);
 		RESOURCE_PACK.addModel(JModel.model()
 				.parent("block/slab_top")
 				.textures(JModel.textures()
 						.var("bottom", plankModelIdentifier.toString())
 						.var("top", plankModelIdentifier.toString())
 						.var("side", plankModelIdentifier.toString())
-				), topSlabIdentifier);
+						), topSlabIdentifier);
 		RESOURCE_PACK.addModel(JModel.model().parent(lowerSlabIdentifier.toString()), id("item/" + id));
+		RESOURCE_PACK.addRecipe(identifier, JRecipe.shaped(
+				JPattern.pattern("###"),
+				JKeys.keys()
+				.key("#", JIngredient
+						.ingredient()
+						.item(id(planksId).toString())),
+				JResult.result(identifier.toString())));
+
 		Registry.register(Registry.BLOCK, identifier, block);
 		registerBlockItem(block, itemGroup);
 
@@ -188,12 +203,12 @@ public class LintAutoDataRegistry {
 		Identifier id = Registry.BLOCK.getId(block);
 		RESOURCE_PACK.addLootTable(new Identifier(id.getNamespace(), "blocks/" + id.getPath()),
 				JLootTable.loot("minecraft:block")
-						.pool(JLootTable.pool()
-								.rolls(1)
-								.entry(JLootTable.entry()
-										.type("minecraft:item")
-										.name(id.toString()))
-								.condition(new JCondition("minecraft:survives_explosion"))));
+				.pool(JLootTable.pool()
+						.rolls(1)
+						.entry(JLootTable.entry()
+								.type("minecraft:item")
+								.name(id.toString()))
+						.condition(new JCondition("minecraft:survives_explosion"))));
 
 		{
 			Item.Settings settings = new Item.Settings();

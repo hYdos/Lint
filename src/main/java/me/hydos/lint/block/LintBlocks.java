@@ -462,6 +462,8 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	private static void registerFlammableBlocks() {
 		FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
 		fire.callRegisterFlammableBlock(MYSTICAL_LOG, 5, 5);
+		fire.callRegisterFlammableBlock(STRIPPED_MYSTICAL_LOG, 5, 5);
+		fire.callRegisterFlammableBlock(STRIPPED_CORRUPT_LOG, 5, 5);
 		fire.callRegisterFlammableBlock(CORRUPT_LOG, 5, 5);
 		fire.callRegisterFlammableBlock(MYSTICAL_PLANKS, 5, 20);
 		fire.callRegisterFlammableBlock(CORRUPT_PLANKS, 5, 20);
