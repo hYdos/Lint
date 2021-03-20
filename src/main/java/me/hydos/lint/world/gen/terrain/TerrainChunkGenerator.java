@@ -19,6 +19,13 @@
 
 package me.hydos.lint.world.gen.terrain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
@@ -26,6 +33,7 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.util.math.Vec2i;
+import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import me.hydos.lint.world.structure2.StructureChunkGenerator;
@@ -55,13 +63,6 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
 
 public class TerrainChunkGenerator extends ChunkGenerator implements StructureChunkGenerator {
 
@@ -279,6 +280,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 		ChunkRandom genRand = new ChunkRandom();
 		genRand.setTerrainSeed(centreChunkX, centreChunkZ);
 
+		// TODO turn this into "terrain decorators" like tree decorators but off brand
 		if (this.floatingIslands != null) {
 			if (this.floatingIslands.generate(region, genRand, startX, startZ)) { // Only run vegetal decoration if floating island is in chunk
 				Biome biome = this.populationSource.getBiomeForNoiseGen((centreChunkX << 2) + 2, 2, (centreChunkZ << 2) + 2);
@@ -292,11 +294,14 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 		}
 	}
 
-	private <T extends List<R>, R extends Supplier<ConfiguredFeature<?, ?>>> void postVegetalPlacement(List<T> list, ChunkRegion region, BlockPos pos, ChunkRandom random) {
+	private void postVegetalPlacement(List<List<Supplier<ConfiguredFeature<?, ?>>>> list, ChunkRegion region, BlockPos pos, ChunkRandom random) {
 		int n = GenerationStep.Feature.VEGETAL_DECORATION.ordinal();
 
 		if (list.size() > n) {
-			for (R supplier : list.get(n)) {
+			List<Supplier<ConfiguredFeature<?, ?>>> toGenerate = new ArrayList<Supplier<ConfiguredFeature<?, ?>>>(list.get(n));
+			toGenerate.add(0, () -> Features.FLOATING_ISLAND_ALLOS_CRYSTAL);
+
+			for (Supplier<ConfiguredFeature<?, ?>> supplier : toGenerate) {
 				try {
 					ConfiguredFeature<?, ?> configured = supplier.get();
 
