@@ -165,7 +165,7 @@ public class LintSoundManager {
 		int targetMB = chunk.sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, (int) x, (int) z) - 2;
 		int checky = (int) y;
 
-		if (checky < player.getEntityWorld().getSeaLevel() && checky < targetWS && checky < targetMB) {
+		if (checky < 40 || checky < player.getEntityWorld().getSeaLevel() && checky < targetWS && checky < targetMB) {
 			return DummyBiomes.DUMMY_CAVERNS;
 		}
 

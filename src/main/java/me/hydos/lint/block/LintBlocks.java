@@ -364,7 +364,10 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block CORRUPT_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.LEAVES)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-	public static final Block CORRUPT_LOG = createLog(MaterialColor.PURPLE, MaterialColor.PURPLE);
+	
+	public static final Block STRIPPED_CORRUPT_LOG = createLog(MaterialColor.PURPLE, MaterialColor.PURPLE);
+	public static final Block CORRUPT_LOG = createLog(MaterialColor.BLACK_TERRACOTTA, MaterialColor.PURPLE, STRIPPED_CORRUPT_LOG);
+
 	public static final Block CORRUPT_SLAB = registerSlab("corrupt_slab", "corrupt_planks", new SlabBlock(FabricBlockSettings.copy(Blocks.OAK_SLAB)), ItemGroups.BLOCKS);
 
 	/**
@@ -425,7 +428,10 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block MYSTICAL_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.LEAVES)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-	public static final Block MYSTICAL_LOG = createLog(MaterialColor.DIAMOND, MaterialColor.DIAMOND);
+
+	public static final Block STRIPPED_MYSTICAL_LOG = createLog(MaterialColor.DIAMOND, MaterialColor.DIAMOND);
+	public static final Block MYSTICAL_LOG = createLog(MaterialColor.WOOD, MaterialColor.DIAMOND, STRIPPED_MYSTICAL_LOG);
+
 	public static final FlowerBlock MYSTICAL_GRASS_PLANT = new LintFlowerBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
@@ -516,8 +522,17 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		Registry.register(Registry.BLOCK, Lint.id(path), block);
 	}
 
+	private static PillarBlock createLog(MaterialColor topMaterialColor, MaterialColor sideMaterialColor, Block stripped) {
+		return new StrippablePillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor)
+				.strength(2.0F)
+				.sounds(BlockSoundGroup.WOOD),
+				stripped);
+	}
+
 	private static PillarBlock createLog(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
-		return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+		return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor)
+				.strength(2.0F)
+				.sounds(BlockSoundGroup.WOOD));
 	}
 
 	private static void registerBlock(ItemGroup itemGroup, Block block, String path) {

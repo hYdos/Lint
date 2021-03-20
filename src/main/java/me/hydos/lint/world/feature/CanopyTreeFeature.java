@@ -22,8 +22,8 @@ package me.hydos.lint.world.feature;
 import java.util.Random;
 
 import me.hydos.lint.block.DirtLikeBlock;
-import me.hydos.lint.block.DistantLeavesBlock;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.organic.DistantLeavesBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.util.math.BlockPos;
@@ -146,7 +146,7 @@ public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 
 				// Cross at top TODO probably change into branching out
 
-				pos.setY(trunkHeight - 1);
+				pos.setY(startY + trunkHeight - 1);
 				pos.setX(startX + 1);
 
 				if (TreeFeature.canTreeReplace(world, pos)) {

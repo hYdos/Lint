@@ -35,7 +35,7 @@ public class HangingBlockFeature extends Feature<SingleStateFeatureConfig> {
 	@Override
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos start, SingleStateFeatureConfig config) {
 		BlockPos.Mutable pos = new BlockPos.Mutable().set(start);
-		BlockPos.Mutable next = new BlockPos.Mutable();
+		BlockPos.Mutable next = new BlockPos.Mutable().set(start);
 		final int startY = pos.getY();
 
 		for (int i = 1; i < 6; ++i) {

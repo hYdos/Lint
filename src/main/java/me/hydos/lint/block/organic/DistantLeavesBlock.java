@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block;
+package me.hydos.lint.block.organic;
 
 import java.util.Random;
 
@@ -124,6 +124,7 @@ public class DistantLeavesBlock extends Block {
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
 		Blocks.BIRCH_LEAVES.randomDisplayTick(state, world, pos, random);
 
+		// If I remove this I get a 5fps boost (not scientifically tested I only did one test probably inaccurate measurement)
 		if (random.nextInt(15) == 1) {
 			double x = (double) pos.getX() + random.nextInt(1);
 			double y = (double) pos.getY() + random.nextInt(1);
