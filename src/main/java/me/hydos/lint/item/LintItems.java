@@ -72,7 +72,7 @@ public class LintItems {
 	 * yes
 	 */
 	public static final Item DUSKBLADE = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1).rarity(Rarity.EPIC));
-	public static final Item ATTUNER = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1));
+	public static final Item ATTUNER = new WaypointTeleportItem(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1));
 	public static final Item QUESTBOOK = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 
 	public static void initialize() {

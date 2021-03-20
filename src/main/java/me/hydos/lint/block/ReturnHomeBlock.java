@@ -55,12 +55,12 @@ public class ReturnHomeBlock extends Block {
 
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		if (state.get(ACTIVATED)) {
-			if (player.getStackInHand(hand).getItem() == LintItems.ATTUNER) {
-				return ActionResult.PASS;
-			}
-
+		if (state.get(ACTIVATED)) {			
 			if (world instanceof ServerWorld) {
+				if (player.getStackInHand(hand).getItem() == LintItems.ATTUNER) {
+					return ActionResult.PASS;
+				}
+
 				world.getEntitiesByClass(LivingEntity.class, new Box(pos).expand(5.0), le -> true).forEach(le -> TeleportUtils.teleport(le, world.getServer().getWorld(World.OVERWORLD), le.getBlockPos()));
 			}
 
