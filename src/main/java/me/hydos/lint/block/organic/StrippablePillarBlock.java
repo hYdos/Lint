@@ -53,7 +53,7 @@ public class StrippablePillarBlock extends PillarBlock {
 		if (FabricToolTags.AXES.contains(stack.getItem())) {
 			world.playSound(player, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
-			if (!world.isClient) {
+			if (!world.isClient()) {
 				world.setBlockState(pos, this.stripper.getDefaultState().with(PillarBlock.AXIS, state.get(PillarBlock.AXIS)), 11);
 
 				if (player != null) {
