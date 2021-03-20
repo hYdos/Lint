@@ -36,9 +36,8 @@ public class UnderIslandDecorator extends Decorator<NopeDecoratorConfig> {
 	public Stream<BlockPos> getPositions(DecoratorContext context, Random random, NopeDecoratorConfig config, BlockPos pos) {
 		int i = pos.getX();
 		int j = pos.getZ();
-		int k = context.getTopY(this.getHeightmapType(config), i, j);
+		int k = context.generator;//todo shit
 		return k > 0 ? Stream.of(new BlockPos(i, k, j)) : Stream.of();
 	}
-
 
 }
