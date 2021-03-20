@@ -55,7 +55,7 @@ public class HaykamiumPortalBlock extends Block {
 				serverPlayerEntity.networkHandler.sendPacket(new StopSoundS2CPacket());
 			}
 			if (entity instanceof LivingEntity) {
-				TeleportUtils.teleport(((LivingEntity) entity), fraiya, new BlockPos(0, 80, 0));
+				TeleportUtils.teleport(((LivingEntity) entity), fraiya, new BlockPos(pos.getX() & 0xFF, 80, pos.getZ() & 0xFF));
 			}
 		}
 	}

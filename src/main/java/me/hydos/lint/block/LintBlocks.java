@@ -491,6 +491,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 
 		registerCrossPlant(MYSTICAL_SAPLING, "mystical_sapling");
 		registerCrossPlant(CORRUPT_SAPLING, "corrupt_sapling");
+		registerCrossPlant(CANOPY_SAPLING, "canopy_sapling");
 
 		registerBlock(ItemGroups.DECORATIONS, RETURN_HOME, "return_home");
 
