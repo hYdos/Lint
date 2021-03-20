@@ -58,6 +58,7 @@ import net.minecraft.world.gen.stateprovider.BlockStateProvider;
 import net.minecraft.world.gen.tree.TreeDecorator;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 
+// reason: bad minecraft hardcoding for a few things
 public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 
 	public static final Codec<TreeFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BlockStateProvider.TYPE_CODEC

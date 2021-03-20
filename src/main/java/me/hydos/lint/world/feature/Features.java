@@ -58,7 +58,7 @@ public class Features {
 	/**
 	 * UNCONFIGURED FEATURES
 	 **/
-	public static final Feature<TreeFeatureConfig> TREE = register("tree", new BetterTreeFeature(BetterTreeFeature.CODEC));
+	public static final Feature<TreeFeatureConfig> LINT_TREE = register("tree", new BetterTreeFeature(BetterTreeFeature.CODEC));
 	public static final Feature<TreeFeatureConfig> CANOPY_TREE = register("canopy_tree", new CanopyTreeFeature());
 	public static final PortalFeature RETURN_PORTAL = register("portal", new PortalFeature());
 	public static final Feature<DefaultFeatureConfig> VERTICAL_SHAFT = register("vertical_shaft", new VerticalShaftFeature());
@@ -72,7 +72,7 @@ public class Features {
 	 */
 	public static final Decorator<NopeDecoratorConfig> UNDER_ISLAND = register("under_island", new UnderIslandDecorator());
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> CORRUPT_TREE = register("corrupt_tree", TREE.configure((
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> CORRUPT_TREE = register("corrupt_tree", LINT_TREE.configure((
 			new TreeFeatureConfig.Builder(
 					new SimpleBlockStateProvider(LintBlocks.CORRUPT_LOG.getDefaultState()), new SimpleBlockStateProvider(LintBlocks.CORRUPT_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new LintTrunkPlacer(4, 2, 0),
@@ -85,16 +85,16 @@ public class Features {
 			new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 			new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build();
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> MYSTICAL_TREE = register("mystical_tree", TREE.configure(BASED_CONFIG));
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> MYSTICAL_TREE = register("mystical_tree", LINT_TREE.configure(BASED_CONFIG));
 
 	// Not registered bc not used directly anywhere, only used in THICK_MYSTICAL_TREES
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> TALL_MYSTICAL_TREE = TREE.configure((
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> TALL_MYSTICAL_TREE = LINT_TREE.configure((
 			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
 					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 					new LintTrunkPlacer(6, 4, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", LINT_TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
 			new SimpleBlockStateProvider(LintBlocks.FROZEN_LEAVES.getDefaultState()),
 			new SpruceFoliagePlacer(UniformIntDistribution.of(2, 1), UniformIntDistribution.of(0, 2), UniformIntDistribution.of(1, 1)),
 			new LintTrunkPlacer(4, 2, 1), new TwoLayersFeatureSize(2, 0, 1)).ignoreVines().build()));
