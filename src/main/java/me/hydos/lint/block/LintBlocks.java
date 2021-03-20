@@ -508,8 +508,10 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		registerBlock(ItemGroups.BLOCKS, FROSTED_GRASS, "frosted_grass");
 
 		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
+		registerBlock(ItemGroups.BLOCKS, STRIPPED_MYSTICAL_LOG, "stripped_mystical_log");
 
 		registerBlock(ItemGroups.BLOCKS, CORRUPT_LOG, "corrupt_log");
+		registerBlock(ItemGroups.BLOCKS, STRIPPED_CORRUPT_LOG, "stripped_corrupt_log");
 	}
 
 	public static void registerFluidBlocks() {
