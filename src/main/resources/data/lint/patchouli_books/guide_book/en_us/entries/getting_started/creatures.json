@@ -13,14 +13,29 @@
       "type": "text",
       "text": "Ghosts are creatures which live in dark areas. They act similar to Vexes. They thrive in the dark and burn in sunlight. They tend to flee towards caves. Repelling them is as easy as lighting up the area."
     },
+
     {
       "type": "entity",
       "entity": "lint:crab",
-      "text": "Sharp creatures which live on beaches"
+      "text": "Sharp limbed creatures which live on beaches"
     },
     {
       "type": "text",
-      "text": "Crabs are defensive creatures that reside on beaches. They dance when crab rave is being played."
+      "text": "Crabs are defensive creatures that reside on beaches. They dance when crab rave is being played. They attack in groups when attacked, similar to zombified piglins."
+    },
+
+    {
+      "type": "entity",
+      "entity": "lint:tiny_potato",
+      "text": "Cute and friendly creatures"
+    },
+    {
+      "type": "text",
+      "text": "Tiny potatoes are small, passive, tamable creatures that act similar to parrots (though they don't make sounds). They can be tamed by feeding them potatoes or baked potatoes."
+    },
+
+    {
+      "type": "empty"
     }
   ]
 }
