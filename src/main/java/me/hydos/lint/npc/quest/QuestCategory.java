@@ -17,25 +17,22 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixinimpl;
+package me.hydos.lint.npc.quest;
 
-import me.hydos.lint.util.math.Vec2i;
-import net.minecraft.network.PacketByteBuf;
-
-// DONT change this UNLESS you can make this stuff work identically
-public class SecurityProblemCauser {
-	public static void deserialiseLocations(PacketByteBuf data) {
-		Vec2i[] next = new Vec2i[4];
-
-		for (int i = 0; i < 4; ++i) {
-			next[i] = new Vec2i(data.readInt(), data.readInt());
-		}
-
-		synchronized (lock) {
-			townLocs = next;
-		}
-	}
-
-	public static Object lock = new Object();
-	public static Vec2i[] townLocs;
+/**
+ * Indicates the category of quest a quest is.
+ */
+public enum QuestCategory {
+	/**
+	 * The main questline.
+	 */
+	MAIN,
+	/**
+	 * Story based quests.
+	 */
+	STORY,
+	/**
+	 * RNG-Generated quests within the world.
+	 */
+	WORLD
 }

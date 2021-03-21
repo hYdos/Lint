@@ -21,7 +21,6 @@ package me.hydos.lint.sound;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.mixinimpl.LintSoundEvent;
-import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.registry.Registry;
 
@@ -38,7 +37,8 @@ public class Sounds {
 	 * Misc Music
 	 */
 	public static final SoundEvent DUNGEON = new SoundEvent(Lint.id("music.clandestine"));
-	public static final SoundEvent GRIMACE = new SoundEvent(Lint.id("music.grimace"));
+	public static final SoundEvent GRIMACE_OBOE = new SoundEvent(Lint.id("music.grimace"));
+	public static final SoundEvent GRIMACE_VIOLINS = new SoundEvent(Lint.id("music.grimace_violins"));
 	public static final SoundEvent HERIA_AND_THE_TOWN_OF_HOPE = new SoundEvent(Lint.id("music.heria_and_the_town_of_hope"));
 	public static final SoundEvent PAWERIA_CARIAR_OF_ORDER = new SoundEvent(Lint.id("music.paweria_cariar_of_order"));
 	public static final SoundEvent STEELBRANCH = new SoundEvent(Lint.id("music.steelbranch"));
@@ -48,10 +48,13 @@ public class Sounds {
 	 * Biome Music
 	 */
 	public static final SoundEvent MYSTICAL_FOREST = new SoundEvent(Lint.id("music.mystical_forest"));
+	public static final SoundEvent ETHEREAL_GROVES = new SoundEvent(Lint.id("music.ethereal_groves_of_fraiya"));
 	public static final SoundEvent CORRUPT_FOREST = new SoundEvent(Lint.id("music.corrupt_forest"));
+	public static final SoundEvent MANOS_TOUCH = new SoundEvent(Lint.id("music.manos_touch"));
 	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
 	public static final SoundEvent DAWN_SHARDLANDS = new SoundEvent(Lint.id("music.dawn_shardlands"));
 	public static final SoundEvent CAVERNS = new SoundEvent(Lint.id("music.caverns"));
+	public static final SoundEvent FROZEN_FOREST = new SoundEvent(Lint.id("music.frozen_forest"));
 
 	/**
 	 * Misc Sounds
@@ -64,17 +67,6 @@ public class Sounds {
 	 */
 	public static final SoundEvent EASTERN_ROSELLA_IDLE = new SoundEvent(Lint.id("eastern_rosella.idle"));
 	public static final SoundEvent CRAB_IDLE = new SoundEvent(Lint.id("crab.idle"));
-
-	private static final MusicSound createBossMusic(SoundEvent event) {
-		return new MusicSound(event, 0, 0, true);
-	}
-
-	/**
-	 * Boss Music Loops
-	 */
-	public static final MusicSound KING_TATER_LOOP = createBossMusic(KING_TATER);
-	public static final MusicSound I509_LOOP = createBossMusic(I509);
-	public static final MusicSound LEX_MANOS_LOOP = createBossMusic(LEX_MANOS);
 
 	public static void initialize() {
 		// music
@@ -90,6 +82,11 @@ public class Sounds {
 		register(PAWERIA_CARIAR_OF_ORDER);
 		register(STEELBRANCH);
 		register(EYE_OF_GOLD);
+		register(ETHEREAL_GROVES);
+		register(FROZEN_FOREST);
+		register(GRIMACE_OBOE);
+		register(GRIMACE_VIOLINS);
+		register(MANOS_TOUCH);
 
 		// progression related short tunes
 		register(ADVANCEMENT);

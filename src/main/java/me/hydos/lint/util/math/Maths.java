@@ -65,10 +65,10 @@ public class Maths {
 			// Want an equal experience for all players, so control it directly.
 			if (aBiome == Biomes.CORRUPT_FOREST_KEY) {
 				distChunks = 3f;
-			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY || aBiome == Biomes.INDIGO_RIDGES_KEY) {
-				distChunks = 0.5f * (3f + java.lang.Math.min(7.2f, 0.43f * originalResultChunks));
+			} else if (aBiome == Biomes.MYSTICAL_FOREST_KEY || aBiome == Biomes.INDIGO_RIDGES_KEY || aBiome == Biomes.ETHEREAL_WOODLAND_KEY) {
+				distChunks = 0.5f * (3f + 9.2f);
 			} else if (aBiome == Biomes.MYSTICAL_GROVE_KEY || aBiome == Biomes.DAWN_SHARDLANDS_KEY) {
-				distChunks = java.lang.Math.min(7.2f, 0.43f * originalResultChunks);
+				distChunks = 9.2f;
 			} else if (aBiome == Biomes.DAWN_SHARDLANDS_EDGE_KEY) {
 				distChunks = 0.69f * originalResultChunks;
 			}

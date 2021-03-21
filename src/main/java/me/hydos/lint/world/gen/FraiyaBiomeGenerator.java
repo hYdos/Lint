@@ -80,12 +80,19 @@ public class FraiyaBiomeGenerator extends BiomeGenerator {
 
 		double baseHeight = this.terrainData.sampleBaseHeight(x, z);
 
+		int z_ = z + 6200;
+		boolean frozen = z_ * z_ + x * x < 5000 * 5000;
+
 		if (baseHeight < FraiyaTerrainGenerator.SEA_LEVEL + 2) {
 			if (baseHeight > FraiyaTerrainGenerator.SEA_LEVEL - 2) {
-				return this.beachSampler.sample(this.biomeRegistry, biomeX, biomeZ);
+				return frozen ? this.biomeRegistry.get(Biomes.ETHEREAL_WOODLAND_KEY) : this.beachSampler.sample(this.biomeRegistry, biomeX, biomeZ);
 			} else {
 				return this.biomeRegistry.getOrThrow(Biomes.OCEAN_KEY);
 			}
+		}
+
+		if (frozen) {
+			return this.biomeRegistry.get(Biomes.ETHEREAL_WOODLAND_KEY);
 		}
 
 		double scale = this.terrainData.sampleTerrainScale(x, z);

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "lint:mint_gel"
+    },
+    {
+      "item": "lint:tarscan_shard"
+    }
+  ],
+  "result": {
+    "item": "lint:tarscan_gel",
+    "count": 1
+  }
+}

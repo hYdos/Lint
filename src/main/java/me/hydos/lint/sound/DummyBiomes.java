@@ -17,9 +17,8 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixinimpl;
+package me.hydos.lint.sound;
 
-import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.world.biome.Biomes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
@@ -42,21 +41,28 @@ public class DummyBiomes {
 				.effects(new BiomeEffects.Builder()
 						.waterColor(0x32e686)
 						.waterFogColor(0x32e686)
-						.fogColor(Biomes.MYSTICAL_FOG_COLOUR)
+						.fogColor(0xffffff)
 						.loopSound(event)
 						.skyColor(0x88dfea)
 						.build())
 				.build();
 	}
 
-	public static final Biome DUMMY_TOWN_THERIA = createLoopSound(Sounds.EYE_OF_GOLD); // TODO write music for theria's town
+	// Towns
+	public static final Biome DUMMY_TOWN_THERIA = createLoopSound(Sounds.EYE_OF_GOLD);
 	public static final Biome DUMMY_TOWN_AURIA = createLoopSound(Sounds.STEELBRANCH);
 	public static final Biome DUMMY_TOWN_PAWERIA = createLoopSound(Sounds.PAWERIA_CARIAR_OF_ORDER);
 	public static final Biome DUMMY_TOWN_HERIA = createLoopSound(Sounds.HERIA_AND_THE_TOWN_OF_HOPE);
-
+ 
+	// Locations
 	public static final Biome DUMMY_CAVERNS = createLoopSound(Sounds.CAVERNS);
 	public static final Biome DUMMY_DUNGEON = createLoopSound(Sounds.DUNGEON);
 
+	// Alternative Tunes
+	public static final Biome DUMMY_MYSTICAL_FOREST_ALTER = createLoopSound(Sounds.ETHEREAL_GROVES);
+	public static final Biome DUMMY_CORRUPT_FOREST_ALTER = createLoopSound(Sounds.MANOS_TOUCH);
+
+	// Boss Music
 	public static final Biome DUMMY_KING_TATER = createLoopSound(Sounds.KING_TATER);
 	public static final Biome DUMMY_I509 = createLoopSound(Sounds.I509);
 

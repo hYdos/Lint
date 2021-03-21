@@ -19,12 +19,24 @@
 
 package me.hydos.lint.item;
 
+import java.util.List;
+
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.world.World;
 
 public class QuestbookItem extends Item {
 	public QuestbookItem(Settings settings) {
 		super(settings);
 	}
 
+	@Override
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip,
+			TooltipContext context) {
+		tooltip.add(new LiteralText("Not Currently Implemented."));
+	}
 	// TODO questbook stuff
 }

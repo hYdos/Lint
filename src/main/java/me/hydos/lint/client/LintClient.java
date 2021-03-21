@@ -39,13 +39,13 @@ import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
-import me.hydos.lint.mixinimpl.LintSoundManager;
-import me.hydos.lint.mixinimpl.SecurityProblemCauser;
 import me.hydos.lint.network.ClientNetworking;
 import me.hydos.lint.network.Networking;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.screenhandler.client.LilTaterScreen;
 import me.hydos.lint.screenhandler.client.SmelteryScreen;
+import me.hydos.lint.sound.LintSoundManager;
+import me.hydos.lint.sound.SecurityProblemCauser;
 import me.hydos.lint.sound.Sounds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -105,9 +105,10 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerBlockRendererLayers() {
+		// TODO automate this in our registry system
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CORRUPT_STEM, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.WILTED_FLOWER, RenderLayer.getCutoutMipped());
-		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_GRASS, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_GRASS_PLANT, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_STEM, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_DAISY, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.ALLOS_CRYSTAL, RenderLayer.getCutoutMipped());
@@ -118,6 +119,10 @@ public class LintClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.SPEARMINT, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.WATERMINT, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.KUREI, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.TUSSOCK, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.RED_TUSSOCK, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_LEAVES, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_SAPLING, RenderLayer.getCutoutMipped());
 	}
 
 	private void registerHandledScreens() {

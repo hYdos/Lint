@@ -20,6 +20,7 @@
 package me.hydos.lint.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 
 public class DirtLikeBlock extends Block {
@@ -30,5 +31,19 @@ public class DirtLikeBlock extends Block {
 	@Override
 	public boolean is(Block block) {
 		return this == block || Blocks.DIRT == block;
+	}
+
+	public static boolean isLintGrass(BlockState state) {
+		Block block = state.getBlock();
+		return isLintGrass(block);
+	}
+
+	public static boolean isLintGrass(Block block) {
+		return block == LintBlocks.CORRUPT_GRASS || block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
+	}
+
+	public static boolean isUntaintedGrass(BlockState state) {
+		Block block = state.getBlock();
+		return block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
 	}
 }

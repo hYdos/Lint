@@ -30,6 +30,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -71,11 +72,23 @@ public class WaypointTeleportItem extends Item {
 
 			CompoundTag tag = stack.getOrCreateTag();
 
+			if (tag.contains("nextTime")) {
+				long cTime = world.getTime();
+				long nextTime = tag.getLong("nextTime");
+
+				if (cTime < nextTime) {
+					user.sendMessage(new LiteralText("This portal attuner is on cooldown for " + (nextTime - cTime) / 20L + " seconds."), true);
+					return TypedActionResult.consume(stack);
+				}
+			}
 			if (tag.contains("waypoint")) {
 				if (!world.isClient()) {
 					int[] pos = tag.getIntArray("waypoint");
+
 					user.teleport(pos[0] + 0.5, pos[1], pos[2] + 0.5);
 				}
+
+				tag.putLong("nextTime", world.getTime() + 20L * 60L * 5L);
 
 				return TypedActionResult.consume(stack);
 			}

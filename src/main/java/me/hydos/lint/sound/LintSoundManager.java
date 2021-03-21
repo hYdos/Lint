@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixinimpl;
+package me.hydos.lint.sound;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -29,6 +29,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.util.math.Vec2i;
+import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -56,7 +57,7 @@ public class LintSoundManager {
 	private static Optional<SoundEvent> next = Optional.empty();
 
 	public static boolean isPlayingRecordMusic(ClientPlayerEntity player, SoundManager soundManager, WorldRenderer worldRenderer) {
-		Box box = player.getBoundingBox().expand(6.0);
+		Box box = player.getBoundingBox().expand(55.0);
 		return worldRenderer.playingSongs.entrySet().stream().anyMatch(entry -> box.contains(entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ()) && soundManager.isPlaying(entry.getValue()));
 	}
 
@@ -129,7 +130,7 @@ public class LintSoundManager {
 
 		BlockPos playerPos = player.getBlockPos();
 		int playerY = playerPos.getY();
-		
+
 		int passthroughs = 2;
 
 		// test blocks below for dungeon
@@ -139,13 +140,13 @@ public class LintSoundManager {
 				if (playerY < i) {
 					break;
 				}
-				
+
 				BlockPos pos = playerPos.down(i);
 				BlockState bs = world.getBlockState(pos);
 
 				if (bs.isFullCube(world, pos)) {
 					Block b = bs.getBlock();
-					
+
 					if (b == LintBlocks.DUNGEON_BRICKS || b == LintBlocks.DUNGEON_BRICK_SLAB || b == LintBlocks.DUNGEON_BRICK_SLAB) {
 						return DummyBiomes.DUMMY_DUNGEON;
 					} else {
@@ -164,7 +165,7 @@ public class LintSoundManager {
 		int targetMB = chunk.sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, (int) x, (int) z) - 2;
 		int checky = (int) y;
 
-		if (checky < player.getEntityWorld().getSeaLevel() && checky < targetWS && checky < targetMB) {
+		if (checky < 40 || checky < player.getEntityWorld().getSeaLevel() && checky < targetWS && checky < targetMB) {
 			return DummyBiomes.DUMMY_CAVERNS;
 		}
 
@@ -185,6 +186,20 @@ public class LintSoundManager {
 			}
 		}
 
-		return access.getBiome(x, y, z);
+		Biome biome = access.getBiome(x, y, z);
+
+		int fg = biome.getEffects().getFogColor();
+
+		if (fg == Biomes.MYSTICAL_FOG_COLOUR) { // Good ol' performance hax. This is probably faster than getting the registry and checking the key.
+			if ((System.currentTimeMillis() & 0x80000) == 0) { // about an 8-9 minute delay
+				return DummyBiomes.DUMMY_MYSTICAL_FOREST_ALTER;
+			}
+		} else if (fg == Biomes.CORRUPT_FOG_COLOUR) {
+			if (((System.currentTimeMillis() + 0x40000) & 0x80000) == 0) { // about an 8-9 minute delay, offset by half of the mystical one
+				return DummyBiomes.DUMMY_CORRUPT_FOREST_ALTER;
+			}
+		}
+
+		return biome;
 	}
 }

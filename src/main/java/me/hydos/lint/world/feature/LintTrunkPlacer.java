@@ -19,9 +19,14 @@
 
 package me.hydos.lint.world.feature;
 
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.Block;
@@ -38,10 +43,6 @@ import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
 public class LintTrunkPlacer extends TrunkPlacer {
 
 	public static final Codec<LintTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> method_28904(instance)
@@ -55,12 +56,12 @@ public class LintTrunkPlacer extends TrunkPlacer {
 
 	private static boolean canGenerate(TestableWorld world, BlockPos pos) {
 		return world.testBlockState(pos, (state) -> {
-			Block block = state.getBlock();
+			Block block = state.getBlock(); // wtf is this not checking for lint blocks i mean it does't seem to be changing anyhting so ok
 			return Feature.isSoil(block) && !state.isOf(Blocks.GRASS_BLOCK) && !state.isOf(Blocks.MYCELIUM);
 		});
 	}
 
-	protected static void setToDirt(ModifiableTestableWorld world, BlockPos pos) {
+	protected static void setToLintDirt(ModifiableTestableWorld world, BlockPos pos) {
 		if (!canGenerate(world, pos)) {
 			TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
 		}
@@ -71,7 +72,7 @@ public class LintTrunkPlacer extends TrunkPlacer {
 	}
 
 	public List<FoliagePlacer.TreeNode> generate(ModifiableTestableWorld world, Random random, int trunkHeight, BlockPos pos, Set<BlockPos> placedStates, BlockBox box, TreeFeatureConfig config) {
-		setToDirt(world, pos.down());
+		setToLintDirt(world, pos.down());
 
 		for (int i = 0; i < trunkHeight; ++i) {
 			getAndSetState(world, random, pos.up(i), placedStates, box, config);
