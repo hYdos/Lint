@@ -28,6 +28,7 @@ import me.hydos.lint.block.organic.LintCorruptGrassBlock;
 import me.hydos.lint.block.organic.LintFlowerBlock;
 import me.hydos.lint.block.organic.LintLeavesBlock;
 import me.hydos.lint.block.organic.LintSaplingBlock;
+import me.hydos.lint.block.organic.LintSpreadableGrassBlock;
 import me.hydos.lint.block.organic.LintTallFlowerBlock;
 import me.hydos.lint.block.organic.StrippablePillarBlock;
 import me.hydos.lint.block.organic.TaterbaneBlock;
@@ -55,7 +56,6 @@ import net.minecraft.block.PillarBlock;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.block.SaplingBlock;
 import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SpreadableBlock;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
@@ -81,11 +81,11 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	/**
 	 * Soils
 	 */
-	public static final Block CORRUPT_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.MYCELIUM)) {
+	public static final Block CORRUPT_GRASS = new LintSpreadableGrassBlock(FabricBlockSettings.copy(Blocks.MYCELIUM)) {
 	};
-	public static final Block LIVELY_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
+	public static final Block LIVELY_GRASS = new LintSpreadableGrassBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
 	};
-	public static final Block FROSTED_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
+	public static final Block FROSTED_GRASS = new LintSpreadableGrassBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
 	};
 
 	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
