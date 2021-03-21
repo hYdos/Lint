@@ -122,6 +122,7 @@ public class LintClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.TUSSOCK, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.RED_TUSSOCK, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_LEAVES, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_SAPLING, RenderLayer.getCutoutMipped());
 	}
 
 	private void registerHandledScreens() {
