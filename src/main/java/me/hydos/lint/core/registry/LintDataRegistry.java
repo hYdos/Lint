@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block;
+package me.hydos.lint.core.registry;
 
 import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
@@ -41,7 +41,27 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class LintAutoDataRegistry {
+public class LintDataRegistry {
+	// Items
+
+	public static Item registerGenerated(String id, Item item) {
+		Identifier modelIdentifier = id("item/" + id);
+		_registerGenerated(modelIdentifier, modelIdentifier);
+		return Registry.register(Registry.ITEM, id(id), item);
+	}
+
+	public static Item registerHandheld(String id, Item item) {
+		Identifier modelIdentifier = id("item/" + id);
+		RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
+		return Registry.register(Registry.ITEM, id(id), item);
+	}
+
+	private static void _registerGenerated(Identifier modelIdentifier, Identifier textureIdentifier) {
+		RESOURCE_PACK.addModel(JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString())), modelIdentifier);
+	}
+
+	// Blocks
+
 	/**
 	 * Only registers the block state and the block item, as a simple block state referencing the model, and a basic BlockItem.
 	 */
@@ -79,22 +99,6 @@ public class LintAutoDataRegistry {
 		return block;
 	}
 
-	public static Item registerGenerated(String id, Item item) {
-		Identifier modelIdentifier = id("item/" + id);
-		_registerGenerated(modelIdentifier, modelIdentifier);
-		return Registry.register(Registry.ITEM, id(id), item);
-	}
-
-	public static Item registerHandheld(String id, Item item) {
-		Identifier modelIdentifier = id("item/" + id);
-		RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
-		return Registry.register(Registry.ITEM, id(id), item);
-	}
-
-	private static void _registerGenerated(Identifier modelIdentifier, Identifier textureIdentifier) {
-		RESOURCE_PACK.addModel(JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString())), modelIdentifier);
-	}
-
 	/**
 	 * Registers a generic "cross" block with an associated dropped item
 	 *
@@ -115,10 +119,6 @@ public class LintAutoDataRegistry {
 		registerBlockItem(block, itemGroup);
 
 		return block;
-	}
-
-	public static void registerRecipe(String id, JRecipe recipe) {
-		RESOURCE_PACK.addRecipe(id(id), recipe);
 	}
 
 	/**
@@ -202,7 +202,7 @@ public class LintAutoDataRegistry {
 	 * @param block     A block which has already been registered
 	 * @param itemGroup The item group to place the item in
 	 */
-	static void registerBlockItem(Block block, @Nullable ItemGroup itemGroup) {
+	public static void registerBlockItem(Block block, @Nullable ItemGroup itemGroup) {
 		Identifier id = Registry.BLOCK.getId(block);
 		RESOURCE_PACK.addLootTable(new Identifier(id.getNamespace(), "blocks/" + id.getPath()),
 				JLootTable.loot("minecraft:block")
@@ -222,5 +222,11 @@ public class LintAutoDataRegistry {
 
 			Registry.register(Registry.ITEM, id, new BlockItem(block, settings));
 		}
+	}
+	
+	// Other
+
+	public static void registerRecipe(String id, JRecipe recipe) {
+		RESOURCE_PACK.addRecipe(id(id), recipe);
 	}
 }

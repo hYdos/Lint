@@ -32,6 +32,7 @@ import me.hydos.lint.block.organic.LintSpreadableGrassBlock;
 import me.hydos.lint.block.organic.LintTallFlowerBlock;
 import me.hydos.lint.block.organic.StrippablePillarBlock;
 import me.hydos.lint.block.organic.TaterbaneBlock;
+import me.hydos.lint.core.registry.LintDataRegistry;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
@@ -64,7 +65,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShapes;
 
-public final class LintBlocks extends LintAutoDataRegistry {
+public final class LintBlocks extends LintDataRegistry {
 	/**
 	 * Automatically generated
 	 */

@@ -19,8 +19,8 @@
 
 package me.hydos.lint.item.materialset;
 
-import me.hydos.lint.enhancement.Enhanceable;
-import me.hydos.lint.enhancement.LintEnhancements;
+import me.hydos.lint.core.enhancement.Enhanceable;
+import me.hydos.lint.refactord.enhancement.LintEnhancements;
 import me.hydos.lint.util.Power;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.*;

@@ -19,7 +19,6 @@
 
 package me.hydos.lint.block.organic;
 
-import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.ShapeContext;
@@ -28,6 +27,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
+
+import me.hydos.lint.block.LintBlocks;
 
 public class LintFlowerBlock extends FlowerBlock {
 	private final VoxelShape shape;

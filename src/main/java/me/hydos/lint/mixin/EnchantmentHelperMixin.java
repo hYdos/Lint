@@ -19,7 +19,6 @@
 
 package me.hydos.lint.mixin;
 
-import me.hydos.lint.enhancement.Enhanceable;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -30,6 +29,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import me.hydos.lint.core.enhancement.Enhanceable;
 
 @Mixin(EnchantmentHelper.class)
 public class EnchantmentHelperMixin {

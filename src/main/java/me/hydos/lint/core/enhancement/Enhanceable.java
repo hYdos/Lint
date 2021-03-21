@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.enhancement;
+package me.hydos.lint.core.enhancement;
 
 import me.hydos.lint.util.Power;
 import net.minecraft.entity.Entity;
