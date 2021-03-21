@@ -125,7 +125,7 @@ public final class MaterialSet {
 						JResult.item(this.axe)));
 
 				LintAutoDataRegistry.registerRecipe(this.registryName + "_axe2", JRecipe.shaped(
-						JPattern.pattern(" ## ", " /#", " / "),
+						JPattern.pattern(" ##", " /#", " / "),
 						JKeys.keys().key("#", mat).key("/", stick),
 						JResult.item(this.axe)));
 

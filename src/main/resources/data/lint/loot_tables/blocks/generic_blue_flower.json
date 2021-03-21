@@ -9,13 +9,13 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "lint:thaisa",
+              "block": "lint:generic_blue_flower",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "lint:thaisa"
+          "name": "lint:generic_blue_flower"
         }
       ],
       "conditions": [
