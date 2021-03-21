@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "lint:mystical_slab",
+    "lint:corrupt_slab",
+    "lint:dungeon_brick_slab"
+  ]
+}

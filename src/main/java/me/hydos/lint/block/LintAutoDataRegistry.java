@@ -117,6 +117,10 @@ public class LintAutoDataRegistry {
 		return block;
 	}
 
+	public static void registerRecipe(String id, JRecipe recipe) {
+		RESOURCE_PACK.addRecipe(id(id), recipe);
+	}
+
 	/**
 	 * Registers a tall flower "cross" block with an associated dropped item
 	 *

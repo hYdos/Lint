@@ -19,8 +19,18 @@
 
 package me.hydos.lint.block;
 
+import java.util.HashMap;
+
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.organic.*;
+import me.hydos.lint.block.organic.DistantLeavesBlock;
+import me.hydos.lint.block.organic.FallenLeavesBlock;
+import me.hydos.lint.block.organic.LintCorruptGrassBlock;
+import me.hydos.lint.block.organic.LintFlowerBlock;
+import me.hydos.lint.block.organic.LintLeavesBlock;
+import me.hydos.lint.block.organic.LintSaplingBlock;
+import me.hydos.lint.block.organic.LintTallFlowerBlock;
+import me.hydos.lint.block.organic.StrippablePillarBlock;
+import me.hydos.lint.block.organic.TaterbaneBlock;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
@@ -31,7 +41,21 @@ import me.hydos.lint.world.tree.CorruptTree;
 import me.hydos.lint.world.tree.MysticalTree;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FallingBlock;
+import net.minecraft.block.FarmlandBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.block.PillarBlock;
+import net.minecraft.block.PlantBlock;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SpreadableBlock;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
@@ -39,8 +63,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShapes;
-
-import java.util.HashMap;
 
 public final class LintBlocks extends LintAutoDataRegistry {
 	/**
@@ -127,7 +149,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block FUSED_STONE = registerCubeAll(
 			"fused_stone",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
+					.hardness(1.25f)
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
@@ -163,7 +185,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block TARSCAN_ORE = registerCubeAll(
 			"tarscan_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
+					.hardness(2.0f)
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
@@ -172,7 +194,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block MAGNETITE_DEPOSIT = registerCubeAll(
 			"magnetite_deposit",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
+					.hardness(2.75f)
 					.sounds(BlockSoundGroup.METAL)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
@@ -181,7 +203,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block SICIERON_ORE = registerCubeAll(
 			"sicieron_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
+					.hardness(3.0f)
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 1)
 					.requiresTool()),
@@ -190,7 +212,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block JUREL_ORE = registerCubeAll(
 			"jurel_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
+					.hardness(3.0f)
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 2)
 					.requiresTool()),
@@ -244,7 +266,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block DUNGEON_BRICKS = registerCubeAll(
 			"dungeon_bricks",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(4)
+					.hardness(6)
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 2) // yes this means require iron
 					.requiresTool()),
@@ -440,11 +462,11 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.nonOpaque(),
 			VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.9375, 0.5, 0.875)
 	);
-	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
+	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB)), ItemGroups.BLOCKS);
 	/**
 	 * Misc Building Blocks
 	 */
-	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
+	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", new SlabBlock(AbstractBlock.Settings.copy(DUNGEON_BRICKS)), ItemGroups.BLOCKS);
 
 	public static final Block MYSTICAL_DOOR = Blocks.OAK_DOOR; // TODO
 	/**

@@ -61,7 +61,7 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new FleeEntityGoal<>(this, CatEntity.class, 6.0F, 1.0D, 1.2D));
 		this.goalSelector.add(1, new FleeEntityGoal<>(this, OcelotEntity.class, 6.0F, 1.0D, 1.2D));
-		this.goalSelector.add(1, new FleeEntityGoal<>(this, PlayerEntity.class, le -> true, 6.0F, 1.0D, 1.2D, le -> !le.isSneaking() && EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(le))); // false in last predicate = filter *out*
+		this.goalSelector.add(1, new FleeEntityGoal<>(this, PlayerEntity.class, le -> true, 6.0F, 1.0D, 1.2D, le -> !le.isSneaking() && !le.isSpectator())); // false in last predicate = filter *out*
 		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(3, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));
 		this.goalSelector.add(3, new SitGoal(this));
