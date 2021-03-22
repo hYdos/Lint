@@ -86,7 +86,7 @@ public final class LintBlocks extends LintDataRegistry {
 	public static final Block LIVELY_GRASS = new LintSpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
 	}; // DONE
 	public static final Block FROSTED_GRASS = new LintSpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
-	};
+	}; // DONE
 
 	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
 			new FarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)) {

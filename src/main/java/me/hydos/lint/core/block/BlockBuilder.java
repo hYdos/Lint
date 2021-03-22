@@ -21,6 +21,8 @@ package me.hydos.lint.core.block;
 
 import static me.hydos.lint.Lint.RESOURCE_PACK;
 
+import java.util.function.Function;
+
 import org.jetbrains.annotations.Nullable;
 
 import me.hydos.lint.Lint;
@@ -28,6 +30,7 @@ import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixin.FireBlockAccessor;
 import net.devtech.arrp.json.loot.JCondition;
 import net.devtech.arrp.json.loot.JLootTable;
+import net.devtech.arrp.json.models.JModel;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -49,6 +52,7 @@ public class BlockBuilder {
 	private ItemGroup itemGroup = ItemGroups.BLOCKS;
 	private BlockMaterial material;
 	private boolean defaultLootTable = true;
+	private Function<Identifier, JModel> itemModel = PARENTED;
 
 	public BlockBuilder material(BlockMaterial material) throws IllegalStateException {
 		if (this.material.material == null || this.material.materialColour == null) {
@@ -74,6 +78,14 @@ public class BlockBuilder {
 
 	public BlockBuilder customLootTable() {
 		this.defaultLootTable = false;
+		return this;
+	}
+
+	/**
+	 * Replace the default item model. Function takes the item id (NOT the model id) and returns the item JModel.
+	 */
+	public BlockBuilder itemModel(Function<Identifier, JModel> modelCreator) {
+		this.itemModel = modelCreator;
 		return this;
 	}
 
@@ -127,6 +139,7 @@ public class BlockBuilder {
 		T result = register(id, constructor.create(settings)); // Yeah using a material is required dummy
 		this.model.createFor(result, id);
 
+		// might be burny
 		if (this.material.burnChance > -1) {
 			((FireBlockAccessor) Blocks.FIRE).callRegisterFlammableBlock(result, this.material.burnChance, this.material.spreadChance);
 		}
@@ -147,6 +160,9 @@ public class BlockBuilder {
 									.name(id.toString()))
 							.condition(new JCondition("minecraft:survives_explosion"))));
 		}
+		
+		// Add the item model
+		RESOURCE_PACK.addModel(this.itemModel.apply(idl), Lint.id("item/" + id));
 
 		return result;
 	}
@@ -161,6 +177,7 @@ public class BlockBuilder {
 	}
 
 	private static final BlockConstructor<Block> DEFAULT_CONSTRUCTOR = Block::new;
+	private static final Function<Identifier, JModel> PARENTED = id -> JModel.model().parent(Lint.id("block/" + id.getPath()).toString());
 
 	/**
 	 * Functional interface for constructing a block instance.
