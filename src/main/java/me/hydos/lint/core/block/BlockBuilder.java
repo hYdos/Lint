@@ -39,12 +39,12 @@ import net.minecraft.util.registry.Registry;
  *
  * @reason Insurance against mojang's refactors bc we have so many blocks.
  */
-public class BlockConstructor {
+public class BlockBuilder {
 	private Model model = null;
 	private ItemGroup itemGroup = ItemGroups.BLOCKS;
 	private BlockMaterial material;
 
-	public BlockConstructor material(BlockMaterial material) throws IllegalStateException {
+	public BlockBuilder material(BlockMaterial material) throws IllegalStateException {
 		if (this.material.material == null || this.material.materialColour == null) {
 			throw new IllegalStateException("Material and Material colour must both be non-null.");
 		}
@@ -53,19 +53,21 @@ public class BlockConstructor {
 		return this;
 	}
 
-	public BlockConstructor model(Model model) {
+	public BlockBuilder model(Model model) {
 		this.model = model;
 		return this;
 	}
 
-	public BlockConstructor itemGroup(@Nullable ItemGroup itemGroup) {
+	public BlockBuilder itemGroup(@Nullable ItemGroup itemGroup) {
 		this.itemGroup = itemGroup;
 		return this;
 	}
 
-	// TODO functionality stuff and spreadable configs and stuff. Maybe another class for manufacturing the block itself or something idk
-
 	public Block register(String id) {
+		return this.register(id, DEFAULT_CONSTRUCTOR);
+	}
+
+	public <T extends Block> T register(String id, BlockConstructor<T> constructor) {
 		FabricBlockSettings settings = FabricBlockSettings.copyOf(AbstractBlock.Settings.of(material.material, material.materialColour))
 				.sounds(material.sounds)
 				.luminance(material.luminosity)
@@ -100,7 +102,7 @@ public class BlockConstructor {
 			}
 		}
 
-		Block result = register(id, new Block(settings)); // Yeah using a material is required dummy
+		T result = register(id, constructor.create(settings)); // Yeah using a material is required dummy
 		this.model.createFor(result, id);
 
 		if (this.material.burnChance > -1) {
@@ -114,12 +116,22 @@ public class BlockConstructor {
 		return result;
 	}
 
-	public static BlockConstructor create() {
-		return new BlockConstructor();
+	public static BlockBuilder create() {
+		return new BlockBuilder();
 	}
 
 	private static <T extends Block> T register(String id, T block) {
 		Registry.register(Registry.BLOCK, Lint.id(id), block);
 		return block;
+	}
+
+	private static final BlockConstructor<Block> DEFAULT_CONSTRUCTOR = Block::new;
+
+	/**
+	 * Functional interface for constructing a block instance.
+	 */
+	@FunctionalInterface
+	public interface BlockConstructor<T extends Block> {
+		T create(FabricBlockSettings settings);
 	}
 }
