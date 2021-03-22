@@ -17,11 +17,12 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block.organic;
+package me.hydos.lint.refactord.block.organic;
 
 import java.util.Random;
 
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SnowBlock;
@@ -33,8 +34,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.chunk.light.ChunkLightProvider;
 
-public class LintSpreadableGrassBlock extends SnowyBlock {
-	public LintSpreadableGrassBlock(Settings settings) {
+public class LintSpreadableBlock extends SnowyBlock {
+	public LintSpreadableBlock(Settings settings) {
 		super(settings.ticksRandomly());
 	}
 
@@ -74,4 +75,9 @@ public class LintSpreadableGrassBlock extends SnowyBlock {
 
 		}
 	}
+
+	/**
+	 * The constructor for this block class.
+	 */
+	public static final BlockConstructor<LintSpreadableBlock> CONSTRUCTOR = LintSpreadableBlock::new;
 }

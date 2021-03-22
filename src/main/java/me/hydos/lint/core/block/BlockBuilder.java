@@ -48,7 +48,7 @@ public class BlockBuilder {
 	private Model model = null;
 	private ItemGroup itemGroup = ItemGroups.BLOCKS;
 	private BlockMaterial material;
-	private boolean defaultLootTable = false;
+	private boolean defaultLootTable = true;
 
 	public BlockBuilder material(BlockMaterial material) throws IllegalStateException {
 		if (this.material.material == null || this.material.materialColour == null) {
@@ -64,13 +64,16 @@ public class BlockBuilder {
 		return this;
 	}
 
+	/**
+	 * Sets the item group for the block item. Default item group is Lint's BLOCKS group. Null is allowed.
+	 */
 	public BlockBuilder itemGroup(@Nullable ItemGroup itemGroup) {
 		this.itemGroup = itemGroup;
 		return this;
 	}
 
-	public BlockBuilder defaultLootTable() {
-		this.defaultLootTable = true;
+	public BlockBuilder customLootTable() {
+		this.defaultLootTable = false;
 		return this;
 	}
 
@@ -79,6 +82,14 @@ public class BlockBuilder {
 	}
 
 	public <T extends Block> T register(String id, BlockConstructor<T> constructor) {
+		if (this.model == null) {
+			throw new IllegalStateException("Required Property: Model");
+		}
+		
+		if (this.material == null) {
+			throw new IllegalStateException("Required Property: Material");
+		}
+
 		FabricBlockSettings settings = FabricBlockSettings.copyOf(AbstractBlock.Settings.of(material.material, material.materialColour))
 				.sounds(material.sounds)
 				.luminance(material.luminosity)

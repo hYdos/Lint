@@ -39,8 +39,8 @@ public class Model {
 	public Model() {
 	}
 
-	private StateFunction state = null;
-	private ModelFunction blockModel = null;
+	StateFunction state = null;
+	ModelFunction blockModel = null;
 	Boolean opaque = null; // This can also be determined by the material. If both are set, this wins.
 
 	public Model blockState(StateFunction blockStateCreator) {
@@ -58,13 +58,17 @@ public class Model {
 		return this;
 	}
 
+	public Model immutable() {
+		return new Immutable(this);
+	}
+
 	void createFor(Block block, String id) {
 		JBlockModel[] modelLocations;
 
 		if (this.blockModel == null) {
-			modelLocations = new JBlockModel[0];
+			modelLocations = new JBlockModel[] {new JBlockModel(Lint.id(id))};
 		} else {
-			Set<Map.Entry<Identifier, JModel>> models = this.blockModel.createModels(subPath -> Lint.id("block" + (subPath.isEmpty() ? "" : "_" + subPath))).entrySet();
+			Set<Map.Entry<Identifier, JModel>> models = this.blockModel.createModels(subPath -> Lint.id("block/" + id + (subPath.isEmpty() ? "" : ("_" + subPath)))).entrySet();
 			
 			for (Map.Entry<Identifier, JModel> model : models) {
 				RESOURCE_PACK.addModel(model.getValue(), model.getKey());
@@ -98,4 +102,30 @@ public class Model {
 		Identifier id = ids.apply("");
 		return ImmutableMap.of(id, JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", id.toString())));
 	};
+
+	public static final Model SIMPLE_CUBE_ALL = new Model().blockState(SIMPLE_STATE).blockModel(CUBE_ALL).immutable();
+	public static final Model NONE = new Model().immutable();
+
+	private static final class Immutable extends Model {
+		public Immutable(Model parent) {
+			this.opaque = parent.opaque;
+			this.state = parent.state;
+			this.blockModel = parent.blockModel;
+		}
+
+		@Override
+		public Model opaque(boolean opaque) {
+			throw new UnsupportedOperationException("Cannot set opaque property on an immutable model!");
+		}
+		
+		@Override
+		public Model blockModel(ModelFunction modelCreator) {
+			throw new UnsupportedOperationException("Cannot set blockModel property on an immutable model!");
+		}
+		
+		@Override
+		public Model blockState(StateFunction blockStateCreator) {
+			throw new UnsupportedOperationException("Cannot set blockState property on an immutable model!");
+		}
+	}
 }

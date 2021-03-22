@@ -19,9 +19,31 @@
 
 package me.hydos.lint.refactord.block;
 
+import me.hydos.lint.core.block.BlockBuilder;
+import me.hydos.lint.core.block.Model;
+import me.hydos.lint.refactord.block.organic.LintSpreadableBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+
 /**
  * All of lint's core blocks.
  */
 public class LintBlocks {
+	public static final Block CORRUPT_GRASS = BlockBuilder.create()
+			.material(LintMaterials.GRASS_BLOCK
+					.material(Material.SOLID_ORGANIC)
+					.colour(MaterialColor.PURPLE))
+			.model(Model.NONE)
+			.register("corrupt_grass", LintSpreadableBlock.CONSTRUCTOR);
 
+	public static final Block LIVELY_GRASS = BlockBuilder.create()
+			.material(LintMaterials.GRASS_BLOCK)
+			.model(Model.NONE)
+			.register("lively_grass", LintSpreadableBlock.CONSTRUCTOR);
+
+	public static final Block FROSTED_GRASS = BlockBuilder.create()
+			.material(LintMaterials.GRASS_BLOCK)
+			.model(Model.NONE)
+			.register("frosted_grass", LintSpreadableBlock.CONSTRUCTOR);
 }

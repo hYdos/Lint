@@ -291,7 +291,7 @@ public class BlockMaterial {
 			return this;
 		}
 
-		public BlockMaterial immutable() {
+		public BlockMaterial template() {
 			return new BlockMaterial(this);
 		}
 	}
