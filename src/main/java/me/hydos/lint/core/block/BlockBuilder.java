@@ -19,11 +19,15 @@
 
 package me.hydos.lint.core.block;
 
+import static me.hydos.lint.Lint.RESOURCE_PACK;
+
 import org.jetbrains.annotations.Nullable;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixin.FireBlockAccessor;
+import net.devtech.arrp.json.loot.JCondition;
+import net.devtech.arrp.json.loot.JLootTable;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -31,6 +35,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 /**
@@ -43,6 +48,7 @@ public class BlockBuilder {
 	private Model model = null;
 	private ItemGroup itemGroup = ItemGroups.BLOCKS;
 	private BlockMaterial material;
+	private boolean defaultLootTable = false;
 
 	public BlockBuilder material(BlockMaterial material) throws IllegalStateException {
 		if (this.material.material == null || this.material.materialColour == null) {
@@ -60,6 +66,11 @@ public class BlockBuilder {
 
 	public BlockBuilder itemGroup(@Nullable ItemGroup itemGroup) {
 		this.itemGroup = itemGroup;
+		return this;
+	}
+
+	public BlockBuilder defaultLootTable() {
+		this.defaultLootTable = true;
 		return this;
 	}
 
@@ -109,9 +120,22 @@ public class BlockBuilder {
 			((FireBlockAccessor) Blocks.FIRE).callRegisterFlammableBlock(result, this.material.burnChance, this.material.spreadChance);
 		}
 
+		Identifier idl = Lint.id(id);
+
 		// Block Item
 		Item.Settings blockItemSettings = new Item.Settings().group(this.itemGroup);
-		Registry.register(Registry.ITEM, Lint.id(id), new BlockItem(result, blockItemSettings));
+		Registry.register(Registry.ITEM, idl, new BlockItem(result, blockItemSettings));
+
+		if (this.defaultLootTable) {
+			RESOURCE_PACK.addLootTable(new Identifier(idl.getNamespace(), "blocks/" + idl.getPath()),
+					JLootTable.loot("minecraft:block")
+					.pool(JLootTable.pool()
+							.rolls(1)
+							.entry(JLootTable.entry()
+									.type("minecraft:item")
+									.name(id.toString()))
+							.condition(new JCondition("minecraft:survives_explosion"))));
+		}
 
 		return result;
 	}
