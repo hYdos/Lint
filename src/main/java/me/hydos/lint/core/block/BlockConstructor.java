@@ -19,10 +19,18 @@
 
 package me.hydos.lint.core.block;
 
+import org.jetbrains.annotations.Nullable;
+
 import me.hydos.lint.Lint;
+import me.hydos.lint.item.group.ItemGroups;
+import me.hydos.lint.mixin.FireBlockAccessor;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.util.registry.Registry;
 
 /**
@@ -32,67 +40,77 @@ import net.minecraft.util.registry.Registry;
  * @reason Insurance against mojang's refactors bc we have so many blocks.
  */
 public class BlockConstructor {
-	private FabricBlockSettings settings = null;
 	private Model model = null;
-	private Boolean opaque = null;
+	private ItemGroup itemGroup = ItemGroups.BLOCKS;
+	private BlockMaterial material;
 
-	public BlockConstructor material(BlockMaterial material) {
-		if (material.material == null || material.materialColour == null) {
+	public BlockConstructor material(BlockMaterial material) throws IllegalStateException {
+		if (this.material.material == null || this.material.materialColour == null) {
 			throw new IllegalStateException("Material and Material colour must both be non-null.");
 		}
 
-		this.settings = FabricBlockSettings.copyOf(AbstractBlock.Settings.of(material.material, material.materialColour))
-				.sounds(material.sounds)
-				.luminance(material.luminosity)
-				.slipperiness(material.slipperiness)
-				.strength(material.hardness, material.resistance)
-				.collidable(material.collidable);
-
-
-		if (material.ticksRandomly) {
-			this.settings.ticksRandomly();
-		}
-
-		if (material.dropsNothing) {
-			this.settings.dropsNothing();
-		}
-
-		if (material.toolRequired) {
-			this.settings.requiresTool();
-		}
-
-		if (material.toolType != null) {
-			this.settings.breakByTool(material.toolType, material.miningLevel);
-		}
-
-		if (material.opaque != null && this.opaque != null) {
-			this.opaque = material.opaque;
-		}
-
+		this.material = material;
 		return this;
 	}
 
 	public BlockConstructor model(Model model) {
 		this.model = model;
-		
-		if (model.opaque != null) {
-			this.opaque = model.opaque;
-		}
+		return this;
+	}
 
+	public BlockConstructor itemGroup(@Nullable ItemGroup itemGroup) {
+		this.itemGroup = itemGroup;
 		return this;
 	}
 
 	// TODO functionality stuff and spreadable configs and stuff. Maybe another class for manufacturing the block itself or something idk
 
 	public Block register(String id) {
-		if (this.opaque != null) {
-			if (!this.opaque) {
-				this.settings.nonOpaque();
+		FabricBlockSettings settings = FabricBlockSettings.copyOf(AbstractBlock.Settings.of(material.material, material.materialColour))
+				.sounds(material.sounds)
+				.luminance(material.luminosity)
+				.slipperiness(material.slipperiness)
+				.strength(material.hardness, material.resistance)
+				.collidable(material.collidable);
+
+		if (this.material.ticksRandomly) {
+			settings.ticksRandomly();
+		}
+
+		if (this.material.dropsNothing) {
+			settings.dropsNothing();
+		}
+
+		if (this.material.toolRequired) {
+			settings.requiresTool();
+		}
+
+		if (this.material.toolType != null) {
+			settings.breakByTool(this.material.toolType, this.material.miningLevel);
+		}
+
+		// Model gets priority over the material since material can only gain this property by inheriting in a "copy" call
+		if (this.model.opaque != null) {
+			if (!this.model.opaque) {
+				settings.nonOpaque();
+			}
+		} else if (this.material.opaque != null) {
+			if (!this.material.opaque) {
+				settings.nonOpaque();
 			}
 		}
 
-		Block result = register(id, new Block(this.settings)); // Yeah using a material is required dummy
+		Block result = register(id, new Block(settings)); // Yeah using a material is required dummy
 		this.model.createFor(result, id);
+
+		if (this.material.burnChance > -1) {
+			((FireBlockAccessor) Blocks.FIRE).callRegisterFlammableBlock(result, this.material.burnChance, this.material.spreadChance);
+		}
+
+		// Block Item
+		Item.Settings blockItemSettings = new Item.Settings().group(this.itemGroup);
+		Registry.register(Registry.ITEM, Lint.id(id), new BlockItem(result, blockItemSettings));
+
 		return result;
 	}
 

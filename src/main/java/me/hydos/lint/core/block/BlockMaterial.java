@@ -53,6 +53,9 @@ public class BlockMaterial {
 		
 		this.toolType = builder.toolType;
 		this.miningLevel = builder.miningLevel;
+		
+		this.burnChance = builder.burnChance;
+		this.spreadChance = builder.spreadChance;
 	}
 
 	private BlockMaterial() {
@@ -77,6 +80,10 @@ public class BlockMaterial {
 	// Blessed Fabric Stuff
 	Tag<Item> toolType;
 	int miningLevel;
+	
+	// Nice Lint Properties
+	int burnChance = -1;
+	int spreadChance;
 
 	// Builder methods
 
@@ -144,6 +151,10 @@ public class BlockMaterial {
 
 	public Builder miningLevel(Tag<Item> toolType, int miningLevel) {
 		return new Builder(this).miningLevel(toolType, miningLevel);
+	}
+	
+	public Builder flammability(int burnChance, int spreadChance) {
+		return new Builder(this).flammability(burnChance, spreadChance);
 	}
 
 	// Non Builder Stuff
@@ -270,6 +281,13 @@ public class BlockMaterial {
 		public Builder miningLevel(Tag<Item> toolType, int miningLevel) {
 			this.toolType = toolType;
 			this.miningLevel = miningLevel;
+			return this;
+		}
+
+		@Override
+		public Builder flammability(int burnChance, int spreadChance) {
+			this.burnChance = burnChance;
+			this.spreadChance = spreadChance;
 			return this;
 		}
 
