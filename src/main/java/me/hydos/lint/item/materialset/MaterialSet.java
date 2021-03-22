@@ -19,7 +19,7 @@
 
 package me.hydos.lint.item.materialset;
 
-import me.hydos.lint.core.registry.LintDataRegistry;
+import me.hydos.lint.block.LintDataRegistry;
 import net.devtech.arrp.json.recipe.JIngredient;
 import net.devtech.arrp.json.recipe.JKeys;
 import net.devtech.arrp.json.recipe.JPattern;

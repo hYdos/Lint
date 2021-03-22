@@ -19,8 +19,8 @@
 
 package me.hydos.lint.item;
 
-import static me.hydos.lint.core.registry.LintDataRegistry.registerGenerated;
-import static me.hydos.lint.core.registry.LintDataRegistry.registerHandheld;
+import static me.hydos.lint.block.LintDataRegistry.registerGenerated;
+import static me.hydos.lint.block.LintDataRegistry.registerHandheld;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.item.group.ItemGroups;

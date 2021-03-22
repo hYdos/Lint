@@ -32,7 +32,6 @@ import me.hydos.lint.block.organic.LintSpreadableGrassBlock;
 import me.hydos.lint.block.organic.LintTallFlowerBlock;
 import me.hydos.lint.block.organic.StrippablePillarBlock;
 import me.hydos.lint.block.organic.TaterbaneBlock;
-import me.hydos.lint.core.registry.LintDataRegistry;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
