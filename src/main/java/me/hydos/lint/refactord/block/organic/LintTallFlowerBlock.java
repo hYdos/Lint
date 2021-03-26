@@ -17,9 +17,10 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block.organic;
+package me.hydos.lint.refactord.block.organic;
 
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -35,7 +36,7 @@ public class LintTallFlowerBlock extends TallFlowerBlock {
 	public static final VoxelShape TOP_MODEL = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 0.75, 0.875);
 
 	public LintTallFlowerBlock(Settings settings) {
-		super(settings.nonOpaque());
+		super(settings);
 	}
 
 	@Override
@@ -48,4 +49,6 @@ public class LintTallFlowerBlock extends TallFlowerBlock {
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return state.get(HALF) == DoubleBlockHalf.LOWER ? BOTTOM_MODEL : TOP_MODEL;
 	}
+
+	public static final BlockConstructor<LintTallFlowerBlock> CONSTRUCTOR = LintTallFlowerBlock::new;
 }

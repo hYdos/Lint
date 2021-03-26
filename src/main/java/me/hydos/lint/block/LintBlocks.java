@@ -28,7 +28,6 @@ import me.hydos.lint.block.organic.LintCorruptGrassBlock;
 import me.hydos.lint.block.organic.LintFlowerBlock;
 import me.hydos.lint.block.organic.LintLeavesBlock;
 import me.hydos.lint.block.organic.LintSaplingBlock;
-import me.hydos.lint.block.organic.LintTallFlowerBlock;
 import me.hydos.lint.block.organic.StrippablePillarBlock;
 import me.hydos.lint.block.organic.TaterbaneBlock;
 import me.hydos.lint.fluid.LintFluids;
@@ -36,6 +35,7 @@ import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixin.FireBlockAccessor;
 import me.hydos.lint.refactord.block.organic.LintSpreadableBlock;
+import me.hydos.lint.refactord.block.organic.LintTallFlowerBlock;
 import me.hydos.lint.util.Power;
 import me.hydos.lint.world.tree.CanopyTree;
 import me.hydos.lint.world.tree.CorruptTree;
@@ -91,7 +91,7 @@ public final class LintBlocks extends LintDataRegistry {
 	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
 			new FarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)) {
 			},
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 
 	/**
 	 * Yes
@@ -103,7 +103,7 @@ public final class LintBlocks extends LintDataRegistry {
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()
 					.sounds(BlockSoundGroup.STONE)),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 
 	public static final Block CRACKED_BASIC_CASING = registerCubeAll("cracked_basic_casing",
 			new Block(FabricBlockSettings.of(Material.STONE)
@@ -111,7 +111,7 @@ public final class LintBlocks extends LintDataRegistry {
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()
 					.sounds(BlockSoundGroup.STONE)),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 
 	public static final Block HAYKAMIUM_PORTAL = registerCubeAll(
 			"haykamium_portal",
@@ -119,24 +119,24 @@ public final class LintBlocks extends LintDataRegistry {
 					.strength(-1.0f)
 					.sounds(BlockSoundGroup.STONE)
 					.collidable(false)),
-			null);
+			null); // DONE
 
 	public static final Block CERAMIC = registerCubeAll(
 			"ceramic",
 			new Block(FabricBlockSettings.copyOf(Blocks.TERRACOTTA)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // Done
 
 	public static final Block COOKIE = registerCubeAll(
 			"cookie",
 			new Block(FabricBlockSettings.copyOf(Blocks.CAKE)),
-			ItemGroups.FOOD);
+			ItemGroups.FOOD); // DONE
 
 	public static final Block GENERIC_BLUE_FLOWER = registerTallCross(
 			"generic_blue_flower",
-			new LintTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.SUNFLOWER)),
-			ItemGroups.DECORATIONS);
+			new LintTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.SUNFLOWER).nonOpaque()),
+			ItemGroups.DECORATIONS); // doing
 
 	public static final Block INDIGO_STONE = registerCubeAll(
 			"indigo_stone",

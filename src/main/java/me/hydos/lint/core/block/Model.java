@@ -35,6 +35,10 @@ import net.devtech.arrp.json.models.JModel;
 import net.minecraft.block.Block;
 import net.minecraft.util.Identifier;
 
+// TODO add render layer nonsense here.
+/**
+ * @reason collect a lot of things in one place and keep them nice and java.
+ */
 public class Model {
 	public Model() {
 	}
@@ -105,6 +109,7 @@ public class Model {
 
 	public static final Model SIMPLE_CUBE_ALL = new Model().blockState(SIMPLE_STATE).blockModel(CUBE_ALL).immutable();
 	public static final Model NONE = new Model().immutable();
+	public static final Model SIMPLE_BLOCKSTATE_ONLY = new Model().blockState(SIMPLE_STATE).immutable();
 
 	private static final class Immutable extends Model {
 		public Immutable(Model parent) {

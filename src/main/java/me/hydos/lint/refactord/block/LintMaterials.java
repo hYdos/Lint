@@ -20,8 +20,22 @@
 package me.hydos.lint.refactord.block;
 
 import me.hydos.lint.core.block.BlockMaterial;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.sound.BlockSoundGroup;
 
 public class LintMaterials {
 	public static final BlockMaterial GRASS_BLOCK = BlockMaterial.copy(Blocks.GRASS_BLOCK).template();
+	public static final BlockMaterial FARMLAND = BlockMaterial.copy(Blocks.FARMLAND).template();
+	public static final BlockMaterial SMELTERY = BlockMaterial.builder()
+			.material(Material.STONE)
+			.colour(MaterialColor.STONE)
+			.hardness(1.5f)
+			.resistance(6.0f)
+			.requiresTool()
+			.miningLevel(FabricToolTags.PICKAXES, 0)
+			.sounds(BlockSoundGroup.STONE)
+			.template();
 }
