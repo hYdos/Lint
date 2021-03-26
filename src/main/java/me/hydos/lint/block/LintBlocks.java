@@ -136,7 +136,7 @@ public final class LintBlocks extends LintDataRegistry {
 	public static final Block GENERIC_BLUE_FLOWER = registerTallCross(
 			"generic_blue_flower",
 			new LintTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.SUNFLOWER).nonOpaque()),
-			ItemGroups.DECORATIONS); // doing
+			ItemGroups.DECORATIONS); // DONE
 
 	public static final Block INDIGO_STONE = registerCubeAll(
 			"indigo_stone",

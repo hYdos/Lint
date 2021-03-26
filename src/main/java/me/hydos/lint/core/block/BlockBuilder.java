@@ -21,6 +21,8 @@ package me.hydos.lint.core.block;
 
 import static me.hydos.lint.Lint.RESOURCE_PACK;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
@@ -31,7 +33,9 @@ import me.hydos.lint.mixin.FireBlockAccessor;
 import net.devtech.arrp.json.loot.JCondition;
 import net.devtech.arrp.json.loot.JLootTable;
 import net.devtech.arrp.json.models.JModel;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -164,6 +168,11 @@ public class BlockBuilder {
 		// Add the item model
 		RESOURCE_PACK.addModel(this.itemModel.apply(idl), Lint.id("item/" + id));
 
+		// Render Layer Shenanigans
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+			CUSTOM_BLOCK_RENDER_LAYERS.put(result, model.renderLayer);
+		}
+
 		return result;
 	}
 
@@ -178,6 +187,7 @@ public class BlockBuilder {
 
 	private static final BlockConstructor<Block> DEFAULT_CONSTRUCTOR = Block::new;
 	private static final Function<Identifier, JModel> PARENTED = id -> JModel.model().parent(Lint.id("block/" + id.getPath()).toString());
+	public static final Map<Block, Layer> CUSTOM_BLOCK_RENDER_LAYERS = new HashMap<>();
 
 	/**
 	 * Functional interface for constructing a block instance.

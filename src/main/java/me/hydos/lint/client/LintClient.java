@@ -21,7 +21,6 @@ package me.hydos.lint.client;
 
 import java.util.function.Function;
 
-import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.client.entity.model.CrabEntityModel;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
@@ -36,6 +35,8 @@ import me.hydos.lint.client.entity.render.KingTaterRenderer;
 import me.hydos.lint.client.entity.render.NPCHumanEntityRenderer;
 import me.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
 import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
+import me.hydos.lint.core.block.BlockBuilder;
+import me.hydos.lint.core.block.Layer;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
@@ -105,7 +106,7 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerBlockRendererLayers() {
-		// TODO automate this in our registry system
+		/*
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CORRUPT_STEM, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.WILTED_FLOWER, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_GRASS_PLANT, RenderLayer.getCutoutMipped());
@@ -114,7 +115,7 @@ public class LintClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.ALLOS_CRYSTAL, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CORRUPT_SAPLING, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_SAPLING, RenderLayer.getCutoutMipped());
-		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.GENERIC_BLUE_FLOWER, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.GENERIC_BLUE_FLOWER, RenderLayer.getCutoutMipped());			DONE
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.DILL, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.SPEARMINT, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.WATERMINT, RenderLayer.getCutoutMipped());
@@ -122,7 +123,22 @@ public class LintClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.TUSSOCK, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.RED_TUSSOCK, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_LEAVES, RenderLayer.getCutoutMipped());
-		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_SAPLING, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_SAPLING, RenderLayer.getCutoutMipped());*/
+
+		BlockBuilder.CUSTOM_BLOCK_RENDER_LAYERS.forEach((block, layer) -> {
+			BlockRenderLayerMap.INSTANCE.putBlock(block, getRenderLayer(layer));
+		});
+	}
+
+	private RenderLayer getRenderLayer(Layer layer) {
+		switch (layer) {
+			case CUTOUT_MIPPED:
+				return RenderLayer.getCutoutMipped();
+			case TRANSLUCENT:
+				return RenderLayer.getTranslucent();
+			default:
+				return RenderLayer.getSolid();
+		}
 	}
 
 	private void registerHandledScreens() {

@@ -24,6 +24,7 @@ import me.hydos.lint.core.block.BlockMaterial;
 import me.hydos.lint.core.block.Model;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.refactord.block.organic.LintSpreadableBlock;
+import me.hydos.lint.refactord.block.organic.LintTallFlowerBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -36,9 +37,12 @@ import net.minecraft.sound.BlockSoundGroup;
 public class LintBlocks {
 	// Plants and Stuff
 
-	/*public static final Block GENERIC_BLUE_FLOWER = BlockBuilder.create()
-			.material(LintMaterials.TALL_FLOWER)*/
-			
+	public static final Block GENERIC_BLUE_FLOWER = BlockBuilder.create()
+			.material(LintMaterials.TALL_FLOWER)
+			.model(Model.TALL_PLANT)
+			.itemGroup(ItemGroups.DECORATIONS)
+			.register("generic_blue_flower", LintTallFlowerBlock.CONSTRUCTOR);
+
 	// Soil
 
 	public static final Block CORRUPT_GRASS = BlockBuilder.create()

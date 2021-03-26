@@ -28,7 +28,9 @@ import net.minecraft.sound.BlockSoundGroup;
 
 public class LintMaterials {
 	public static final BlockMaterial GRASS_BLOCK = BlockMaterial.copy(Blocks.GRASS_BLOCK).template();
+
 	public static final BlockMaterial FARMLAND = BlockMaterial.copy(Blocks.FARMLAND).template();
+
 	public static final BlockMaterial SMELTERY = BlockMaterial.builder()
 			.material(Material.STONE)
 			.colour(MaterialColor.STONE)
@@ -37,5 +39,13 @@ public class LintMaterials {
 			.requiresTool()
 			.miningLevel(FabricToolTags.PICKAXES, 0)
 			.sounds(BlockSoundGroup.STONE)
+			.template();
+
+	public static final BlockMaterial TALL_FLOWER = BlockMaterial.builder()
+			.material(Material.REPLACEABLE_PLANT)
+			.colour(MaterialColor.FOLIAGE)
+			.collidable(false)
+			.breaksInstantly()
+			.sounds(BlockSoundGroup.GRASS)
 			.template();
 }
