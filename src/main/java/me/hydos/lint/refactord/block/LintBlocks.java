@@ -25,6 +25,7 @@ import me.hydos.lint.core.block.Model;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.refactord.block.organic.LintSpreadableBlock;
 import me.hydos.lint.refactord.block.organic.LintTallFlowerBlock;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -96,6 +97,32 @@ public class LintBlocks {
 					.colour(MaterialColor.WHITE_TERRACOTTA))
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("pearlescent_cobblestone");
+
+	public static final Block TARSCAN_ORE = BlockBuilder.create()
+			.material(LintMaterials.STONE
+					.hardness(2.0f))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("tarscan_ore");
+
+	public static final Block MAGNETITE_DEPOSIT = BlockBuilder.create() // Used to use sound group metal but seeing as it is mineral form I think I should keep it as stone.
+			.material(LintMaterials.STONE
+					.hardness(2.75f))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("magnetite_deposit");
+
+	public static final Block SICIERON_ORE = BlockBuilder.create()
+			.material(LintMaterials.STONE
+					.hardness(3.0f)
+					.miningLevel(FabricToolTags.PICKAXES, 1))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("sicieron_ore");
+	
+	public static final Block JUREL_ORE = BlockBuilder.create()
+			.material(LintMaterials.STONE
+					.hardness(3.0f)
+					.miningLevel(FabricToolTags.PICKAXES, 2))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("jurel_ore");
 
 	// Smeltery and Similar
 

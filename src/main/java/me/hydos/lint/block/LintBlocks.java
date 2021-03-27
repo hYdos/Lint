@@ -189,7 +189,7 @@ public final class LintBlocks extends LintDataRegistry {
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 
 	public static final Block MAGNETITE_DEPOSIT = registerCubeAll(
 			"magnetite_deposit",
@@ -198,7 +198,7 @@ public final class LintBlocks extends LintDataRegistry {
 					.sounds(BlockSoundGroup.METAL)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 
 	public static final Block SICIERON_ORE = registerCubeAll(
 			"sicieron_ore",
@@ -207,7 +207,7 @@ public final class LintBlocks extends LintDataRegistry {
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 1)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 
 	public static final Block JUREL_ORE = registerCubeAll(
 			"jurel_ore",
@@ -216,7 +216,7 @@ public final class LintBlocks extends LintDataRegistry {
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 2)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 
 	public static final Block ASPHALT = registerCubeAll(
 			"asphalt",

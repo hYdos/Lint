@@ -26,6 +26,17 @@ import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.sound.BlockSoundGroup;
 
+/*
+ * Please Follow this order for materials in this file for easy reading:
+ * 1. builder() or copy()
+ * 2. material
+ * 3. colour
+ * 4. hardness and resistance
+ * 5. tool related stuff
+ * 6. other
+ * 7. sounds
+ * 8. make it a template so modifications are redirected to making new instances.
+ */
 public class LintMaterials {
 	public static final BlockMaterial GRASS_BLOCK = BlockMaterial.copy(Blocks.GRASS_BLOCK).template();
 
