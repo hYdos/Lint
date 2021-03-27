@@ -19,19 +19,27 @@
 
 package me.hydos.lint.refactord.block;
 
-import me.hydos.lint.block.HaykamiumPortalBlock;
 import me.hydos.lint.core.block.BlockBuilder;
 import me.hydos.lint.core.block.BlockMaterial;
+import me.hydos.lint.core.block.BlockMechanics;
 import me.hydos.lint.core.block.Model;
 import me.hydos.lint.item.group.ItemGroups;
+import me.hydos.lint.mixinimpl.LintPortal;
 import me.hydos.lint.refactord.block.organic.LintSpreadableBlock;
 import me.hydos.lint.refactord.block.organic.LintTallFlowerBlock;
+import me.hydos.lint.util.TeleportUtils;
+import me.hydos.lint.world.dimension.Dimensions;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.BlockPos;
 
 /**
  * All of lint's core blocks.
@@ -164,8 +172,25 @@ public class LintBlocks2 {
 					.sounds(BlockSoundGroup.STONE))
 			.model(Model.SIMPLE_CUBE_ALL)
 			.itemGroup(null)
-			.register("haykamium_portal", HaykamiumPortalBlock::new);
+			.register("haykamium_portal", new BlockMechanics()
+					.onNeighbourUpdate((state, world, pos, block, fromPos, notify) -> LintPortal.resolve(world, pos, fromPos, true))
+					.onEntityCollision((state, world, pos, entity) -> {
+						if (!world.isClient()) {
+							ServerWorld fraiya = ((ServerWorld) world).getServer().getWorld(Dimensions.FRAIYA_WORLD);
 
+							if (fraiya == null) {
+								return;
+							}
+							if (entity instanceof ServerPlayerEntity) {
+								ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) entity;
+								serverPlayerEntity.networkHandler.sendPacket(new StopSoundS2CPacket());
+							}
+							if (entity instanceof LivingEntity) {
+								TeleportUtils.teleport(((LivingEntity) entity), fraiya, new BlockPos(((pos.getX() + 0xFF) & 0x1FF) - 0x7F, 80, ((pos.getZ() + 0xFF) & 0x1FF) - 0xFF));
+							}
+						}
+					}));
+	
 	// Misc
 
 	public static final Block COOKIE = BlockBuilder.create()
