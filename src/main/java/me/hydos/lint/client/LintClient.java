@@ -21,6 +21,7 @@ package me.hydos.lint.client;
 
 import java.util.function.Function;
 
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.client.entity.model.CrabEntityModel;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
@@ -106,7 +107,6 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerBlockRendererLayers() {
-		/*
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CORRUPT_STEM, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.WILTED_FLOWER, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_GRASS_PLANT, RenderLayer.getCutoutMipped());
@@ -115,7 +115,6 @@ public class LintClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.ALLOS_CRYSTAL, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CORRUPT_SAPLING, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_SAPLING, RenderLayer.getCutoutMipped());
-		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.GENERIC_BLUE_FLOWER, RenderLayer.getCutoutMipped());			DONE
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.DILL, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.SPEARMINT, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.WATERMINT, RenderLayer.getCutoutMipped());
@@ -123,7 +122,7 @@ public class LintClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.TUSSOCK, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.RED_TUSSOCK, RenderLayer.getCutoutMipped());
 		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_LEAVES, RenderLayer.getCutoutMipped());
-		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_SAPLING, RenderLayer.getCutoutMipped());*/
+		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_SAPLING, RenderLayer.getCutoutMipped());
 
 		BlockBuilder.CUSTOM_BLOCK_RENDER_LAYERS.forEach((block, layer) -> {
 			BlockRenderLayerMap.INSTANCE.putBlock(block, getRenderLayer(layer));

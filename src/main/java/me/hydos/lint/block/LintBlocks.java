@@ -34,8 +34,7 @@ import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixin.FireBlockAccessor;
-import me.hydos.lint.refactord.block.organic.LintSpreadableBlock;
-import me.hydos.lint.refactord.block.organic.LintTallFlowerBlock;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.util.Power;
 import me.hydos.lint.world.tree.CanopyTree;
 import me.hydos.lint.world.tree.CorruptTree;
@@ -47,7 +46,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
-import net.minecraft.block.FarmlandBlock;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.Material;
@@ -77,146 +75,6 @@ public final class LintBlocks extends LintDataRegistry {
 			.hardness(0.5f)
 			.breakByTool(FabricToolTags.SHOVELS, 0)
 			.sounds(BlockSoundGroup.SAND);
-
-	/**
-	 * Soils
-	 */
-	public static final Block CORRUPT_GRASS = new LintSpreadableBlock(FabricBlockSettings.copy(Blocks.MYCELIUM)) {
-	}; // DONE
-	public static final Block LIVELY_GRASS = new LintSpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
-	}; // DONE
-	public static final Block FROSTED_GRASS = new LintSpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
-	}; // DONE
-
-	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
-			new FarmlandBlock(FabricBlockSettings.copyOf(Blocks.FARMLAND)) {
-			},
-			ItemGroups.BLOCKS); // DONE
-
-	/**
-	 * Yes
-	 */
-
-	public static final Block BASIC_CASING = registerCubeAll("basic_casing",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(0.5f)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()
-					.sounds(BlockSoundGroup.STONE)),
-			ItemGroups.BLOCKS); // DONE
-
-	public static final Block CRACKED_BASIC_CASING = registerCubeAll("cracked_basic_casing",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(0.5f)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()
-					.sounds(BlockSoundGroup.STONE)),
-			ItemGroups.BLOCKS); // DONE
-
-	public static final Block HAYKAMIUM_PORTAL = registerCubeAll(
-			"haykamium_portal",
-			new HaykamiumPortalBlock(FabricBlockSettings.of(Material.STONE)
-					.strength(-1.0f)
-					.sounds(BlockSoundGroup.STONE)
-					.collidable(false)),
-			null); // DONE
-
-	public static final Block CERAMIC = registerCubeAll(
-			"ceramic",
-			new Block(FabricBlockSettings.copyOf(Blocks.TERRACOTTA)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()),
-			ItemGroups.BLOCKS); // Done
-
-	public static final Block COOKIE = registerCubeAll(
-			"cookie",
-			new Block(FabricBlockSettings.copyOf(Blocks.CAKE)),
-			ItemGroups.FOOD); // DONE
-
-	public static final Block GENERIC_BLUE_FLOWER = registerTallCross(
-			"generic_blue_flower",
-			new LintTallFlowerBlock(FabricBlockSettings.copyOf(Blocks.SUNFLOWER).nonOpaque()),
-			ItemGroups.DECORATIONS); // DONE
-
-	public static final Block INDIGO_STONE = registerCubeAll(
-			"indigo_stone",
-			new Block(FabricBlockSettings.copyOf(Blocks.STONE)
-					.materialColor(MaterialColor.PURPLE_TERRACOTTA)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()),
-			ItemGroups.BLOCKS); // DONE
-
-	public static final Block FUSED_STONE = registerCubeAll(
-			"fused_stone",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1.25f)
-					.sounds(BlockSoundGroup.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()),
-			ItemGroups.BLOCKS); // ST-DONE
-
-	public static final Block FUSED_COBBLESTONE = registerCubeAll(
-			"fused_cobblestone",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
-					.sounds(BlockSoundGroup.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()),
-			ItemGroups.BLOCKS); // DONE
-	
-	public static final Block PEARLESCENT_STONE = registerCubeAll( // This will be used with specific underground sub-biome-like stuff.
-			"pearlescent_stone",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
-					.sounds(BlockSoundGroup.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()),
-			ItemGroups.BLOCKS); // DONE
-
-	public static final Block PEARLESCENT_COBBLESTONE = registerCubeAll(
-			"pearlescent_cobblestone",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
-					.sounds(BlockSoundGroup.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()),
-			ItemGroups.BLOCKS); // DONE
-
-	public static final Block TARSCAN_ORE = registerCubeAll(
-			"tarscan_ore",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(2.0f)
-					.sounds(BlockSoundGroup.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()),
-			ItemGroups.BLOCKS); // DONE
-
-	public static final Block MAGNETITE_DEPOSIT = registerCubeAll(
-			"magnetite_deposit",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(2.75f)
-					.sounds(BlockSoundGroup.METAL)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()),
-			ItemGroups.BLOCKS); // DONE
-
-	public static final Block SICIERON_ORE = registerCubeAll(
-			"sicieron_ore",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(3.0f)
-					.sounds(BlockSoundGroup.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 1)
-					.requiresTool()),
-			ItemGroups.BLOCKS); // DONE
-
-	public static final Block JUREL_ORE = registerCubeAll(
-			"jurel_ore",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(3.0f)
-					.sounds(BlockSoundGroup.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 2)
-					.requiresTool()),
-			ItemGroups.BLOCKS); // DONE
 
 	public static final Block ASPHALT = registerCubeAll(
 			"asphalt",
@@ -374,11 +232,11 @@ public final class LintBlocks extends LintDataRegistry {
 	/**
 	 * Saplings
 	 */
-	public static final SaplingBlock MYSTICAL_SAPLING = new LintSaplingBlock(new MysticalTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks.LIVELY_GRASS.getDefaultState());
+	public static final SaplingBlock MYSTICAL_SAPLING = new LintSaplingBlock(new MysticalTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks2.LIVELY_GRASS.getDefaultState());
 
-	public static final SaplingBlock CORRUPT_SAPLING = new LintSaplingBlock(new CorruptTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks.CORRUPT_GRASS.getDefaultState());
+	public static final SaplingBlock CORRUPT_SAPLING = new LintSaplingBlock(new CorruptTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks2.CORRUPT_GRASS.getDefaultState());
 
-	public static final SaplingBlock CANOPY_SAPLING = new LintSaplingBlock(new CanopyTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks.LIVELY_GRASS.getDefaultState());
+	public static final SaplingBlock CANOPY_SAPLING = new LintSaplingBlock(new CanopyTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks2.LIVELY_GRASS.getDefaultState());
 
 	/**
 	 * Corrupt Building Blocks
@@ -525,10 +383,6 @@ public final class LintBlocks extends LintDataRegistry {
 
 	public static void registerBuildingBlocks() {
 		registerBlock(ItemGroups.BLOCKS, SMELTERY, "smeltery");
-
-		registerBlock(ItemGroups.BLOCKS, CORRUPT_GRASS, "corrupt_grass");
-		registerBlock(ItemGroups.BLOCKS, LIVELY_GRASS, "lively_grass");
-		registerBlock(ItemGroups.BLOCKS, FROSTED_GRASS, "frosted_grass");
 
 		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
 		registerBlock(ItemGroups.BLOCKS, STRIPPED_MYSTICAL_LOG, "stripped_mystical_log");

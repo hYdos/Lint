@@ -35,10 +35,10 @@ import net.minecraft.sound.BlockSoundGroup;
 /**
  * All of lint's core blocks.
  */
-public class LintBlocks {
+public class LintBlocks2 {
 	// Plants and Stuff
 
-	public static final Block GENERIC_BLUE_FLOWER = BlockBuilder.create()
+	public static final Block THAISA = BlockBuilder.create()
 			.material(LintMaterials.TALL_FLOWER)
 			.model(Model.TALL_PLANT)
 			.itemGroup(ItemGroups.DECORATIONS)

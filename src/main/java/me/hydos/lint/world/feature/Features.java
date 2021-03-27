@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableList;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -114,9 +115,9 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> MYSTICAL_ROCKS = register("mystical_rocks", Feature.RANDOM_SELECTOR.configure(
 			new RandomFeatureConfig(
 					ImmutableList.of(
-							Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.MAGNETITE_DEPOSIT.getDefaultState())).withChance(0.06f)
+							Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks2.MAGNETITE_DEPOSIT.getDefaultState())).withChance(0.06f)
 							),
-					Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.FUSED_COBBLESTONE.getDefaultState()))
+					Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks2.FUSED_COBBLESTONE.getDefaultState()))
 					))
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeatRandomly(2)
 			);
@@ -140,21 +141,21 @@ public class Features {
 	/**
 	 * ORES
 	 */
-	public static final RuleTest FUNNI_STONE = new BlockMatchRuleTest(LintBlocks.FUSED_STONE);
+	public static final RuleTest FUNNI_STONE = new BlockMatchRuleTest(LintBlocks2.FUSED_STONE);
 
 	public static final ConfiguredFeature<?, ?> TARSCAN_ORE = register("tarscan_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					LintBlocks.TARSCAN_ORE.getDefaultState(),
+					LintBlocks2.TARSCAN_ORE.getDefaultState(),
 					9)).rangeOf(64).spreadHorizontally().repeat(20));
 
 	public static final ConfiguredFeature<?, ?> SICIERON_ORE = register("sicieron_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					LintBlocks.SICIERON_ORE.getDefaultState(),
+					LintBlocks2.SICIERON_ORE.getDefaultState(),
 					12)).rangeOf(40).spreadHorizontally().repeat(8));
 
 	public static final ConfiguredFeature<?, ?> JUREL_ORE = register("jurel_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					LintBlocks.TARSCAN_ORE.getDefaultState(),
+					LintBlocks2.TARSCAN_ORE.getDefaultState(),
 					9)).rangeOf(10).spreadHorizontally().repeat(6));
 
 	/**
@@ -257,7 +258,7 @@ public class Features {
 				.tries(32).build();
 
 		public static final RandomPatchFeatureConfig GENERIC_BLUE_FLOWERS_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.GENERIC_BLUE_FLOWER.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks2.THAISA.getDefaultState()),
 				new DoublePlantPlacer())
 				.tries(8).build();
 

@@ -23,6 +23,7 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.world.biome.surface.DawnShardlandsEdgeSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.DawnShardlandsSurfaceBuilder;
@@ -38,7 +39,11 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeEffects;
+import net.minecraft.world.biome.BiomeParticleConfig;
+import net.minecraft.world.biome.GenerationSettings;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
@@ -99,7 +104,7 @@ public class Biomes {
 
 	public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(
-					LintBlocks.LIVELY_GRASS.getDefaultState(),
+					LintBlocks2.LIVELY_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
@@ -183,7 +188,7 @@ public class Biomes {
 			.build();
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> FF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(LintBlocks.FROSTED_GRASS.getDefaultState(),
+			new TernarySurfaceConfig(LintBlocks2.FROSTED_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
@@ -226,7 +231,7 @@ public class Biomes {
 			.build();
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
+			new TernarySurfaceConfig(LintBlocks2.CORRUPT_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 	/**
@@ -270,7 +275,7 @@ public class Biomes {
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OC_SB = OCEAN_RAW_SB.withConfig(
 			new TernarySurfaceConfig(
-					LintBlocks.LIVELY_GRASS.getDefaultState(),
+					LintBlocks2.LIVELY_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
@@ -311,10 +316,11 @@ public class Biomes {
 			.build();
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CB_SB = CORRUPT_OCEAN_RAW_SB.withConfig(
-			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
+			new TernarySurfaceConfig(LintBlocks2.CORRUPT_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
+	// TODO indigo stone layer in corrupt biomes
 	public static final Biome CORRUPT_BEACH = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.BEACH)
@@ -347,9 +353,9 @@ public class Biomes {
 			.build();
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> IN_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(LintBlocks.INDIGO_STONE.getDefaultState(),
-					LintBlocks.INDIGO_STONE.getDefaultState(),
-					LintBlocks.INDIGO_STONE.getDefaultState()));
+			new TernarySurfaceConfig(LintBlocks2.INDIGO_STONE.getDefaultState(),
+					LintBlocks2.INDIGO_STONE.getDefaultState(),
+					LintBlocks2.INDIGO_STONE.getDefaultState()));
 
 	public static final Biome INDIGO_RIDGES = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)

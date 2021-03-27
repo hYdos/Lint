@@ -19,9 +19,17 @@
 
 package me.hydos.lint.world.carver;
 
+import java.util.BitSet;
+import java.util.Random;
+import java.util.function.Function;
+
+import org.apache.commons.lang3.mutable.MutableBoolean;
+
 import com.mojang.serialization.Codec;
+
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
@@ -32,11 +40,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.carver.Carver;
 import net.minecraft.world.gen.carver.CaveCarver;
-import org.apache.commons.lang3.mutable.MutableBoolean;
-
-import java.util.BitSet;
-import java.util.Random;
-import java.util.function.Function;
 
 public class LintCaveCarver extends CaveCarver {
 	public static final Carver<ProbabilityConfig> INSTANCE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(ProbabilityConfig.CODEC, 256));
@@ -47,7 +50,7 @@ public class LintCaveCarver extends CaveCarver {
 
 	@Override
 	protected boolean canCarveBlock(BlockState state, BlockState stateAbove) {
-		return state.isOf(LintBlocks.FUSED_STONE) || super.canCarveBlock(state, stateAbove);
+		return state.isOf(LintBlocks2.FUSED_STONE) || super.canCarveBlock(state, stateAbove);
 	}
 
 	protected float getTunnelSystemWidth(Random random) {
@@ -66,7 +69,7 @@ public class LintCaveCarver extends CaveCarver {
 			pos1.set(x, y, z);
 			BlockState state = chunk.getBlockState(pos1);
 			BlockState upState = chunk.getBlockState(mutable2.set(pos1, Direction.UP));
-			if (state.isOf(LintBlocks.CORRUPT_GRASS) || state.isOf(LintBlocks.LIVELY_GRASS)) {
+			if (state.isOf(LintBlocks2.CORRUPT_GRASS) || state.isOf(LintBlocks2.LIVELY_GRASS)) {
 				grassCheckerThing.setTrue();
 			}
 

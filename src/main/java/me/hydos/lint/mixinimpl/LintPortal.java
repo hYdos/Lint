@@ -23,7 +23,7 @@ import java.util.function.BiPredicate;
 
 import org.jetbrains.annotations.Nullable;
 
-import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -319,5 +319,5 @@ public class LintPortal {
 	}
 
 	private static final BlockState AIR = Blocks.AIR.getDefaultState();
-	private static final BlockState HAYKAMIUM_PORTAL = LintBlocks.HAYKAMIUM_PORTAL.getDefaultState();
+	private static final BlockState HAYKAMIUM_PORTAL = LintBlocks2.HAYKAMIUM_PORTAL.getDefaultState();
 }

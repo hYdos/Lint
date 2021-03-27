@@ -19,8 +19,8 @@
 
 package me.hydos.lint.refactord.block.organic;
 
-import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -42,7 +42,7 @@ public class LintTallFlowerBlock extends TallFlowerBlock {
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
 		Block block = floor.getBlock();
-		return block == LintBlocks.LIVELY_GRASS || block == LintBlocks.CORRUPT_GRASS;
+		return block == LintBlocks2.LIVELY_GRASS || block == LintBlocks2.CORRUPT_GRASS;
 	}
 
 	@Override

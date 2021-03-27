@@ -19,8 +19,11 @@
 
 package me.hydos.lint.fluid;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.FluidState;
@@ -29,9 +32,6 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class LintFluids {
 
 	public static final Map<Identifier, FluidEntry> MOLTEN_FLUID_MAP = new HashMap<>();
@@ -39,7 +39,7 @@ public class LintFluids {
 	public static void initialize() {
 		MOLTEN_FLUID_MAP.put(Lint.id("iron"), new FluidEntry(Items.IRON_NUGGET, Items.IRON_INGOT, Blocks.IRON_BLOCK.asItem(), "iron", 0x44FFFFFF));
 		MOLTEN_FLUID_MAP.put(Lint.id("gold"), new FluidEntry(Items.GOLD_NUGGET, Items.GOLD_INGOT, Blocks.GOLD_BLOCK.asItem(), "gold", 0x44ffdd30));
-		MOLTEN_FLUID_MAP.put(Lint.id("lava"), new FluidEntry(Items.AIR, Items.LAVA_BUCKET, LintBlocks.FUSED_STONE.asItem(), "lava", 0xFFFFFFFF));
+		MOLTEN_FLUID_MAP.put(Lint.id("lava"), new FluidEntry(Items.AIR, Items.LAVA_BUCKET, LintBlocks2.FUSED_STONE.asItem(), "lava", 0xFFFFFFFF));
 	}
 
 	public static FluidEntry get(String path) {

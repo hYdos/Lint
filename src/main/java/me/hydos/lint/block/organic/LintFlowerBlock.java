@@ -19,6 +19,9 @@
 
 package me.hydos.lint.block.organic;
 
+import org.jetbrains.annotations.Nullable;
+
+import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.ShapeContext;
@@ -26,9 +29,6 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import org.jetbrains.annotations.Nullable;
-
-import me.hydos.lint.block.LintBlocks;
 
 public class LintFlowerBlock extends FlowerBlock {
 	private final VoxelShape shape;
@@ -44,7 +44,7 @@ public class LintFlowerBlock extends FlowerBlock {
 
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
-		return floor == LintBlocks.LIVELY_GRASS.getDefaultState();
+		return floor == LintBlocks2.LIVELY_GRASS.getDefaultState();
 	}
 
 	@Override
