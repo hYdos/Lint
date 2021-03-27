@@ -20,6 +20,7 @@
 package me.hydos.lint.refactord.block;
 
 import me.hydos.lint.core.block.BlockMaterial;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -77,10 +78,20 @@ public class LintMaterials {
 			.resistance(3.0f)
 			.miningLevel(FabricToolTags.AXES, -1)
 			.flammability(5, 20)
-			.sounds(BlockSoundGroup.SAND);
+			.sounds(BlockSoundGroup.SAND)
+			.template();
 
 	public static final BlockMaterial LEAVES = BlockMaterial.copy(Blocks.OAK_LEAVES)
 			.colour(MaterialColor.DIAMOND)
 			.miningLevel(FabricToolTags.HOES, -1)
-			.flammability(30, 60);
+			.flammability(30, 60)
+			.template();
+	
+	public static final BlockMaterial SAND = BlockMaterial.builder()
+			.material(Material.AGGREGATE)
+			.colour(MaterialColor.SAND)
+			.hardness(0.5f)
+			.miningLevel(FabricToolTags.SHOVELS, -1)
+			.sounds(BlockSoundGroup.SAND)
+			.template();
 }
