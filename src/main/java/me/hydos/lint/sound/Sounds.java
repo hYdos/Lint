@@ -66,6 +66,7 @@ public class Sounds {
 	 * Entity Sounds
 	 */
 	public static final SoundEvent EASTERN_ROSELLA_IDLE = new SoundEvent(Lint.id("eastern_rosella.idle"));
+	public static final SoundEvent NIGHTCLAW_IDLE = new SoundEvent(Lint.id("nightclaw.idle"));
 	public static final SoundEvent CRAB_IDLE = new SoundEvent(Lint.id("crab.idle"));
 
 	public static void initialize() {
@@ -94,6 +95,8 @@ public class Sounds {
 
 		// sounds
 		register(EASTERN_ROSELLA_IDLE);
+		register(NIGHTCLAW_IDLE);
+		register(CRAB_IDLE);
 	}
 
 	private static void register(SoundEvent event) {

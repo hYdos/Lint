@@ -75,16 +75,26 @@ public class Biomes {
 	 */
 	public static final SpawnSettings.Builder DEFAULT_SPAWN_SETTINGS = new SpawnSettings.Builder()
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 3, 1, 3))
-			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 2, 1, 3))
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 2, 1, 3)) // TODO do we need to mixin to allow these to spawn?
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 10, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SKELETON, 1, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
+
 	public static final SpawnSettings.Builder FOREST_SPAWN_SETTINGS = new SpawnSettings.Builder()
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 5, 1, 3))
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 1, 1, 4))
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 10, 1, 1))
+			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
+			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1))
+			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SKELETON, 1, 1, 1))
+			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
+	
+	public static final SpawnSettings.Builder CORRUPT_FOREST_SPAWN_SETTINGS = new SpawnSettings.Builder()
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 1, 1, 3))
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 2, 1, 3))
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.NIGHTCLAW, 5, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SKELETON, 1, 1, 1))
@@ -252,7 +262,7 @@ public class Biomes {
 					.skyColor(0x9c76c1)
 					.build()
 			)
-			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
+			.spawnSettings(CORRUPT_FOREST_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CF_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
