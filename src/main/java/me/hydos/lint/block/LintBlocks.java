@@ -66,28 +66,12 @@ public final class LintBlocks extends LintDataRegistry {
 	/**
 	 * Automatically generated
 	 */
-	public static final FabricBlockSettings PLANK_SETTINGS = FabricBlockSettings.of(Material.WOOD, MaterialColor.WOOD)
-			.strength(2.0F, 3.0F)
-			.breakByTool(FabricToolTags.AXES, 0)
-			.sounds(BlockSoundGroup.WOOD);
-
+	
 	public static final FabricBlockSettings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE)
 			.hardness(0.5f)
 			.breakByTool(FabricToolTags.SHOVELS, 0)
 			.sounds(BlockSoundGroup.SAND);
 
-	public static final Block ASPHALT = registerCubeAll(
-			"asphalt",
-			new Block(FabricBlockSettings.copyOf(Blocks.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool()),
-			ItemGroups.BLOCKS);
-
-	public static final Block CORRUPT_PLANKS = registerCubeAll(
-			"corrupt_planks",
-			new Block(PLANK_SETTINGS
-					.materialColor(MaterialColor.PURPLE)),
-			ItemGroups.BLOCKS);
 
 	public static final Block CORRUPT_LEAVES = registerCubeAll(
 			"corrupt_leaves",
@@ -137,12 +121,6 @@ public final class LintBlocks extends LintDataRegistry {
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 2)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
-
-	public static final Block MYSTICAL_PLANKS = registerCubeAll(
-			"mystical_planks",
-			new Block(PLANK_SETTINGS
-					.materialColor(MaterialColor.DIAMOND)),
 			ItemGroups.BLOCKS);
 
 	public static final Block MYSTICAL_LEAVES = registerCubeAll(
@@ -345,8 +323,6 @@ public final class LintBlocks extends LintDataRegistry {
 		fire.callRegisterFlammableBlock(STRIPPED_MYSTICAL_LOG, 5, 5);
 		fire.callRegisterFlammableBlock(STRIPPED_CORRUPT_LOG, 5, 5);
 		fire.callRegisterFlammableBlock(CORRUPT_LOG, 5, 5);
-		fire.callRegisterFlammableBlock(MYSTICAL_PLANKS, 5, 20);
-		fire.callRegisterFlammableBlock(CORRUPT_PLANKS, 5, 20);
 		fire.callRegisterFlammableBlock(MYSTICAL_SLAB, 5, 20);
 		fire.callRegisterFlammableBlock(CORRUPT_SLAB, 5, 20);
 		fire.callRegisterFlammableBlock(MYSTICAL_LEAVES, 30, 60);

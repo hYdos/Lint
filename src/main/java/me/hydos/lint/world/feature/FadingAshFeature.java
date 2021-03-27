@@ -19,7 +19,10 @@
 
 package me.hydos.lint.world.feature;
 
+import java.util.Random;
+
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -31,11 +34,9 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
-import java.util.Random;
-
 public class FadingAshFeature extends Feature<DefaultFeatureConfig> {
 	private static final BlockState ASH = LintBlocks.ASH.getDefaultState();
-	private static final BlockState ASPHALT = LintBlocks.ASPHALT.getDefaultState();
+	private static final BlockState ASPHALT = LintBlocks2.ASPHALT.getDefaultState();
 
 	public FadingAshFeature() {
 		super(DefaultFeatureConfig.CODEC);

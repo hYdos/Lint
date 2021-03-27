@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.refactord.item;
+package me.hydos.lint.core.item;
 
 import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
@@ -34,7 +34,7 @@ import net.minecraft.util.registry.Registry;
 public class ItemData {
 	public static Item registerGenerated(String id, Item item) {
 		Identifier modelIdentifier = id("item/" + id);
-		_registerGenerated(modelIdentifier, modelIdentifier);
+		RESOURCE_PACK.addModel(generatedModel(modelIdentifier), modelIdentifier);
 		return Registry.register(Registry.ITEM, id(id), item);
 	}
 
@@ -44,8 +44,8 @@ public class ItemData {
 		return Registry.register(Registry.ITEM, id(id), item);
 	}
 
-	private static void _registerGenerated(Identifier modelIdentifier, Identifier textureIdentifier) {
-		RESOURCE_PACK.addModel(JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString())), modelIdentifier);
+	public static JModel generatedModel(Identifier textureIdentifier) {
+		return JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString()));
 	}
 
 	// Recipe

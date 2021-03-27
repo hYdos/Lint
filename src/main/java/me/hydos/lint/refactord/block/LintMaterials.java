@@ -71,4 +71,13 @@ public class LintMaterials {
 			.template();
 	
 	public static final BlockMaterial COBBLESTONE = STONE.hardness(1.5f).template();
+
+	public static final BlockMaterial PLANKS = BlockMaterial.builder()
+			.material(Material.WOOD)
+			.colour(MaterialColor.WOOD)
+			.hardness(2.0f) // TODO ytf is this higher than stone. Is it just because of the whole effect of preferred tool on hardness?
+			.resistance(3.0f)
+			.miningLevel(FabricToolTags.AXES, 0)
+			.flammability(5, 20)
+			.sounds(BlockSoundGroup.SAND);
 }

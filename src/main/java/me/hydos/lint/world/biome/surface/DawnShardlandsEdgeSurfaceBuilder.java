@@ -19,18 +19,18 @@
 
 package me.hydos.lint.world.biome.surface;
 
+import java.util.Random;
+
+import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
-import java.util.Random;
-
-import me.hydos.lint.block.LintBlocks;
-
 public class DawnShardlandsEdgeSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
-	private static final TernarySurfaceConfig ASH_CONFIG = new TernarySurfaceConfig(LintBlocks.ASH.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASH.getDefaultState());
+	private static final TernarySurfaceConfig ASH_CONFIG = new TernarySurfaceConfig(LintBlocks.ASH.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState(), LintBlocks.ASH.getDefaultState());
 
 	public DawnShardlandsEdgeSurfaceBuilder() {
 		super(TernarySurfaceConfig.CODEC);

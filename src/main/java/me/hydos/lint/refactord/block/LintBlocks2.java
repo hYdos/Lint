@@ -19,10 +19,12 @@
 
 package me.hydos.lint.refactord.block;
 
+import me.hydos.lint.Lint;
 import me.hydos.lint.core.block.BlockBuilder;
 import me.hydos.lint.core.block.BlockMaterial;
 import me.hydos.lint.core.block.BlockMechanics;
 import me.hydos.lint.core.block.Model;
+import me.hydos.lint.core.item.ItemData;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixinimpl.LintPortal;
 import me.hydos.lint.refactord.block.organic.LintSpreadableBlock;
@@ -45,12 +47,25 @@ import net.minecraft.util.math.BlockPos;
  * All of lint's core blocks.
  */
 public class LintBlocks2 {
-	// Plants and Stuff
+	// Plants and Stuff. Also planks.
+
+	public static final Block CORRUPT_PLANKS = BlockBuilder.create()
+			.material(LintMaterials.PLANKS
+					.colour(MaterialColor.PURPLE))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("corrupt_planks");
+
+	public static final Block MYSTICAL_PLANKS = BlockBuilder.create()
+			.material(LintMaterials.PLANKS
+					.colour(MaterialColor.DIAMOND))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("mystical_planks");
 
 	public static final Block THAISA = BlockBuilder.create()
 			.material(LintMaterials.TALL_FLOWER)
 			.model(Model.TALL_PLANT)
 			.itemGroup(ItemGroups.DECORATIONS)
+			.itemModel(id -> ItemData.generatedModel(Lint.id("block/generic_blue_flower_top")))
 			.customLootTable()
 			.register("generic_blue_flower", LintTallFlowerBlock.CONSTRUCTOR);
 
@@ -83,12 +98,12 @@ public class LintBlocks2 {
 
 	// Underground
 
-	public static final Block INDIGO_STONE = BlockBuilder.create()
+	public static final Block ASPHALT = BlockBuilder.create()
 			.material(LintMaterials.STONE
-					.colour(MaterialColor.PURPLE_TERRACOTTA))
+					.hardness(1.5f))
 			.model(Model.SIMPLE_CUBE_ALL)
-			.register("indigo_stone");
-	
+			.register("asphalt");
+
 	public static final Block FUSED_STONE = BlockBuilder.create()
 			.material(LintMaterials.STONE)
 			.model(Model.SIMPLE_CUBE_ALL)
@@ -99,7 +114,26 @@ public class LintBlocks2 {
 			.material(LintMaterials.COBBLESTONE)
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("fused_cobblestone");
-	
+
+	public static final Block INDIGO_STONE = BlockBuilder.create()
+			.material(LintMaterials.STONE
+					.colour(MaterialColor.PURPLE_TERRACOTTA))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("indigo_stone");
+
+	public static final Block JUREL_ORE = BlockBuilder.create()
+			.material(LintMaterials.STONE
+					.hardness(3.0f)
+					.miningLevel(FabricToolTags.PICKAXES, 2))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("jurel_ore");
+
+	public static final Block MAGNETITE_DEPOSIT = BlockBuilder.create() // Used to use sound group metal but seeing as it is mineral form I think I should keep it as stone.
+			.material(LintMaterials.STONE
+					.hardness(2.75f))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("magnetite_deposit");
+
 	public static final Block PEARLESCENT_STONE = BlockBuilder.create()
 			.material(LintMaterials.STONE
 					.colour(MaterialColor.WHITE_TERRACOTTA))
@@ -119,25 +153,12 @@ public class LintBlocks2 {
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("tarscan_ore");
 
-	public static final Block MAGNETITE_DEPOSIT = BlockBuilder.create() // Used to use sound group metal but seeing as it is mineral form I think I should keep it as stone.
-			.material(LintMaterials.STONE
-					.hardness(2.75f))
-			.model(Model.SIMPLE_CUBE_ALL)
-			.register("magnetite_deposit");
-
 	public static final Block SICIERON_ORE = BlockBuilder.create()
 			.material(LintMaterials.STONE
 					.hardness(3.0f)
 					.miningLevel(FabricToolTags.PICKAXES, 1))
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("sicieron_ore");
-
-	public static final Block JUREL_ORE = BlockBuilder.create()
-			.material(LintMaterials.STONE
-					.hardness(3.0f)
-					.miningLevel(FabricToolTags.PICKAXES, 2))
-			.model(Model.SIMPLE_CUBE_ALL)
-			.register("jurel_ore");
 
 	// Smeltery and Similar
 

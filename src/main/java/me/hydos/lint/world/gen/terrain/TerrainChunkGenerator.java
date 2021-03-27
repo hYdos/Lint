@@ -169,7 +169,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 							if (ash && y > lowerBound) {
 								state = LintBlocks.ASH.getDefaultState();
 							} else {
-								state = LintBlocks.ASPHALT.getDefaultState();
+								state = LintBlocks2.ASPHALT.getDefaultState();
 							}
 						} else {
 							state = LintBlocks2.FUSED_STONE.getDefaultState();

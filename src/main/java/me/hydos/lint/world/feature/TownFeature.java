@@ -22,6 +22,7 @@ package me.hydos.lint.world.feature;
 import java.util.Random;
 
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.util.GridDirection;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
@@ -54,8 +55,8 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 	private static final int OUTSKIRTS_DIST = 320 * 320;
 
 	private static final TownBlocks HERIA = new TownBlocks()
-			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
-			.walls(LintBlocks.MYSTICAL_PLANKS.getDefaultState(), LintBlocks.MYSTICAL_LOG.getDefaultState())
+			.floor(LintBlocks2.MYSTICAL_PLANKS.getDefaultState())
+			.walls(LintBlocks2.MYSTICAL_PLANKS.getDefaultState(), LintBlocks.MYSTICAL_LOG.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
 	private static final TownBlocks AURIA = new TownBlocks()
@@ -64,12 +65,12 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
 	private static final TownBlocks PAWERIA_CENTRE = new TownBlocks()
-			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
-			.walls(LintBlocks.CORRUPT_PLANKS.getDefaultState(), LintBlocks.STRIPPED_CORRUPT_LOG.getDefaultState())
+			.floor(LintBlocks2.MYSTICAL_PLANKS.getDefaultState())
+			.walls(LintBlocks2.CORRUPT_PLANKS.getDefaultState(), LintBlocks.STRIPPED_CORRUPT_LOG.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
 	private static final TownBlocks THERIA = new TownBlocks()
-			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
+			.floor(LintBlocks2.MYSTICAL_PLANKS.getDefaultState())
 			.walls(Blocks.COBBLESTONE.getDefaultState(), LintBlocks.MYSTICAL_LOG.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 

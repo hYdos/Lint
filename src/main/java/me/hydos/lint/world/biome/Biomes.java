@@ -389,9 +389,9 @@ public class Biomes {
 			.build();
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DS_SB = DAWN_SHARDLANDS_RAW_SB.withConfig(
-			new TernarySurfaceConfig(LintBlocks.ASPHALT.getDefaultState(),
-					LintBlocks.ASPHALT.getDefaultState(),
-					LintBlocks.ASPHALT.getDefaultState()));
+			new TernarySurfaceConfig(LintBlocks2.ASPHALT.getDefaultState(),
+					LintBlocks2.ASPHALT.getDefaultState(),
+					LintBlocks2.ASPHALT.getDefaultState()));
 
 	public static final Biome DAWN_SHARDLANDS = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
@@ -418,9 +418,9 @@ public class Biomes {
 			.build();
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DSE_SB = DAWN_SHARDLANDS_EDGE_RAW_SB.withConfig(
-			new TernarySurfaceConfig(LintBlocks.ASPHALT.getDefaultState(),
-					LintBlocks.ASPHALT.getDefaultState(),
-					LintBlocks.ASPHALT.getDefaultState()));
+			new TernarySurfaceConfig(LintBlocks2.ASPHALT.getDefaultState(),
+					LintBlocks2.ASPHALT.getDefaultState(),
+					LintBlocks2.ASPHALT.getDefaultState()));
 
 	public static final Biome DAWN_SHARDLANDS_EDGE = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
