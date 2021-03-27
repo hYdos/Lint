@@ -125,8 +125,8 @@ public class Lint implements ModInitializer {
 
 	private void registerLintContent() {
 		LintFluids.initialize();
-		LintBlocks.initialize();
 		LintBlocks2.initialise();
+		LintBlocks.initialize();
 		LintItems.initialize();
 		LintPotions.initialize();
 		Entities.initialize();

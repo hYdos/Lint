@@ -30,6 +30,7 @@ import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
+import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -120,70 +121,74 @@ public class LintSoundManager {
 	public static Biome injectBiomeSoundDummies(ClientPlayerEntity player, BiomeAccess access, double x, double y, double z) {
 		World world = player.getEntityWorld();
 
-		if (world != null && !world.getEntitiesByType(Entities.KING_TATER, player.getBoundingBox().expand(40), $ -> true).isEmpty()) {
-			return DummyBiomes.DUMMY_KING_TATER;
-		}
+		if (world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
 
-		if (world != null && !world.getEntitiesByType(Entities.I509VCB, player.getBoundingBox().expand(40), $ -> true).isEmpty()) {
-			return DummyBiomes.DUMMY_I509;
-		}
+			if (world != null && !world.getEntitiesByType(Entities.KING_TATER, player.getBoundingBox().expand(40), $ -> true).isEmpty()) {
+				return DummyBiomes.DUMMY_KING_TATER;
+			}
 
-		BlockPos playerPos = player.getBlockPos();
-		int playerY = playerPos.getY();
+			if (world != null && !world.getEntitiesByType(Entities.I509VCB, player.getBoundingBox().expand(40), $ -> true).isEmpty()) {
+				return DummyBiomes.DUMMY_I509;
+			}
 
-		int passthroughs = 2;
+			BlockPos playerPos = player.getBlockPos();
+			int playerY = playerPos.getY();
 
-		// test blocks below for dungeon
-		// you can't get dungeon boxes on the client ok structures are SERVER side this is a good compromise
-		if (playerY > 0 && playerY < 256) {			
-			for (int i = 1; i < 7; ++i) {
-				if (playerY < i) {
-					break;
-				}
+			int passthroughs = 2;
 
-				BlockPos pos = playerPos.down(i);
-				BlockState bs = world.getBlockState(pos);
+			// test blocks below for dungeon
+			// you can't get dungeon boxes on the client ok structures are SERVER side this is a good compromise
+			if (playerY > 0 && playerY < 256) {			
+				for (int i = 1; i < 7; ++i) {
+					if (playerY < i) {
+						break;
+					}
 
-				if (bs.isFullCube(world, pos)) {
-					Block b = bs.getBlock();
+					BlockPos pos = playerPos.down(i);
+					BlockState bs = world.getBlockState(pos);
 
-					if (b == LintBlocks.DUNGEON_BRICKS || b == LintBlocks.DUNGEON_BRICK_SLAB || b == LintBlocks.DUNGEON_BRICK_SLAB) {
-						return DummyBiomes.DUMMY_DUNGEON;
-					} else {
-						if (passthroughs-- == 0) {
-							break;
+					if (bs.isFullCube(world, pos)) {
+						Block b = bs.getBlock();
+
+						if (b == LintBlocks.DUNGEON_BRICKS || b == LintBlocks.DUNGEON_BRICK_SLAB || b == LintBlocks.DUNGEON_BRICK_SLAB) {
+							return DummyBiomes.DUMMY_DUNGEON;
+						} else {
+							if (passthroughs-- == 0) {
+								break;
+							}
 						}
+					} else if (!bs.isAir()) {
+						++i;
 					}
-				} else if (!bs.isAir()) {
-					++i;
 				}
 			}
-		}
 
-		Chunk chunk = world.getChunk(new BlockPos(x, y, z));
-		int targetWS = chunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE, (int) x, (int) z) - 15;
-		int targetMB = chunk.sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, (int) x, (int) z) - 2;
-		int checky = (int) y;
+			Chunk chunk = world.getChunk(new BlockPos(x, y, z));
+			int targetWS = chunk.sampleHeightmap(Heightmap.Type.WORLD_SURFACE, (int) x, (int) z) - 15;
+			int targetMB = chunk.sampleHeightmap(Heightmap.Type.MOTION_BLOCKING, (int) x, (int) z) - 2;
+			int checky = (int) y;
 
-		if (checky < 40 || checky < player.getEntityWorld().getSeaLevel() && checky < targetWS && checky < targetMB) {
-			return DummyBiomes.DUMMY_CAVERNS;
-		}
+			if (checky < 40 || checky < player.getEntityWorld().getSeaLevel() && checky < targetWS && checky < targetMB) {
+				return DummyBiomes.DUMMY_CAVERNS;
+			}
 
-		synchronized (SecurityProblemCauser.lock) {
-			if (SecurityProblemCauser.townLocs != null) {
-				int i = 0;
+			synchronized (SecurityProblemCauser.lock) {
+				if (SecurityProblemCauser.townLocs != null) {
+					int i = 0;
 
-				for (Vec2i townLoc : SecurityProblemCauser.townLocs) {
-					double dx = x - townLoc.getX();
-					double dz = z - townLoc.getY();
+					for (Vec2i townLoc : SecurityProblemCauser.townLocs) {
+						double dx = x - townLoc.getX();
+						double dz = z - townLoc.getY();
 
-					if (dx * dx + dz * dz < TownFeature.SUBURB_DIST) {
-						return DummyBiomes.TOWNS[i];
+						if (dx * dx + dz * dz < TownFeature.SUBURB_DIST) {
+							return DummyBiomes.TOWNS[i];
+						}
+
+						i++;
 					}
-
-					i++;
 				}
 			}
+
 		}
 
 		Biome biome = access.getBiome(x, y, z);

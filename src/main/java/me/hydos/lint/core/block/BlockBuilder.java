@@ -33,9 +33,7 @@ import me.hydos.lint.mixin.FireBlockAccessor;
 import net.devtech.arrp.json.loot.JCondition;
 import net.devtech.arrp.json.loot.JLootTable;
 import net.devtech.arrp.json.models.JModel;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -106,7 +104,7 @@ public class BlockBuilder {
 		if (this.model == null) {
 			throw new IllegalStateException("Required Property: Model");
 		}
-		
+
 		if (this.material == null) {
 			throw new IllegalStateException("Required Property: Material");
 		}
@@ -153,30 +151,28 @@ public class BlockBuilder {
 			((FireBlockAccessor) Blocks.FIRE).callRegisterFlammableBlock(result, this.material.burnChance, this.material.spreadChance);
 		}
 
-		Identifier idl = Lint.id(id);
+		Identifier identifier = Lint.id(id);
 
 		// Block Item
 		Item.Settings blockItemSettings = new Item.Settings().group(this.itemGroup);
-		Registry.register(Registry.ITEM, idl, new BlockItem(result, blockItemSettings));
+		Registry.register(Registry.ITEM, identifier, new BlockItem(result, blockItemSettings));
 
 		if (this.defaultLootTable) {
-			RESOURCE_PACK.addLootTable(new Identifier(idl.getNamespace(), "blocks/" + idl.getPath()),
+			RESOURCE_PACK.addLootTable(new Identifier(identifier.getNamespace(), "blocks/" + identifier.getPath()),
 					JLootTable.loot("minecraft:block")
 					.pool(JLootTable.pool()
 							.rolls(1)
 							.entry(JLootTable.entry()
 									.type("minecraft:item")
-									.name(idl.toString()))
+									.name(identifier.toString()))
 							.condition(new JCondition("minecraft:survives_explosion"))));
 		}
-		
+
 		// Add the item model
-		RESOURCE_PACK.addModel(this.itemModel.apply(idl), Lint.id("item/" + id));
+		RESOURCE_PACK.addModel(this.itemModel.apply(identifier), Lint.id("item/" + id));
 
 		// Render Layer Shenanigans
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-			CUSTOM_BLOCK_RENDER_LAYERS.put(result, model.renderLayer);
-		}
+		CUSTOM_BLOCK_RENDER_LAYERS.put(result, model.renderLayer);
 
 		return result;
 	}
