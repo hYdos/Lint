@@ -22,11 +22,9 @@ package me.hydos.lint.block;
 import java.util.HashMap;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.organic.DistantLeavesBlock;
 import me.hydos.lint.block.organic.FallenLeavesBlock;
 import me.hydos.lint.block.organic.LintCorruptGrassBlock;
 import me.hydos.lint.block.organic.LintFlowerBlock;
-import me.hydos.lint.block.organic.LintLeavesBlock;
 import me.hydos.lint.block.organic.LintSaplingBlock;
 import me.hydos.lint.block.organic.StrippablePillarBlock;
 import me.hydos.lint.block.organic.TaterbaneBlock;
@@ -72,14 +70,6 @@ public final class LintBlocks extends LintDataRegistry {
 			.breakByTool(FabricToolTags.SHOVELS, 0)
 			.sounds(BlockSoundGroup.SAND);
 
-
-	public static final Block CORRUPT_LEAVES = registerCubeAll(
-			"corrupt_leaves",
-			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
-					.materialColor(MaterialColor.PURPLE)
-					.breakByTool(FabricToolTags.HOES, 0)),
-			ItemGroups.BLOCKS);
-
 	public static final Block CORRUPT_SAND = registerCubeAll(
 			"corrupt_sand",
 			new FallingBlock(SAND_SETTINGS
@@ -121,27 +111,6 @@ public final class LintBlocks extends LintDataRegistry {
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 2)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
-
-	public static final Block MYSTICAL_LEAVES = registerCubeAll(
-			"mystical_leaves",
-			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
-					.materialColor(MaterialColor.DIAMOND)
-					.breakByTool(FabricToolTags.HOES, 0)),
-			ItemGroups.BLOCKS);
-
-	public static final DistantLeavesBlock CANOPY_LEAVES = registerCubeAll(
-			"canopy_leaves",
-			new DistantLeavesBlock(9, FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
-					.materialColor(MaterialColor.DIAMOND)
-					.breakByTool(FabricToolTags.HOES, 0)),
-			ItemGroups.BLOCKS);
-
-	public static final Block FROZEN_LEAVES = registerCubeAll(
-			"frozen_leaves",
-			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.SPRUCE_LEAVES)
-					.materialColor(MaterialColor.WHITE)
-					.breakByTool(FabricToolTags.HOES, 0)),
 			ItemGroups.BLOCKS);
 
 	public static final Block MYSTICAL_SAND = registerCubeAll(
@@ -325,10 +294,6 @@ public final class LintBlocks extends LintDataRegistry {
 		fire.callRegisterFlammableBlock(CORRUPT_LOG, 5, 5);
 		fire.callRegisterFlammableBlock(MYSTICAL_SLAB, 5, 20);
 		fire.callRegisterFlammableBlock(CORRUPT_SLAB, 5, 20);
-		fire.callRegisterFlammableBlock(MYSTICAL_LEAVES, 30, 60);
-		fire.callRegisterFlammableBlock(CANOPY_LEAVES, 30, 60);
-		fire.callRegisterFlammableBlock(FROZEN_LEAVES, 30, 60);
-		fire.callRegisterFlammableBlock(CORRUPT_LEAVES, 30, 60);
 	}
 
 	public static void registerDecorations() {

@@ -20,6 +20,7 @@
 package me.hydos.lint.refactord.block;
 
 import me.hydos.lint.Lint;
+import me.hydos.lint.block.organic.DistantLeavesBlock;
 import me.hydos.lint.core.block.BlockBuilder;
 import me.hydos.lint.core.block.BlockMaterial;
 import me.hydos.lint.core.block.BlockMechanics;
@@ -27,6 +28,7 @@ import me.hydos.lint.core.block.Model;
 import me.hydos.lint.core.item.ItemData;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixinimpl.LintPortal;
+import me.hydos.lint.refactord.block.organic.LintLeavesBlock;
 import me.hydos.lint.refactord.block.organic.LintSpreadableBlock;
 import me.hydos.lint.refactord.block.organic.LintTallFlowerBlock;
 import me.hydos.lint.util.TeleportUtils;
@@ -49,11 +51,37 @@ import net.minecraft.util.math.BlockPos;
 public class LintBlocks2 {
 	// Plants and Stuff. Also planks.
 
+	public static final LintLeavesBlock CORRUPT_LEAVES = BlockBuilder.create()
+			.material(LintMaterials.LEAVES
+					.colour(MaterialColor.PURPLE))
+			.model(Model.CUTOUT_CUBE_ALL)
+			.customLootTable()
+			.register("corrupt_leaves", LintLeavesBlock::new);
+
 	public static final Block CORRUPT_PLANKS = BlockBuilder.create()
 			.material(LintMaterials.PLANKS
 					.colour(MaterialColor.PURPLE))
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("corrupt_planks");
+
+	public static final LintLeavesBlock MYSTICAL_LEAVES = BlockBuilder.create()
+			.material(LintMaterials.LEAVES)
+			.model(Model.CUTOUT_CUBE_ALL)
+			.customLootTable()
+			.register("mystical_leaves", LintLeavesBlock::new);
+
+	public static final DistantLeavesBlock CANOPY_LEAVES = BlockBuilder.create()
+			.material(LintMaterials.LEAVES)
+			.model(Model.CUTOUT_CUBE_ALL)
+			.customLootTable()
+			.register("canopy_leaves", settings -> new DistantLeavesBlock(9, settings));
+
+	public static final LintLeavesBlock FROZEN_LEAVES = BlockBuilder.create()
+			.material(LintMaterials.LEAVES
+					.colour(MaterialColor.WHITE))
+			.model(Model.CUTOUT_CUBE_ALL)
+			.customLootTable()
+			.register("frozen_leaves", LintLeavesBlock::new);
 
 	public static final Block MYSTICAL_PLANKS = BlockBuilder.create()
 			.material(LintMaterials.PLANKS
@@ -67,7 +95,7 @@ public class LintBlocks2 {
 			.itemGroup(ItemGroups.DECORATIONS)
 			.itemModel(id -> ItemData.generatedModel(Lint.id("block/generic_blue_flower_top")))
 			.customLootTable()
-			.register("generic_blue_flower", LintTallFlowerBlock.CONSTRUCTOR);
+			.register("generic_blue_flower", LintTallFlowerBlock::new);
 
 	// Soil
 
@@ -77,19 +105,19 @@ public class LintBlocks2 {
 					.colour(MaterialColor.PURPLE))
 			.model(Model.NONE)
 			.customLootTable()
-			.register("corrupt_grass", LintSpreadableBlock.CONSTRUCTOR);
+			.register("corrupt_grass", LintSpreadableBlock::new);
 
 	public static final Block LIVELY_GRASS = BlockBuilder.create()
 			.material(LintMaterials.GRASS_BLOCK)
 			.model(Model.NONE)
 			.customLootTable()
-			.register("lively_grass", LintSpreadableBlock.CONSTRUCTOR);
+			.register("lively_grass", LintSpreadableBlock::new);
 
 	public static final Block FROSTED_GRASS = BlockBuilder.create()
 			.material(LintMaterials.GRASS_BLOCK)
 			.model(Model.NONE)
 			.customLootTable()
-			.register("frosted_grass", LintSpreadableBlock.CONSTRUCTOR);
+			.register("frosted_grass", LintSpreadableBlock::new);
 
 	public static final Block RICH_SOIL = BlockBuilder.create()
 			.material(LintMaterials.FARMLAND)
@@ -178,7 +206,7 @@ public class LintBlocks2 {
 					.colour(MaterialColor.ORANGE)
 					.hardness(1.25f)
 					.resistance(4.2f)
-					.requiresTool())
+					.miningLevel(FabricToolTags.PICKAXES, 0))
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("ceramic");
 

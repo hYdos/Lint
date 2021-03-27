@@ -67,7 +67,7 @@ public class Features {
 	public static final Feature<DefaultFeatureConfig> STRUCTURE = register("structure", new LintStructureFeature());
 	public static final Feature<DefaultFeatureConfig> TOWN = register("town", new TownFeature());
 	public static final Feature<SingleStateFeatureConfig> HANGING_BLOCK = register("hanging_block", new HangingBlockFeature());
-	
+
 	/**
 	 * UNCONFIGURED DECORATORS
 	 */
@@ -75,14 +75,14 @@ public class Features {
 
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> CORRUPT_TREE = register("corrupt_tree", LINT_TREE.configure((
 			new TreeFeatureConfig.Builder(
-					new SimpleBlockStateProvider(LintBlocks.CORRUPT_LOG.getDefaultState()), new SimpleBlockStateProvider(LintBlocks.CORRUPT_LEAVES.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.CORRUPT_LOG.getDefaultState()), new SimpleBlockStateProvider(LintBlocks2.CORRUPT_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new LintTrunkPlacer(4, 2, 0),
 					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
 
 	public static final ConfiguredFeature<?, ?> CORRUPT_TREES = register("corrupt_trees", CORRUPT_TREE.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
 
 	private static final TreeFeatureConfig BASED_CONFIG = new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
-			new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
+			new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_LEAVES.getDefaultState()),
 			new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 			new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build();
 
@@ -91,12 +91,12 @@ public class Features {
 	// Not registered bc not used directly anywhere, only used in THICK_MYSTICAL_TREES
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> TALL_MYSTICAL_TREE = LINT_TREE.configure((
 			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
-					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 					new LintTrunkPlacer(6, 4, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
 
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", LINT_TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
-			new SimpleBlockStateProvider(LintBlocks.FROZEN_LEAVES.getDefaultState()),
+			new SimpleBlockStateProvider(LintBlocks2.FROZEN_LEAVES.getDefaultState()),
 			new SpruceFoliagePlacer(UniformIntDistribution.of(2, 1), UniformIntDistribution.of(0, 2), UniformIntDistribution.of(1, 1)),
 			new LintTrunkPlacer(4, 2, 1), new TwoLayersFeatureSize(2, 0, 1)).ignoreVines().build()));
 
@@ -128,7 +128,7 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> FLOATING_ISLAND_ALLOS_CRYSTAL = register("floating_island_allos_crystal", HANGING_BLOCK
 			.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState()))
 			.rangeOf(60).spreadHorizontally().repeatRandomly(3));
-	
+
 	@SuppressWarnings("unchecked")
 	public static final ConfiguredFeature<?, ?> DAWN_SHARDLANDS_SHARDS = register("dawn_shardlands_shards", Feature.SIMPLE_RANDOM_SELECTOR.configure(
 			new SimpleRandomFeatureConfig(Arrays.asList(ImmutableList.of(
@@ -239,7 +239,7 @@ public class Features {
 				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
-		
+
 		public static final RandomPatchFeatureConfig BUNCHED_STEMS_CONFIG = new RandomPatchFeatureConfig.Builder(
 				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)

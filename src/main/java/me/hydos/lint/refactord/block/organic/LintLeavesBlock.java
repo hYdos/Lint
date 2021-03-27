@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block.organic;
+package me.hydos.lint.refactord.block.organic;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,7 +30,6 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class LintLeavesBlock extends LeavesBlock {
-
 	public LintLeavesBlock(Settings settings) {
 		super(settings);
 	}

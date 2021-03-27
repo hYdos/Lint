@@ -133,7 +133,17 @@ public class Model {
 
 	// Models
 
-	public static final Model SIMPLE_CUBE_ALL = new Model().blockState(SIMPLE_STATE).blockModel(CUBE_ALL).immutable();
+	public static final Model SIMPLE_CUBE_ALL = new Model()
+			.blockState(SIMPLE_STATE)
+			.blockModel(CUBE_ALL)
+			.immutable();
+
+	public static final Model CUTOUT_CUBE_ALL = new Model()
+			.blockState(SIMPLE_STATE)
+			.blockModel(CUBE_ALL)
+			.renderOn(Layer.CUTOUT_MIPPED)
+			.opaque(false)
+			.immutable();
 
 	public static final Model NONE = new Model().immutable();
 

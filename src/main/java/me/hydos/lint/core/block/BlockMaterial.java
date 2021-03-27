@@ -50,10 +50,10 @@ public class BlockMaterial {
 		this.toolRequired = builder.toolRequired;
 		this.collidable = builder.collidable;
 		this.opaque = builder.opaque;
-		
+
 		this.toolType = builder.toolType;
 		this.miningLevel = builder.miningLevel;
-		
+
 		this.burnChance = builder.burnChance;
 		this.spreadChance = builder.spreadChance;
 	}
@@ -76,11 +76,11 @@ public class BlockMaterial {
 	boolean toolRequired = false;
 	boolean collidable = true;
 	Boolean opaque = null;
-	
+
 	// Blessed Fabric Stuff
 	Tag<Item> toolType;
 	int miningLevel;
-	
+
 	// Nice Lint Properties
 	int burnChance = -1;
 	int spreadChance;
@@ -113,7 +113,7 @@ public class BlockMaterial {
 	public Builder luminosity(int luminosity) {
 		return new Builder(this).luminosity(luminosity);
 	}
-	
+
 	public Builder luminosity(ToIntFunction<BlockState> luminosity) {
 		return new Builder(this).luminosity(luminosity);
 	}
@@ -141,10 +141,6 @@ public class BlockMaterial {
 		return new Builder(this).slipperiness(slipperiness);
 	}
 
-	public Builder requiresTool() {
-		return new Builder(this).requiresTool();
-	}
-
 	public Builder collidable(boolean collidable) {
 		return new Builder(this).collidable(this.collidable);
 	}
@@ -152,7 +148,7 @@ public class BlockMaterial {
 	public Builder miningLevel(Tag<Item> toolType, int miningLevel) {
 		return new Builder(this).miningLevel(toolType, miningLevel);
 	}
-	
+
 	public Builder flammability(int burnChance, int spreadChance) {
 		return new Builder(this).flammability(burnChance, spreadChance);
 	}
@@ -174,13 +170,13 @@ public class BlockMaterial {
 
 		private Builder(Block existing) {
 			AbstractBlockSettingsAccessor settings = (AbstractBlockSettingsAccessor) ((AbstractBlockAccessor) existing).getSettings();
-			
+
 			this.material = settings.getMaterial();
 			this.materialColour = settings.getMaterialColorFactory();
 			this.hardness = settings.getHardness();
 			this.luminosity = settings.getLuminance();
 			this.resistance = settings.getResistance();
-			
+
 			this.sounds = settings.getSoundGroup();
 			this.ticksRandomly = settings.getRandomTicks();
 			this.dropsNothing = false; // TODO how
@@ -258,29 +254,34 @@ public class BlockMaterial {
 			this.dropsNothing = true;
 			return this;
 		}
-		
+
 		@Override
 		public Builder slipperiness(float slipperiness) {
 			this.slipperiness = slipperiness;
 			return this;
 		}
-		
-		@Override
-		public Builder requiresTool() {
-			this.toolRequired = true;
-			return this;
-		}
-		
+
 		@Override
 		public Builder collidable(boolean collidable) {
 			this.collidable = collidable;
 			return this;
 		}
-		
+
 		@Override
+		/**
+		 * Set the mining level and preferred tool. If mining level is 0 or positive, it indicates a required tool. If it is negative, it indicates the tool is not required, rather only preferred.
+		 */
 		public Builder miningLevel(Tag<Item> toolType, int miningLevel) {
 			this.toolType = toolType;
-			this.miningLevel = miningLevel;
+
+			if (miningLevel < 0) {
+				this.miningLevel = 0;
+				this.toolRequired = false;
+			} else {
+				this.miningLevel = miningLevel;
+				this.toolRequired = true;
+			}
+
 			return this;
 		}
 

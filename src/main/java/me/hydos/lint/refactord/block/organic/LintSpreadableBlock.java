@@ -22,7 +22,6 @@ package me.hydos.lint.refactord.block.organic;
 import java.util.Random;
 
 import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SnowBlock;
@@ -75,9 +74,4 @@ public class LintSpreadableBlock extends SnowyBlock {
 
 		}
 	}
-
-	/**
-	 * The constructor for this block class.
-	 */
-	public static final BlockConstructor<LintSpreadableBlock> CONSTRUCTOR = LintSpreadableBlock::new;
 }

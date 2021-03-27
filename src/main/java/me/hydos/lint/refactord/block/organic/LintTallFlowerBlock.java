@@ -19,7 +19,6 @@
 
 package me.hydos.lint.refactord.block.organic;
 
-import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
 import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -49,6 +48,4 @@ public class LintTallFlowerBlock extends TallFlowerBlock {
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return state.get(HALF) == DoubleBlockHalf.LOWER ? BOTTOM_MODEL : TOP_MODEL;
 	}
-
-	public static final BlockConstructor<LintTallFlowerBlock> CONSTRUCTOR = LintTallFlowerBlock::new;
 }

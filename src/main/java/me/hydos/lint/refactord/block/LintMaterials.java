@@ -47,7 +47,6 @@ public class LintMaterials {
 			.colour(MaterialColor.STONE)
 			.hardness(1.5f)
 			.resistance(6.0f)
-			.requiresTool()
 			.miningLevel(FabricToolTags.PICKAXES, 0)
 			.sounds(BlockSoundGroup.STONE)
 			.template();
@@ -65,7 +64,6 @@ public class LintMaterials {
 			.colour(MaterialColor.STONE)
 			.hardness(1.75f) // bumped by 1.25f compared to previously
 			.resistance(6.0f)
-			.requiresTool()
 			.miningLevel(FabricToolTags.PICKAXES, 0)
 			.sounds(BlockSoundGroup.STONE)
 			.template();
@@ -77,7 +75,12 @@ public class LintMaterials {
 			.colour(MaterialColor.WOOD)
 			.hardness(2.0f) // TODO ytf is this higher than stone. Is it just because of the whole effect of preferred tool on hardness?
 			.resistance(3.0f)
-			.miningLevel(FabricToolTags.AXES, 0)
+			.miningLevel(FabricToolTags.AXES, -1)
 			.flammability(5, 20)
 			.sounds(BlockSoundGroup.SAND);
+
+	public static final BlockMaterial LEAVES = BlockMaterial.copy(Blocks.OAK_LEAVES)
+			.colour(MaterialColor.DIAMOND)
+			.miningLevel(FabricToolTags.HOES, -1)
+			.flammability(30, 60);
 }
