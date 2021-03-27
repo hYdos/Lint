@@ -172,7 +172,9 @@ public class BlockBuilder {
 		RESOURCE_PACK.addModel(this.itemModel.apply(identifier), Lint.id("item/" + id));
 
 		// Render Layer Shenanigans
-		CUSTOM_BLOCK_RENDER_LAYERS.put(result, model.renderLayer);
+		if (model.renderLayer != Layer.DEFAULT) {
+			CUSTOM_BLOCK_RENDER_LAYERS.put(result, model.renderLayer);
+		}
 
 		return result;
 	}
