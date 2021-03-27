@@ -48,4 +48,16 @@ public class LintMaterials {
 			.breaksInstantly()
 			.sounds(BlockSoundGroup.GRASS)
 			.template();
+
+	public static final BlockMaterial STONE = BlockMaterial.builder()
+			.material(Material.STONE)
+			.colour(MaterialColor.STONE)
+			.hardness(1.75f) // bumped by 1.25f compared to previously
+			.resistance(6.0f)
+			.requiresTool()
+			.miningLevel(FabricToolTags.PICKAXES, 0)
+			.sounds(BlockSoundGroup.STONE)
+			.template();
+	
+	public static final BlockMaterial COBBLESTONE = STONE.hardness(1.5f).template();
 }

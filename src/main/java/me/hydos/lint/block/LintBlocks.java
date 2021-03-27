@@ -144,7 +144,7 @@ public final class LintBlocks extends LintDataRegistry {
 					.materialColor(MaterialColor.PURPLE_TERRACOTTA)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 
 	public static final Block FUSED_STONE = registerCubeAll(
 			"fused_stone",
@@ -153,8 +153,8 @@ public final class LintBlocks extends LintDataRegistry {
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
-	
+			ItemGroups.BLOCKS); // ST-DONE
+
 	public static final Block FUSED_COBBLESTONE = registerCubeAll(
 			"fused_cobblestone",
 			new Block(FabricBlockSettings.of(Material.STONE)
@@ -162,7 +162,7 @@ public final class LintBlocks extends LintDataRegistry {
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 	
 	public static final Block PEARLESCENT_STONE = registerCubeAll( // This will be used with specific underground sub-biome-like stuff.
 			"pearlescent_stone",
@@ -171,7 +171,7 @@ public final class LintBlocks extends LintDataRegistry {
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 
 	public static final Block PEARLESCENT_COBBLESTONE = registerCubeAll(
 			"pearlescent_cobblestone",
@@ -180,7 +180,7 @@ public final class LintBlocks extends LintDataRegistry {
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
-			ItemGroups.BLOCKS);
+			ItemGroups.BLOCKS); // DONE
 
 	public static final Block TARSCAN_ORE = registerCubeAll(
 			"tarscan_ore",

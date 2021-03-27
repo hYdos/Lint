@@ -69,6 +69,34 @@ public class LintBlocks {
 
 	// Underground
 
+	public static final Block INDIGO_STONE = BlockBuilder.create()
+			.material(LintMaterials.STONE
+					.colour(MaterialColor.PURPLE_TERRACOTTA))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("indigo_stone");
+	
+	public static final Block FUSED_STONE = BlockBuilder.create()
+			.material(LintMaterials.STONE)
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("fused_stone");
+	
+	public static final Block FUSED_COBBLESTONE = BlockBuilder.create()
+			.material(LintMaterials.COBBLESTONE)
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("fused_cobblestone");
+	
+	public static final Block PEARLESCENT_STONE = BlockBuilder.create()
+			.material(LintMaterials.STONE
+					.colour(MaterialColor.WHITE_TERRACOTTA))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("pearlescent_stone");
+	
+	public static final Block PEARLESCENT_COBBLESTONE = BlockBuilder.create()
+			.material(LintMaterials.COBBLESTONE
+					.colour(MaterialColor.WHITE_TERRACOTTA))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("pearlescent_cobblestone");
+
 	// Smeltery and Similar
 
 	public static final Block BASIC_CASING = BlockBuilder.create()
