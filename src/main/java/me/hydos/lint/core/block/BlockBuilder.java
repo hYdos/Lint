@@ -166,7 +166,7 @@ public class BlockBuilder {
 							.rolls(1)
 							.entry(JLootTable.entry()
 									.type("minecraft:item")
-									.name(id.toString()))
+									.name(idl.toString()))
 							.condition(new JCondition("minecraft:survives_explosion"))));
 		}
 		
