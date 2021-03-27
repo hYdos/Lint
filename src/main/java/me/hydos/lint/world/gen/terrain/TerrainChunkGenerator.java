@@ -30,7 +30,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.util.math.Vec2i;
@@ -167,7 +166,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 						// TODO move this logic to the surface builder, or some other property
 						if (dist > FraiyaTerrainGenerator.SHARDLANDS_ISLANDS_START) {
 							if (ash && y > lowerBound) {
-								state = LintBlocks.ASH.getDefaultState();
+								state = LintBlocks2.ASH.getDefaultState();
 							} else {
 								state = LintBlocks2.ASPHALT.getDefaultState();
 							}

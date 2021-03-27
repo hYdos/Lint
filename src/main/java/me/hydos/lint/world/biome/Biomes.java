@@ -65,8 +65,8 @@ public class Biomes {
 	/**
 	 * Biome Surface Builders
 	 */
-	public static final SurfaceBuilder<TernarySurfaceConfig> OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks.MYSTICAL_SAND.getDefaultState(), LintBlocks.WHITE_SAND.getDefaultState());
-	public static final SurfaceBuilder<TernarySurfaceConfig> CORRUPT_OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks.CORRUPT_SAND.getDefaultState(), LintBlocks.WHITE_SAND.getDefaultState());
+	public static final SurfaceBuilder<TernarySurfaceConfig> OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks2.MYSTICAL_SAND.getDefaultState(), LintBlocks2.WHITE_SAND.getDefaultState());
+	public static final SurfaceBuilder<TernarySurfaceConfig> CORRUPT_OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks2.CORRUPT_SAND.getDefaultState(), LintBlocks2.WHITE_SAND.getDefaultState());
 	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_RAW_SB = new DawnShardlandsSurfaceBuilder();
 	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_EDGE_RAW_SB = new DawnShardlandsEdgeSurfaceBuilder();
 

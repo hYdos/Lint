@@ -43,7 +43,6 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.FallingBlock;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.Material;
@@ -61,21 +60,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShapes;
 
 public final class LintBlocks extends LintDataRegistry {
-	/**
-	 * Automatically generated
-	 */
-	
-	public static final FabricBlockSettings SAND_SETTINGS = FabricBlockSettings.of(Material.AGGREGATE)
-			.hardness(0.5f)
-			.breakByTool(FabricToolTags.SHOVELS, 0)
-			.sounds(BlockSoundGroup.SAND);
-
-	public static final Block CORRUPT_SAND = registerCubeAll(
-			"corrupt_sand",
-			new FallingBlock(SAND_SETTINGS
-					.materialColor(MaterialColor.PURPLE)),
-			ItemGroups.BLOCKS);
-
 	public static final Block ALLOS_INFUSED_ASPHALT = registerCubeAll(
 			"allos_infused_asphalt",
 			new InfusedBlock(FabricBlockSettings.copyOf(Blocks.STONE)
@@ -88,11 +72,6 @@ public final class LintBlocks extends LintDataRegistry {
 			new InfusedBlock(FabricBlockSettings.copyOf(Blocks.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool(), Power.MANOS),
-			ItemGroups.BLOCKS);
-
-	public static final Block ASH = registerCubeAll(
-			"ash",
-			new FallingBlock(SAND_SETTINGS),
 			ItemGroups.BLOCKS);
 
 	public static final Block DUNGEON_BRICKS = registerCubeAll(
@@ -113,23 +92,12 @@ public final class LintBlocks extends LintDataRegistry {
 					.requiresTool()),
 			ItemGroups.BLOCKS);
 
-	public static final Block MYSTICAL_SAND = registerCubeAll(
-			"mystical_sand",
-			new FallingBlock(SAND_SETTINGS
-					.materialColor(MaterialColor.MAGENTA)),
-			ItemGroups.BLOCKS);
-
 	public static final Block RICH_DIRT = registerCubeAll(
 			"rich_dirt",
 			new DirtLikeBlock(FabricBlockSettings.of(Material.SOIL)
 					.hardness(0.5f)
 					.sounds(BlockSoundGroup.WET_GRASS)
 					.breakByTool(FabricToolTags.SHOVELS, 0)),
-			ItemGroups.BLOCKS);
-
-	public static final Block WHITE_SAND = registerCubeAll(
-			"white_sand",
-			new FallingBlock(SAND_SETTINGS),
 			ItemGroups.BLOCKS);
 
 	/**

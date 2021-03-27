@@ -25,6 +25,7 @@ import me.hydos.lint.core.block.BlockBuilder;
 import me.hydos.lint.core.block.BlockMaterial;
 import me.hydos.lint.core.block.BlockMechanics;
 import me.hydos.lint.core.block.Model;
+import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
 import me.hydos.lint.core.item.ItemData;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixinimpl.LintPortal;
@@ -36,6 +37,7 @@ import me.hydos.lint.world.dimension.Dimensions;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FallingBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.entity.LivingEntity;
@@ -49,6 +51,8 @@ import net.minecraft.util.math.BlockPos;
  * All of lint's core blocks.
  */
 public class LintBlocks2 {
+	private static final BlockConstructor<FallingBlock> FALLING_BLOCK = FallingBlock::new; // In case the constructor parameters change it becomes a one line fix
+
 	// Plants and Stuff. Also planks.
 
 	public static final LintLeavesBlock CORRUPT_LEAVES = BlockBuilder.create()
@@ -97,7 +101,13 @@ public class LintBlocks2 {
 			.customLootTable()
 			.register("generic_blue_flower", LintTallFlowerBlock::new);
 
-	// Soil
+	// Soil and Sand
+
+	public static final Block ASH = BlockBuilder.create()
+			.material(LintMaterials.SAND
+					.colour(MaterialColor.GRAY))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("ash", FALLING_BLOCK);
 
 	public static final Block CORRUPT_GRASS = BlockBuilder.create()
 			.material(LintMaterials.GRASS_BLOCK
@@ -107,22 +117,39 @@ public class LintBlocks2 {
 			.customLootTable()
 			.register("corrupt_grass", LintSpreadableBlock::new);
 
-	public static final Block LIVELY_GRASS = BlockBuilder.create()
-			.material(LintMaterials.GRASS_BLOCK)
-			.model(Model.NONE)
-			.customLootTable()
-			.register("lively_grass", LintSpreadableBlock::new);
-
+	public static final Block CORRUPT_SAND = BlockBuilder.create()
+			.material(LintMaterials.SAND
+					.colour(MaterialColor.PURPLE))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("corrupt_sand", FALLING_BLOCK);
+	
 	public static final Block FROSTED_GRASS = BlockBuilder.create()
 			.material(LintMaterials.GRASS_BLOCK)
 			.model(Model.NONE)
 			.customLootTable()
 			.register("frosted_grass", LintSpreadableBlock::new);
 
+	public static final Block LIVELY_GRASS = BlockBuilder.create()
+			.material(LintMaterials.GRASS_BLOCK)
+			.model(Model.NONE)
+			.customLootTable()
+			.register("lively_grass", LintSpreadableBlock::new);
+
+	public static final Block MYSTICAL_SAND = BlockBuilder.create()
+			.material(LintMaterials.SAND)
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("mystical_sand", FALLING_BLOCK);
+
 	public static final Block RICH_SOIL = BlockBuilder.create()
 			.material(LintMaterials.FARMLAND)
 			.model(Model.SIMPLE_BLOCKSTATE_ONLY)
 			.register("rich_soil", FarmlandBlock::new);
+
+	public static final Block WHITE_SAND = BlockBuilder.create()
+			.material(LintMaterials.SAND
+					.colour(MaterialColor.QUARTZ))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("white_sand", FALLING_BLOCK);
 
 	// Underground
 
