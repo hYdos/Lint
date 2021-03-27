@@ -32,6 +32,7 @@ import me.hydos.lint.item.potion.LintPotions;
 import me.hydos.lint.network.Networking;
 import me.hydos.lint.npc.NPCs;
 import me.hydos.lint.recipe.Recipes;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.tag.LintBlockTags;
@@ -125,6 +126,7 @@ public class Lint implements ModInitializer {
 	private void registerLintContent() {
 		LintFluids.initialize();
 		LintBlocks.initialize();
+		LintBlocks2.initialise();
 		LintItems.initialize();
 		LintPotions.initialize();
 		Entities.initialize();

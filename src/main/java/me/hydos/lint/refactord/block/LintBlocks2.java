@@ -173,6 +173,10 @@ public class LintBlocks2 {
 			.itemGroup(ItemGroups.FOOD)
 			.register("cookie");
 
+	public static final Block initialise() {
+		return COOKIE;
+	}
+
 	private static final class FarmlandBlock extends net.minecraft.block.FarmlandBlock {
 		protected FarmlandBlock(Settings settings) {
 			super(settings);
