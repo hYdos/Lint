@@ -69,7 +69,7 @@ public class Sounds {
 	public static final SoundEvent CRAB_IDLE = new SoundEvent(Lint.id("crab.idle"));
 
 	public static void initialize() {
-		// music
+		// lint music
 		register(KING_TATER);
 		register(I509);
 		register(LEX_MANOS);
