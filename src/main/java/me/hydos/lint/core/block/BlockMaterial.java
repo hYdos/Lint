@@ -72,7 +72,7 @@ public class BlockMaterial {
 	BlockSoundGroup sounds = BlockSoundGroup.STONE;
 	boolean ticksRandomly = false;
 	boolean dropsNothing = false;
-	float slipperiness = Float.NaN;
+	float slipperiness = 0.0f;
 	boolean toolRequired = false;
 	boolean collidable = true;
 	Boolean opaque = null;
