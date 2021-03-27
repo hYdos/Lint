@@ -59,7 +59,7 @@ public class BlockBuilder {
 	private Function<Identifier, JModel> itemModel = PARENTED;
 
 	public BlockBuilder material(BlockMaterial material) throws IllegalStateException {
-		if (this.material.material == null || this.material.materialColour == null) {
+		if (material.material == null || material.materialColour == null) {
 			throw new IllegalStateException("Material and Material colour must both be non-null.");
 		}
 
@@ -80,10 +80,15 @@ public class BlockBuilder {
 		return this;
 	}
 
+	/**
+	 * Tells the block builder not to add the default loot table.
+	 */
 	public BlockBuilder customLootTable() {
 		this.defaultLootTable = false;
 		return this;
 	}
+
+	// TODO make a method for other java loot tables.
 
 	/**
 	 * Replace the default item model. Function takes the item id (NOT the model id) and returns the item JModel.

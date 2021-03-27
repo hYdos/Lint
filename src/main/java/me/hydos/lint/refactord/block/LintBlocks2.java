@@ -42,6 +42,7 @@ public class LintBlocks2 {
 			.material(LintMaterials.TALL_FLOWER)
 			.model(Model.TALL_PLANT)
 			.itemGroup(ItemGroups.DECORATIONS)
+			.customLootTable()
 			.register("generic_blue_flower", LintTallFlowerBlock.CONSTRUCTOR);
 
 	// Soil
@@ -51,16 +52,19 @@ public class LintBlocks2 {
 					.material(Material.SOLID_ORGANIC)
 					.colour(MaterialColor.PURPLE))
 			.model(Model.NONE)
+			.customLootTable()
 			.register("corrupt_grass", LintSpreadableBlock.CONSTRUCTOR);
 
 	public static final Block LIVELY_GRASS = BlockBuilder.create()
 			.material(LintMaterials.GRASS_BLOCK)
 			.model(Model.NONE)
+			.customLootTable()
 			.register("lively_grass", LintSpreadableBlock.CONSTRUCTOR);
 
 	public static final Block FROSTED_GRASS = BlockBuilder.create()
 			.material(LintMaterials.GRASS_BLOCK)
 			.model(Model.NONE)
+			.customLootTable()
 			.register("frosted_grass", LintSpreadableBlock.CONSTRUCTOR);
 
 	public static final Block RICH_SOIL = BlockBuilder.create()
@@ -79,6 +83,7 @@ public class LintBlocks2 {
 	public static final Block FUSED_STONE = BlockBuilder.create()
 			.material(LintMaterials.STONE)
 			.model(Model.SIMPLE_CUBE_ALL)
+			.customLootTable()
 			.register("fused_stone");
 	
 	public static final Block FUSED_COBBLESTONE = BlockBuilder.create()
@@ -90,6 +95,7 @@ public class LintBlocks2 {
 			.material(LintMaterials.STONE
 					.colour(MaterialColor.WHITE_TERRACOTTA))
 			.model(Model.SIMPLE_CUBE_ALL)
+			.customLootTable()
 			.register("pearlescent_stone");
 	
 	public static final Block PEARLESCENT_COBBLESTONE = BlockBuilder.create()
@@ -116,7 +122,7 @@ public class LintBlocks2 {
 					.miningLevel(FabricToolTags.PICKAXES, 1))
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("sicieron_ore");
-	
+
 	public static final Block JUREL_ORE = BlockBuilder.create()
 			.material(LintMaterials.STONE
 					.hardness(3.0f)
@@ -150,6 +156,8 @@ public class LintBlocks2 {
 
 	public static final Block HAYKAMIUM_PORTAL = BlockBuilder.create()
 			.material(BlockMaterial.builder()
+					.material(Material.PORTAL)
+					.colour(MaterialColor.CYAN)
 					.strength(-1.0f)
 					.collidable(false)
 					.sounds(BlockSoundGroup.STONE))
