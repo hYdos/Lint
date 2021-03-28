@@ -21,12 +21,16 @@ package me.hydos.lint.core.block;
 
 import static me.hydos.lint.Lint.RESOURCE_PACK;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 
 import me.hydos.lint.Lint;
 import net.devtech.arrp.json.blockstate.JBlockModel;
@@ -47,14 +51,20 @@ public class Model {
 	ModelFunction blockModel = null;
 	Boolean opaque = null; // This can also be determined by the material. If both are set, this wins.
 	Layer renderLayer = Layer.DEFAULT;
+	List<JBlockModel> additionalModels = new ArrayList<>();
 
 	public Model blockState(StateFunction blockStateCreator) {
 		this.state = blockStateCreator;
 		return this;
 	}
 
-	public Model blockModel(ModelFunction modelCreator) {
+	public Model blockModels(ModelFunction modelCreator) {
 		this.blockModel = modelCreator;
+		return this;
+	}
+
+	public Model additionalModels(List<JBlockModel> additionalModels) {
+		this.additionalModels = additionalModels;
 		return this;
 	}
 
@@ -73,10 +83,10 @@ public class Model {
 	}
 
 	void createFor(Block block, String id) {
-		JBlockModel[] modelLocations;
+		List<JBlockModel> modelLocations;
 
 		if (this.blockModel == null) {
-			modelLocations = new JBlockModel[] {new JBlockModel(Lint.id(id))};
+			modelLocations = Lists.newArrayList(new JBlockModel(Lint.id(id)));
 		} else {
 			Set<Map.Entry<Identifier, JModel>> models = this.blockModel.createModels(subPath -> Lint.id("block/" + id + (subPath.isEmpty() ? "" : ("_" + subPath)))).entrySet();
 
@@ -84,13 +94,16 @@ public class Model {
 				RESOURCE_PACK.addModel(model.getValue(), model.getKey());
 			}
 
-			modelLocations = models.stream().map(entry -> new JBlockModel(entry.getKey())).collect(Collectors.toList()).toArray(new JBlockModel[0]); // Pre-Java 11 support. In java 11, we would use generators.
+			modelLocations = models.stream().map(entry -> new JBlockModel(entry.getKey())).collect(Collectors.toList()); // Pre-Java 11 support. In java 11, we would use generators.
 		}
+
+		// Add additional model locations
+		modelLocations.addAll(this.additionalModels);
 
 		if (this.state != null) {
 			// "ID Location"
 			Identifier idl = Lint.id(id);
-			RESOURCE_PACK.addBlockState(this.state.createModel(idl, modelLocations), idl);
+			RESOURCE_PACK.addBlockState(this.state.createModel(idl, modelLocations.toArray(new JBlockModel[0])), idl);
 		}
 	}
 
@@ -105,12 +118,17 @@ public class Model {
 	}
 
 	// States
-	public static final StateFunction SIMPLE_STATE = (id, models) -> JState.state(JState.variant().put("", models[0]));
+	private static final StateFunction SIMPLE_STATE = (id, models) -> JState.state(JState.variant().put("", models[0]));
 
-	public static final StateFunction TALL_CROSS_STATE = (id, models) ->  JState.state(JState.variant().put("half=lower", models[0]).put("half=upper", models[1]));
+	private static final StateFunction TALL_CROSS_STATE = (id, models) ->  JState.state(JState.variant().put("half=lower", models[0]).put("half=upper", models[1]));
+
+	private static final StateFunction SLAB_STATE = (id, models) -> JState.state(JState.variant()
+			.put("type=bottom", models[0])
+			.put("type=top", models[1])
+			.put("type=double", models[2]));
 
 	// Block Model Functions
-	public static final ModelFunction CUBE_ALL = ids -> {
+	private static final ModelFunction CUBE_ALL = ids -> {
 		Identifier id = ids.apply("");
 		return ImmutableMap.of(id, JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", id.toString())));
 	};
@@ -131,16 +149,45 @@ public class Model {
 					.textures(JModel.textures().var("cross", topModelId.toString())));
 	};
 
+	private static final ModelFunction slabModel(String planksId) {
+		return ids -> {
+			Identifier lowerSlabIdentifier = ids.apply("");
+			Identifier topSlabIdentifier = ids.apply("top");
+			Identifier plankModelIdentifier = Lint.id("block/" + planksId);
+			
+			return ImmutableMap.of(
+					// bottom model
+					lowerSlabIdentifier,
+					JModel.model()
+						.parent("block/slab")
+						.textures(JModel.textures()
+							.var("bottom", plankModelIdentifier.toString())
+							.var("top", plankModelIdentifier.toString())
+							.var("side", plankModelIdentifier.toString())
+							),
+					// top model
+					topSlabIdentifier,
+					JModel.model()
+						.parent("block/slab_top")
+						.textures(JModel.textures()
+							.var("bottom", plankModelIdentifier.toString())
+							.var("top", plankModelIdentifier.toString())
+							.var("side", plankModelIdentifier.toString())
+							)
+					);
+		};
+	}
+
 	// Models
 
 	public static final Model SIMPLE_CUBE_ALL = new Model()
 			.blockState(SIMPLE_STATE)
-			.blockModel(CUBE_ALL)
+			.blockModels(CUBE_ALL)
 			.immutable();
 
 	public static final Model CUTOUT_CUBE_ALL = new Model()
 			.blockState(SIMPLE_STATE)
-			.blockModel(CUBE_ALL)
+			.blockModels(CUBE_ALL)
 			.renderOn(Layer.CUTOUT_MIPPED)
 			.opaque(false)
 			.immutable();
@@ -151,10 +198,19 @@ public class Model {
 
 	public static final Model TALL_PLANT = new Model()
 			.blockState(TALL_CROSS_STATE)
-			.blockModel(TALL_CROSS)
+			.blockModels(TALL_CROSS)
 			.opaque(false)
 			.renderOn(Layer.CUTOUT_MIPPED)
 			.immutable();
+
+	public static final Model slab(String planksId) {
+		return new Model()
+				.blockState(SLAB_STATE)
+				.blockModels(slabModel(planksId))
+				.additionalModels(Arrays.asList(new JBlockModel(Lint.id("block/" + planksId))));
+	}
+
+	// Immutable Model Class
 
 	private static final class Immutable extends Model {
 		public Immutable(Model parent) {
@@ -162,6 +218,7 @@ public class Model {
 			this.state = parent.state;
 			this.blockModel = parent.blockModel;
 			this.renderLayer = parent.renderLayer;
+			this.additionalModels = parent.additionalModels;
 		}
 
 		@Override
@@ -170,7 +227,7 @@ public class Model {
 		}
 
 		@Override
-		public Model blockModel(ModelFunction modelCreator) {
+		public Model blockModels(ModelFunction modelCreator) {
 			throw new UnsupportedOperationException("Cannot set blockModel property on an immutable model!");
 		}
 
@@ -182,6 +239,11 @@ public class Model {
 		@Override
 		public Model renderOn(Layer layer) {
 			throw new UnsupportedOperationException("Cannot set render layer property on an immutable model!");
+		}
+		
+		@Override
+		public Model additionalModels(List<JBlockModel> additionalModels) {
+			throw new UnsupportedOperationException("Cannot set the additional models on an immutable model!");
 		}
 	}
 }

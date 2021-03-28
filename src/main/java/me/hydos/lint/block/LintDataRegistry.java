@@ -149,54 +149,6 @@ public class LintDataRegistry {
 	}
 
 	/**
-	 * Registers a generic slab block with an associated dropped item
-	 *
-	 * @param id        The block ID
-	 * @param block     The block
-	 * @param itemGroup The item group for the dropped item
-	 * @return The registered block
-	 */
-	public static Block registerSlab(String id, String planksId, Block block, @Nullable ItemGroup itemGroup) {
-		Identifier identifier = id(id);
-		Identifier lowerSlabIdentifier = id("block/" + id);
-		Identifier topSlabIdentifier = id("block/" + id + "_top");
-		Identifier plankModelIdentifier = id("block/" + planksId);
-
-		RESOURCE_PACK.addBlockState(JState.state(JState.variant()
-				.put("type=bottom", new JBlockModel(lowerSlabIdentifier))
-				.put("type=double", new JBlockModel(plankModelIdentifier))
-				.put("type=top", new JBlockModel(topSlabIdentifier))
-				), identifier);
-		RESOURCE_PACK.addModel(JModel.model()
-				.parent("block/slab")
-				.textures(JModel.textures()
-						.var("bottom", plankModelIdentifier.toString())
-						.var("top", plankModelIdentifier.toString())
-						.var("side", plankModelIdentifier.toString())
-						), lowerSlabIdentifier);
-		RESOURCE_PACK.addModel(JModel.model()
-				.parent("block/slab_top")
-				.textures(JModel.textures()
-						.var("bottom", plankModelIdentifier.toString())
-						.var("top", plankModelIdentifier.toString())
-						.var("side", plankModelIdentifier.toString())
-						), topSlabIdentifier);
-		RESOURCE_PACK.addModel(JModel.model().parent(lowerSlabIdentifier.toString()), id("item/" + id));
-		RESOURCE_PACK.addRecipe(identifier, JRecipe.shaped(
-				JPattern.pattern("###"),
-				JKeys.keys()
-				.key("#", JIngredient
-						.ingredient()
-						.item(id(planksId).toString())),
-				JResult.stackedResult(identifier.toString(), 6)));
-
-		Registry.register(Registry.BLOCK, identifier, block);
-		registerBlockItem(block, itemGroup);
-
-		return block;
-	}
-
-	/**
 	 * Registers a BlockItem for an already registered block
 	 *
 	 * @param block     A block which has already been registered

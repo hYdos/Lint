@@ -86,12 +86,21 @@ public class LintMaterials {
 			.miningLevel(FabricToolTags.HOES, -1)
 			.flammability(30, 60)
 			.template();
-	
+
 	public static final BlockMaterial SAND = BlockMaterial.builder()
 			.material(Material.AGGREGATE)
 			.colour(MaterialColor.SAND)
 			.hardness(0.5f)
 			.miningLevel(FabricToolTags.SHOVELS, -1)
 			.sounds(BlockSoundGroup.SAND)
+			.template();
+
+	public static final BlockMaterial DUNGEON = BlockMaterial.builder()
+			.material(Material.STONE)
+			.colour(MaterialColor.STONE)
+			.hardness(6.0f)
+			.resistance(9.0f)
+			.miningLevel(FabricToolTags.PICKAXES, 2)
+			.sounds(BlockSoundGroup.STONE)
 			.template();
 }

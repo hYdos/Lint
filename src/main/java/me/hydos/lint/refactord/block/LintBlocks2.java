@@ -19,32 +19,43 @@
 
 package me.hydos.lint.refactord.block;
 
+import static me.hydos.lint.Lint.RESOURCE_PACK;
+import static me.hydos.lint.Lint.id;
+
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.organic.DistantLeavesBlock;
 import me.hydos.lint.core.block.BlockBuilder;
+import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
 import me.hydos.lint.core.block.BlockMaterial;
 import me.hydos.lint.core.block.BlockMechanics;
 import me.hydos.lint.core.block.Model;
-import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
 import me.hydos.lint.core.item.ItemData;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixinimpl.LintPortal;
 import me.hydos.lint.refactord.block.organic.LintLeavesBlock;
 import me.hydos.lint.refactord.block.organic.LintSpreadableBlock;
 import me.hydos.lint.refactord.block.organic.LintTallFlowerBlock;
+import me.hydos.lint.util.Power;
 import me.hydos.lint.util.TeleportUtils;
 import me.hydos.lint.world.dimension.Dimensions;
+import net.devtech.arrp.json.recipe.JIngredient;
+import net.devtech.arrp.json.recipe.JKeys;
+import net.devtech.arrp.json.recipe.JPattern;
+import net.devtech.arrp.json.recipe.JRecipe;
+import net.devtech.arrp.json.recipe.JResult;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 /**
@@ -153,9 +164,13 @@ public class LintBlocks2 {
 
 	// Underground
 
+	public static final Block ALLOS_INFUSED_ASPHALT = BlockBuilder.create()
+			.material(LintMaterials.COBBLESTONE)
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("allos_infused_asphalt", settings -> new InfusedBlock(settings, Power.ALLOS));
+
 	public static final Block ASPHALT = BlockBuilder.create()
-			.material(LintMaterials.STONE
-					.hardness(1.5f))
+			.material(LintMaterials.COBBLESTONE)
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("asphalt");
 
@@ -189,6 +204,11 @@ public class LintBlocks2 {
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("magnetite_deposit");
 
+	public static final Block MANOS_INFUSED_ASPHALT = BlockBuilder.create() // TODO this should generate if asphalt is above a generating crystal
+			.material(LintMaterials.COBBLESTONE)
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("manos_infused_asphalt", settings -> new InfusedBlock(settings, Power.MANOS));
+	
 	public static final Block PEARLESCENT_STONE = BlockBuilder.create()
 			.material(LintMaterials.STONE
 					.colour(MaterialColor.WHITE_TERRACOTTA))
@@ -214,6 +234,18 @@ public class LintBlocks2 {
 					.miningLevel(FabricToolTags.PICKAXES, 1))
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("sicieron_ore");
+
+	// Structures
+	public static final Block DUNGEON_BRICKS = BlockBuilder.create()
+			.material(LintMaterials.DUNGEON)
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("dungeon_bricks");
+	
+	public static final Block MOSSY_DUNGEON_BRICKS = BlockBuilder.create()
+			.material(LintMaterials.DUNGEON
+					.hardness(4.0f))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("mossy_dungeon_bricks");
 
 	// Smeltery and Similar
 
@@ -274,6 +306,31 @@ public class LintBlocks2 {
 			.model(Model.SIMPLE_CUBE_ALL)
 			.itemGroup(ItemGroups.FOOD)
 			.register("cookie");
+
+	// Dependent Blocks
+	private static final Block registerSlab(String id, String planksId, BlockMaterial material) {
+		Block block = BlockBuilder.create()
+				.material(material)
+				.model(Model.slab(planksId))
+				.register(id, SlabBlock::new);
+		
+		Identifier identifier = Lint.id(id);
+
+		RESOURCE_PACK.addRecipe(identifier, JRecipe.shaped(
+				JPattern.pattern("###"),
+				JKeys.keys()
+				.key("#", JIngredient
+						.ingredient()
+						.item(id(planksId).toString())),
+				JResult.stackedResult(identifier.toString(), 6)));
+		
+		return block;
+	}
+
+	// TODO move this to the new system
+	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", LintMaterials.PLANKS);
+	public static final Block CORRUPT_SLAB = registerSlab("corrupt_slab", "corrupt_planks", LintMaterials.PLANKS);
+	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", LintMaterials.DUNGEON);
 
 	public static final Block initialise() {
 		return COOKIE;

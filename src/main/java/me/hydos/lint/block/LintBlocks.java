@@ -33,7 +33,6 @@ import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixin.FireBlockAccessor;
 import me.hydos.lint.refactord.block.LintBlocks2;
-import me.hydos.lint.util.Power;
 import me.hydos.lint.world.tree.CanopyTree;
 import me.hydos.lint.world.tree.CorruptTree;
 import me.hydos.lint.world.tree.MysticalTree;
@@ -60,37 +59,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShapes;
 
 public final class LintBlocks extends LintDataRegistry {
-	public static final Block ALLOS_INFUSED_ASPHALT = registerCubeAll(
-			"allos_infused_asphalt",
-			new InfusedBlock(FabricBlockSettings.copyOf(Blocks.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool(), Power.ALLOS),
-			ItemGroups.BLOCKS);
-
-	public static final Block MANOS_INFUSED_ASPHALT = registerCubeAll(
-			"manos_infused_asphalt",
-			new InfusedBlock(FabricBlockSettings.copyOf(Blocks.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 0)
-					.requiresTool(), Power.MANOS),
-			ItemGroups.BLOCKS);
-
-	public static final Block DUNGEON_BRICKS = registerCubeAll(
-			"dungeon_bricks",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(6)
-					.sounds(BlockSoundGroup.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 2) // yes this means require iron
-					.requiresTool()),
-			ItemGroups.BLOCKS);
-
-	public static final Block MOSSY_DUNGEON_BRICKS = registerCubeAll(
-			"mossy_dungeon_bricks",
-			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(4)
-					.sounds(BlockSoundGroup.STONE)
-					.breakByTool(FabricToolTags.PICKAXES, 2)
-					.requiresTool()),
-			ItemGroups.BLOCKS);
 
 	public static final Block RICH_DIRT = registerCubeAll(
 			"rich_dirt",
@@ -163,8 +131,6 @@ public final class LintBlocks extends LintDataRegistry {
 	public static final Block STRIPPED_CORRUPT_LOG = createLog(MaterialColor.PURPLE, MaterialColor.PURPLE);
 	public static final Block CORRUPT_LOG = createLog(MaterialColor.BLACK_TERRACOTTA, MaterialColor.PURPLE, STRIPPED_CORRUPT_LOG);
 
-	public static final Block CORRUPT_SLAB = registerSlab("corrupt_slab", "corrupt_planks", new SlabBlock(FabricBlockSettings.copy(Blocks.OAK_SLAB)), ItemGroups.BLOCKS);
-
 	/**
 	 * Mystical Decorations
 	 */
@@ -235,11 +201,6 @@ public final class LintBlocks extends LintDataRegistry {
 			.nonOpaque(),
 			VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.9375, 0.5, 0.875)
 	);
-	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB)), ItemGroups.BLOCKS);
-	/**
-	 * Misc Building Blocks
-	 */
-	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", new SlabBlock(AbstractBlock.Settings.copy(DUNGEON_BRICKS)), ItemGroups.BLOCKS);
 
 	public static final Block MYSTICAL_DOOR = Blocks.OAK_DOOR; // TODO
 	/**
@@ -260,8 +221,6 @@ public final class LintBlocks extends LintDataRegistry {
 		fire.callRegisterFlammableBlock(STRIPPED_MYSTICAL_LOG, 5, 5);
 		fire.callRegisterFlammableBlock(STRIPPED_CORRUPT_LOG, 5, 5);
 		fire.callRegisterFlammableBlock(CORRUPT_LOG, 5, 5);
-		fire.callRegisterFlammableBlock(MYSTICAL_SLAB, 5, 20);
-		fire.callRegisterFlammableBlock(CORRUPT_SLAB, 5, 20);
 	}
 
 	public static void registerDecorations() {

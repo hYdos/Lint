@@ -21,7 +21,6 @@ package me.hydos.lint.world.biome.surface;
 
 import java.util.Random;
 
-import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.biome.Biome;
@@ -30,8 +29,8 @@ import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
 public class DawnShardlandsSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
-	private static final TernarySurfaceConfig ALLOS_CONFIG = new TernarySurfaceConfig(LintBlocks.ALLOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState());
-	private static final TernarySurfaceConfig MANOS_CONFIG = new TernarySurfaceConfig(LintBlocks.MANOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState());
+	private static final TernarySurfaceConfig ALLOS_CONFIG = new TernarySurfaceConfig(LintBlocks2.ALLOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState());
+	private static final TernarySurfaceConfig MANOS_CONFIG = new TernarySurfaceConfig(LintBlocks2.MANOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState());
 
 	public DawnShardlandsSurfaceBuilder() {
 		super(TernarySurfaceConfig.CODEC);
