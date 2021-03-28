@@ -49,7 +49,6 @@ import net.minecraft.block.MaterialColor;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;

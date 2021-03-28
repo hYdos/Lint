@@ -26,6 +26,7 @@ import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.client.entity.model.CrabEntityModel;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.model.GhostEntityModel;
+import me.hydos.lint.client.entity.model.NightClawModel;
 import me.hydos.lint.client.entity.model.RedTailedTropicBirdModel;
 import me.hydos.lint.client.entity.render.BeeTaterEntityRenderer;
 import me.hydos.lint.client.entity.render.BirdEntityRenderer;
@@ -146,6 +147,7 @@ public class LintClient implements ClientModInitializer {
 
 	private void registerEntityRenderers() {
 		EntityRendererRegistry.INSTANCE.register(Birds.EASTERN_ROSELLA, (entityRenderDispatcher, context) -> new BirdEntityRenderer(entityRenderDispatcher, new EasternRosellaModel()));
+		EntityRendererRegistry.INSTANCE.register(Birds.NIGHTCLAW, (entityRenderDispatcher, context) -> new BirdEntityRenderer(entityRenderDispatcher, new NightClawModel()));
 		EntityRendererRegistry.INSTANCE.register(Birds.RED_TAILED_TROPICBIRD, (entityRenderDispatcher, context) -> new BirdEntityRenderer(entityRenderDispatcher, new RedTailedTropicBirdModel()));
 
 		EntityRendererRegistry.INSTANCE.register(Entities.TINY_POTATO, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
