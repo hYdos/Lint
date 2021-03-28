@@ -263,7 +263,7 @@ public class Features {
 				.tries(8).build();
 
 		public static final RandomPatchFeatureConfig MYSTICAL_GRASS_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_GRASS_PLANT.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_GRASS_PLANT.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
 		public static final RandomPatchFeatureConfig CORRUPT_STEM_CONFIG = new RandomPatchFeatureConfig.Builder(

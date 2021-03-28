@@ -65,6 +65,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShapes;
 
 /**
  * All of lint's core blocks.
@@ -109,6 +110,12 @@ public class LintBlocks2 {
 	public static final FlowerBlock KUREI = createCorruptPlant("kurei", StatusEffects.NAUSEA);
 
 	public static final FlowerBlock MYSTICAL_DAISY = createPlant("yellow_daisy", StatusEffects.BAD_OMEN);
+	
+	public static final FlowerBlock MYSTICAL_GRASS_PLANT = BlockBuilder.create()
+			.material(LintMaterials.PLANT)
+			.model(Model.CROSS)
+			.register("mystical_grass", settings -> new LintFlowerBlock(StatusEffects.BAD_OMEN, settings, VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.9375, 0.5, 0.875)));
+
 	public static final FlowerBlock MYSTICAL_STEM = createPlant("mystical_stem", StatusEffects.JUMP_BOOST);
 	public static final FlowerBlock RED_TUSSOCK = createTussockPlant("red_tussock", StatusEffects.FIRE_RESISTANCE);
 

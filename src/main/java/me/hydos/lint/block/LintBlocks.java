@@ -102,15 +102,6 @@ public final class LintBlocks extends LintDataRegistry {
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
 
-	public static final FlowerBlock MYSTICAL_GRASS_PLANT = new LintFlowerBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0)
-			.sounds(BlockSoundGroup.GRASS)
-			.nonOpaque(),
-			VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.9375, 0.5, 0.875)
-	);
-
 	/**
 	 * Fluid blockstate cache
 	 */
@@ -123,7 +114,6 @@ public final class LintBlocks extends LintDataRegistry {
 	}
 
 	public static void registerDecorations() {
-		registerCrossPlant(MYSTICAL_GRASS_PLANT, "mystical_grass");
 		registerSimpleBlockState("taterbane", TATERBANE, ItemGroups.DECORATIONS);
 
 		registerCrossPlant(MYSTICAL_SAPLING, "mystical_sapling");
