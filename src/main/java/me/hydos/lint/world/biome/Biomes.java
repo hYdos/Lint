@@ -20,7 +20,6 @@
 package me.hydos.lint.world.biome;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.refactord.block.LintBlocks2;
@@ -115,8 +114,8 @@ public class Biomes {
 	public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(
 					LintBlocks2.LIVELY_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
+					LintBlocks2.RICH_DIRT.getDefaultState(),
+					LintBlocks2.RICH_DIRT.getDefaultState()));
 
 	public static final Biome MYSTICAL_GROVE = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
@@ -199,8 +198,8 @@ public class Biomes {
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> FF_SB = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(LintBlocks2.FROSTED_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
+					LintBlocks2.RICH_DIRT.getDefaultState(),
+					LintBlocks2.RICH_DIRT.getDefaultState()));
 
 	public static final Biome ETHEREAL_WOODLAND = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
@@ -242,8 +241,8 @@ public class Biomes {
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CF_SB = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(LintBlocks2.CORRUPT_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
+					LintBlocks2.RICH_DIRT.getDefaultState(),
+					LintBlocks2.RICH_DIRT.getDefaultState()));
 	/**
 	 * Biomes
 	 */
@@ -286,8 +285,8 @@ public class Biomes {
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OC_SB = OCEAN_RAW_SB.withConfig(
 			new TernarySurfaceConfig(
 					LintBlocks2.LIVELY_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
+					LintBlocks2.RICH_DIRT.getDefaultState(),
+					LintBlocks2.RICH_DIRT.getDefaultState()));
 
 	public static final Biome OCEAN = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
@@ -327,8 +326,8 @@ public class Biomes {
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CB_SB = CORRUPT_OCEAN_RAW_SB.withConfig(
 			new TernarySurfaceConfig(LintBlocks2.CORRUPT_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
+					LintBlocks2.RICH_DIRT.getDefaultState(),
+					LintBlocks2.RICH_DIRT.getDefaultState()));
 
 	// TODO indigo stone layer in corrupt biomes
 	public static final Biome CORRUPT_BEACH = new Biome.Builder()

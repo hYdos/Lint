@@ -95,6 +95,10 @@ public class BlockMaterial {
 		return new Builder(this).colour(colour);
 	}
 
+	public Builder colour(Function<BlockState, MaterialColor> colour) {
+		return new Builder(this).colour(colour);
+	}
+
 	public Builder hardness(float hardness) {
 		return new Builder(this).hardness(hardness);
 	}
@@ -198,6 +202,12 @@ public class BlockMaterial {
 		@Override
 		public Builder colour(MaterialColor colour) {
 			this.materialColour = ignored -> colour;
+			return this;
+		}
+
+		@Override
+		public Builder colour(Function<BlockState, MaterialColor> colour) {
+			this.materialColour = colour;
 			return this;
 		}
 

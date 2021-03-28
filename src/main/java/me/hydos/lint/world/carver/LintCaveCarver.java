@@ -28,7 +28,6 @@ import org.apache.commons.lang3.mutable.MutableBoolean;
 import com.mojang.serialization.Codec;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -82,7 +81,7 @@ public class LintCaveCarver extends CaveCarver {
 					chunk.setBlockState(pos1, CAVE_AIR, false);
 					if (grassCheckerThing.isTrue()) {
 						pos3.set(pos1, Direction.DOWN);
-						if (chunk.getBlockState(pos3).isOf(LintBlocks.RICH_DIRT)) {
+						if (chunk.getBlockState(pos3).isOf(LintBlocks2.RICH_DIRT)) {
 							chunk.setBlockState(pos3, posToBiome.apply(pos1).getGenerationSettings().getSurfaceConfig().getTopMaterial(), false);
 						}
 					}

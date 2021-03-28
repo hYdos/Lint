@@ -24,6 +24,7 @@ import static me.hydos.lint.Lint.id;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.organic.DistantLeavesBlock;
+import me.hydos.lint.block.organic.StrippablePillarBlock;
 import me.hydos.lint.core.block.BlockBuilder;
 import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
 import me.hydos.lint.core.block.BlockMaterial;
@@ -49,6 +50,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
+import net.minecraft.block.PillarBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
@@ -64,7 +66,17 @@ import net.minecraft.util.math.BlockPos;
 public class LintBlocks2 {
 	private static final BlockConstructor<FallingBlock> FALLING_BLOCK = FallingBlock::new; // In case the constructor parameters change it becomes a one line fix
 
-	// Plants and Stuff. Also planks.
+	// Plants
+
+	public static final Block THAISA = BlockBuilder.create()
+			.material(LintMaterials.TALL_FLOWER)
+			.model(Model.TALL_PLANT)
+			.itemGroup(ItemGroups.DECORATIONS)
+			.itemModel(id -> ItemData.generatedModel(Lint.id("block/generic_blue_flower_top")))
+			.customLootTable()
+			.register("generic_blue_flower", LintTallFlowerBlock::new);
+
+	// Tree Stuff
 
 	public static final LintLeavesBlock CORRUPT_LEAVES = BlockBuilder.create()
 			.material(LintMaterials.LEAVES
@@ -72,6 +84,16 @@ public class LintBlocks2 {
 			.model(Model.CUTOUT_CUBE_ALL)
 			.customLootTable()
 			.register("corrupt_leaves", LintLeavesBlock::new);
+
+	public static final Block CORRUPT_LOG_STRIPPED = BlockBuilder.create()
+			.material(LintMaterials.log(MaterialColor.PURPLE, MaterialColor.PURPLE))
+			.model(Model.NONE)
+			.register("stripped_corrupt_log", PillarBlock::new);
+
+	public static final Block CORRUPT_LOG = BlockBuilder.create()
+			.material(LintMaterials.log(MaterialColor.PURPLE, MaterialColor.BLACK_TERRACOTTA))
+			.model(Model.NONE)
+			.register("corrupt_log", settings -> new StrippablePillarBlock(settings, CORRUPT_LOG_STRIPPED));
 
 	public static final Block CORRUPT_PLANKS = BlockBuilder.create()
 			.material(LintMaterials.PLANKS
@@ -84,6 +106,16 @@ public class LintBlocks2 {
 			.model(Model.CUTOUT_CUBE_ALL)
 			.customLootTable()
 			.register("mystical_leaves", LintLeavesBlock::new);
+
+	public static final Block STRIPPED_MYSTICAL_LOG = BlockBuilder.create()
+			.material(LintMaterials.log(MaterialColor.DIAMOND, MaterialColor.DIAMOND))
+			.model(Model.NONE)
+			.register("stripped_mystical_log", PillarBlock::new);
+
+	public static final Block MYSTICAL_LOG = BlockBuilder.create()
+			.material(LintMaterials.log(MaterialColor.PURPLE, MaterialColor.BLACK_TERRACOTTA))
+			.model(Model.NONE)
+			.register("mystical_log", settings -> new StrippablePillarBlock(settings, CORRUPT_LOG_STRIPPED));
 
 	public static final DistantLeavesBlock CANOPY_LEAVES = BlockBuilder.create()
 			.material(LintMaterials.LEAVES)
@@ -103,14 +135,6 @@ public class LintBlocks2 {
 					.colour(MaterialColor.DIAMOND))
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("mystical_planks");
-
-	public static final Block THAISA = BlockBuilder.create()
-			.material(LintMaterials.TALL_FLOWER)
-			.model(Model.TALL_PLANT)
-			.itemGroup(ItemGroups.DECORATIONS)
-			.itemModel(id -> ItemData.generatedModel(Lint.id("block/generic_blue_flower_top")))
-			.customLootTable()
-			.register("generic_blue_flower", LintTallFlowerBlock::new);
 
 	// Soil and Sand
 
@@ -151,6 +175,11 @@ public class LintBlocks2 {
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("mystical_sand", FALLING_BLOCK);
 
+	public static final Block RICH_DIRT = BlockBuilder.create()
+			.material(LintMaterials.DIRT)
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("rich_dirt", DirtLikeBlock::new);
+
 	public static final Block RICH_SOIL = BlockBuilder.create()
 			.material(LintMaterials.FARMLAND)
 			.model(Model.SIMPLE_BLOCKSTATE_ONLY)
@@ -179,7 +208,7 @@ public class LintBlocks2 {
 			.model(Model.SIMPLE_CUBE_ALL)
 			.customLootTable()
 			.register("fused_stone");
-	
+
 	public static final Block FUSED_COBBLESTONE = BlockBuilder.create()
 			.material(LintMaterials.COBBLESTONE)
 			.model(Model.SIMPLE_CUBE_ALL)
@@ -298,8 +327,8 @@ public class LintBlocks2 {
 							}
 						}
 					}));
-	
-	// Misc
+
+	// Misc and Crafted Blocks
 
 	public static final Block COOKIE = BlockBuilder.create()
 			.material(BlockMaterial.copy(Blocks.CAKE))
@@ -307,7 +336,10 @@ public class LintBlocks2 {
 			.itemGroup(ItemGroups.FOOD)
 			.register("cookie");
 
-	// Dependent Blocks
+	public static final Block MYSTICAL_DOOR = Blocks.WARPED_DOOR; // TODO
+
+	// Slabs and Saplings
+
 	private static final Block registerSlab(String id, String planksId, BlockMaterial material) {
 		Block block = BlockBuilder.create()
 				.material(material)

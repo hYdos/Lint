@@ -21,7 +21,7 @@ package me.hydos.lint.refactord.block.organic;
 
 import java.util.Random;
 
-import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SnowBlock;
@@ -59,14 +59,14 @@ public class LintSpreadableBlock extends SnowyBlock {
 	@Override
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 		if (!canSurvive(state, world, pos)) {
-			world.setBlockState(pos, LintBlocks.RICH_DIRT.getDefaultState());
+			world.setBlockState(pos, LintBlocks2.RICH_DIRT.getDefaultState());
 		} else {
 			if (world.getLightLevel(pos.up()) >= 9) {
 				BlockState blockState = this.getDefaultState();
 
 				for(int i = 0; i < 4; ++i) {
 					BlockPos setPos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-					if (world.getBlockState(setPos).isOf(LintBlocks.RICH_DIRT) && canSpread(blockState, world, setPos)) {
+					if (world.getBlockState(setPos).isOf(LintBlocks2.RICH_DIRT) && canSpread(blockState, world, setPos)) {
 						world.setBlockState(setPos, (BlockState)blockState.with(SNOWY, world.getBlockState(setPos.up()).isOf(Blocks.SNOW)));
 					}
 				}

@@ -28,7 +28,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockBox;
@@ -63,7 +63,7 @@ public class LintTrunkPlacer extends TrunkPlacer {
 
 	protected static void setToLintDirt(ModifiableTestableWorld world, BlockPos pos) {
 		if (!canGenerate(world, pos)) {
-			TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
+			TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks2.RICH_DIRT.getDefaultState());
 		}
 	}
 

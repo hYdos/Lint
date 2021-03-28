@@ -20,12 +20,13 @@
 package me.hydos.lint.refactord.block;
 
 import me.hydos.lint.core.block.BlockMaterial;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
+import net.minecraft.block.PillarBlock;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.Direction;
 
 /*
  * Please Follow this order for materials in this file for easy reading:
@@ -39,6 +40,16 @@ import net.minecraft.sound.BlockSoundGroup;
  * 8. make it a template so modifications are redirected to making new instances.
  */
 public class LintMaterials {
+	public static final BlockMaterial log(MaterialColor top, MaterialColor side) {
+		return BlockMaterial.builder()
+				.material(Material.WOOD)
+				.colour(state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? top : side)
+				.strength(2.0f)
+				.miningLevel(FabricToolTags.AXES, -1)
+				.flammability(5, 5)
+				.sounds(BlockSoundGroup.WOOD); // Template not neccessary here because we make a new instance each call.
+	}
+
 	public static final BlockMaterial GRASS_BLOCK = BlockMaterial.copy(Blocks.GRASS_BLOCK).template();
 
 	public static final BlockMaterial DIRT = BlockMaterial.builder()

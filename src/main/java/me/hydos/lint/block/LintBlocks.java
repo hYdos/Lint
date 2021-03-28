@@ -26,47 +26,32 @@ import me.hydos.lint.block.organic.FallenLeavesBlock;
 import me.hydos.lint.block.organic.LintCorruptGrassBlock;
 import me.hydos.lint.block.organic.LintFlowerBlock;
 import me.hydos.lint.block.organic.LintSaplingBlock;
-import me.hydos.lint.block.organic.StrippablePillarBlock;
 import me.hydos.lint.block.organic.TaterbaneBlock;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
-import me.hydos.lint.mixin.FireBlockAccessor;
 import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.world.tree.CanopyTree;
 import me.hydos.lint.world.tree.CorruptTree;
 import me.hydos.lint.world.tree.MysticalTree;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.FluidBlock;
 import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
-import net.minecraft.block.PillarBlock;
 import net.minecraft.block.PlantBlock;
 import net.minecraft.block.SaplingBlock;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShapes;
 
 public final class LintBlocks extends LintDataRegistry {
-
-	public static final Block RICH_DIRT = registerCubeAll(
-			"rich_dirt",
-			new DirtLikeBlock(FabricBlockSettings.of(Material.SOIL)
-					.hardness(0.5f)
-					.sounds(BlockSoundGroup.WET_GRASS)
-					.breakByTool(FabricToolTags.SHOVELS, 0)),
-			ItemGroups.BLOCKS);
-
 	/**
 	 * Smeltery Related
 	 */
@@ -126,9 +111,6 @@ public final class LintBlocks extends LintDataRegistry {
 	public static final Block CORRUPT_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.LEAVES)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-	
-	public static final Block STRIPPED_CORRUPT_LOG = createLog(MaterialColor.PURPLE, MaterialColor.PURPLE);
-	public static final Block CORRUPT_LOG = createLog(MaterialColor.BLACK_TERRACOTTA, MaterialColor.PURPLE, STRIPPED_CORRUPT_LOG);
 
 	/**
 	 * Mystical Decorations
@@ -189,9 +171,6 @@ public final class LintBlocks extends LintDataRegistry {
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
 
-	public static final Block STRIPPED_MYSTICAL_LOG = createLog(MaterialColor.DIAMOND, MaterialColor.DIAMOND);
-	public static final Block MYSTICAL_LOG = createLog(MaterialColor.WOOD, MaterialColor.DIAMOND, STRIPPED_MYSTICAL_LOG);
-
 	public static final FlowerBlock MYSTICAL_GRASS_PLANT = new LintFlowerBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
@@ -201,7 +180,6 @@ public final class LintBlocks extends LintDataRegistry {
 			VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.9375, 0.5, 0.875)
 	);
 
-	public static final Block MYSTICAL_DOOR = Blocks.OAK_DOOR; // TODO
 	/**
 	 * Fluid blockstate cache
 	 */
@@ -211,15 +189,6 @@ public final class LintBlocks extends LintDataRegistry {
 		registerBuildingBlocks();
 		registerDecorations();
 		registerFluidBlocks();
-		registerFlammableBlocks();
-	}
-
-	private static void registerFlammableBlocks() {
-		FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
-		fire.callRegisterFlammableBlock(MYSTICAL_LOG, 5, 5);
-		fire.callRegisterFlammableBlock(STRIPPED_MYSTICAL_LOG, 5, 5);
-		fire.callRegisterFlammableBlock(STRIPPED_CORRUPT_LOG, 5, 5);
-		fire.callRegisterFlammableBlock(CORRUPT_LOG, 5, 5);
 	}
 
 	public static void registerDecorations() {
@@ -250,12 +219,6 @@ public final class LintBlocks extends LintDataRegistry {
 
 	public static void registerBuildingBlocks() {
 		registerBlock(ItemGroups.BLOCKS, SMELTERY, "smeltery");
-
-		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
-		registerBlock(ItemGroups.BLOCKS, STRIPPED_MYSTICAL_LOG, "stripped_mystical_log");
-
-		registerBlock(ItemGroups.BLOCKS, CORRUPT_LOG, "corrupt_log");
-		registerBlock(ItemGroups.BLOCKS, STRIPPED_CORRUPT_LOG, "stripped_corrupt_log");
 	}
 
 	public static void registerFluidBlocks() {
@@ -268,19 +231,6 @@ public final class LintBlocks extends LintDataRegistry {
 
 	private static void registerHiddenBlock(Block block, String path) {
 		Registry.register(Registry.BLOCK, Lint.id(path), block);
-	}
-
-	private static PillarBlock createLog(MaterialColor topMaterialColor, MaterialColor sideMaterialColor, Block stripped) {
-		return new StrippablePillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor)
-				.strength(2.0F)
-				.sounds(BlockSoundGroup.WOOD),
-				stripped);
-	}
-
-	private static PillarBlock createLog(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
-		return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor)
-				.strength(2.0F)
-				.sounds(BlockSoundGroup.WOOD));
 	}
 
 	private static void registerBlock(ItemGroup itemGroup, Block block, String path) {
