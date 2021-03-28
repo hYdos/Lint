@@ -121,4 +121,17 @@ public class LintMaterials {
 			.miningLevel(FabricToolTags.PICKAXES, 2)
 			.sounds(BlockSoundGroup.STONE)
 			.template();
+
+	public static final BlockMaterial TUSSOCK = BlockMaterial.builder()
+			.material(Material.PLANT)
+			.colour(MaterialColor.FOLIAGE)
+			.hardness(0.1f)
+			.collidable(false)
+			.sounds(BlockSoundGroup.GRASS)
+			.template();
+
+	public static final BlockMaterial PLANT = TUSSOCK
+			.breaksInstantly()
+			.hardness(0)
+			.template();
 }

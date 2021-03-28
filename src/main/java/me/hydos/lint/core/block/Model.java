@@ -128,12 +128,17 @@ public class Model {
 			.put("type=double", models[2]));
 
 	// Block Model Functions
-	private static final ModelFunction CUBE_ALL = ids -> {
+	private static final ModelFunction CUBE_ALL_MODEL = ids -> {
 		Identifier id = ids.apply("");
 		return ImmutableMap.of(id, JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", id.toString())));
 	};
 
-	private static final ModelFunction TALL_CROSS = ids -> {
+	private static final ModelFunction CROSS_MODEL = ids -> {
+		Identifier id = ids.apply("");
+		return ImmutableMap.of(id, JModel.model().parent("block/cross").textures(JModel.textures().var("cross", id.toString())));
+	};
+
+	private static final ModelFunction TALL_CROSS_MODEL = ids -> {
 		Identifier bottomModelId = ids.apply("");
 		Identifier topModelId = ids.apply("top");
 		return ImmutableMap.of(
@@ -180,25 +185,32 @@ public class Model {
 
 	// Models
 
-	public static final Model SIMPLE_CUBE_ALL = new Model()
-			.blockState(SIMPLE_STATE)
-			.blockModels(CUBE_ALL)
-			.immutable();
-
-	public static final Model CUTOUT_CUBE_ALL = new Model()
-			.blockState(SIMPLE_STATE)
-			.blockModels(CUBE_ALL)
-			.renderOn(Layer.CUTOUT_MIPPED)
-			.opaque(false)
-			.immutable();
-
 	public static final Model NONE = new Model().immutable();
 
 	public static final Model SIMPLE_BLOCKSTATE_ONLY = new Model().blockState(SIMPLE_STATE).immutable();
 
+	public static final Model SIMPLE_CUBE_ALL = new Model()
+			.blockState(SIMPLE_STATE)
+			.blockModels(CUBE_ALL_MODEL)
+			.immutable();
+
+	public static final Model CUTOUT_CUBE_ALL = new Model()
+			.blockState(SIMPLE_STATE)
+			.blockModels(CUBE_ALL_MODEL)
+			.renderOn(Layer.CUTOUT_MIPPED)
+			.opaque(false)
+			.immutable();
+
+	public static final Model CROSS = new Model()
+			.blockState(SIMPLE_STATE)
+			.blockModels(CROSS_MODEL)
+			.opaque(false)
+			.renderOn(Layer.CUTOUT_MIPPED)
+			.immutable();
+
 	public static final Model TALL_PLANT = new Model()
 			.blockState(TALL_CROSS_STATE)
-			.blockModels(TALL_CROSS)
+			.blockModels(TALL_CROSS_MODEL)
 			.opaque(false)
 			.renderOn(Layer.CUTOUT_MIPPED)
 			.immutable();

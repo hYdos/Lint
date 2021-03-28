@@ -23,7 +23,6 @@ import java.util.HashMap;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.organic.FallenLeavesBlock;
-import me.hydos.lint.block.organic.LintCorruptGrassBlock;
 import me.hydos.lint.block.organic.LintFlowerBlock;
 import me.hydos.lint.block.organic.LintSaplingBlock;
 import me.hydos.lint.block.organic.TaterbaneBlock;
@@ -72,31 +71,6 @@ public final class LintBlocks extends LintDataRegistry {
 			StatusEffects.NAUSEA);
 
 	/**
-	 * Corrupt Decorations
-	 */
-	public static final FlowerBlock CORRUPT_STEM = new LintCorruptGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0)
-			.sounds(BlockSoundGroup.GRASS)
-			.nonOpaque()
-	);
-	public static final FlowerBlock KUREI = new LintCorruptGrassBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0)
-			.sounds(BlockSoundGroup.GRASS)
-			.nonOpaque()
-	);
-	public static final FlowerBlock WILTED_FLOWER = new LintCorruptGrassBlock(StatusEffects.POISON, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0)
-			.sounds(BlockSoundGroup.GRASS)
-			.nonOpaque()
-	);
-
-	/**
 	 * Saplings
 	 */
 	public static final SaplingBlock MYSTICAL_SAPLING = new LintSaplingBlock(new MysticalTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks2.LIVELY_GRASS.getDefaultState());
@@ -116,52 +90,9 @@ public final class LintBlocks extends LintDataRegistry {
 	 * Mystical Decorations
 	 */
 
-	public static final FlowerBlock MYSTICAL_STEM = new LintFlowerBlock(StatusEffects.JUMP_BOOST, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0)
-			.sounds(BlockSoundGroup.GRASS));
-
-	// Resistance because tussock is somewhat "hard"
-	public static final FlowerBlock TUSSOCK = new LintFlowerBlock(StatusEffects.RESISTANCE, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0.1f)
-			.sounds(BlockSoundGroup.GRASS));
-
-	public static final FlowerBlock RED_TUSSOCK = new LintFlowerBlock(StatusEffects.FIRE_RESISTANCE, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0.1f)
-			.sounds(BlockSoundGroup.GRASS));
-
-	public static final FlowerBlock MYSTICAL_DAISY = new LintFlowerBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0)
-			.sounds(BlockSoundGroup.GRASS));
-
 	public static final Block TATERBANE = new TaterbaneBlock(StatusEffects.NAUSEA, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.hardness(0.5f)
-			.sounds(BlockSoundGroup.GRASS));
-
-	public static final FlowerBlock SPEARMINT = new LintFlowerBlock(StatusEffects.HASTE, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0)
-			.sounds(BlockSoundGroup.GRASS));
-
-	public static final FlowerBlock WATERMINT = new LintFlowerBlock(StatusEffects.HASTE, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0)
-			.sounds(BlockSoundGroup.GRASS));
-
-	public static final FlowerBlock DILL = new LintFlowerBlock(StatusEffects.LUCK, FabricBlockSettings.of(Material.PLANT)
-			.noCollision()
-			.breakInstantly()
-			.hardness(0)
 			.sounds(BlockSoundGroup.GRASS));
 
 	/**
@@ -192,17 +123,7 @@ public final class LintBlocks extends LintDataRegistry {
 	}
 
 	public static void registerDecorations() {
-		registerCrossPlant(CORRUPT_STEM, "corrupt_stem");
-		registerCrossPlant(WILTED_FLOWER, "wilted_flower");
 		registerCrossPlant(MYSTICAL_GRASS_PLANT, "mystical_grass");
-		registerCrossPlant(MYSTICAL_STEM, "mystical_stem");
-		registerCrossPlant(TUSSOCK, "tussock");
-		registerCrossPlant(RED_TUSSOCK, "red_tussock");
-		registerCrossPlant(MYSTICAL_DAISY, "yellow_daisy");
-		registerCrossPlant(SPEARMINT, "spearmint");
-		registerCrossPlant(WATERMINT, "watermint");
-		registerCrossPlant(DILL, "dill");
-		registerCrossPlant(KUREI, "kurei");
 		registerSimpleBlockState("taterbane", TATERBANE, ItemGroups.DECORATIONS);
 
 		registerCrossPlant(MYSTICAL_SAPLING, "mystical_sapling");

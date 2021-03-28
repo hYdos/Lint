@@ -24,6 +24,8 @@ import static me.hydos.lint.Lint.id;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.organic.DistantLeavesBlock;
+import me.hydos.lint.block.organic.LintCorruptGrassBlock;
+import me.hydos.lint.block.organic.LintFlowerBlock;
 import me.hydos.lint.block.organic.StrippablePillarBlock;
 import me.hydos.lint.core.block.BlockBuilder;
 import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
@@ -48,11 +50,15 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
+import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.network.packet.s2c.play.StopSoundS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -66,7 +72,45 @@ import net.minecraft.util.math.BlockPos;
 public class LintBlocks2 {
 	private static final BlockConstructor<FallingBlock> FALLING_BLOCK = FallingBlock::new; // In case the constructor parameters change it becomes a one line fix
 
+	private static LintFlowerBlock createPlant(String id, StatusEffect effect) {
+		return BlockBuilder.create()
+				.material(LintMaterials.PLANT)
+				.model(Model.CROSS)
+				.itemGroup(ItemGroup.DECORATIONS)
+				.itemModel(ItemData::generatedModel)
+				.register(id, settings -> new LintFlowerBlock(effect, settings));
+	}
+
+	private static LintCorruptGrassBlock createCorruptPlant(String id, StatusEffect effect) {
+		return BlockBuilder.create()
+				.material(LintMaterials.PLANT)
+				.model(Model.CROSS)
+				.itemGroup(ItemGroup.DECORATIONS)
+				.itemModel(ItemData::generatedModel)
+				.register(id, settings -> new LintCorruptGrassBlock(effect, settings));
+	}
+
+	private static LintFlowerBlock createTussockPlant(String id, StatusEffect effect) {
+		return BlockBuilder.create()
+				.material(LintMaterials.TUSSOCK)
+				.model(Model.CROSS)
+				.itemGroup(ItemGroup.DECORATIONS)
+				.itemModel(ItemData::generatedModel)
+				.register(id, settings -> new LintFlowerBlock(effect, settings));
+	}
+
 	// Plants
+
+	public static final FlowerBlock CORRUPT_STEM = createCorruptPlant("corrupt_stem", StatusEffects.NAUSEA);
+	public static final FlowerBlock DILL = createPlant("dill", StatusEffects.LUCK);
+
+	public static final FlowerBlock SPEARMINT = createPlant("spearmint", StatusEffects.HASTE);
+	public static final FlowerBlock KARAI = createPlant("karai", StatusEffects.NAUSEA);
+	public static final FlowerBlock KUREI = createCorruptPlant("kurei", StatusEffects.NAUSEA);
+
+	public static final FlowerBlock MYSTICAL_DAISY = createPlant("yellow_daisy", StatusEffects.BAD_OMEN);
+	public static final FlowerBlock MYSTICAL_STEM = createPlant("mystical_stem", StatusEffects.JUMP_BOOST);
+	public static final FlowerBlock RED_TUSSOCK = createTussockPlant("red_tussock", StatusEffects.FIRE_RESISTANCE);
 
 	public static final Block THAISA = BlockBuilder.create()
 			.material(LintMaterials.TALL_FLOWER)
@@ -75,6 +119,10 @@ public class LintBlocks2 {
 			.itemModel(id -> ItemData.generatedModel(Lint.id("block/generic_blue_flower_top")))
 			.customLootTable()
 			.register("generic_blue_flower", LintTallFlowerBlock::new);
+
+	public static final FlowerBlock TUSSOCK = createTussockPlant("tussock", StatusEffects.RESISTANCE); // Resistance because tussock is somewhat "hard"
+	public static final FlowerBlock WATERMINT = createPlant("watermint", StatusEffects.HASTE);
+	public static final FlowerBlock WILTED_FLOWER = createCorruptPlant("wilted_flower", StatusEffects.POISON);
 
 	// Tree Stuff
 

@@ -232,28 +232,28 @@ public class Features {
 
 	public static final class Configs {
 		public static final RandomPatchFeatureConfig MYSTICAL_DAISY_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_DAISY.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_DAISY.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE).tries(16).build();
 
 		public static final RandomPatchFeatureConfig MYSTICAL_STEM_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
 
 		public static final RandomPatchFeatureConfig BUNCHED_STEMS_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.spreadX(3)
 				.spreadZ(3)
 				.tries(16).build();
 
 		public static final RandomPatchFeatureConfig TUSSOCK_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.TUSSOCK.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks2.TUSSOCK.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(32).build();
 
 		public static final RandomPatchFeatureConfig RED_TUSSOCK_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.RED_TUSSOCK.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks2.RED_TUSSOCK.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(32).build();
 
@@ -267,28 +267,28 @@ public class Features {
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
 		public static final RandomPatchFeatureConfig CORRUPT_STEM_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.CORRUPT_STEM.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks2.CORRUPT_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
 		public static final RandomPatchFeatureConfig WILTED_FLOWER_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.WILTED_FLOWER.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks2.WILTED_FLOWER.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
 
 		public static final RandomPatchFeatureConfig SPEARMINT_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.SPEARMINT.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks2.SPEARMINT.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();;
 				public static final RandomPatchFeatureConfig WATERMINT_CONFIG = new RandomPatchFeatureConfig.Builder( // quite rare as it needs not only the dirt/grass but also to be next to water. Most water is by sand.
-						new SimpleBlockStateProvider(LintBlocks.WATERMINT.getDefaultState()),
+						new SimpleBlockStateProvider(LintBlocks2.WATERMINT.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(32).needsWater().build();
 				public static final RandomPatchFeatureConfig DILL_CONFIG = new RandomPatchFeatureConfig.Builder(
-						new SimpleBlockStateProvider(LintBlocks.DILL.getDefaultState()),
+						new SimpleBlockStateProvider(LintBlocks2.DILL.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(16).build();
 				public static final RandomPatchFeatureConfig KUREI_CONFIG = new RandomPatchFeatureConfig.Builder(
-						new SimpleBlockStateProvider(LintBlocks.KUREI.getDefaultState()),
+						new SimpleBlockStateProvider(LintBlocks2.KUREI.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(16).build();
 

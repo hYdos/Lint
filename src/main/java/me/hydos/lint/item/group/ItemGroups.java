@@ -36,7 +36,7 @@ public class ItemGroups {
 
 	public static final ItemGroup DECORATIONS = FabricItemGroupBuilder.create(
 			Lint.id("lint_decorations"))
-			.icon(() -> new ItemStack(LintBlocks.MYSTICAL_DAISY))
+			.icon(() -> new ItemStack(LintBlocks2.MYSTICAL_DAISY))
 			.build();
 
 	public static final ItemGroup TOOLS = FabricItemGroupBuilder.create(
