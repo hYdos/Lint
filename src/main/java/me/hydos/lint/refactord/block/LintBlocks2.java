@@ -23,10 +23,7 @@ import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.organic.DistantLeavesBlock;
-import me.hydos.lint.block.organic.LintCorruptGrassBlock;
-import me.hydos.lint.block.organic.LintFlowerBlock;
-import me.hydos.lint.block.organic.StrippablePillarBlock;
+import me.hydos.lint.block.PowerCrystalBlock;
 import me.hydos.lint.core.block.BlockBuilder;
 import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
 import me.hydos.lint.core.block.BlockMaterial;
@@ -35,12 +32,20 @@ import me.hydos.lint.core.block.Model;
 import me.hydos.lint.core.item.ItemData;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixinimpl.LintPortal;
+import me.hydos.lint.refactord.block.organic.DistantLeavesBlock;
+import me.hydos.lint.refactord.block.organic.LintCorruptGrassBlock;
+import me.hydos.lint.refactord.block.organic.LintFlowerBlock;
 import me.hydos.lint.refactord.block.organic.LintLeavesBlock;
+import me.hydos.lint.refactord.block.organic.LintSaplingBlock;
 import me.hydos.lint.refactord.block.organic.LintSpreadableBlock;
 import me.hydos.lint.refactord.block.organic.LintTallFlowerBlock;
+import me.hydos.lint.refactord.block.organic.StrippablePillarBlock;
 import me.hydos.lint.util.Power;
 import me.hydos.lint.util.TeleportUtils;
 import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.tree.CanopyTree;
+import me.hydos.lint.world.tree.CorruptTree;
+import me.hydos.lint.world.tree.MysticalTree;
 import net.devtech.arrp.json.recipe.JIngredient;
 import net.devtech.arrp.json.recipe.JKeys;
 import net.devtech.arrp.json.recipe.JPattern;
@@ -54,7 +59,9 @@ import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.MaterialColor;
 import net.minecraft.block.PillarBlock;
+import net.minecraft.block.SaplingBlock;
 import net.minecraft.block.SlabBlock;
+import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
@@ -100,6 +107,16 @@ public class LintBlocks2 {
 				.register(id, settings -> new LintFlowerBlock(effect, settings));
 	}
 
+	private static LintSaplingBlock createSapling(String id, SaplingGenerator tree, Block growsOn) {
+		return BlockBuilder.create()
+				.material(LintMaterials.SAPLING)
+				.model(Model.CROSS)
+				.itemGroup(ItemGroup.DECORATIONS)
+				.itemModel(ItemData::generatedModel)
+				.customLootTable()
+				.register(id, settings -> new LintSaplingBlock(tree, settings, growsOn.getDefaultState()));
+	}
+
 	// Plants
 
 	public static final FlowerBlock CORRUPT_STEM = createCorruptPlant("corrupt_stem", StatusEffects.NAUSEA);
@@ -118,6 +135,15 @@ public class LintBlocks2 {
 
 	public static final FlowerBlock MYSTICAL_STEM = createPlant("mystical_stem", StatusEffects.JUMP_BOOST);
 	public static final FlowerBlock RED_TUSSOCK = createTussockPlant("red_tussock", StatusEffects.FIRE_RESISTANCE);
+
+	public static final Block TATERBANE = BlockBuilder.create()
+			.material(BlockMaterial.builder()
+					.material(Material.PLANT)
+					.colour(MaterialColor.RED)
+					.strength(0.5f)
+					.sounds(BlockSoundGroup.GRASS))
+			.model(Model.CUTOUT_SIMPLE_BLOCKSTATE)
+			.register("taterbane", LintFlowerBlock.Taterbane::new);
 
 	public static final Block THAISA = BlockBuilder.create()
 			.material(LintMaterials.TALL_FLOWER)
@@ -248,6 +274,13 @@ public class LintBlocks2 {
 
 	// Underground
 
+
+	public static final Block ALLOS_CRYSTAL = BlockBuilder.create()
+			.material(LintMaterials.POWER_CRYSTAL.luminosity(7))
+			.model(Model.SIMPLE_BLOCKSTATE_ONLY)
+			.itemGroup(ItemGroups.DECORATIONS)
+			.register("allos_crystal", settings -> new PowerCrystalBlock(settings, StatusEffects.GLOWING));
+
 	public static final Block ALLOS_INFUSED_ASPHALT = BlockBuilder.create()
 			.material(LintMaterials.COBBLESTONE)
 			.model(Model.SIMPLE_CUBE_ALL)
@@ -288,11 +321,17 @@ public class LintBlocks2 {
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("magnetite_deposit");
 
-	public static final Block MANOS_INFUSED_ASPHALT = BlockBuilder.create() // TODO this should generate if asphalt is above a generating crystal
+	public static final Block MANOS_CRYSTAL = BlockBuilder.create()
+			.material(LintMaterials.POWER_CRYSTAL.luminosity(4))
+			.model(Model.SIMPLE_BLOCKSTATE_ONLY)
+			.itemGroup(ItemGroups.DECORATIONS)
+			.register("manos_crystal", settings -> new PowerCrystalBlock(settings, StatusEffects.NAUSEA));
+
+	public static final Block MANOS_INFUSED_ASPHALT = BlockBuilder.create() // TODO this should generate if asphalt is above a generating manos crystal
 			.material(LintMaterials.COBBLESTONE)
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("manos_infused_asphalt", settings -> new InfusedBlock(settings, Power.MANOS));
-	
+
 	public static final Block PEARLESCENT_STONE = BlockBuilder.create()
 			.material(LintMaterials.STONE
 					.colour(MaterialColor.WHITE_TERRACOTTA))
@@ -414,10 +453,13 @@ public class LintBlocks2 {
 		return block;
 	}
 
-	// TODO move this to the new system
 	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", LintMaterials.PLANKS);
 	public static final Block CORRUPT_SLAB = registerSlab("corrupt_slab", "corrupt_planks", LintMaterials.PLANKS);
 	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", LintMaterials.DUNGEON);
+
+	public static final SaplingBlock MYSTICAL_SAPLING = createSapling("mystical_sapling", new MysticalTree(), LIVELY_GRASS);
+	public static final SaplingBlock CORRUPT_SAPLING = createSapling("corrupt_sapling", new CorruptTree(), CORRUPT_GRASS);
+	public static final SaplingBlock CANOPY_SAPLING = createSapling("canopy_sapling", new CanopyTree(), LIVELY_GRASS);
 
 	public static final Block initialise() {
 		return COOKIE;

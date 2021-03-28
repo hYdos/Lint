@@ -21,7 +21,6 @@ package me.hydos.lint.client;
 
 import java.util.function.Function;
 
-import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.client.entity.model.CrabEntityModel;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
@@ -108,11 +107,6 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerBlockRendererLayers() {
-		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.ALLOS_CRYSTAL, RenderLayer.getCutoutMipped());
-		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CORRUPT_SAPLING, RenderLayer.getCutoutMipped());
-		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.MYSTICAL_SAPLING, RenderLayer.getCutoutMipped());
-		BlockRenderLayerMap.INSTANCE.putBlock(LintBlocks.CANOPY_SAPLING, RenderLayer.getCutoutMipped());
-
 		BlockBuilder.CUSTOM_BLOCK_RENDER_LAYERS.forEach((block, layer) -> {
 			BlockRenderLayerMap.INSTANCE.putBlock(block, getRenderLayer(layer));
 		});

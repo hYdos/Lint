@@ -187,7 +187,15 @@ public class Model {
 
 	public static final Model NONE = new Model().immutable();
 
-	public static final Model SIMPLE_BLOCKSTATE_ONLY = new Model().blockState(SIMPLE_STATE).immutable();
+	public static final Model SIMPLE_BLOCKSTATE_ONLY = new Model()
+			.blockState(SIMPLE_STATE)
+			.immutable();
+
+	public static final Model CUTOUT_SIMPLE_BLOCKSTATE = new Model()
+			.blockState(SIMPLE_STATE)
+			.opaque(false)
+			.renderOn(Layer.CUTOUT_MIPPED)
+			.immutable();
 
 	public static final Model SIMPLE_CUBE_ALL = new Model()
 			.blockState(SIMPLE_STATE)

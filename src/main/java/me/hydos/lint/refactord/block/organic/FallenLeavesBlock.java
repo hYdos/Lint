@@ -17,24 +17,24 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block.organic;
+package me.hydos.lint.refactord.block.organic;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
-public class LintSaplingBlock extends SaplingBlock {
-	private final BlockState requires;
+public class FallenLeavesBlock extends LeavesBlock {
 
-	public LintSaplingBlock(SaplingGenerator generator, Settings settings, BlockState requires) {
-		super(generator, settings);
-		this.requires = requires;
+	public FallenLeavesBlock(Settings settings) {
+		super(settings);
 	}
 
 	@Override
-	protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
-		return floor == this.requires;
+	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
+		return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 0.0625f, 1f);
 	}
 }

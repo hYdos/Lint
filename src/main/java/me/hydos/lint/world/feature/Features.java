@@ -126,14 +126,14 @@ public class Features {
 	 * Hanging Crystals
 	 */
 	public static final ConfiguredFeature<?, ?> FLOATING_ISLAND_ALLOS_CRYSTAL = register("floating_island_allos_crystal", HANGING_BLOCK
-			.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState()))
+			.configure(new SingleStateFeatureConfig(LintBlocks2.ALLOS_CRYSTAL.getDefaultState()))
 			.rangeOf(60).spreadHorizontally().repeatRandomly(3));
 
 	@SuppressWarnings("unchecked")
 	public static final ConfiguredFeature<?, ?> DAWN_SHARDLANDS_SHARDS = register("dawn_shardlands_shards", Feature.SIMPLE_RANDOM_SELECTOR.configure(
 			new SimpleRandomFeatureConfig(Arrays.asList(ImmutableList.of(
-					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState())),
-					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks.MANOS_CRYSTAL.getDefaultState())))
+					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks2.ALLOS_CRYSTAL.getDefaultState())),
+					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks2.MANOS_CRYSTAL.getDefaultState())))
 					.stream().map(Suppliers::ofInstance).toArray(Supplier[]::new))
 					))
 			.decorate(UNDER_ISLAND.configure(new NopeDecoratorConfig()).spreadHorizontally().repeat(UniformIntDistribution.of(3, 5)).applyChance(20)));
@@ -200,7 +200,7 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> TATERBANES = register("taterbanes", Feature.RANDOM_PATCH.configure(
 			new RandomPatchFeatureConfig.Builder(
-					new SimpleBlockStateProvider(LintBlocks.TATERBANE.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks2.TATERBANE.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE)
 			.tries(1)
 			.spreadX(1)

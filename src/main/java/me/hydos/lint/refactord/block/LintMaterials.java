@@ -57,7 +57,8 @@ public class LintMaterials {
 			.colour(MaterialColor.DIRT)
 			.strength(0.5f)
 			.sounds(BlockSoundGroup.WET_GRASS)
-			.miningLevel(FabricToolTags.SHOVELS, 1);
+			.miningLevel(FabricToolTags.SHOVELS, 1)
+			.template();
 
 	public static final BlockMaterial FARMLAND = BlockMaterial.copy(Blocks.FARMLAND).template();
 
@@ -134,4 +135,11 @@ public class LintMaterials {
 			.breaksInstantly()
 			.hardness(0)
 			.template();
+
+	public static final BlockMaterial POWER_CRYSTAL = BlockMaterial.copy(Blocks.GLASS) // TODO add context predicate functionality to material
+			.hardness(18.0F)
+			.resistance(1200.0F)
+			.template();
+
+	public static final BlockMaterial SAPLING = BlockMaterial.copy(Blocks.ACACIA_SAPLING).template();
 }

@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block.organic;
+package me.hydos.lint.refactord.block.organic;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -26,8 +26,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 
 public class LintFlowerBlock extends FlowerBlock {
@@ -50,5 +52,16 @@ public class LintFlowerBlock extends FlowerBlock {
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return this.shape == null ? super.getOutlineShape(state, world, pos, context) : this.shape;
+	}
+
+	public static class Taterbane extends LintFlowerBlock {
+		public Taterbane(Settings settings) {
+			super(StatusEffects.NAUSEA, settings, VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.875, 0.5, 0.875));
+		}
+
+		@Override
+		public OffsetType getOffsetType() {
+			return OffsetType.NONE;
+		}
 	}
 }
