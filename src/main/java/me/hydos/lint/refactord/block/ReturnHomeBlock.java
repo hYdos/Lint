@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block;
+package me.hydos.lint.refactord.block;
 
 import me.hydos.lint.item.LintItems;
 import me.hydos.lint.sound.Sounds;
@@ -40,7 +40,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 public class ReturnHomeBlock extends Block {
-
 	public static final BooleanProperty ACTIVATED = BooleanProperty.of("activated");
 
 	public ReturnHomeBlock(Settings settings) {
@@ -68,7 +67,7 @@ public class ReturnHomeBlock extends Block {
 		} else if (player.getStackInHand(hand).getItem() == LintItems.TATER_ESSENCE) {
 			if (!world.isClient()) {
 				((ServerPlayerEntity) player).networkHandler.sendPacket(new PlaySoundS2CPacket(Sounds.SHRINE_ACTIVATE, SoundCategory.MASTER, pos.getX(), pos.getY(), pos.getZ(), 1f, 1f));
-				world.setBlockState(pos, LintBlocks.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true));
+				world.setBlockState(pos, LintBlocks2.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true));
 				player.getStackInHand(hand).decrement(1);
 				return ActionResult.SUCCESS;
 			}

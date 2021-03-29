@@ -142,4 +142,11 @@ public class LintMaterials {
 			.template();
 
 	public static final BlockMaterial SAPLING = BlockMaterial.copy(Blocks.ACACIA_SAPLING).template();
+	
+	public static final BlockMaterial FALLEN_LEAVES = BlockMaterial.builder()
+			.material(Material.LEAVES)
+			.colour(MaterialColor.FOLIAGE)
+			.strength(0.5f)
+			.flammability(30, 60)
+			.template();
 }

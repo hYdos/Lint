@@ -293,11 +293,11 @@ public class Features {
 						.tries(16).build();
 
 				public static final RandomPatchFeatureConfig CORRUPT_FALLEN_LEAVES = new RandomPatchFeatureConfig.Builder(
-						new SimpleBlockStateProvider(LintBlocks.CORRUPT_FALLEN_LEAVES.getDefaultState()),
+						new SimpleBlockStateProvider(LintBlocks2.CORRUPT_FALLEN_LEAVES.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(6).build();
 				public static final RandomPatchFeatureConfig MYSTICAL_FALLEN_LEAVES = new RandomPatchFeatureConfig.Builder(
-						new SimpleBlockStateProvider(LintBlocks.MYSTICAL_FALLEN_LEAVES.getDefaultState()),
+						new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_FALLEN_LEAVES.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(6).build();
 	}

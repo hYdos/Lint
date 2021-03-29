@@ -25,7 +25,6 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
-import me.hydos.lint.refactord.block.organic.FallenLeavesBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
@@ -48,46 +47,13 @@ public final class LintBlocks extends LintDataRegistry {
 			.breakByTool(FabricToolTags.PICKAXES, 0));
 
 	/**
-	 * Misc
-	 */
-	public static final Block RETURN_HOME = new ReturnHomeBlock(FabricBlockSettings.of(Material.STONE)
-			.hardness(-1.0f)
-			.sounds(BlockSoundGroup.METAL));
-
-	/**
-	 * Corrupt Building Blocks
-	 */
-	public static final Block CORRUPT_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.LEAVES)
-			.hardness(0.5f)
-			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-
-	/**
-	 * Mystical Decorations
-	 */
-
-	/**
-	 * Mystical Building Blocks
-	 */
-	public static final Block MYSTICAL_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.LEAVES)
-			.hardness(0.5f)
-			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-
-	/**
 	 * Fluid blockstate cache
 	 */
 	private static final HashMap<MoltenMetalFluid, FluidBlock> FLUID_BLOCKSTATE_MAP = new HashMap<>();
 
 	public static void initialize() {
 		registerBuildingBlocks();
-		registerDecorations();
 		registerFluidBlocks();
-	}
-
-	public static void registerDecorations() {
-		registerBlock(ItemGroups.DECORATIONS, RETURN_HOME, "return_home");
-
-		registerCubeAll("mystical_fallen_leaves", MYSTICAL_FALLEN_LEAVES, ItemGroups.DECORATIONS);
-		registerCubeAll("corrupt_fallen_leaves", CORRUPT_FALLEN_LEAVES, ItemGroups.DECORATIONS);
 	}
 
 	public static void registerBuildingBlocks() {

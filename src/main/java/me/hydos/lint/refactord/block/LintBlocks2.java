@@ -23,7 +23,6 @@ import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.PowerCrystalBlock;
 import me.hydos.lint.core.block.BlockBuilder;
 import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
 import me.hydos.lint.core.block.BlockMaterial;
@@ -33,6 +32,7 @@ import me.hydos.lint.core.item.ItemData;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixinimpl.LintPortal;
 import me.hydos.lint.refactord.block.organic.DistantLeavesBlock;
+import me.hydos.lint.refactord.block.organic.FallenLeavesBlock;
 import me.hydos.lint.refactord.block.organic.LintCorruptGrassBlock;
 import me.hydos.lint.refactord.block.organic.LintFlowerBlock;
 import me.hydos.lint.refactord.block.organic.LintLeavesBlock;
@@ -119,6 +119,14 @@ public class LintBlocks2 {
 
 	// Plants
 
+	public static final FallenLeavesBlock CORRUPT_FALLEN_LEAVES = BlockBuilder.create()
+			.material(LintMaterials.FALLEN_LEAVES
+					.colour(MaterialColor.PURPLE))
+			.model(Model.CUTOUT_SIMPLE_BLOCKSTATE)
+			.itemModel(ItemData::generatedModel)
+			.itemGroup(ItemGroup.DECORATIONS)
+			.register("corrupt_fallen_leaves", FallenLeavesBlock::new);
+
 	public static final FlowerBlock CORRUPT_STEM = createCorruptPlant("corrupt_stem", StatusEffects.NAUSEA);
 	public static final FlowerBlock DILL = createPlant("dill", StatusEffects.LUCK);
 
@@ -127,6 +135,14 @@ public class LintBlocks2 {
 	public static final FlowerBlock KUREI = createCorruptPlant("kurei", StatusEffects.NAUSEA);
 
 	public static final FlowerBlock MYSTICAL_DAISY = createPlant("yellow_daisy", StatusEffects.BAD_OMEN);
+	
+	public static final FallenLeavesBlock MYSTICAL_FALLEN_LEAVES = BlockBuilder.create()
+			.material(LintMaterials.FALLEN_LEAVES
+					.colour(MaterialColor.DIAMOND))
+			.model(Model.CUTOUT_SIMPLE_BLOCKSTATE)
+			.itemModel(ItemData::generatedModel)
+			.itemGroup(ItemGroup.DECORATIONS)
+			.register("mystical_fallen_leaves", FallenLeavesBlock::new);
 	
 	public static final FlowerBlock MYSTICAL_GRASS_PLANT = BlockBuilder.create()
 			.material(LintMaterials.PLANT)
@@ -369,6 +385,17 @@ public class LintBlocks2 {
 					.hardness(4.0f))
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("mossy_dungeon_bricks");
+
+	public static final ReturnHomeBlock RETURN_HOME = BlockBuilder.create()
+			.material(BlockMaterial.builder()
+					.material(Material.STONE)
+					.colour(MaterialColor.WHITE_TERRACOTTA)
+					.hardness(-1.0f)
+					.resistance(3600000.0f)
+					.sounds(BlockSoundGroup.METAL))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.itemGroup(ItemGroups.DECORATIONS)
+			.register("return_home", ReturnHomeBlock::new);
 
 	// Smeltery and Similar
 

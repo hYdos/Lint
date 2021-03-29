@@ -21,8 +21,8 @@ package me.hydos.lint.item;
 
 import java.util.List;
 
-import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.block.ReturnHomeBlock;
+import me.hydos.lint.refactord.block.LintBlocks2;
+import me.hydos.lint.refactord.block.ReturnHomeBlock;
 import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,7 +30,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -102,7 +101,7 @@ public class WaypointTeleportItem extends Item {
 		BlockPos pos = context.getBlockPos();
 		World world = context.getWorld();
 
-		if (world.getBlockState(pos) == LintBlocks.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true)) {
+		if (world.getBlockState(pos) == LintBlocks2.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true)) {
 			context.getStack().getOrCreateTag().putIntArray("waypoint", new int[] {pos.getX(), pos.getY() + 1, pos.getZ()});
 			return ActionResult.SUCCESS;
 		}
