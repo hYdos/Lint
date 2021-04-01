@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "lint:mystical_log",
-    "lint:corrupt_log"
+    "lint:corrupt_log",
+    "lint:stripped_mystical_log",
+    "lint:stripped_corrupt_log"
   ]
 }

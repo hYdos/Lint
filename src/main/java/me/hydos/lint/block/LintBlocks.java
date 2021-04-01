@@ -19,18 +19,43 @@
 
 package me.hydos.lint.block;
 
+import java.util.HashMap;
+
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.organic.*;
+import me.hydos.lint.block.organic.DistantLeavesBlock;
+import me.hydos.lint.block.organic.FallenLeavesBlock;
+import me.hydos.lint.block.organic.LintCorruptGrassBlock;
+import me.hydos.lint.block.organic.LintFlowerBlock;
+import me.hydos.lint.block.organic.LintLeavesBlock;
+import me.hydos.lint.block.organic.LintSaplingBlock;
+import me.hydos.lint.block.organic.LintSpreadableGrassBlock;
+import me.hydos.lint.block.organic.LintTallFlowerBlock;
+import me.hydos.lint.block.organic.StrippablePillarBlock;
+import me.hydos.lint.block.organic.TaterbaneBlock;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixin.FireBlockAccessor;
 import me.hydos.lint.util.Power;
+import me.hydos.lint.world.tree.CanopyTree;
 import me.hydos.lint.world.tree.CorruptTree;
 import me.hydos.lint.world.tree.MysticalTree;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FallingBlock;
+import net.minecraft.block.FarmlandBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.block.Material;
+import net.minecraft.block.MaterialColor;
+import net.minecraft.block.PillarBlock;
+import net.minecraft.block.PlantBlock;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
@@ -38,8 +63,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.shape.VoxelShapes;
-
-import java.util.HashMap;
 
 public final class LintBlocks extends LintAutoDataRegistry {
 	/**
@@ -58,11 +81,11 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	/**
 	 * Soils
 	 */
-	public static final Block CORRUPT_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.MYCELIUM)) {
+	public static final Block CORRUPT_GRASS = new LintSpreadableGrassBlock(FabricBlockSettings.copy(Blocks.MYCELIUM)) {
 	};
-	public static final Block LIVELY_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
+	public static final Block LIVELY_GRASS = new LintSpreadableGrassBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
 	};
-	public static final Block FROSTED_GRASS = new SpreadableBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
+	public static final Block FROSTED_GRASS = new LintSpreadableGrassBlock(FabricBlockSettings.copy(Blocks.GRASS_BLOCK)) {
 	};
 
 	public static final Block RICH_SOIL = registerSimpleBlockState("rich_soil",
@@ -126,6 +149,33 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block FUSED_STONE = registerCubeAll(
 			"fused_stone",
 			new Block(FabricBlockSettings.of(Material.STONE)
+					.hardness(1.25f)
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
+			ItemGroups.BLOCKS);
+	
+	public static final Block FUSED_COBBLESTONE = registerCubeAll(
+			"fused_cobblestone",
+			new Block(FabricBlockSettings.of(Material.STONE)
+					.hardness(1f)
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
+			ItemGroups.BLOCKS);
+	
+	public static final Block PEARLESCENT_STONE = registerCubeAll( // This will be used with specific underground sub-biome-like stuff.
+			"pearlescent_stone",
+			new Block(FabricBlockSettings.of(Material.STONE)
+					.hardness(1f)
+					.sounds(BlockSoundGroup.STONE)
+					.breakByTool(FabricToolTags.PICKAXES, 0)
+					.requiresTool()),
+			ItemGroups.BLOCKS);
+
+	public static final Block PEARLESCENT_COBBLESTONE = registerCubeAll(
+			"pearlescent_cobblestone",
+			new Block(FabricBlockSettings.of(Material.STONE)
 					.hardness(1f)
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
@@ -135,7 +185,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block TARSCAN_ORE = registerCubeAll(
 			"tarscan_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
+					.hardness(2.0f)
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
@@ -144,7 +194,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block MAGNETITE_DEPOSIT = registerCubeAll(
 			"magnetite_deposit",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
+					.hardness(2.75f)
 					.sounds(BlockSoundGroup.METAL)
 					.breakByTool(FabricToolTags.PICKAXES, 0)
 					.requiresTool()),
@@ -153,7 +203,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block SICIERON_ORE = registerCubeAll(
 			"sicieron_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
+					.hardness(3.0f)
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 1)
 					.requiresTool()),
@@ -162,7 +212,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block JUREL_ORE = registerCubeAll(
 			"jurel_ore",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(1f)
+					.hardness(3.0f)
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 2)
 					.requiresTool()),
@@ -216,7 +266,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block DUNGEON_BRICKS = registerCubeAll(
 			"dungeon_bricks",
 			new Block(FabricBlockSettings.of(Material.STONE)
-					.hardness(4)
+					.hardness(6)
 					.sounds(BlockSoundGroup.STONE)
 					.breakByTool(FabricToolTags.PICKAXES, 2) // yes this means require iron
 					.requiresTool()),
@@ -244,9 +294,9 @@ public final class LintBlocks extends LintAutoDataRegistry {
 					.breakByTool(FabricToolTags.HOES, 0)),
 			ItemGroups.BLOCKS);
 
-	public static final Block CANOPY_LEAVES = registerCubeAll(
+	public static final DistantLeavesBlock CANOPY_LEAVES = registerCubeAll(
 			"canopy_leaves",
-			new LintLeavesBlock(FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
+			new DistantLeavesBlock(9, FabricBlockSettings.copyOf(Blocks.OAK_LEAVES)
 					.materialColor(MaterialColor.DIAMOND)
 					.breakByTool(FabricToolTags.HOES, 0)),
 			ItemGroups.BLOCKS);
@@ -328,13 +378,18 @@ public final class LintBlocks extends LintAutoDataRegistry {
 
 	public static final SaplingBlock CORRUPT_SAPLING = new LintSaplingBlock(new CorruptTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks.CORRUPT_GRASS.getDefaultState());
 
+	public static final SaplingBlock CANOPY_SAPLING = new LintSaplingBlock(new CanopyTree(), FabricBlockSettings.copyOf(Blocks.ACACIA_SAPLING), LintBlocks.LIVELY_GRASS.getDefaultState());
+
 	/**
 	 * Corrupt Building Blocks
 	 */
 	public static final Block CORRUPT_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.LEAVES)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-	public static final Block CORRUPT_LOG = createLog(MaterialColor.PURPLE, MaterialColor.PURPLE);
+	
+	public static final Block STRIPPED_CORRUPT_LOG = createLog(MaterialColor.PURPLE, MaterialColor.PURPLE);
+	public static final Block CORRUPT_LOG = createLog(MaterialColor.BLACK_TERRACOTTA, MaterialColor.PURPLE, STRIPPED_CORRUPT_LOG);
+
 	public static final Block CORRUPT_SLAB = registerSlab("corrupt_slab", "corrupt_planks", new SlabBlock(FabricBlockSettings.copy(Blocks.OAK_SLAB)), ItemGroups.BLOCKS);
 
 	/**
@@ -395,7 +450,10 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	public static final Block MYSTICAL_FALLEN_LEAVES = new FallenLeavesBlock(FabricBlockSettings.of(Material.LEAVES)
 			.hardness(0.5f)
 			.sounds(BlockSoundGroup.SWEET_BERRY_BUSH).nonOpaque());
-	public static final Block MYSTICAL_LOG = createLog(MaterialColor.DIAMOND, MaterialColor.DIAMOND);
+
+	public static final Block STRIPPED_MYSTICAL_LOG = createLog(MaterialColor.DIAMOND, MaterialColor.DIAMOND);
+	public static final Block MYSTICAL_LOG = createLog(MaterialColor.WOOD, MaterialColor.DIAMOND, STRIPPED_MYSTICAL_LOG);
+
 	public static final FlowerBlock MYSTICAL_GRASS_PLANT = new LintFlowerBlock(StatusEffects.BAD_OMEN, FabricBlockSettings.of(Material.PLANT)
 			.noCollision()
 			.breakInstantly()
@@ -404,11 +462,11 @@ public final class LintBlocks extends LintAutoDataRegistry {
 			.nonOpaque(),
 			VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.9375, 0.5, 0.875)
 	);
-	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
+	public static final Block MYSTICAL_SLAB = registerSlab("mystical_slab", "mystical_planks", new SlabBlock(AbstractBlock.Settings.copy(Blocks.DARK_OAK_SLAB)), ItemGroups.BLOCKS);
 	/**
 	 * Misc Building Blocks
 	 */
-	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", new SlabBlock(AbstractBlock.Settings.of(Material.WOOD)), ItemGroups.BLOCKS);
+	public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", new SlabBlock(AbstractBlock.Settings.copy(DUNGEON_BRICKS)), ItemGroups.BLOCKS);
 
 	public static final Block MYSTICAL_DOOR = Blocks.OAK_DOOR; // TODO
 	/**
@@ -426,6 +484,8 @@ public final class LintBlocks extends LintAutoDataRegistry {
 	private static void registerFlammableBlocks() {
 		FireBlockAccessor fire = (FireBlockAccessor) Blocks.FIRE;
 		fire.callRegisterFlammableBlock(MYSTICAL_LOG, 5, 5);
+		fire.callRegisterFlammableBlock(STRIPPED_MYSTICAL_LOG, 5, 5);
+		fire.callRegisterFlammableBlock(STRIPPED_CORRUPT_LOG, 5, 5);
 		fire.callRegisterFlammableBlock(CORRUPT_LOG, 5, 5);
 		fire.callRegisterFlammableBlock(MYSTICAL_PLANKS, 5, 20);
 		fire.callRegisterFlammableBlock(CORRUPT_PLANKS, 5, 20);
@@ -453,6 +513,7 @@ public final class LintBlocks extends LintAutoDataRegistry {
 
 		registerCrossPlant(MYSTICAL_SAPLING, "mystical_sapling");
 		registerCrossPlant(CORRUPT_SAPLING, "corrupt_sapling");
+		registerCrossPlant(CANOPY_SAPLING, "canopy_sapling");
 
 		registerBlock(ItemGroups.DECORATIONS, RETURN_HOME, "return_home");
 
@@ -470,8 +531,10 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		registerBlock(ItemGroups.BLOCKS, FROSTED_GRASS, "frosted_grass");
 
 		registerBlock(ItemGroups.BLOCKS, MYSTICAL_LOG, "mystical_log");
+		registerBlock(ItemGroups.BLOCKS, STRIPPED_MYSTICAL_LOG, "stripped_mystical_log");
 
 		registerBlock(ItemGroups.BLOCKS, CORRUPT_LOG, "corrupt_log");
+		registerBlock(ItemGroups.BLOCKS, STRIPPED_CORRUPT_LOG, "stripped_corrupt_log");
 	}
 
 	public static void registerFluidBlocks() {
@@ -486,8 +549,17 @@ public final class LintBlocks extends LintAutoDataRegistry {
 		Registry.register(Registry.BLOCK, Lint.id(path), block);
 	}
 
+	private static PillarBlock createLog(MaterialColor topMaterialColor, MaterialColor sideMaterialColor, Block stripped) {
+		return new StrippablePillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor)
+				.strength(2.0F)
+				.sounds(BlockSoundGroup.WOOD),
+				stripped);
+	}
+
 	private static PillarBlock createLog(MaterialColor topMaterialColor, MaterialColor sideMaterialColor) {
-		return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor).strength(2.0F).sounds(BlockSoundGroup.WOOD));
+		return new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, (blockState) -> blockState.get(PillarBlock.AXIS) == Direction.Axis.Y ? topMaterialColor : sideMaterialColor)
+				.strength(2.0F)
+				.sounds(BlockSoundGroup.WOOD));
 	}
 
 	private static void registerBlock(ItemGroup itemGroup, Block block, String path) {

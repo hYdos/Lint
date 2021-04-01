@@ -69,7 +69,7 @@ public class Biomes {
 	 * Spawn Configurations
 	 */
 	public static final SpawnSettings.Builder DEFAULT_SPAWN_SETTINGS = new SpawnSettings.Builder()
-			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 2, 1, 3))
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 3, 1, 3))
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 2, 1, 3))
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 10, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
@@ -77,7 +77,7 @@ public class Biomes {
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SKELETON, 1, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
 	public static final SpawnSettings.Builder FOREST_SPAWN_SETTINGS = new SpawnSettings.Builder()
-			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 2, 1, 3))
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.TINY_POTATO, 5, 1, 3))
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(EntityType.RABBIT, 1, 1, 4))
 			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.EASTERN_ROSELLA, 10, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(Entities.GHOST, 4, 1, 1))
@@ -161,18 +161,19 @@ public class Biomes {
 					.surfaceBuilder(MF_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, Features.CONFIGURED_FADING_ASH)
+					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, Features.MYSTICAL_ROCKS)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_RETURN_PORTAL)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_TOWN)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.THICK_MYSTICAL_TREES)
-					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_FLOWERS)
-					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_GRASS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.GENERIC_BLUE_FLOWERS)
-					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_STEMS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.MYSTICAL_GRASS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.LESS_MYSTICAL_STEMS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.TATERBANES)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.SPEARMINTS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.WATERMINTS)
-					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.DILLS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.TUSSOCKS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.RED_TUSSOCKS)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.TARSCAN_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.SICIERON_ORE)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.JUREL_ORE)
@@ -405,8 +406,8 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(DS_SB)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, Features.CONFIGURED_STRUCTURE)
-					// TODO lexmanos boss structure.
-					// TODO allos and manos shards (powerful crystals of the two forces that made the world) as "ores" that spawn hanging from the bottom of the floating islands
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, Features.DAWN_SHARDLANDS_SHARDS)
+					// TODO lexmanos boss structure
 					.build())
 			.build();
 

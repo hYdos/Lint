@@ -45,7 +45,7 @@ import net.minecraft.world.gen.feature.Feature;
 // E: Paweria
 // S: Heria
 // W: Auria
-// TODO different blocks in different towns. Especially Theria and Auria, and change the composition of houses by location in Paweria. Current one should be Heria's construction.
+// TODO pre-generate all towns in order to properly place persistent NPCs
 
 public class TownFeature extends Feature<DefaultFeatureConfig> {
 	public static int DENSE_DIST = 80 * 80;
@@ -65,7 +65,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 	private static final TownBlocks PAWERIA_CENTRE = new TownBlocks()
 			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
-			.walls(LintBlocks.CORRUPT_PLANKS.getDefaultState(), LintBlocks.CORRUPT_LOG.getDefaultState())
+			.walls(LintBlocks.CORRUPT_PLANKS.getDefaultState(), LintBlocks.STRIPPED_CORRUPT_LOG.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
 	private static final TownBlocks THERIA = new TownBlocks()

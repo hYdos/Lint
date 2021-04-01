@@ -23,8 +23,8 @@ import java.util.Random;
 
 import me.hydos.lint.block.DirtLikeBlock;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.organic.DistantLeavesBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -32,23 +32,25 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 
-public class CanopyTreeFeature extends Feature<DefaultFeatureConfig> {
+// Should be default feature config bc I ignore every parameter but i have to use this
+public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 	public CanopyTreeFeature() {
-		super(DefaultFeatureConfig.CODEC);
+		super(TreeFeatureConfig.CODEC);
 	}
 
 	@Override
-	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos start, DefaultFeatureConfig config) {
+	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos start, TreeFeatureConfig config) {
 		// TODO
 		// - taller
 		// - cooler angles
 		// - cool spread out shape at top
 		// the leaves don't decay easily like they do
 		// larger decay distance for leaves (I think terrestria does this already)
+		// - switch to trunk placer and leaf placer that does the equivalent. Will need a custom config bc I use multiple leaf placement methods.
 
 		int startX = start.getX();
 		int startY = start.getY();
@@ -69,14 +71,15 @@ public class CanopyTreeFeature extends Feature<DefaultFeatureConfig> {
 				}
 
 				// 1. Canopy Leaves
-				for (int dy = -4; dy < 0; ++dy) {
-					float r = 1 - dy + 0.15f * dy * dy; // radius
+				for (int dy = -5; dy < 0; ++dy) {
+					float dymod = dy + 3;
+					float r = dy == 0 ? 1.01f : 4 - 0.5f * dymod * (1 + 0.1f * dymod * dymod); // radius
 					int max = MathHelper.ceil(r);
 					pos.setY(startY + trueHeight + dy);
 
 					for (int dx = -max; dx <= max; ++dx) {
 						for (int dz = -max; dz <= max; ++dz) {
-							if (dx * dx + dz * dz <= r) {
+							if (dx * dx + dz * dz <= r * r) {
 								pos.setX(startX + dx);
 								pos.setZ(startZ + dz);
 
@@ -143,7 +146,7 @@ public class CanopyTreeFeature extends Feature<DefaultFeatureConfig> {
 
 				// Cross at top TODO probably change into branching out
 
-				pos.setY(trunkHeight - 1);
+				pos.setY(startY + trunkHeight - 1);
 				pos.setX(startX + 1);
 
 				if (TreeFeature.canTreeReplace(world, pos)) {
@@ -182,6 +185,6 @@ public class CanopyTreeFeature extends Feature<DefaultFeatureConfig> {
 		}
 	}
 
-	public static final BlockState LEAVES = LintBlocks.CANOPY_LEAVES.getDefaultState().with(LeavesBlock.DISTANCE, 1);
+	public static final BlockState LEAVES = LintBlocks.CANOPY_LEAVES.getDefaultState().with(DistantLeavesBlock.distance(LintBlocks.CANOPY_LEAVES), 1);
 	public static final BlockState LOG = LintBlocks.MYSTICAL_LOG.getDefaultState();
 }

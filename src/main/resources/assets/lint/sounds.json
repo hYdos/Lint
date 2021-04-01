@@ -47,6 +47,12 @@
       "lint:corrupt_forest"
     ]
   },
+  "music.manos_touch": {
+    "subtitle": "subtitles.manos_touch",
+    "sounds": [
+      "lint:manos_touch"
+    ]
+  },
   "music.dawn_shardlands": {
     "subtitle": "subtitles.dawn_shardlands",
     "sounds": [

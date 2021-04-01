@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = Entity.class, priority = 10000000)
+@Mixin(value = Entity.class, priority = 69696969)
 public abstract class EntityMixin {
 
 	@Shadow
@@ -48,8 +48,6 @@ public abstract class EntityMixin {
 
 	@Shadow
 	public abstract BlockPos getBlockPos();
-
-	@Shadow public boolean inanimate;
 
 	@Shadow public abstract Text getName();
 

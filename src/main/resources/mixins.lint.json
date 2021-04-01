@@ -10,6 +10,7 @@
     "DimensionTypeMixin",
     "EnchantmentHelperMixin",
     "EntityMixin",
+    "FeatureMixin",
     "FireBlockAccessor",
     "ItemTagsProviderMixin",
     "ServerChunkManagerMixin",

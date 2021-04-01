@@ -26,7 +26,9 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.item.materialset.MaterialSet;
 import me.hydos.lint.sound.Sounds;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
@@ -45,16 +47,19 @@ public class LintItems {
 
 	// actually a jurel-sicieron alloy (explained below)
 	public static final MaterialSet JUREL_SET = new MaterialSet("jurel", ArmourMaterials.JUREL, ToolMaterials.JUREL, ItemGroups.TOOLS);
+	public static final MaterialSet STONE_SET = new MaterialSet("stone", Items.STONE_PICKAXE, Items.STONE_AXE, Items.STONE_SHOVEL, Items.STONE_HOE, Items.STONE_SWORD, null, null, null, null).builtin();
 
 	/**
 	 * Materials
 	 */
 	public static final Item SICIERON_INGOT = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
 	public static final Item TARSCAN_SHARD = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
-	public static final Item JUREL_POWDER = new Item(new Item.Settings().group(ItemGroups.ITEMS).rarity(Rarity.RARE).maxCount(64));
-	public static final Item MAGNETITE_POWDER = new Item(new Item.Settings().group(ItemGroups.ITEMS).rarity(Rarity.RARE).maxCount(64));
+	public static final Item JUREL_POWDER = new Item(new Item.Settings().group(ItemGroups.ITEMS).rarity(Rarity.UNCOMMON).maxCount(64));
+	public static final Item MAGNETITE_POWDER = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
 	public static final Item MINT_GEL = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
 	public static final Item TARSCAN_GEL = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
+	public static final Item ALLOS_SHARD = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(16).rarity(Rarity.RARE));
+	public static final Item MANOS_SHARD = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(16).rarity(Rarity.RARE));
 
 	// Alloy of Jurel and Sicieron (1 jurel : 2 sicieron ratio)
 	// Regular Jurel is fragile and becomes a powder readily. Combining it in the 1:2 ratio with regular sicieron allows its powerful properties to be fully utilised in the creation of items.
@@ -73,7 +78,7 @@ public class LintItems {
 	 * yes
 	 */
 	public static final Item DUSKBLADE = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1).rarity(Rarity.EPIC));
-	public static final Item ATTUNER = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1));
+	public static final Item ATTUNER = new WaypointTeleportItem(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1));
 	public static final Item QUESTBOOK = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 
 	public static void initialize() {
@@ -84,6 +89,8 @@ public class LintItems {
 		Registry.register(Registry.ITEM, Lint.id("duskblade"), DUSKBLADE);
 		registerGenerated("questbook", QUESTBOOK);
 		registerHandheld("attuner", ATTUNER);
+
+		FuelRegistry.INSTANCE.add(MINT_GEL, 150);
 	}
 
 	private static void registerDiscs() {
@@ -95,8 +102,9 @@ public class LintItems {
 	}
 
 	private static void registerMaterialSets() {
-		SICIERON_SET.registerItems();
-		JUREL_SET.registerItems();
+		SICIERON_SET.registerItems().createRecipes(Lint.id("sicieron_ingot"));
+		JUREL_SET.registerItems().createRecipes(Lint.id("hardened_jurel_ingot"));
+		STONE_SET.createRecipes(Lint.id("fused_cobblestone")); // todo pearlescent cobblestone
 	}
 
 	private static void registerMaterials() {
@@ -109,5 +117,7 @@ public class LintItems {
 		registerGenerated("hardened_jurel_ingot", HARDENED_JUREL_INGOT);
 		registerGenerated("mint_gel", MINT_GEL);
 		registerGenerated("tarscan_gel", TARSCAN_GEL);
+		registerGenerated("allos_shard", ALLOS_SHARD);
+		registerGenerated("manos_shard", MANOS_SHARD);
 	}
 }

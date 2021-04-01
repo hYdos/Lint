@@ -104,7 +104,7 @@ public class TinyPotatoEntity extends TameableShoulderEntity implements Extended
 	protected void initGoals() {
 		this.goalSelector.add(0, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(0, new SwimGoal(this));
-		this.goalSelector.add(1, new FleeEntityGoal<>(this, EasternRosellaEntity.class, 8.0F, 1.0D, 1.2D));
+		this.goalSelector.add(1, new FleeEntityGoal<>(this, EasternRosellaEntity.class, 8.0F, 1.0D, 1.3D));
 		this.goalSelector.add(2, new FleeBlockGoal(this, LintBlocks.TATERBANE, 4, 1.0D, 1.2D));
 		this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(4, new SitGoal(this));

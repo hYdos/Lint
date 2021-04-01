@@ -19,6 +19,10 @@
 
 package me.hydos.lint.world.feature;
 
+import java.util.Arrays;
+import java.util.function.Supplier;
+
+import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
 
 import me.hydos.lint.Lint;
@@ -31,6 +35,7 @@ import net.minecraft.world.gen.UniformIntDistribution;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
+import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -39,6 +44,7 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.RandomFeatureConfig;
 import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
+import net.minecraft.world.gen.feature.SimpleRandomFeatureConfig;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
@@ -52,15 +58,21 @@ public class Features {
 	/**
 	 * UNCONFIGURED FEATURES
 	 **/
-	public static final Feature<TreeFeatureConfig> TREE = register("tree", new BetterTreeFeature(BetterTreeFeature.CODEC));
-	public static final Feature<DefaultFeatureConfig> CANOPY_TREE = register("canopy_tree", new CanopyTreeFeature());
+	public static final Feature<TreeFeatureConfig> LINT_TREE = register("tree", new BetterTreeFeature(BetterTreeFeature.CODEC));
+	public static final Feature<TreeFeatureConfig> CANOPY_TREE = register("canopy_tree", new CanopyTreeFeature());
 	public static final PortalFeature RETURN_PORTAL = register("portal", new PortalFeature());
 	public static final Feature<DefaultFeatureConfig> VERTICAL_SHAFT = register("vertical_shaft", new VerticalShaftFeature());
 	public static final Feature<DefaultFeatureConfig> FADING_ASH = register("fading_ash", new FadingAshFeature());
 	public static final Feature<DefaultFeatureConfig> STRUCTURE = register("structure", new LintStructureFeature());
 	public static final Feature<DefaultFeatureConfig> TOWN = register("town", new TownFeature());
+	public static final Feature<SingleStateFeatureConfig> HANGING_BLOCK = register("hanging_block", new HangingBlockFeature());
+	
+	/**
+	 * UNCONFIGURED DECORATORS
+	 */
+	public static final Decorator<NopeDecoratorConfig> UNDER_ISLAND = register("under_island", new UnderIslandDecorator());
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> CORRUPT_TREE = register("corrupt_tree", TREE.configure((
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> CORRUPT_TREE = register("corrupt_tree", LINT_TREE.configure((
 			new TreeFeatureConfig.Builder(
 					new SimpleBlockStateProvider(LintBlocks.CORRUPT_LOG.getDefaultState()), new SimpleBlockStateProvider(LintBlocks.CORRUPT_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new LintTrunkPlacer(4, 2, 0),
@@ -68,19 +80,21 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> CORRUPT_TREES = register("corrupt_trees", CORRUPT_TREE.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> MYSTICAL_TREE = register("mystical_tree", TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+	private static final TreeFeatureConfig BASED_CONFIG = new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
 			new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
 			new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
-			new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build()));
+			new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build();
+
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> MYSTICAL_TREE = register("mystical_tree", LINT_TREE.configure(BASED_CONFIG));
 
 	// Not registered bc not used directly anywhere, only used in THICK_MYSTICAL_TREES
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> TALL_MYSTICAL_TREE = TREE.configure((
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> TALL_MYSTICAL_TREE = LINT_TREE.configure((
 			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
 					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 					new LintTrunkPlacer(6, 4, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", LINT_TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
 			new SimpleBlockStateProvider(LintBlocks.FROZEN_LEAVES.getDefaultState()),
 			new SpruceFoliagePlacer(UniformIntDistribution.of(2, 1), UniformIntDistribution.of(0, 2), UniformIntDistribution.of(1, 1)),
 			new LintTrunkPlacer(4, 2, 1), new TwoLayersFeatureSize(2, 0, 1)).ignoreVines().build()));
@@ -91,19 +105,38 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> FROZEN_TREES = register("frozen_trees", FROZEN_TREE
 			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.3F, 1))));
 
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> CANOPY_TREE_CONFIGURED = register("canopy_tree", CANOPY_TREE.configure(BASED_CONFIG));
+
 	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", Feature.RANDOM_SELECTOR.configure(
-			new RandomFeatureConfig(ImmutableList.of(CANOPY_TREE.configure(FeatureConfig.DEFAULT).withChance(0.15f), MYSTICAL_TREE.withChance(0.33f)), TALL_MYSTICAL_TREE))
+			new RandomFeatureConfig(ImmutableList.of(CANOPY_TREE_CONFIGURED.withChance(0.15f), MYSTICAL_TREE.withChance(0.33f)), TALL_MYSTICAL_TREE))
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(18, 0.3F, 1))));
 
 	public static final ConfiguredFeature<?, ?> MYSTICAL_ROCKS = register("mystical_rocks", Feature.RANDOM_SELECTOR.configure(
 			new RandomFeatureConfig(
 					ImmutableList.of(
-							Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.MAGNETITE_DEPOSIT.getDefaultState())).withChance(0.03f)
+							Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.MAGNETITE_DEPOSIT.getDefaultState())).withChance(0.06f)
 							),
-					Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.FUSED_STONE.getDefaultState()))
+					Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.FUSED_COBBLESTONE.getDefaultState()))
 					))
-			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP.repeatRandomly(4).applyChance(3))
+			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeatRandomly(2)
 			);
+
+	/**
+	 * Hanging Crystals
+	 */
+	public static final ConfiguredFeature<?, ?> FLOATING_ISLAND_ALLOS_CRYSTAL = register("floating_island_allos_crystal", HANGING_BLOCK
+			.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState()))
+			.rangeOf(60).spreadHorizontally().repeatRandomly(3));
+	
+	@SuppressWarnings("unchecked")
+	public static final ConfiguredFeature<?, ?> DAWN_SHARDLANDS_SHARDS = register("dawn_shardlands_shards", Feature.SIMPLE_RANDOM_SELECTOR.configure(
+			new SimpleRandomFeatureConfig(Arrays.asList(ImmutableList.of(
+					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState())),
+					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks.MANOS_CRYSTAL.getDefaultState())))
+					.stream().map(Suppliers::ofInstance).toArray(Supplier[]::new))
+					))
+			.decorate(UNDER_ISLAND.configure(new NopeDecoratorConfig()).spreadHorizontally().repeat(UniformIntDistribution.of(3, 5)).applyChance(20)));
+
 	/**
 	 * ORES
 	 */
@@ -148,16 +181,17 @@ public class Features {
 		return register(id, Feature.RANDOM_PATCH.configure(config).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).repeat(count));
 	}
 
-	private static ConfiguredFeature<?, ?> registerChancePatch(String id, RandomPatchFeatureConfig config, int count) {
-		return register(id, Feature.RANDOM_PATCH.configure(config).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(count));
+	private static ConfiguredFeature<?, ?> registerChancePatch(String id, RandomPatchFeatureConfig config, int chance) {
+		return register(id, Feature.RANDOM_PATCH.configure(config).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(chance));
 	}
 
 	public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS = registerPatch("mystical_flowers", Configs.MYSTICAL_DAISY_CONFIG, 3);
 	public static final ConfiguredFeature<?, ?> MYSTICAL_STEMS = registerPatch("mystical_stems", Configs.MYSTICAL_STEM_CONFIG, 5);
-	public static final ConfiguredFeature<?, ?> TUSSOCKS = registerPatch("tussocks", Configs.TUSSOCK_CONFIG, 3);
-	public static final ConfiguredFeature<?, ?> RED_TUSSOCKS = registerPatch("red_tussocks", Configs.RED_TUSSOCK_CONFIG, 3);
+	public static final ConfiguredFeature<?, ?> TUSSOCKS = registerPatch("tussocks", Configs.TUSSOCK_CONFIG, 2);
+	public static final ConfiguredFeature<?, ?> RED_TUSSOCKS = registerPatch("red_tussocks", Configs.RED_TUSSOCK_CONFIG, 2);
 	public static final ConfiguredFeature<?, ?> GENERIC_BLUE_FLOWERS = registerPatch("generic_blue_flowers", Configs.GENERIC_BLUE_FLOWERS_CONFIG, 1);
 	public static final ConfiguredFeature<?, ?> MYSTICAL_GRASS = registerPatch("mystical_grass",Configs.MYSTICAL_GRASS_CONFIG, 3);
+	public static final ConfiguredFeature<?, ?> LESS_MYSTICAL_STEMS = registerChancePatch("less_mystical_stems", Configs.BUNCHED_STEMS_CONFIG, 2);
 	public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = registerPatch("corrupt_stems", Configs.CORRUPT_STEM_CONFIG, 3);
 	public static final ConfiguredFeature<?, ?> WILTED_FLOWERS = registerPatch("wilted_flowers", Configs.WILTED_FLOWER_CONFIG, 3);
 	public static final ConfiguredFeature<?, ?> CORRUPT_FALLEN_LEAVES = registerPatch("corrupt_fallen_leaves", Configs.CORRUPT_FALLEN_LEAVES, 3);
@@ -183,6 +217,10 @@ public class Features {
 		return Registry.register(Registry.FEATURE, Lint.id(name), feature);
 	}
 
+	private static <T extends DecoratorConfig> Decorator<T> register(String name, Decorator<T> decorator) {
+		return Registry.register(Registry.DECORATOR, Lint.id(name), decorator);
+	}
+
 	private static <FC extends FeatureConfig> ConfiguredFeature<FC, ?> register(String id, ConfiguredFeature<FC, ?> configuredFeature) {
 		return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, Lint.id(id), configuredFeature);
 	}
@@ -199,6 +237,13 @@ public class Features {
 		public static final RandomPatchFeatureConfig MYSTICAL_STEM_CONFIG = new RandomPatchFeatureConfig.Builder(
 				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
+				.tries(16).build();
+		
+		public static final RandomPatchFeatureConfig BUNCHED_STEMS_CONFIG = new RandomPatchFeatureConfig.Builder(
+				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
+				SimpleBlockPlacer.INSTANCE)
+				.spreadX(3)
+				.spreadZ(3)
 				.tries(16).build();
 
 		public static final RandomPatchFeatureConfig TUSSOCK_CONFIG = new RandomPatchFeatureConfig.Builder(
