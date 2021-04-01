@@ -43,7 +43,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, M extends EntityM
 	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/model/EntityModel;render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumer;IIFFFF)V"))
 	private void render(M entityModel, MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha,
 						T livingEntity, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int $light) {
-		if (livingEntity.hasStatusEffect(LintStatusEffects.TRANSMUTATION)) {
+		if (!livingEntity.hasStatusEffect(LintStatusEffects.TRANSMUTATION)) {
 			BakedModel model = Myron.getModel(MODEL);
 
 			if (model != null) {
