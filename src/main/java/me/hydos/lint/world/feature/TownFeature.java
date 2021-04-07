@@ -324,12 +324,12 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 			this.setBlockState(world, pos, state);
 		}
 
-		// glowstone
+		// lantern
 		x = startX + width / 2;
 		z = startZ + breadth / 2;
 		y = floor + houseHeight - 1;
 		pos.set(x, y, z);
-		this.setBlockState(world, pos, Blocks.GLOWSTONE.getDefaultState());
+		this.setBlockState(world, pos, Blocks.LANTERN.getDefaultState());
 	}
 
 	private static class TownBlocks {

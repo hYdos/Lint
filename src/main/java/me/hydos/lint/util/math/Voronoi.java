@@ -22,6 +22,7 @@ package me.hydos.lint.util.math;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import me.hydos.lint.world.gen.OpenSimplexNoise;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec2f;
 
 public final class Voronoi {
 	public static Vec2f sampleGrid(int x, int y, int seed) {
