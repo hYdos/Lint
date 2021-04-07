@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block;
+package me.hydos.lint.block.util;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -82,7 +82,7 @@ public class Model {
         List<JBlockModel> modelLocations;
 
         if (this.blockModel == null) {
-            modelLocations = Lists.newArrayList(new JBlockModel(Lint.id(id)));
+            modelLocations = Lists.newArrayList(new JBlockModel(Lint.id("block/" + id)));
         } else {
             Set<Map.Entry<Identifier, JModel>> models = this.blockModel.createModels(subPath -> Lint.id("block/" + id + (subPath.isEmpty() ? "" : ("_" + subPath)))).entrySet();
 

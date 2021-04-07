@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.refactord.block.organic;
+package me.hydos.lint.block.organic;
 
 import java.util.Random;
 

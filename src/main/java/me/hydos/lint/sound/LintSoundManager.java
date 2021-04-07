@@ -20,8 +20,8 @@
 package me.hydos.lint.sound;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Entities;
-import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
@@ -149,7 +149,7 @@ public class LintSoundManager {
                     if (bs.isFullCube(world, pos)) {
                         Block b = bs.getBlock();
 
-                        if (b == LintBlocks2.DUNGEON_BRICKS || b == LintBlocks2.DUNGEON_BRICK_SLAB || b == LintBlocks2.DUNGEON_BRICK_SLAB) {
+                        if (b == LintBlocks.DUNGEON_BRICKS || b == LintBlocks.DUNGEON_BRICK_SLAB || b == LintBlocks.DUNGEON_BRICK_SLAB) {
                             return DummyBiomes.DUMMY_DUNGEON;
                         } else {
                             if (passthroughs-- == 0) {
