@@ -19,8 +19,6 @@
 
 package me.hydos.lint.block;
 
-import net.devtech.arrp.json.blockstate.JBlockModel;
-import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.loot.JCondition;
 import net.devtech.arrp.json.loot.JLootTable;
 import net.devtech.arrp.json.models.JModel;
@@ -37,7 +35,6 @@ import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
 
 public class LintDataRegistry {
-    // Items
 
     public static Item registerGenerated(String id, Item item) {
         Identifier modelIdentifier = id("item/" + id);
@@ -53,94 +50,6 @@ public class LintDataRegistry {
 
     private static void _registerGenerated(Identifier modelIdentifier, Identifier textureIdentifier) {
         RESOURCE_PACK.addModel(JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString())), modelIdentifier);
-    }
-
-    // Blocks
-
-    /**
-     * Only registers the block state and the block item, as a simple block state referencing the model, and a basic BlockItem.
-     */
-    public static Block registerSimpleBlockState(String id, Block block, @Nullable ItemGroup itemGroup) {
-        Identifier identifier = id(id);
-        Identifier modelIdentifier = id("block/" + id);
-
-        RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
-        RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
-        Registry.register(Registry.BLOCK, identifier, block);
-        registerBlockItem(block, itemGroup);
-
-        return block;
-    }
-
-    /**
-     * Registers a generic "cube all" block with an associated dropped item
-     *
-     * @param id        The block ID
-     * @param block     The block
-     * @param itemGroup The item group for the dropped item
-     * @return The registered block
-     */
-    public static <T extends Block> T registerCubeAll(String id, T block, @Nullable ItemGroup itemGroup) {
-        Identifier identifier = id(id);
-        Identifier modelIdentifier = id("block/" + id);
-
-        RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
-        RESOURCE_PACK.addModel(JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", modelIdentifier.toString())), modelIdentifier);
-        RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
-
-        Registry.register(Registry.BLOCK, identifier, block);
-        registerBlockItem(block, itemGroup);
-
-        return block;
-    }
-
-    /**
-     * Registers a generic "cross" block with an associated dropped item
-     *
-     * @param id        The block ID
-     * @param block     The block
-     * @param itemGroup The item group for the dropped item
-     * @return The registered block
-     */
-    public static Block registerCross(String id, Block block, @Nullable ItemGroup itemGroup) {
-        Identifier identifier = id(id);
-        Identifier modelIdentifier = id("block/" + id);
-
-        RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
-        RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", modelIdentifier.toString())), modelIdentifier);
-        _registerGenerated(id("item/" + id), modelIdentifier);
-
-        Registry.register(Registry.BLOCK, identifier, block);
-        registerBlockItem(block, itemGroup);
-
-        return block;
-    }
-
-    /**
-     * Registers a tall flower "cross" block with an associated dropped item
-     *
-     * @param id        The block ID
-     * @param block     The block
-     * @param itemGroup The item group for the dropped item
-     * @return The registered block
-     */
-    public static Block registerTallCross(String id, Block block, @Nullable ItemGroup itemGroup) {
-        Identifier identifier = id(id);
-        Identifier bottomModelIdentifier = id("block/" + id);
-        Identifier topModelIdentifier = id("block/" + id + "_top");
-
-        RESOURCE_PACK.addBlockState(JState.state(JState.variant()
-                .put("half=lower", new JBlockModel(bottomModelIdentifier))
-                .put("half=upper", new JBlockModel(topModelIdentifier))), identifier);
-
-        RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", bottomModelIdentifier.toString())), bottomModelIdentifier);
-        RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", topModelIdentifier.toString())), topModelIdentifier);
-        _registerGenerated(id("item/" + id), topModelIdentifier);
-
-        Registry.register(Registry.BLOCK, identifier, block);
-        registerBlockItem(block, itemGroup);
-
-        return block;
     }
 
     /**
@@ -170,8 +79,6 @@ public class LintDataRegistry {
             Registry.register(Registry.ITEM, id, new BlockItem(block, settings));
         }
     }
-
-    // Other
 
     public static void registerRecipe(String id, JRecipe recipe) {
         RESOURCE_PACK.addRecipe(id(id), recipe);
