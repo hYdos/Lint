@@ -19,13 +19,11 @@
 
 package me.hydos.lint.block;
 
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.block.BlockBuilder.BlockConstructor;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.AbstractBlock.OffsetType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.AbstractBlock.OffsetType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
@@ -33,97 +31,98 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Class for constructing blocks with particular special properties.
- * 
+ *
  * @reason insurance against mojank updates.
  */
 public class BlockMechanics implements BlockConstructor<Block> {
-	@Nullable
-	private OnUse onUse;
-	@Nullable
-	private EntityCollision collision;
-	@Nullable
-	private NeighbourUpdate horse; // Neigh.
+    @Nullable
+    private OnUse onUse;
+    @Nullable
+    private EntityCollision collision;
+    @Nullable
+    private NeighbourUpdate horse; // Neigh.
 
-	private OffsetType offset = OffsetType.NONE;
+    private OffsetType offset = OffsetType.NONE;
 
-	public BlockMechanics onUse(OnUse onUse) {
-		this.onUse = onUse;
-		return this;
-	}
-	
-	public BlockMechanics onEntityCollision(EntityCollision collision) {
-		this.collision = collision;
-		return this;
-	}
-	
-	public BlockMechanics onNeighbourUpdate(NeighbourUpdate horse) {
-		this.horse = horse;
-		return this;
-	}
+    public BlockMechanics onUse(OnUse onUse) {
+        this.onUse = onUse;
+        return this;
+    }
 
-	public BlockMechanics offsetType(OffsetType type) {
-		this.offset = type;
-		return this;
-	}
+    public BlockMechanics onEntityCollision(EntityCollision collision) {
+        this.collision = collision;
+        return this;
+    }
 
-	@Override
-	public Block create(FabricBlockSettings settings) {
-		return new MechanicalBlock(settings, this.onUse, this.offset, this.collision, this.horse);
-	}
+    public BlockMechanics onNeighbourUpdate(NeighbourUpdate horse) {
+        this.horse = horse;
+        return this;
+    }
 
-	// Block Class and Functional Interfaces
+    public BlockMechanics offsetType(OffsetType type) {
+        this.offset = type;
+        return this;
+    }
 
-	private static class MechanicalBlock extends Block {
-		public MechanicalBlock(Settings settings, @Nullable OnUse onUse, OffsetType offset,
-				@Nullable EntityCollision collision, @Nullable NeighbourUpdate horse) {
-			super(settings);
-			this.onUse = onUse == null ? super::onUse : onUse;
-			this.horse = horse == null ? super::neighborUpdate : horse;
-			this.collision = collision == null ? super::onEntityCollision : collision;
-			this.offset = offset;
-		}
+    @Override
+    public Block create(FabricBlockSettings settings) {
+        return new MechanicalBlock(settings, this.onUse, this.offset, this.collision, this.horse);
+    }
 
-		private OnUse onUse;
-		private OffsetType offset;
-		private EntityCollision collision;
-		private NeighbourUpdate horse;
+    // Block Class and Functional Interfaces
 
-		@Override
-		public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-			return this.onUse.onUse(state, world, pos, player, hand, hit);
-		}
-		
-		@Override
-		public OffsetType getOffsetType() {
-			return this.offset;
-		}
-		
-		@Override
-		public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-			this.collision.onCollision(state, world, pos, entity);
-		}
-		
-		@Override
-		public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
-			this.horse.neighborUpdate(state, world, pos, block, fromPos, notify);
-		}
-	}
+    private static class MechanicalBlock extends Block {
+        public MechanicalBlock(Settings settings, @Nullable OnUse onUse, OffsetType offset,
+                               @Nullable EntityCollision collision, @Nullable NeighbourUpdate horse) {
+            super(settings);
+            this.onUse = onUse == null ? super::onUse : onUse;
+            this.horse = horse == null ? super::neighborUpdate : horse;
+            this.collision = collision == null ? super::onEntityCollision : collision;
+            this.offset = offset;
+        }
 
-	@FunctionalInterface
-	public interface OnUse {
-		ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit);
-	}
-	
-	@FunctionalInterface
-	public interface EntityCollision {
-		void onCollision(BlockState state, World world, BlockPos pos, Entity entity);
-	}
-	
-	@FunctionalInterface
-	public interface NeighbourUpdate {
-		void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify);
-	}
+        private final OnUse onUse;
+        private final OffsetType offset;
+        private final EntityCollision collision;
+        private final NeighbourUpdate horse;
+
+        @Override
+        public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+            return this.onUse.onUse(state, world, pos, player, hand, hit);
+        }
+
+        @Override
+        public OffsetType getOffsetType() {
+            return this.offset;
+        }
+
+        @Override
+        public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+            this.collision.onCollision(state, world, pos, entity);
+        }
+
+        @Override
+        public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+            this.horse.neighborUpdate(state, world, pos, block, fromPos, notify);
+        }
+    }
+
+    @FunctionalInterface
+    public interface OnUse {
+        ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit);
+    }
+
+    @FunctionalInterface
+    public interface EntityCollision {
+        void onCollision(BlockState state, World world, BlockPos pos, Entity entity);
+    }
+
+    @FunctionalInterface
+    public interface NeighbourUpdate {
+        void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify);
+    }
 }

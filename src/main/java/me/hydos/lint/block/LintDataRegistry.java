@@ -19,11 +19,6 @@
 
 package me.hydos.lint.block;
 
-import static me.hydos.lint.Lint.RESOURCE_PACK;
-import static me.hydos.lint.Lint.id;
-
-import org.jetbrains.annotations.Nullable;
-
 import net.devtech.arrp.json.blockstate.JBlockModel;
 import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.loot.JCondition;
@@ -36,145 +31,149 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.jetbrains.annotations.Nullable;
+
+import static me.hydos.lint.Lint.RESOURCE_PACK;
+import static me.hydos.lint.Lint.id;
 
 public class LintDataRegistry {
-	// Items
+    // Items
 
-	public static Item registerGenerated(String id, Item item) {
-		Identifier modelIdentifier = id("item/" + id);
-		_registerGenerated(modelIdentifier, modelIdentifier);
-		return Registry.register(Registry.ITEM, id(id), item);
-	}
+    public static Item registerGenerated(String id, Item item) {
+        Identifier modelIdentifier = id("item/" + id);
+        _registerGenerated(modelIdentifier, modelIdentifier);
+        return Registry.register(Registry.ITEM, id(id), item);
+    }
 
-	public static Item registerHandheld(String id, Item item) {
-		Identifier modelIdentifier = id("item/" + id);
-		RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
-		return Registry.register(Registry.ITEM, id(id), item);
-	}
+    public static Item registerHandheld(String id, Item item) {
+        Identifier modelIdentifier = id("item/" + id);
+        RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
+        return Registry.register(Registry.ITEM, id(id), item);
+    }
 
-	private static void _registerGenerated(Identifier modelIdentifier, Identifier textureIdentifier) {
-		RESOURCE_PACK.addModel(JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString())), modelIdentifier);
-	}
+    private static void _registerGenerated(Identifier modelIdentifier, Identifier textureIdentifier) {
+        RESOURCE_PACK.addModel(JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString())), modelIdentifier);
+    }
 
-	// Blocks
+    // Blocks
 
-	/**
-	 * Only registers the block state and the block item, as a simple block state referencing the model, and a basic BlockItem.
-	 */
-	public static Block registerSimpleBlockState(String id, Block block, @Nullable ItemGroup itemGroup) {
-		Identifier identifier = id(id);
-		Identifier modelIdentifier = id("block/" + id);
+    /**
+     * Only registers the block state and the block item, as a simple block state referencing the model, and a basic BlockItem.
+     */
+    public static Block registerSimpleBlockState(String id, Block block, @Nullable ItemGroup itemGroup) {
+        Identifier identifier = id(id);
+        Identifier modelIdentifier = id("block/" + id);
 
-		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
-		RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
-		Registry.register(Registry.BLOCK, identifier, block);
-		registerBlockItem(block, itemGroup);
+        RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
+        RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
+        Registry.register(Registry.BLOCK, identifier, block);
+        registerBlockItem(block, itemGroup);
 
-		return block;
-	}
+        return block;
+    }
 
-	/**
-	 * Registers a generic "cube all" block with an associated dropped item
-	 *
-	 * @param id        The block ID
-	 * @param block     The block
-	 * @param itemGroup The item group for the dropped item
-	 * @return The registered block
-	 */
-	public static <T extends Block> T registerCubeAll(String id, T block, @Nullable ItemGroup itemGroup) {
-		Identifier identifier = id(id);
-		Identifier modelIdentifier = id("block/" + id);
+    /**
+     * Registers a generic "cube all" block with an associated dropped item
+     *
+     * @param id        The block ID
+     * @param block     The block
+     * @param itemGroup The item group for the dropped item
+     * @return The registered block
+     */
+    public static <T extends Block> T registerCubeAll(String id, T block, @Nullable ItemGroup itemGroup) {
+        Identifier identifier = id(id);
+        Identifier modelIdentifier = id("block/" + id);
 
-		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
-		RESOURCE_PACK.addModel(JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", modelIdentifier.toString())), modelIdentifier);
-		RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
+        RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
+        RESOURCE_PACK.addModel(JModel.model().parent("block/cube_all").textures(JModel.textures().var("all", modelIdentifier.toString())), modelIdentifier);
+        RESOURCE_PACK.addModel(JModel.model().parent(modelIdentifier.toString()), id("item/" + id));
 
-		Registry.register(Registry.BLOCK, identifier, block);
-		registerBlockItem(block, itemGroup);
+        Registry.register(Registry.BLOCK, identifier, block);
+        registerBlockItem(block, itemGroup);
 
-		return block;
-	}
+        return block;
+    }
 
-	/**
-	 * Registers a generic "cross" block with an associated dropped item
-	 *
-	 * @param id        The block ID
-	 * @param block     The block
-	 * @param itemGroup The item group for the dropped item
-	 * @return The registered block
-	 */
-	public static Block registerCross(String id, Block block, @Nullable ItemGroup itemGroup) {
-		Identifier identifier = id(id);
-		Identifier modelIdentifier = id("block/" + id);
+    /**
+     * Registers a generic "cross" block with an associated dropped item
+     *
+     * @param id        The block ID
+     * @param block     The block
+     * @param itemGroup The item group for the dropped item
+     * @return The registered block
+     */
+    public static Block registerCross(String id, Block block, @Nullable ItemGroup itemGroup) {
+        Identifier identifier = id(id);
+        Identifier modelIdentifier = id("block/" + id);
 
-		RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
-		RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", modelIdentifier.toString())), modelIdentifier);
-		_registerGenerated(id("item/" + id), modelIdentifier);
+        RESOURCE_PACK.addBlockState(JState.state(JState.variant().put("", new JBlockModel(modelIdentifier))), identifier);
+        RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", modelIdentifier.toString())), modelIdentifier);
+        _registerGenerated(id("item/" + id), modelIdentifier);
 
-		Registry.register(Registry.BLOCK, identifier, block);
-		registerBlockItem(block, itemGroup);
+        Registry.register(Registry.BLOCK, identifier, block);
+        registerBlockItem(block, itemGroup);
 
-		return block;
-	}
+        return block;
+    }
 
-	/**
-	 * Registers a tall flower "cross" block with an associated dropped item
-	 *
-	 * @param id        The block ID
-	 * @param block     The block
-	 * @param itemGroup The item group for the dropped item
-	 * @return The registered block
-	 */
-	public static Block registerTallCross(String id, Block block, @Nullable ItemGroup itemGroup) {
-		Identifier identifier = id(id);
-		Identifier bottomModelIdentifier = id("block/" + id);
-		Identifier topModelIdentifier = id("block/" + id + "_top");
+    /**
+     * Registers a tall flower "cross" block with an associated dropped item
+     *
+     * @param id        The block ID
+     * @param block     The block
+     * @param itemGroup The item group for the dropped item
+     * @return The registered block
+     */
+    public static Block registerTallCross(String id, Block block, @Nullable ItemGroup itemGroup) {
+        Identifier identifier = id(id);
+        Identifier bottomModelIdentifier = id("block/" + id);
+        Identifier topModelIdentifier = id("block/" + id + "_top");
 
-		RESOURCE_PACK.addBlockState(JState.state(JState.variant()
-				.put("half=lower", new JBlockModel(bottomModelIdentifier))
-				.put("half=upper", new JBlockModel(topModelIdentifier))), identifier);
+        RESOURCE_PACK.addBlockState(JState.state(JState.variant()
+                .put("half=lower", new JBlockModel(bottomModelIdentifier))
+                .put("half=upper", new JBlockModel(topModelIdentifier))), identifier);
 
-		RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", bottomModelIdentifier.toString())), bottomModelIdentifier);
-		RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", topModelIdentifier.toString())), topModelIdentifier);
-		_registerGenerated(id("item/" + id), topModelIdentifier);
+        RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", bottomModelIdentifier.toString())), bottomModelIdentifier);
+        RESOURCE_PACK.addModel(JModel.model().parent("block/cross").textures(JModel.textures().var("cross", topModelIdentifier.toString())), topModelIdentifier);
+        _registerGenerated(id("item/" + id), topModelIdentifier);
 
-		Registry.register(Registry.BLOCK, identifier, block);
-		registerBlockItem(block, itemGroup);
+        Registry.register(Registry.BLOCK, identifier, block);
+        registerBlockItem(block, itemGroup);
 
-		return block;
-	}
+        return block;
+    }
 
-	/**
-	 * Registers a BlockItem for an already registered block
-	 *
-	 * @param block     A block which has already been registered
-	 * @param itemGroup The item group to place the item in
-	 */
-	public static void registerBlockItem(Block block, @Nullable ItemGroup itemGroup) {
-		Identifier id = Registry.BLOCK.getId(block);
-		RESOURCE_PACK.addLootTable(new Identifier(id.getNamespace(), "blocks/" + id.getPath()),
-				JLootTable.loot("minecraft:block")
-				.pool(JLootTable.pool()
-						.rolls(1)
-						.entry(JLootTable.entry()
-								.type("minecraft:item")
-								.name(id.toString()))
-						.condition(new JCondition("minecraft:survives_explosion"))));
+    /**
+     * Registers a BlockItem for an already registered block
+     *
+     * @param block     A block which has already been registered
+     * @param itemGroup The item group to place the item in
+     */
+    public static void registerBlockItem(Block block, @Nullable ItemGroup itemGroup) {
+        Identifier id = Registry.BLOCK.getId(block);
+        RESOURCE_PACK.addLootTable(new Identifier(id.getNamespace(), "blocks/" + id.getPath()),
+                JLootTable.loot("minecraft:block")
+                        .pool(JLootTable.pool()
+                                .rolls(1)
+                                .entry(JLootTable.entry()
+                                        .type("minecraft:item")
+                                        .name(id.toString()))
+                                .condition(new JCondition("minecraft:survives_explosion"))));
 
-		{
-			Item.Settings settings = new Item.Settings();
+        {
+            Item.Settings settings = new Item.Settings();
 
-			if (itemGroup != null) {
-				settings.group(itemGroup);
-			}
+            if (itemGroup != null) {
+                settings.group(itemGroup);
+            }
 
-			Registry.register(Registry.ITEM, id, new BlockItem(block, settings));
-		}
-	}
-	
-	// Other
+            Registry.register(Registry.ITEM, id, new BlockItem(block, settings));
+        }
+    }
 
-	public static void registerRecipe(String id, JRecipe recipe) {
-		RESOURCE_PACK.addRecipe(id(id), recipe);
-	}
+    // Other
+
+    public static void registerRecipe(String id, JRecipe recipe) {
+        RESOURCE_PACK.addRecipe(id(id), recipe);
+    }
 }

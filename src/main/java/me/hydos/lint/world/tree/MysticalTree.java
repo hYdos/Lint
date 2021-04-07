@@ -27,8 +27,8 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import java.util.Random;
 
 public final class MysticalTree extends SaplingGenerator {
-	@Override
-	protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
-		return Features.MYSTICAL_TREE;
-	}
+    @Override
+    protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
+        return Features.MYSTICAL_TREE;
+    }
 }

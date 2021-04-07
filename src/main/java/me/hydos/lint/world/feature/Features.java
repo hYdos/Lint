@@ -278,8 +278,8 @@ public class Features {
 		public static final RandomPatchFeatureConfig SPEARMINT_CONFIG = new RandomPatchFeatureConfig.Builder(
 				new SimpleBlockStateProvider(LintBlocks2.SPEARMINT.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
-				.tries(16).build();;
-				public static final RandomPatchFeatureConfig WATERMINT_CONFIG = new RandomPatchFeatureConfig.Builder( // quite rare as it needs not only the dirt/grass but also to be next to water. Most water is by sand.
+				.tries(16).build();
+        public static final RandomPatchFeatureConfig WATERMINT_CONFIG = new RandomPatchFeatureConfig.Builder( // quite rare as it needs not only the dirt/grass but also to be next to water. Most water is by sand.
 						new SimpleBlockStateProvider(LintBlocks2.WATERMINT.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(32).needsWater().build();

@@ -25,8 +25,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
 public interface Enhanceable {
-	void update(ItemStack stack, Power.Broad power, float change, boolean addDefaults);
+    void update(ItemStack stack, Power.Broad power, float change, boolean addDefaults);
 
-	default void onAttack(LivingEntity attacker, ItemStack stack, Entity target) {
-	}
+    default void onAttack(LivingEntity attacker, ItemStack stack, Entity target) {
+    }
 }

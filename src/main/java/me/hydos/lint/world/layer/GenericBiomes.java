@@ -28,41 +28,41 @@ import net.minecraft.world.biome.layer.type.InitLayer;
 import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
 
 public class GenericBiomes implements InitLayer {
-	@SuppressWarnings("rawtypes")
-	private static final RegistryKey[] BIOMES = {Biomes.MYSTICAL_GROVE_KEY, Biomes.MYSTICAL_GROVE_KEY, Biomes.MYSTICAL_FOREST_KEY};
-	@SuppressWarnings("rawtypes")
-	private static final RegistryKey[] CORRUPT_BIOMES = {Biomes.CORRUPT_FOREST_KEY};
+    @SuppressWarnings("rawtypes")
+    private static final RegistryKey[] BIOMES = {Biomes.MYSTICAL_GROVE_KEY, Biomes.MYSTICAL_GROVE_KEY, Biomes.MYSTICAL_FOREST_KEY};
+    @SuppressWarnings("rawtypes")
+    private static final RegistryKey[] CORRUPT_BIOMES = {Biomes.CORRUPT_FOREST_KEY};
 
-	private final Registry<Biome> biomeRegistry;
-	private final boolean beach;
+    private final Registry<Biome> biomeRegistry;
+    private final boolean beach;
 
-	public GenericBiomes(Registry<Biome> biomeRegistry, boolean beach) {
-		this.biomeRegistry = biomeRegistry;
-		this.beach = beach;
-	}
+    public GenericBiomes(Registry<Biome> biomeRegistry, boolean beach) {
+        this.biomeRegistry = biomeRegistry;
+        this.beach = beach;
+    }
 
-	@Override
-	public int sample(LayerRandomnessSource randomPawn, int x, int y) {
-		boolean corrupt = false;
-		int absx = MathHelper.abs(x);
-		int absy = MathHelper.abs(y);
-		int absval = absx + absy;
+    @Override
+    public int sample(LayerRandomnessSource randomPawn, int x, int y) {
+        boolean corrupt = false;
+        int absx = MathHelper.abs(x);
+        int absy = MathHelper.abs(y);
+        int absval = absx + absy;
 
-		if (absval > 1 && randomPawn.nextInt(3) == 0) {
-			corrupt = true;
-		}
+        if (absval > 1 && randomPawn.nextInt(3) == 0) {
+            corrupt = true;
+        }
 
-		if (this.beach) {
-			return id(corrupt ? Biomes.CORRUPT_BEACH_KEY : Biomes.OCEAN_KEY);
-		} else {
-			return id(corrupt ?
-					CORRUPT_BIOMES[randomPawn.nextInt(CORRUPT_BIOMES.length)] :
-					BIOMES[randomPawn.nextInt(BIOMES.length)]);
-		}
-	}
+        if (this.beach) {
+            return id(corrupt ? Biomes.CORRUPT_BEACH_KEY : Biomes.OCEAN_KEY);
+        } else {
+            return id(corrupt ?
+                    CORRUPT_BIOMES[randomPawn.nextInt(CORRUPT_BIOMES.length)] :
+                    BIOMES[randomPawn.nextInt(BIOMES.length)]);
+        }
+    }
 
-	@SuppressWarnings({"rawtypes", "unchecked"})
-	private int id(RegistryKey key) {
-		return biomeRegistry.getRawId(biomeRegistry.get(key));
-	}
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private int id(RegistryKey key) {
+        return biomeRegistry.getRawId(biomeRegistry.get(key));
+    }
 }

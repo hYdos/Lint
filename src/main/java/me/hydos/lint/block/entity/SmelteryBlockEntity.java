@@ -45,82 +45,82 @@ import java.util.List;
 
 public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, NamedScreenHandlerFactory, BlockEntityClientSerializable {
 
-	public final List<FluidStack> fluidData = new ArrayList<>(5);
-	public LintInventory inventory = new LintInventory(9);
-	public Multiblock multiblock;
+    public final List<FluidStack> fluidData = new ArrayList<>(5);
+    public LintInventory inventory = new LintInventory(9);
+    public Multiblock multiblock;
 
-	public SmelteryBlockEntity() {
-		super(BlockEntities.SMELTERY);
-	}
+    public SmelteryBlockEntity() {
+        super(BlockEntities.SMELTERY);
+    }
 
-	@Override
-	public Text getDisplayName() {
-		return new LiteralText("Smeltery");
-	}
+    @Override
+    public Text getDisplayName() {
+        return new LiteralText("Smeltery");
+    }
 
-	@Nullable
-	@Override
-	public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-		updateMultiblock();
-		return new SmelteryScreenHandler(syncId, inv, this);
-	}
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        updateMultiblock();
+        return new SmelteryScreenHandler(syncId, inv, this);
+    }
 
-	@Override
-	public CompoundTag toTag(CompoundTag tag) {
-		CompoundTag serialisedFluidData = new CompoundTag();
-		writeFluidsToTag(serialisedFluidData);
-		tag.put("fluidData", serialisedFluidData);
-		Inventories.toTag(tag, inventory.getRawList());
-		return super.toTag(tag);
-	}
+    @Override
+    public CompoundTag toTag(CompoundTag tag) {
+        CompoundTag serialisedFluidData = new CompoundTag();
+        writeFluidsToTag(serialisedFluidData);
+        tag.put("fluidData", serialisedFluidData);
+        Inventories.toTag(tag, inventory.getRawList());
+        return super.toTag(tag);
+    }
 
-	@Override
-	public void fromTag(BlockState state, CompoundTag tag) {
-		super.fromTag(state, tag);
-		updateFluids(tag.getCompound("fluidData"));
-		inventory = new LintInventory(9);
-		Inventories.fromTag(tag, inventory.getRawList());
-	}
+    @Override
+    public void fromTag(BlockState state, CompoundTag tag) {
+        super.fromTag(state, tag);
+        updateFluids(tag.getCompound("fluidData"));
+        inventory = new LintInventory(9);
+        Inventories.fromTag(tag, inventory.getRawList());
+    }
 
-	public boolean isActive() {
-		return true;
-	}
+    public boolean isActive() {
+        return true;
+    }
 
-	public void updateMultiblock() {
-		multiblock = Multiblocks.SMELTERY.find(world, getPos());
-	}
+    public void updateMultiblock() {
+        multiblock = Multiblocks.SMELTERY.find(world, getPos());
+    }
 
-	@Override
-	public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-		packetByteBuf.writeBlockPos(getPos());
-	}
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
+        packetByteBuf.writeBlockPos(getPos());
+    }
 
-	public void updateFluids(CompoundTag fluidInformation) {
-		if (fluidInformation != null) {
-			for (int i = 0; i < fluidInformation.getInt("size"); i++) {
-				fluidData.add(FluidStack.fromTag((CompoundTag) fluidInformation.get(String.valueOf(i))));
-			}
-		}
-	}
+    public void updateFluids(CompoundTag fluidInformation) {
+        if (fluidInformation != null) {
+            for (int i = 0; i < fluidInformation.getInt("size"); i++) {
+                fluidData.add(FluidStack.fromTag((CompoundTag) fluidInformation.get(String.valueOf(i))));
+            }
+        }
+    }
 
-	public List<FluidStack> getFluidData() {
-		return fluidData;
-	}
+    public List<FluidStack> getFluidData() {
+        return fluidData;
+    }
 
-	public void writeFluidsToTag(CompoundTag tag) {
-		tag.putInt("size", fluidData.size());
-		for (int i = 0; i < fluidData.size(); i++) {
-			tag.put(String.valueOf(i), fluidData.get(i).toTag());
-		}
-	}
+    public void writeFluidsToTag(CompoundTag tag) {
+        tag.putInt("size", fluidData.size());
+        for (int i = 0; i < fluidData.size(); i++) {
+            tag.put(String.valueOf(i), fluidData.get(i).toTag());
+        }
+    }
 
-	@Override
-	public void fromClientTag(CompoundTag compoundTag) {
-		fromTag(world.getBlockState(pos), compoundTag);
-	}
+    @Override
+    public void fromClientTag(CompoundTag compoundTag) {
+        fromTag(world.getBlockState(pos), compoundTag);
+    }
 
-	@Override
-	public CompoundTag toClientTag(CompoundTag compoundTag) {
-		return toTag(compoundTag);
-	}
+    @Override
+    public CompoundTag toClientTag(CompoundTag compoundTag) {
+        return toTag(compoundTag);
+    }
 }

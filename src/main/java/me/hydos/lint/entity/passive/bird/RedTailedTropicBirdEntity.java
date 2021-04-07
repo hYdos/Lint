@@ -141,7 +141,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 
 		public boolean shouldContinue() {
 			LivingEntity livingEntity = RedTailedTropicBirdEntity.this.getTarget();
-			return livingEntity != null ? RedTailedTropicBirdEntity.this.isTarget(livingEntity, TargetPredicate.DEFAULT) : false;
+			return livingEntity != null && RedTailedTropicBirdEntity.this.isTarget(livingEntity, TargetPredicate.DEFAULT);
 		}
 	}
 
@@ -153,7 +153,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 
 		public boolean canStart() {
 			LivingEntity livingEntity = RedTailedTropicBirdEntity.this.getTarget();
-			return livingEntity != null ? RedTailedTropicBirdEntity.this.isTarget(RedTailedTropicBirdEntity.this.getTarget(), TargetPredicate.DEFAULT) : false;
+			return livingEntity != null && RedTailedTropicBirdEntity.this.isTarget(RedTailedTropicBirdEntity.this.getTarget(), TargetPredicate.DEFAULT);
 		}
 
 		public void start() {
@@ -209,9 +209,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 					// I'll keep them scared of cats, but for a different reason
 					List<CatEntity> list = RedTailedTropicBirdEntity.this.world.getEntitiesByClass(CatEntity.class, RedTailedTropicBirdEntity.this.getBoundingBox().expand(16.0D), EntityPredicates.VALID_ENTITY);
 
-					if (!list.isEmpty()) {
-						return false;
-					}
+					return list.isEmpty();
 				}
 
 				return true;
@@ -222,7 +220,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 		}
 
 		public void stop() {
-			RedTailedTropicBirdEntity.this.setTarget((LivingEntity)null);
+			RedTailedTropicBirdEntity.this.setTarget(null);
 			RedTailedTropicBirdEntity.this.movementType = RedTailedTropicBirdEntity.PhantomStyleHuntMovement.HUNTING;
 		}
 
@@ -303,7 +301,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 			}
 
 			this.angle += this.circlingDirection * 15.0F * 0.017453292F;
-			RedTailedTropicBirdEntity.this.targetPosition = Vec3d.of(RedTailedTropicBirdEntity.this.circlingCentre).add((double)(this.radius * MathHelper.cos(this.angle)), (double)(-4.0F + this.yOffset), (double)(this.radius * MathHelper.sin(this.angle)));
+			RedTailedTropicBirdEntity.this.targetPosition = Vec3d.of(RedTailedTropicBirdEntity.this.circlingCentre).add(this.radius * MathHelper.cos(this.angle), -4.0F + this.yOffset, this.radius * MathHelper.sin(this.angle));
 		}
 	}
 
@@ -317,8 +315,8 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 		}
 	}
 
-	static enum PhantomStyleHuntMovement {
+	enum PhantomStyleHuntMovement {
 		HUNTING,
-		ATTACKING;
+		ATTACKING
 	}
 }

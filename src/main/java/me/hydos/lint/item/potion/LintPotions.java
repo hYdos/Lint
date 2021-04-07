@@ -26,13 +26,13 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.registry.Registry;
 
 public class LintPotions {
-	public static final Potion MINT_TEA = new Potion(new StatusEffectInstance(StatusEffects.HASTE, 40));
+    public static final Potion MINT_TEA = new Potion(new StatusEffectInstance(StatusEffects.HASTE, 40));
 
-	private static Potion register(String name, Potion potion) {
-		return Registry.register(Registry.POTION, Lint.id(name), potion);
-	}
+    private static Potion register(String name, Potion potion) {
+        return Registry.register(Registry.POTION, Lint.id(name), potion);
+    }
 
-	public static void initialize() {
-		register("mint_tea", MINT_TEA);
-	}
+    public static void initialize() {
+        register("mint_tea", MINT_TEA);
+    }
 }

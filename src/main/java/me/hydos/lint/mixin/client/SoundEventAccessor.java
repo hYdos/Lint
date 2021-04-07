@@ -26,6 +26,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(SoundEvent.class)
 public interface SoundEventAccessor {
-	@Accessor
-	Identifier getId();
+    @Accessor
+    Identifier getId();
 }

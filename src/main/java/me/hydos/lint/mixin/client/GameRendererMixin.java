@@ -34,29 +34,29 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
-	@Shadow
-	@Final
-	private MinecraftClient client;
+    @Shadow
+    @Final
+    private MinecraftClient client;
 
-	@Inject(at = @At("RETURN"), method = "getViewDistance", cancellable = true)
-	private void strengthenFog(CallbackInfoReturnable<Float> cir) {
-		final float originalResult = cir.getReturnValueF();
-		final float originalResultChunks = originalResult * 0.0625f; // originalResult / 16.0f
+    @Inject(at = @At("RETURN"), method = "getViewDistance", cancellable = true)
+    private void strengthenFog(CallbackInfoReturnable<Float> cir) {
+        final float originalResult = cir.getReturnValueF();
+        final float originalResultChunks = originalResult * 0.0625f; // originalResult / 16.0f
 
-		final World world = this.client.world;
+        final World world = this.client.world;
 
-		if (world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) { // Add dimension checks here for fog distance there
-			final Vec3d playerPos = this.client.player.getPos();
-			double x = playerPos.getX();
-			double z = playerPos.getZ();
+        if (world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) { // Add dimension checks here for fog distance there
+            final Vec3d playerPos = this.client.player.getPos();
+            double x = playerPos.getX();
+            double z = playerPos.getZ();
 
-			final float modifiedResultChunks = Maths.calculateFogDistanceChunks(world, x, z, originalResultChunks);
+            final float modifiedResultChunks = Maths.calculateFogDistanceChunks(world, x, z, originalResultChunks);
 
-			float modifiedResult = modifiedResultChunks * 16.0f;
+            float modifiedResult = modifiedResultChunks * 16.0f;
 
-			if (modifiedResult < originalResult) { // we don't want to mess with the player's max render distance
-				cir.setReturnValue(modifiedResult);
-			}
-		}
-	}
+            if (modifiedResult < originalResult) { // we don't want to mess with the player's max render distance
+                cir.setReturnValue(modifiedResult);
+            }
+        }
+    }
 }

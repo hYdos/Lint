@@ -19,8 +19,6 @@
 
 package me.hydos.lint.item;
 
-import java.util.List;
-
 import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.refactord.block.ReturnHomeBlock;
 import me.hydos.lint.world.dimension.Dimensions;
@@ -38,74 +36,72 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.List;
+
 public class WaypointTeleportItem extends Item {
-	public WaypointTeleportItem(Settings settings) {
-		super(settings);
-	}
+    public WaypointTeleportItem(Settings settings) {
+        super(settings);
+    }
 
-	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-		CompoundTag tag = stack.getOrCreateTag();
+    @Override
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+        CompoundTag tag = stack.getOrCreateTag();
 
-		if (tag.contains("waypoint")) {
-			int[] pos = tag.getIntArray("waypoint");
-			tooltip.add(new LiteralText("Attuned with the shrine at " + pos[0] + ", " + pos[2]));
-		}
-	}
+        if (tag.contains("waypoint")) {
+            int[] pos = tag.getIntArray("waypoint");
+            tooltip.add(new LiteralText("Attuned with the shrine at " + pos[0] + ", " + pos[2]));
+        }
+    }
 
-	@Override
-	public boolean hasGlint(ItemStack stack) {
-		CompoundTag tag = stack.getOrCreateTag();
+    @Override
+    public boolean hasGlint(ItemStack stack) {
+        CompoundTag tag = stack.getOrCreateTag();
 
-		if (tag.contains("waypoint")) {
-			return true;
-		}
+        return tag.contains("waypoint");
+    }
 
-		return false;
-	}
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        if (world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
+            ItemStack stack = user.getStackInHand(hand);
 
-	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-		if (world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
-			ItemStack stack = user.getStackInHand(hand);
+            CompoundTag tag = stack.getOrCreateTag();
 
-			CompoundTag tag = stack.getOrCreateTag();
+            if (tag.contains("nextTime")) {
+                long cTime = world.getTime();
+                long nextTime = tag.getLong("nextTime");
 
-			if (tag.contains("nextTime")) {
-				long cTime = world.getTime();
-				long nextTime = tag.getLong("nextTime");
+                if (cTime < nextTime) {
+                    user.sendMessage(new LiteralText("This portal attuner is on cooldown for " + (nextTime - cTime) / 20L + " seconds."), true);
+                    return TypedActionResult.consume(stack);
+                }
+            }
+            if (tag.contains("waypoint")) {
+                if (!world.isClient()) {
+                    int[] pos = tag.getIntArray("waypoint");
 
-				if (cTime < nextTime) {
-					user.sendMessage(new LiteralText("This portal attuner is on cooldown for " + (nextTime - cTime) / 20L + " seconds."), true);
-					return TypedActionResult.consume(stack);
-				}
-			}
-			if (tag.contains("waypoint")) {
-				if (!world.isClient()) {
-					int[] pos = tag.getIntArray("waypoint");
+                    user.teleport(pos[0] + 0.5, pos[1], pos[2] + 0.5);
+                }
 
-					user.teleport(pos[0] + 0.5, pos[1], pos[2] + 0.5);
-				}
+                tag.putLong("nextTime", world.getTime() + 20L * 60L * 5L);
 
-				tag.putLong("nextTime", world.getTime() + 20L * 60L * 5L);
+                return TypedActionResult.consume(stack);
+            }
+        }
 
-				return TypedActionResult.consume(stack);
-			}
-		}
+        return super.use(world, user, hand);
+    }
 
-		return super.use(world, user, hand);
-	}
+    @Override
+    public ActionResult useOnBlock(ItemUsageContext context) {
+        BlockPos pos = context.getBlockPos();
+        World world = context.getWorld();
 
-	@Override
-	public ActionResult useOnBlock(ItemUsageContext context) {
-		BlockPos pos = context.getBlockPos();
-		World world = context.getWorld();
+        if (world.getBlockState(pos) == LintBlocks2.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true)) {
+            context.getStack().getOrCreateTag().putIntArray("waypoint", new int[]{pos.getX(), pos.getY() + 1, pos.getZ()});
+            return ActionResult.SUCCESS;
+        }
 
-		if (world.getBlockState(pos) == LintBlocks2.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true)) {
-			context.getStack().getOrCreateTag().putIntArray("waypoint", new int[] {pos.getX(), pos.getY() + 1, pos.getZ()});
-			return ActionResult.SUCCESS;
-		}
-
-		return ActionResult.PASS;
-	}
+        return ActionResult.PASS;
+    }
 }

@@ -19,11 +19,6 @@
 
 package me.hydos.lint.npc.ai;
 
-import java.util.function.BooleanSupplier;
-import java.util.function.Function;
-
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.entity.goal.SeekBlockGoal;
 import me.hydos.lint.entity.passive.human.NPCHumanEntity;
 import net.minecraft.entity.ai.goal.FleeEntityGoal;
@@ -31,45 +26,49 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.world.LightType;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.BooleanSupplier;
+import java.util.function.Function;
 
 public class Task {
-	private Task(Task parent, Predicate predicate) {
-		this.goalProvider = parent.goalProvider;
-		this.predicate = predicate;
-	}
-	
-	public Task(Function<NPCHumanEntity, Goal> goalProvider) {
-		this.goalProvider = goalProvider;
-	}
+    private Task(Task parent, Predicate predicate) {
+        this.goalProvider = parent.goalProvider;
+        this.predicate = predicate;
+    }
 
-	private final Function<NPCHumanEntity, Goal> goalProvider;
-	private Predicate predicate;
+    public Task(Function<NPCHumanEntity, Goal> goalProvider) {
+        this.goalProvider = goalProvider;
+    }
 
-	Task withPredicate(@Nullable Predicate predicate) {
-		return predicate == null ? this : new Task(this, predicate);
-	}
+    private final Function<NPCHumanEntity, Goal> goalProvider;
+    private Predicate predicate;
 
-	public Goal createGoal(NPCHumanEntity entity) {
-		return this.goalProvider.apply(entity);
-	}
+    Task withPredicate(@Nullable Predicate predicate) {
+        return predicate == null ? this : new Task(this, predicate);
+    }
 
-	Predicate getPredicate() {
-		return this.predicate;
-	}
+    public Goal createGoal(NPCHumanEntity entity) {
+        return this.goalProvider.apply(entity);
+    }
 
-	public static final Task FLEE_HOSTILE_ENEMIES = new Task(npc -> new FleeEntityGoal<>(npc, HostileEntity.class, 4.0f, 2.5f, 3.0f));
-	public static final Task SEEK_LIGHT = new Task(npc -> new SeekBlockGoal(npc, b -> b.getDefaultState().getLuminance() > 8 && npc.getEntityWorld().getLightLevel(LightType.BLOCK, npc.getBlockPos()) < 10, 16, 2.0f, 2.5f));
-	public static final Task SAUNTER_AROUND = new Task(npc -> new WanderAroundGoal(npc, 1.5f, 32));
-	public static final Task WALK_AROUND = new Task(npc -> new WanderAroundGoal(npc, 2.0f, 64));
+    Predicate getPredicate() {
+        return this.predicate;
+    }
 
-	public enum Predicate {
-		NIGHT(e -> () -> e.getEntityWorld().isNight()),
-		DAY(e -> () -> e.getEntityWorld().isDay());
+    public static final Task FLEE_HOSTILE_ENEMIES = new Task(npc -> new FleeEntityGoal<>(npc, HostileEntity.class, 4.0f, 2.5f, 3.0f));
+    public static final Task SEEK_LIGHT = new Task(npc -> new SeekBlockGoal(npc, b -> b.getDefaultState().getLuminance() > 8 && npc.getEntityWorld().getLightLevel(LightType.BLOCK, npc.getBlockPos()) < 10, 16, 2.0f, 2.5f));
+    public static final Task SAUNTER_AROUND = new Task(npc -> new WanderAroundGoal(npc, 1.5f, 32));
+    public static final Task WALK_AROUND = new Task(npc -> new WanderAroundGoal(npc, 2.0f, 64));
 
-		private Predicate(Function<NPCHumanEntity, BooleanSupplier> conditionProvider) {
-			this.provider = conditionProvider;
-		}
+    public enum Predicate {
+        NIGHT(e -> () -> e.getEntityWorld().isNight()),
+        DAY(e -> () -> e.getEntityWorld().isDay());
 
-		public final Function<NPCHumanEntity, BooleanSupplier> provider;
-	}
+        Predicate(Function<NPCHumanEntity, BooleanSupplier> conditionProvider) {
+            this.provider = conditionProvider;
+        }
+
+        public final Function<NPCHumanEntity, BooleanSupplier> provider;
+    }
 }

@@ -20,15 +20,15 @@
 package me.hydos.lint.world.gen.terrain;
 
 public interface TerrainGenerator {
-	double sampleTypeScale(int x, int z);
+    double sampleTypeScale(int x, int z);
 
-	double sampleTerrainScale(int x, int z);
+    double sampleTerrainScale(int x, int z);
 
-	int sampleBaseHeight(int x, int z);
+    int sampleBaseHeight(int x, int z);
 
-	int sampleTerraceMod(int x, int z);
+    int sampleTerraceMod(int x, int z);
 
-	int getHeight(int x, int z);
+    int getHeight(int x, int z);
 
-	int getLowerGenBound(int x, int z, int height);
+    int getLowerGenBound(int x, int z, int height);
 }

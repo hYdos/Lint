@@ -40,36 +40,37 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = Entity.class, priority = 69696969)
 public abstract class EntityMixin {
 
-	@Shadow
-	public World world;
+    @Shadow
+    public World world;
 
-	@Shadow
-	public abstract Vec3d getPos();
+    @Shadow
+    public abstract Vec3d getPos();
 
-	@Shadow
-	public abstract BlockPos getBlockPos();
+    @Shadow
+    public abstract BlockPos getBlockPos();
 
-	@Shadow public abstract Text getName();
+    @Shadow
+    public abstract Text getName();
 
-	boolean doNormalCheck;
+    boolean doNormalCheck;
 
-	@Redirect(method = "updateMovementInFluid", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/tag/Tag;)Z"))
-	private boolean isIn(FluidState state, Tag<Fluid> tag) {
-		if(doNormalCheck){
-			return state.isIn(tag);
-		}
-		if(!(((Object) this) instanceof EndermanEntity)) {
-			if (!state.getFluid().isIn(tag) && !tag.equals(FluidTags.LAVA)) {
-				return !state.isEmpty();
-			} else {
-				return state.isIn(tag);
-			}
-		}
-		return state.isIn(tag);
-	}
+    @Redirect(method = "updateMovementInFluid", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/tag/Tag;)Z"))
+    private boolean isIn(FluidState state, Tag<Fluid> tag) {
+        if (doNormalCheck) {
+            return state.isIn(tag);
+        }
+        if (!(((Object) this) instanceof EndermanEntity)) {
+            if (!state.getFluid().isIn(tag) && !tag.equals(FluidTags.LAVA)) {
+                return !state.isEmpty();
+            } else {
+                return state.isIn(tag);
+            }
+        }
+        return state.isIn(tag);
+    }
 
-	@Inject(method = "isWet", at = @At("HEAD"), cancellable = true)
-	private void isRaining(CallbackInfoReturnable<Boolean> cir) {
-		cir.setReturnValue(world.isRaining() || this.world.getFluidState(getBlockPos()).isIn(FluidTags.WATER) && world.getBlockState(getBlockPos()).getBlock() != Blocks.AIR);
-	}
+    @Inject(method = "isWet", at = @At("HEAD"), cancellable = true)
+    private void isRaining(CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(world.isRaining() || this.world.getFluidState(getBlockPos()).isIn(FluidTags.WATER) && world.getBlockState(getBlockPos()).getBlock() != Blocks.AIR);
+    }
 }

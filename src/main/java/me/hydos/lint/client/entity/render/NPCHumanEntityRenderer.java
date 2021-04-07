@@ -68,7 +68,7 @@ public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity,
 	}
 
 	private void setModelPose(NPCHumanEntity NPCHumanEntity) {
-		PlayerEntityModel<NPCHumanEntity> playerEntityModel = (PlayerEntityModel)this.getModel();
+		PlayerEntityModel<NPCHumanEntity> playerEntityModel = this.getModel();
 
 		playerEntityModel.setVisible(true);
 		playerEntityModel.helmet.visible = true;
@@ -132,15 +132,15 @@ public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity,
 	}
 
 	public void renderRightArm(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NPCHumanEntity player) {
-		this.renderArm(matrices, vertexConsumers, light, player, this.model.rightArm, ((PlayerEntityModel)this.model).rightSleeve);
+		this.renderArm(matrices, vertexConsumers, light, player, this.model.rightArm, this.model.rightSleeve);
 	}
 
 	public void renderLeftArm(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NPCHumanEntity player) {
-		this.renderArm(matrices, vertexConsumers, light, player, ((PlayerEntityModel)this.model).leftArm, ((PlayerEntityModel)this.model).leftSleeve);
+		this.renderArm(matrices, vertexConsumers, light, player, this.model.leftArm, this.model.leftSleeve);
 	}
 
 	private void renderArm(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, NPCHumanEntity player, ModelPart arm, ModelPart sleeve) {
-		PlayerEntityModel<NPCHumanEntity> playerEntityModel = (PlayerEntityModel)this.getModel();
+		PlayerEntityModel<NPCHumanEntity> playerEntityModel = this.getModel();
 		this.setModelPose(player);
 		playerEntityModel.handSwingProgress = 0.0F;
 		playerEntityModel.sneaking = false;

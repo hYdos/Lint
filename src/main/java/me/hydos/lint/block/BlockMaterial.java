@@ -19,9 +19,6 @@
 
 package me.hydos.lint.block;
 
-import java.util.function.Function;
-import java.util.function.ToIntFunction;
-
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockAccessor;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
 import net.minecraft.block.Block;
@@ -32,278 +29,281 @@ import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.tag.Tag;
 
+import java.util.function.Function;
+import java.util.function.ToIntFunction;
+
 /**
  * Represents the properties of a block material.
  */
 public class BlockMaterial {
-	private BlockMaterial(BlockMaterial builder) {
-		this.material = builder.material;
-		this.materialColour = builder.materialColour;
-		this.hardness = builder.hardness;
-		this.luminosity = builder.luminosity;
-		this.resistance = builder.resistance;
+    private BlockMaterial(BlockMaterial builder) {
+        this.material = builder.material;
+        this.materialColour = builder.materialColour;
+        this.hardness = builder.hardness;
+        this.luminosity = builder.luminosity;
+        this.resistance = builder.resistance;
 
-		this.sounds = builder.sounds;
-		this.ticksRandomly = builder.ticksRandomly;
-		this.dropsNothing = builder.dropsNothing;
-		this.slipperiness = builder.slipperiness;
-		this.toolRequired = builder.toolRequired;
-		this.collidable = builder.collidable;
-		this.opaque = builder.opaque;
+        this.sounds = builder.sounds;
+        this.ticksRandomly = builder.ticksRandomly;
+        this.dropsNothing = builder.dropsNothing;
+        this.slipperiness = builder.slipperiness;
+        this.toolRequired = builder.toolRequired;
+        this.collidable = builder.collidable;
+        this.opaque = builder.opaque;
 
-		this.toolType = builder.toolType;
-		this.miningLevel = builder.miningLevel;
+        this.toolType = builder.toolType;
+        this.miningLevel = builder.miningLevel;
 
-		this.burnChance = builder.burnChance;
-		this.spreadChance = builder.spreadChance;
-	}
+        this.burnChance = builder.burnChance;
+        this.spreadChance = builder.spreadChance;
+    }
 
-	private BlockMaterial() {
-	}
+    private BlockMaterial() {
+    }
 
-	// Based Properties
-	Material material;
-	Function<BlockState, MaterialColor> materialColour;
-	float hardness = 0.0f;
-	float resistance = 0.0f;
-	ToIntFunction<BlockState> luminosity = ignored -> 0;
+    // Based Properties
+    Material material;
+    Function<BlockState, MaterialColor> materialColour;
+    float hardness = 0.0f;
+    float resistance = 0.0f;
+    ToIntFunction<BlockState> luminosity = ignored -> 0;
 
-	// Cringe Properties
-	BlockSoundGroup sounds = BlockSoundGroup.STONE;
-	boolean ticksRandomly = false;
-	boolean dropsNothing = false;
-	float slipperiness = 0.6f;
-	boolean toolRequired = false;
-	boolean collidable = true;
-	Boolean opaque = null;
+    // Cringe Properties
+    BlockSoundGroup sounds = BlockSoundGroup.STONE;
+    boolean ticksRandomly = false;
+    boolean dropsNothing = false;
+    float slipperiness = 0.6f;
+    boolean toolRequired = false;
+    boolean collidable = true;
+    Boolean opaque = null;
 
-	// Blessed Fabric Stuff
-	Tag<Item> toolType;
-	int miningLevel;
+    // Blessed Fabric Stuff
+    Tag<Item> toolType;
+    int miningLevel;
 
-	// Nice Lint Properties
-	int burnChance = -1;
-	int spreadChance;
+    // Nice Lint Properties
+    int burnChance = -1;
+    int spreadChance;
 
-	// Builder methods
+    // Builder methods
 
-	public Builder material(Material material) {
-		return new Builder(this).material(material);
-	}
+    public Builder material(Material material) {
+        return new Builder(this).material(material);
+    }
 
-	public Builder colour(MaterialColor colour) {
-		return new Builder(this).colour(colour);
-	}
+    public Builder colour(MaterialColor colour) {
+        return new Builder(this).colour(colour);
+    }
 
-	public Builder colour(Function<BlockState, MaterialColor> colour) {
-		return new Builder(this).colour(colour);
-	}
+    public Builder colour(Function<BlockState, MaterialColor> colour) {
+        return new Builder(this).colour(colour);
+    }
 
-	public Builder hardness(float hardness) {
-		return new Builder(this).hardness(hardness);
-	}
+    public Builder hardness(float hardness) {
+        return new Builder(this).hardness(hardness);
+    }
 
-	public Builder resistance(float resistance) {
-		return new Builder(this).resistance(resistance);
-	}
+    public Builder resistance(float resistance) {
+        return new Builder(this).resistance(resistance);
+    }
 
-	/**
-	 * Sets both hardness and resistance to the same value.
-	 */
-	public Builder strength(float strength) {
-		return new Builder(this).strength(strength);
-	}
+    /**
+     * Sets both hardness and resistance to the same value.
+     */
+    public Builder strength(float strength) {
+        return new Builder(this).strength(strength);
+    }
 
-	public Builder luminosity(int luminosity) {
-		return new Builder(this).luminosity(luminosity);
-	}
+    public Builder luminosity(int luminosity) {
+        return new Builder(this).luminosity(luminosity);
+    }
 
-	public Builder luminosity(ToIntFunction<BlockState> luminosity) {
-		return new Builder(this).luminosity(luminosity);
-	}
+    public Builder luminosity(ToIntFunction<BlockState> luminosity) {
+        return new Builder(this).luminosity(luminosity);
+    }
 
-	public Builder sounds(BlockSoundGroup sounds) {
-		return new Builder(this).sounds(sounds);
-	}
+    public Builder sounds(BlockSoundGroup sounds) {
+        return new Builder(this).sounds(sounds);
+    }
 
-	/**
-	 * Sets hardness and resistance to 0.
-	 */
-	public Builder breaksInstantly() {
-		return new Builder(this).breaksInstantly();
-	}
+    /**
+     * Sets hardness and resistance to 0.
+     */
+    public Builder breaksInstantly() {
+        return new Builder(this).breaksInstantly();
+    }
 
-	public Builder ticksRandomly() {
-		return new Builder(this).ticksRandomly();
-	}
+    public Builder ticksRandomly() {
+        return new Builder(this).ticksRandomly();
+    }
 
-	public Builder dropsNothing() {
-		return new Builder(this).dropsNothing();
-	}
+    public Builder dropsNothing() {
+        return new Builder(this).dropsNothing();
+    }
 
-	public Builder slipperiness(float slipperiness) {
-		return new Builder(this).slipperiness(slipperiness);
-	}
+    public Builder slipperiness(float slipperiness) {
+        return new Builder(this).slipperiness(slipperiness);
+    }
 
-	public Builder collidable(boolean collidable) {
-		return new Builder(this).collidable(this.collidable);
-	}
+    public Builder collidable(boolean collidable) {
+        return new Builder(this).collidable(this.collidable);
+    }
 
-	public Builder miningLevel(Tag<Item> toolType, int miningLevel) {
-		return new Builder(this).miningLevel(toolType, miningLevel);
-	}
+    public Builder miningLevel(Tag<Item> toolType, int miningLevel) {
+        return new Builder(this).miningLevel(toolType, miningLevel);
+    }
 
-	public Builder flammability(int burnChance, int spreadChance) {
-		return new Builder(this).flammability(burnChance, spreadChance);
-	}
+    public Builder flammability(int burnChance, int spreadChance) {
+        return new Builder(this).flammability(burnChance, spreadChance);
+    }
 
-	// Non Builder Stuff
+    // Non Builder Stuff
 
-	public static Builder builder() {
-		return new Builder();
-	}
+    public static Builder builder() {
+        return new Builder();
+    }
 
-	public static Builder copy(Block existing) {
-		return new Builder(existing);
-	}
+    public static Builder copy(Block existing) {
+        return new Builder(existing);
+    }
 
-	public static class Builder extends BlockMaterial {
-		private Builder(BlockMaterial builder) {
-			super(builder);
-		}
+    public static class Builder extends BlockMaterial {
+        private Builder(BlockMaterial builder) {
+            super(builder);
+        }
 
-		private Builder(Block existing) {
-			AbstractBlockSettingsAccessor settings = (AbstractBlockSettingsAccessor) ((AbstractBlockAccessor) existing).getSettings();
+        private Builder(Block existing) {
+            AbstractBlockSettingsAccessor settings = (AbstractBlockSettingsAccessor) ((AbstractBlockAccessor) existing).getSettings();
 
-			this.material = settings.getMaterial();
-			this.materialColour = settings.getMaterialColorFactory();
-			this.hardness = settings.getHardness();
-			this.luminosity = settings.getLuminance();
-			this.resistance = settings.getResistance();
+            this.material = settings.getMaterial();
+            this.materialColour = settings.getMaterialColorFactory();
+            this.hardness = settings.getHardness();
+            this.luminosity = settings.getLuminance();
+            this.resistance = settings.getResistance();
 
-			this.sounds = settings.getSoundGroup();
-			this.ticksRandomly = settings.getRandomTicks();
-			this.dropsNothing = false; // TODO how
-			this.slipperiness = settings.getSlipperiness();
-			this.toolRequired = settings.isToolRequired();
-			this.collidable = settings.getCollidable();
-			this.opaque = settings.getOpaque();
-		}
+            this.sounds = settings.getSoundGroup();
+            this.ticksRandomly = settings.getRandomTicks();
+            this.dropsNothing = false; // TODO how
+            this.slipperiness = settings.getSlipperiness();
+            this.toolRequired = settings.isToolRequired();
+            this.collidable = settings.getCollidable();
+            this.opaque = settings.getOpaque();
+        }
 
-		private Builder() {
-		}
+        private Builder() {
+        }
 
-		@Override
-		public Builder material(Material material) {
-			this.material = material;
-			return this;
-		}
+        @Override
+        public Builder material(Material material) {
+            this.material = material;
+            return this;
+        }
 
-		@Override
-		public Builder colour(MaterialColor colour) {
-			this.materialColour = ignored -> colour;
-			return this;
-		}
+        @Override
+        public Builder colour(MaterialColor colour) {
+            this.materialColour = ignored -> colour;
+            return this;
+        }
 
-		@Override
-		public Builder colour(Function<BlockState, MaterialColor> colour) {
-			this.materialColour = colour;
-			return this;
-		}
+        @Override
+        public Builder colour(Function<BlockState, MaterialColor> colour) {
+            this.materialColour = colour;
+            return this;
+        }
 
-		@Override
-		public Builder hardness(float hardness) {
-			this.hardness = hardness;
-			return this;
-		}
+        @Override
+        public Builder hardness(float hardness) {
+            this.hardness = hardness;
+            return this;
+        }
 
-		@Override
-		public Builder strength(float strength) {
-			this.hardness = strength;
-			this.resistance = strength;
-			return this;
-		}
+        @Override
+        public Builder strength(float strength) {
+            this.hardness = strength;
+            this.resistance = strength;
+            return this;
+        }
 
-		@Override
-		public Builder resistance(float resistance) {
-			this.resistance = resistance;
-			return this;
-		}
+        @Override
+        public Builder resistance(float resistance) {
+            this.resistance = resistance;
+            return this;
+        }
 
-		@Override
-		public Builder luminosity(int luminosity) {
-			this.luminosity = ignored -> luminosity;
-			return this;
-		}
+        @Override
+        public Builder luminosity(int luminosity) {
+            this.luminosity = ignored -> luminosity;
+            return this;
+        }
 
-		@Override
-		public Builder luminosity(ToIntFunction<BlockState> luminosity) {
-			this.luminosity = luminosity;
-			return this;
-		}
+        @Override
+        public Builder luminosity(ToIntFunction<BlockState> luminosity) {
+            this.luminosity = luminosity;
+            return this;
+        }
 
-		@Override
-		public Builder sounds(BlockSoundGroup sounds) {
-			this.sounds = sounds;
-			return this;
-		}
+        @Override
+        public Builder sounds(BlockSoundGroup sounds) {
+            this.sounds = sounds;
+            return this;
+        }
 
-		@Override
-		public Builder breaksInstantly() {
-			return this.strength(0.0F);
-		}
+        @Override
+        public Builder breaksInstantly() {
+            return this.strength(0.0F);
+        }
 
-		@Override
-		public Builder ticksRandomly() {
-			this.ticksRandomly = true;
-			return this;
-		}
+        @Override
+        public Builder ticksRandomly() {
+            this.ticksRandomly = true;
+            return this;
+        }
 
-		@Override
-		public Builder dropsNothing() {
-			this.dropsNothing = true;
-			return this;
-		}
+        @Override
+        public Builder dropsNothing() {
+            this.dropsNothing = true;
+            return this;
+        }
 
-		@Override
-		public Builder slipperiness(float slipperiness) {
-			this.slipperiness = slipperiness;
-			return this;
-		}
+        @Override
+        public Builder slipperiness(float slipperiness) {
+            this.slipperiness = slipperiness;
+            return this;
+        }
 
-		@Override
-		public Builder collidable(boolean collidable) {
-			this.collidable = collidable;
-			return this;
-		}
+        @Override
+        public Builder collidable(boolean collidable) {
+            this.collidable = collidable;
+            return this;
+        }
 
-		@Override
-		/**
-		 * Set the mining level and preferred tool. If mining level is 0 or positive, it indicates a required tool. If it is negative, it indicates the tool is not required, rather only preferred.
-		 */
-		public Builder miningLevel(Tag<Item> toolType, int miningLevel) {
-			this.toolType = toolType;
+        @Override
+        /**
+         * Set the mining level and preferred tool. If mining level is 0 or positive, it indicates a required tool. If it is negative, it indicates the tool is not required, rather only preferred.
+         */
+        public Builder miningLevel(Tag<Item> toolType, int miningLevel) {
+            this.toolType = toolType;
 
-			if (miningLevel < 0) {
-				this.miningLevel = 0;
-				this.toolRequired = false;
-			} else {
-				this.miningLevel = miningLevel;
-				this.toolRequired = true;
-			}
+            if (miningLevel < 0) {
+                this.miningLevel = 0;
+                this.toolRequired = false;
+            } else {
+                this.miningLevel = miningLevel;
+                this.toolRequired = true;
+            }
 
-			return this;
-		}
+            return this;
+        }
 
-		@Override
-		public Builder flammability(int burnChance, int spreadChance) {
-			this.burnChance = burnChance;
-			this.spreadChance = spreadChance;
-			return this;
-		}
+        @Override
+        public Builder flammability(int burnChance, int spreadChance) {
+            this.burnChance = burnChance;
+            this.spreadChance = spreadChance;
+            return this;
+        }
 
-		public BlockMaterial template() {
-			return new BlockMaterial(this);
-		}
-	}
+        public BlockMaterial template() {
+            return new BlockMaterial(this);
+        }
+    }
 }

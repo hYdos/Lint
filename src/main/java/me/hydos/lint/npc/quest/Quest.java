@@ -19,48 +19,48 @@
 
 package me.hydos.lint.npc.quest;
 
-import java.util.Random;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
+import java.util.Random;
+
 public abstract class Quest {
-	public Quest(Identifier id, QuestCategory category) {
-		this.category = category;
-		this.id = id;
-		this.title = "quest." + id.getNamespace() + "." + id.getPath() + ".title";
-		this.description = "quest." + id.getNamespace() + "." + id.getPath() + ".description";
-	}
+    public Quest(Identifier id, QuestCategory category) {
+        this.category = category;
+        this.id = id;
+        this.title = "quest." + id.getNamespace() + "." + id.getPath() + ".title";
+        this.description = "quest." + id.getNamespace() + "." + id.getPath() + ".description";
+    }
 
-	private final String title;
-	private final String description;
-	private final Identifier id;
-	private final QuestCategory category;
+    private final String title;
+    private final String description;
+    private final Identifier id;
+    private final QuestCategory category;
 
-	public final Identifier getId() {
-		return this.id;
-	}
+    public final Identifier getId() {
+        return this.id;
+    }
 
-	public final QuestCategory getCategory() {
-		return this.category;
-	}
+    public final QuestCategory getCategory() {
+        return this.category;
+    }
 
-	public Text getTitle() {
-		return new TranslatableText(this.title);
-	}
+    public Text getTitle() {
+        return new TranslatableText(this.title);
+    }
 
-	public Text getDescription() {
-		return new TranslatableText(this.description);
-	}
+    public Text getDescription() {
+        return new TranslatableText(this.description);
+    }
 
-	public void loadNBT(CompoundTag tag) {
-	}
-	
-	public void writeNBT(CompoundTag tag) {
-	}
+    public void loadNBT(CompoundTag tag) {
+    }
 
-	public abstract ItemStack[] getRewards(Random rand);
+    public void writeNBT(CompoundTag tag) {
+    }
+
+    public abstract ItemStack[] getRewards(Random rand);
 }

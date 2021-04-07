@@ -23,16 +23,16 @@ package me.hydos.lint.npc.quest;
  * Indicates the category of quest a quest is.
  */
 public enum QuestCategory {
-	/**
-	 * The main questline.
-	 */
-	MAIN,
-	/**
-	 * Story based quests.
-	 */
-	STORY,
-	/**
-	 * RNG-Generated quests within the world.
-	 */
-	WORLD
+    /**
+     * The main questline.
+     */
+    MAIN,
+    /**
+     * Story based quests.
+     */
+    STORY,
+    /**
+     * RNG-Generated quests within the world.
+     */
+    WORLD
 }

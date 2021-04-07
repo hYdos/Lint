@@ -19,8 +19,6 @@
 
 package me.hydos.lint.world.biome.surface;
 
-import java.util.Random;
-
 import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.biome.Biome;
@@ -28,19 +26,21 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
+import java.util.Random;
+
 public class DawnShardlandsEdgeSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
-	private static final TernarySurfaceConfig ASH_CONFIG = new TernarySurfaceConfig(LintBlocks2.ASH.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState(), LintBlocks2.ASH.getDefaultState());
+    private static final TernarySurfaceConfig ASH_CONFIG = new TernarySurfaceConfig(LintBlocks2.ASH.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState(), LintBlocks2.ASH.getDefaultState());
 
-	public DawnShardlandsEdgeSurfaceBuilder() {
-		super(TernarySurfaceConfig.CODEC);
-	}
+    public DawnShardlandsEdgeSurfaceBuilder() {
+        super(TernarySurfaceConfig.CODEC);
+    }
 
-	@Override
-	public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, TernarySurfaceConfig surfaceBlocks) {
-		if (noise < -2.0f) {
-			SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, ASH_CONFIG);
-		} else {
-			SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, surfaceBlocks);
-		}
-	}
+    @Override
+    public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, TernarySurfaceConfig surfaceBlocks) {
+        if (noise < -2.0f) {
+            SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, ASH_CONFIG);
+        } else {
+            SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, surfaceBlocks);
+        }
+    }
 }

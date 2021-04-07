@@ -19,48 +19,38 @@
 
 package me.hydos.lint.item;
 
-import static me.hydos.lint.Lint.RESOURCE_PACK;
-import static me.hydos.lint.Lint.id;
-
-import org.jetbrains.annotations.Nullable;
-
-import net.devtech.arrp.json.blockstate.JBlockModel;
-import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.models.JModel;
-import net.devtech.arrp.json.recipe.JIngredient;
-import net.devtech.arrp.json.recipe.JKeys;
-import net.devtech.arrp.json.recipe.JPattern;
 import net.devtech.arrp.json.recipe.JRecipe;
-import net.devtech.arrp.json.recipe.JResult;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import static me.hydos.lint.Lint.RESOURCE_PACK;
+import static me.hydos.lint.Lint.id;
 
 /**
  * ARRP for item data.
  */
 public class ItemData {
-	public static Item registerGenerated(String id, Item item) {
-		Identifier modelIdentifier = id("item/" + id);
-		RESOURCE_PACK.addModel(generatedModel(modelIdentifier), modelIdentifier);
-		return Registry.register(Registry.ITEM, id(id), item);
-	}
+    public static Item registerGenerated(String id, Item item) {
+        Identifier modelIdentifier = id("item/" + id);
+        RESOURCE_PACK.addModel(generatedModel(modelIdentifier), modelIdentifier);
+        return Registry.register(Registry.ITEM, id(id), item);
+    }
 
-	public static Item registerHandheld(String id, Item item) {
-		Identifier modelIdentifier = id("item/" + id);
-		RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
-		return Registry.register(Registry.ITEM, id(id), item);
-	}
+    public static Item registerHandheld(String id, Item item) {
+        Identifier modelIdentifier = id("item/" + id);
+        RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
+        return Registry.register(Registry.ITEM, id(id), item);
+    }
 
-	public static JModel generatedModel(Identifier textureIdentifier) {
-		return JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString()));
-	}
+    public static JModel generatedModel(Identifier textureIdentifier) {
+        return JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString()));
+    }
 
-	// Recipe
+    // Recipe
 
-	public static void registerRecipe(String id, JRecipe recipe) {
-		RESOURCE_PACK.addRecipe(id(id), recipe);
-	}
+    public static void registerRecipe(String id, JRecipe recipe) {
+        RESOURCE_PACK.addRecipe(id(id), recipe);
+    }
 }
