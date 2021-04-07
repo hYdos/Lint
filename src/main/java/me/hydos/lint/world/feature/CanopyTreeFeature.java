@@ -21,10 +21,10 @@ package me.hydos.lint.world.feature;
 
 import java.util.Random;
 
+import me.hydos.lint.block.DirtLikeBlock;
 import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.refactord.block.DirtLikeBlock;
-import me.hydos.lint.refactord.block.LintBlocks2;
-import me.hydos.lint.refactord.block.organic.DistantLeavesBlock;
+import me.hydos.lint.block.LintBlocksOld;
+import me.hydos.lint.block.organic.DistantLeavesBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.util.math.BlockPos;
@@ -186,6 +186,6 @@ public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 		}
 	}
 
-	public static final BlockState LEAVES = LintBlocks2.CANOPY_LEAVES.getDefaultState().with(DistantLeavesBlock.distance(LintBlocks2.CANOPY_LEAVES), 1);
-	public static final BlockState LOG = LintBlocks2.MYSTICAL_LOG.getDefaultState();
+	public static final BlockState LEAVES = LintBlocks.CANOPY_LEAVES.getDefaultState().with(DistantLeavesBlock.distance(LintBlocks.CANOPY_LEAVES), 1);
+	public static final BlockState LOG = LintBlocks.MYSTICAL_LOG.getDefaultState();
 }

@@ -17,9 +17,9 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.refactord.block;
+package me.hydos.lint.block;
 
-import me.hydos.lint.block.BlockMaterial;
+import me.hydos.lint.block.util.BlockMaterial;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -28,7 +28,7 @@ import net.minecraft.block.PillarBlock;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
 
-/*
+/**
  * Please Follow this order for materials in this file for easy reading:
  * 1. builder() or copy()
  * 2. material
@@ -40,7 +40,7 @@ import net.minecraft.util.math.Direction;
  * 8. make it a template so modifications are redirected to making new instances.
  */
 public class LintMaterials {
-	public static final BlockMaterial log(MaterialColor top, MaterialColor side) {
+	public static BlockMaterial log(MaterialColor top, MaterialColor side) {
 		return BlockMaterial.builder()
 				.material(Material.WOOD)
 				.colour(state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? top : side)
@@ -57,7 +57,7 @@ public class LintMaterials {
 			.colour(MaterialColor.DIRT)
 			.strength(0.5f)
 			.sounds(BlockSoundGroup.GRAVEL)
-			.miningLevel(FabricToolTags.SHOVELS, 1)
+			.miningLevel(FabricToolTags.SHOVELS, -1)
 			.template();
 
 	public static final BlockMaterial FARMLAND = BlockMaterial.copy(Blocks.FARMLAND).template();

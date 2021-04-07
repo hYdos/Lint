@@ -31,7 +31,7 @@ import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import me.hydos.lint.refactord.block.DirtLikeBlock;
+import me.hydos.lint.block.DirtLikeBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.state.property.Properties;

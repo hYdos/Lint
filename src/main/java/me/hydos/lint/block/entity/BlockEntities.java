@@ -20,7 +20,7 @@
 package me.hydos.lint.block.entity;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.LintBlocksOld;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;
@@ -31,7 +31,7 @@ public class BlockEntities implements ModInitializer {
             Lint.id("smeltery"),
             BlockEntityType.Builder.create(
                     SmelteryBlockEntity::new,
-                    LintBlocks.SMELTERY
+                    LintBlocksOld.SMELTERY
             ).build(null));
 
     @Override

@@ -23,9 +23,9 @@ import java.util.Random;
 
 import org.jetbrains.annotations.Nullable;
 
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.goal.FleeBlockGoal;
 import me.hydos.lint.entity.passive.bird.EasternRosellaEntity;
-import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.screenhandler.LilTaterInteractScreenHandler;
 import me.hydos.lint.util.LintInventory;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -85,7 +85,7 @@ public class TinyPotatoEntity extends TameableShoulderEntity implements Extended
 	}
 
 	public static boolean canSpawn(EntityType<?> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-		return world.getBlockState(pos.down()).isOf(LintBlocks2.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8;
+		return world.getBlockState(pos.down()).isOf(LintBlocks.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8;
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class TinyPotatoEntity extends TameableShoulderEntity implements Extended
 		this.goalSelector.add(0, new EscapeDangerGoal(this, 1.25D));
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new FleeEntityGoal<>(this, EasternRosellaEntity.class, 8.0F, 1.0D, 1.3D));
-		this.goalSelector.add(2, new FleeBlockGoal(this, LintBlocks2.TATERBANE, 4, 1.0D, 1.2D));
+		this.goalSelector.add(2, new FleeBlockGoal(this, LintBlocks.TATERBANE, 4, 1.0D, 1.2D));
 		this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(4, new SitGoal(this));
 		this.goalSelector.add(4, new TemptGoal(this, 1.1D, FOOD, false));

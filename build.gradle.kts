@@ -23,11 +23,11 @@ repositories {
 val modImplementationAndInclude by configurations.register("modImplementationAndInclude")
 
 dependencies {
-	minecraft("net.minecraft", "minecraft", "1.16.4")
-	mappings("net.fabricmc", "yarn", "1.16.4+build.7", classifier = "v2")
+    minecraft("net.minecraft", "minecraft", "1.16.5")
+    mappings("net.fabricmc", "yarn", "1.16.5+build.6", classifier = "v2")
 
-	modImplementation("net.fabricmc", "fabric-loader", "0.10.8")
-	modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.29.1+1.16")
+    modImplementation("net.fabricmc", "fabric-loader", "0.11.3")
+    modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.32.5+1.16")
 
 	modImplementationAndInclude("net.devtech", "arrp", "0.3.2")
 	modImplementationAndInclude("curse.maven", "geckolib-fabric-398667", "3155712")

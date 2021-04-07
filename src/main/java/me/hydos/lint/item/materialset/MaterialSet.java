@@ -19,7 +19,7 @@
 
 package me.hydos.lint.item.materialset;
 
-import me.hydos.lint.block.LintDataRegistry;
+import me.hydos.lint.item.ItemData;
 import net.devtech.arrp.json.recipe.*;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
@@ -40,13 +40,10 @@ public final class MaterialSet {
     private boolean registered = false;
 
     public MaterialSet(String registryName, ArmorMaterial armour, ToolMaterial tool, ItemGroup group) {
-        this.pickaxe = new PickaxeItem(tool, 1, -2.8F, new Item.Settings().group(group)) {
-        };
+        this.pickaxe = new PickaxeItem(tool, 1, -2.8F, new Item.Settings().group(group)) {};
         this.axe = new LintAxeItem(tool, 6.0F, -3.1F, new Item.Settings().group(group));
-        this.shovel = new ShovelItem(tool, 1.5F, -3.0F, new Item.Settings().group(group)) {
-        };
-        this.hoe = new HoeItem(tool, -2, -1.0f, new Item.Settings().group(group).rarity(Rarity.EPIC)) {
-        };
+        this.shovel = new ShovelItem(tool, 1.5F, -3.0F, new Item.Settings().group(group)) {};
+        this.hoe = new HoeItem(tool, -2, -1.0f, new Item.Settings().group(group).rarity(Rarity.EPIC)) {};
         this.sword = new LintSwordItem(tool, 3, -2.4F, new Item.Settings().group(group));
 
         this.helmet = new ArmorItem(armour, EquipmentSlot.HEAD, new Item.Settings().group(group));
@@ -81,16 +78,16 @@ public final class MaterialSet {
     }
 
     public MaterialSet registerItems() {
-        LintDataRegistry.registerHandheld(this.registryName + "_sword", this.sword);
-        LintDataRegistry.registerHandheld(this.registryName + "_axe", this.axe);
-        LintDataRegistry.registerHandheld(this.registryName + "_pickaxe", this.pickaxe);
-        LintDataRegistry.registerHandheld(this.registryName + "_shovel", this.shovel);
-        LintDataRegistry.registerHandheld(this.registryName + "_hoe", this.hoe);
+        ItemData.registerHandheld(this.registryName + "_sword", this.sword);
+        ItemData.registerHandheld(this.registryName + "_axe", this.axe);
+        ItemData.registerHandheld(this.registryName + "_pickaxe", this.pickaxe);
+        ItemData.registerHandheld(this.registryName + "_shovel", this.shovel);
+        ItemData.registerHandheld(this.registryName + "_hoe", this.hoe);
 
-        LintDataRegistry.registerGenerated(this.registryName + "_helmet", this.helmet);
-        LintDataRegistry.registerGenerated(this.registryName + "_chestplate", this.chestplate);
-        LintDataRegistry.registerGenerated(this.registryName + "_leggings", this.leggings);
-        LintDataRegistry.registerGenerated(this.registryName + "_boots", this.boots);
+        ItemData.registerGenerated(this.registryName + "_helmet", this.helmet);
+        ItemData.registerGenerated(this.registryName + "_chestplate", this.chestplate);
+        ItemData.registerGenerated(this.registryName + "_leggings", this.leggings);
+        ItemData.registerGenerated(this.registryName + "_boots", this.boots);
         this.registered = true;
         return this;
     }
@@ -100,64 +97,61 @@ public final class MaterialSet {
             final JIngredient stick = JIngredient.ingredient().item("minecraft:stick");
             final JIngredient mat = JIngredient.ingredient().item(material.toString());
 
-            // Tools
-
             if (this.pickaxe != null) {
-                LintDataRegistry.registerRecipe(this.registryName + "_sword", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_sword", JRecipe.shaped(
                         JPattern.pattern("#", "#", "/"),
                         JKeys.keys().key("#", mat).key("/", stick),
                         JResult.item(this.sword)));
 
-                LintDataRegistry.registerRecipe(this.registryName + "_axe", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_axe", JRecipe.shaped(
                         JPattern.pattern("## ", "#/ ", " / "),
                         JKeys.keys().key("#", mat).key("/", stick),
                         JResult.item(this.axe)));
 
-                LintDataRegistry.registerRecipe(this.registryName + "_axe2", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_axe2", JRecipe.shaped(
                         JPattern.pattern(" ##", " /#", " / "),
                         JKeys.keys().key("#", mat).key("/", stick),
                         JResult.item(this.axe)));
 
-                LintDataRegistry.registerRecipe(this.registryName + "_shovel", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_shovel", JRecipe.shaped(
                         JPattern.pattern("#", "/", "/"),
                         JKeys.keys().key("#", mat).key("/", stick),
                         JResult.item(this.shovel)));
 
-                LintDataRegistry.registerRecipe(this.registryName + "_hoe", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_hoe", JRecipe.shaped(
                         JPattern.pattern("##", " /", " /"),
                         JKeys.keys().key("#", mat).key("/", stick),
                         JResult.item(this.hoe)));
 
-                LintDataRegistry.registerRecipe(this.registryName + "_hoe2", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_hoe2", JRecipe.shaped(
                         JPattern.pattern("##", "/ ", "/ "),
                         JKeys.keys().key("#", mat).key("/", stick),
                         JResult.item(this.hoe)));
 
-                LintDataRegistry.registerRecipe(this.registryName + "_pickaxe", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_pickaxe", JRecipe.shaped(
                         JPattern.pattern("###", " / ", " / "),
                         JKeys.keys().key("#", mat).key("/", stick),
                         JResult.item(this.pickaxe)));
             }
 
-            // Armour
 
             if (this.helmet != null) {
-                LintDataRegistry.registerRecipe(this.registryName + "_helmet", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_helmet", JRecipe.shaped(
                         JPattern.pattern("###", "# #"),
                         JKeys.keys().key("#", mat),
                         JResult.item(this.helmet)));
 
-                LintDataRegistry.registerRecipe(this.registryName + "_chestplate", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_chestplate", JRecipe.shaped(
                         JPattern.pattern("# #", "###", "###"),
                         JKeys.keys().key("#", mat),
                         JResult.item(this.chestplate)));
 
-                LintDataRegistry.registerRecipe(this.registryName + "_leggings", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_leggings", JRecipe.shaped(
                         JPattern.pattern("###", "# #", "# #"),
                         JKeys.keys().key("#", mat),
                         JResult.item(this.leggings)));
 
-                LintDataRegistry.registerRecipe(this.registryName + "_boots", JRecipe.shaped(
+                ItemData.registerRecipe(this.registryName + "_boots", JRecipe.shaped(
                         JPattern.pattern("# #", "# #"),
                         JKeys.keys().key("#", mat),
                         JResult.item(this.boots)));

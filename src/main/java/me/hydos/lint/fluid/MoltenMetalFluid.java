@@ -19,7 +19,7 @@
 
 package me.hydos.lint.fluid;
 
-import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.LintBlocksOld;
 import me.hydos.lint.fluid.base.LintFluid;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.FlowableFluid;
@@ -51,7 +51,7 @@ public abstract class MoltenMetalFluid extends LintFluid {
 
     @Override
     protected BlockState toBlockState(FluidState state) {
-        return LintBlocks.getFluid(still).with(Properties.LEVEL_15, method_15741(state));
+        return LintBlocksOld.getFluid(still).with(Properties.LEVEL_15, method_15741(state));
     }
 
     public static class Flowing extends MoltenMetalFluid {

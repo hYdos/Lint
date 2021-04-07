@@ -29,8 +29,8 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
-import static me.hydos.lint.block.LintDataRegistry.registerGenerated;
-import static me.hydos.lint.block.LintDataRegistry.registerHandheld;
+import static me.hydos.lint.item.ItemData.registerGenerated;
+import static me.hydos.lint.item.ItemData.registerHandheld;
 
 public class LintItems {
 
@@ -74,7 +74,7 @@ public class LintItems {
     public static final Item CORRUPT_FOREST_DISC = new LintMusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 
     /**
-     * yes
+     * Misc
      */
     public static final Item DUSKBLADE = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1).rarity(Rarity.EPIC));
     public static final Item ATTUNER = new WaypointTeleportItem(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1));
@@ -103,7 +103,7 @@ public class LintItems {
     private static void registerMaterialSets() {
         SICIERON_SET.registerItems().createRecipes(Lint.id("sicieron_ingot"));
         JUREL_SET.registerItems().createRecipes(Lint.id("hardened_jurel_ingot"));
-        STONE_SET.createRecipes(Lint.id("fused_cobblestone")); // todo pearlescent cobblestone
+        STONE_SET.createRecipes(Lint.id("fused_cobblestone"));
     }
 
     private static void registerMaterials() {
