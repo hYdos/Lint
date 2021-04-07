@@ -8,3 +8,4 @@ accessible	class	net/minecraft/recipe/CookingRecipeSerializer$RecipeFactory
 mutable field net/minecraft/client/sound/AbstractSoundInstance category Lnet/minecraft/sound/SoundCategory;
 accessible field net/minecraft/client/render/WorldRenderer playingSongs Ljava/util/Map;
 accessible field net/minecraft/world/gen/decorator/DecoratorContext generator Lnet/minecraft/world/gen/chunk/ChunkGenerator;
+accessible	field	net/minecraft/world/gen/decorator/DecoratorContext	generator	Lnet/minecraft/world/gen/chunk/ChunkGenerator;
