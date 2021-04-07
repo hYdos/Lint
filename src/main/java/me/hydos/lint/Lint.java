@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 
 import io.netty.buffer.Unpooled;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.LintBlocksOld;
 import me.hydos.lint.commands.Commands;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
@@ -33,7 +34,6 @@ import me.hydos.lint.item.potion.LintPotions;
 import me.hydos.lint.network.Networking;
 import me.hydos.lint.npc.NPCs;
 import me.hydos.lint.recipe.Recipes;
-import me.hydos.lint.refactord.block.LintBlocks2;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.tag.LintBlockTags;
@@ -114,8 +114,8 @@ public final class Lint implements ModInitializer {
 
 	private void registerLintContent() {
 		LintFluids.initialize();
-		LintBlocks2.initialise();
-		LintBlocks.initialize();
+		LintBlocks.initialise();
+		LintBlocksOld.initialize();
 		LintItems.initialize();
 		LintPotions.initialize();
 		Entities.initialize();

@@ -17,9 +17,9 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.refactord.block.organic;
+package me.hydos.lint.block.organic;
 
-import me.hydos.lint.refactord.block.LintBlocks2;
+import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.entity.Entity;
@@ -53,6 +53,6 @@ public class LintCorruptGrassBlock extends FlowerBlock {
 
 	@Override
 	protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
-		return floor == LintBlocks2.CORRUPT_GRASS.getDefaultState();
+		return floor == LintBlocks.CORRUPT_GRASS.getDefaultState();
 	}
 }

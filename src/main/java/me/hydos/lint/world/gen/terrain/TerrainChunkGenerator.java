@@ -22,7 +22,7 @@ package me.hydos.lint.world.gen.terrain;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.hydos.lint.Lint;
-import me.hydos.lint.refactord.block.LintBlocks2;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.feature.Features;
@@ -165,12 +165,12 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
                         // TODO move this logic to the surface builder, or some other property
                         if (dist > FraiyaTerrainGenerator.SHARDLANDS_ISLANDS_START) {
                             if (ash && y > lowerBound) {
-                                state = LintBlocks2.ASH.getDefaultState();
+                                state = LintBlocks.ASH.getDefaultState();
                             } else {
-                                state = LintBlocks2.ASPHALT.getDefaultState();
+                                state = LintBlocks.ASPHALT.getDefaultState();
                             }
                         } else {
-                            state = LintBlocks2.FUSED_STONE.getDefaultState();
+                            state = LintBlocks.FUSED_STONE.getDefaultState();
                         }
 
                         chunk.setBlockState(pos, state, false);
@@ -222,7 +222,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
                 double noise = this.surfaceNoise.sample((double) x * 0.0625D, (double) z * 0.0625D, 0.0625D, (double) xo * 0.0625D) * 15.0D;
 
                 region.getBiome(mutable.set(startX + xo, height, startZ + zo)).buildSurface(rand, chunk, x, z, height, noise,
-                        LintBlocks2.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(), region.getSeed());
+                        LintBlocks.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(), region.getSeed());
 
                 // bedrock
                 if (x * x + z * z < FraiyaTerrainGenerator.SHARDLANDS_FADE_START) {
@@ -242,7 +242,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 
         for (int y = 0; y < 256; ++y) {
             if (y < height) {
-                column[y] = LintBlocks2.FUSED_STONE.getDefaultState();
+                column[y] = LintBlocks.FUSED_STONE.getDefaultState();
             } else if (y < seaLevel) {
                 column[y] = Blocks.WATER.getDefaultState();
             } else {

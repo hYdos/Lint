@@ -21,7 +21,7 @@ package me.hydos.lint.world.feature;
 
 import java.util.Random;
 
-import me.hydos.lint.refactord.block.LintBlocks2;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.GridDirection;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
@@ -54,23 +54,23 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 	private static final int OUTSKIRTS_DIST = 320 * 320;
 
 	private static final TownBlocks HERIA = new TownBlocks()
-			.floor(LintBlocks2.MYSTICAL_PLANKS.getDefaultState())
-			.walls(LintBlocks2.MYSTICAL_PLANKS.getDefaultState(), LintBlocks2.MYSTICAL_LOG.getDefaultState())
+			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
+			.walls(LintBlocks.MYSTICAL_PLANKS.getDefaultState(), LintBlocks.MYSTICAL_LOG.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
 	private static final TownBlocks AURIA = new TownBlocks()
 			.floor(Blocks.SMOOTH_STONE.getDefaultState())
-			.walls(Blocks.BRICKS.getDefaultState(), LintBlocks2.CORRUPT_LOG.getDefaultState())
+			.walls(Blocks.BRICKS.getDefaultState(), LintBlocks.CORRUPT_LOG.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
 	private static final TownBlocks PAWERIA_CENTRE = new TownBlocks()
-			.floor(LintBlocks2.MYSTICAL_PLANKS.getDefaultState())
-			.walls(LintBlocks2.CORRUPT_PLANKS.getDefaultState(), LintBlocks2.CORRUPT_LOG_STRIPPED.getDefaultState())
+			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
+			.walls(LintBlocks.CORRUPT_PLANKS.getDefaultState(), LintBlocks.CORRUPT_LOG_STRIPPED.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
 	private static final TownBlocks THERIA = new TownBlocks()
-			.floor(LintBlocks2.MYSTICAL_PLANKS.getDefaultState())
-			.walls(Blocks.COBBLESTONE.getDefaultState(), LintBlocks2.MYSTICAL_LOG.getDefaultState())
+			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
+			.walls(Blocks.COBBLESTONE.getDefaultState(), LintBlocks.MYSTICAL_LOG.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
 	private static final TownBlocks[] BLOCK_SETS = new TownBlocks[] {PAWERIA_CENTRE, HERIA, AURIA, THERIA};
@@ -212,7 +212,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 				} else if (height < floor && !edge) {
 					for (int y = height; y < floor; ++y) {
 						pos.setY(y);
-						this.setBlockState(world, pos, LintBlocks2.RICH_DIRT.getDefaultState());
+						this.setBlockState(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
 					}
 				}
 
@@ -299,7 +299,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 		int y = floor + 1;
 		pos.set(x, y, z);
 
-		BlockState state = LintBlocks2.MYSTICAL_DOOR.getDefaultState().with(DoorBlock.FACING, door.reverse().direction);
+		BlockState state = LintBlocks.MYSTICAL_DOOR.getDefaultState().with(DoorBlock.FACING, door.reverse().direction);
 		this.setBlockState(world, pos, state);
 		pos.setY(y + 1);
 		this.setBlockState(world, pos, state.with(DoorBlock.HALF, DoubleBlockHalf.UPPER));

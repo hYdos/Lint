@@ -17,9 +17,8 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block;
+package me.hydos.lint.block.util;
 
-import me.hydos.lint.block.BlockBuilder.BlockConstructor;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock.OffsetType;
 import net.minecraft.block.Block;
@@ -32,6 +31,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import me.hydos.lint.block.util.BlockBuilder.BlockConstructor;
 
 /**
  * Class for constructing blocks with particular special properties.

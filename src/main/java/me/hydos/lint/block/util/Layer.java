@@ -17,24 +17,15 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.refactord.block.organic;
+package me.hydos.lint.block.util;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-
-public class FallenLeavesBlock extends LeavesBlock {
-
-	public FallenLeavesBlock(Settings settings) {
-		super(settings);
-	}
-
-	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
-		return VoxelShapes.cuboid(0f, 0f, 0f, 1f, 0.0625f, 1f);
-	}
+/**
+ * Render layer enum.
+ *
+ * @reason specifying in a common builder rather than purely on the client.
+ */
+public enum Layer {
+    DEFAULT,
+    CUTOUT_MIPPED,
+    TRANSLUCENT
 }

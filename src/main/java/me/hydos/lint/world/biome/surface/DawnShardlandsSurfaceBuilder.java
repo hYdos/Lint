@@ -19,7 +19,6 @@
 
 package me.hydos.lint.world.biome.surface;
 
-import me.hydos.lint.refactord.block.LintBlocks2;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -28,9 +27,11 @@ import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
 import java.util.Random;
 
+import me.hydos.lint.block.LintBlocks;
+
 public class DawnShardlandsSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
-    private static final TernarySurfaceConfig ALLOS_CONFIG = new TernarySurfaceConfig(LintBlocks2.ALLOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState());
-    private static final TernarySurfaceConfig MANOS_CONFIG = new TernarySurfaceConfig(LintBlocks2.MANOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState(), LintBlocks2.ASPHALT.getDefaultState());
+    private static final TernarySurfaceConfig ALLOS_CONFIG = new TernarySurfaceConfig(LintBlocks.ALLOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState());
+    private static final TernarySurfaceConfig MANOS_CONFIG = new TernarySurfaceConfig(LintBlocks.MANOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState());
 
     public DawnShardlandsSurfaceBuilder() {
         super(TernarySurfaceConfig.CODEC);
@@ -38,7 +39,7 @@ public class DawnShardlandsSurfaceBuilder extends SurfaceBuilder<TernarySurfaceC
 
     @Override
     public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, TernarySurfaceConfig surfaceBlocks) {
-        defaultBlock = LintBlocks2.ASPHALT.getDefaultState();
+        defaultBlock = LintBlocks.ASPHALT.getDefaultState();
 
         if (noise > 2.3f && noise < 3.0f) {
             SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, ALLOS_CONFIG);

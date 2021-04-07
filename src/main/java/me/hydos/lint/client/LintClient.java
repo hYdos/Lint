@@ -22,6 +22,8 @@ package me.hydos.lint.client;
 import java.util.function.Function;
 
 import me.hydos.lint.block.entity.BlockEntities;
+import me.hydos.lint.block.util.BlockBuilder;
+import me.hydos.lint.block.util.Layer;
 import me.hydos.lint.client.entity.model.CrabEntityModel;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.model.GhostEntityModel;
@@ -36,8 +38,6 @@ import me.hydos.lint.client.entity.render.KingTaterRenderer;
 import me.hydos.lint.client.entity.render.NPCHumanEntityRenderer;
 import me.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
 import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
-import me.hydos.lint.block.BlockBuilder;
-import me.hydos.lint.block.Layer;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;

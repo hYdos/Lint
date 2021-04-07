@@ -19,8 +19,6 @@
 
 package me.hydos.lint.item;
 
-import me.hydos.lint.refactord.block.LintBlocks2;
-import me.hydos.lint.refactord.block.ReturnHomeBlock;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,6 +30,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
+
+import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.ReturnHomeBlock;
 
 public class TaterEssenceItem extends Item {
 
@@ -55,8 +56,8 @@ public class TaterEssenceItem extends Item {
         BlockPos pos = context.getBlockPos();
         World world = context.getWorld();
 
-        if (world.getBlockState(pos) == LintBlocks2.RETURN_HOME.getDefaultState()) {
-            world.setBlockState(pos, LintBlocks2.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true));
+        if (world.getBlockState(pos) == LintBlocks.RETURN_HOME.getDefaultState()) {
+            world.setBlockState(pos, LintBlocks.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true));
             context.getStack().decrement(1);
             return ActionResult.SUCCESS;
         }
