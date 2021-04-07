@@ -54,7 +54,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.GeckoLib;
 
-public class Lint implements ModInitializer {
+public final class Lint implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("Lint");
 
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("lint");
@@ -82,7 +82,7 @@ public class Lint implements ModInitializer {
 
 		ServerSidePacketRegistry.INSTANCE.register(Networking.GIB_INFO_PLS, (context, data) -> {
 			try {
-				Vec2i[] towns = ((TerrainChunkGenerator) (((ServerPlayerEntity) context.getPlayer()).getServer().getWorld(Dimensions.FRAIYA_WORLD).getChunkManager().getChunkGenerator())).getTownCentres();
+				Vec2i[] towns = ((TerrainChunkGenerator) ((context.getPlayer()).getServer().getWorld(Dimensions.FRAIYA_WORLD).getChunkManager().getChunkGenerator())).getTownCentres();
 
 				PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 
