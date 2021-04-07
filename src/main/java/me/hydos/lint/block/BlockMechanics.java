@@ -17,11 +17,11 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.core.block;
+package me.hydos.lint.block;
 
 import org.jetbrains.annotations.Nullable;
 
-import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
+import me.hydos.lint.block.BlockBuilder.BlockConstructor;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

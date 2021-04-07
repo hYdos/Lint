@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.core.block;
+package me.hydos.lint.block;
 
 import java.util.function.Function;
 import java.util.function.ToIntFunction;

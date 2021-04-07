@@ -9,3 +9,4 @@ mutable field net/minecraft/client/sound/AbstractSoundInstance category Lnet/min
 accessible field net/minecraft/client/render/WorldRenderer playingSongs Ljava/util/Map;
 accessible field net/minecraft/world/gen/decorator/DecoratorContext generator Lnet/minecraft/world/gen/chunk/ChunkGenerator;
 accessible	field	net/minecraft/world/gen/decorator/DecoratorContext	generator	Lnet/minecraft/world/gen/chunk/ChunkGenerator;
+accessible	field	net/minecraft/sound/SoundEvent	id	Lnet/minecraft/util/Identifier;

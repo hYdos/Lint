@@ -20,7 +20,7 @@
 package me.hydos.lint.fluid;
 
 import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.fluid.base.ModdedFluid;
+import me.hydos.lint.fluid.base.LintFluid;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
@@ -29,7 +29,7 @@ import net.minecraft.item.Item;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 
-public abstract class MoltenMetalFluid extends ModdedFluid {
+public abstract class MoltenMetalFluid extends LintFluid {
 
 	public Fluid flowing;
 	public Fluid still;

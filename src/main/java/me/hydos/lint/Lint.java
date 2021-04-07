@@ -98,18 +98,6 @@ public final class Lint implements ModInitializer {
 		});
 
 		NPCs.initialise();
-		// Datafixer nonsense
-		// Someone help pls
-		//		DataFixerBuilder builder = new DataFixerBuilder(1);
-		//		builder.addSchema(Lintv0::new);
-		//		Schema schema1 = builder.addSchema(1, Lintv1::new);
-		//		builder.addFixer(DimensionNameFix.create(schema1, "Rename Lint Dimension", (string) -> Objects.equals(IdentifierNormalizingSchema.normalize(string), "lint:haykam") ? "lint:fraiya" : string));
-		//		builder.build(Util.getMainWorkerExecutor());
-
-		// test structure
-		/*HaykamChunkGenerator.onStructureSetup(manager -> {
-			manager.addStructure(TestStructureRoom.STRUCTURE, 10, 4, 2);
-		});*/
 	}
 
 	private void registerLintWorld() {
@@ -117,10 +105,9 @@ public final class Lint implements ModInitializer {
 		Features.initialize();
 		Biomes.initialize();
 		TerrainType.REGISTRY.put(Lint.id("fraiya"), new TerrainType(
-				(seed, rand, keyLocs) -> new FraiyaTerrainGenerator(seed, rand, keyLocs),
+				FraiyaTerrainGenerator::new,
 				(terrain, registry, seed) -> new FraiyaBiomeGenerator(seed, registry, terrain),
 				true));
-		//		Dimensions.initialize();
 	}
 
 	private void registerLintContent() {

@@ -23,12 +23,12 @@ import static me.hydos.lint.Lint.RESOURCE_PACK;
 import static me.hydos.lint.Lint.id;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.core.block.BlockBuilder;
-import me.hydos.lint.core.block.BlockBuilder.BlockConstructor;
-import me.hydos.lint.core.block.BlockMaterial;
-import me.hydos.lint.core.block.BlockMechanics;
-import me.hydos.lint.core.block.Model;
-import me.hydos.lint.core.item.ItemData;
+import me.hydos.lint.block.BlockBuilder;
+import me.hydos.lint.block.BlockBuilder.BlockConstructor;
+import me.hydos.lint.block.BlockMaterial;
+import me.hydos.lint.block.BlockMechanics;
+import me.hydos.lint.block.Model;
+import me.hydos.lint.item.ItemData;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixinimpl.LintPortal;
 import me.hydos.lint.refactord.block.organic.DistantLeavesBlock;
@@ -488,8 +488,7 @@ public class LintBlocks2 {
 	public static final SaplingBlock CORRUPT_SAPLING = createSapling("corrupt_sapling", new CorruptTree(), CORRUPT_GRASS);
 	public static final SaplingBlock CANOPY_SAPLING = createSapling("canopy_sapling", new CanopyTree(), LIVELY_GRASS);
 
-	public static final Block initialise() {
-		return COOKIE;
+	public static void initialise() {
 	}
 
 	private static final class FarmlandBlock extends net.minecraft.block.FarmlandBlock {

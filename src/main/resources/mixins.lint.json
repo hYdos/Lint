@@ -14,7 +14,6 @@
     "FireBlockAccessor",
     "ItemTagsProviderMixin",
     "ServerChunkManagerMixin",
-    "SoundEventMixin",
     "StructurePoolsMixin",
     "WorldMixin",
     "gecko.ClientListenerMixin",

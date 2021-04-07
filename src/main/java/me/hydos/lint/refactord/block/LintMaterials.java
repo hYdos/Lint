@@ -19,7 +19,7 @@
 
 package me.hydos.lint.refactord.block;
 
-import me.hydos.lint.core.block.BlockMaterial;
+import me.hydos.lint.block.BlockMaterial;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;

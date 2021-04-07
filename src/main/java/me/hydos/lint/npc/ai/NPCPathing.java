@@ -31,8 +31,6 @@ import me.hydos.lint.entity.passive.human.NPCHumanEntity;
 import net.minecraft.entity.ai.goal.GoalSelector;
 
 public class NPCPathing implements Consumer<NPCHumanEntity> {
-	public NPCPathing() {
-	}
 
 	private Stack<Task.Predicate> predicateStack = new Stack<>();
 	private Int2ObjectMap<List<Task>> tasks = new Int2ObjectArrayMap<>();

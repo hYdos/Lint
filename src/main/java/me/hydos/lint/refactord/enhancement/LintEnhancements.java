@@ -22,7 +22,7 @@ package me.hydos.lint.refactord.enhancement;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import me.hydos.lint.core.enhancement.Enhanceable;
+import me.hydos.lint.item.Enhanceable;
 import me.hydos.lint.util.Power;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

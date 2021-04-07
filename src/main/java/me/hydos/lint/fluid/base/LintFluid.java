@@ -34,7 +34,7 @@ import net.minecraft.world.WorldView;
 /**
  * Documented Modded fluid. based of fabric wiki's documentation.
  */
-public abstract class ModdedFluid extends FlowableFluid {
+public abstract class LintFluid extends FlowableFluid {
 
 	/**
 	 * @return is the given fluid an instance of this fluid?
