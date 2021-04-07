@@ -84,7 +84,7 @@ public class TinyPotatoEntity extends TameableShoulderEntity implements Extended
 				.add(EntityAttributes.GENERIC_FLYING_SPEED, 0.6);
 	}
 
-	public static boolean isConcern(EntityType<?> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+	public static boolean canSpawn(EntityType<?> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
 		return world.getBlockState(pos.down()).isOf(LintBlocks2.LIVELY_GRASS) && world.getBaseLightLevel(pos, 0) > 8;
 	}
 
