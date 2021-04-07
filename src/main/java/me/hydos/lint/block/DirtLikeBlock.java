@@ -17,32 +17,33 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.refactord.block.organic;
+package me.hydos.lint.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.block.Blocks;
 
-import java.util.Random;
-
-public class LintLeavesBlock extends LeavesBlock {
-	public LintLeavesBlock(Settings settings) {
+public class DirtLikeBlock extends Block {
+	public DirtLikeBlock(Settings settings) {
 		super(settings);
 	}
 
-	@Environment(EnvType.CLIENT)
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-		super.randomDisplayTick(state, world, pos, random);
-		if (random.nextInt(15) == 1) {
-			double x = (double) pos.getX() + random.nextInt(1);
-			double y = (double) pos.getY() + random.nextInt(1);
-			double z = (double) pos.getZ() + random.nextInt(1);
-			world.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0D, -0.2D, 0.0D);
-		}
+	public boolean is(Block block) {
+		return this == block || Blocks.DIRT == block;
+	}
+
+	public static boolean isLintGrass(BlockState state) {
+		Block block = state.getBlock();
+		return isLintGrass(block);
+	}
+
+	public static boolean isLintGrass(Block block) {
+		return block == LintBlocks.CORRUPT_GRASS || block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
+	}
+
+	public static boolean isUntaintedGrass(BlockState state) {
+		Block block = state.getBlock();
+		return block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
 	}
 }

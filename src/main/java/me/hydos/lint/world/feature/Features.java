@@ -27,7 +27,7 @@ import com.google.common.collect.ImmutableList;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.refactord.block.LintBlocks2;
+import me.hydos.lint.block.LintBlocksOld;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -75,14 +75,14 @@ public class Features {
 
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> CORRUPT_TREE = register("corrupt_tree", LINT_TREE.configure((
 			new TreeFeatureConfig.Builder(
-					new SimpleBlockStateProvider(LintBlocks2.CORRUPT_LOG.getDefaultState()), new SimpleBlockStateProvider(LintBlocks2.CORRUPT_LEAVES.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.CORRUPT_LOG.getDefaultState()), new SimpleBlockStateProvider(LintBlocks.CORRUPT_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3), new LintTrunkPlacer(4, 2, 0),
 					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
 
 	public static final ConfiguredFeature<?, ?> CORRUPT_TREES = register("corrupt_trees", CORRUPT_TREE.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
 
-	private static final TreeFeatureConfig BASED_CONFIG = new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_LOG.getDefaultState()),
-			new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_LEAVES.getDefaultState()),
+	private static final TreeFeatureConfig BASED_CONFIG = new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+			new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
 			new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 			new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build();
 
@@ -90,13 +90,13 @@ public class Features {
 
 	// Not registered bc not used directly anywhere, only used in THICK_MYSTICAL_TREES
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> TALL_MYSTICAL_TREE = LINT_TREE.configure((
-			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_LOG.getDefaultState()),
-					new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_LEAVES.getDefaultState()),
+			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
 					new BlobFoliagePlacer(UniformIntDistribution.of(2), UniformIntDistribution.of(0), 3),
 					new LintTrunkPlacer(6, 4, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", LINT_TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_LOG.getDefaultState()),
-			new SimpleBlockStateProvider(LintBlocks2.FROZEN_LEAVES.getDefaultState()),
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", LINT_TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+			new SimpleBlockStateProvider(LintBlocks.FROZEN_LEAVES.getDefaultState()),
 			new SpruceFoliagePlacer(UniformIntDistribution.of(2, 1), UniformIntDistribution.of(0, 2), UniformIntDistribution.of(1, 1)),
 			new LintTrunkPlacer(4, 2, 1), new TwoLayersFeatureSize(2, 0, 1)).ignoreVines().build()));
 
@@ -115,9 +115,9 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> MYSTICAL_ROCKS = register("mystical_rocks", Feature.RANDOM_SELECTOR.configure(
 			new RandomFeatureConfig(
 					ImmutableList.of(
-							Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks2.MAGNETITE_DEPOSIT.getDefaultState())).withChance(0.06f)
+							Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.MAGNETITE_DEPOSIT.getDefaultState())).withChance(0.06f)
 							),
-					Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks2.FUSED_COBBLESTONE.getDefaultState()))
+					Feature.FOREST_ROCK.configure(new SingleStateFeatureConfig(LintBlocks.FUSED_COBBLESTONE.getDefaultState()))
 					))
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeatRandomly(2)
 			);
@@ -126,14 +126,14 @@ public class Features {
 	 * Hanging Crystals
 	 */
 	public static final ConfiguredFeature<?, ?> FLOATING_ISLAND_ALLOS_CRYSTAL = register("floating_island_allos_crystal", HANGING_BLOCK
-			.configure(new SingleStateFeatureConfig(LintBlocks2.ALLOS_CRYSTAL.getDefaultState()))
+			.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState()))
 			.rangeOf(60).spreadHorizontally().repeatRandomly(3));
 
 	@SuppressWarnings("unchecked")
 	public static final ConfiguredFeature<?, ?> DAWN_SHARDLANDS_SHARDS = register("dawn_shardlands_shards", Feature.SIMPLE_RANDOM_SELECTOR.configure(
 			new SimpleRandomFeatureConfig(Arrays.asList(ImmutableList.of(
-					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks2.ALLOS_CRYSTAL.getDefaultState())),
-					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks2.MANOS_CRYSTAL.getDefaultState())))
+					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState())),
+					HANGING_BLOCK.configure(new SingleStateFeatureConfig(LintBlocks.MANOS_CRYSTAL.getDefaultState())))
 					.stream().map(Suppliers::ofInstance).toArray(Supplier[]::new))
 					))
 			.decorate(UNDER_ISLAND.configure(new NopeDecoratorConfig()).spreadHorizontally().repeat(UniformIntDistribution.of(3, 5)).applyChance(20)));
@@ -141,21 +141,21 @@ public class Features {
 	/**
 	 * ORES
 	 */
-	public static final RuleTest FUNNI_STONE = new BlockMatchRuleTest(LintBlocks2.FUSED_STONE);
+	public static final RuleTest FUNNI_STONE = new BlockMatchRuleTest(LintBlocks.FUSED_STONE);
 
 	public static final ConfiguredFeature<?, ?> TARSCAN_ORE = register("tarscan_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					LintBlocks2.TARSCAN_ORE.getDefaultState(),
+					LintBlocks.TARSCAN_ORE.getDefaultState(),
 					9)).rangeOf(64).spreadHorizontally().repeat(20));
 
 	public static final ConfiguredFeature<?, ?> SICIERON_ORE = register("sicieron_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					LintBlocks2.SICIERON_ORE.getDefaultState(),
+					LintBlocks.SICIERON_ORE.getDefaultState(),
 					12)).rangeOf(40).spreadHorizontally().repeat(8));
 
 	public static final ConfiguredFeature<?, ?> JUREL_ORE = register("jurel_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
-					LintBlocks2.TARSCAN_ORE.getDefaultState(),
+					LintBlocks.TARSCAN_ORE.getDefaultState(),
 					9)).rangeOf(10).spreadHorizontally().repeat(6));
 
 	/**
@@ -200,7 +200,7 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> TATERBANES = register("taterbanes", Feature.RANDOM_PATCH.configure(
 			new RandomPatchFeatureConfig.Builder(
-					new SimpleBlockStateProvider(LintBlocks2.TATERBANE.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.TATERBANE.getDefaultState()),
 					SimpleBlockPlacer.INSTANCE)
 			.tries(1)
 			.spreadX(1)
@@ -232,72 +232,72 @@ public class Features {
 
 	public static final class Configs {
 		public static final RandomPatchFeatureConfig MYSTICAL_DAISY_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_DAISY.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_DAISY.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE).tries(16).build();
 
 		public static final RandomPatchFeatureConfig MYSTICAL_STEM_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_STEM.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
 
 		public static final RandomPatchFeatureConfig BUNCHED_STEMS_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_STEM.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.spreadX(3)
 				.spreadZ(3)
 				.tries(16).build();
 
 		public static final RandomPatchFeatureConfig TUSSOCK_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks2.TUSSOCK.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.TUSSOCK.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(32).build();
 
 		public static final RandomPatchFeatureConfig RED_TUSSOCK_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks2.RED_TUSSOCK.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.RED_TUSSOCK.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(32).build();
 
 		public static final RandomPatchFeatureConfig GENERIC_BLUE_FLOWERS_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks2.THAISA.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.THAISA.getDefaultState()),
 				new DoublePlantPlacer())
 				.tries(8).build();
 
 		public static final RandomPatchFeatureConfig MYSTICAL_GRASS_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_GRASS_PLANT.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_GRASS_PLANT.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
 		public static final RandomPatchFeatureConfig CORRUPT_STEM_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks2.CORRUPT_STEM.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.CORRUPT_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
 		public static final RandomPatchFeatureConfig WILTED_FLOWER_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks2.WILTED_FLOWER.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.WILTED_FLOWER.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
 
 		public static final RandomPatchFeatureConfig SPEARMINT_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks2.SPEARMINT.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.SPEARMINT.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
         public static final RandomPatchFeatureConfig WATERMINT_CONFIG = new RandomPatchFeatureConfig.Builder( // quite rare as it needs not only the dirt/grass but also to be next to water. Most water is by sand.
-						new SimpleBlockStateProvider(LintBlocks2.WATERMINT.getDefaultState()),
+						new SimpleBlockStateProvider(LintBlocks.WATERMINT.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(32).needsWater().build();
 				public static final RandomPatchFeatureConfig DILL_CONFIG = new RandomPatchFeatureConfig.Builder(
-						new SimpleBlockStateProvider(LintBlocks2.DILL.getDefaultState()),
+						new SimpleBlockStateProvider(LintBlocks.DILL.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(16).build();
 				public static final RandomPatchFeatureConfig KUREI_CONFIG = new RandomPatchFeatureConfig.Builder(
-						new SimpleBlockStateProvider(LintBlocks2.KUREI.getDefaultState()),
+						new SimpleBlockStateProvider(LintBlocks.KUREI.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(16).build();
 
 				public static final RandomPatchFeatureConfig CORRUPT_FALLEN_LEAVES = new RandomPatchFeatureConfig.Builder(
-						new SimpleBlockStateProvider(LintBlocks2.CORRUPT_FALLEN_LEAVES.getDefaultState()),
+						new SimpleBlockStateProvider(LintBlocks.CORRUPT_FALLEN_LEAVES.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(6).build();
 				public static final RandomPatchFeatureConfig MYSTICAL_FALLEN_LEAVES = new RandomPatchFeatureConfig.Builder(
-						new SimpleBlockStateProvider(LintBlocks2.MYSTICAL_FALLEN_LEAVES.getDefaultState()),
+						new SimpleBlockStateProvider(LintBlocks.MYSTICAL_FALLEN_LEAVES.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(6).build();
 	}

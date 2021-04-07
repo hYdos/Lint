@@ -17,24 +17,32 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.refactord.block.organic;
+package me.hydos.lint.block.organic;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.block.LeavesBlock;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 
-public class LintSaplingBlock extends SaplingBlock {
-	private final BlockState requires;
+import java.util.Random;
 
-	public LintSaplingBlock(SaplingGenerator generator, Settings settings, BlockState requires) {
-		super(generator, settings);
-		this.requires = requires;
+public class LintLeavesBlock extends LeavesBlock {
+	public LintLeavesBlock(Settings settings) {
+		super(settings);
 	}
 
+	@Environment(EnvType.CLIENT)
 	@Override
-	protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
-		return floor == this.requires;
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+		super.randomDisplayTick(state, world, pos, random);
+		if (random.nextInt(15) == 1) {
+			double x = (double) pos.getX() + random.nextInt(1);
+			double y = (double) pos.getY() + random.nextInt(1);
+			double z = (double) pos.getZ() + random.nextInt(1);
+			world.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0D, -0.2D, 0.0D);
+		}
 	}
 }

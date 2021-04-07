@@ -17,15 +17,24 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block;
+package me.hydos.lint.block.organic;
 
-/**
- * Render layer enum.
- *
- * @reason specifying in a common builder rather than purely on the client.
- */
-public enum Layer {
-    DEFAULT,
-    CUTOUT_MIPPED,
-    TRANSLUCENT
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
+
+public class LintSaplingBlock extends SaplingBlock {
+	private final BlockState requires;
+
+	public LintSaplingBlock(SaplingGenerator generator, Settings settings, BlockState requires) {
+		super(generator, settings);
+		this.requires = requires;
+	}
+
+	@Override
+	protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
+		return floor == this.requires;
+	}
 }

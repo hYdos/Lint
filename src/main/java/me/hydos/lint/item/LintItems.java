@@ -29,8 +29,8 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
-import static me.hydos.lint.block.LintDataRegistry.registerGenerated;
-import static me.hydos.lint.block.LintDataRegistry.registerHandheld;
+import static me.hydos.lint.item.ItemData.registerGenerated;
+import static me.hydos.lint.item.ItemData.registerHandheld;
 
 public class LintItems {
 
