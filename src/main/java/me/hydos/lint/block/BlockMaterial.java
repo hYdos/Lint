@@ -277,10 +277,10 @@ public class BlockMaterial {
             return this;
         }
 
-        @Override
         /**
          * Set the mining level and preferred tool. If mining level is 0 or positive, it indicates a required tool. If it is negative, it indicates the tool is not required, rather only preferred.
          */
+        @Override
         public Builder miningLevel(Tag<Item> toolType, int miningLevel) {
             this.toolType = toolType;
 

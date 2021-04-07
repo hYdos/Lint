@@ -56,7 +56,7 @@ public class LintMaterials {
 			.material(Material.SOIL)
 			.colour(MaterialColor.DIRT)
 			.strength(0.5f)
-			.sounds(BlockSoundGroup.WET_GRASS)
+			.sounds(BlockSoundGroup.GRAVEL)
 			.miningLevel(FabricToolTags.SHOVELS, 1)
 			.template();
 
