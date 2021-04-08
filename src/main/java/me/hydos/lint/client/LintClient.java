@@ -43,6 +43,8 @@ import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.network.ClientNetworking;
 import me.hydos.lint.network.Networking;
+import me.hydos.lint.particle.FallenMysticalLeafAnimated;
+import me.hydos.lint.particle.Particles;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.screenhandler.client.LilTaterScreen;
 import me.hydos.lint.screenhandler.client.SmelteryScreen;
@@ -51,6 +53,7 @@ import me.hydos.lint.sound.SecurityProblemCauser;
 import me.hydos.lint.sound.Sounds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
@@ -84,10 +87,15 @@ public class LintClient implements ClientModInitializer {
 		registerFluidRenderers();
 		registerHandledScreens();
 		registerBossMusicFixes();
+		registerParticles();
 
 		ClientSidePacketRegistry.INSTANCE.register(Networking.TOWN_LOCATIONS, (context, data) -> {
 			SecurityProblemCauser.deserialiseLocations(data);
 		});
+	}
+
+	private void registerParticles() {
+		ParticleFactoryRegistry.getInstance().register(Particles.FALLEN_MYSTICAL_LEAF, FallenMysticalLeafAnimated.FallenMysticalLeaf.Factory::new);
 	}
 
 	private void registerBossMusicFixes() {

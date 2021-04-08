@@ -19,6 +19,7 @@
 
 package me.hydos.lint;
 
+import me.hydos.lint.particle.Particles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -75,6 +76,7 @@ public final class Lint implements ModInitializer {
 		Networking.initialize();
 		registerLintContent();
 		registerLintWorld();
+		Particles.register();
 		RRPCallback.EVENT.register(resources -> resources.add(RESOURCE_PACK));
 		LOGGER.info("Lint initialization successful!");
 
