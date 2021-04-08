@@ -19,8 +19,8 @@ public class FallenMysticalLeafAnimated {
 
         protected FallenMysticalLeaf(World world, double x, double y, double z, SpriteProvider sprites) {
             super((ClientWorld) world, x, y, z, sprites, -3.0E-3F);
-            this.age = 60;
-            this.maxAge = 100;
+            this.age = 0;
+            this.maxAge = 80;
             setSprite(sprites.getSprite(world.random));
         }
 
