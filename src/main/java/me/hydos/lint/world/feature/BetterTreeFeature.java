@@ -77,41 +77,6 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 		super(codec);
 	}
 
-	public static boolean canTreeReplace(TestableWorld world, BlockPos pos) {
-		return canReplace(world, pos) || world.testBlockState(pos, (state) -> state.isIn(BlockTags.LOGS));
-	}
-
-	private static boolean isVine(TestableWorld world, BlockPos pos) {
-		return world.testBlockState(pos, (state) -> state.isOf(net.minecraft.block.Blocks.VINE));
-	}
-
-	private static boolean isWater(TestableWorld world, BlockPos pos) {
-		return world.testBlockState(pos, (state) -> state.isOf(net.minecraft.block.Blocks.WATER));
-	}
-
-	public static boolean isAirOrLeaves(TestableWorld world, BlockPos pos) {
-		return world.testBlockState(pos, (state) -> state.isAir() || state.isIn(BlockTags.LEAVES));
-	}
-
-	private static boolean isDirtOrGrass(TestableWorld world, BlockPos pos) {
-		return world.testBlockState(pos, DirtLikeBlock::isLintGrass);
-	}
-
-	private static boolean isReplaceablePlant(TestableWorld world, BlockPos pos) {
-		return world.testBlockState(pos, (state) -> {
-			Material material = state.getMaterial();
-			return material == Material.REPLACEABLE_PLANT;
-		});
-	}
-
-	public static void setBlockStateWithoutUpdatingNeighbors(ModifiableWorld world, BlockPos pos, BlockState state) {
-		world.setBlockState(pos, state, 19);
-	}
-
-	public static boolean canReplace(TestableWorld world, BlockPos pos) {
-		return isAirOrLeaves(world, pos) || isReplaceablePlant(world, pos) || isWater(world, pos);
-	}
-
 	private boolean generate(ModifiableTestableWorld world, Random random, BlockPos pos, Set<BlockPos> logPositions, Set<BlockPos> leavesPositions, BlockBox box, TreeFeatureConfig config) {
 		pos = new BlockPos(((pos.getX() >> 4) << 4) + random.nextInt(16), pos.getY(), ((pos.getZ() >> 4) << 4) + random.nextInt(16));
 		int trunkPlacerHeight = config.trunkPlacer.getHeight(random);
@@ -143,7 +108,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 		}
 
 		if (blockPos2.getY() >= 1 && blockPos2.getY() + trunkPlacerHeight + 1 <= 256) {
-			if (!isDirtOrGrass(world, blockPos2.down())) {
+			if (!TreeFeature.isDirtOrGrass(world, blockPos2.down())) {
 				return false;
 			} else {
 				OptionalInt optionalInt = config.minimumSize.getMinClippedHeight();
@@ -171,7 +136,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 			for (int l = -k; l <= k; ++l) {
 				for (int m = -k; m <= k; ++m) {
 					mutable.set(blockPos, l, j, m);
-					if (!canTreeReplace(testableWorld, mutable) || !treeFeatureConfig.ignoreVines && isVine(testableWorld, mutable)) {
+					if (!TreeFeature.canTreeReplace(testableWorld, mutable) || !treeFeatureConfig.ignoreVines && TreeFeature.isVine(testableWorld, mutable)) {
 						return j - 2;
 					}
 				}
@@ -182,7 +147,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 	}
 
 	protected void setBlockState(ModifiableWorld world, BlockPos pos, BlockState state) {
-		setBlockStateWithoutUpdatingNeighbors(world, pos, state);
+		TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, state);
 	}
 
 	public final boolean generate(StructureWorldAccess structureWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, TreeFeatureConfig treeFeatureConfig) {
@@ -244,7 +209,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 					BlockState blockState = world.getBlockState(mutable);
 					if (blockState.contains(Properties.DISTANCE_1_7)) {
 						list.get(0).add(mutable.toImmutable());
-						setBlockStateWithoutUpdatingNeighbors(world, mutable, blockState.with(Properties.DISTANCE_1_7, 1));
+						TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, mutable, blockState.with(Properties.DISTANCE_1_7, 1));
 						if (box.contains(mutable)) {
 							voxelSet.set(mutable.getX() - box.minX, mutable.getY() - box.minY, mutable.getZ() - box.minZ, true, true);
 						}
@@ -272,7 +237,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 							int l = blockState2.get(Properties.DISTANCE_1_7);
 							if (l > k + 1) {
 								BlockState blockState3 = blockState2.with(Properties.DISTANCE_1_7, k + 1);
-								setBlockStateWithoutUpdatingNeighbors(world, mutable, blockState3);
+								TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, mutable, blockState3);
 								if (box.contains(mutable)) {
 									voxelSet.set(mutable.getX() - box.minX, mutable.getY() - box.minY, mutable.getZ() - box.minZ, true, true);
 								}
