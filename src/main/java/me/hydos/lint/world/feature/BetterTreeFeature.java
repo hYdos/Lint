@@ -77,6 +77,10 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 		super(codec);
 	}
 
+	private static boolean isDirtOrGrass(TestableWorld world, BlockPos pos) {
+		return world.testBlockState(pos, DirtLikeBlock::isLintGrass);
+	}
+
 	private boolean generate(ModifiableTestableWorld world, Random random, BlockPos pos, Set<BlockPos> logPositions, Set<BlockPos> leavesPositions, BlockBox box, TreeFeatureConfig config) {
 		pos = new BlockPos(((pos.getX() >> 4) << 4) + random.nextInt(16), pos.getY(), ((pos.getZ() >> 4) << 4) + random.nextInt(16));
 		int trunkPlacerHeight = config.trunkPlacer.getHeight(random);
@@ -108,7 +112,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 		}
 
 		if (blockPos2.getY() >= 1 && blockPos2.getY() + trunkPlacerHeight + 1 <= 256) {
-			if (!TreeFeature.isDirtOrGrass(world, blockPos2.down())) {
+			if (!isDirtOrGrass(world, blockPos2.down())) {
 				return false;
 			} else {
 				OptionalInt optionalInt = config.minimumSize.getMinClippedHeight();
