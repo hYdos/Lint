@@ -52,7 +52,8 @@ public class I509VCBEntity extends HostileEntity {
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 12.0D)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0D) // Yes this is temporary
 				.add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.0D)
-				.add(EntityAttributes.GENERIC_FLYING_SPEED, 2.0D);
+				.add(EntityAttributes.GENERIC_FLYING_SPEED, 6.0D)
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.0D); // can only fly
 	}
 
 	@Override
