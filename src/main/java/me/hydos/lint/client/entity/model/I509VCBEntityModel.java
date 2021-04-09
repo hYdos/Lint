@@ -52,7 +52,7 @@ public class I509VCBEntityModel extends EntityModel<I509VCBEntity> {
 
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
-		matrices.translate(0, -3, 0);
+		matrices.translate(0, -1.5, 0);
 		cone.render(matrices, vertices, light, overlay, red, green, blue, alpha);
 	}
 }
