@@ -24,7 +24,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -42,7 +44,9 @@ public class LintLeavesBlock extends LeavesBlock {
 			double x = (double) pos.getX() + random.nextInt(1);
 			double y = (double) pos.getY() + random.nextInt(1);
 			double z = (double) pos.getZ() + random.nextInt(1);
-			world.addParticle(Particles.FALLEN_MYSTICAL_LEAF, x, y, z, 0.0D, -0.2D, 0.0D);
+			if(world.isAir(pos.offset(Direction.DOWN))) {
+				world.addParticle(Particles.FALLEN_MYSTICAL_LEAF, x, y, z, 0.0D, -0.2D, 0.0D);
+			}
 		}
 	}
 }
