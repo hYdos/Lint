@@ -187,7 +187,8 @@ public class LintBlocks {
             .register("corrupt_planks");
 
     public static final LintLeavesBlock MYSTICAL_LEAVES = BlockBuilder.create()
-            .material(LintMaterials.LEAVES)
+            .material(LintMaterials.LEAVES
+                .colour(MaterialColor.DIAMOND))
             .model(Model.CUTOUT_CUBE_ALL)
             .customLootTable()
             .register("mystical_leaves", LintLeavesBlock::new);
@@ -203,7 +204,8 @@ public class LintBlocks {
             .register("mystical_log", settings -> new StrippablePillarBlock(settings, CORRUPT_LOG_STRIPPED));
 
     public static final DistantLeavesBlock CANOPY_LEAVES = BlockBuilder.create()
-            .material(LintMaterials.LEAVES)
+            .material(LintMaterials.LEAVES
+                .colour(MaterialColor.CYAN))
             .model(Model.CUTOUT_CUBE_ALL)
             .customLootTable()
             .register("canopy_leaves", settings -> new DistantLeavesBlock(9, settings));

@@ -38,6 +38,8 @@ public class FallenMysticalLeaf extends AnimatedParticle {
         this.age = 0;
         this.maxAge = 80;
         setSprite(sprites.getSprite(world.random));
+        BlockPos pos = new BlockPos(x, y, z);
+        setColor(world.getBlockState(pos).getTopMaterialColor(world, pos).color);
     }
 
     @Override

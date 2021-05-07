@@ -128,10 +128,12 @@ public class DistantLeavesBlock extends Block {
 
 		// If I remove this I get a 5fps boost (not scientifically tested I only did one test probably inaccurate measurement)
 		if (random.nextInt(15) == 1) {
-			double x = (double) pos.getX() + random.nextInt(1);
+			double x = (double) pos.getX() + random.nextDouble();
 			double y = (double) pos.getY() + random.nextInt(1);
-			double z = (double) pos.getZ() + random.nextInt(1);
-			world.addParticle(Particles.FALLEN_MYSTICAL_LEAF, x, y, z, 0.0D, -0.2D, 0.0D);
+			double z = (double) pos.getZ() + random.nextDouble();
+			if(world.isAir(pos.offset(Direction.DOWN))) {
+				world.addParticle(Particles.FALLEN_MYSTICAL_LEAF, x, y, z, 0.0D, -0.2D, 0.0D);
+			}
 		}
 	}
 
