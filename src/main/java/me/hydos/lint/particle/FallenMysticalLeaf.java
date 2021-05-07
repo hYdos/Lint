@@ -35,7 +35,6 @@ import java.util.Random;
 @Environment(EnvType.CLIENT)
 public class FallenMysticalLeaf extends AnimatedParticle {
 
-    float test = -3.0E-3F;
     protected FallenMysticalLeaf(World world, double x, double y, double z, SpriteProvider sprites, float accel) {
         super((ClientWorld) world, x, y, z, sprites, accel);
         this.age = 0;
