@@ -30,11 +30,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
+
 @Environment(EnvType.CLIENT)
 public class FallenMysticalLeaf extends AnimatedParticle {
 
-    protected FallenMysticalLeaf(World world, double x, double y, double z, SpriteProvider sprites) {
-        super((ClientWorld) world, x, y, z, sprites, -3.0E-3F);
+    float test = -3.0E-3F;
+    protected FallenMysticalLeaf(World world, double x, double y, double z, SpriteProvider sprites, float accel) {
+        super((ClientWorld) world, x, y, z, sprites, accel);
         this.age = 0;
         this.maxAge = 80;
         setSprite(sprites.getSprite(world.random));
@@ -65,7 +68,11 @@ public class FallenMysticalLeaf extends AnimatedParticle {
         @Nullable
         @Override
         public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-            return new FallenMysticalLeaf(world, x, y, z, this.sprites);
+            Random random = new Random();
+            float min = 50.0E-4F;
+            float max = 5.0E-3F;
+            float accel = -(min + random.nextFloat() * (max - min));
+            return new FallenMysticalLeaf(world, x, y, z, this.sprites, accel);
         }
     }
 }
