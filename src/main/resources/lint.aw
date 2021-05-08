@@ -4,6 +4,7 @@ accessible	method	net/minecraft/structure/pool/LegacySinglePoolElement	<init>	(L
 accessible  method  net/minecraft/world/gen/trunk/TrunkPlacerType   <init>  (Lcom/mojang/serialization/Codec;)V
 accessible	method	net/minecraft/screen/ScreenHandler	addSlot	(Lnet/minecraft/screen/slot/Slot;)Lnet/minecraft/screen/slot/Slot;
 accessible	method	net/minecraft/recipe/BrewingRecipeRegistry	registerPotionRecipe	(Lnet/minecraft/potion/Potion;Lnet/minecraft/item/Item;Lnet/minecraft/potion/Potion;)V
+accessible	method	net/minecraft/world/gen/feature/TreeFeature	isVine	(Lnet/minecraft/world/TestableWorld;Lnet/minecraft/util/math/BlockPos;)Z
 accessible	class	net/minecraft/recipe/CookingRecipeSerializer$RecipeFactory
 mutable field net/minecraft/client/sound/AbstractSoundInstance category Lnet/minecraft/sound/SoundCategory;
 accessible field net/minecraft/client/render/WorldRenderer playingSongs Ljava/util/Map;
