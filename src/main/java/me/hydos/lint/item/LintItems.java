@@ -19,9 +19,6 @@
 
 package me.hydos.lint.item;
 
-import static me.hydos.lint.block.LintAutoDataRegistry.registerGenerated;
-import static me.hydos.lint.block.LintAutoDataRegistry.registerHandheld;
-
 import me.hydos.lint.Lint;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.item.materialset.MaterialSet;
@@ -31,6 +28,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
+
+import static me.hydos.lint.item.ItemData.registerGenerated;
+import static me.hydos.lint.item.ItemData.registerHandheld;
 
 public class LintItems {
 
