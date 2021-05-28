@@ -1,53 +1,5 @@
-# Blender MTL File: 'None'
-# Material Count: 17
+# Blender MTL File: 'tiny_potato.blend'
+# Material Count: 1
 
-newmtl F00_000_00_EyeExtra_01_EYE
-map_Kd lint:misc/F00_000_00_EyeExtra_01_EYE
-
-newmtl F00_000_00_EyeHighlight_00_EYE
-map_Kd lint:misc/F00_000_00_EyeHighlight_00_EYE
-
-newmtl F00_000_00_EyeIris_00_EYE
-map_Kd lint:misc/F00_000_00_EyeIris_00_EYE
-
-newmtl F00_000_00_EyeWhite_00_EYE
-map_Kd lint:misc/F00_000_00_EyeWhite_00_EYE
-
-newmtl F00_000_00_FaceBrow_00_FACE
-map_Kd lint:misc/F00_000_00_FaceBrow_00_FACE
-
-newmtl F00_000_00_FaceEyelash_00_FACE
-map_Kd lint:misc/f00_000_00_faceeyelash_00_face
-
-newmtl F00_000_00_FaceEyeline_00_FACE
-map_Kd lint:misc/f00_000_00_faceeyeline_00_face
-
-newmtl F00_000_00_FaceMouth_00_FACE
-map_Kd lint:misc/f00_000_00_facemouth_00_face
-
-newmtl F00_000_00_Face_00_SKIN
-map_Kd lint:misc/f00_000_00_face_00_skin
-
-newmtl F00_000_00_HairBack_00_HAIR
-map_Kd lint:misc/f00_000_00_hairback_00_hair
-
-newmtl F00_000_Hair_00_HAIR_01
-map_Kd lint:misc/f00_000_hair_00_hair_01
-
-newmtl F00_000_Hair_00_HAIR_02
-map_Kd lint:misc/f00_000_hair_00_hair_02
-
-newmtl F00_001_01_Accessory_Tie_01_CLOTH
-map_Kd lint:misc/f00_001_01_accessory_tie_01_cloth
-
-newmtl F00_001_01_Body_00_SKIN
-map_Kd lint:misc/f00_001_01_body_00_skin
-
-newmtl F00_001_01_Bottoms_01_CLOTH
-map_Kd lint:misc/f00_001_01_bottoms_01_cloth
-
-newmtl F00_001_01_Shoes_01_CLOTH
-map_Kd lint:misc/f00_001_01_shoes_01_cloth
-
-newmtl F00_001_01_Tops_01_CLOTH
-map_Kd lint:misc/f00_001_01_tops_01_cloth
+newmtl tiny_potato
+map_Kd lint:misc/transmutation

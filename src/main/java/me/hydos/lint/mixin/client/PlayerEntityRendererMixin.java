@@ -47,7 +47,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 
 	@Inject(method = "renderArm", at = @At("HEAD"), cancellable = true)
 	private void shouldRenderArm(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, AbstractClientPlayerEntity player, ModelPart arm, ModelPart sleeve, CallbackInfo callbackInfo) {
-		if (!player.hasStatusEffect(LintStatusEffects.TRANSMUTATION)) {
+		if (player.hasStatusEffect(LintStatusEffects.TRANSMUTATION)) {
 			callbackInfo.cancel();
 		}
 	}
