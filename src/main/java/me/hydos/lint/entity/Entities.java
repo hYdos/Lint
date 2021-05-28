@@ -78,7 +78,7 @@ public class Entities {
 					.build());
 	public static final EntityType<CrabEntity> CRAB = // crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab crab
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("crab"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, CrabEntity::new)
-					.dimensions(EntityDimensions.fixed(0.75f, 0.25f))
+					.dimensions(EntityDimensions.fixed(0.8F, 0.25F))
 					.build());
 
 	/**
@@ -95,8 +95,11 @@ public class Entities {
 					.build());
 
 	public static final EntityType<I509VCBEntity> I509VCB =
-			Registry.register(Registry.ENTITY_TYPE, Lint.id("i509vcb"), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, I509VCBEntity::new)
-					.dimensions(EntityDimensions.changing(1f, 4f))
+			Registry.register(Registry.ENTITY_TYPE, Lint.id("i509vcb"), FabricEntityTypeBuilder.createMob()
+					.spawnGroup(SpawnGroup.MONSTER)
+					.entityFactory(I509VCBEntity::new)
+					.dimensions(EntityDimensions.changing(1f, 2.25f))
+					.defaultAttributes(I509VCBEntity::createAttributes)
 					.build());
 
 	public static void initialize() {
@@ -110,12 +113,11 @@ public class Entities {
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 16));
 
 		FabricDefaultAttributeRegistry.register(Entities.KING_TATER, KingTaterEntity.createAttributes());
-		FabricDefaultAttributeRegistry.register(Entities.I509VCB, I509VCBEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.GHOST, GhostEntity.createHostileAttributes());
 		FabricDefaultAttributeRegistry.register(Entities.CRAB, CrabEntity.createCrobAttributes());
 
-		SpawnRestriction.register(Entities.TINY_POTATO, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TinyPotatoEntity::isConcern);
+		SpawnRestriction.register(Entities.TINY_POTATO, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TinyPotatoEntity::canSpawn);
 		SpawnRestriction.register(Entities.GHOST, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
-		SpawnRestriction.register(Entities.CRAB, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TinyPotatoEntity::isConcern);
+//		SpawnRestriction.register(Entities.CRAB, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TinyPotatoEntity::canSpawn);
 	}
 }

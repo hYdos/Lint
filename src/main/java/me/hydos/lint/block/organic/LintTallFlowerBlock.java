@@ -35,7 +35,7 @@ public class LintTallFlowerBlock extends TallFlowerBlock {
 	public static final VoxelShape TOP_MODEL = VoxelShapes.cuboid(0.125, 0, 0.125, 0.875, 0.75, 0.875);
 
 	public LintTallFlowerBlock(Settings settings) {
-		super(settings.nonOpaque());
+		super(settings);
 	}
 
 	@Override

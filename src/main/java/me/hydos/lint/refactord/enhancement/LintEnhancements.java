@@ -17,11 +17,12 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.enhancement;
+package me.hydos.lint.refactord.enhancement;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import me.hydos.lint.item.Enhanceable;
 import me.hydos.lint.util.Power;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

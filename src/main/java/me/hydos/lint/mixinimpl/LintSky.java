@@ -356,6 +356,6 @@ public class LintSky {
 	}
 
 	public static Vec3d adjustFogColor(Vec3d fogColour, float sunHeight) {
-		return fogColour.multiply((double)(sunHeight * 0.82F + 0.18F), (double)(sunHeight * 0.82F + 0.18F), (double)(sunHeight * 0.78F + 0.22F));
+		return fogColour.multiply(sunHeight * 0.82F + 0.18F, sunHeight * 0.82F + 0.18F, sunHeight * 0.78F + 0.22F);
 	}
 }

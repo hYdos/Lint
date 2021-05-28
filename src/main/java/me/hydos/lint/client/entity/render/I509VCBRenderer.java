@@ -29,12 +29,12 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 
 public class I509VCBRenderer extends MobEntityRenderer<I509VCBEntity, I509VCBEntityModel> {
-
 	public static final Identifier SKIN = Lint.id("textures/entity/i509vcb.png");
 
 	public I509VCBRenderer(EntityRenderDispatcher dispatcher) {
@@ -47,17 +47,21 @@ public class I509VCBRenderer extends MobEntityRenderer<I509VCBEntity, I509VCBEnt
 	}
 
 	@Override
-	public void render(I509VCBEntity cone, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+	public void render(I509VCBEntity cone, float yaw, float tickDelta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
 		matrixStack.push();
-		float l = MathHelper.sin(((float) cone.age + g) / 10.0F + 3) * 0.5f;
-		matrixStack.translate(0.0D, l + 0.25F, 0.0D);
-		for (PlayerEntity player : cone.world.getEntitiesByClass(PlayerEntity.class, new Box(cone.getX() - 10, cone.getY() - 10, cone.getZ() - 10, cone.getX() + 10, cone.getY() + 10, cone.getZ() + 10), LivingEntity::isAlive)) {
-			float x = (float) (player.getX() - cone.getX());
-			float y = (float) (player.getY() - cone.getY()) - l - 0.5f;
-			float z = (float) (player.getZ() - cone.getZ());
-			EnderDragonEntityRenderer.renderCrystalBeam(x, y, z, f, cone.age, matrixStack, vertexConsumerProvider, i);
+		float l = MathHelper.sin(((float) cone.age + tickDelta) / 8.0F + 3) * 0.125F;
+		matrixStack.translate(0.0D, l + 0.60F, 0.0D);
+
+		if (cone.getTarget() != null) {
+			LivingEntity target = cone.getTarget();
+
+			float x = (float) (cone.getX() - target.getX());
+			float y = (float) (cone.getY() - target.getY());// - l - 0.90F;
+			float z = (float) (cone.getZ() - target.getZ());
+			EnderDragonEntityRenderer.renderCrystalBeam(x, y, z, tickDelta, cone.age, matrixStack, vertexConsumerProvider, i);
 		}
-		super.render(cone, f, g, matrixStack, vertexConsumerProvider, i);
+
+		super.render(cone, yaw, tickDelta, matrixStack, vertexConsumerProvider, i);
 		matrixStack.pop();
 	}
 }

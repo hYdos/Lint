@@ -20,6 +20,7 @@
 package me.hydos.lint.entity;
 
 import me.hydos.lint.Lint;
+import me.hydos.lint.entity.aggressive.NightclawEntity;
 import me.hydos.lint.entity.passive.bird.AbstractBirdEntity;
 import me.hydos.lint.entity.passive.bird.EasternRosellaEntity;
 import me.hydos.lint.entity.passive.bird.RedTailedTropicBirdEntity;
@@ -36,17 +37,26 @@ public class Birds {
 	public static final AbstractBirdEntity.BirdData EASTERN_ROSELLA_DATA = new AbstractBirdEntity.BirdData(
 			Sounds.EASTERN_ROSELLA_IDLE,
 			"Eastern Rosella",
-			"Valoeghese was here");
+			"They chatter through the ethereal groves of fraiya");
+	public static final AbstractBirdEntity.BirdData NIGHTCLAW_DATA = new AbstractBirdEntity.BirdData(
+			Sounds.EASTERN_ROSELLA_IDLE,
+			"Nightclaw",
+			"When Manos' touch reached the rosellas");
 	public static final AbstractBirdEntity.BirdData RED_TAILED_TROPICBIRD_DATA = new AbstractBirdEntity.BirdData(
 			Sounds.EASTERN_ROSELLA_IDLE,
 			"Red Tailed Tropicbird",
-			"Lint's primary Seabird");
+			"Fraiya's primary Seabird");
 
 	/**
 	 * Birds
 	 */
 	public static final EntityType<EasternRosellaEntity> EASTERN_ROSELLA =
 			Registry.register(Registry.ENTITY_TYPE, Lint.id("eastern_rosella"), FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, EasternRosellaEntity::new)
+					.dimensions(EntityDimensions.fixed(0.4f, 0.8f))
+					.build());
+
+	public static final EntityType<NightclawEntity> NIGHTCLAW =
+			Registry.register(Registry.ENTITY_TYPE, Lint.id("nightclaw"), FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, NightclawEntity::new)
 					.dimensions(EntityDimensions.fixed(0.4f, 0.8f))
 					.build());
 
@@ -57,6 +67,7 @@ public class Birds {
 
 	public static void register() {
 		FabricDefaultAttributeRegistry.register(EASTERN_ROSELLA, EasternRosellaEntity.createBirdAttributes(0.4D, 6.0D));
+		FabricDefaultAttributeRegistry.register(NIGHTCLAW, EasternRosellaEntity.createBirdAttributes(0.4D, 6.0D, 0.6D));
 		FabricDefaultAttributeRegistry.register(RED_TAILED_TROPICBIRD, RedTailedTropicBirdEntity.createBirdAttributes(1.0D, 8.0D));
 	}
 }

@@ -28,15 +28,15 @@ import software.bernie.geckolib3.util.RegistryUtils;
 @Mixin(value = RegistryUtils.class, remap = false)
 public class RegistryUtilsMixin {
 
-	@Redirect(method = {
-			"register(Lnet/minecraft/block/Block;Lnet/minecraft/util/Identifier;Lnet/minecraft/item/ItemGroup;)Lnet/minecraft/block/Block;",
-			"registerBlockWithoutItem(Lnet/minecraft/block/Block;Lnet/minecraft/util/Identifier;)Lnet/minecraft/block/Block;",
-			"registerBlockWithoutItem(Ljava/lang/String;Lnet/minecraft/block/Block;)Lnet/minecraft/block/Block;",
-			"registerItem(Lnet/minecraft/item/Item;Lnet/minecraft/util/Identifier;)Lnet/minecraft/item/Item;",
-			"registerItem(Ljava/lang/String;Lnet/minecraft/item/Item;)Lnet/minecraft/item/Item;",
-			"registerBlockEntity"
-	}, at = @At(value = "INVOKE", target = "Lnet/fabricmc/loader/FabricLoader;isDevelopmentEnvironment()Z"), require = 0)
-	private static boolean isDevelopmentEnvironment(FabricLoader fabricLoader) {
-		return false;
-	}
+    @Redirect(method = {
+            "register(Lnet/minecraft/block/Block;Lnet/minecraft/util/Identifier;Lnet/minecraft/item/ItemGroup;)Lnet/minecraft/block/Block;",
+            "registerBlockWithoutItem(Lnet/minecraft/block/Block;Lnet/minecraft/util/Identifier;)Lnet/minecraft/block/Block;",
+            "registerBlockWithoutItem(Ljava/lang/String;Lnet/minecraft/block/Block;)Lnet/minecraft/block/Block;",
+            "registerItem(Lnet/minecraft/item/Item;Lnet/minecraft/util/Identifier;)Lnet/minecraft/item/Item;",
+            "registerItem(Ljava/lang/String;Lnet/minecraft/item/Item;)Lnet/minecraft/item/Item;",
+            "registerBlockEntity"
+    }, at = @At(value = "INVOKE", target = "Lnet/fabricmc/loader/FabricLoader;isDevelopmentEnvironment()Z"), require = 0)
+    private static boolean isDevelopmentEnvironment(FabricLoader fabricLoader) {
+        return false;
+    }
 }

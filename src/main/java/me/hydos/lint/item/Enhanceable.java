@@ -17,10 +17,16 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixinimpl;
+package me.hydos.lint.item;
 
-import net.minecraft.util.Identifier;
+import me.hydos.lint.util.Power;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
 
-public interface LintSoundEvent {
-	Identifier getCommonId();
+public interface Enhanceable {
+    void update(ItemStack stack, Power.Broad power, float change, boolean addDefaults);
+
+    default void onAttack(LivingEntity attacker, ItemStack stack, Entity target) {
+    }
 }

@@ -23,6 +23,7 @@ import java.util.Random;
 
 import me.hydos.lint.block.DirtLikeBlock;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.LintBlocksOld;
 import me.hydos.lint.block.organic.DistantLeavesBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;

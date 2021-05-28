@@ -65,7 +65,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 	private static final TownBlocks PAWERIA_CENTRE = new TownBlocks()
 			.floor(LintBlocks.MYSTICAL_PLANKS.getDefaultState())
-			.walls(LintBlocks.CORRUPT_PLANKS.getDefaultState(), LintBlocks.STRIPPED_CORRUPT_LOG.getDefaultState())
+			.walls(LintBlocks.CORRUPT_PLANKS.getDefaultState(), LintBlocks.CORRUPT_LOG_STRIPPED.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
 	private static final TownBlocks THERIA = new TownBlocks()
@@ -324,12 +324,12 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 			this.setBlockState(world, pos, state);
 		}
 
-		// glowstone
+		// lantern
 		x = startX + width / 2;
 		z = startZ + breadth / 2;
 		y = floor + houseHeight - 1;
 		pos.set(x, y, z);
-		this.setBlockState(world, pos, Blocks.GLOWSTONE.getDefaultState());
+		this.setBlockState(world, pos, Blocks.LANTERN.getDefaultState());
 	}
 
 	private static class TownBlocks {

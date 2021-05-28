@@ -28,31 +28,31 @@ import net.minecraft.item.ItemStack;
 
 public class ItemGroups {
 
-	public static final ItemGroup BLOCKS = FabricItemGroupBuilder.create(
-			Lint.id("lint_blocks"))
-			.icon(() -> new ItemStack(LintBlocks.LIVELY_GRASS))
-			.build();
+    public static final ItemGroup BLOCKS = FabricItemGroupBuilder.create(
+            Lint.id("lint_blocks"))
+            .icon(() -> new ItemStack(LintBlocks.LIVELY_GRASS))
+            .build();
 
-	public static final ItemGroup DECORATIONS = FabricItemGroupBuilder.create(
-			Lint.id("lint_decorations"))
-			.icon(() -> new ItemStack(LintBlocks.MYSTICAL_DAISY))
-			.build();
+    public static final ItemGroup DECORATIONS = FabricItemGroupBuilder.create(
+            Lint.id("lint_decorations"))
+            .icon(() -> new ItemStack(LintBlocks.MYSTICAL_DAISY))
+            .build();
 
-	public static final ItemGroup TOOLS = FabricItemGroupBuilder.create(
-			Lint.id("lint_tools"))
-			.icon(() -> new ItemStack(LintItems.SICIERON_SET.axe))
-			.build();
+    public static final ItemGroup TOOLS = FabricItemGroupBuilder.create(
+            Lint.id("lint_tools"))
+            .icon(() -> new ItemStack(LintItems.SICIERON_SET.axe))
+            .build();
 
-	public static final ItemGroup ITEMS = FabricItemGroupBuilder.create(
-			Lint.id("lint_items"))
-			.icon(() -> new ItemStack(LintItems.TATER_ESSENCE))
-			.build();
+    public static final ItemGroup ITEMS = FabricItemGroupBuilder.create(
+            Lint.id("lint_items"))
+            .icon(() -> new ItemStack(LintItems.TATER_ESSENCE))
+            .build();
 
-	public static final ItemGroup FOOD = FabricItemGroupBuilder.create(
-			Lint.id("lint_food"))
-			.icon(() -> new ItemStack(LintBlocks.COOKIE))
-			.build();
+    public static final ItemGroup FOOD = FabricItemGroupBuilder.create(
+            Lint.id("lint_food"))
+            .icon(() -> new ItemStack(LintBlocks.COOKIE))
+            .build();
 
-	public static void register() {
-	}
+    public static void register() {
+    }
 }

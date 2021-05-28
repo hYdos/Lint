@@ -28,8 +28,8 @@ import software.bernie.example.ClientListener;
 @Mixin(value = ClientListener.class, remap = false)
 public class ClientListenerMixin {
 
-	@Redirect(method = "onInitializeClient", at = @At(value = "INVOKE", target = "Lnet/fabricmc/loader/FabricLoader;isDevelopmentEnvironment()Z"), require = 0)
-	private boolean isDevelopmentEnvironment(FabricLoader fabricLoader) {
-		return false;
-	}
+    @Redirect(method = "onInitializeClient", at = @At(value = "INVOKE", target = "Lnet/fabricmc/loader/FabricLoader;isDevelopmentEnvironment()Z"), require = 0)
+    private boolean isDevelopmentEnvironment(FabricLoader fabricLoader) {
+        return false;
+    }
 }

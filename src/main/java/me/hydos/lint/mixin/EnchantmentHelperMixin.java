@@ -19,7 +19,7 @@
 
 package me.hydos.lint.mixin;
 
-import me.hydos.lint.enhancement.Enhanceable;
+import me.hydos.lint.item.Enhanceable;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -33,15 +33,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EnchantmentHelper.class)
 public class EnchantmentHelperMixin {
-	@Inject(at = @At("HEAD"), method = "onTargetDamaged")
-	private static void onOnTargetDamaged(LivingEntity user, Entity target, CallbackInfo info) {
-		if (user != null) {
-			ItemStack stack = user.getStackInHand(Hand.MAIN_HAND);
-			Item item = stack.getItem();
+    @Inject(at = @At("HEAD"), method = "onTargetDamaged")
+    private static void onOnTargetDamaged(LivingEntity user, Entity target, CallbackInfo info) {
+        if (user != null) {
+            ItemStack stack = user.getStackInHand(Hand.MAIN_HAND);
+            Item item = stack.getItem();
 
-			if (item instanceof Enhanceable) {
-				((Enhanceable) item).onAttack(user, stack, target);
-			}
-		}
-	}
+            if (item instanceof Enhanceable) {
+                ((Enhanceable) item).onAttack(user, stack, target);
+            }
+        }
+    }
 }

@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableList;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.LintBlocksOld;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -66,7 +67,7 @@ public class Features {
 	public static final Feature<DefaultFeatureConfig> STRUCTURE = register("structure", new LintStructureFeature());
 	public static final Feature<DefaultFeatureConfig> TOWN = register("town", new TownFeature());
 	public static final Feature<SingleStateFeatureConfig> HANGING_BLOCK = register("hanging_block", new HangingBlockFeature());
-	
+
 	/**
 	 * UNCONFIGURED DECORATORS
 	 */
@@ -127,7 +128,7 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> FLOATING_ISLAND_ALLOS_CRYSTAL = register("floating_island_allos_crystal", HANGING_BLOCK
 			.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState()))
 			.rangeOf(60).spreadHorizontally().repeatRandomly(3));
-	
+
 	@SuppressWarnings("unchecked")
 	public static final ConfiguredFeature<?, ?> DAWN_SHARDLANDS_SHARDS = register("dawn_shardlands_shards", Feature.SIMPLE_RANDOM_SELECTOR.configure(
 			new SimpleRandomFeatureConfig(Arrays.asList(ImmutableList.of(
@@ -238,7 +239,7 @@ public class Features {
 				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
 				.tries(16).build();
-		
+
 		public static final RandomPatchFeatureConfig BUNCHED_STEMS_CONFIG = new RandomPatchFeatureConfig.Builder(
 				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_STEM.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
@@ -257,7 +258,7 @@ public class Features {
 				.tries(32).build();
 
 		public static final RandomPatchFeatureConfig GENERIC_BLUE_FLOWERS_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.GENERIC_BLUE_FLOWER.getDefaultState()),
+				new SimpleBlockStateProvider(LintBlocks.THAISA.getDefaultState()),
 				new DoublePlantPlacer())
 				.tries(8).build();
 
@@ -277,8 +278,8 @@ public class Features {
 		public static final RandomPatchFeatureConfig SPEARMINT_CONFIG = new RandomPatchFeatureConfig.Builder(
 				new SimpleBlockStateProvider(LintBlocks.SPEARMINT.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
-				.tries(16).build();;
-				public static final RandomPatchFeatureConfig WATERMINT_CONFIG = new RandomPatchFeatureConfig.Builder( // quite rare as it needs not only the dirt/grass but also to be next to water. Most water is by sand.
+				.tries(16).build();
+        public static final RandomPatchFeatureConfig WATERMINT_CONFIG = new RandomPatchFeatureConfig.Builder( // quite rare as it needs not only the dirt/grass but also to be next to water. Most water is by sand.
 						new SimpleBlockStateProvider(LintBlocks.WATERMINT.getDefaultState()),
 						SimpleBlockPlacer.INSTANCE)
 						.tries(32).needsWater().build();

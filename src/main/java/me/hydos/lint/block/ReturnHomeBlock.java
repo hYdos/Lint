@@ -40,7 +40,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 public class ReturnHomeBlock extends Block {
-
 	public static final BooleanProperty ACTIVATED = BooleanProperty.of("activated");
 
 	public ReturnHomeBlock(Settings settings) {

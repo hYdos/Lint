@@ -28,8 +28,8 @@ import software.bernie.example.registry.EntityRegistry;
 @Mixin(value = EntityRegistry.class, remap = false)
 public class EntityRegistryMixin {
 
-	@Redirect(method = "buildEntity", at = @At(value = "INVOKE", target = "Lnet/fabricmc/loader/FabricLoader;isDevelopmentEnvironment()Z"), require = 0)
-	private static boolean isDevelopmentEnvironment(FabricLoader fabricLoader) {
-		return false;
-	}
+    @Redirect(method = "buildEntity", at = @At(value = "INVOKE", target = "Lnet/fabricmc/loader/FabricLoader;isDevelopmentEnvironment()Z"), require = 0)
+    private static boolean isDevelopmentEnvironment(FabricLoader fabricLoader) {
+        return false;
+    }
 }

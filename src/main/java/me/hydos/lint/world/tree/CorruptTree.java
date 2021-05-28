@@ -27,9 +27,9 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import java.util.Random;
 
 public class CorruptTree extends SaplingGenerator {
-	@Override
-	protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
-		return Features.CORRUPT_TREE;
-	}
+    @Override
+    protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
+        return Features.CORRUPT_TREE;
+    }
 
 }

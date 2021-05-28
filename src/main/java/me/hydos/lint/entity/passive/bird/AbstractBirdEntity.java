@@ -44,10 +44,14 @@ public abstract class AbstractBirdEntity extends TameableShoulderEntity implemen
 	}
 
 	public static DefaultAttributeContainer.Builder createBirdAttributes(double flySpeed, double health) {
+		return createBirdAttributes(flySpeed, health, 0.4D);
+	}
+
+	public static DefaultAttributeContainer.Builder createBirdAttributes(double flySpeed, double health, double atk) {
 		return createMobAttributes()
 				.add(EntityAttributes.GENERIC_FLYING_SPEED, flySpeed)
 				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
-				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 0.4D)
+				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, atk)
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, health);
 	}
 

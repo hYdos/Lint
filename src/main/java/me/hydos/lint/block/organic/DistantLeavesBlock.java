@@ -23,12 +23,14 @@ import java.util.Random;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import me.hydos.lint.particle.Particles;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -126,10 +128,12 @@ public class DistantLeavesBlock extends Block {
 
 		// If I remove this I get a 5fps boost (not scientifically tested I only did one test probably inaccurate measurement)
 		if (random.nextInt(15) == 1) {
-			double x = (double) pos.getX() + random.nextInt(1);
+			double x = (double) pos.getX() + random.nextDouble();
 			double y = (double) pos.getY() + random.nextInt(1);
-			double z = (double) pos.getZ() + random.nextInt(1);
-			world.addParticle(ParticleTypes.SMOKE, x, y, z, 0.0D, -0.2D, 0.0D);
+			double z = (double) pos.getZ() + random.nextDouble();
+			if(world.isAir(pos.offset(Direction.DOWN))) {
+				world.addParticle(Particles.FALLEN_MYSTICAL_LEAF, x, y, z, 0.0D, -0.2D, 0.0D);
+			}
 		}
 	}
 

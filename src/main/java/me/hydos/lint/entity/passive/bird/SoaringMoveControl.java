@@ -43,14 +43,14 @@ public class SoaringMoveControl extends MoveControl {
 		float f = (float)(targetPosition.x - this.entity.getX());
 		float g = (float)(targetPosition.y - this.entity.getY());
 		float h = (float)(targetPosition.z - this.entity.getZ());
-		double d = (double)MathHelper.sqrt(f * f + h * h);
+		double d = MathHelper.sqrt(f * f + h * h);
 		double e = 1.0D - (double)MathHelper.abs(g * 0.7F) / d;
 		f = (float)((double)f * e);
 		h = (float)((double)h * e);
-		d = (double)MathHelper.sqrt(f * f + h * h);
-		double i = (double)MathHelper.sqrt(f * f + h * h + g * g);
+		d = MathHelper.sqrt(f * f + h * h);
+		double i = MathHelper.sqrt(f * f + h * h + g * g);
 		float j = this.entity.yaw;
-		float k = (float)MathHelper.atan2((double)h, (double)f);
+		float k = (float)MathHelper.atan2(h, f);
 		float l = MathHelper.wrapDegrees(this.entity.yaw + 90.0F);
 		float m = MathHelper.wrapDegrees(k * 57.295776F);
 		this.entity.yaw = MathHelper.stepUnwrappedAngleTowards(l, m, 4.0F) - 90.0F;
@@ -61,7 +61,7 @@ public class SoaringMoveControl extends MoveControl {
 			this.targetSpeed = MathHelper.stepTowards(this.targetSpeed, 0.2F, 0.025F);
 		}
 
-		float n = (float)(-(MathHelper.atan2((double)(-g), d) * 57.2957763671875D));
+		float n = (float)(-(MathHelper.atan2(-g, d) * 57.2957763671875D));
 		this.entity.pitch = n;
 		float o = this.entity.yaw + 90.0F;
 		double p = (double)(this.targetSpeed * MathHelper.cos(o * 0.017453292F)) * Math.abs((double)f / i);

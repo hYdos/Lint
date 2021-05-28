@@ -19,11 +19,13 @@
 
 package me.hydos.lint;
 
+import me.hydos.lint.particle.Particles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import io.netty.buffer.Unpooled;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.LintBlocksOld;
 import me.hydos.lint.commands.Commands;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
@@ -53,7 +55,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.GeckoLib;
 
-public class Lint implements ModInitializer {
+public final class Lint implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("Lint");
 
 	public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("lint");
@@ -74,6 +76,7 @@ public class Lint implements ModInitializer {
 		Networking.initialize();
 		registerLintContent();
 		registerLintWorld();
+		Particles.register();
 		RRPCallback.EVENT.register(resources -> resources.add(RESOURCE_PACK));
 		LOGGER.info("Lint initialization successful!");
 
@@ -81,7 +84,7 @@ public class Lint implements ModInitializer {
 
 		ServerSidePacketRegistry.INSTANCE.register(Networking.GIB_INFO_PLS, (context, data) -> {
 			try {
-				Vec2i[] towns = ((TerrainChunkGenerator) (((ServerPlayerEntity) context.getPlayer()).getServer().getWorld(Dimensions.FRAIYA_WORLD).getChunkManager().getChunkGenerator())).getTownCentres();
+				Vec2i[] towns = ((TerrainChunkGenerator) ((context.getPlayer()).getServer().getWorld(Dimensions.FRAIYA_WORLD).getChunkManager().getChunkGenerator())).getTownCentres();
 
 				PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 
@@ -97,18 +100,6 @@ public class Lint implements ModInitializer {
 		});
 
 		NPCs.initialise();
-		// Datafixer nonsense
-		// Someone help pls
-		//		DataFixerBuilder builder = new DataFixerBuilder(1);
-		//		builder.addSchema(Lintv0::new);
-		//		Schema schema1 = builder.addSchema(1, Lintv1::new);
-		//		builder.addFixer(DimensionNameFix.create(schema1, "Rename Lint Dimension", (string) -> Objects.equals(IdentifierNormalizingSchema.normalize(string), "lint:haykam") ? "lint:fraiya" : string));
-		//		builder.build(Util.getMainWorkerExecutor());
-
-		// test structure
-		/*HaykamChunkGenerator.onStructureSetup(manager -> {
-			manager.addStructure(TestStructureRoom.STRUCTURE, 10, 4, 2);
-		});*/
 	}
 
 	private void registerLintWorld() {
@@ -116,15 +107,15 @@ public class Lint implements ModInitializer {
 		Features.initialize();
 		Biomes.initialize();
 		TerrainType.REGISTRY.put(Lint.id("fraiya"), new TerrainType(
-				(seed, rand, keyLocs) -> new FraiyaTerrainGenerator(seed, rand, keyLocs),
+				FraiyaTerrainGenerator::new,
 				(terrain, registry, seed) -> new FraiyaBiomeGenerator(seed, registry, terrain),
 				true));
-		//		Dimensions.initialize();
 	}
 
 	private void registerLintContent() {
 		LintFluids.initialize();
-		LintBlocks.initialize();
+		LintBlocks.initialise();
+		LintBlocksOld.initialize();
 		LintItems.initialize();
 		LintPotions.initialize();
 		Entities.initialize();

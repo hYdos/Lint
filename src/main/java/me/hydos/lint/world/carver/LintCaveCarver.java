@@ -19,7 +19,14 @@
 
 package me.hydos.lint.world.carver;
 
+import java.util.BitSet;
+import java.util.Random;
+import java.util.function.Function;
+
+import org.apache.commons.lang3.mutable.MutableBoolean;
+
 import com.mojang.serialization.Codec;
+
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
@@ -32,11 +39,6 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.ProbabilityConfig;
 import net.minecraft.world.gen.carver.Carver;
 import net.minecraft.world.gen.carver.CaveCarver;
-import org.apache.commons.lang3.mutable.MutableBoolean;
-
-import java.util.BitSet;
-import java.util.Random;
-import java.util.function.Function;
 
 public class LintCaveCarver extends CaveCarver {
 	public static final Carver<ProbabilityConfig> INSTANCE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(ProbabilityConfig.CODEC, 256));

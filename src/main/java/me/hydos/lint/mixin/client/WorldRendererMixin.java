@@ -37,35 +37,35 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
-	@Shadow
-	@Final
-	private VertexFormat skyVertexFormat;
+    @Shadow
+    @Final
+    private VertexFormat skyVertexFormat;
 
-	@Shadow
-	private VertexBuffer starsBuffer;
-	@Shadow
-	private VertexBuffer lightSkyBuffer;
-	@Shadow
-	private VertexBuffer darkSkyBuffer;
+    @Shadow
+    private VertexBuffer starsBuffer;
+    @Shadow
+    private VertexBuffer lightSkyBuffer;
+    @Shadow
+    private VertexBuffer darkSkyBuffer;
 
-	@Shadow
-	@Final
-	private MinecraftClient client;
+    @Shadow
+    @Final
+    private MinecraftClient client;
 
-	@Shadow
-	@Final
-	private TextureManager textureManager;
+    @Shadow
+    @Final
+    private TextureManager textureManager;
 
-	@Shadow
-	private ClientWorld world;
+    @Shadow
+    private ClientWorld world;
 
-	@Inject(at = @At("HEAD"), method = "renderSky", cancellable = true)
-	private void renderLintSky(MatrixStack matrices, float tickDelta, CallbackInfo info) {
-		if (this.world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
-			LintSky.renderLintSky(matrices, this.textureManager,
-					this.lightSkyBuffer, this.darkSkyBuffer, this.starsBuffer,
-					this.skyVertexFormat, this.client, this.world, tickDelta);
-			info.cancel();
-		}
-	}
+    @Inject(at = @At("HEAD"), method = "renderSky", cancellable = true)
+    private void renderLintSky(MatrixStack matrices, float tickDelta, CallbackInfo info) {
+        if (this.world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
+            LintSky.renderLintSky(matrices, this.textureManager,
+                    this.lightSkyBuffer, this.darkSkyBuffer, this.starsBuffer,
+                    this.skyVertexFormat, this.client, this.world, tickDelta);
+            info.cancel();
+        }
+    }
 }

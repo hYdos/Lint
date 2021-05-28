@@ -33,15 +33,15 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.chunk.light.ChunkLightProvider;
 
-public class LintSpreadableGrassBlock extends SnowyBlock {
-	public LintSpreadableGrassBlock(Settings settings) {
+public class LintSpreadableBlock extends SnowyBlock {
+	public LintSpreadableBlock(Settings settings) {
 		super(settings.ticksRandomly());
 	}
 
 	private static boolean canSurvive(BlockState state, WorldView worldView, BlockPos pos) {
 		BlockPos upPos = pos.up();
 		BlockState blockState = worldView.getBlockState(upPos);
-		if (blockState.isOf(Blocks.SNOW) && (Integer)blockState.get(SnowBlock.LAYERS) == 1) {
+		if (blockState.isOf(Blocks.SNOW) && blockState.get(SnowBlock.LAYERS) == 1) {
 			return true;
 		} else if (blockState.getFluidState().getLevel() == 8) {
 			return false;
@@ -67,7 +67,7 @@ public class LintSpreadableGrassBlock extends SnowyBlock {
 				for(int i = 0; i < 4; ++i) {
 					BlockPos setPos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
 					if (world.getBlockState(setPos).isOf(LintBlocks.RICH_DIRT) && canSpread(blockState, world, setPos)) {
-						world.setBlockState(setPos, (BlockState)blockState.with(SNOWY, world.getBlockState(setPos.up()).isOf(Blocks.SNOW)));
+						world.setBlockState(setPos, blockState.with(SNOWY, world.getBlockState(setPos.up()).isOf(Blocks.SNOW)));
 					}
 				}
 			}

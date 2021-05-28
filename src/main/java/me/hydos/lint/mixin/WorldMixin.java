@@ -28,23 +28,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(World.class)
 public class WorldMixin {
-	@Inject(at = @At("HEAD"), method = "isRaining", cancellable = true)
-	private void onIsRaining(CallbackInfoReturnable<Boolean> cir) {
-		@SuppressWarnings("resource")
-		World self = (World) (Object) this;
+    @Inject(at = @At("HEAD"), method = "isRaining", cancellable = true)
+    private void onIsRaining(CallbackInfoReturnable<Boolean> cir) {
+        @SuppressWarnings("resource")
+        World self = (World) (Object) this;
 
-		if (self.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
-			cir.setReturnValue(false);
-		}
-	}
+        if (self.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
+            cir.setReturnValue(false);
+        }
+    }
 
-	@Inject(at = @At("HEAD"), method = "isThundering", cancellable = true)
-	private void onIsThundering(CallbackInfoReturnable<Boolean> cir) {
-		@SuppressWarnings("resource")
-		World self = (World) (Object) this;
+    @Inject(at = @At("HEAD"), method = "isThundering", cancellable = true)
+    private void onIsThundering(CallbackInfoReturnable<Boolean> cir) {
+        @SuppressWarnings("resource")
+        World self = (World) (Object) this;
 
-		if (self.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
-			cir.setReturnValue(false);
-		}
-	}
+        if (self.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
+            cir.setReturnValue(false);
+        }
+    }
 }

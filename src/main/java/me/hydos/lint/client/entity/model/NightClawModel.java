@@ -17,9 +17,27 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.fluid.api;
+package me.hydos.lint.client.entity.model;
 
-public class FluidApi {
+import me.hydos.lint.Lint;
+import me.hydos.lint.entity.passive.bird.AbstractBirdEntity;
+import net.minecraft.util.Identifier;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-	//TODO: write this
+public class NightClawModel extends AnimatedGeoModel<AbstractBirdEntity> {
+
+	@Override
+	public Identifier getModelLocation(AbstractBirdEntity abstractBirdEntity) {
+		return Lint.id("geo/birds/nightclaw.geo.json");
+	}
+
+	@Override
+	public Identifier getTextureLocation(AbstractBirdEntity abstractBirdEntity) {
+		return Lint.id("textures/entity/birds/nightclaw.png");
+	}
+
+	@Override
+	public Identifier getAnimationFileLocation(AbstractBirdEntity abstractBirdEntity) {
+		return Lint.id("animations/birds/nightclaw.animation.json");
+	}
 }
