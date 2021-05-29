@@ -23,8 +23,8 @@ import net.fabricmc.fabric.mixin.object.builder.AbstractBlockAccessor;
 import net.fabricmc.fabric.mixin.object.builder.AbstractBlockSettingsAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.tag.Tag;
@@ -63,7 +63,7 @@ public class BlockMaterial {
 
     // Based Properties
     Material material;
-    Function<BlockState, MaterialColor> materialColour;
+    Function<BlockState, MapColor> materialColour;
     float hardness = 0.0f;
     float resistance = 0.0f;
     ToIntFunction<BlockState> luminosity = ignored -> 0;
@@ -91,11 +91,11 @@ public class BlockMaterial {
         return new Builder(this).material(material);
     }
 
-    public Builder colour(MaterialColor colour) {
+    public Builder colour(MapColor colour) {
         return new Builder(this).colour(colour);
     }
 
-    public Builder colour(Function<BlockState, MaterialColor> colour) {
+    public Builder colour(Function<BlockState, MapColor> colour) {
         return new Builder(this).colour(colour);
     }
 
@@ -176,7 +176,7 @@ public class BlockMaterial {
             AbstractBlockSettingsAccessor settings = (AbstractBlockSettingsAccessor) ((AbstractBlockAccessor) existing).getSettings();
 
             this.material = settings.getMaterial();
-            this.materialColour = settings.getMaterialColorFactory();
+            this.materialColour = settings.getMapColorProvider();
             this.hardness = settings.getHardness();
             this.luminosity = settings.getLuminance();
             this.resistance = settings.getResistance();
@@ -200,13 +200,13 @@ public class BlockMaterial {
         }
 
         @Override
-        public Builder colour(MaterialColor colour) {
+        public Builder colour(MapColor colour) {
             this.materialColour = ignored -> colour;
             return this;
         }
 
         @Override
-        public Builder colour(Function<BlockState, MaterialColor> colour) {
+        public Builder colour(Function<BlockState, MapColor> colour) {
             this.materialColour = colour;
             return this;
         }

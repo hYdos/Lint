@@ -20,7 +20,7 @@
 package me.hydos.lint.npc.quest;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -56,10 +56,10 @@ public abstract class Quest {
         return new TranslatableText(this.description);
     }
 
-    public void loadNBT(CompoundTag tag) {
+    public void loadNBT(NbtCompound tag) {
     }
 
-    public void writeNBT(CompoundTag tag) {
+    public void writeNBT(NbtCompound tag) {
     }
 
     public abstract ItemStack[] getRewards(Random rand);

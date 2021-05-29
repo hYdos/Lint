@@ -45,7 +45,7 @@ import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
 public class LintTrunkPlacer extends TrunkPlacer {
 
-	public static final Codec<LintTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> method_28904(instance)
+	public static final Codec<LintTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> fillTrunkPlacerFields(instance)
 			.apply(instance, LintTrunkPlacer::new));
 
 	public static final TrunkPlacerType<LintTrunkPlacer> STRAIGHT_TRUNK_PLACER = Registry.register(Registry.TRUNK_PLACER_TYPE, Lint.id("trunk_placer"), new TrunkPlacerType<>(CODEC));

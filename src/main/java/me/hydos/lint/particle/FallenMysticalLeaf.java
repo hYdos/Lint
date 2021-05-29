@@ -41,7 +41,7 @@ public class FallenMysticalLeaf extends AnimatedParticle {
         this.maxAge = 80;
         setSprite(sprites.getSprite(world.random));
         BlockPos pos = new BlockPos(x, y, z);
-        setColor(world.getBlockState(pos).getTopMaterialColor(world, pos).color);
+        setColor(world.getBlockState(pos).getMapColor(world, pos).color);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class FallenMysticalLeaf extends AnimatedParticle {
     }
 
     @Override
-    public int getColorMultiplier(float tint) {
+    public int getBrightness(float tint) {
         BlockPos blockPos = new BlockPos(this.x, this.y, this.z);
         return this.world.isChunkLoaded(blockPos) ? WorldRenderer.getLightmapCoordinates(this.world, blockPos) : 0;
     }

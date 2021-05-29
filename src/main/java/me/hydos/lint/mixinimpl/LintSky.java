@@ -33,12 +33,12 @@ import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
 
 public class LintSky {
 	private static final Identifier MOON_PHASES = new Identifier("textures/environment/moon_phases.png");
@@ -78,10 +78,10 @@ public class LintSky {
 			RenderSystem.disableTexture();
 			RenderSystem.shadeModel(7425);
 			matrices.push();
-			matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90.0F));
+			matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90.0F));
 			alpha = MathHelper.sin(world.getSkyAngleRadians(tickDelta)) < 0.0F ? 180.0F : 0.0F;
-			matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(alpha));
-			matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(90.0F));
+			matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(alpha));
+			matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(90.0F));
 			float j = fs[0];
 			size = fs[1];
 			float l = fs[2];
@@ -113,7 +113,7 @@ public class LintSky {
 		float skyAngle = world.getSkyAngle(tickDelta) * 360.0F;
 		Matrix4f skyObjectMatrix = matrices.peek().getModel();
 
-		matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
+		matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		renderFraiyaMoons(world, textureManager, matrices, bufferBuilder, skyObjectMatrix, skyAngle, alpha);
 
 		// SUN
@@ -183,7 +183,7 @@ public class LintSky {
 		//System.out.println();
 		// Iese
 		matrices.push();
-		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(ieseAngle));
+		matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(ieseAngle));
 		skyObjectMatrix = matrices.peek().getModel();
 		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
@@ -209,7 +209,7 @@ public class LintSky {
 		// Cair
 		matrices.push();
 
-		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(cairAngle));
+		matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(cairAngle));
 		skyObjectMatrix = matrices.peek().getModel();
 		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
@@ -260,7 +260,7 @@ public class LintSky {
 	}
 
 	private static void renderBinarySun(ClientWorld world, TextureManager textureManager, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float size, float skyAngle) {
-		matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
+		matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
 
 		float[] data = new float[4];
 		final boolean debugTransit = false;
@@ -281,8 +281,8 @@ public class LintSky {
 	private static void renderAlphaLint(MatrixStack matrices, final float size, TextureManager textureManager, BufferBuilder bufferBuilder, final float[] data) {
 		matrices.push();
 
-		matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[0]));
-		matrices.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(data[0] / 2.0f));
+		matrices.multiply(Vec3f.POSITIVE_Z.getRadialQuaternion(data[0]));
+		matrices.multiply(Vec3f.POSITIVE_X.getRadialQuaternion(data[0] / 2.0f));
 		float vertY = data[2] / 2.0f;
 
 		Matrix4f alphaMatrix = matrices.peek().getModel();
@@ -302,8 +302,8 @@ public class LintSky {
 	private static void renderBetaLint(MatrixStack matrices, final float size, TextureManager textureManager, BufferBuilder bufferBuilder, final float[] data) {
 		matrices.push();
 
-		matrices.multiply(Vector3f.POSITIVE_Z.getRadialQuaternion(data[1]));
-		matrices.multiply(Vector3f.POSITIVE_X.getRadialQuaternion(data[1] / 2.0f));
+		matrices.multiply(Vec3f.POSITIVE_Z.getRadialQuaternion(data[1]));
+		matrices.multiply(Vec3f.POSITIVE_X.getRadialQuaternion(data[1] / 2.0f));
 		float vertY = data[3] / 2.0f;
 
 		Matrix4f betaMatrix = matrices.peek().getModel();

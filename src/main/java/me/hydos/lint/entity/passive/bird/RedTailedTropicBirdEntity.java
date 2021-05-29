@@ -27,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.goal.FlyOutOfWaterGoal;
+import me.hydos.lint.entity.passive.bird.RedTailedTropicBirdEntity.PhantomStyleHuntMovement;
 import me.hydos.lint.entity.passive.bird.SoaringMoveControl.Soaring;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;

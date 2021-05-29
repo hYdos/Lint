@@ -23,10 +23,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import me.hydos.lint.client.render.fluid.LintFluidRenderer;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.texture.Sprite;
@@ -39,13 +36,11 @@ import org.lwjgl.opengl.GL20;
 
 import java.awt.*;
 
-public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlockEntity> {
+public class SmelteryBlockEntityRenderer implements BlockEntityRenderer<SmelteryBlockEntity> {
 
 	private static final Rectangle BLOCK_BOUNDS = new Rectangle(1, 1);
 
-	public SmelteryBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
-		super(dispatcher);
-	}
+	public SmelteryBlockEntityRenderer() {}
 
 	// Fluid stack max level is 8.
 	@Override
@@ -67,7 +62,7 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 	}
 
 	public void renderFluid(MatrixStack matrices, Fluid fluid, Rectangle bounds, int light, float level) {
-		GlStateManager.enableDepthTest();
+//		GlStateManager.enableDepthTest();
 		LintFluidRenderer.CachedFluid renderingData = LintFluidRenderer.from(fluid);
 		if (renderingData != null) {
 			Sprite sprite = renderingData.getSprite();
@@ -80,7 +75,7 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bb = tessellator.getBuffer();
 			Matrix4f matrix = matrices.peek().getModel();
-			bb.begin(GL20.GL_QUADS, VertexFormats.POSITION_COLOR_TEXTURE_LIGHT);
+			bb.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR_TEXTURE_LIGHT);
 			bb.vertex(matrix, (float) bounds.getMaxX(), level, bounds.y)
 					.color(r, g, b, a)
 					.texture(sprite.getMaxU(), sprite.getMinV())
@@ -102,7 +97,7 @@ public class SmelteryBlockEntityRenderer extends BlockEntityRenderer<SmelteryBlo
 					.light(light)
 					.next();
 			tessellator.draw();
-			GlStateManager.disableDepthTest();
+//			GlStateManager.disableDepthTest();
 		}
 	}
 }

@@ -51,7 +51,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
@@ -89,15 +89,15 @@ public class TinyPotatoEntity extends TameableShoulderEntity implements Extended
 	}
 
 	@Override
-	public void readCustomDataFromTag(CompoundTag tag) {
-		super.readCustomDataFromTag(tag);
-		Inventories.fromTag(tag, inventory.getRawList());
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
+		Inventories.readNbt(tag, inventory.getRawList());
 	}
 
 	@Override
-	public void writeCustomDataToTag(CompoundTag tag) {
-		super.writeCustomDataToTag(tag);
-		Inventories.toTag(tag, inventory.getRawList());
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		Inventories.writeNbt(tag, inventory.getRawList());
 	}
 
 	@Override
@@ -142,11 +142,11 @@ public class TinyPotatoEntity extends TameableShoulderEntity implements Extended
 	@Nullable
 	@Override
 	public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-		return new LilTaterInteractScreenHandler(syncId, inv, PacketByteBufs.create().writeInt(this.getEntityId()));
+		return new LilTaterInteractScreenHandler(syncId, inv, PacketByteBufs.create().writeInt(this.getId()));
 	}
 
 	@Override
 	public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-		buf.writeInt(this.getEntityId());
+		buf.writeInt(this.getId());
 	}
 }

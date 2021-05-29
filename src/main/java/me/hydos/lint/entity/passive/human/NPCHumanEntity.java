@@ -32,7 +32,7 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -95,22 +95,22 @@ public class NPCHumanEntity extends PathAwareEntity {
 	}
 
 	@Override
-	public void readCustomDataFromTag(CompoundTag tag) {
-		super.readCustomDataFromTag(tag);
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
 		this.dataTracker.set(NPC_ID, tag.getString("npc"));
 
 		if (tag.contains("home")) {
-			CompoundTag home = tag.getCompound("home");
+			NbtCompound home = tag.getCompound("home");
 			this.home = new Vec3d(home.getDouble("x"), home.getDouble("y"), home.getDouble("z"));
 		}
 	}
 
 	@Override
-	public void writeCustomDataToTag(CompoundTag tag) {
-		super.writeCustomDataToTag(tag);
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
 		tag.putString("npc", this.dataTracker.get(NPC_ID));
 
-		CompoundTag home = new CompoundTag();
+		NbtCompound home = new NbtCompound();
 		home.putDouble("x", this.home.x);
 		home.putDouble("y", this.home.y);
 		home.putDouble("z", this.home.z);

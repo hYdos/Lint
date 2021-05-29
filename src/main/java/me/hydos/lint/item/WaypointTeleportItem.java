@@ -27,7 +27,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -45,7 +45,7 @@ public class WaypointTeleportItem extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-        CompoundTag tag = stack.getOrCreateTag();
+        NbtCompound tag = stack.getOrCreateTag();
 
         if (tag.contains("waypoint")) {
             int[] pos = tag.getIntArray("waypoint");
@@ -55,7 +55,7 @@ public class WaypointTeleportItem extends Item {
 
     @Override
     public boolean hasGlint(ItemStack stack) {
-        CompoundTag tag = stack.getOrCreateTag();
+        NbtCompound tag = stack.getOrCreateTag();
 
         return tag.contains("waypoint");
     }
@@ -65,7 +65,7 @@ public class WaypointTeleportItem extends Item {
         if (world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
             ItemStack stack = user.getStackInHand(hand);
 
-            CompoundTag tag = stack.getOrCreateTag();
+            NbtCompound tag = stack.getOrCreateTag();
 
             if (tag.contains("nextTime")) {
                 long cTime = world.getTime();

@@ -26,12 +26,11 @@ import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Quaternion;
-
+import net.minecraft.util.math.Vec3f;
 import java.util.Objects;
 
 public class LilTaterScreen extends AbstractInventoryScreen<LilTaterInteractScreenHandler> {
@@ -53,7 +52,7 @@ public class LilTaterScreen extends AbstractInventoryScreen<LilTaterInteractScre
 		MatrixStack matrixStack = new MatrixStack();
 		matrixStack.translate(0.0D, 0.0D, 1000.0D);
 		matrixStack.scale((float) size, (float) size, (float) size);
-		Quaternion quaternion = Vector3f.POSITIVE_Z.getDegreesQuaternion(180.0F);
+		Quaternion quaternion = Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F);
 		matrixStack.multiply(quaternion);
 		EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
 		entityRenderDispatcher.setRenderShadows(false);

@@ -11,3 +11,5 @@ accessible field net/minecraft/client/render/WorldRenderer playingSongs Ljava/ut
 accessible field net/minecraft/world/gen/decorator/DecoratorContext generator Lnet/minecraft/world/gen/chunk/ChunkGenerator;
 accessible	field	net/minecraft/world/gen/decorator/DecoratorContext	generator	Lnet/minecraft/world/gen/chunk/ChunkGenerator;
 accessible	field	net/minecraft/sound/SoundEvent	id	Lnet/minecraft/util/Identifier;
+accessible class net/minecraft/block/entity/BlockEntityType$BlockEntityFactory
+accessible method net/minecraft/item/Item isIn (Lnet/minecraft/tag/Tag;)Z

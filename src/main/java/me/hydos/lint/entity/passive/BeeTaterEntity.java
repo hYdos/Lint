@@ -24,7 +24,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -39,13 +39,13 @@ public class BeeTaterEntity extends TinyPotatoEntity {
 	}
 
 	@Override
-	public void fromTag(CompoundTag tag) {
-		super.fromTag(tag);
+	public void readNbt(NbtCompound tag) {
+		super.readNbt(tag);
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tag) {
-		return super.toTag(tag);
+	public NbtCompound writeNbt(NbtCompound tag) {
+		return super.writeNbt(tag);
 	}
 
 	@Override

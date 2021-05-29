@@ -28,10 +28,10 @@ public class DirtLikeBlock extends Block {
 		super(settings);
 	}
 
-	@Override
-	public boolean is(Block block) {
-		return this == block || Blocks.DIRT == block;
-	}
+//	@Override
+//	public boolean is(Block block) {
+//		return this == block || Blocks.DIRT == block;
+//	}
 
 	public static boolean isLintGrass(BlockState state) {
 		Block block = state.getBlock();

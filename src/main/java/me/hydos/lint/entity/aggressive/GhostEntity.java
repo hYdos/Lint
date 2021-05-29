@@ -20,7 +20,7 @@
 package me.hydos.lint.entity.aggressive;
 
 import java.util.EnumSet;
-
+import me.hydos.lint.entity.aggressive.GhostEntity.RetreatToCavernsGoal;
 import me.hydos.lint.entity.goal.FleeBlockGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -85,8 +85,8 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 	protected void initGoals() {
 		this.goalSelector.add(0, new RetreatToCavernsGoal());
 		this.goalSelector.add(1, new FleeBlockGoal(this, b -> b.getDefaultState().getLuminance() > 8, 9, 1.0f, 2.0f));
-		this.goalSelector.add(4, new ChargeTargetGoal());
-		this.goalSelector.add(8, new LookAtTargetGoal());
+		this.goalSelector.add(4, new me.hydos.lint.entity.aggressive.GhostEntity.ChargeTargetGoal());
+		this.goalSelector.add(8, new me.hydos.lint.entity.aggressive.GhostEntity.LookAtTargetGoal());
 		this.goalSelector.add(9, new LookAtEntityGoal(this, PlayerEntity.class, 3.0F, 1.0F));
 		this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
 		this.targetSelector.add(1, (new RevengeGoal(this, RaiderEntity.class)).setGroupRevenge());

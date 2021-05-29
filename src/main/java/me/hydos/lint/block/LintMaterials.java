@@ -22,8 +22,8 @@ package me.hydos.lint.block;
 import me.hydos.lint.block.util.BlockMaterial;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
-import net.minecraft.block.MaterialColor;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.Direction;
@@ -40,7 +40,7 @@ import net.minecraft.util.math.Direction;
  * 8. make it a template so modifications are redirected to making new instances.
  */
 public class LintMaterials {
-	public static BlockMaterial log(MaterialColor top, MaterialColor side) {
+	public static BlockMaterial log(MapColor top, MapColor side) {
 		return BlockMaterial.builder()
 				.material(Material.WOOD)
 				.colour(state -> state.get(PillarBlock.AXIS) == Direction.Axis.Y ? top : side)
@@ -54,7 +54,7 @@ public class LintMaterials {
 
 	public static final BlockMaterial DIRT = BlockMaterial.builder()
 			.material(Material.SOIL)
-			.colour(MaterialColor.DIRT)
+			.colour(MapColor.DIRT_BROWN)
 			.strength(0.5f)
 			.sounds(BlockSoundGroup.GRAVEL)
 			.miningLevel(FabricToolTags.SHOVELS, -1)
@@ -64,7 +64,7 @@ public class LintMaterials {
 
 	public static final BlockMaterial SMELTERY = BlockMaterial.builder()
 			.material(Material.STONE)
-			.colour(MaterialColor.STONE)
+			.colour(MapColor.STONE_GRAY)
 			.hardness(1.5f)
 			.resistance(6.0f)
 			.miningLevel(FabricToolTags.PICKAXES, 0)
@@ -73,7 +73,7 @@ public class LintMaterials {
 
 	public static final BlockMaterial TALL_FLOWER = BlockMaterial.builder()
 			.material(Material.REPLACEABLE_PLANT)
-			.colour(MaterialColor.FOLIAGE)
+			.colour(MapColor.DARK_GREEN)
 			.collidable(false)
 			.breaksInstantly()
 			.sounds(BlockSoundGroup.GRASS)
@@ -81,7 +81,7 @@ public class LintMaterials {
 
 	public static final BlockMaterial STONE = BlockMaterial.builder()
 			.material(Material.STONE)
-			.colour(MaterialColor.STONE)
+			.colour(MapColor.STONE_GRAY)
 			.hardness(1.75f) // bumped by 1.25f compared to previously
 			.resistance(6.0f)
 			.miningLevel(FabricToolTags.PICKAXES, 0)
@@ -92,7 +92,7 @@ public class LintMaterials {
 
 	public static final BlockMaterial PLANKS = BlockMaterial.builder()
 			.material(Material.WOOD)
-			.colour(MaterialColor.WOOD)
+			.colour(MapColor.OAK_TAN)
 			.hardness(2.0f) // TODO ytf is this higher than stone. Is it just because of the whole effect of preferred tool on hardness?
 			.resistance(3.0f)
 			.miningLevel(FabricToolTags.AXES, -1)
@@ -101,14 +101,14 @@ public class LintMaterials {
 			.template();
 
 	public static final BlockMaterial LEAVES = BlockMaterial.copy(Blocks.OAK_LEAVES)
-			.colour(MaterialColor.DIAMOND)
+			.colour(MapColor.DIAMOND_BLUE)
 			.miningLevel(FabricToolTags.HOES, -1)
 			.flammability(30, 60)
 			.template();
 
 	public static final BlockMaterial SAND = BlockMaterial.builder()
 			.material(Material.AGGREGATE)
-			.colour(MaterialColor.SAND)
+			.colour(MapColor.PALE_YELLOW)
 			.hardness(0.5f)
 			.miningLevel(FabricToolTags.SHOVELS, -1)
 			.sounds(BlockSoundGroup.SAND)
@@ -116,7 +116,7 @@ public class LintMaterials {
 
 	public static final BlockMaterial DUNGEON = BlockMaterial.builder()
 			.material(Material.STONE)
-			.colour(MaterialColor.STONE)
+			.colour(MapColor.STONE_GRAY)
 			.hardness(6.0f)
 			.resistance(9.0f)
 			.miningLevel(FabricToolTags.PICKAXES, 2)
@@ -125,7 +125,7 @@ public class LintMaterials {
 
 	public static final BlockMaterial TUSSOCK = BlockMaterial.builder()
 			.material(Material.PLANT)
-			.colour(MaterialColor.FOLIAGE)
+			.colour(MapColor.DARK_GREEN)
 			.hardness(0.1f)
 			.collidable(false)
 			.sounds(BlockSoundGroup.GRASS)
@@ -145,7 +145,7 @@ public class LintMaterials {
 	
 	public static final BlockMaterial FALLEN_LEAVES = BlockMaterial.builder()
 			.material(Material.LEAVES)
-			.colour(MaterialColor.FOLIAGE)
+			.colour(MapColor.DARK_GREEN)
 			.strength(0.5f)
 			.flammability(30, 60)
 			.template();

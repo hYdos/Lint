@@ -35,7 +35,7 @@ public class TeleportUtils {
     public static void teleport(LivingEntity entity, ServerWorld world, BlockPos pos) {
         if (entity.getEntityWorld() != world) {
             if (entity instanceof ServerPlayerEntity) {
-                world.getChunkManager().addTicket(ChunkTicketType.POST_TELEPORT, new ChunkPos(pos), 1, entity.getEntityId());
+                world.getChunkManager().addTicket(ChunkTicketType.POST_TELEPORT, new ChunkPos(pos), 1, entity.getId());
                 entity.stopRiding();
                 world.getChunk(pos);
                 world.getChunk(pos.add(0, 0, 16));

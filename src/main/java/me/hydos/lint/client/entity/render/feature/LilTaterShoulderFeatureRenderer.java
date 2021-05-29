@@ -33,7 +33,7 @@ import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 @Environment(EnvType.CLIENT)
 public class LilTaterShoulderFeatureRenderer<T extends PlayerEntity> extends FeatureRenderer<T, PlayerEntityModel<T>> {
@@ -50,7 +50,7 @@ public class LilTaterShoulderFeatureRenderer<T extends PlayerEntity> extends Fea
 	}
 
 	private void renderShoulderParrot(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T playerEntity, float f, float g, float h, float j, boolean bl) {
-		CompoundTag compoundTag = bl ? playerEntity.getShoulderEntityLeft() : playerEntity.getShoulderEntityRight();
+		NbtCompound compoundTag = bl ? playerEntity.getShoulderEntityLeft() : playerEntity.getShoulderEntityRight();
 		EntityType.get(compoundTag.getString("id")).filter((entityType) -> entityType == Entities.TINY_POTATO).ifPresent((entityType) -> {
 			matrixStack.push();
 			matrixStack.scale(0.6f, 0.6f, 0.6f);

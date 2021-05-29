@@ -109,7 +109,7 @@ public class LintBlocks {
 
     public static final FallenLeavesBlock CORRUPT_FALLEN_LEAVES = BlockBuilder.create()
             .material(LintMaterials.FALLEN_LEAVES
-                    .colour(MaterialColor.PURPLE))
+                    .colour(MapColor.PURPLE))
             .model(Model.CUTOUT_SIMPLE_BLOCKSTATE)
             .itemModel(ItemData::generatedModel)
             .itemGroup(ItemGroup.DECORATIONS)
@@ -126,7 +126,7 @@ public class LintBlocks {
 
     public static final FallenLeavesBlock MYSTICAL_FALLEN_LEAVES = BlockBuilder.create()
             .material(LintMaterials.FALLEN_LEAVES
-                    .colour(MaterialColor.DIAMOND))
+                    .colour(MapColor.DIAMOND_BLUE))
             .model(Model.CUTOUT_SIMPLE_BLOCKSTATE)
             .itemModel(ItemData::generatedModel)
             .itemGroup(ItemGroup.DECORATIONS)
@@ -143,7 +143,7 @@ public class LintBlocks {
     public static final Block TATERBANE = BlockBuilder.create()
             .material(BlockMaterial.builder()
                     .material(Material.PLANT)
-                    .colour(MaterialColor.RED)
+                    .colour(MapColor.RED)
                     .strength(0.5f)
                     .sounds(BlockSoundGroup.GRASS))
             .model(Model.CUTOUT_SIMPLE_BLOCKSTATE)
@@ -165,61 +165,61 @@ public class LintBlocks {
 
     public static final LintLeavesBlock CORRUPT_LEAVES = BlockBuilder.create()
             .material(LintMaterials.LEAVES
-                    .colour(MaterialColor.PURPLE))
+                    .colour(MapColor.PURPLE))
             .model(Model.CUTOUT_CUBE_ALL)
             .customLootTable()
             .register("corrupt_leaves", LintLeavesBlock::new);
 
     public static final Block CORRUPT_LOG_STRIPPED = BlockBuilder.create()
-            .material(LintMaterials.log(MaterialColor.PURPLE, MaterialColor.PURPLE))
+            .material(LintMaterials.log(MapColor.PURPLE, MapColor.PURPLE))
             .model(Model.NONE)
             .register("stripped_corrupt_log", PillarBlock::new);
 
     public static final Block CORRUPT_LOG = BlockBuilder.create()
-            .material(LintMaterials.log(MaterialColor.PURPLE, MaterialColor.BLACK_TERRACOTTA))
+            .material(LintMaterials.log(MapColor.PURPLE, MapColor.TERRACOTTA_BLACK))
             .model(Model.NONE)
             .register("corrupt_log", settings -> new StrippablePillarBlock(settings, CORRUPT_LOG_STRIPPED));
 
     public static final Block CORRUPT_PLANKS = BlockBuilder.create()
             .material(LintMaterials.PLANKS
-                    .colour(MaterialColor.PURPLE))
+                    .colour(MapColor.PURPLE))
             .model(Model.SIMPLE_CUBE_ALL)
             .register("corrupt_planks");
 
     public static final LintLeavesBlock MYSTICAL_LEAVES = BlockBuilder.create()
             .material(LintMaterials.LEAVES
-                .colour(MaterialColor.DIAMOND))
+                .colour(MapColor.DIAMOND_BLUE))
             .model(Model.CUTOUT_CUBE_ALL)
             .customLootTable()
             .register("mystical_leaves", LintLeavesBlock::new);
 
     public static final Block STRIPPED_MYSTICAL_LOG = BlockBuilder.create()
-            .material(LintMaterials.log(MaterialColor.DIAMOND, MaterialColor.DIAMOND))
+            .material(LintMaterials.log(MapColor.DIAMOND_BLUE, MapColor.DIAMOND_BLUE))
             .model(Model.NONE)
             .register("stripped_mystical_log", PillarBlock::new);
 
     public static final Block MYSTICAL_LOG = BlockBuilder.create()
-            .material(LintMaterials.log(MaterialColor.PURPLE, MaterialColor.BLACK_TERRACOTTA))
+            .material(LintMaterials.log(MapColor.PURPLE, MapColor.TERRACOTTA_BLACK))
             .model(Model.NONE)
             .register("mystical_log", settings -> new StrippablePillarBlock(settings, CORRUPT_LOG_STRIPPED));
 
     public static final DistantLeavesBlock CANOPY_LEAVES = BlockBuilder.create()
             .material(LintMaterials.LEAVES
-                .colour(MaterialColor.CYAN))
+                .colour(MapColor.CYAN))
             .model(Model.CUTOUT_CUBE_ALL)
             .customLootTable()
             .register("canopy_leaves", settings -> new DistantLeavesBlock(9, settings));
 
     public static final LintLeavesBlock FROZEN_LEAVES = BlockBuilder.create()
             .material(LintMaterials.LEAVES
-                    .colour(MaterialColor.WHITE))
+                    .colour(MapColor.WHITE))
             .model(Model.CUTOUT_CUBE_ALL)
             .customLootTable()
             .register("frozen_leaves", LintLeavesBlock::new);
 
     public static final Block MYSTICAL_PLANKS = BlockBuilder.create()
             .material(LintMaterials.PLANKS
-                    .colour(MaterialColor.DIAMOND))
+                    .colour(MapColor.DIAMOND_BLUE))
             .model(Model.SIMPLE_CUBE_ALL)
             .register("mystical_planks");
 
@@ -227,21 +227,21 @@ public class LintBlocks {
 
     public static final Block ASH = BlockBuilder.create()
             .material(LintMaterials.SAND
-                    .colour(MaterialColor.GRAY))
+                    .colour(MapColor.GRAY))
             .model(Model.SIMPLE_CUBE_ALL)
             .register("ash", FALLING_BLOCK);
 
     public static final Block CORRUPT_GRASS = BlockBuilder.create()
             .material(LintMaterials.GRASS_BLOCK
                     .material(Material.SOLID_ORGANIC)
-                    .colour(MaterialColor.PURPLE))
+                    .colour(MapColor.PURPLE))
             .model(Model.NONE)
             .customLootTable()
             .register("corrupt_grass", LintSpreadableBlock::new);
 
     public static final Block CORRUPT_SAND = BlockBuilder.create()
             .material(LintMaterials.SAND
-                    .colour(MaterialColor.PURPLE))
+                    .colour(MapColor.PURPLE))
             .model(Model.SIMPLE_CUBE_ALL)
             .register("corrupt_sand", FALLING_BLOCK);
 
@@ -274,7 +274,7 @@ public class LintBlocks {
 
     public static final Block WHITE_SAND = BlockBuilder.create()
             .material(LintMaterials.SAND
-                    .colour(MaterialColor.QUARTZ))
+                    .colour(MapColor.OFF_WHITE))
             .model(Model.SIMPLE_CUBE_ALL)
             .register("white_sand", FALLING_BLOCK);
 
@@ -310,7 +310,7 @@ public class LintBlocks {
 
     public static final Block INDIGO_STONE = BlockBuilder.create()
             .material(LintMaterials.STONE
-                    .colour(MaterialColor.PURPLE_TERRACOTTA))
+                    .colour(MapColor.TERRACOTTA_PURPLE))
             .model(Model.SIMPLE_CUBE_ALL)
             .register("indigo_stone");
 
@@ -340,14 +340,14 @@ public class LintBlocks {
 
     public static final Block PEARLESCENT_STONE = BlockBuilder.create()
             .material(LintMaterials.STONE
-                    .colour(MaterialColor.WHITE_TERRACOTTA))
+                    .colour(MapColor.TERRACOTTA_WHITE))
             .model(Model.SIMPLE_CUBE_ALL)
             .customLootTable()
             .register("pearlescent_stone");
 
     public static final Block PEARLESCENT_COBBLESTONE = BlockBuilder.create()
             .material(LintMaterials.COBBLESTONE
-                    .colour(MaterialColor.WHITE_TERRACOTTA))
+                    .colour(MapColor.TERRACOTTA_WHITE))
             .model(Model.SIMPLE_CUBE_ALL)
             .register("pearlescent_cobblestone");
 
@@ -379,7 +379,7 @@ public class LintBlocks {
     public static final ReturnHomeBlock RETURN_HOME = BlockBuilder.create()
             .material(BlockMaterial.builder()
                     .material(Material.STONE)
-                    .colour(MaterialColor.WHITE_TERRACOTTA)
+                    .colour(MapColor.TERRACOTTA_WHITE)
                     .hardness(-1.0f)
                     .resistance(3600000.0f)
                     .sounds(BlockSoundGroup.METAL))
@@ -402,7 +402,7 @@ public class LintBlocks {
     public static final Block CERAMIC = BlockBuilder.create()
             .material(BlockMaterial.builder()
                     .material(Material.STONE)
-                    .colour(MaterialColor.ORANGE)
+                    .colour(MapColor.ORANGE)
                     .hardness(1.25f)
                     .resistance(4.2f)
                     .miningLevel(FabricToolTags.PICKAXES, 0))
@@ -414,7 +414,7 @@ public class LintBlocks {
     public static final Block HAYKAMIUM_PORTAL = BlockBuilder.create()
             .material(BlockMaterial.builder()
                     .material(Material.PORTAL)
-                    .colour(MaterialColor.CYAN)
+                    .colour(MapColor.CYAN)
                     .strength(-1.0f)
                     .collidable(false)
                     .sounds(BlockSoundGroup.STONE))
@@ -431,7 +431,7 @@ public class LintBlocks {
                             }
                             if (entity instanceof ServerPlayerEntity) {
                                 ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) entity;
-                                serverPlayerEntity.networkHandler.sendPacket(new StopSoundS2CPacket());
+                                serverPlayerEntity.networkHandler.sendPacket(new StopSoundS2CPacket(null, null));
                             }
                             if (entity instanceof LivingEntity) {
                                 TeleportUtils.teleport(((LivingEntity) entity), fraiya, new BlockPos(((pos.getX() + 0xFF) & 0x1FF) - 0x7F, 80, ((pos.getZ() + 0xFF) & 0x1FF) - 0xFF));
@@ -451,7 +451,7 @@ public class LintBlocks {
 
     // Slabs and Saplings
 
-    private static final Block registerSlab(String id, String planksId, BlockMaterial material) {
+    private static Block registerSlab(String id, String planksId, BlockMaterial material) {
         Block block = BlockBuilder.create()
                 .material(material)
                 .model(Model.slab(planksId))

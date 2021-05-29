@@ -67,8 +67,8 @@ public class InfusedBlock extends Block {
 		}
 	}
 
-	@Override
-	public void onSteppedOn(World world, BlockPos pos, Entity entity) {
+    @Override
+    public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
 		if (entity instanceof LivingEntity) {
 			if (!entity.isFireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity)) {
 				entity.damage(DamageSource.DRYOUT, 4.0F);

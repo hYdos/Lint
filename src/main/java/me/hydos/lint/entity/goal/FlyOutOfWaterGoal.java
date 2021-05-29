@@ -40,7 +40,7 @@ public class FlyOutOfWaterGoal extends Goal {
 
 	@Override
 	public boolean canStart() {
-		if (this.mob.isTouchingWater() && this.mob.getFluidHeight(FluidTags.WATER) > this.mob.method_29241() || this.mob.isInLava()) {
+		if (this.mob.isTouchingWater() && this.mob.getFluidHeight(FluidTags.WATER) > this.mob.getSwimHeight() || this.mob.isInLava()) {
 			this.targetX = this.mob.getX() - 6.0 + 12.0 * this.mob.getRandom().nextDouble();
 			this.targetZ = this.mob.getZ() - 6.0 + 12.0 * this.mob.getRandom().nextDouble();
 			this.targetY = this.mob.getEntityWorld().getSeaLevel() + 5;

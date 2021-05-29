@@ -31,13 +31,14 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -49,8 +50,8 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
     public LintInventory inventory = new LintInventory(9);
     public Multiblock multiblock;
 
-    public SmelteryBlockEntity() {
-        super(BlockEntities.SMELTERY);
+    public SmelteryBlockEntity(BlockPos pos, BlockState state) {
+        super(BlockEntities.SMELTERY, pos, state);
     }
 
     @Override
@@ -66,20 +67,20 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        CompoundTag serialisedFluidData = new CompoundTag();
+    public NbtCompound writeNbt(NbtCompound tag) {
+        NbtCompound serialisedFluidData = new NbtCompound();
         writeFluidsToTag(serialisedFluidData);
         tag.put("fluidData", serialisedFluidData);
-        Inventories.toTag(tag, inventory.getRawList());
-        return super.toTag(tag);
+        Inventories.writeNbt(tag, inventory.getRawList());
+        return super.writeNbt(tag);
     }
 
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
-        updateFluids(tag.getCompound("fluidData"));
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
+        updateFluids(nbt.getCompound("fluidData"));
         inventory = new LintInventory(9);
-        Inventories.fromTag(tag, inventory.getRawList());
+        Inventories.readNbt(nbt, inventory.getRawList());
     }
 
     public boolean isActive() {
@@ -95,10 +96,10 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
         packetByteBuf.writeBlockPos(getPos());
     }
 
-    public void updateFluids(CompoundTag fluidInformation) {
+    public void updateFluids(NbtCompound fluidInformation) {
         if (fluidInformation != null) {
             for (int i = 0; i < fluidInformation.getInt("size"); i++) {
-                fluidData.add(FluidStack.fromTag((CompoundTag) fluidInformation.get(String.valueOf(i))));
+                fluidData.add(FluidStack.fromTag((NbtCompound) fluidInformation.get(String.valueOf(i))));
             }
         }
     }
@@ -107,7 +108,7 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
         return fluidData;
     }
 
-    public void writeFluidsToTag(CompoundTag tag) {
+    public void writeFluidsToTag(NbtCompound tag) {
         tag.putInt("size", fluidData.size());
         for (int i = 0; i < fluidData.size(); i++) {
             tag.put(String.valueOf(i), fluidData.get(i).toTag());
@@ -115,12 +116,12 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     @Override
-    public void fromClientTag(CompoundTag compoundTag) {
-        fromTag(world.getBlockState(pos), compoundTag);
+    public void fromClientTag(NbtCompound compoundTag) {
+        readNbt(compoundTag);
     }
 
     @Override
-    public CompoundTag toClientTag(CompoundTag compoundTag) {
-        return toTag(compoundTag);
+    public NbtCompound toClientTag(NbtCompound compoundTag) {
+        return writeNbt(compoundTag);
     }
 }

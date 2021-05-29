@@ -21,6 +21,7 @@ package me.hydos.lint.world.structure;
 
 import com.google.common.collect.ImmutableList;
 import me.hydos.lint.world.StructureWorld;
+import me.hydos.lint.world.structure.TestStructureRoom.ExtraRoom;
 import me.hydos.lint.world.structure2.LintStructure;
 import me.hydos.lint.world.structure2.Room;
 import net.minecraft.block.Blocks;

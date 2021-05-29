@@ -26,20 +26,20 @@ import me.hydos.lint.item.Enhanceable;
 import me.hydos.lint.util.Power;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 public final class LintEnhancements {
 	/**
 	 * @return the level of enhancement for the given power, with default return value of 0.
 	 */
 	public static float getEnhancement(ItemStack stack, Power.Broad power) {
-		CompoundTag tag = stack.getOrCreateSubTag("lint_enhancements");
+		NbtCompound tag = stack.getOrCreateSubTag("lint_enhancements");
 		String key = power.name();
 		return tag.contains(key) ? tag.getFloat(key) : 0;
 	}
 
 	public static Set<Power.Broad> getEnhancements(ItemStack stack) {
-		CompoundTag tag = stack.getOrCreateSubTag("lint_enhancements");
+		NbtCompound tag = stack.getOrCreateSubTag("lint_enhancements");
 		return tag.getKeys().stream().map(Power.Broad::valueOf).collect(Collectors.toSet());
 	}
 
@@ -53,7 +53,7 @@ public final class LintEnhancements {
 	 * @return the new power level of the power if successful. Otherwise, returns 0.
 	 */
 	public static float enhance(ItemStack stack, Power.Broad power, float increaseAmount) {
-		CompoundTag tag = stack.getOrCreateSubTag("lint_enhancements");
+		NbtCompound tag = stack.getOrCreateSubTag("lint_enhancements");
 		final int powers = tag.getKeys().size();
 
 		if (powers > 0) { // if already has powers.

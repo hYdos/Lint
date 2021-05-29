@@ -34,10 +34,10 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.StringTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -141,31 +141,31 @@ public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public void readCustomDataFromTag(CompoundTag tag) {
-		super.readCustomDataFromTag(tag);
+	public void readCustomDataFromNbt(NbtCompound tag) {
+		super.readCustomDataFromNbt(tag);
 
 		if (this.hasCustomName()) {
 			this.bossBar.setName(this.getDisplayName());
 		}
 
-		Tag t = tag.get("Minions");
+		NbtElement t = tag.get("Minions");
 		minions.clear();
 
-		if (t instanceof ListTag) {
-			for (Tag id : ((ListTag) t)) {
+		if (t instanceof NbtList) {
+			for (NbtElement id : ((NbtList) t)) {
 				minions.add(UUID.fromString(id.asString()));
 			}
 		}
 	}
 
 	@Override
-	public void writeCustomDataToTag(CompoundTag tag) {
-		super.writeCustomDataToTag(tag);
-		ListTag list = new ListTag();
+	public void writeCustomDataToNbt(NbtCompound tag) {
+		super.writeCustomDataToNbt(tag);
+		NbtList list = new NbtList();
 		tag.put("Minions", list);
 
 		for (UUID minion : minions) {
-			list.add(StringTag.of(minion.toString()));
+			list.add(NbtString.of(minion.toString()));
 		}
 	}
 

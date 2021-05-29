@@ -70,7 +70,7 @@ public class BiomeEffectSoundPlayerMixin {
             LintSoundManager.stopSounds(Optional.empty(), this.soundLoops);
             info.cancel();
         } else if (LintSoundManager.isCachedAsRecordPlaying()) {
-            LintSoundManager.restartSounds(this.soundManager, this.activeBiome = biomeAccess.getBiome(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
+            LintSoundManager.restartSounds(this.soundManager, this.activeBiome = biomeAccess.getBiomeForNoiseGen(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
             info.cancel();
         }
 

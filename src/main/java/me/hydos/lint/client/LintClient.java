@@ -65,6 +65,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.fluid.FlowableFluid;
@@ -105,7 +106,7 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerBlockEntityRenderers() {
-		BlockEntityRendererRegistry.INSTANCE.register(BlockEntities.SMELTERY, SmelteryBlockEntityRenderer::new);
+		BlockEntityRendererRegistry.INSTANCE.register(BlockEntities.SMELTERY, (BlockEntityRendererFactory.Context dispatcher) -> new SmelteryBlockEntityRenderer());
 	}
 
 	private void registerFluidRenderers() {
@@ -179,7 +180,7 @@ public class LintClient implements ClientModInitializer {
 			 * Get the sprites from the block atlas when resources are reloaded
 			 */
 			@Override
-			public void apply(ResourceManager resourceManager) {
+			public void reload(ResourceManager resourceManager) {
 				final Function<Identifier, Sprite> atlas = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
 				fluidSprites[0] = atlas.apply(stillSpriteId);
 				fluidSprites[1] = atlas.apply(flowingSpriteId);

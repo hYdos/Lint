@@ -42,7 +42,7 @@ public class DungeonFeature extends JigsawFeature {
 	//TODO: make the entry the 1st object
 	@Override
 	public StructureStartFactory<StructurePoolFeatureConfig> getStructureStartFactory() {
-		return (feature, chunkX, chunkZ, boundingBox, references, seed) -> new Start(this, chunkX, chunkZ, boundingBox, references, seed);
+		return (feature, chunkX, chunkZ, boundingBox, references, seed) -> new me.hydos.lint.world.feature.DungeonFeature.Start(this, chunkX, chunkZ, boundingBox, references, seed);
 	}
 
 	@Override

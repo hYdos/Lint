@@ -20,7 +20,7 @@
 package me.hydos.lint.fluid;
 
 import net.minecraft.fluid.Fluid;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 
 /**
@@ -40,7 +40,7 @@ public class FluidStack {
         this.fluid = fluid;
     }
 
-    public static FluidStack fromTag(CompoundTag tag) {
+    public static FluidStack fromTag(NbtCompound tag) {
         return new FluidStack(tag.getFloat("level"), new Identifier(tag.getString("fluid")));
     }
 
@@ -52,8 +52,8 @@ public class FluidStack {
         return new FluidStack(level, LintFluids.getId(entry));
     }
 
-    public CompoundTag toTag() {
-        CompoundTag tag = new CompoundTag();
+    public NbtCompound toTag() {
+        NbtCompound tag = new NbtCompound();
         tag.putFloat("level", level);
         tag.putString("fluid", fluid.toString());
         return tag;

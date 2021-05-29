@@ -89,8 +89,8 @@ public class SmelteryBlock extends BlockWithEntity {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new SmelteryBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new SmelteryBlockEntity(pos, state);
     }
 
     @Override

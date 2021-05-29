@@ -33,7 +33,6 @@ import net.minecraft.client.render.entity.feature.StuckArrowsFeatureRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
@@ -44,6 +43,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3f;
 
 public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity, PlayerEntityModel<NPCHumanEntity>>  {
 	public NPCHumanEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
@@ -71,16 +71,16 @@ public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity,
 		PlayerEntityModel<NPCHumanEntity> playerEntityModel = this.getModel();
 
 		playerEntityModel.setVisible(true);
-		playerEntityModel.helmet.visible = true;
+		playerEntityModel.hat.visible = true;
 		playerEntityModel.jacket.visible = true;
-		playerEntityModel.leftPantLeg.visible = true;
-		playerEntityModel.rightPantLeg.visible = true;
+		playerEntityModel.leftPants.visible = true;
+		playerEntityModel.rightPants.visible = true;
 		playerEntityModel.leftSleeve.visible = true;
 		playerEntityModel.rightSleeve.visible = true;
 		playerEntityModel.sneaking = NPCHumanEntity.isInSneakingPose();
 		BipedEntityModel.ArmPose armPose = getArmPose(NPCHumanEntity, Hand.MAIN_HAND);
 		BipedEntityModel.ArmPose armPose2 = getArmPose(NPCHumanEntity, Hand.OFF_HAND);
-		if (armPose.method_30156()) {
+		if (armPose.isTwoHanded()) {
 			armPose2 = NPCHumanEntity.getOffHandStack().isEmpty() ? BipedEntityModel.ArmPose.EMPTY : BipedEntityModel.ArmPose.ITEM;
 		}
 
@@ -161,7 +161,7 @@ public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity,
 			n = (float)NPCHumanEntity.getRoll() + h;
 			k = MathHelper.clamp(n * n / 100.0F, 0.0F, 1.0F);
 			if (!NPCHumanEntity.isUsingRiptide()) {
-				matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(k * (-90.0F - NPCHumanEntity.pitch)));
+				matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(k * (-90.0F - NPCHumanEntity.pitch)));
 			}
 
 			Vec3d vec3d = NPCHumanEntity.getRotationVec(h);
@@ -171,13 +171,13 @@ public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity,
 			if (d > 0.0D && e > 0.0D) {
 				double l = (vec3d2.x * vec3d.x + vec3d2.z * vec3d.z) / Math.sqrt(d * e);
 				double m = vec3d2.x * vec3d.z - vec3d2.z * vec3d.x;
-				matrixStack.multiply(Vector3f.POSITIVE_Y.getRadialQuaternion((float)(Math.signum(m) * Math.acos(l))));
+				matrixStack.multiply(Vec3f.POSITIVE_Y.getRadialQuaternion((float)(Math.signum(m) * Math.acos(l))));
 			}
 		} else if (leaningPitch > 0.0F) {
 			super.setupTransforms(NPCHumanEntity, matrixStack, f, g, h);
 			n = NPCHumanEntity.isTouchingWater() ? -90.0F - NPCHumanEntity.pitch : -90.0F;
 			k = MathHelper.lerp(leaningPitch, 0.0F, n);
-			matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(k));
+			matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(k));
 			if (NPCHumanEntity.isInSwimmingPose()) {
 				matrixStack.translate(0.0D, -1.0D, 0.30000001192092896D);
 			}

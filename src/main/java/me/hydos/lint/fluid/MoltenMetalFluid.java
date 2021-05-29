@@ -51,7 +51,7 @@ public abstract class MoltenMetalFluid extends LintFluid {
 
     @Override
     protected BlockState toBlockState(FluidState state) {
-        return LintBlocksOld.getFluid(still).with(Properties.LEVEL_15, method_15741(state));
+        return LintBlocksOld.getFluid(still).with(Properties.LEVEL_15, getBlockStateLevel(state));
     }
 
     public static class Flowing extends MoltenMetalFluid {

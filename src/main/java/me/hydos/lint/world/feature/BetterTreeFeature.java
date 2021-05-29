@@ -56,7 +56,7 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.FeatureSize;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import net.minecraft.world.gen.tree.TreeDecorator;
+import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 
 // reason: bad minecraft hardcoding for a few things
@@ -67,7 +67,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 					.forGetter((treeFeatureConfig) -> treeFeatureConfig.trunkProvider),
 			BlockStateProvider.TYPE_CODEC.fieldOf("leaves_provider").forGetter((treeFeatureConfig) -> treeFeatureConfig.leavesProvider),
 			FoliagePlacer.TYPE_CODEC.fieldOf("foliage_placer").forGetter((treeFeatureConfig) -> treeFeatureConfig.foliagePlacer),
-			TrunkPlacer.CODEC.fieldOf("trunk_placer").forGetter((treeFeatureConfig) -> treeFeatureConfig.trunkPlacer),
+			TrunkPlacer.TYPE_CODEC.fieldOf("trunk_placer").forGetter((treeFeatureConfig) -> treeFeatureConfig.trunkPlacer),
 			FeatureSize.TYPE_CODEC.fieldOf("minimum_size").forGetter((treeFeatureConfig) -> treeFeatureConfig.minimumSize),
 			TreeDecorator.TYPE_CODEC.listOf().fieldOf("decorators").forGetter((treeFeatureConfig) -> treeFeatureConfig.decorators),
 			Codec.INT.fieldOf("max_water_depth").orElse(0).forGetter((treeFeatureConfig) -> treeFeatureConfig.maxWaterDepth),
@@ -136,7 +136,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 		BlockPos.Mutable mutable = new BlockPos.Mutable();
 
 		for (int j = 0; j <= i + 1; ++j) {
-			int k = treeFeatureConfig.minimumSize.method_27378(i, j);
+			int k = treeFeatureConfig.minimumSize.getRadius(i, j);
 
 			for (int l = -k; l <= k; ++l) {
 				for (int m = -k; m <= k; ++m) {
@@ -162,7 +162,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 		BlockBox blockBox = BlockBox.empty();
 		boolean bl = this.generate(structureWorldAccess, random, blockPos, set, set2, blockBox, treeFeatureConfig);
 
-		if (blockBox.minX <= blockBox.maxX && bl && !set.isEmpty()) {
+		if (blockBox.maxZ <= blockBox.minZ && bl && !set.isEmpty()) {
 			if (!treeFeatureConfig.decorators.isEmpty()) {
 				List<BlockPos> list = Lists.newArrayList(set);
 				List<BlockPos> list2 = Lists.newArrayList(set2);
@@ -172,7 +172,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 			}
 
 			VoxelSet voxelSet = this.placeLogsAndLeaves(structureWorldAccess, blockBox, set, set3);
-			Structure.updateCorner(structureWorldAccess, 3, voxelSet, blockBox.minX, blockBox.minY, blockBox.minZ);
+			Structure.updateCorner(structureWorldAccess, 3, voxelSet, blockBox.maxZ, blockBox.minX, blockBox.minY);
 			return true;
 		} else {
 			return false;
@@ -181,7 +181,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 
 	private VoxelSet placeLogsAndLeaves(WorldAccess world, BlockBox box, Set<BlockPos> logs, Set<BlockPos> leaves) {
 		List<Set<BlockPos>> list = Lists.newArrayList();
-		VoxelSet voxelSet = new BitSetVoxelSet(box.getBlockCountX(), box.getBlockCountY(), box.getBlockCountZ());
+		VoxelSet voxelSet = new BitSetVoxelSet(box.getBlockCountY(), box.getBlockCountZ(), box.getBlockCountZ());
 
 		for (int j = 0; j < 6; ++j) {
 			list.add(Sets.newHashSet());
@@ -195,7 +195,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 		while (var9.hasNext()) {
 			blockPos2 = var9.next();
 			if (box.contains(blockPos2)) {
-				voxelSet.set(blockPos2.getX() - box.minX, blockPos2.getY() - box.minY, blockPos2.getZ() - box.minZ, true, true);
+				voxelSet.set(blockPos2.getX() - box.maxZ, blockPos2.getY() - box.minX, blockPos2.getZ() - box.minY, true, true);
 			}
 		}
 
@@ -204,7 +204,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 		while (var9.hasNext()) {
 			blockPos2 = var9.next();
 			if (box.contains(blockPos2)) {
-				voxelSet.set(blockPos2.getX() - box.minX, blockPos2.getY() - box.minY, blockPos2.getZ() - box.minZ, true, true);
+				voxelSet.set(blockPos2.getX() - box.maxZ, blockPos2.getY() - box.minX, blockPos2.getZ() - box.minY, true, true);
 			}
 
 			Direction[] var11 = Direction.values();
@@ -216,7 +216,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 						list.get(0).add(mutable.toImmutable());
 						TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, mutable, blockState.with(Properties.DISTANCE_1_7, 1));
 						if (box.contains(mutable)) {
-							voxelSet.set(mutable.getX() - box.minX, mutable.getY() - box.minY, mutable.getZ() - box.minZ, true, true);
+							voxelSet.set(mutable.getX() - box.maxZ, mutable.getY() - box.minX, mutable.getZ() - box.minY, true, true);
 						}
 					}
 				}
@@ -229,7 +229,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 
 			for (BlockPos o : set) {
 				if (box.contains(o)) {
-					voxelSet.set(o.getX() - box.minX, o.getY() - box.minY, o.getZ() - box.minZ, true, true);
+					voxelSet.set(o.getX() - box.maxZ, o.getY() - box.minX, o.getZ() - box.minY, true, true);
 				}
 
 				Direction[] var27 = Direction.values();
@@ -244,7 +244,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 								BlockState blockState3 = blockState2.with(Properties.DISTANCE_1_7, k + 1);
 								TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, mutable, blockState3);
 								if (box.contains(mutable)) {
-									voxelSet.set(mutable.getX() - box.minX, mutable.getY() - box.minY, mutable.getZ() - box.minZ, true, true);
+									voxelSet.set(mutable.getX() - box.maxZ, mutable.getY() - box.minX, mutable.getZ() - box.minY, true, true);
 								}
 
 								set2.add(mutable.toImmutable());

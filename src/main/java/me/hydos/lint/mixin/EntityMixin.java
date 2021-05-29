@@ -24,6 +24,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.Text;
@@ -59,14 +60,11 @@ public abstract class EntityMixin {
         if (doNormalCheck) {
             return state.isIn(tag);
         }
-        if (!(((Object) this) instanceof EndermanEntity)) {
-            if (!state.getFluid().isIn(tag) && !tag.equals(FluidTags.LAVA)) {
-                return !state.isEmpty();
-            } else {
-                return state.isIn(tag);
-            }
+        if (!state.getFluid().isIn(tag) && !tag.equals(FluidTags.LAVA) && state.getFluid() != Fluids.EMPTY) {
+            return !state.isEmpty();
+        } else {
+            return state.isIn(tag);
         }
-        return state.isIn(tag);
     }
 
     @Inject(method = "isWet", at = @At("HEAD"), cancellable = true)

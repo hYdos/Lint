@@ -44,7 +44,7 @@ public class TinyPotatoNpcEntity extends TinyPotatoEntity {
 			PacketByteBuf buf = PacketByteBufs.create()
 					.writeString("Mr. Potato")
 					.writeText(new LiteralText("Hi i am Mr. Potato! i sell crabs and corbs"));
-			buf.writeInt(getEntityId());
+			buf.writeInt(getId());
 			ServerPlayNetworking.send(
 					(ServerPlayerEntity) player,
 					Networking.OPEN_NPC_INTERACTION_WINDOW,

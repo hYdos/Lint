@@ -190,7 +190,7 @@ public class LintSoundManager {
 
         }
 
-        Biome biome = access.getBiome(x, y, z);
+        Biome biome = access.getBiomeForNoiseGen(x, y, z);
 
         int fg = biome.getEffects().getFogColor();
 

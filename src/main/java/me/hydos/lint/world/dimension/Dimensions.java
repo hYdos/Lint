@@ -36,9 +36,9 @@ public class Dimensions {
 	/**
 	 * Dimension Registry Keys
 	 */
-	public static final RegistryKey<DimensionOptions> FRAIYA_DIM_OPTIONS = RegistryKey.of(Registry.DIMENSION_OPTIONS, Lint.id("fraiya"));
+	public static final RegistryKey<DimensionOptions> FRAIYA_DIM_OPTIONS = RegistryKey.of(Registry.DIMENSION_KEY, Lint.id("fraiya"));
 	public static final RegistryKey<DimensionType> FRAIYA_DIM = RegistryKey.of(Registry.DIMENSION_TYPE_KEY, Lint.id("fraiya"));
-	public static final RegistryKey<World> FRAIYA_WORLD = RegistryKey.of(Registry.DIMENSION, Lint.id("fraiya"));
+	public static final RegistryKey<World> FRAIYA_WORLD = RegistryKey.of(Registry.WORLD_KEY, Lint.id("fraiya"));
 
 	/**
 	 * Fraiya Dimension

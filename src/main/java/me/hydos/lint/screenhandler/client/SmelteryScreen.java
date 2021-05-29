@@ -31,6 +31,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -88,7 +89,7 @@ public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder bb = tessellator.getBuffer();
 			Matrix4f matrix = matrices.peek().getModel();
-			bb.begin(7, VertexFormats.POSITION_TEXTURE_COLOR);
+			bb.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
 			bb.vertex(matrix, (float) bounds.getMaxX(), (float) bounds.y, 1f).texture(sprite.getMaxU(), sprite.getMinV()).color(r, g, b, a).next();
 			bb.vertex(matrix, (float) bounds.x, (float) bounds.y, 1f).texture(sprite.getMinU(), sprite.getMinV()).color(r, g, b, a).next();
 			bb.vertex(matrix, (float) bounds.x, (float) bounds.getMaxY(), 1f).texture(sprite.getMinU(), sprite.getMaxV()).color(r, g, b, a).next();
