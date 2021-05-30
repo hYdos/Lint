@@ -19,8 +19,6 @@
 
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.ReturnHomeBlock;
 import net.minecraft.block.BlockState;
@@ -31,9 +29,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class PortalFeature extends Feature<DefaultFeatureConfig> {
 
@@ -47,12 +45,12 @@ public class PortalFeature extends Feature<DefaultFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
-		this.generate(world, random, pos, false);
+	public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+		this.generate(context.getWorld(), context.getOrigin(), false);
 		return true;
 	}
 
-	public void generate(StructureWorldAccess world, Random random, BlockPos pos, boolean activated) {
+	public void generate(StructureWorldAccess world, BlockPos pos, boolean activated) {
 		makeBase(world, pos);
 		makePillar(world, pos.add(1, 0, 1));
 		makePillar(world, pos.add(3, 0, 1));

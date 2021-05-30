@@ -19,6 +19,7 @@
 
 package me.hydos.lint.world.biome.surface;
 
+import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -27,26 +28,24 @@ import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 
 import java.util.Random;
 
-import me.hydos.lint.block.LintBlocks;
-
 public class DawnShardlandsSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
-    private static final TernarySurfaceConfig ALLOS_CONFIG = new TernarySurfaceConfig(LintBlocks.ALLOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState());
-    private static final TernarySurfaceConfig MANOS_CONFIG = new TernarySurfaceConfig(LintBlocks.MANOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState());
+	private static final TernarySurfaceConfig ALLOS_CONFIG = new TernarySurfaceConfig(LintBlocks.ALLOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState());
+	private static final TernarySurfaceConfig MANOS_CONFIG = new TernarySurfaceConfig(LintBlocks.MANOS_INFUSED_ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASPHALT.getDefaultState());
 
-    public DawnShardlandsSurfaceBuilder() {
-        super(TernarySurfaceConfig.CODEC);
-    }
+	public DawnShardlandsSurfaceBuilder() {
+		super(TernarySurfaceConfig.CODEC);
+	}
 
-    @Override
-    public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, TernarySurfaceConfig surfaceBlocks) {
-        defaultBlock = LintBlocks.ASPHALT.getDefaultState();
+	@Override
+	public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, int i, long l, TernarySurfaceConfig surfaceConfig) {
+		defaultBlock = LintBlocks.ASPHALT.getDefaultState();
 
-        if (noise > 2.3f && noise < 3.0f) {
-            SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, ALLOS_CONFIG);
-        } else if (noise < -2.3f && noise > -3.0f) {
-            SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, MANOS_CONFIG);
-        } else {
-            SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, surfaceBlocks);
-        }
-    }
+		if (noise > 2.3f && noise < 3.0f) {
+			surfaceConfig = ALLOS_CONFIG;
+		} else if (noise < -2.3f && noise > -3.0f) {
+			surfaceConfig = MANOS_CONFIG;
+		}
+
+		SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, i, l, surfaceConfig);
+	}
 }

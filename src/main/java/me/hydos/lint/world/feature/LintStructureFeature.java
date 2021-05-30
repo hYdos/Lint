@@ -20,13 +20,10 @@
 package me.hydos.lint.world.feature;
 
 import me.hydos.lint.world.structure2.StructureChunkGenerator;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-
-import java.util.Random;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 /**
  * @author Valoeghese
@@ -38,9 +35,11 @@ public class LintStructureFeature extends Feature<DefaultFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
+	public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+		ChunkGenerator chunkGenerator = context.getGenerator();
+
 		if (chunkGenerator instanceof StructureChunkGenerator) {
-			((StructureChunkGenerator) chunkGenerator).getStructureManager().generateLoadedStructures(world, random, pos.getX() >> 4, pos.getZ() >> 4);
+			((StructureChunkGenerator) chunkGenerator).getStructureManager().generateLoadedStructures(context.getWorld(), context.getRandom(), context.getOrigin().getX() >> 4, context.getOrigin().getZ() >> 4);
 		}
 
 		return true;

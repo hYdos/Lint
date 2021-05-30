@@ -31,6 +31,4 @@ public interface StructureWorld {
 	void setChest(BlockPos pos, Random rand, Identifier lootTable);
 
 	int getSeaLevel();
-
-	int getHeight(int x, int z);
 }

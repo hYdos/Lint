@@ -25,9 +25,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 import java.util.Random;
 
@@ -58,7 +58,10 @@ public class VerticalShaftFeature extends Feature<DefaultFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos start, DefaultFeatureConfig config) {
+	public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		BlockPos start = context.getOrigin();
+
 		BlockPos.Mutable pos = new BlockPos.Mutable();
 		final int startX = start.getX() - 2;
 		final int startY = start.getY();

@@ -117,14 +117,14 @@ public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 	}
 
 	@Override
-	public void remove() {
-		super.remove();
+	public void remove(RemovalReason reason) {
+		super.remove(reason);
 
 		for (UUID id : minions) {
 			Entity minion = ((ServerWorld) world).getEntity(id);
 
 			if (minion != null) {
-				minion.remove();
+				minion.remove(reason);
 			}
 		}
 	}

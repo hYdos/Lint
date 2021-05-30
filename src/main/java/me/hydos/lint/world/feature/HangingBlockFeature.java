@@ -19,13 +19,11 @@
 
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.SingleStateFeatureConfig;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class HangingBlockFeature extends Feature<SingleStateFeatureConfig> {
 	public HangingBlockFeature() {
@@ -33,7 +31,11 @@ public class HangingBlockFeature extends Feature<SingleStateFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos start, SingleStateFeatureConfig config) {
+	public boolean generate(FeatureContext<SingleStateFeatureConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		BlockPos start = context.getOrigin();
+		SingleStateFeatureConfig config = context.getConfig();
+
 		BlockPos.Mutable pos = new BlockPos.Mutable().set(start);
 		BlockPos.Mutable next = new BlockPos.Mutable().set(start);
 		final int startY = pos.getY();

@@ -19,14 +19,14 @@
 
 package me.hydos.lint.client.entity.render;
 
+import me.hydos.lint.client.entity.model.GhostEntityModel;
 import me.hydos.lint.entity.aggressive.GhostEntity;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.renderer.geo.GeoEntityRenderer;
 
 public class GhostEntityRenderer extends GeoEntityRenderer<GhostEntity> {
 
-	public GhostEntityRenderer(EntityRenderDispatcher renderManager, AnimatedGeoModel<GhostEntity> modelProvider) {
-		super(renderManager, modelProvider);
+	public GhostEntityRenderer(EntityRendererFactory.Context context) {
+		super(context.getRenderDispatcher(), new GhostEntityModel());
 	}
 }

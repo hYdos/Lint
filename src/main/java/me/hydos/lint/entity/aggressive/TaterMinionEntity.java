@@ -66,8 +66,8 @@ public class TaterMinionEntity extends TinyPotatoEntity implements Monster {
 	public void mobTick() {
 		super.mobTick();
 		if (getTarget() != null) {
-			if (getTarget().removed) {
-				remove();
+			if (getTarget().isRemoved()) {
+				remove(RemovalReason.DISCARDED);
 			}
 		}
 	}
@@ -132,16 +132,16 @@ public class TaterMinionEntity extends TinyPotatoEntity implements Monster {
 		public void tick() {
 			if (getTarget() == null) {
 				Vec3d vec3d = getVelocity();
-				yaw = -((float) MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F;
-				bodyYaw = yaw;
+				setYaw(-((float) MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F);
+				bodyYaw = getYaw();
 			} else {
 				LivingEntity livingEntity = getTarget();
 				double d = 64.0D;
 				if (livingEntity.squaredDistanceTo(TaterMinionEntity.this) < (d * d)) {
 					double e = livingEntity.getX() - getX();
 					double f = livingEntity.getZ() - getZ();
-					yaw = -((float) MathHelper.atan2(e, f)) * 57.295776F;
-					bodyYaw = yaw;
+					setYaw(-((float) MathHelper.atan2(e, f)) * 57.295776F);
+					bodyYaw = getYaw();
 				}
 			}
 		}

@@ -30,11 +30,11 @@ import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.OcelotEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
@@ -88,7 +88,7 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 	}
 
 	@Override
-	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
 		return false;
 	}
 
@@ -105,5 +105,10 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 	@Override
 	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
 		return new EasternRosellaEntity(Birds.EASTERN_ROSELLA, world);
+	}
+
+	@Override
+	public boolean isInAir() {
+		return !onGround;
 	}
 }

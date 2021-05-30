@@ -30,7 +30,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
@@ -87,11 +86,6 @@ public final class StateBuffer implements StructureWorld {
 	@Override
 	public int getSeaLevel() {
 		return this.generator.getSeaLevel();
-	}
-
-	@Override
-	public int getHeight(int x, int z) {
-		return this.generator.getHeight(x, z, Heightmap.Type.OCEAN_FLOOR_WG);
 	}
 
 	public void pasteChunk(WorldAccess world, Random random, int chunkX, int chunkZ) {

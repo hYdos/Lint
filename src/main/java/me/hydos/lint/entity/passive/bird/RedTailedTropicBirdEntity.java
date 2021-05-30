@@ -19,15 +19,8 @@
 
 package me.hydos.lint.entity.passive.bird;
 
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.List;
-
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.goal.FlyOutOfWaterGoal;
-import me.hydos.lint.entity.passive.bird.RedTailedTropicBirdEntity.PhantomStyleHuntMovement;
 import me.hydos.lint.entity.passive.bird.SoaringMoveControl.Soaring;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -37,6 +30,7 @@ import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.SchoolingFishEntity;
@@ -47,10 +41,15 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+
+import java.util.Comparator;
+import java.util.EnumSet;
+import java.util.List;
 
 // TODO alternate between FISHING (phantom style) and NESTING (normal bird style) movements
 @SuppressWarnings("EntityConstructor")
@@ -67,7 +66,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 	}
 
 	@Override
-	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
 		return false;
 	}
 
@@ -174,7 +173,7 @@ public class RedTailedTropicBirdEntity extends AbstractBirdEntity implements Soa
 					RedTailedTropicBirdEntity.this.movementType = RedTailedTropicBirdEntity.PhantomStyleHuntMovement.ATTACKING;
 					this.startSwoop();
 					this.cooldown = (8 + RedTailedTropicBirdEntity.this.random.nextInt(4)) * 20;
- 				}
+				}
 			}
 
 		}

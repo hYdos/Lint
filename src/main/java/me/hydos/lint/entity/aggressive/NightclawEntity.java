@@ -19,8 +19,6 @@
 
 package me.hydos.lint.entity.aggressive;
 
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
 import me.hydos.lint.entity.passive.bird.AbstractBirdEntity;
@@ -30,16 +28,10 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.ai.control.FlightMoveControl;
-import net.minecraft.entity.ai.goal.AttackGoal;
-import net.minecraft.entity.ai.goal.EscapeDangerGoal;
-import net.minecraft.entity.ai.goal.FleeEntityGoal;
-import net.minecraft.entity.ai.goal.FlyOntoTreeGoal;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
-import net.minecraft.entity.ai.goal.PounceAtTargetGoal;
-import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.OcelotEntity;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -47,6 +39,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -94,7 +87,7 @@ public class NightclawEntity extends AbstractBirdEntity implements Flutterer {
 	}
 
 	@Override
-	public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+	public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
 		return false;
 	}
 
@@ -111,5 +104,10 @@ public class NightclawEntity extends AbstractBirdEntity implements Flutterer {
 	@Override
 	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
 		return new NightclawEntity(Birds.NIGHTCLAW, world);
+	}
+
+	@Override
+	public boolean isInAir() {
+		return !onGround;
 	}
 }

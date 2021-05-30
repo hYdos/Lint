@@ -49,9 +49,9 @@ public class HerbMixRecipe extends SpecialCraftingRecipe {
 				bowl = true;
 			} else if (stack.getItem() == Items.STICK) {
 				stick = true;
-			} else if (stack.getItem().isIn(LintItemTags.HERB_MIX_SPECIAL)) {
+			} else if (stack.isIn(LintItemTags.HERB_MIX_SPECIAL)) {
 				special++;
-			} else if (!stack.getItem().isIn(ItemTags.FLOWERS)) {
+			} else if (!stack.isIn(ItemTags.FLOWERS)) {
 				return false;
 			}
 		}

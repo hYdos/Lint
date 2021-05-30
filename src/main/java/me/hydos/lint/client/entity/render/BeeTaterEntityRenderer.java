@@ -23,7 +23,7 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.client.entity.model.BeeTaterEntityModel;
 import me.hydos.lint.entity.passive.BeeTaterEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -32,8 +32,8 @@ public class BeeTaterEntityRenderer extends MobEntityRenderer<BeeTaterEntity, Be
 
 	public static final Identifier FRIENDLY_TATER = Lint.id("textures/entity/tiny_potato.png");
 
-	public BeeTaterEntityRenderer(EntityRenderDispatcher dispatcher) {
-		super(dispatcher, new BeeTaterEntityModel(), 0.4f);
+	public BeeTaterEntityRenderer(EntityRendererFactory.Context context) {
+		super(context, new BeeTaterEntityModel(), 0.4f);
 	}
 
 	@Override

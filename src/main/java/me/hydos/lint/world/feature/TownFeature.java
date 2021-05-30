@@ -19,17 +19,11 @@
 
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.GridDirection;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DoorBlock;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.block.WallTorchBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -40,6 +34,9 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
+
+import java.util.Random;
 
 // N: Theria
 // E: Paweria
@@ -80,7 +77,12 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
+	public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		ChunkGenerator chunkGenerator = context.getGenerator();
+		Random random = context.getRandom();
+		BlockPos pos = context.getOrigin();
+
 		if (chunkGenerator instanceof TerrainChunkGenerator) {
 			int mindist = Integer.MAX_VALUE;
 			Vec2i closest = null;
@@ -97,7 +99,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 					closest = loc;
 					blockSet = i;
 				}
-				
+
 				++i;
 			}
 
@@ -105,7 +107,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 			if (mindist < DENSE_DIST) {
 				if (new ChunkPos(pos).equals(closest.chunkPos())) {
-					Features.RETURN_PORTAL.generate(world, random, pos, true);
+					Features.RETURN_PORTAL.generate(world, pos, true);
 				} else {
 					this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random, false, blocks);
 				}
@@ -334,18 +336,18 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 	private static class TownBlocks {
 		BlockState floor, walls, roof, roof_stair, roof_slab, log;
-		
+
 		public TownBlocks floor(BlockState floor) {
 			this.floor = floor;
 			return this;
 		}
-		
+
 		public TownBlocks walls(BlockState walls, BlockState log) {
 			this.walls = walls;
 			this.log = log;
 			return this;
 		}
-		
+
 		public TownBlocks roof(BlockState normal, BlockState stair, BlockState slab) {
 			this.roof = normal;
 			this.roof_stair = stair;

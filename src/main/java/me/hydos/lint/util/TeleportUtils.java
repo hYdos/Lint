@@ -43,7 +43,7 @@ public class TeleportUtils {
                 world.getChunk(pos.add(16, 0, 16));
                 ((PlayerEntity) entity).openHandledScreen(null);
             }
-            FabricDimensions.teleport(entity, world, new TeleportTarget(new Vec3d(pos.getX() + 0.5, world.getTopY(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ()) + 1, pos.getZ() + 0.5), new Vec3d(0, 0, 0), entity.yaw, entity.pitch));
+            FabricDimensions.teleport(entity, world, new TeleportTarget(new Vec3d(pos.getX() + 0.5, world.getTopY(Heightmap.Type.MOTION_BLOCKING, pos.getX(), pos.getZ()) + 1, pos.getZ() + 0.5), new Vec3d(0, 0, 0), entity.getYaw(), entity.getPitch()));
         }
     }
 }

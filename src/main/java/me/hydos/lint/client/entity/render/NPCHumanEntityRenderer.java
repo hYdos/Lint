@@ -24,16 +24,16 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.client.render.entity.feature.HeadFeatureRenderer;
 import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
 import net.minecraft.client.render.entity.feature.StuckArrowsFeatureRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.CrossbowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -45,13 +45,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
 
-public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity, PlayerEntityModel<NPCHumanEntity>>  {
-	public NPCHumanEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
-		super(entityRenderDispatcher, new PlayerEntityModel<>(0.0F, false), 0.5F);
-		this.addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel<>(0.5F), new BipedEntityModel<>(1.0F)));
+public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity, PlayerEntityModel<NPCHumanEntity>> {
+	public NPCHumanEntityRenderer(EntityRendererFactory.Context context) {
+		super(context, new PlayerEntityModel<>(context.getPart(EntityModelLayers.PLAYER_SLIM), false), 0.5F);
+		this.addFeature(new ArmorFeatureRenderer<>(this, new BipedEntityModel<>(context.getPart(EntityModelLayers.PLAYER_SLIM_INNER_ARMOR)), new BipedEntityModel<>(context.getPart(EntityModelLayers.PLAYER_SLIM_OUTER_ARMOR))));
 		this.addFeature(new HeldItemFeatureRenderer<>(this));
-		this.addFeature(new StuckArrowsFeatureRenderer<>(this));
-		this.addFeature(new HeadFeatureRenderer<>(this));
+		this.addFeature(new StuckArrowsFeatureRenderer<>(context, this));
+		this.addFeature(new HeadFeatureRenderer<>(this, context.getModelLoader()));
 	}
 
 	// Code Stolen From Player Entity Renderer
@@ -152,37 +152,37 @@ public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity,
 		sleeve.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(player.getSkinTexture())), light, OverlayTexture.DEFAULT_UV);
 	}
 
-	protected void setupTransforms(NPCHumanEntity NPCHumanEntity, MatrixStack matrixStack, float f, float g, float h) {
-		float leaningPitch = NPCHumanEntity.getLeaningPitch(h);
+	protected void setupTransforms(NPCHumanEntity entity, MatrixStack matrixStack, float f, float g, float h) {
+		float leaningPitch = entity.getLeaningPitch(h);
 		float n;
 		float k;
-		if (NPCHumanEntity.isFallFlying()) {
-			super.setupTransforms(NPCHumanEntity, matrixStack, f, g, h);
-			n = (float)NPCHumanEntity.getRoll() + h;
+		if (entity.isFallFlying()) {
+			super.setupTransforms(entity, matrixStack, f, g, h);
+			n = (float) entity.getRoll() + h;
 			k = MathHelper.clamp(n * n / 100.0F, 0.0F, 1.0F);
-			if (!NPCHumanEntity.isUsingRiptide()) {
-				matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(k * (-90.0F - NPCHumanEntity.pitch)));
+			if (!entity.isUsingRiptide()) {
+				matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(k * (-90.0F - entity.getPitch())));
 			}
 
-			Vec3d vec3d = NPCHumanEntity.getRotationVec(h);
-			Vec3d vec3d2 = NPCHumanEntity.getVelocity();
-			double d = Entity.squaredHorizontalLength(vec3d2);
-			double e = Entity.squaredHorizontalLength(vec3d);
+			Vec3d vec3d = entity.getRotationVec(h);
+			Vec3d vec3d2 = entity.getVelocity();
+			double d = vec3d2.method_37268();
+			double e = vec3d.method_37268();
 			if (d > 0.0D && e > 0.0D) {
 				double l = (vec3d2.x * vec3d.x + vec3d2.z * vec3d.z) / Math.sqrt(d * e);
 				double m = vec3d2.x * vec3d.z - vec3d2.z * vec3d.x;
-				matrixStack.multiply(Vec3f.POSITIVE_Y.getRadialQuaternion((float)(Math.signum(m) * Math.acos(l))));
+				matrixStack.multiply(Vec3f.POSITIVE_Y.getRadialQuaternion((float) (Math.signum(m) * Math.acos(l))));
 			}
 		} else if (leaningPitch > 0.0F) {
-			super.setupTransforms(NPCHumanEntity, matrixStack, f, g, h);
-			n = NPCHumanEntity.isTouchingWater() ? -90.0F - NPCHumanEntity.pitch : -90.0F;
+			super.setupTransforms(entity, matrixStack, f, g, h);
+			n = entity.isTouchingWater() ? -90.0F - entity.getPitch() : -90.0F;
 			k = MathHelper.lerp(leaningPitch, 0.0F, n);
 			matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(k));
-			if (NPCHumanEntity.isInSwimmingPose()) {
+			if (entity.isInSwimmingPose()) {
 				matrixStack.translate(0.0D, -1.0D, 0.30000001192092896D);
 			}
 		} else {
-			super.setupTransforms(NPCHumanEntity, matrixStack, f, g, h);
+			super.setupTransforms(entity, matrixStack, f, g, h);
 		}
 
 	}

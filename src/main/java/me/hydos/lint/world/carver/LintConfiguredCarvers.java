@@ -23,8 +23,9 @@ import me.hydos.lint.Lint;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.ProbabilityConfig;
+import net.minecraft.world.gen.carver.CarverConfig;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
 
 public interface LintConfiguredCarvers {
-	ConfiguredCarver<ProbabilityConfig> CAVE = Registry.register(BuiltinRegistries.CONFIGURED_CARVER, Lint.id("nebulaes_bane"), LintCaveCarver.INSTANCE.configure(new ProbabilityConfig(0.09F)));
+	ConfiguredCarver<CarverConfig> CAVE = Registry.register(BuiltinRegistries.CONFIGURED_CARVER, Lint.id("nebulaes_bane"), LintCaveCarver.INSTANCE.configure(new ProbabilityConfig(0.09F)));
 }

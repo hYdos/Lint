@@ -19,24 +19,13 @@
 
 package me.hydos.lint.client;
 
-import java.util.function.Function;
-
 import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.block.util.BlockBuilder;
 import me.hydos.lint.block.util.Layer;
-import me.hydos.lint.client.entity.model.CrabEntityModel;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
-import me.hydos.lint.client.entity.model.GhostEntityModel;
 import me.hydos.lint.client.entity.model.NightClawModel;
 import me.hydos.lint.client.entity.model.RedTailedTropicBirdModel;
-import me.hydos.lint.client.entity.render.BeeTaterEntityRenderer;
-import me.hydos.lint.client.entity.render.BirdEntityRenderer;
-import me.hydos.lint.client.entity.render.CrabEntityRenderer;
-import me.hydos.lint.client.entity.render.GhostEntityRenderer;
-import me.hydos.lint.client.entity.render.I509VCBRenderer;
-import me.hydos.lint.client.entity.render.KingTaterRenderer;
-import me.hydos.lint.client.entity.render.NPCHumanEntityRenderer;
-import me.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
+import me.hydos.lint.client.entity.render.*;
 import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
@@ -76,6 +65,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
+
+import java.util.function.Function;
 
 public class LintClient implements ClientModInitializer {
 	@Override
@@ -138,19 +129,19 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerEntityRenderers() {
-		EntityRendererRegistry.INSTANCE.register(Birds.EASTERN_ROSELLA, (entityRenderDispatcher, context) -> new BirdEntityRenderer(entityRenderDispatcher, new EasternRosellaModel()));
-		EntityRendererRegistry.INSTANCE.register(Birds.NIGHTCLAW, (entityRenderDispatcher, context) -> new BirdEntityRenderer(entityRenderDispatcher, new NightClawModel()));
-		EntityRendererRegistry.INSTANCE.register(Birds.RED_TAILED_TROPICBIRD, (entityRenderDispatcher, context) -> new BirdEntityRenderer(entityRenderDispatcher, new RedTailedTropicBirdModel()));
+		EntityRendererRegistry.INSTANCE.register(Birds.EASTERN_ROSELLA, (context) -> new BirdEntityRenderer(context, new EasternRosellaModel()));
+		EntityRendererRegistry.INSTANCE.register(Birds.NIGHTCLAW, (context) -> new BirdEntityRenderer(context, new NightClawModel()));
+		EntityRendererRegistry.INSTANCE.register(Birds.RED_TAILED_TROPICBIRD, (context) -> new BirdEntityRenderer(context, new RedTailedTropicBirdModel()));
 
-		EntityRendererRegistry.INSTANCE.register(Entities.TINY_POTATO, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
-		EntityRendererRegistry.INSTANCE.register(Entities.NPC_TINY_POTATO, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
-		EntityRendererRegistry.INSTANCE.register(Entities.BEE_TATER, (entityRenderDispatcher, context) -> new BeeTaterEntityRenderer(entityRenderDispatcher));
-		EntityRendererRegistry.INSTANCE.register(Entities.GHOST, (entityRenderDispatcher, context) -> new GhostEntityRenderer(entityRenderDispatcher, new GhostEntityModel()));
-		EntityRendererRegistry.INSTANCE.register(Entities.CRAB, (entityRenderDispatcher, context) -> new CrabEntityRenderer(entityRenderDispatcher, new CrabEntityModel()));
-		EntityRendererRegistry.INSTANCE.register(Entities.MINION, (entityRenderDispatcher, context) -> new TinyPotatoEntityRenderer(entityRenderDispatcher));
-		EntityRendererRegistry.INSTANCE.register(Entities.KING_TATER, (entityRenderDispatcher, context) -> new KingTaterRenderer(entityRenderDispatcher));
-		EntityRendererRegistry.INSTANCE.register(Entities.I509VCB, (entityRenderDispatcher, context) -> new I509VCBRenderer(entityRenderDispatcher));
-		EntityRendererRegistry.INSTANCE.register(Entities.NPC_HUMAN, (entityRenderDispatcher, context) -> new NPCHumanEntityRenderer(entityRenderDispatcher));
+		EntityRendererRegistry.INSTANCE.register(Entities.TINY_POTATO, TinyPotatoEntityRenderer::new);
+		EntityRendererRegistry.INSTANCE.register(Entities.NPC_TINY_POTATO, TinyPotatoEntityRenderer::new);
+		EntityRendererRegistry.INSTANCE.register(Entities.BEE_TATER, BeeTaterEntityRenderer::new);
+		EntityRendererRegistry.INSTANCE.register(Entities.GHOST, GhostEntityRenderer::new);
+		EntityRendererRegistry.INSTANCE.register(Entities.CRAB, CrabEntityRenderer::new);
+		EntityRendererRegistry.INSTANCE.register(Entities.MINION, TinyPotatoEntityRenderer::new);
+		EntityRendererRegistry.INSTANCE.register(Entities.KING_TATER, KingTaterRenderer::new);
+		EntityRendererRegistry.INSTANCE.register(Entities.I509VCB, I509VCBRenderer::new);
+		EntityRendererRegistry.INSTANCE.register(Entities.NPC_HUMAN, NPCHumanEntityRenderer::new);
 	}
 
 	private void registerMiscRenderers() {

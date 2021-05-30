@@ -19,8 +19,6 @@
 
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import net.minecraft.block.BlockState;
@@ -29,9 +27,11 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
+
+import java.util.Random;
 
 public class FadingAshFeature extends Feature<DefaultFeatureConfig> {
 	private static final BlockState ASH = LintBlocks.ASH.getDefaultState();
@@ -42,7 +42,11 @@ public class FadingAshFeature extends Feature<DefaultFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos start, DefaultFeatureConfig config) {
+	public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+		StructureWorldAccess world = context.getWorld();
+		Random random = context.getRandom();
+		BlockPos start = context.getOrigin();
+
 		double dist = start.getSquaredDistance(Vec3i.ZERO);
 
 		if (dist > FraiyaTerrainGenerator.ASH_START) {

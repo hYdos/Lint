@@ -22,7 +22,7 @@ package me.hydos.lint.client.entity.render;
 import me.hydos.lint.Lint;
 import me.hydos.lint.client.entity.model.KingTaterEntityModel;
 import me.hydos.lint.entity.aggressive.KingTaterEntity;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -31,8 +31,8 @@ public class KingTaterRenderer extends MobEntityRenderer<KingTaterEntity, KingTa
 
 	private static final Identifier SKIN = Lint.id("textures/entity/tater_king.png");
 
-	public KingTaterRenderer(EntityRenderDispatcher renderManager) {
-		super(renderManager, new KingTaterEntityModel(), 1);
+	public KingTaterRenderer(EntityRendererFactory.Context context) {
+		super(context, new KingTaterEntityModel(), 1);
 	}
 
 	@Override
