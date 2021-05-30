@@ -32,7 +32,7 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.util.math.Vec2i;
-import me.hydos.lint.world.feature.Features;
+import me.hydos.lint.world.feature.FeaturesOld;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import net.minecraft.block.BlockState;
@@ -279,7 +279,7 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 
         if (list.size() > n) {
             List<Supplier<ConfiguredFeature<?, ?>>> toGenerate = new ArrayList<Supplier<ConfiguredFeature<?, ?>>>(list.get(n));
-            toGenerate.add(0, () -> Features.FLOATING_ISLAND_ALLOS_CRYSTAL);
+            toGenerate.add(0, () -> FeaturesOld.FLOATING_ISLAND_ALLOS_CRYSTAL);
 
             for (Supplier<ConfiguredFeature<?, ?>> supplier : toGenerate) {
                 try {

@@ -40,7 +40,7 @@ import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
-import me.hydos.lint.world.feature.Features;
+import me.hydos.lint.world.feature.FeaturesOld;
 import me.hydos.lint.world.gen.FraiyaBiomeGenerator;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
@@ -103,7 +103,7 @@ public final class Lint implements ModInitializer {
 
 	private void registerLintWorld() {
 		Structures.initialize();
-		Features.initialize();
+		FeaturesOld.initialize();
 		Biomes.initialize();
 		TerrainType.REGISTRY.put(Lint.id("fraiya"), new TerrainType(
 				FraiyaTerrainGenerator::new,

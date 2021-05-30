@@ -22,7 +22,7 @@ package me.hydos.lint.world.feature.util;
 import java.util.Random;
 
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.FeatureConfig;
 
@@ -32,14 +32,14 @@ public interface WorldModifier<T extends FeatureConfig> {
 	 * @param settings the generation settings.
 	 * @return whether generation was successful.
 	 */
-	boolean modify(GenerationSettings<T> settings);
+	boolean place(GenerationSettings<T> settings);
 
 	/**
 	 * @return the ID of this world modifier.
 	 */
 	String id();
 
-	public static class GenerationSettings<T extends FeatureConfig> {
+	class GenerationSettings<C extends FeatureConfig> {
 		/**
 		 * Construct a settings instance for the world modifier.
 		 * @param world the world.
@@ -48,19 +48,19 @@ public interface WorldModifier<T extends FeatureConfig> {
 		 * @param origin the position at which to generate.
 		 * @param config the feature config.
 		 */
-		public GenerationSettings(WorldAccess world, ChunkGenerator generator,
-				Random rand, BlockPos origin, T config) {
+		public GenerationSettings(StructureWorldAccess world, ChunkGenerator generator,
+				Random rand, BlockPos origin, C config) {
 			this.world = world;
 			this.generator = generator;
-			this.rand = rand;
+			this.random = rand;
 			this.origin = origin;
 			this.config = config;
 		}
 
-		public final WorldAccess world;
+		public final StructureWorldAccess world;
 		public final ChunkGenerator generator;
-		public final Random rand;
+		public final Random random;
 		public final BlockPos origin;
-		public final T config;
+		public final C config;
 	}
 }
