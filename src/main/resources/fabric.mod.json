@@ -26,6 +26,7 @@
   "depends": {
     "minecraft": "1.16.x",
     "fabric": "*",
-    "geckolib3": ">=3.0.0"
+    "geckolib3": ">=3.0.0",
+    "myron": ">=1.5.0"
   }
 }

@@ -17,24 +17,14 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.recipe;
+package me.hydos.lint.tag;
 
 import me.hydos.lint.Lint;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.registry.Registry;
+import net.fabricmc.fabric.api.tag.TagRegistry;
+import net.minecraft.item.Item;
+import net.minecraft.tag.Tag;
 
-public class Recipes {
+public class LintItemTags {
 
-	public static final SpecialRecipeSerializer<HerbMixRecipe> HERB_MIX = Registry.register(Registry.RECIPE_SERIALIZER, Lint.id("herb_mix"), new SpecialRecipeSerializer<>(HerbMixRecipe::new));
-
-//	public static final RecipeType<SmelteryRecipe> SMELTERY_RECIPE_TYPE = Registry.register(Registry.RECIPE_TYPE,
-//			Lint.id("smeltery_recipe"),
-//			new LintRecipeType<>("smeltery_recipe"));
-//
-//	public static final RecipeSerializer<SmelteryRecipe> SMELTERY_RECIPE_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER,
-//			Lint.id("smeltery_recipe"),
-//			new CookingRecipeSerializer<>(SmelteryRecipe::new, 200));
-
-	public static void initialize() {
-	}
+	public static final Tag<Item> HERB_MIX_SPECIAL = TagRegistry.item(Lint.id("herb_mix_special"));
 }
