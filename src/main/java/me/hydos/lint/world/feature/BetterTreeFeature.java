@@ -33,7 +33,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import me.hydos.lint.block.DirtLikeBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.state.property.Properties;
 import net.minecraft.structure.Structure;
 import net.minecraft.util.math.BlockBox;
@@ -140,7 +139,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 			for (int l = -k; l <= k; ++l) {
 				for (int m = -k; m <= k; ++m) {
 					mutable.set(blockPos, l, j, m);
-					if (!TreeFeature.canTreeReplace(testableWorld, mutable) || !treeFeatureConfig.ignoreVines && isVine(testableWorld, mutable)) {
+					if (!TreeFeature.canTreeReplace(testableWorld, mutable) || !treeFeatureConfig.ignoreVines && TreeFeature.isVine(testableWorld, mutable)) {
 						return j - 2;
 					}
 				}
@@ -148,13 +147,6 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 		}
 
 		return i;
-	}
-
-	// why is TreeFeature.isVine private this is cringe
-	private static boolean isVine(TestableWorld world, BlockPos pos) {
-		return world.testBlockState(pos, (state) -> {
-			return state.isOf(Blocks.VINE);
-		});
 	}
 
 	protected void setBlockState(ModifiableWorld world, BlockPos pos, BlockState state) {
