@@ -19,8 +19,15 @@
 
 package me.hydos.lint.world.gen.terrain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
@@ -28,8 +35,6 @@ import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
-import me.hydos.lint.world.structure2.StructureChunkGenerator;
-import me.hydos.lint.world.structure2.StructureManager;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
@@ -56,16 +61,8 @@ import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
+public class TerrainChunkGenerator extends ChunkGenerator {
 
-public class TerrainChunkGenerator extends ChunkGenerator implements StructureChunkGenerator {
-
-    public static List<Consumer<StructureManager>> onStructureSetup = new ArrayList<>();
     public static final Codec<TerrainChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
             Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
             Identifier.CODEC.fieldOf("terrainType").orElse(Lint.id("fraiya")).stable().forGetter(generator -> generator.terrainType),
@@ -78,7 +75,6 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
     private TerrainGenerator terrain;
     private FloatingIslandModifier floatingIslands;
     private OctaveSimplexNoiseSampler surfaceNoise;
-    private StructureManager structureManager;
     private final Identifier terrainType;
 
     public TerrainChunkGenerator(long seed, Identifier terrainType, Registry<Biome> registry) {
@@ -88,9 +84,6 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
         this.terrainType = terrainType;
 
         ServerChunkManagerCallback.EVENT.register(manager -> {
-            this.structureManager = new StructureManager(this);
-            onStructureSetup.forEach(c -> c.accept(this.structureManager));
-
             long worldSeed = ((ServerWorld) manager.getWorld()).getSeed();
 
             Random rand = new Random(worldSeed + 1);
@@ -109,10 +102,6 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
             this.floatingIslands = tt.floatingIslands ? new FloatingIslandModifier(worldSeed) : null;
             this.surfaceNoise = new OctaveSimplexNoiseSampler(this.random, IntStream.rangeClosed(-3, 0));
         });
-    }
-
-    public static void onStructureSetup(Consumer<StructureManager> callback) {
-        onStructureSetup.add(callback);
     }
 
     private static Vec2i fromRTheta(double r, double theta) { // 0 = +x, pi/2 = +z, etc
@@ -253,20 +242,12 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
         return new VerticalBlockSample(column);
     }
 
-    @Override
-    public StructureManager getStructureManager() {
-        return this.structureManager;
-    }
-
     public Vec2i[] getTownCentres() {
         return this.villageCentres.toArray(new Vec2i[4]);
     }
 
     @Override
     public void generateFeatures(ChunkRegion region, StructureAccessor accessor) {
-        // prepare structures
-        this.structureManager.prepareChunkForPopulation(region, this.seed, region.getCenterChunkX(), region.getCenterChunkZ());
-
         // generate features
         super.generateFeatures(region, accessor);
 

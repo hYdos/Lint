@@ -19,7 +19,6 @@
 
 package me.hydos.lint;
 
-import me.hydos.lint.particle.Particles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,6 +32,7 @@ import me.hydos.lint.item.LintItems;
 import me.hydos.lint.item.potion.LintPotions;
 import me.hydos.lint.network.Networking;
 import me.hydos.lint.npc.NPCs;
+import me.hydos.lint.particle.Particles;
 import me.hydos.lint.recipe.Recipes;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.sound.Sounds;
@@ -51,7 +51,6 @@ import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.GeckoLib;
 

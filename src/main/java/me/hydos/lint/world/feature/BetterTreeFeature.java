@@ -33,10 +33,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import me.hydos.lint.block.DirtLikeBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
+import net.minecraft.block.Blocks;
 import net.minecraft.state.property.Properties;
 import net.minecraft.structure.Structure;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -63,8 +62,8 @@ import net.minecraft.world.gen.trunk.TrunkPlacer;
 public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 
 	public static final Codec<TreeFeatureConfig> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BlockStateProvider.TYPE_CODEC
-					.fieldOf("trunk_provider")
-					.forGetter((treeFeatureConfig) -> treeFeatureConfig.trunkProvider),
+			.fieldOf("trunk_provider")
+			.forGetter((treeFeatureConfig) -> treeFeatureConfig.trunkProvider),
 			BlockStateProvider.TYPE_CODEC.fieldOf("leaves_provider").forGetter((treeFeatureConfig) -> treeFeatureConfig.leavesProvider),
 			FoliagePlacer.TYPE_CODEC.fieldOf("foliage_placer").forGetter((treeFeatureConfig) -> treeFeatureConfig.foliagePlacer),
 			TrunkPlacer.CODEC.fieldOf("trunk_placer").forGetter((treeFeatureConfig) -> treeFeatureConfig.trunkPlacer),
@@ -141,7 +140,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 			for (int l = -k; l <= k; ++l) {
 				for (int m = -k; m <= k; ++m) {
 					mutable.set(blockPos, l, j, m);
-					if (!TreeFeature.canTreeReplace(testableWorld, mutable) || !treeFeatureConfig.ignoreVines && TreeFeature.isVine(testableWorld, mutable)) {
+					if (!TreeFeature.canTreeReplace(testableWorld, mutable) || !treeFeatureConfig.ignoreVines && isVine(testableWorld, mutable)) {
 						return j - 2;
 					}
 				}
@@ -149,6 +148,13 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 		}
 
 		return i;
+	}
+
+	// why is TreeFeature.isVine private this is cringe
+	private static boolean isVine(TestableWorld world, BlockPos pos) {
+		return world.testBlockState(pos, (state) -> {
+			return state.isOf(Blocks.VINE);
+		});
 	}
 
 	protected void setBlockState(ModifiableWorld world, BlockPos pos, BlockState state) {
