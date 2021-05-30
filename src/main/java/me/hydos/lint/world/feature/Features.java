@@ -27,7 +27,6 @@ import com.google.common.collect.ImmutableList;
 
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.block.LintBlocksOld;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -64,7 +63,6 @@ public class Features {
 	public static final PortalFeature RETURN_PORTAL = register("portal", new PortalFeature());
 	public static final Feature<DefaultFeatureConfig> VERTICAL_SHAFT = register("vertical_shaft", new VerticalShaftFeature());
 	public static final Feature<DefaultFeatureConfig> FADING_ASH = register("fading_ash", new FadingAshFeature());
-	public static final Feature<DefaultFeatureConfig> STRUCTURE = register("structure", new LintStructureFeature());
 	public static final Feature<DefaultFeatureConfig> TOWN = register("town", new TownFeature());
 	public static final Feature<SingleStateFeatureConfig> HANGING_BLOCK = register("hanging_block", new HangingBlockFeature());
 
@@ -169,8 +167,6 @@ public class Features {
 
 	public static final ConfiguredFeature<?, ?> CONFIGURED_FADING_ASH = register("fading_ash", FADING_ASH.configure(DefaultFeatureConfig.INSTANCE)
 			.decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));
-
-	public static final ConfiguredFeature<?, ?> CONFIGURED_STRUCTURE = register("structure", STRUCTURE.configure(DefaultFeatureConfig.INSTANCE));
 
 	public static final ConfiguredFeature<?, ?> CONFIGURED_TOWN = register("town", TOWN.configure(DefaultFeatureConfig.INSTANCE)
 			.decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE.repeat(1)));
