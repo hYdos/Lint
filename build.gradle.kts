@@ -28,8 +28,8 @@ repositories {
 val modImplementationAndInclude by configurations.register("modImplementationAndInclude")
 
 dependencies {
-    minecraft("net.minecraft", "minecraft", "1.17-pre1")
-    mappings("net.fabricmc", "yarn", "1.17-pre1+build.9", classifier = "v2")
+    minecraft("net.minecraft", "minecraft", "1.17")
+    mappings("net.fabricmc", "yarn", "1.17+build.11", classifier = "v2")
 
     modImplementation("net.fabricmc", "fabric-loader", "0.11.3")
     modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.34.8+1.17")

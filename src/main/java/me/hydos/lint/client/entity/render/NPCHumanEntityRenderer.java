@@ -166,8 +166,8 @@ public class NPCHumanEntityRenderer extends LivingEntityRenderer<NPCHumanEntity,
 
 			Vec3d vec3d = entity.getRotationVec(h);
 			Vec3d vec3d2 = entity.getVelocity();
-			double d = vec3d2.method_37268();
-			double e = vec3d.method_37268();
+			double d = vec3d2.horizontalLengthSquared();
+			double e = vec3d.horizontalLengthSquared();
 			if (d > 0.0D && e > 0.0D) {
 				double l = (vec3d2.x * vec3d.x + vec3d2.z * vec3d.z) / Math.sqrt(d * e);
 				double m = vec3d2.x * vec3d.z - vec3d2.z * vec3d.x;
