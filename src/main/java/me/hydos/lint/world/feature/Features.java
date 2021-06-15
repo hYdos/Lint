@@ -49,7 +49,7 @@ public class Features {
 	/**
 	 * UNCONFIGURED FEATURES
 	 **/
-	public static final Feature<TreeFeatureConfig> LINT_TREE = register("tree", new BetterTreeFeature(BetterTreeFeature.CODEC));
+	public static final Feature<TreeFeatureConfig> LINT_TREE = register("tree", new BetterTreeFeature(TreeFeatureConfig.CODEC));
 	public static final Feature<TreeFeatureConfig> CANOPY_TREE = register("canopy_tree", new CanopyTreeFeature());
 	public static final PortalFeature RETURN_PORTAL = register("portal", new PortalFeature());
 	public static final Feature<DefaultFeatureConfig> VERTICAL_SHAFT = register("vertical_shaft", new VerticalShaftFeature());
