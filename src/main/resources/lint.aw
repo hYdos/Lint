@@ -15,3 +15,4 @@ accessible	class	net/minecraft/block/entity/BlockEntityType$BlockEntityFactory
 accessible	method	net/minecraft/item/Item isIn (Lnet/minecraft/tag/Tag;)Z
 accessible	class	net/minecraft/world/gen/feature/ConfiguredFeatures$Decorators
 accessible	method	net/minecraft/world/gen/feature/TreeFeature	setBlockStateWithoutUpdatingNeighbors	(Lnet/minecraft/world/ModifiableWorld;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V
+accessible	method	net/minecraft/world/gen/feature/TreeFeature	placeLogsAndLeaves	(Lnet/minecraft/world/WorldAccess;Lnet/minecraft/util/math/BlockBox;Ljava/util/Set;Ljava/util/Set;)Lnet/minecraft/util/shape/VoxelSet;
