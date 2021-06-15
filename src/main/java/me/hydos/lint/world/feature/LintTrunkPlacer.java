@@ -22,6 +22,7 @@ package me.hydos.lint.world.feature;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
@@ -30,6 +31,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
@@ -57,12 +59,15 @@ public class LintTrunkPlacer extends TrunkPlacer {
 	private static boolean canGenerate(TestableWorld world, BlockPos pos) {
 		return world.testBlockState(pos, (state) -> {
 			Block block = state.getBlock(); // wtf is this not checking for lint blocks i mean it does't seem to be changing anyhting so ok
-			return Feature.isSoil(block) && !state.isOf(Blocks.GRASS_BLOCK) && !state.isOf(Blocks.MYCELIUM);
+			return Feature.isSoil(block.getDefaultState()) && !state.isOf(Blocks.GRASS_BLOCK) && !state.isOf(Blocks.MYCELIUM);
 		});
 	}
 
 	protected static void setToLintDirt(ModifiableTestableWorld world, BlockPos pos) {
-		if (!canGenerate(world, pos)) {
+		if (!canGenerate(world, pos)) { // if cannot generate
+			// mojank irit (pre 1.17)
+			//TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
+			// based (post 1.17)
 			TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
 		}
 	}
@@ -70,14 +75,15 @@ public class LintTrunkPlacer extends TrunkPlacer {
 	protected TrunkPlacerType<?> getType() {
 		return STRAIGHT_TRUNK_PLACER;
 	}
+	
+	@Override
+	public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
+		setToLintDirt((ModifiableTestableWorld) world, startPos.down());
 
-	public List<FoliagePlacer.TreeNode> generate(ModifiableTestableWorld world, Random random, int trunkHeight, BlockPos pos, Set<BlockPos> placedStates, BlockBox box, TreeFeatureConfig config) {
-		setToLintDirt(world, pos.down());
-
-		for (int i = 0; i < trunkHeight; ++i) {
-			getAndSetState(world, random, pos.up(i), placedStates, box, config);
+		for (int i = 0; i < height; ++i) {
+			getAndSetState(world, replacer, random, startPos.up(i), config);
 		}
 
-		return ImmutableList.of(new FoliagePlacer.TreeNode(pos.up(trunkHeight), 0, false));
+		return ImmutableList.of(new FoliagePlacer.TreeNode(startPos.up(height), 0, false));
 	}
 }

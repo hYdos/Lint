@@ -29,6 +29,7 @@ import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
@@ -64,30 +65,44 @@ public class Features {
 
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> CORRUPT_TREE = register("corrupt_tree", LINT_TREE.configure((
 			new TreeFeatureConfig.Builder(
-					new SimpleBlockStateProvider(LintBlocks.CORRUPT_LOG.getDefaultState()), new SimpleBlockStateProvider(LintBlocks.CORRUPT_LEAVES.getDefaultState()),
-					new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3), new LintTrunkPlacer(4, 2, 0),
+					new SimpleBlockStateProvider(LintBlocks.CORRUPT_LOG.getDefaultState()),
+					new LintTrunkPlacer(4, 2, 0),
+					new SimpleBlockStateProvider(LintBlocks.CORRUPT_LEAVES.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.CORRUPT_SAPLING.getDefaultState()),
+					new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3),
 					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build()));
 
 	public static final ConfiguredFeature<?, ?> CORRUPT_TREES = register("corrupt_trees", CORRUPT_TREE.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(10, 0.1F, 1))));
 
-	private static final TreeFeatureConfig BASED_CONFIG = new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+	// old name: BASED_CONFIG; no thank you. not a very descriptive name
+	private static final TreeFeatureConfig MYSTICAL_TREE_CONFIG = new TreeFeatureConfig.Builder(
+			new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+			new LintTrunkPlacer(4, 2, 0),
 			new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
+			new SimpleBlockStateProvider(LintBlocks.MYSTICAL_SAPLING.getDefaultState()),
 			new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3),
-			new LintTrunkPlacer(4, 2, 0), new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build();
+			new TwoLayersFeatureSize(1, 0, 1)).ignoreVines().build();
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> MYSTICAL_TREE = register("mystical_tree", LINT_TREE.configure(BASED_CONFIG));
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> MYSTICAL_TREE = register("mystical_tree", LINT_TREE.configure(MYSTICAL_TREE_CONFIG));
 
 	// Not registered bc not used directly anywhere, only used in THICK_MYSTICAL_TREES
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> TALL_MYSTICAL_TREE = LINT_TREE.configure((
-			new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+			new TreeFeatureConfig.Builder(
+					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+					new LintTrunkPlacer(6, 4, 0),
 					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LEAVES.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_SAPLING.getDefaultState()),
 					new BlobFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 3),
-					new LintTrunkPlacer(6, 4, 0), new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
+					new TwoLayersFeatureSize(1, 0, 1))).ignoreVines().build());
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", LINT_TREE.configure(new TreeFeatureConfig.Builder(new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
-			new SimpleBlockStateProvider(LintBlocks.FROZEN_LEAVES.getDefaultState()),
-			new SpruceFoliagePlacer(UniformIntProvider.create(2, 1), UniformIntProvider.create(0, 2), UniformIntProvider.create(1, 1)),
-			new LintTrunkPlacer(4, 2, 1), new TwoLayersFeatureSize(2, 0, 1)).ignoreVines().build()));
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> FROZEN_TREE = register("frozen_tree", LINT_TREE.configure(
+			new TreeFeatureConfig.Builder(
+					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_LOG.getDefaultState()),
+					new LintTrunkPlacer(4, 2, 1),
+					new SimpleBlockStateProvider(LintBlocks.FROZEN_LEAVES.getDefaultState()),
+					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_SAPLING.getDefaultState()),
+					new SpruceFoliagePlacer(UniformIntProvider.create(2, 1), UniformIntProvider.create(0, 2), UniformIntProvider.create(1, 1)),
+					new TwoLayersFeatureSize(2, 0, 1)).ignoreVines().build()));
 
 	public static final ConfiguredFeature<?, ?> MYSTICAL_TREES = register("mystical_trees", MYSTICAL_TREE
 			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(3, 0.3F, 1))));
@@ -95,7 +110,7 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> FROZEN_TREES = register("frozen_trees", FROZEN_TREE
 			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.3F, 1))));
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> CANOPY_TREE_CONFIGURED = register("canopy_tree", CANOPY_TREE.configure(BASED_CONFIG));
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> CANOPY_TREE_CONFIGURED = register("canopy_tree", CANOPY_TREE.configure(MYSTICAL_TREE_CONFIG));
 
 	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", Feature.RANDOM_SELECTOR.configure(
 			new RandomFeatureConfig(ImmutableList.of(CANOPY_TREE_CONFIGURED.withChance(0.15f), MYSTICAL_TREE.withChance(0.33f)), TALL_MYSTICAL_TREE))
@@ -116,7 +131,7 @@ public class Features {
 	 */
 	public static final ConfiguredFeature<?, ?> FLOATING_ISLAND_ALLOS_CRYSTAL = register("floating_island_allos_crystal", HANGING_BLOCK
 			.configure(new SingleStateFeatureConfig(LintBlocks.ALLOS_CRYSTAL.getDefaultState()))
-			.rangeOf(60).spreadHorizontally().repeatRandomly(3));
+			.uniformRange(YOffset.aboveBottom(0), YOffset.belowTop(60)).spreadHorizontally().repeatRandomly(3));
 
 	@SuppressWarnings("unchecked")
 	public static final ConfiguredFeature<?, ?> DAWN_SHARDLANDS_SHARDS = register("dawn_shardlands_shards", Feature.SIMPLE_RANDOM_SELECTOR.configure(
@@ -135,17 +150,17 @@ public class Features {
 	public static final ConfiguredFeature<?, ?> TARSCAN_ORE = register("tarscan_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
 					LintBlocks.TARSCAN_ORE.getDefaultState(),
-					9)).rangeOf(64).spreadHorizontally().repeat(20));
+					9)).uniformRange(YOffset.aboveBottom(0), YOffset.belowTop(64)).spreadHorizontally().repeat(20));
 
 	public static final ConfiguredFeature<?, ?> SICIERON_ORE = register("sicieron_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
 					LintBlocks.SICIERON_ORE.getDefaultState(),
-					12)).rangeOf(40).spreadHorizontally().repeat(8));
+					12)).uniformRange(YOffset.aboveBottom(0), YOffset.belowTop(40)).spreadHorizontally().repeat(8));
 
 	public static final ConfiguredFeature<?, ?> JUREL_ORE = register("jurel_ore", Feature.ORE.configure(
 			new OreFeatureConfig(FUNNI_STONE,
 					LintBlocks.TARSCAN_ORE.getDefaultState(),
-					9)).rangeOf(10).spreadHorizontally().repeat(6));
+					9)).uniformRange(YOffset.aboveBottom(0), YOffset.belowTop(10)).spreadHorizontally().repeat(6));
 
 	/**
 	 * MISC
