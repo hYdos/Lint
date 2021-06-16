@@ -19,7 +19,6 @@
 
 package me.hydos.lint.util.math;
 
-import me.hydos.lint.mixinimpl.LintSky;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.world.ClientWorld;
@@ -86,15 +85,15 @@ public class Maths {
         return dx + dy;
     }
 
-    public static void onRetrieveModifiedFogColour(ClientWorld world, BiomeAccess access, float skyAngleThing,
-                                                   int noiseGenX, int noiseGenY, int noiseGenZ, CallbackInfoReturnable<Vec3d> info) {
+    public static void onRetrieveModifiedFogColor(ClientWorld world, BiomeAccess access, float skyAngleThing,
+                                                  int noiseGenX, int noiseGenY, int noiseGenZ, CallbackInfoReturnable<Vec3d> info) {
         if (world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
             if (noiseGenY < (50 >> 2)) {
                 info.setReturnValue(Vec3d.unpackRgb(Biomes.CAVERN_FOG_COLOUR));
             } else {
-                Vec3d fogColour = Vec3d.unpackRgb(access.getBiomeForNoiseGen(noiseGenX, noiseGenY, noiseGenZ).getFogColor());
-                fogColour = LintSky.adjustFogColor(fogColour, skyAngleThing);
-                info.setReturnValue(fogColour);
+                Vec3d fogColor = Vec3d.unpackRgb(access.getBiomeForNoiseGen(noiseGenX, noiseGenY, noiseGenZ).getFogColor());
+//                fogColor = LintSky.adjustFogColor(fogColor, skyAngleThing);
+                info.setReturnValue(fogColor);
             }
         }
     }

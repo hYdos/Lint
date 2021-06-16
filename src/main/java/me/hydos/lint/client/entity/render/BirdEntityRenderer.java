@@ -22,11 +22,11 @@ package me.hydos.lint.client.entity.render;
 import me.hydos.lint.entity.passive.bird.AbstractBirdEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
-import software.bernie.geckolib3.renderer.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class BirdEntityRenderer extends GeoEntityRenderer<AbstractBirdEntity> {
 
 	public BirdEntityRenderer(EntityRendererFactory.Context context, AnimatedGeoModel<AbstractBirdEntity> model) {
-		super(context.getRenderDispatcher(), model);
+		super(context, model);
 	}
 }

@@ -19,6 +19,7 @@
 
 package me.hydos.lint.client;
 
+import me.hydos.lint.Lint;
 import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.block.util.BlockBuilder;
 import me.hydos.lint.block.util.Layer;

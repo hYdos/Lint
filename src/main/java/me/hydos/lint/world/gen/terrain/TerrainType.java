@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+// TODO: convert to record
 public final class TerrainType {
     public TerrainType(TerrainGeneratorFunction terrainGeneratorProvider, BiomeGeneratorFunction biomeGeneratorProvider, boolean floatingIslands) {
         this.terrainGeneratorProvider = terrainGeneratorProvider;

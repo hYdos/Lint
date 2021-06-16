@@ -38,6 +38,6 @@ public class BackgroundRendererMixin {
     )
     private static void onRetrieveModifiedFogColour(ClientWorld world, BiomeAccess access, float skyAngleThing,
                                                     int noiseGenX, int noiseGenY, int noiseGenZ, CallbackInfoReturnable<Vec3d> info) {
-        Maths.onRetrieveModifiedFogColour(world, access, skyAngleThing, noiseGenX, noiseGenY, noiseGenZ, info);
+        Maths.onRetrieveModifiedFogColor(world, access, skyAngleThing, noiseGenX, noiseGenY, noiseGenZ, info);
     }
 }

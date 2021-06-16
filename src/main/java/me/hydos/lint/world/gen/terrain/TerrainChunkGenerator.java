@@ -27,6 +27,7 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
 import me.hydos.lint.util.math.Vec2i;
+import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
@@ -269,6 +270,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 			}
 		}
 		
+		// FIXME: is seaLevel the correct startY?
 		return new VerticalBlockSample(seaLevel, column);
 	}
 	
@@ -299,7 +301,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 				double noise = this.surfaceNoise.sample((double) x * 0.0625D, (double) z * 0.0625D, 0.0625D, (double) xo * 0.0625D) * 15.0D;
 				
 				region.getBiome(mutable.set(startX + xo, height, startZ + zo)).buildSurface(rand, chunk, x, z, height, noise,
-						LintBlocks.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(),  this.withSeed(this., region.getSeed());
+						LintBlocks.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(), region.getBottomY(), region.getSeed());
 				
 				// bedrock
 				if (x * x + z * z < FraiyaTerrainGenerator.SHARDLANDS_FADE_START) {
@@ -323,13 +325,13 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 	@Override
 	public void generateFeatures(ChunkRegion region, StructureAccessor accessor) {
 		// prepare structures
-		this.structureManager.prepareChunkForPopulation(region, this.seed, region.getCenterChunkX(), region.getCenterChunkZ());
+		this.structureManager.prepareChunkForPopulation(region, this.seed, region.getCenterPos().x, region.getCenterPos().z);
 		
 		// generate features
 		super.generateFeatures(region, accessor);
 		
-		int centreChunkX = region.getCenterChunkX();
-		int centreChunkZ = region.getCenterChunkZ();
+		int centreChunkX = region.getCenterPos().x;
+		int centreChunkZ = region.getCenterPos().z;
 		int startX = centreChunkX * 16;
 		int startZ = centreChunkZ * 16;
 		

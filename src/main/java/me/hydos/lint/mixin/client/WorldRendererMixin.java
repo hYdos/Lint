@@ -19,7 +19,6 @@
 
 package me.hydos.lint.mixin.client;
 
-import me.hydos.lint.mixinimpl.LintSky;
 import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
@@ -56,12 +55,13 @@ public class WorldRendererMixin {
 	private ClientWorld world;
 
 	@Inject(at = @At("HEAD"), method = "renderSky", cancellable = true)
-	private void renderLintSky(MatrixStack matrices, Matrix4f matrix4f, float tickDelta, CallbackInfo info) {
+	private void renderLintSky(MatrixStack matrices, Matrix4f matrix4f, float tickDelta, Runnable runnable, CallbackInfo info) {
 		if (this.world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
-			LintSky.renderLintSky(matrices,
-					this.textureManager, this.lightSkyBuffer, this.darkSkyBuffer,
-					this.starsBuffer, this.client, this.world, tickDelta);
-			info.cancel();
+			// FIXME: lint sky
+//			LintSky.renderLintSky(matrices,
+//					this.textureManager, this.lightSkyBuffer, this.darkSkyBuffer,
+//					this.starsBuffer, this.client, this.world, tickDelta);
+//			info.cancel();
 		}
 	}
 }

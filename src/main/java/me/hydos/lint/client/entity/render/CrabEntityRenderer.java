@@ -22,11 +22,11 @@ package me.hydos.lint.client.entity.render;
 import me.hydos.lint.client.entity.model.CrabEntityModel;
 import me.hydos.lint.entity.aggressive.CrabEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import software.bernie.geckolib3.renderer.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class CrabEntityRenderer extends GeoEntityRenderer<CrabEntity> {
 
 	public CrabEntityRenderer(EntityRendererFactory.Context context) {
-		super(context.getRenderDispatcher(), new CrabEntityModel());
+		super(context, new CrabEntityModel());
 	}
 }

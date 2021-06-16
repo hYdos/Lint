@@ -20,6 +20,8 @@
 package me.hydos.lint;
 
 import me.hydos.lint.particle.Particles;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

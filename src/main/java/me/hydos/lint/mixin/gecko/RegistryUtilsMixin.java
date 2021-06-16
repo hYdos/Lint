@@ -23,7 +23,7 @@ import net.fabricmc.loader.FabricLoader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import software.bernie.geckolib3.util.RegistryUtils;
+import software.bernie.example.registry.RegistryUtils;
 
 @Mixin(value = RegistryUtils.class, remap = false)
 public class RegistryUtilsMixin {

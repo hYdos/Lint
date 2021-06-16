@@ -26,6 +26,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 import java.util.OptionalLong;
 
+// TODO: crab accessors
 @Mixin(DimensionType.class)
 public interface DimensionTypeAccessor {
     @Invoker("<init>")
@@ -40,6 +41,8 @@ public interface DimensionTypeAccessor {
             boolean bedWorks,
             boolean respawnAnchorWorks,
             boolean hasRaids,
+            int minimumY,
+            int height,
             int logicalHeight,
             Identifier infiniburn,
             Identifier skyProperties,

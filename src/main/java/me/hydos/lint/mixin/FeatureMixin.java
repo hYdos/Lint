@@ -19,7 +19,7 @@
 
 package me.hydos.lint.mixin;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.world.gen.feature.Feature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,8 +34,8 @@ import me.hydos.lint.block.DirtLikeBlock;
 @Mixin(Feature.class)
 public class FeatureMixin {
     @Inject(at = @At("HEAD"), method = "isSoil", cancellable = true)
-    private static void isSoil(Block block, CallbackInfoReturnable<Boolean> info) {
-        if (DirtLikeBlock.isLintGrass(block)) {
+    private static void isSoil(BlockState state, CallbackInfoReturnable<Boolean> info) {
+        if (DirtLikeBlock.isLintGrass(state)) {
             info.setReturnValue(true);
         }
     }
