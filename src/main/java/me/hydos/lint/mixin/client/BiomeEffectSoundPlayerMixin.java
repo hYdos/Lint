@@ -90,7 +90,7 @@ public class BiomeEffectSoundPlayerMixin {
     }
 
     @Redirect(
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/source/BiomeAccess;getBiome(DDD)Lnet/minecraft/world/biome/Biome;"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/source/BiomeAccess;getBiomeForNoiseGen(DDD)Lnet/minecraft/world/biome/Biome;"),
             method = "tick")
     private Biome injectBiomeSoundDummies(BiomeAccess access, double x, double y, double z) {
         return LintSoundManager.injectBiomeSoundDummies(this.player, access, x, y, z);

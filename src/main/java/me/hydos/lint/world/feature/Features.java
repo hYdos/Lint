@@ -101,7 +101,7 @@ public class Features {
 					new LintTrunkPlacer(4, 2, 1),
 					new SimpleBlockStateProvider(LintBlocks.FROZEN_LEAVES.getDefaultState()),
 					new SimpleBlockStateProvider(LintBlocks.MYSTICAL_SAPLING.getDefaultState()),
-					new SpruceFoliagePlacer(UniformIntProvider.create(2, 1), UniformIntProvider.create(0, 2), UniformIntProvider.create(1, 1)),
+					new SpruceFoliagePlacer(UniformIntProvider.create(1, 2 /* FIXME: is this supposed to be 2,1 or 1,2? */), UniformIntProvider.create(0, 2), UniformIntProvider.create(1, 1)),
 					new TwoLayersFeatureSize(2, 0, 1)).ignoreVines().build()));
 
 	public static final ConfiguredFeature<?, ?> MYSTICAL_TREES = register("mystical_trees", MYSTICAL_TREE
