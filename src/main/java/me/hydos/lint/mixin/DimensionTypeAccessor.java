@@ -47,6 +47,6 @@ public interface DimensionTypeAccessor {
             Identifier infiniburn,
             Identifier skyProperties,
             float ambientLight) {
-        throw new AssertionError("Someone corbed mixin");
+        throw new AssertionError("Someone corbed mixin"); // TODO: more detailed error message and better error handling
     }
 }
