@@ -19,7 +19,7 @@
 
 package me.hydos.lint.entity.aggressive;
 
-import me.hydos.lint.bossbar.ModernBossBar;
+import me.hydos.lint.util.LintUtilities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.control.FlightMoveControl;
@@ -28,20 +28,25 @@ import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.boss.BossBar;
+import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.TextColor;
 import net.minecraft.world.World;
 
-// TODO: Why does the boss stop levitating?
+// FIXME: Why does the boss stop levitating?
 public class I509VCBEntity extends HostileEntity {
+	private final ServerBossBar bossBar;
+	
 	public I509VCBEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
-		ModernBossBar.getInstance().setTitle(getDisplayName().shallowCopy().styled(style -> style.withBold(true).withColor(TextColor.fromRgb(0xB41917))));
+//		ModernBossBar.getInstance().setTitle(getDisplayName().shallowCopy().styled(style -> style.withBold(true).withColor(TextColor.fromRgb(0xB41917))));
+		// FIXME: make BossBar color 0xB41917
+		this.bossBar = new ServerBossBar(this.getDisplayName(), BossBar.Color.RED, BossBar.Style.PROGRESS);
 		this.moveControl = new FlightMoveControl(this, 2, false);
 		this.setNoGravity(true);
 	}
@@ -70,23 +75,26 @@ public class I509VCBEntity extends HostileEntity {
 	public EntityNavigation createNavigation(World world) {
 		BirdNavigation flyingNav = new BirdNavigation(this, world);
 		flyingNav.setCanSwim(true);
-		flyingNav.setSpeed(100);
+		flyingNav.setSpeed(100); // FIXME: make entity not move slowly
 		return flyingNav;
 	}
 
 	@Override
 	public void onStartedTrackingBy(ServerPlayerEntity player) {
-		ModernBossBar.getInstance().addPlayer(player);
+//		ModernBossBar.getInstance().addPlayer(player);
+		this.bossBar.addPlayer(player);
 	}
 
 	@Override
 	public void onStoppedTrackingBy(ServerPlayerEntity player) {
-		ModernBossBar.getInstance().removePlayer(player);
+//		ModernBossBar.getInstance().removePlayer(player);
+		this.bossBar.removePlayer(player);
 	}
 
 	@Override
 	public void onDeath(DamageSource source) {
-		ModernBossBar.getInstance().clear();
+//		ModernBossBar.getInstance().clear();
+		this.bossBar.clearPlayers();
 	}
 
 	@Override
@@ -98,7 +106,8 @@ public class I509VCBEntity extends HostileEntity {
 	protected void mobTick() {
 		super.mobTick();
 
-		ModernBossBar.getInstance().setEndX(ModernBossBar.calculateEndX(KingTaterEntity.getScaledHealth(getHealth(), getMaxHealth())));
+//		ModernBossBar.getInstance().setEndX(ModernBossBar.calculateEndX(LintUtilities.getScaledHealth(getHealth(), getMaxHealth())));
+		this.bossBar.setPercent(LintUtilities.getScaledHealth(this.getHealth(), this.getMaxHealth()));
 
 		if (hasStatusEffect(StatusEffects.JUMP_BOOST)) {
 			addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20, 4, true, true, true, null));

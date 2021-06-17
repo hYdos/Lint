@@ -24,7 +24,6 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
 public class LintUtilities {
-
     public static void addPlayerInventorySlots(PlayerInventory playerInventory, ScreenHandler screenHandler) {
         // Hotbar
         for (int i = 0; i < 9; i++) {
@@ -40,4 +39,7 @@ public class LintUtilities {
         }
     }
 
+    public static float getScaledHealth(float health, float maxHealth) {
+        return health / maxHealth;
+    }
 }
