@@ -54,9 +54,9 @@ public class Dimensions {
 			true,
 			false,
 			true,
+			0,
 			256,
-			512,
-			504, // FIXME: Should this be 512, 504, or something else?
+			250,
 			BlockTags.INFINIBURN_OVERWORLD.getId(),
 			OVERWORLD_ID,
 			0.1F
