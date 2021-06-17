@@ -19,6 +19,7 @@
 
 package me.hydos.lint.mixin.client;
 
+// TODO: add video option that changes the bossbar from modern to default
 // why don't we just use a normal bossbar hydos
 //@Mixin(InGameHud.class)
 //public class InGameHudMixin {
