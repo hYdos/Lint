@@ -92,7 +92,7 @@ public class Maths {
                 info.setReturnValue(Vec3d.unpackRgb(Biomes.CAVERN_FOG_COLOUR));
             } else {
                 Vec3d fogColor = Vec3d.unpackRgb(access.getBiomeForNoiseGen(noiseGenX, noiseGenY, noiseGenZ).getFogColor());
-//                fogColor = LintSky.adjustFogColor(fogColor, skyAngleThing);
+//                fogColor = LintSky.adjustFogColor(fogColor, skyAngleThing); // FIXME: Lint sky
                 info.setReturnValue(fogColor);
             }
         }

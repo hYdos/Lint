@@ -28,7 +28,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ModelLoader.class)
 public class ModelLoaderMixin {
-
     @Redirect(
             method = "method_21604", // Lambda method
             at = @At(
