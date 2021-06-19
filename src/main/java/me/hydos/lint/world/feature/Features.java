@@ -51,6 +51,7 @@ public class Features {
 	 * UNCONFIGURED FEATURES
 	 **/
 	public static final Feature<TreeFeatureConfig> LINT_TREE = register("tree", new BetterTreeFeature(TreeFeatureConfig.CODEC));
+	public static final Feature<TreeFeatureConfig> CANOPY_TREE = register("canopy_tree", new CanopyTreeFeature());
 	public static final PortalFeature RETURN_PORTAL = register("portal", new PortalFeature());
 	public static final Feature<DefaultFeatureConfig> VERTICAL_SHAFT = register("vertical_shaft", new VerticalShaftFeature());
 	public static final Feature<DefaultFeatureConfig> FADING_ASH = register("fading_ash", new FadingAshFeature());
@@ -123,10 +124,10 @@ public class Features {
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
 			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(4, 0.3F, 1))));
 
-	public static final ConfiguredFeature<TreeFeatureConfig, ?> CANOPY_TREE = register("canopy_tree", LINT_TREE.configure(CANOPY_TREE_CONFIG));
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> CANOPY_TREE_CONFIGURED = register("canopy_tree", CANOPY_TREE.configure(CANOPY_TREE_CONFIG));
 
 	public static final ConfiguredFeature<?, ?> THICK_MYSTICAL_TREES = register("thick_mystical_trees", Feature.RANDOM_SELECTOR.configure(
-			new RandomFeatureConfig(ImmutableList.of(CANOPY_TREE.withChance(0.15f), MYSTICAL_TREE.withChance(0.33f)), TALL_MYSTICAL_TREE))
+			new RandomFeatureConfig(ImmutableList.of(CANOPY_TREE_CONFIGURED.withChance(0.15f), MYSTICAL_TREE.withChance(0.33f)), TALL_MYSTICAL_TREE))
 			.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP)
 			.decorate(Decorator.COUNT_EXTRA.configure(new CountExtraDecoratorConfig(18, 0.3F, 1))));
 

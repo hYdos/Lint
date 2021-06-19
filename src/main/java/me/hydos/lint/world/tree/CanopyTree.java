@@ -29,6 +29,6 @@ import java.util.Random;
 public class CanopyTree extends SaplingGenerator {
     @Override
     protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
-        return Features.CANOPY_TREE;
+        return Features.CANOPY_TREE_CONFIGURED;
     }
 }
