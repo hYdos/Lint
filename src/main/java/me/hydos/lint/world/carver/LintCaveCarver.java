@@ -65,9 +65,9 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 			double d = 1.5D + (double)(MathHelper.sin(3.1415927F * (float)j / (float)branchCount) * width);
 			double e = d * yawPitchRatio;
 			float h = MathHelper.cos(pitch);
-			x += (double)(MathHelper.cos(yaw) * h);
-			y += (double)MathHelper.sin(pitch);
-			z += (double)(MathHelper.sin(yaw) * h);
+			x += MathHelper.cos(yaw) * h;
+			y += MathHelper.sin(pitch);
+			z += MathHelper.sin(yaw) * h;
 			pitch *= bl ? 0.92F : 0.7F;
 			pitch += g * 0.1F;
 			yaw += f * 0.1F;
@@ -101,19 +101,17 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 		int j = random.nextInt(random.nextInt(random.nextInt(this.getMaxCaveCount()) + 1) + 1);
 
 		for(int k = 0; k < j; ++k) {
-			double d = (double)chunkPos.getOffsetX(random.nextInt(16));
-			double e = (double)caveCarverConfig.y.get(random, carverContext);
-			double f = (double)chunkPos.getOffsetZ(random.nextInt(16));
-			double g = (double)caveCarverConfig.horizontalRadiusMultiplier.get(random);
-			double h = (double)caveCarverConfig.verticalRadiusMultiplier.get(random);
-			double l = (double)caveCarverConfig.floorLevel.get(random);
-			Carver.SkipPredicate skipPredicate = (context, scaledRelativeX, scaledRelativeY, scaledRelativeZ, y) -> {
-				return CaveCarver.isPositionExcluded(scaledRelativeX, scaledRelativeY, scaledRelativeZ, l);
-			};
+			double d = chunkPos.getOffsetX(random.nextInt(16));
+			double e = caveCarverConfig.y.get(random, carverContext);
+			double f = chunkPos.getOffsetZ(random.nextInt(16));
+			double g = caveCarverConfig.horizontalRadiusMultiplier.get(random);
+			double h = caveCarverConfig.verticalRadiusMultiplier.get(random);
+			double l = caveCarverConfig.floorLevel.get(random);
+			Carver.SkipPredicate skipPredicate = (context, scaledRelativeX, scaledRelativeY, scaledRelativeZ, y) -> CaveCarver.isPositionExcluded(scaledRelativeX, scaledRelativeY, scaledRelativeZ, l);
 			int m = 1;
 			float r;
 			if (random.nextInt(4) == 0) {
-				double n = (double)caveCarverConfig.yScale.get(random);
+				double n = caveCarverConfig.yScale.get(random);
 				r = 1.0F + random.nextFloat() * 6.0F;
 				this.carveCave(carverContext, caveCarverConfig, chunk, function, random.nextLong(), aquiferSampler, d, e, f, r, n, bitSet, skipPredicate);
 				m += random.nextInt(4);
@@ -148,7 +146,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 	@Override
 	protected boolean carveAtPoint(CarverContext context, LintCaveCarverConfig config, Chunk chunk, Function<BlockPos, Biome> posToBiome, BitSet carvingMask, Random random, BlockPos.Mutable pos, BlockPos.Mutable downPos, AquiferSampler sampler, MutableBoolean foundSurface) {
 		BlockState blockState = chunk.getBlockState(pos);
-		BlockState blockState2 = chunk.getBlockState(downPos.set(pos, (Direction)Direction.UP));
+		BlockState blockState2 = chunk.getBlockState(downPos.set(pos, Direction.UP));
 		if (blockState.isOf(LintBlocks.CORRUPT_GRASS) || blockState.isOf(LintBlocks.LIVELY_GRASS)) {
 			foundSurface.setTrue();
 		}
@@ -163,9 +161,9 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 			} else {
 				chunk.setBlockState(pos, blockState3, false);
 				if (foundSurface.isTrue()) {
-					downPos.set(pos, (Direction)Direction.DOWN);
+					downPos.set(pos, Direction.DOWN);
 					if (chunk.getBlockState(downPos).isOf(Blocks.DIRT)) {
-						chunk.setBlockState(downPos, ((Biome)posToBiome.apply(pos)).getGenerationSettings().getSurfaceConfig().getTopMaterial(), false);
+						chunk.setBlockState(downPos, posToBiome.apply(pos).getGenerationSettings().getSurfaceConfig().getTopMaterial(), false);
 					}
 				}
 
