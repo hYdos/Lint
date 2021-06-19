@@ -19,21 +19,14 @@
 
 package me.hydos.lint.world.feature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.function.BiConsumer;
-
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.ModifiableTestableWorld;
@@ -45,6 +38,10 @@ import net.minecraft.world.gen.foliage.FoliagePlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacer;
 import net.minecraft.world.gen.trunk.TrunkPlacerType;
 
+import java.util.List;
+import java.util.Random;
+import java.util.function.BiConsumer;
+
 public class LintTrunkPlacer extends TrunkPlacer {
 
 	public static final Codec<LintTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> fillTrunkPlacerFields(instance)
@@ -52,8 +49,8 @@ public class LintTrunkPlacer extends TrunkPlacer {
 
 	public static final TrunkPlacerType<LintTrunkPlacer> STRAIGHT_TRUNK_PLACER = Registry.register(Registry.TRUNK_PLACER_TYPE, Lint.id("trunk_placer"), new TrunkPlacerType<>(CODEC));
 
-	public LintTrunkPlacer(int i, int j, int k) {
-		super(i, j, k);
+	public LintTrunkPlacer(int baseHeight, int firstRandomHeight, int secondRandomHeight) {
+		super(baseHeight, firstRandomHeight, secondRandomHeight);
 	}
 
 	private static boolean canGenerate(TestableWorld world, BlockPos pos) {

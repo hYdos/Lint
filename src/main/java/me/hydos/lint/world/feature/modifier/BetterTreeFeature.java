@@ -17,73 +17,55 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.world.feature;
-
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.OptionalInt;
-import java.util.Random;
-import java.util.Set;
-import java.util.function.BiConsumer;
+package me.hydos.lint.world.feature.modifier;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
-
-import me.hydos.lint.block.DirtLikeBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.state.property.Properties;
 import net.minecraft.structure.Structure;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3i;
-import net.minecraft.util.shape.BitSetVoxelSet;
 import net.minecraft.util.shape.VoxelSet;
 import net.minecraft.world.ModifiableWorld;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.TestableWorld;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
-import net.minecraft.world.gen.feature.size.FeatureSize;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import net.minecraft.world.gen.treedecorator.TreeDecorator;
-import net.minecraft.world.gen.trunk.TrunkPlacer;
 
-// reason: bad minecraft hardcoding for a few things
+import java.util.*;
+import java.util.function.BiConsumer;
+
+/**
+ * @reason bad minecraft hardcoding for a few things
+ */
 public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
-
 	public BetterTreeFeature(Codec<TreeFeatureConfig> codec) {
 		super(codec);
 	}
 
-	private static boolean isDirtOrGrass(TestableWorld world, BlockPos pos) {
-		return world.testBlockState(pos, DirtLikeBlock::isLintGrass);
-	}
-	
 	private boolean generate(StructureWorldAccess world, Random random, BlockPos pos, BiConsumer<BlockPos, BlockState> trunkReplacer, BiConsumer<BlockPos, BlockState> foliageReplacer, TreeFeatureConfig config) {
-		int i = config.trunkPlacer.getHeight(random);
-		int j = config.foliagePlacer.getRandomHeight(random, i, config);
-		int k = i - j;
+		pos = new BlockPos(((pos.getX() >> 4) << 4) + random.nextInt(16), pos.getY(), ((pos.getZ() >> 4) << 4) + random.nextInt(16));
+		int trunkPlacerHeight = config.trunkPlacer.getHeight(random);
+		int j = config.foliagePlacer.getRandomHeight(random, trunkPlacerHeight, config);
+		int k = trunkPlacerHeight - j;
 		int l = config.foliagePlacer.getRandomRadius(random, k);
-		if (pos.getY() >= world.getBottomY() + 1 && pos.getY() + i + 1 <= world.getTopY()) {
+
+		if (pos.getY() >= world.getBottomY() + 1 && pos.getY() + trunkPlacerHeight + 1 <= world.getTopY()) {
 			if (!config.saplingProvider.getBlockState(random, pos).canPlaceAt(world, pos)) {
 				return false;
 			} else {
 				OptionalInt optionalInt = config.minimumSize.getMinClippedHeight();
-				int m = this.getTopPosition(world, i, pos, config);
-				if (m >= i || optionalInt.isPresent() && m >= optionalInt.getAsInt()) {
-					List<FoliagePlacer.TreeNode> list = config.trunkPlacer.generate(world, trunkReplacer, random, m, pos, config);
-					list.forEach((treeNode) -> {
-						config.foliagePlacer.generate(world, foliageReplacer, random, config, m, treeNode, j, l);
-					});
+				int topPosition = this.getTopPosition(world, trunkPlacerHeight, pos, config);
+				if (topPosition >= trunkPlacerHeight || optionalInt.isPresent() && topPosition >= optionalInt.getAsInt()) {
+					List<FoliagePlacer.TreeNode> list = config.trunkPlacer.generate(world, trunkReplacer, random, topPosition, pos, config);
+					list.forEach((treeNode) -> config.foliagePlacer.generate(world, foliageReplacer, random, config, topPosition, treeNode, j, l));
 					return true;
 				} else {
 					return false;
@@ -93,30 +75,30 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 			return false;
 		}
 	}
-	
+
 	private int getTopPosition(TestableWorld world, int height, BlockPos pos, TreeFeatureConfig config) {
 		BlockPos.Mutable mutable = new BlockPos.Mutable();
-		
-		for(int i = 0; i <= height + 1; ++i) {
-			int j = config.minimumSize.getRadius(height, i);
-			
-			for(int k = -j; k <= j; ++k) {
-				for(int l = -j; l <= j; ++l) {
-					mutable.set((Vec3i)pos, k, i, l);
+
+		for (int j = 0; j <= height + 1; ++j) {
+			int k = config.minimumSize.getRadius(height, j);
+
+			for (int l = -k; l <= k; ++l) {
+				for (int m = -k; m <= k; ++m) {
+					mutable.set(pos, l, j, m);
 					if (!TreeFeature.canTreeReplace(world, mutable) || !config.ignoreVines && TreeFeature.isVine(world, mutable)) {
-						return i - 2;
+						return j - 2;
 					}
 				}
 			}
 		}
-		
+
 		return height;
 	}
 
 	protected void setBlockState(ModifiableWorld world, BlockPos pos, BlockState state) {
 		TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, state);
 	}
-	
+
 	@Override
 	public final boolean generate(FeatureContext<TreeFeatureConfig> context) {
 		StructureWorldAccess structureWorldAccess = context.getWorld();
@@ -149,7 +131,7 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 					treeDecorator.generate(structureWorldAccess, biConsumer3, random, list, list2);
 				});
 			}
-			
+
 			return BlockBox.encompassPositions(Iterables.concat(set, set2, set3)).map((box) -> {
 				VoxelSet voxelSet = TreeFeature.placeLogsAndLeaves(structureWorldAccess, box, set, set3);
 				Structure.updateCorner(structureWorldAccess, Block.NOTIFY_ALL, voxelSet, box.getMinX(), box.getMinY(), box.getMinZ());
@@ -157,12 +139,6 @@ public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 			}).orElse(false);
 		} else {
 			return false;
-		}
-	}
-
-	public static class LintTreeFeatureConfig extends TreeFeatureConfig {
-		protected LintTreeFeatureConfig(BlockStateProvider trunkProvider, TrunkPlacer trunkPlacer, BlockStateProvider foliageProvider, BlockStateProvider saplingProvider, FoliagePlacer foliagePlacer, BlockStateProvider dirtProvider, FeatureSize minimumSize, List<TreeDecorator> decorators, boolean ignoreVines, boolean forceDirt) {
-			super(trunkProvider, trunkPlacer, foliageProvider, saplingProvider, foliagePlacer, dirtProvider, minimumSize, decorators, ignoreVines, forceDirt);
 		}
 	}
 }

@@ -19,55 +19,48 @@
 
 package me.hydos.lint.world.carver;
 
+import com.mojang.serialization.Codec;
+import me.hydos.lint.block.LintBlocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.util.math.*;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.gen.carver.Carver;
+import net.minecraft.world.gen.carver.CarverContext;
+import net.minecraft.world.gen.carver.CaveCarver;
+import net.minecraft.world.gen.chunk.AquiferSampler;
+import org.apache.commons.lang3.mutable.MutableBoolean;
+
 import java.util.BitSet;
 import java.util.Random;
 import java.util.function.Function;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.*;
-import net.minecraft.world.gen.carver.CarverContext;
-import net.minecraft.world.gen.carver.CaveCarverConfig;
-import net.minecraft.world.gen.chunk.AquiferSampler;
-import org.apache.commons.lang3.mutable.MutableBoolean;
-
-import com.mojang.serialization.Codec;
-
-import me.hydos.lint.Lint;
-import me.hydos.lint.block.LintBlocks;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos.Mutable;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.ProbabilityConfig;
-import net.minecraft.world.gen.carver.Carver;
-import net.minecraft.world.gen.carver.CaveCarver;
-
 public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 	// FIXME: cave carvers
 	//public static final Carver<ProbabilityConfig> INSTANCE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(ProbabilityConfig.CODEC, 256));
-	
+
 	public LintCaveCarver(Codec<LintCaveCarverConfig> codec) {
 		super(codec);
 	}
-	
+
 	protected int getMaxCaveCount() {
 		return 15;
 	}
-	
+
 	protected void carveCave(CarverContext context, LintCaveCarverConfig config, Chunk chunk, Function<BlockPos, Biome> posToBiome, long seed, AquiferSampler aquiferSampler, double x, double y, double z, float yaw, double yawPitchRatio, BitSet carvingMask, Carver.SkipPredicate skipPredicate) {
 		double d = 1.5D + (double)(MathHelper.sin(1.5707964F) * yaw);
 		double e = d * yawPitchRatio;
 		this.carveRegion(context, config, chunk, posToBiome, seed, aquiferSampler, x + 1.0D, y, z, d, e, carvingMask, skipPredicate);
 	}
-	
+
 	protected void carveTunnels(CarverContext context, LintCaveCarverConfig config, Chunk chunk, Function<BlockPos, Biome> posToBiome, long seed, AquiferSampler aquiferSampler, double x, double y, double z, double horizontalScale, double verticalScale, float width, float yaw, float pitch, int branchStartIndex, int branchCount, double yawPitchRatio, BitSet carvingMask, Carver.SkipPredicate skipPredicate) {
 		Random random = new Random(seed);
 		int i = random.nextInt(branchCount / 2) + branchCount / 4;
 		boolean bl = random.nextInt(6) == 0;
 		float f = 0.0F;
 		float g = 0.0F;
-		
+
 		for(int j = branchStartIndex; j < branchCount; ++j) {
 			double d = 1.5D + (double)(MathHelper.sin(3.1415927F * (float)j / (float)branchCount) * width);
 			double e = d * yawPitchRatio;
@@ -87,26 +80,26 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 				this.carveTunnels(context, config, chunk, posToBiome, random.nextLong(), aquiferSampler, x, y, z, horizontalScale, verticalScale, random.nextFloat() * 0.5F + 0.5F, yaw + 1.5707964F, pitch / 3.0F, j, branchCount, 1.0D, carvingMask, skipPredicate);
 				return;
 			}
-			
+
 			if (random.nextInt(4) != 0) {
 				if (!canCarveBranch(chunk.getPos(), x, z, j, branchCount, width)) {
 					return;
 				}
-				
+
 				this.carveRegion(context, config, chunk, posToBiome, seed, aquiferSampler, x, y, z, d * horizontalScale, e * verticalScale, carvingMask, skipPredicate);
 			}
 		}
 	}
-	
+
 	protected double getTunnelSystemHeightWidthRatio() {
 		return 1.0D;
 	}
-	
+
 	@Override
 	public boolean carve(CarverContext carverContext, LintCaveCarverConfig caveCarverConfig, Chunk chunk, Function<BlockPos, Biome> function, Random random, AquiferSampler aquiferSampler, ChunkPos chunkPos, BitSet bitSet) {
 		int i = ChunkSectionPos.getBlockCoord(this.getBranchFactor() * 2 - 1);
 		int j = random.nextInt(random.nextInt(random.nextInt(this.getMaxCaveCount()) + 1) + 1);
-		
+
 		for(int k = 0; k < j; ++k) {
 			double d = (double)chunkPos.getOffsetX(random.nextInt(16));
 			double e = (double)caveCarverConfig.y.get(random, carverContext);
@@ -125,7 +118,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 				this.carveCave(carverContext, caveCarverConfig, chunk, function, random.nextLong(), aquiferSampler, d, e, f, r, n, bitSet, skipPredicate);
 				m += random.nextInt(4);
 			}
-			
+
 			for(int p = 0; p < m; ++p) {
 				float q = random.nextFloat() * 6.2831855F;
 				r = (random.nextFloat() - 0.5F) / 4.0F;
@@ -134,15 +127,15 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 				this.carveTunnels(carverContext, caveCarverConfig, chunk, function, random.nextLong(), aquiferSampler, d, e, f, g, h, s, q, r, 0, t, this.getTunnelSystemHeightWidthRatio(), bitSet, skipPredicate);
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	@Override
 	public boolean shouldCarve(LintCaveCarverConfig config, Random random) {
 		return false;
 	}
-	
+
 	@Override
 	protected boolean canCarveBlock(BlockState state, BlockState stateAbove) {
 		return state.isOf(LintBlocks.FUSED_STONE) || super.canCarveBlock(state, stateAbove);
@@ -151,7 +144,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 	protected float getTunnelSystemWidth(Random random) {
 		return 7.0f + random.nextFloat() + random.nextFloat();
 	}
-	
+
 	@Override
 	protected boolean carveAtPoint(CarverContext context, LintCaveCarverConfig config, Chunk chunk, Function<BlockPos, Biome> posToBiome, BitSet carvingMask, Random random, BlockPos.Mutable pos, BlockPos.Mutable downPos, AquiferSampler sampler, MutableBoolean foundSurface) {
 		BlockState blockState = chunk.getBlockState(pos);
@@ -159,7 +152,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 		if (blockState.isOf(LintBlocks.CORRUPT_GRASS) || blockState.isOf(LintBlocks.LIVELY_GRASS)) {
 			foundSurface.setTrue();
 		}
-		
+
 		if (!this.canCarveBlock(blockState, blockState2) && !isDebug(config)) {
 			return false;
 		} else {
@@ -175,12 +168,12 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 						chunk.setBlockState(downPos, ((Biome)posToBiome.apply(pos)).getGenerationSettings().getSurfaceConfig().getTopMaterial(), false);
 					}
 				}
-				
+
 				return true;
 			}
 		}
 	}
-	
+
 //	@Override
 //	protected boolean carveAtPoint(CarverContext context, CaveCarverConfig config, Chunk chunk, Function<BlockPos, Biome> posToBiome, BitSet carvingMask, Random random, Mutable pos, Mutable downPos, AquiferSampler sampler, MutableBoolean foundSurface) {
 //		int i = relativeX | relativeZ << 4 | y << 8;

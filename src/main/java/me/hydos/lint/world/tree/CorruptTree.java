@@ -31,5 +31,4 @@ public class CorruptTree extends SaplingGenerator {
     protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
         return Features.CORRUPT_TREE;
     }
-
 }
