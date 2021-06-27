@@ -25,7 +25,7 @@ package me.hydos.lint.block.util;
  * @reason specifying in a common builder rather than purely on the client.
  */
 public enum Layer {
-    DEFAULT,
-    CUTOUT_MIPPED,
-    TRANSLUCENT
+	DEFAULT,
+	CUTOUT_MIPPED,
+	TRANSLUCENT
 }

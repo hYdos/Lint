@@ -87,7 +87,7 @@ public class LintMaterials {
 			.miningLevel(FabricToolTags.PICKAXES, 0)
 			.sounds(BlockSoundGroup.STONE)
 			.template();
-	
+
 	public static final BlockMaterial COBBLESTONE = STONE.hardness(1.5f).template();
 
 	public static final BlockMaterial PLANKS = BlockMaterial.builder()
@@ -142,7 +142,7 @@ public class LintMaterials {
 			.template();
 
 	public static final BlockMaterial SAPLING = BlockMaterial.copy(Blocks.ACACIA_SAPLING).template();
-	
+
 	public static final BlockMaterial FALLEN_LEAVES = BlockMaterial.builder()
 			.material(Material.LEAVES)
 			.colour(MapColor.DARK_GREEN)

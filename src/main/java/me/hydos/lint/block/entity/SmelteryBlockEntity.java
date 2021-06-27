@@ -46,82 +46,82 @@ import java.util.List;
 
 public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, NamedScreenHandlerFactory, BlockEntityClientSerializable {
 
-    public final List<FluidStack> fluidData = new ArrayList<>(5);
-    public LintInventory inventory = new LintInventory(9);
-    public Multiblock multiblock;
+	public final List<FluidStack> fluidData = new ArrayList<>(5);
+	public LintInventory inventory = new LintInventory(9);
+	public Multiblock multiblock;
 
-    public SmelteryBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntities.SMELTERY, pos, state);
-    }
+	public SmelteryBlockEntity(BlockPos pos, BlockState state) {
+		super(BlockEntities.SMELTERY, pos, state);
+	}
 
-    @Override
-    public Text getDisplayName() {
-        return new LiteralText("Smeltery");
-    }
+	@Override
+	public Text getDisplayName() {
+		return new LiteralText("Smeltery");
+	}
 
-    @Nullable
-    @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        updateMultiblock();
-        return new SmelteryScreenHandler(syncId, inv, this);
-    }
+	@Nullable
+	@Override
+	public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+		updateMultiblock();
+		return new SmelteryScreenHandler(syncId, inv, this);
+	}
 
-    @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
-        NbtCompound serialisedFluidData = new NbtCompound();
-        writeFluidsToTag(serialisedFluidData);
-        tag.put("fluidData", serialisedFluidData);
-        Inventories.writeNbt(tag, inventory.getRawList());
-        return super.writeNbt(tag);
-    }
+	@Override
+	public NbtCompound writeNbt(NbtCompound tag) {
+		NbtCompound serialisedFluidData = new NbtCompound();
+		writeFluidsToTag(serialisedFluidData);
+		tag.put("fluidData", serialisedFluidData);
+		Inventories.writeNbt(tag, inventory.getRawList());
+		return super.writeNbt(tag);
+	}
 
-    @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        updateFluids(nbt.getCompound("fluidData"));
-        inventory = new LintInventory(9);
-        Inventories.readNbt(nbt, inventory.getRawList());
-    }
+	@Override
+	public void readNbt(NbtCompound nbt) {
+		super.readNbt(nbt);
+		updateFluids(nbt.getCompound("fluidData"));
+		inventory = new LintInventory(9);
+		Inventories.readNbt(nbt, inventory.getRawList());
+	}
 
-    public boolean isActive() {
-        return true;
-    }
+	public boolean isActive() {
+		return true;
+	}
 
-    public void updateMultiblock() {
-        multiblock = Multiblocks.SMELTERY.find(world, getPos());
-    }
+	public void updateMultiblock() {
+		multiblock = Multiblocks.SMELTERY.find(world, getPos());
+	}
 
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
-        packetByteBuf.writeBlockPos(getPos());
-    }
+	@Override
+	public void writeScreenOpeningData(ServerPlayerEntity serverPlayerEntity, PacketByteBuf packetByteBuf) {
+		packetByteBuf.writeBlockPos(getPos());
+	}
 
-    public void updateFluids(NbtCompound fluidInformation) {
-        if (fluidInformation != null) {
-            for (int i = 0; i < fluidInformation.getInt("size"); i++) {
-                fluidData.add(FluidStack.fromTag((NbtCompound) fluidInformation.get(String.valueOf(i))));
-            }
-        }
-    }
+	public void updateFluids(NbtCompound fluidInformation) {
+		if (fluidInformation != null) {
+			for (int i = 0; i < fluidInformation.getInt("size"); i++) {
+				fluidData.add(FluidStack.fromTag((NbtCompound) fluidInformation.get(String.valueOf(i))));
+			}
+		}
+	}
 
-    public List<FluidStack> getFluidData() {
-        return fluidData;
-    }
+	public List<FluidStack> getFluidData() {
+		return fluidData;
+	}
 
-    public void writeFluidsToTag(NbtCompound tag) {
-        tag.putInt("size", fluidData.size());
-        for (int i = 0; i < fluidData.size(); i++) {
-            tag.put(String.valueOf(i), fluidData.get(i).toTag());
-        }
-    }
+	public void writeFluidsToTag(NbtCompound tag) {
+		tag.putInt("size", fluidData.size());
+		for (int i = 0; i < fluidData.size(); i++) {
+			tag.put(String.valueOf(i), fluidData.get(i).toTag());
+		}
+	}
 
-    @Override
-    public void fromClientTag(NbtCompound compoundTag) {
-        readNbt(compoundTag);
-    }
+	@Override
+	public void fromClientTag(NbtCompound compoundTag) {
+		readNbt(compoundTag);
+	}
 
-    @Override
-    public NbtCompound toClientTag(NbtCompound compoundTag) {
-        return writeNbt(compoundTag);
-    }
+	@Override
+	public NbtCompound toClientTag(NbtCompound compoundTag) {
+		return writeNbt(compoundTag);
+	}
 }

@@ -64,7 +64,7 @@ public class LintSpreadableBlock extends SnowyBlock {
 			if (world.getLightLevel(pos.up()) >= 9) {
 				BlockState blockState = this.getDefaultState();
 
-				for(int i = 0; i < 4; ++i) {
+				for (int i = 0; i < 4; ++i) {
 					BlockPos setPos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
 					if (world.getBlockState(setPos).isOf(LintBlocks.RICH_DIRT) && canSpread(blockState, world, setPos)) {
 						world.setBlockState(setPos, blockState.with(SNOWY, world.getBlockState(setPos.up()).isOf(Blocks.SNOW)));

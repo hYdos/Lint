@@ -49,153 +49,153 @@ import static me.hydos.lint.Lint.RESOURCE_PACK;
  * @reason Insurance against mojang's refactors bc we have so many blocks.
  */
 public class BlockBuilder {
-    private Model model = null;
-    private ItemGroup itemGroup = ItemGroups.BLOCKS;
-    private BlockMaterial material;
-    private boolean defaultLootTable = true;
-    private Function<Identifier, JModel> itemModel = PARENTED;
+	private Model model = null;
+	private ItemGroup itemGroup = ItemGroups.BLOCKS;
+	private BlockMaterial material;
+	private boolean defaultLootTable = true;
+	private Function<Identifier, JModel> itemModel = PARENTED;
 
-    public BlockBuilder material(BlockMaterial material) throws IllegalStateException {
-        if (material.material == null || material.materialColour == null) {
-            throw new IllegalStateException("Material and Material colour must both be non-null.");
-        }
+	public BlockBuilder material(BlockMaterial material) throws IllegalStateException {
+		if (material.material == null || material.materialColour == null) {
+			throw new IllegalStateException("Material and Material colour must both be non-null.");
+		}
 
-        this.material = material;
-        return this;
-    }
+		this.material = material;
+		return this;
+	}
 
-    public BlockBuilder model(Model model) {
-        this.model = model;
-        return this;
-    }
+	public BlockBuilder model(Model model) {
+		this.model = model;
+		return this;
+	}
 
-    /**
-     * Sets the item group for the block item. Default item group is Lint's BLOCKS group. Null is allowed.
-     */
-    public BlockBuilder itemGroup(@Nullable ItemGroup itemGroup) {
-        this.itemGroup = itemGroup;
-        return this;
-    }
+	/**
+	 * Sets the item group for the block item. Default item group is Lint's BLOCKS group. Null is allowed.
+	 */
+	public BlockBuilder itemGroup(@Nullable ItemGroup itemGroup) {
+		this.itemGroup = itemGroup;
+		return this;
+	}
 
-    /**
-     * Tells the block builder not to add the default loot table.
-     */
-    public BlockBuilder customLootTable() {
-        this.defaultLootTable = false;
-        return this;
-    }
+	/**
+	 * Tells the block builder not to add the default loot table.
+	 */
+	public BlockBuilder customLootTable() {
+		this.defaultLootTable = false;
+		return this;
+	}
 
-    // TODO make a method for other java loot tables.
+	// TODO make a method for other java loot tables.
 
-    /**
-     * Replace the default item model. Function takes the item id (NOT the model id) and returns the item JModel.
-     */
-    public BlockBuilder itemModel(Function<Identifier, JModel> modelCreator) {
-        this.itemModel = modelCreator;
-        return this;
-    }
+	/**
+	 * Replace the default item model. Function takes the item id (NOT the model id) and returns the item JModel.
+	 */
+	public BlockBuilder itemModel(Function<Identifier, JModel> modelCreator) {
+		this.itemModel = modelCreator;
+		return this;
+	}
 
-    public Block register(String id) {
-        return this.register(id, DEFAULT_CONSTRUCTOR);
-    }
+	public Block register(String id) {
+		return this.register(id, DEFAULT_CONSTRUCTOR);
+	}
 
-    public <T extends Block> T register(String id, BlockConstructor<T> constructor) {
-        if (this.model == null) {
-            throw new IllegalStateException("Required Property: Model");
-        }
+	public <T extends Block> T register(String id, BlockConstructor<T> constructor) {
+		if (this.model == null) {
+			throw new IllegalStateException("Required Property: Model");
+		}
 
-        if (this.material == null) {
-            throw new IllegalStateException("Required Property: Material");
-        }
+		if (this.material == null) {
+			throw new IllegalStateException("Required Property: Material");
+		}
 
-        FabricBlockSettings settings = FabricBlockSettings.copyOf(AbstractBlock.Settings.of(material.material, material.materialColour))
-                .sounds(material.sounds)
-                .luminance(material.luminosity)
-                .slipperiness(material.slipperiness)
-                .strength(material.hardness, material.resistance)
-                .collidable(material.collidable);
+		FabricBlockSettings settings = FabricBlockSettings.copyOf(AbstractBlock.Settings.of(material.material, material.materialColour))
+				.sounds(material.sounds)
+				.luminance(material.luminosity)
+				.slipperiness(material.slipperiness)
+				.strength(material.hardness, material.resistance)
+				.collidable(material.collidable);
 
-        if (this.material.ticksRandomly) {
-            settings.ticksRandomly();
-        }
+		if (this.material.ticksRandomly) {
+			settings.ticksRandomly();
+		}
 
-        if (this.material.dropsNothing) {
-            settings.dropsNothing();
-        }
+		if (this.material.dropsNothing) {
+			settings.dropsNothing();
+		}
 
-        if (this.material.toolRequired) {
-            settings.requiresTool();
-        }
+		if (this.material.toolRequired) {
+			settings.requiresTool();
+		}
 
-        if (this.material.toolType != null) {
-            settings.breakByTool(this.material.toolType, this.material.miningLevel);
-        }
+		if (this.material.toolType != null) {
+			settings.breakByTool(this.material.toolType, this.material.miningLevel);
+		}
 
-        // Model gets priority over the material since material can only gain this property by inheriting in a "copy" call
-        if (this.model.opaque != null) {
-            if (!this.model.opaque) {
-                settings.nonOpaque();
-            }
-        } else if (this.material.opaque != null) {
-            if (!this.material.opaque) {
-                settings.nonOpaque();
-            }
-        }
+		// Model gets priority over the material since material can only gain this property by inheriting in a "copy" call
+		if (this.model.opaque != null) {
+			if (!this.model.opaque) {
+				settings.nonOpaque();
+			}
+		} else if (this.material.opaque != null) {
+			if (!this.material.opaque) {
+				settings.nonOpaque();
+			}
+		}
 
-        T result = register(id, constructor.create(settings)); // Yeah using a material is required dummy
-        this.model.createFor(result, id);
+		T result = register(id, constructor.create(settings)); // Yeah using a material is required dummy
+		this.model.createFor(result, id);
 
-        // might be burny
-        if (this.material.burnChance > -1) {
-            ((FireBlockAccessor) Blocks.FIRE).callRegisterFlammableBlock(result, this.material.burnChance, this.material.spreadChance);
-        }
+		// might be burny
+		if (this.material.burnChance > -1) {
+			((FireBlockAccessor) Blocks.FIRE).callRegisterFlammableBlock(result, this.material.burnChance, this.material.spreadChance);
+		}
 
-        Identifier identifier = Lint.id(id);
+		Identifier identifier = Lint.id(id);
 
-        // Block Item
-        Item.Settings blockItemSettings = new Item.Settings().group(this.itemGroup);
-        Registry.register(Registry.ITEM, identifier, new BlockItem(result, blockItemSettings));
+		// Block Item
+		Item.Settings blockItemSettings = new Item.Settings().group(this.itemGroup);
+		Registry.register(Registry.ITEM, identifier, new BlockItem(result, blockItemSettings));
 
-        if (this.defaultLootTable) {
-            RESOURCE_PACK.addLootTable(new Identifier(identifier.getNamespace(), "blocks/" + identifier.getPath()),
-                    JLootTable.loot("minecraft:block")
-                            .pool(JLootTable.pool()
-                                    .rolls(1)
-                                    .entry(JLootTable.entry()
-                                            .type("minecraft:item")
-                                            .name(identifier.toString()))
-                                    .condition(new JCondition("minecraft:survives_explosion"))));
-        }
+		if (this.defaultLootTable) {
+			RESOURCE_PACK.addLootTable(new Identifier(identifier.getNamespace(), "blocks/" + identifier.getPath()),
+					JLootTable.loot("minecraft:block")
+							.pool(JLootTable.pool()
+									.rolls(1)
+									.entry(JLootTable.entry()
+											.type("minecraft:item")
+											.name(identifier.toString()))
+									.condition(new JCondition("minecraft:survives_explosion"))));
+		}
 
-        // Add the item model
-        RESOURCE_PACK.addModel(this.itemModel.apply(identifier), Lint.id("item/" + id));
+		// Add the item model
+		RESOURCE_PACK.addModel(this.itemModel.apply(identifier), Lint.id("item/" + id));
 
-        // Render Layer Shenanigans
-        if (this.model.renderLayer != Layer.DEFAULT) {
-            CUSTOM_BLOCK_RENDER_LAYERS.put(result, model.renderLayer);
-        }
+		// Render Layer Shenanigans
+		if (this.model.renderLayer != Layer.DEFAULT) {
+			CUSTOM_BLOCK_RENDER_LAYERS.put(result, model.renderLayer);
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    public static BlockBuilder create() {
-        return new BlockBuilder();
-    }
+	public static BlockBuilder create() {
+		return new BlockBuilder();
+	}
 
-    private static <T extends Block> T register(String id, T block) {
-        Registry.register(Registry.BLOCK, Lint.id(id), block);
-        return block;
-    }
+	private static <T extends Block> T register(String id, T block) {
+		Registry.register(Registry.BLOCK, Lint.id(id), block);
+		return block;
+	}
 
-    private static final BlockConstructor<Block> DEFAULT_CONSTRUCTOR = Block::new;
-    private static final Function<Identifier, JModel> PARENTED = id -> JModel.model().parent(Lint.id("block/" + id.getPath()).toString());
-    public static final Map<Block, Layer> CUSTOM_BLOCK_RENDER_LAYERS = new HashMap<>();
+	private static final BlockConstructor<Block> DEFAULT_CONSTRUCTOR = Block::new;
+	private static final Function<Identifier, JModel> PARENTED = id -> JModel.model().parent(Lint.id("block/" + id.getPath()).toString());
+	public static final Map<Block, Layer> CUSTOM_BLOCK_RENDER_LAYERS = new HashMap<>();
 
-    /**
-     * Functional interface for constructing a block instance.
-     */
-    @FunctionalInterface
-    public interface BlockConstructor<T extends Block> {
-        T create(FabricBlockSettings settings);
-    }
+	/**
+	 * Functional interface for constructing a block instance.
+	 */
+	@FunctionalInterface
+	public interface BlockConstructor<T extends Block> {
+		T create(FabricBlockSettings settings);
+	}
 }

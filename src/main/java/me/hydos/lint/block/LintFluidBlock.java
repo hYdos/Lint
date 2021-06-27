@@ -26,12 +26,12 @@ import net.minecraft.fluid.FlowableFluid;
 
 public class LintFluidBlock extends FluidBlock {
 
-    public LintFluidBlock(FlowableFluid fluid, Settings settings) {
-        super(fluid, settings);
-    }
+	public LintFluidBlock(FlowableFluid fluid, Settings settings) {
+		super(fluid, settings);
+	}
 
-    @Override
-    public BlockRenderType getRenderType(BlockState state) {
-        return BlockRenderType.INVISIBLE;
-    }
+	@Override
+	public BlockRenderType getRenderType(BlockState state) {
+		return BlockRenderType.INVISIBLE;
+	}
 }
