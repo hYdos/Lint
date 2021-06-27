@@ -22,7 +22,6 @@ package me.hydos.lint.mixinimpl;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.hydos.lint.Lint;
-import me.hydos.lint.mixin.client.WorldRendererMixin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.*;
@@ -34,13 +33,23 @@ import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
 
-// FIXME: lint sky
+// FIXME: fix night sky (the bottom half of the sky is lit)
+// TODO: put these in shaders and just render the shader
 public class LintSky {
 	private static final Identifier ALPHA_LINT = Lint.id("textures/environment/alpha_lint.png");
 	private static final Identifier BETA_LINT = Lint.id("textures/environment/beta_lint.png");
 	private static final float PI = (float) Math.PI;
+	private static final boolean DEBUG = true; // NOTE: change this for debugging
 
-	public static void renderLintSky(MatrixStack matrices, Matrix4f skyObjectMatrix, float tickDelta, Runnable runnable, ClientWorld world, MinecraftClient client, VertexBuffer lightSkyBuffer, VertexBuffer darkSkyBuffer, VertexBuffer starsBuffer) {
+	public static void renderLintSky(MatrixStack matrices,
+	                                 Matrix4f skyObjectMatrix,
+	                                 float tickDelta,
+	                                 Runnable runnable,
+	                                 ClientWorld world,
+	                                 MinecraftClient client,
+	                                 VertexBuffer lightSkyBuffer,
+	                                 VertexBuffer darkSkyBuffer,
+	                                 VertexBuffer starsBuffer) {
 		RenderSystem.disableTexture();
 		Vec3d vec3d = world.method_23777(client.gameRenderer.getCamera().getPos(), tickDelta);
 		float g = (float)vec3d.x;
@@ -96,36 +105,16 @@ public class LintSky {
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, s);
 		matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90.0F));
 		matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(skyAngle * 360.0F));
-//		Matrix4f matrix4f3 = matrices.peek().getModel();
 		size = 30.0F;
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-//		RenderSystem.setShaderTexture(0, ALPHA_LINT);
-//		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-//		bufferBuilder.vertex(matrix4f3, -size, 100.0F, -size).texture(0.0F, 0.0F).next();
-//		bufferBuilder.vertex(matrix4f3, size, 100.0F, -size).texture(1.0F, 0.0F).next();
-//		bufferBuilder.vertex(matrix4f3, size, 100.0F, size).texture(1.0F, 1.0F).next();
-//		bufferBuilder.vertex(matrix4f3, -size, 100.0F, size).texture(0.0F, 1.0F).next();
-//		bufferBuilder.end();
-//		BufferRenderer.draw(bufferBuilder);
+		// render sun
 		renderBinarySun(world, matrices, bufferBuilder, size, skyAngle);
-		size = 20.0F;
+		size = 10.0F;
+		// render moon
 		renderFraiyaMoons(world, matrices, bufferBuilder, skyObjectMatrix, skyAngle, r, size);
-//		RenderSystem.setShaderTexture(0, WorldRendererMixin.MOON_PHASES);
-//		int u = world.getMoonPhase();
-//		int v = u % 4;
-//		int w = u / 4 % 2;
-//		float x = (float)(v) / 4.0F;
-//		p = (float)(w) / 2.0F;
-//		q = (float)(v + 1) / 4.0F;
-//		r = (float)(w + 1) / 2.0F;
-//		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-//		bufferBuilder.vertex(matrix4f3, -size, -100.0F, size).texture(q, r).next();
-//		bufferBuilder.vertex(matrix4f3, size, -100.0F, size).texture(x, r).next();
-//		bufferBuilder.vertex(matrix4f3, size, -100.0F, -size).texture(x, p).next();
-//		bufferBuilder.vertex(matrix4f3, -size, -100.0F, -size).texture(q, p).next();
-//		bufferBuilder.end();
-//		BufferRenderer.draw(bufferBuilder);
 		RenderSystem.disableTexture();
+
+		// render stars
 		float ab = world.method_23787(tickDelta) * s;
 		if (ab > 0.0F) {
 			RenderSystem.setShaderColor(ab, ab, ab, ab);
@@ -140,8 +129,8 @@ public class LintSky {
 		RenderSystem.disableTexture();
 		RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
 		assert client.player != null;
-		double d = client.player.getCameraPosVec(tickDelta).y - world.getLevelProperties().getSkyDarknessHeight(world);
-		if (d < 0.0D) {
+		double skyDarkness = client.player.getCameraPosVec(tickDelta).y - world.getLevelProperties().getSkyDarknessHeight(world);
+		if (skyDarkness < 0.0D) {
 			matrices.push();
 			matrices.translate(0.0D, 12.0D, 0.0D);
 			darkSkyBuffer.setShader(matrices.peek().getModel(), skyObjectMatrix, shader);
@@ -159,11 +148,10 @@ public class LintSky {
 	}
 	
 	private static void renderFraiyaMoons(ClientWorld world, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float skyAngle, float r, float size) {
-		final boolean debugTransit = false;
 		float iOrbitRate = 0.0012f;
 		float cOrbitRate = 0.0036f;
 
-		if (debugTransit) {
+		if (DEBUG) {
 			iOrbitRate *= 100.0f;
 			cOrbitRate *= 100.0f;
 		}
@@ -179,11 +167,8 @@ public class LintSky {
 		skyObjectMatrix = matrices.peek().getModel();
 		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
-//		RenderSystem.color4f(0.8F, 0.8F, 1.0F, r);
 		RenderSystem.setShaderColor(0.8F, 0.8F, 1.0F, r);
-//		float size = 10.0F;
-//		textureManager.bindTexture(WorldRendererMixin.MOON_PHASES);
-		RenderSystem.setShaderTexture(0, WorldRendererMixin.MOON_PHASES);
+		RenderSystem.setShaderTexture(0, WorldRenderer.MOON_PHASES);
 		int[] moonPhase = getMoonPhaseAndDirection(skyAngle, ieseAngle);
 
 		float texRight = (float)(moonPhase[0]) / 4.0F;
@@ -192,9 +177,9 @@ public class LintSky {
 		float texBottom = (float) (moonPhase[1] + 1) / 2.0F;
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, size).texture(texLeft, texBottom).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(texLeft, texTop).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(texRight, texBottom).next();
 		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, -size).texture(texRight, texTop).next();
-		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(texRight, texBottom).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(texLeft, texTop).next();
 		bufferBuilder.end();
 		BufferRenderer.draw(bufferBuilder);
 
@@ -207,7 +192,6 @@ public class LintSky {
 		skyObjectMatrix = matrices.peek().getModel();
 		RenderSystem.blendFuncSeparate(skyAngle < 90 || skyAngle > 270 ? GlStateManager.SrcFactor.SRC_COLOR : GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
 
-//		RenderSystem.color4f(1.0F, 0.8F, 0.8F, r);
 		RenderSystem.setShaderColor(1.0F, 0.8F, 0.8F, r);
 		size = 16.0F;
 		moonPhase = getMoonPhaseAndDirection(skyAngle, cairAngle);
@@ -218,9 +202,9 @@ public class LintSky {
 		texBottom = (float) (moonPhase[1] + 1) / 2.0F;
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, size).texture(texLeft, texBottom).next();
-		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(texLeft, texTop).next();
+		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, size).texture(texRight, texBottom).next();
 		bufferBuilder.vertex(skyObjectMatrix, size, -100.0F, -size).texture(texRight, texTop).next();
-		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(texRight, texBottom).next();
+		bufferBuilder.vertex(skyObjectMatrix, -size, -100.0F, -size).texture(texLeft, texTop).next();
 		bufferBuilder.end();
 		BufferRenderer.draw(bufferBuilder);
 
@@ -258,8 +242,7 @@ public class LintSky {
 		matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(skyAngle));
 
 		float[] data = new float[4];
-		final boolean debugTransit = false;
-		final float orbitPeriod = debugTransit ? 0.01f : 0.00008f;
+		final float orbitPeriod = DEBUG ? 0.01f : 0.00008f;
 		getRelativeAnglesAndDepths(data, world.getTime() * orbitPeriod);
 
 		// ALPHA STAR
@@ -282,7 +265,6 @@ public class LintSky {
 
 		Matrix4f alphaMatrix = matrices.peek().getModel();
 
-//		textureManager.bindTexture(ALPHA_LINT);
 		RenderSystem.setShaderTexture(0, ALPHA_LINT);
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(alphaMatrix, -size, vertY, -size).texture(0.0F, 0.0F).next();
@@ -304,7 +286,6 @@ public class LintSky {
 
 		Matrix4f betaMatrix = matrices.peek().getModel();
 
-//		textureManager.bindTexture(BETA_LINT);
 		RenderSystem.setShaderTexture(0, BETA_LINT);
 		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
 		bufferBuilder.vertex(betaMatrix, -size, vertY, -size).texture(0.0F, 0.0F).next();
@@ -317,6 +298,7 @@ public class LintSky {
 		matrices.pop();
 
 	}
+
 	private static void getRelativeAnglesAndDepths(float[] result, float t) {
 		t = t % (2 * PI);
 		t = PI * MathHelper.sin((t - PI) * 0.5f);

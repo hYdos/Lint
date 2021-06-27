@@ -20,3 +20,4 @@ accessible	field	net/minecraft/world/gen/carver/CaveCarverConfig	floorLevel	Lnet
 accessible	method	net/minecraft/world/gen/carver/CaveCarver	isPositionExcluded	(DDDD)Z
 accessible	method	net/minecraft/world/gen/carver/Carver	getState	(Lnet/minecraft/world/gen/carver/CarverContext;Lnet/minecraft/world/gen/carver/CarverConfig;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/gen/chunk/AquiferSampler;)Lnet/minecraft/block/BlockState;
 accessible	method	net/minecraft/world/gen/carver/Carver	isDebug	(Lnet/minecraft/world/gen/carver/CarverConfig;)Z
+accessible  field   net/minecraft/client/render/WorldRenderer   MOON_PHASES Lnet/minecraft/util/Identifier;
