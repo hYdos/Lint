@@ -39,7 +39,7 @@ public class LintSky {
 	private static final Identifier ALPHA_LINT = Lint.id("textures/environment/alpha_lint.png");
 	private static final Identifier BETA_LINT = Lint.id("textures/environment/beta_lint.png");
 	private static final float PI = (float) Math.PI;
-	private static final boolean DEBUG = true; // NOTE: change this for debugging
+	private static final boolean DEBUG = false; // NOTE: change this for debugging
 
 	public static void renderLintSky(MatrixStack matrices,
 	                                 Matrix4f skyObjectMatrix,
