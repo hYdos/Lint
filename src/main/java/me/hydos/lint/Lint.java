@@ -20,8 +20,6 @@
 package me.hydos.lint;
 
 import me.hydos.lint.particle.Particles;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,7 +40,7 @@ import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
-import me.hydos.lint.world.feature.Features;
+import me.hydos.lint.world.feature.FeaturesOld;
 import me.hydos.lint.world.gen.FraiyaBiomeGenerator;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
@@ -53,7 +51,6 @@ import net.devtech.arrp.api.RuntimeResourcePack;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.GeckoLib;
 
@@ -106,7 +103,7 @@ public final class Lint implements ModInitializer {
 
 	private void registerLintWorld() {
 		Structures.initialize();
-		Features.initialize();
+		FeaturesOld.initialize();
 		Biomes.initialize();
 		TerrainType.REGISTRY.put(Lint.id("fraiya"), new TerrainType(
 				FraiyaTerrainGenerator::new,

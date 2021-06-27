@@ -19,7 +19,7 @@
 
 package me.hydos.lint.world.tree;
 
-import me.hydos.lint.world.feature.Features;
+import me.hydos.lint.world.feature.FeaturesOld;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -29,6 +29,6 @@ import java.util.Random;
 public final class MysticalTree extends SaplingGenerator {
     @Override
     protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
-        return Features.MYSTICAL_TREE;
+        return FeaturesOld.MYSTICAL_TREE;
     }
 }

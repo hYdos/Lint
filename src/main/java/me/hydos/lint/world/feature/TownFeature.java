@@ -107,7 +107,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 			if (mindist < DENSE_DIST) {
 				if (new ChunkPos(pos).equals(closest.chunkPos())) {
-					Features.RETURN_PORTAL.generate(world, pos, true);
+					FeaturesOld.RETURN_PORTAL.generate(world, pos, true);
 				} else {
 					this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random, false, blocks);
 				}

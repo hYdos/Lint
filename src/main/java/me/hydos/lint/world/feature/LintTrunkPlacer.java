@@ -62,9 +62,6 @@ public class LintTrunkPlacer extends TrunkPlacer {
 
 	protected static void setToLintDirt(ModifiableTestableWorld world, BlockPos pos) {
 		if (!canGenerate(world, pos)) { // if cannot generate
-			// mojank irit (pre 1.17)
-			//TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
-			// based (post 1.17)
 			TreeFeature.setBlockStateWithoutUpdatingNeighbors(world, pos, LintBlocks.RICH_DIRT.getDefaultState());
 		}
 	}

@@ -19,6 +19,7 @@
 
 package me.hydos.lint.item;
 
+import me.hydos.lint.Lint;
 import net.devtech.arrp.json.models.JModel;
 import net.devtech.arrp.json.recipe.JRecipe;
 import net.minecraft.item.Item;
@@ -45,7 +46,7 @@ public class ItemData {
     }
 
     public static JModel generatedModel(Identifier textureIdentifier) {
-        return JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString()));
+        return JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", (textureIdentifier.getPath().startsWith("item/") ? textureIdentifier : Lint.id("block/" + textureIdentifier.getPath())).toString()));
     }
 
     // Recipe

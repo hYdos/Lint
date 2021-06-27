@@ -20,15 +20,7 @@
 package me.hydos.lint.block;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.organic.DistantLeavesBlock;
-import me.hydos.lint.block.organic.FallenLeavesBlock;
-import me.hydos.lint.block.organic.LintCorruptGrassBlock;
-import me.hydos.lint.block.organic.LintFlowerBlock;
-import me.hydos.lint.block.organic.LintLeavesBlock;
-import me.hydos.lint.block.organic.LintSaplingBlock;
-import me.hydos.lint.block.organic.LintSpreadableBlock;
-import me.hydos.lint.block.organic.LintTallFlowerBlock;
-import me.hydos.lint.block.organic.StrippablePillarBlock;
+import me.hydos.lint.block.organic.*;
 import me.hydos.lint.block.util.BlockBuilder;
 import me.hydos.lint.block.util.BlockMaterial;
 import me.hydos.lint.block.util.BlockMechanics;
@@ -42,6 +34,7 @@ import me.hydos.lint.util.TeleportUtils;
 import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.tree.CanopyTree;
 import me.hydos.lint.world.tree.CorruptTree;
+import me.hydos.lint.world.tree.FrozenTree;
 import me.hydos.lint.world.tree.MysticalTree;
 import net.devtech.arrp.json.recipe.*;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
@@ -68,6 +61,8 @@ import static me.hydos.lint.Lint.id;
 public class LintBlocks {
     private static final BlockConstructor<FallingBlock> FALLING_BLOCK = FallingBlock::new; // In case the constructor parameters change it becomes a one line fix
 
+    // TODO: add type parameter for plant methods so it looks cleaner
+
     private static LintFlowerBlock createPlant(String id, StatusEffect effect) {
         return BlockBuilder.create()
                 .material(LintMaterials.PLANT)
@@ -77,13 +72,22 @@ public class LintBlocks {
                 .register(id, settings -> new LintFlowerBlock(effect, settings));
     }
 
-    private static LintCorruptGrassBlock createCorruptPlant(String id, StatusEffect effect) {
+    private static CorruptFlower createCorruptPlant(String id, StatusEffect effect) {
         return BlockBuilder.create()
                 .material(LintMaterials.PLANT)
                 .model(Model.CROSS)
                 .itemGroup(ItemGroup.DECORATIONS)
                 .itemModel(ItemData::generatedModel)
-                .register(id, settings -> new LintCorruptGrassBlock(effect, settings));
+                .register(id, settings -> new CorruptFlower(effect, settings));
+    }
+
+    private static FrostedFlower createFrostedPlant(String id, StatusEffect effect) {
+        return BlockBuilder.create()
+                .material(LintMaterials.PLANT)
+                .model(Model.CROSS)
+                .itemGroup(ItemGroup.DECORATIONS)
+                .itemModel(ItemData::generatedModel)
+                .register(id, settings -> new FrostedFlower(effect, settings));
     }
 
     private static LintFlowerBlock createTussockPlant(String id, StatusEffect effect) {
@@ -93,6 +97,24 @@ public class LintBlocks {
                 .itemGroup(ItemGroup.DECORATIONS)
                 .itemModel(ItemData::generatedModel)
                 .register(id, settings -> new LintFlowerBlock(effect, settings));
+    }
+
+    private static CorruptFlower createCorruptTussockPlant(String id, StatusEffect effect) {
+        return BlockBuilder.create()
+                .material(LintMaterials.TUSSOCK)
+                .model(Model.CROSS)
+                .itemGroup(ItemGroup.DECORATIONS)
+                .itemModel(ItemData::generatedModel)
+                .register(id, settings -> new CorruptFlower(effect, settings));
+    }
+
+    private static FrostedFlower createFrostedTussockPlant(String id, StatusEffect effect) {
+        return BlockBuilder.create()
+                .material(LintMaterials.TUSSOCK)
+                .model(Model.CROSS)
+                .itemGroup(ItemGroup.DECORATIONS)
+                .itemModel(ItemData::generatedModel)
+                .register(id, settings -> new FrostedFlower(effect, settings));
     }
 
     private static LintSaplingBlock createSapling(String id, SaplingGenerator tree, Block growsOn) {
@@ -115,12 +137,12 @@ public class LintBlocks {
             .itemGroup(ItemGroup.DECORATIONS)
             .register("corrupt_fallen_leaves", FallenLeavesBlock::new);
 
-    public static final FlowerBlock CORRUPT_STEM = createCorruptPlant("corrupt_stem", StatusEffects.NAUSEA);
+    public static final CorruptFlower CORRUPT_STEM = createCorruptPlant("corrupt_stem", StatusEffects.NAUSEA);
     public static final FlowerBlock DILL = createPlant("dill", StatusEffects.LUCK);
 
     public static final FlowerBlock SPEARMINT = createPlant("spearmint", StatusEffects.HASTE);
     public static final FlowerBlock KARAI = createPlant("karai", StatusEffects.NAUSEA);
-    public static final FlowerBlock KUREI = createCorruptPlant("kurei", StatusEffects.NAUSEA);
+    public static final CorruptFlower KUREI = createCorruptPlant("kurei", StatusEffects.NAUSEA);
 
     public static final FlowerBlock MYSTICAL_DAISY = createPlant("yellow_daisy", StatusEffects.BAD_OMEN);
 
@@ -138,7 +160,10 @@ public class LintBlocks {
             .register("mystical_grass", settings -> new LintFlowerBlock(StatusEffects.BAD_OMEN, settings, VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.9375, 0.5, 0.875)));
 
     public static final FlowerBlock MYSTICAL_STEM = createPlant("mystical_stem", StatusEffects.JUMP_BOOST);
+    public static final FrostedFlower FROZEN_STEM = createFrostedPlant("frozen_stem", StatusEffects.SPEED);
     public static final FlowerBlock RED_TUSSOCK = createTussockPlant("red_tussock", StatusEffects.FIRE_RESISTANCE);
+    public static final FrostedFlower MARIGOLD = createFrostedPlant("marigold", StatusEffects.GLOWING);
+    public static final FrostedFlower SAKHALIN_MINT = createFrostedPlant("sakhalin_mint", StatusEffects.HEALTH_BOOST);
 
     public static final Block TATERBANE = BlockBuilder.create()
             .material(BlockMaterial.builder()
@@ -153,13 +178,15 @@ public class LintBlocks {
             .material(LintMaterials.TALL_FLOWER)
             .model(Model.TALL_PLANT)
             .itemGroup(ItemGroups.DECORATIONS)
-            .itemModel(id -> ItemData.generatedModel(Lint.id("block/generic_blue_flower_top")))
+            .itemModel(id -> ItemData.generatedModel(Lint.id("generic_blue_flower_top")))
             .customLootTable()
             .register("generic_blue_flower", LintTallFlowerBlock::new);
 
     public static final FlowerBlock TUSSOCK = createTussockPlant("tussock", StatusEffects.RESISTANCE); // Resistance because tussock is somewhat "hard"
+    public static final FrostedFlower FROSTED_TUSSOCK = createFrostedTussockPlant("frosted_tussock", StatusEffects.RESISTANCE);
     public static final FlowerBlock WATERMINT = createPlant("watermint", StatusEffects.HASTE);
-    public static final FlowerBlock WILTED_FLOWER = createCorruptPlant("wilted_flower", StatusEffects.POISON);
+    public static final CorruptFlower WILTED_FLOWER = createCorruptPlant("wilted_flower", StatusEffects.POISON);
+    public static final FrostedFlower MISTBLOOM = createFrostedPlant("mistbloom", StatusEffects.ABSORPTION);
 
     // Tree Stuff
 
@@ -475,6 +502,7 @@ public class LintBlocks {
     public static final Block DUNGEON_BRICK_SLAB = registerSlab("dungeon_brick_slab", "dungeon_bricks", LintMaterials.DUNGEON);
 
     public static final SaplingBlock MYSTICAL_SAPLING = createSapling("mystical_sapling", new MysticalTree(), LIVELY_GRASS);
+    public static final SaplingBlock FROZEN_SAPLING = createSapling("frozen_sapling", new FrozenTree(), FROSTED_GRASS);
     public static final SaplingBlock CORRUPT_SAPLING = createSapling("corrupt_sapling", new CorruptTree(), CORRUPT_GRASS);
     public static final SaplingBlock CANOPY_SAPLING = createSapling("canopy_sapling", new CanopyTree(), LIVELY_GRASS);
 

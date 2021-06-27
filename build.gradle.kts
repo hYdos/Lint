@@ -38,7 +38,7 @@ dependencies {
     modImplementation("net.fabricmc", "fabric-loader", "0.11.3")
     modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.34.8+1.17")
 
-	modImplementationAndInclude("net.devtech", "arrp", "0.3.2")
+	modImplementationAndInclude("net.devtech", "arrp", "0.+")
 	modImplementationAndInclude("software.bernie.geckolib", "geckolib-fabric-1.17", "3.0.5", classifier = "dev")
 
 	if (! file("ignoreruntime.txt").exists()) {
