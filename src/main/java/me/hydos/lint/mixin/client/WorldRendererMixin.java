@@ -23,9 +23,9 @@ import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,6 +36,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {
+	@Shadow
+	@Final
+	public static Identifier MOON_PHASES;
+
 	@Shadow
 	private VertexBuffer starsBuffer;
 	@Shadow
@@ -48,20 +52,19 @@ public class WorldRendererMixin {
 	private MinecraftClient client;
 
 	@Shadow
-	@Final
-	private TextureManager textureManager;
-
-	@Shadow
 	private ClientWorld world;
 
 	@Inject(at = @At("HEAD"), method = "renderSky", cancellable = true)
-	private void renderLintSky(MatrixStack matrices, Matrix4f matrix4f, float tickDelta, Runnable runnable, CallbackInfo info) {
+	private void renderLintSky(MatrixStack matrices, Matrix4f skyObjectMatrix, float tickDelta, Runnable runnable, CallbackInfo info) {
 		if (this.world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
 			// FIXME: lint sky
 //			LintSky.renderLintSky(matrices,
 //					this.textureManager, this.lightSkyBuffer, this.darkSkyBuffer,
 //					this.starsBuffer, this.client, this.world, tickDelta);
 //			info.cancel();
+//			BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
+//			LintSky.renderBinarySun(this.world, matrices, bufferBuilder, 25.0F, this.world.getSkyAngle(tickDelta));
+
 		}
 	}
 }
