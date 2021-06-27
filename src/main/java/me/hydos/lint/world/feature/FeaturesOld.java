@@ -282,6 +282,8 @@ public class FeaturesOld {
 		public static final RandomPatchFeatureConfig FROSTED_TUSSOCK_CONFIG = new RandomPatchFeatureConfig.Builder(
 				new SimpleBlockStateProvider(LintBlocks.FROSTED_TUSSOCK.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
+				.spreadX(3)
+				.spreadZ(3)
 				.tries(16).build();
 
 		public static final RandomPatchFeatureConfig RED_TUSSOCK_CONFIG = new RandomPatchFeatureConfig.Builder(
@@ -363,6 +365,8 @@ public class FeaturesOld {
 		public static final RandomPatchFeatureConfig SAKHALIN_MINT = new RandomPatchFeatureConfig.Builder(
 				new SimpleBlockStateProvider(LintBlocks.SAKHALIN_MINT.getDefaultState()),
 				SimpleBlockPlacer.INSTANCE)
+				.spreadX(3)
+				.spreadZ(3)
 				.tries(8).build();
 	}
 }
