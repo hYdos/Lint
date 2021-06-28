@@ -212,7 +212,7 @@ public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 		StructureWorldAccess structureWorldAccess = context.getWorld();
 		Random random = context.getRandom();
 		BlockPos blockPos = context.getOrigin();
-		TreeFeatureConfig treeFeatureConfig = (TreeFeatureConfig)context.getConfig();
+		TreeFeatureConfig treeFeatureConfig = context.getConfig();
 		Set<BlockPos> set = Sets.newHashSet();
 		Set<BlockPos> set2 = Sets.newHashSet();
 		Set<BlockPos> set3 = Sets.newHashSet();
