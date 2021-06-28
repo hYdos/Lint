@@ -19,12 +19,12 @@
 
 package me.hydos.lint.entity.goal;
 
-import java.util.EnumSet;
-
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.tag.FluidTags;
+
+import java.util.EnumSet;
 
 public class FlyOutOfWaterGoal extends Goal {
 	private final MobEntity mob;

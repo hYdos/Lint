@@ -31,13 +31,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BackgroundRenderer.class)
 public class BackgroundRendererMixin {
-    @Inject(
-            at = @At("HEAD"),
-            method = "method_24873(Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/world/biome/source/BiomeAccess;FIII)Lnet/minecraft/util/math/Vec3d;",
-            cancellable = true
-    )
-    private static void onRetrieveModifiedFogColour(ClientWorld world, BiomeAccess access, float skyAngleThing,
-                                                    int noiseGenX, int noiseGenY, int noiseGenZ, CallbackInfoReturnable<Vec3d> info) {
-        Maths.onRetrieveModifiedFogColor(world, access, skyAngleThing, noiseGenX, noiseGenY, noiseGenZ, info);
-    }
+	@Inject(
+			at = @At("HEAD"),
+			method = "method_24873(Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/world/biome/source/BiomeAccess;FIII)Lnet/minecraft/util/math/Vec3d;",
+			cancellable = true
+	)
+	private static void onRetrieveModifiedFogColour(ClientWorld world, BiomeAccess access, float skyAngleThing,
+	                                                int noiseGenX, int noiseGenY, int noiseGenZ, CallbackInfoReturnable<Vec3d> info) {
+		Maths.onRetrieveModifiedFogColor(world, access, skyAngleThing, noiseGenX, noiseGenY, noiseGenZ, info);
+	}
 }

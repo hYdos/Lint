@@ -54,11 +54,11 @@ public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 	private int getTopPosition(TestableWorld world, int height, BlockPos pos, TreeFeatureConfig config) {
 		BlockPos.Mutable mutable = new BlockPos.Mutable();
 
-		for(int i = 0; i <= height + 1; ++i) {
+		for (int i = 0; i <= height + 1; ++i) {
 			int j = config.minimumSize.getRadius(height, i);
 
-			for(int k = -j; k <= j; ++k) {
-				for(int l = -j; l <= j; ++l) {
+			for (int k = -j; k <= j; ++k) {
+				for (int l = -j; l <= j; ++l) {
 					mutable.set(pos, k, i, l);
 					if (!TreeFeature.canTreeReplace(world, mutable) || !config.ignoreVines && TreeFeature.isVine(world, mutable)) {
 						return i - 2;

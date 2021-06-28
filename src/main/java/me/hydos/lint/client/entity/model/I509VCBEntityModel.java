@@ -20,7 +20,6 @@
 package me.hydos.lint.client.entity.model;
 
 import me.hydos.lint.entity.aggressive.I509VCBEntity;
-import me.hydos.lint.util.ModelUtils;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
@@ -35,7 +34,7 @@ public class I509VCBEntityModel extends EntityModel<I509VCBEntity> {
 	private static final ModelPart cone;
 	private static final int textureWidth = 64;
 	private static final int textureHeight = 64;
-	
+
 	// TODO: use ModelUtils.part to set pivot
 	static {
 		cone = new ModelPart(List.of(

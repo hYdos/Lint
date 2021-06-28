@@ -20,14 +20,11 @@
 package me.hydos.lint.client.entity.model;
 
 import me.hydos.lint.entity.passive.BeeTaterEntity;
-import me.hydos.lint.util.ModelUtils;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +40,7 @@ public class BeeTaterEntityModel extends EntityModel<BeeTaterEntity> {
 	private static final ModelPart leg3;
 	private static final int textureWidth = 64;
 	private static final int textureHeight = 64;
-	
+
 	// TODO: use ModelUtils.part to set pivot
 	static {
 		body = new ModelPart(List.of(
@@ -53,27 +50,27 @@ public class BeeTaterEntityModel extends EntityModel<BeeTaterEntity> {
 				cuboid(3, 1, -0.5F, 1.0F, 2.0F, 0.0F, 1.0F, 2.0F, 0.0F, false, textureWidth, textureHeight)
 		), Map.of());
 		body.setPivot(0.0F, 0.0F, 0.0F);
-		
+
 		left_wing = new ModelPart(List.of(
 				cuboid(9, 24, 3.0F, 0.0F, 2.0F, 7.0F, 0.0F, 6.0F, 0.0F, false, textureWidth, textureHeight)
 		), Map.of());
 		left_wing.setPivot(-2.0F, -2.0F, -8.0F);
-		
+
 		right_wing = new ModelPart(List.of(
 				cuboid(9, 24, -13.0F, 0.0F, 2.0F, 7.0F, 0.0F, 6.0F, 0.0F, true, textureWidth, textureHeight)
 		), Map.of());
 		right_wing.setPivot(3.0F, -2.0F, -8.0F);
-		
+
 		leg1 = new ModelPart(List.of(
 				cuboid(28, 1, -2.0F, -19.0F, -5.0F, 3.0F, 2.0F, 0.0F, 0.0F, false, textureWidth, textureHeight)
 		), Map.of());
 		leg1.setPivot(0.0F, 24.0F, 0.0F);
-		
+
 		leg2 = new ModelPart(List.of(
 				cuboid(27, 3, -3.0F, -19.0F, -3.0F, 5.0F, 2.0F, 0.0F, 0.0F, false, textureWidth, textureHeight)
 		), Map.of());
 		leg2.setPivot(0.0F, 24.0F, 0.0F);
-		
+
 		leg3 = new ModelPart(List.of(
 				cuboid(27, 5, -3.0F, -19.0F, -1.0F, 5.0F, 2.0F, 0.0F, 0.0F, false, textureWidth, textureHeight)
 		), Map.of());

@@ -29,14 +29,14 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class QuestbookItem extends Item {
-    public QuestbookItem(Settings settings) {
-        super(settings);
-    }
+	public QuestbookItem(Settings settings) {
+		super(settings);
+	}
 
-    @Override
-    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip,
-                              TooltipContext context) {
-        tooltip.add(new LiteralText("Not Currently Implemented."));
-    }
-    // TODO questbook stuff
+	@Override
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip,
+	                          TooltipContext context) {
+		tooltip.add(new LiteralText("Not Currently Implemented."));
+	}
+	// TODO questbook stuff
 }

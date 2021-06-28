@@ -21,7 +21,6 @@ package me.hydos.lint.client.entity.model;
 
 import com.google.common.collect.ImmutableList;
 import me.hydos.lint.entity.aggressive.KingTaterEntity;
-import me.hydos.lint.util.ModelUtils;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
@@ -37,7 +36,7 @@ public class KingTaterEntityModel extends CompositeEntityModel<KingTaterEntity> 
 	private static final ModelPart root;
 	private static final int textureWidth = 96;
 	private static final int textureHeight = 82;
-	
+
 	static {
 		root = new ModelPart(List.of(), Map.of(
 				"model", part(0.0F, 24.0F, 0.0F, List.of(

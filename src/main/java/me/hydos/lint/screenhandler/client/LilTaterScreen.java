@@ -31,6 +31,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Quaternion;
 import net.minecraft.util.math.Vec3f;
+
 import java.util.Objects;
 
 public class LilTaterScreen extends AbstractInventoryScreen<LilTaterInteractScreenHandler> {

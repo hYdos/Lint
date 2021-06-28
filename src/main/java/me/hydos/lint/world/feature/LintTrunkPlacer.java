@@ -69,7 +69,7 @@ public class LintTrunkPlacer extends TrunkPlacer {
 	protected TrunkPlacerType<?> getType() {
 		return STRAIGHT_TRUNK_PLACER;
 	}
-	
+
 	@Override
 	public List<FoliagePlacer.TreeNode> generate(TestableWorld world, BiConsumer<BlockPos, BlockState> replacer, Random random, int height, BlockPos startPos, TreeFeatureConfig config) {
 		setToLintDirt((ModifiableTestableWorld) world, startPos.down());

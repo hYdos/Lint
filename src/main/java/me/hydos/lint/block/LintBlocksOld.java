@@ -19,12 +19,6 @@
 
 package me.hydos.lint.block;
 
-import static me.hydos.lint.Lint.RESOURCE_PACK;
-
-import java.util.HashMap;
-
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.Lint;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
@@ -33,11 +27,7 @@ import net.devtech.arrp.json.loot.JCondition;
 import net.devtech.arrp.json.loot.JLootTable;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -45,6 +35,11 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+
+import static me.hydos.lint.Lint.RESOURCE_PACK;
 
 public final class LintBlocksOld {
 	/**

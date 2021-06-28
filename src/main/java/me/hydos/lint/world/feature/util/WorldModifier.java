@@ -27,40 +27,42 @@ import net.minecraft.world.gen.feature.FeatureConfig;
 import java.util.Random;
 
 public interface WorldModifier<T extends FeatureConfig> {
-    /**
-     * Method to modify the contents of a world.
-     * @param settings the generation settings.
-     * @return whether generation was successful.
-     */
-    boolean place(GenerationSettings<T> settings);
+	/**
+	 * Method to modify the contents of a world.
+	 *
+	 * @param settings the generation settings.
+	 * @return whether generation was successful.
+	 */
+	boolean place(GenerationSettings<T> settings);
 
-    /**
-     * @return the ID of this world modifier.
-     */
-    String id();
+	/**
+	 * @return the ID of this world modifier.
+	 */
+	String id();
 
-    class GenerationSettings<C extends FeatureConfig> {
-        /**
-         * Construct a settings instance for the world modifier.
-         * @param world the world.
-         * @param generator the chunk generator.
-         * @param rand the random instance.
-         * @param origin the position at which to generate.
-         * @param config the feature config.
-         */
-        public GenerationSettings(StructureWorldAccess world, ChunkGenerator generator,
-                                  Random rand, BlockPos origin, C config) {
-            this.world = world;
-            this.generator = generator;
-            this.random = rand;
-            this.origin = origin;
-            this.config = config;
-        }
+	class GenerationSettings<C extends FeatureConfig> {
+		/**
+		 * Construct a settings instance for the world modifier.
+		 *
+		 * @param world     the world.
+		 * @param generator the chunk generator.
+		 * @param rand      the random instance.
+		 * @param origin    the position at which to generate.
+		 * @param config    the feature config.
+		 */
+		public GenerationSettings(StructureWorldAccess world, ChunkGenerator generator,
+		                          Random rand, BlockPos origin, C config) {
+			this.world = world;
+			this.generator = generator;
+			this.random = rand;
+			this.origin = origin;
+			this.config = config;
+		}
 
-        public final StructureWorldAccess world;
-        public final ChunkGenerator generator;
-        public final Random random;
-        public final BlockPos origin;
-        public final C config;
-    }
+		public final StructureWorldAccess world;
+		public final ChunkGenerator generator;
+		public final Random random;
+		public final BlockPos origin;
+		public final C config;
+	}
 }

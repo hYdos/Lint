@@ -32,40 +32,40 @@ import java.util.stream.Collectors;
 
 // FIXME: port
 public final class TerrainBiomeSource extends BiomeSource {
-    public static final Codec<TerrainBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
-            Identifier.CODEC.fieldOf("terrainType").orElse(Lint.id("fraiya")).stable().forGetter(generator -> generator.terrainType),
-            Codec.LONG.fieldOf("seed").stable().forGetter(source -> source.seed))
-            .apply(instance, instance.stable(TerrainBiomeSource::new)));
+	public static final Codec<TerrainBiomeSource> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(source -> source.biomeRegistry),
+			Identifier.CODEC.fieldOf("terrainType").orElse(Lint.id("fraiya")).stable().forGetter(generator -> generator.terrainType),
+			Codec.LONG.fieldOf("seed").stable().forGetter(source -> source.seed))
+			.apply(instance, instance.stable(TerrainBiomeSource::new)));
 
-    private final Registry<Biome> biomeRegistry;
-    private final long seed;
-    private final Identifier terrainType;
-    private BiomeGenerator biomeGenerator;
+	private final Registry<Biome> biomeRegistry;
+	private final long seed;
+	private final Identifier terrainType;
+	private BiomeGenerator biomeGenerator;
 
-    public TerrainBiomeSource(Registry<Biome> biomeRegistry, Identifier terrainType, long seed) {
-        super(biomeRegistry.stream().collect(Collectors.toList()));
-        this.seed = seed;
-        this.biomeRegistry = biomeRegistry;
-        this.terrainType = terrainType;
-    }
+	public TerrainBiomeSource(Registry<Biome> biomeRegistry, Identifier terrainType, long seed) {
+		super(biomeRegistry.stream().collect(Collectors.toList()));
+		this.seed = seed;
+		this.biomeRegistry = biomeRegistry;
+		this.terrainType = terrainType;
+	}
 
-    public void createBiomeGenerator(TerrainGenerator terrainData) {
-        this.biomeGenerator = TerrainType.REGISTRY.get(terrainType).createBiomeGenerator(terrainData, seed, this.biomeRegistry);
-    }
+	public void createBiomeGenerator(TerrainGenerator terrainData) {
+		this.biomeGenerator = TerrainType.REGISTRY.get(terrainType).createBiomeGenerator(terrainData, seed, this.biomeRegistry);
+	}
 
-    @Override
-    public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
-        return this.biomeGenerator.getBiomeForNoiseGen(biomeX, biomeZ);
-    }
+	@Override
+	public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
+		return this.biomeGenerator.getBiomeForNoiseGen(biomeX, biomeZ);
+	}
 
-    @Override
-    protected Codec<? extends BiomeSource> getCodec() {
-        return CODEC;
-    }
+	@Override
+	protected Codec<? extends BiomeSource> getCodec() {
+		return CODEC;
+	}
 
-    @Override
-    public BiomeSource withSeed(long seed) {
-        return new TerrainBiomeSource(this.biomeRegistry, this.terrainType, seed);
-    }
+	@Override
+	public BiomeSource withSeed(long seed) {
+		return new TerrainBiomeSource(this.biomeRegistry, this.terrainType, seed);
+	}
 }

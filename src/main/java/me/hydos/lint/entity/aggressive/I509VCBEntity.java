@@ -41,7 +41,7 @@ import net.minecraft.world.World;
 // FIXME: Why does the boss stop levitating?
 public class I509VCBEntity extends HostileEntity {
 	private final ServerBossBar bossBar;
-	
+
 	public I509VCBEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
 //		ModernBossBar.getInstance().setTitle(getDisplayName().shallowCopy().styled(style -> style.withBold(true).withColor(TextColor.fromRgb(0xB41917))));

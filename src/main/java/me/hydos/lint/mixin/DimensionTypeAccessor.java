@@ -29,24 +29,24 @@ import java.util.OptionalLong;
 // TODO: crab accessors
 @Mixin(DimensionType.class)
 public interface DimensionTypeAccessor {
-    @Invoker("<init>")
-    static DimensionType create(
-            OptionalLong fixedTime,
-            boolean hasSkylight,
-            boolean hasCeiling,
-            boolean ultrawarm,
-            boolean natural,
-            double coordinateScale,
-            boolean piglinSafe,
-            boolean bedWorks,
-            boolean respawnAnchorWorks,
-            boolean hasRaids,
-            int minimumY,
-            int height,
-            int logicalHeight,
-            Identifier infiniburn,
-            Identifier skyProperties,
-            float ambientLight) {
-        throw new AssertionError("Someone corbed mixin"); // TODO: more detailed error message and better error handling
-    }
+	@Invoker("<init>")
+	static DimensionType create(
+			OptionalLong fixedTime,
+			boolean hasSkylight,
+			boolean hasCeiling,
+			boolean ultrawarm,
+			boolean natural,
+			double coordinateScale,
+			boolean piglinSafe,
+			boolean bedWorks,
+			boolean respawnAnchorWorks,
+			boolean hasRaids,
+			int minimumY,
+			int height,
+			int logicalHeight,
+			Identifier infiniburn,
+			Identifier skyProperties,
+			float ambientLight) {
+		throw new AssertionError("Someone corbed mixin"); // TODO: more detailed error message and better error handling
+	}
 }

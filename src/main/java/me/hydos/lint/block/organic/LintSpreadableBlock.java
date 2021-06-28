@@ -19,8 +19,6 @@
 
 package me.hydos.lint.block.organic;
 
-import java.util.Random;
-
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -32,6 +30,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.chunk.light.ChunkLightProvider;
+
+import java.util.Random;
 
 public class LintSpreadableBlock extends SnowyBlock {
 	public LintSpreadableBlock(Settings settings) {

@@ -19,6 +19,7 @@
 
 package me.hydos.lint.mixin;
 
+import me.hydos.lint.block.DirtLikeBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.world.gen.feature.Feature;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,17 +27,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import me.hydos.lint.block.DirtLikeBlock;
-
 /**
  * @reason Make forest rocks generate.
  */
 @Mixin(Feature.class)
 public class FeatureMixin {
-    @Inject(at = @At("HEAD"), method = "isSoil", cancellable = true)
-    private static void isSoil(BlockState state, CallbackInfoReturnable<Boolean> info) {
-        if (DirtLikeBlock.isLintGrass(state)) {
-            info.setReturnValue(true);
-        }
-    }
+	@Inject(at = @At("HEAD"), method = "isSoil", cancellable = true)
+	private static void isSoil(BlockState state, CallbackInfoReturnable<Boolean> info) {
+		if (DirtLikeBlock.isLintGrass(state)) {
+			info.setReturnValue(true);
+		}
+	}
 }

@@ -24,18 +24,18 @@ import net.minecraft.network.PacketByteBuf;
 
 // DONT change this UNLESS you can make this stuff work identically
 public class SecurityProblemCauser {
-    public static void deserialiseLocations(PacketByteBuf data) {
-        Vec2i[] next = new Vec2i[4];
+	public static void deserialiseLocations(PacketByteBuf data) {
+		Vec2i[] next = new Vec2i[4];
 
-        for (int i = 0; i < 4; ++i) {
-            next[i] = new Vec2i(data.readInt(), data.readInt());
-        }
+		for (int i = 0; i < 4; ++i) {
+			next[i] = new Vec2i(data.readInt(), data.readInt());
+		}
 
-        synchronized (lock) {
-            townLocs = next;
-        }
-    }
+		synchronized (lock) {
+			townLocs = next;
+		}
+	}
 
-    public static Object lock = new Object();
-    public static Vec2i[] townLocs;
+	public static Object lock = new Object();
+	public static Vec2i[] townLocs;
 }

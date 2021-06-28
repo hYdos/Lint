@@ -29,12 +29,12 @@ import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.util.registry.Registry;
 
 public class LintPotions {
-    public static final Potion MINT_TEA = new Potion(new StatusEffectInstance(StatusEffects.HASTE, 40));
+	public static final Potion MINT_TEA = new Potion(new StatusEffectInstance(StatusEffects.HASTE, 40));
 	public static final Potion TRANSMUTATION = new Potion(new StatusEffectInstance(LintStatusEffects.TRANSMUTATION, 5 * 60 * 20)); // 5 minutes
 	public static final Potion LONG_TRANSMUTATION = new Potion(new StatusEffectInstance(LintStatusEffects.TRANSMUTATION, 12 * 60 * 20)); // 12 minutes
 
-    private static void register(String name, Potion potion) {
-        Registry.register(Registry.POTION, Lint.id(name), potion);
+	private static void register(String name, Potion potion) {
+		Registry.register(Registry.POTION, Lint.id(name), potion);
 	}
 
 	public static void initialize() {

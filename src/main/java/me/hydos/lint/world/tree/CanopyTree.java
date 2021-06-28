@@ -27,8 +27,8 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import java.util.Random;
 
 public class CanopyTree extends SaplingGenerator {
-    @Override
-    protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
-        return FeaturesOld.CANOPY_TREE_CONFIGURED;
-    }
+	@Override
+	protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
+		return FeaturesOld.CANOPY_TREE_CONFIGURED;
+	}
 }

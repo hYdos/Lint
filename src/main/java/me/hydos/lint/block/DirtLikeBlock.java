@@ -21,7 +21,6 @@ package me.hydos.lint.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 
 public class DirtLikeBlock extends Block {
 	public DirtLikeBlock(Settings settings) {

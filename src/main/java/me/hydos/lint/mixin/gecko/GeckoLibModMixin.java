@@ -28,8 +28,8 @@ import software.bernie.example.GeckoLibMod;
 @Mixin(value = GeckoLibMod.class, remap = false)
 public class GeckoLibModMixin {
 
-    @Redirect(method = "onInitialize", at = @At(value = "INVOKE", target = "Lnet/fabricmc/loader/FabricLoader;isDevelopmentEnvironment()Z"), require = 0)
-    private boolean isDevelopmentEnvironment(FabricLoader fabricLoader) {
-        return false;
-    }
+	@Redirect(method = "onInitialize", at = @At(value = "INVOKE", target = "Lnet/fabricmc/loader/FabricLoader;isDevelopmentEnvironment()Z"), require = 0)
+	private boolean isDevelopmentEnvironment(FabricLoader fabricLoader) {
+		return false;
+	}
 }

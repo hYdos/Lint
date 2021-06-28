@@ -39,24 +39,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandlerMixin {
-    @Redirect(method = "onPlayerRespawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;openScreen(Lnet/minecraft/client/gui/screen/Screen;)V"))
-    private void openDownloadingTerrainScreen(MinecraftClient client, Screen screen, PlayerRespawnS2CPacket packet) {
-        if (screen instanceof DownloadingTerrainScreen && packet.getDimension().equals(Dimensions.FRAIYA_WORLD)) {
-            client.openScreen(new TaterDownloadingTerrainScreen());
-        } else {
-            client.openScreen(new DownloadingTerrainScreen());
-        }
-    }
+	@Redirect(method = "onPlayerRespawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;openScreen(Lnet/minecraft/client/gui/screen/Screen;)V"))
+	private void openDownloadingTerrainScreen(MinecraftClient client, Screen screen, PlayerRespawnS2CPacket packet) {
+		if (screen instanceof DownloadingTerrainScreen && packet.getDimension().equals(Dimensions.FRAIYA_WORLD)) {
+			client.openScreen(new TaterDownloadingTerrainScreen());
+		} else {
+			client.openScreen(new DownloadingTerrainScreen());
+		}
+	}
 
-    @SuppressWarnings("deprecation")
-    @Inject(at = @At("RETURN"), method = "onGameJoin")
-    private void onOnGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
-        PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
-        try {
-            ClientSidePacketRegistry.INSTANCE.sendToServer(Networking.GIB_INFO_PLS, data);
-        } catch (Exception e) {
-            e.printStackTrace();//java.lang.IllegalStateException: Cannot send packet to server while not in game!
-        }
-        System.out.println("sent data yes ok");
-    }
+	@SuppressWarnings("deprecation")
+	@Inject(at = @At("RETURN"), method = "onGameJoin")
+	private void onOnGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
+		PacketByteBuf data = new PacketByteBuf(Unpooled.buffer());
+		try {
+			ClientSidePacketRegistry.INSTANCE.sendToServer(Networking.GIB_INFO_PLS, data);
+		} catch (Exception e) {
+			e.printStackTrace();//java.lang.IllegalStateException: Cannot send packet to server while not in game!
+		}
+		System.out.println("sent data yes ok");
+	}
 }

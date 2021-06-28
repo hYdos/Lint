@@ -49,7 +49,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 	}
 
 	protected void carveCave(CarverContext context, LintCaveCarverConfig config, Chunk chunk, Function<BlockPos, Biome> posToBiome, long seed, AquiferSampler aquiferSampler, double x, double y, double z, float yaw, double yawPitchRatio, BitSet carvingMask, Carver.SkipPredicate skipPredicate) {
-		double d = 1.5D + (double)(MathHelper.sin(1.5707964F) * yaw);
+		double d = 1.5D + (double) (MathHelper.sin(1.5707964F) * yaw);
 		double e = d * yawPitchRatio;
 		this.carveRegion(context, config, chunk, posToBiome, seed, aquiferSampler, x + 1.0D, y, z, d, e, carvingMask, skipPredicate);
 	}
@@ -61,8 +61,8 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 		float f = 0.0F;
 		float g = 0.0F;
 
-		for(int j = branchStartIndex; j < branchCount; ++j) {
-			double d = 1.5D + (double)(MathHelper.sin(3.1415927F * (float)j / (float)branchCount) * width);
+		for (int j = branchStartIndex; j < branchCount; ++j) {
+			double d = 1.5D + (double) (MathHelper.sin(3.1415927F * (float) j / (float) branchCount) * width);
 			double e = d * yawPitchRatio;
 			float h = MathHelper.cos(pitch);
 			x += MathHelper.cos(yaw) * h;
@@ -100,7 +100,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 		int i = ChunkSectionPos.getBlockCoord(this.getBranchFactor() * 2 - 1);
 		int j = random.nextInt(random.nextInt(random.nextInt(this.getMaxCaveCount()) + 1) + 1);
 
-		for(int k = 0; k < j; ++k) {
+		for (int k = 0; k < j; ++k) {
 			double d = chunkPos.getOffsetX(random.nextInt(16));
 			double e = caveCarverConfig.y.get(random, carverContext);
 			double f = chunkPos.getOffsetZ(random.nextInt(16));
@@ -117,7 +117,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 				m += random.nextInt(4);
 			}
 
-			for(int p = 0; p < m; ++p) {
+			for (int p = 0; p < m; ++p) {
 				float q = random.nextFloat() * 6.2831855F;
 				r = (random.nextFloat() - 0.5F) / 4.0F;
 				float s = this.getTunnelSystemWidth(random);

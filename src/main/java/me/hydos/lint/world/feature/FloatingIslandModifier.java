@@ -19,8 +19,6 @@
 
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
@@ -33,6 +31,8 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
+
+import java.util.Random;
 
 public class FloatingIslandModifier {
 	private static final BlockState FUSED_STONE = LintBlocks.FUSED_STONE.getDefaultState();

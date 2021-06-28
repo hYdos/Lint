@@ -52,9 +52,9 @@ public class LintSky {
 	                                 VertexBuffer starsBuffer) {
 		RenderSystem.disableTexture();
 		Vec3d vec3d = world.method_23777(client.gameRenderer.getCamera().getPos(), tickDelta);
-		float g = (float)vec3d.x;
-		float h = (float)vec3d.y;
-		float i = (float)vec3d.z;
+		float g = (float) vec3d.x;
+		float h = (float) vec3d.y;
+		float i = (float) vec3d.z;
 		float skyAngle = world.getSkyAngle(tickDelta);
 		BackgroundRenderer.setFogBlack();
 		BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
@@ -86,8 +86,8 @@ public class LintSky {
 			bufferBuilder.begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
 			bufferBuilder.vertex(matrix4f2, 0.0F, 100.0F, 0.0F).color(k, size, m, fs[3]).next();
 
-			for(int o = 0; o <= 16; ++o) {
-				p = (float)o * 6.2831855F / 16.0F;
+			for (int o = 0; o <= 16; ++o) {
+				p = (float) o * 6.2831855F / 16.0F;
 				q = MathHelper.sin(p);
 				r = MathHelper.cos(p);
 				bufferBuilder.vertex(matrix4f2, q * 120.0F, r * 120.0F, -r * 40.0F * fs[3]).color(fs[0], fs[1], fs[2], 0.0F).next();
@@ -146,7 +146,7 @@ public class LintSky {
 		RenderSystem.enableTexture();
 		RenderSystem.depthMask(true);
 	}
-	
+
 	private static void renderFraiyaMoons(ClientWorld world, MatrixStack matrices, BufferBuilder bufferBuilder, Matrix4f skyObjectMatrix, float skyAngle, float r, float size) {
 		float iOrbitRate = 0.0012f;
 		float cOrbitRate = 0.0036f;
@@ -171,7 +171,7 @@ public class LintSky {
 		RenderSystem.setShaderTexture(0, WorldRenderer.MOON_PHASES);
 		int[] moonPhase = getMoonPhaseAndDirection(skyAngle, ieseAngle);
 
-		float texRight = (float)(moonPhase[0]) / 4.0F;
+		float texRight = (float) (moonPhase[0]) / 4.0F;
 		float texTop = (float) (moonPhase[1]) / 2.0F;
 		float texLeft = (float) (moonPhase[0] + 1) / 4.0F;
 		float texBottom = (float) (moonPhase[1] + 1) / 2.0F;
@@ -196,7 +196,7 @@ public class LintSky {
 		size = 16.0F;
 		moonPhase = getMoonPhaseAndDirection(skyAngle, cairAngle);
 
-		texRight = (float)(moonPhase[0]) / 4.0F;
+		texRight = (float) (moonPhase[0]) / 4.0F;
 		texTop = (float) (moonPhase[1]) / 2.0F;
 		texLeft = (float) (moonPhase[0] + 1) / 4.0F;
 		texBottom = (float) (moonPhase[1] + 1) / 2.0F;
@@ -235,7 +235,7 @@ public class LintSky {
 			}
 		}
 
-		return new int[] {moonPhaseType, moonPhaseInverse};
+		return new int[]{moonPhaseType, moonPhaseInverse};
 	}
 
 	public static void renderBinarySun(ClientWorld world, MatrixStack matrices, BufferBuilder bufferBuilder, float size, float skyAngle) {

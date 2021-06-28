@@ -35,19 +35,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MusicTracker.class)
 public abstract class MusicTrackerMixin {
-    @Shadow
-    private @Nullable SoundInstance current;
+	@Shadow
+	private @Nullable SoundInstance current;
 
-    @Shadow
-    @Final
-    private MinecraftClient client;
+	@Shadow
+	@Final
+	private MinecraftClient client;
 
-    @Inject(at = @At("HEAD"), method = "play", cancellable = true)
-    private void onPlay(MusicSound type, CallbackInfo info) {
-        if (type == MusicType.UNDERWATER || type == MusicType.GAME || type == MusicType.CREATIVE) {
-            if (this.client.world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
-                info.cancel();
-            }
-        }
-    }
+	@Inject(at = @At("HEAD"), method = "play", cancellable = true)
+	private void onPlay(MusicSound type, CallbackInfo info) {
+		if (type == MusicType.UNDERWATER || type == MusicType.GAME || type == MusicType.CREATIVE) {
+			if (this.client.world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
+				info.cancel();
+			}
+		}
+	}
 }

@@ -106,7 +106,7 @@ public class LintPortal {
 				pos.setZ(startZ + zo);
 
 				world.syncWorldEvent(2001, pos, rawId);
-				world.setBlockState(pos, AIR, 2);	
+				world.setBlockState(pos, AIR, 2);
 			}
 		}
 	}
@@ -258,7 +258,8 @@ public class LintPortal {
 		// check air space for portal
 		boolean checkActive = false;
 
-		checkAir: for (int xo = -widthN; xo <= widthP; ++xo) {
+		checkAir:
+		for (int xo = -widthN; xo <= widthP; ++xo) {
 			pos.setX(fireX + xo);
 
 			for (int zo = -breadthN; zo <= breadthP; ++zo) {

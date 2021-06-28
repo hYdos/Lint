@@ -29,37 +29,37 @@ import net.minecraft.util.Identifier;
  * @author hydos
  */
 public class FluidStack {
-    public float level;
-    public Identifier fluid;
+	public float level;
+	public Identifier fluid;
 
-    public FluidStack(float level, Identifier fluid) {
-        if (level > 8) {
-            throw new RuntimeException("Level of fluid is beyond maximum value (8)");
-        }
-        this.level = level;
-        this.fluid = fluid;
-    }
+	public FluidStack(float level, Identifier fluid) {
+		if (level > 8) {
+			throw new RuntimeException("Level of fluid is beyond maximum value (8)");
+		}
+		this.level = level;
+		this.fluid = fluid;
+	}
 
-    public static FluidStack fromTag(NbtCompound tag) {
-        return new FluidStack(tag.getFloat("level"), new Identifier(tag.getString("fluid")));
-    }
+	public static FluidStack fromTag(NbtCompound tag) {
+		return new FluidStack(tag.getFloat("level"), new Identifier(tag.getString("fluid")));
+	}
 
-    public static FluidStack of(LintFluids.FluidEntry entry) {
-        return of(entry, 1);
-    }
+	public static FluidStack of(LintFluids.FluidEntry entry) {
+		return of(entry, 1);
+	}
 
-    public static FluidStack of(LintFluids.FluidEntry entry, float level) {
-        return new FluidStack(level, LintFluids.getId(entry));
-    }
+	public static FluidStack of(LintFluids.FluidEntry entry, float level) {
+		return new FluidStack(level, LintFluids.getId(entry));
+	}
 
-    public NbtCompound toTag() {
-        NbtCompound tag = new NbtCompound();
-        tag.putFloat("level", level);
-        tag.putString("fluid", fluid.toString());
-        return tag;
-    }
+	public NbtCompound toTag() {
+		NbtCompound tag = new NbtCompound();
+		tag.putFloat("level", level);
+		tag.putString("fluid", fluid.toString());
+		return tag;
+	}
 
-    public Fluid get() {
-        return LintFluids.MOLTEN_FLUID_MAP.get(fluid).getStill();
-    }
+	public Fluid get() {
+		return LintFluids.MOLTEN_FLUID_MAP.get(fluid).getStill();
+	}
 }

@@ -30,34 +30,34 @@ import java.util.Random;
 
 // TODO: convert to record
 public final class TerrainType {
-    public TerrainType(TerrainGeneratorFunction terrainGeneratorProvider, BiomeGeneratorFunction biomeGeneratorProvider, boolean floatingIslands) {
-        this.terrainGeneratorProvider = terrainGeneratorProvider;
-        this.biomeGeneratorProvider = biomeGeneratorProvider;
-        this.floatingIslands = floatingIslands;
-    }
+	public TerrainType(TerrainGeneratorFunction terrainGeneratorProvider, BiomeGeneratorFunction biomeGeneratorProvider, boolean floatingIslands) {
+		this.terrainGeneratorProvider = terrainGeneratorProvider;
+		this.biomeGeneratorProvider = biomeGeneratorProvider;
+		this.floatingIslands = floatingIslands;
+	}
 
-    private final TerrainGeneratorFunction terrainGeneratorProvider;
-    private final BiomeGeneratorFunction biomeGeneratorProvider;
-    public final boolean floatingIslands;
+	private final TerrainGeneratorFunction terrainGeneratorProvider;
+	private final BiomeGeneratorFunction biomeGeneratorProvider;
+	public final boolean floatingIslands;
 
-    public TerrainGenerator createTerrainGenerator(long seed, Random rand, Vec2i[] keyLocations) {
-        return this.terrainGeneratorProvider.apply(seed, rand, keyLocations);
-    }
+	public TerrainGenerator createTerrainGenerator(long seed, Random rand, Vec2i[] keyLocations) {
+		return this.terrainGeneratorProvider.apply(seed, rand, keyLocations);
+	}
 
-    public BiomeGenerator createBiomeGenerator(TerrainGenerator terrain, long seed, Registry<Biome> registry) {
-        BiomeGenerator result = this.biomeGeneratorProvider.apply(terrain, registry, seed);
-        return result;
-    }
+	public BiomeGenerator createBiomeGenerator(TerrainGenerator terrain, long seed, Registry<Biome> registry) {
+		BiomeGenerator result = this.biomeGeneratorProvider.apply(terrain, registry, seed);
+		return result;
+	}
 
-    public static final Map<Identifier, TerrainType> REGISTRY = new HashMap<>();
+	public static final Map<Identifier, TerrainType> REGISTRY = new HashMap<>();
 
-    @FunctionalInterface
-    public interface TerrainGeneratorFunction {
-        TerrainGenerator apply(long seed, Random rand, Vec2i[] keyLocations);
-    }
+	@FunctionalInterface
+	public interface TerrainGeneratorFunction {
+		TerrainGenerator apply(long seed, Random rand, Vec2i[] keyLocations);
+	}
 
-    @FunctionalInterface
-    public interface BiomeGeneratorFunction {
-        BiomeGenerator apply(TerrainGenerator generator, Registry<Biome> registry, long seed);
-    }
+	@FunctionalInterface
+	public interface BiomeGeneratorFunction {
+		BiomeGenerator apply(TerrainGenerator generator, Registry<Biome> registry, long seed);
+	}
 }

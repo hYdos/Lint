@@ -40,59 +40,59 @@ import java.util.Optional;
 
 @Mixin(BiomeEffectSoundPlayer.class)
 public class BiomeEffectSoundPlayerMixin {
-    @Shadow
-    private Biome activeBiome;
+	@Shadow
+	private Biome activeBiome;
 
-    @Shadow
-    @Final
-    private BiomeAccess biomeAccess;
+	@Shadow
+	@Final
+	private BiomeAccess biomeAccess;
 
-    @Shadow
-    @Final
-    private ClientPlayerEntity player;
+	@Shadow
+	@Final
+	private ClientPlayerEntity player;
 
-    @Shadow
-    @Final
-    private SoundManager soundManager;
+	@Shadow
+	@Final
+	private SoundManager soundManager;
 
-    @Shadow
-    private Object2ObjectArrayMap<Biome, BiomeEffectSoundPlayer.MusicLoop> soundLoops;
+	@Shadow
+	private Object2ObjectArrayMap<Biome, BiomeEffectSoundPlayer.MusicLoop> soundLoops;
 
-    @Inject(
-            at = @At("HEAD"),
-            method = "tick",
-            cancellable = true)
-    private void musicGood(CallbackInfo info) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        WorldRenderer wr = client.worldRenderer;
+	@Inject(
+			at = @At("HEAD"),
+			method = "tick",
+			cancellable = true)
+	private void musicGood(CallbackInfo info) {
+		MinecraftClient client = MinecraftClient.getInstance();
+		WorldRenderer wr = client.worldRenderer;
 
-        if (LintSoundManager.isPlayingRecordMusic(this.player, this.soundManager, wr)) {
-            LintSoundManager.stopSounds(Optional.empty(), this.soundLoops);
-            info.cancel();
-        } else if (LintSoundManager.isCachedAsRecordPlaying()) {
-            LintSoundManager.restartSounds(this.soundManager, this.activeBiome = biomeAccess.getBiomeForNoiseGen(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
-            info.cancel();
-        }
+		if (LintSoundManager.isPlayingRecordMusic(this.player, this.soundManager, wr)) {
+			LintSoundManager.stopSounds(Optional.empty(), this.soundLoops);
+			info.cancel();
+		} else if (LintSoundManager.isCachedAsRecordPlaying()) {
+			LintSoundManager.restartSounds(this.soundManager, this.activeBiome = biomeAccess.getBiomeForNoiseGen(this.player.getX(), this.player.getY(), this.player.getZ()), this.soundLoops);
+			info.cancel();
+		}
 
-        if (this.activeBiome != null) {
-            LintSoundManager.markPrev(this.activeBiome);
-        }
-    }
+		if (this.activeBiome != null) {
+			LintSoundManager.markPrev(this.activeBiome);
+		}
+	}
 
-    @Inject(
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lit/unimi/dsi/fastutil/objects/Object2ObjectArrayMap;values()Lit/unimi/dsi/fastutil/objects/ObjectCollection;",
-                    ordinal = 1),
-            method = "tick")
-    private void markNext(CallbackInfo info) {
-        LintSoundManager.markNext(this.activeBiome);
-    }
+	@Inject(
+			at = @At(
+					value = "INVOKE",
+					target = "Lit/unimi/dsi/fastutil/objects/Object2ObjectArrayMap;values()Lit/unimi/dsi/fastutil/objects/ObjectCollection;",
+					ordinal = 1),
+			method = "tick")
+	private void markNext(CallbackInfo info) {
+		LintSoundManager.markNext(this.activeBiome);
+	}
 
-    @Redirect(
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/source/BiomeAccess;getBiomeForNoiseGen(DDD)Lnet/minecraft/world/biome/Biome;"),
-            method = "tick")
-    private Biome injectBiomeSoundDummies(BiomeAccess access, double x, double y, double z) {
-        return LintSoundManager.injectBiomeSoundDummies(this.player, access, x, y, z);
-    }
+	@Redirect(
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/source/BiomeAccess;getBiomeForNoiseGen(DDD)Lnet/minecraft/world/biome/Biome;"),
+			method = "tick")
+	private Biome injectBiomeSoundDummies(BiomeAccess access, double x, double y, double z) {
+		return LintSoundManager.injectBiomeSoundDummies(this.player, access, x, y, z);
+	}
 }

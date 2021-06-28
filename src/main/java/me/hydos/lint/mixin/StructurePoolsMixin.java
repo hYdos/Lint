@@ -29,8 +29,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(StructurePools.class)
 public class StructurePoolsMixin {
 
-    @Inject(method = "<clinit>", at = @At("HEAD"))
-    private static void initLintPools(CallbackInfo cir) {
-        DungeonGenerator.init();
-    }
+	@Inject(method = "<clinit>", at = @At("HEAD"))
+	private static void initLintPools(CallbackInfo cir) {
+		DungeonGenerator.init();
+	}
 }
