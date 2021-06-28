@@ -29,7 +29,7 @@ public class CorruptFlower extends LintFlowerBlock {
 			if (((entity instanceof PlayerEntity) && ((PlayerEntity) entity).isCreative()) || (entity instanceof HostileEntity))
 				return;
 
-			entity.damage(DamageSource.CACTUS, 1.0F); // TODO: use something like SWEET_BERRY_BUSH instead of CACTUS
+			entity.damage(DamageSource.SWEET_BERRY_BUSH, 1.0F);
 			livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 30));
 			world.breakBlock(pos, false);
 		}
