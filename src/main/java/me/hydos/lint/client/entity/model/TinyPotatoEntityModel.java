@@ -26,16 +26,21 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.CompositeEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
+import java.util.List;
+import java.util.Map;
+
+import static me.hydos.lint.util.ModelUtils.cuboid;
+
 public class TinyPotatoEntityModel extends CompositeEntityModel<TinyPotatoEntity> {
+	private static final ModelPart model;
+	private static final int textureWidth = 32;
+	private static final int textureHeight = 32;
 
-	private final ModelPart model;
-
-	public TinyPotatoEntityModel() {
-		textureWidth = 32;
-		textureHeight = 32;
-		model = new ModelPart(this);
+	static {
+		model = new ModelPart(List.of(
+				cuboid(0, 0, -4.0F, -12.0F, -4.0F, 8.0F, 12.0F, 8.0F, 0.0F, false, textureWidth, textureHeight)
+		), Map.of());
 		model.setPivot(0.0F, 24.0F, 0.0F);
-		model.setTextureOffset(0, 0).addCuboid(-4.0F, -12.0F, -4.0F, 8.0F, 12.0F, 8.0F, 0.0F, false);
 	}
 
 	@Override

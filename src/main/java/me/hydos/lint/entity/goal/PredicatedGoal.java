@@ -19,10 +19,10 @@
 
 package me.hydos.lint.entity.goal;
 
+import net.minecraft.entity.ai.goal.Goal;
+
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
-
-import net.minecraft.entity.ai.goal.Goal;
 
 public class PredicatedGoal extends Goal {
 	public PredicatedGoal(Goal goal, BooleanSupplier predicate) {
@@ -73,7 +73,7 @@ public class PredicatedGoal extends Goal {
 	public EnumSet<Control> getControls() {
 		return this.goal.getControls();
 	}
-	
+
 	@Override
 	public void setControls(EnumSet<Control> controls) {
 		this.goal.setControls(controls);

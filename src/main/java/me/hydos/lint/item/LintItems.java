@@ -33,7 +33,6 @@ import static me.hydos.lint.item.ItemData.registerGenerated;
 import static me.hydos.lint.item.ItemData.registerHandheld;
 
 public class LintItems {
-
 	/**
 	 * Boss Materials
 	 */
@@ -68,7 +67,7 @@ public class LintItems {
 	/**
 	 * Music Discs
 	 */
-	public static final Item SUSPICOUS_LOOKING_DISC = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
+	public static final Item SUSPICIOUS_LOOKING_DISC = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 	public static final Item OBOE_DISC = new LintMusicDiscItem(14, Sounds.GRIMACE_OBOE, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 	public static final Item OCEAN_DISC = new LintMusicDiscItem(15, Sounds.OCEAN, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 	public static final Item MYSTICAL_FOREST_DISC = new LintMusicDiscItem(16, Sounds.MYSTICAL_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
@@ -94,7 +93,7 @@ public class LintItems {
 	}
 
 	private static void registerDiscs() {
-		registerGenerated("suspicious_looking_disc", SUSPICOUS_LOOKING_DISC);
+		registerGenerated("suspicious_looking_disc", SUSPICIOUS_LOOKING_DISC);
 		registerGenerated("oboe_disc", OBOE_DISC);
 		registerGenerated("ocean_disc", OCEAN_DISC);
 		registerGenerated("mystical_forest_disc", MYSTICAL_FOREST_DISC);

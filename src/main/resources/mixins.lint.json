@@ -26,8 +26,6 @@
     "client.BackgroundRendererMixin",
     "client.BiomeEffectSoundPlayerMixin",
     "client.ClientPlayNetworkHandlerMixin",
-    "client.GameRendererMixin",
-    "client.InGameHudMixin",
     "client.LevelPropertiesMixin",
     "client.MinecraftClientMixin",
     "client.ModelLoaderMixin",

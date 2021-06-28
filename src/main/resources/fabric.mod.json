@@ -24,9 +24,8 @@
   ],
   "accessWidener": "lint.aw",
   "depends": {
-    "minecraft": "1.16.x",
+    "minecraft": "1.17",
     "fabric": "*",
-    "geckolib3": ">=3.0.0",
-    "myron": ">=1.5.0"
+    "geckolib3": ">=3.0.0"
   }
 }

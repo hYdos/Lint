@@ -24,7 +24,6 @@ import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.Matrix4f;
@@ -49,18 +48,12 @@ public class WorldRendererMixin {
 	private MinecraftClient client;
 
 	@Shadow
-	@Final
-	private TextureManager textureManager;
-
-	@Shadow
 	private ClientWorld world;
 
-	@Inject(at = @At("HEAD"), method = "renderSky", cancellable = true)
-	private void renderLintSky(MatrixStack matrices, Matrix4f matrix4f, float tickDelta, CallbackInfo info) {
+	@Inject(at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V", shift = At.Shift.AFTER), method = "renderSky", cancellable = true)
+	private void renderLintSky(MatrixStack matrices, Matrix4f skyObjectMatrix, float tickDelta, Runnable runnable, CallbackInfo info) {
 		if (this.world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
-			LintSky.renderLintSky(matrices,
-					this.textureManager, this.lightSkyBuffer, this.darkSkyBuffer,
-					this.starsBuffer, this.client, this.world, tickDelta);
+			LintSky.renderLintSky(matrices, skyObjectMatrix, tickDelta, runnable, world, client, lightSkyBuffer, darkSkyBuffer, starsBuffer);
 			info.cancel();
 		}
 	}

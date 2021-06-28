@@ -22,6 +22,7 @@ package me.hydos.lint.client.entity.render;
 import me.hydos.lint.Lint;
 import me.hydos.lint.client.entity.model.KingTaterEntityModel;
 import me.hydos.lint.entity.aggressive.KingTaterEntity;
+import me.hydos.lint.util.LintUtilities;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -42,7 +43,7 @@ public class KingTaterRenderer extends MobEntityRenderer<KingTaterEntity, KingTa
 
 	@Override
 	protected void scale(KingTaterEntity entity, MatrixStack matrices, float tickDelta) {
-		float scale = Math.max(KingTaterEntity.getScaledHealth(entity.getHealth(), entity.getMaxHealth()), 0.125F);
+		float scale = Math.max(LintUtilities.getScaledHealth(entity.getHealth(), entity.getMaxHealth()), 0.125F);
 		matrices.scale(scale, scale, scale);
 	}
 }

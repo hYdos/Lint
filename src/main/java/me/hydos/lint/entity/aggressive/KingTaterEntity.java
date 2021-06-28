@@ -22,6 +22,7 @@ package me.hydos.lint.entity.aggressive;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.item.LintItems;
 import me.hydos.lint.sound.Sounds;
+import me.hydos.lint.util.LintUtilities;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.*;
@@ -52,7 +53,6 @@ import java.util.function.Predicate;
 
 @SuppressWarnings("EntityConstructor")
 public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
-
 	private static final Predicate<LivingEntity> PREDICATE = entity -> entity.getType() != Entities.MINION;
 
 	private final Set<UUID> minions = new HashSet<>();
@@ -68,10 +68,6 @@ public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 300)
 				.add(EntityAttributes.GENERIC_FOLLOW_RANGE, 6)
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 15);
-	}
-
-	public static float getScaledHealth(float health, float maxHealth) {
-		return health / maxHealth;
 	}
 
 	@Override
@@ -131,7 +127,7 @@ public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 
 	@Override
 	protected void mobTick() {
-		bossBar.setPercent(getScaledHealth(getHealth(), getMaxHealth()));
+		bossBar.setPercent(LintUtilities.getScaledHealth(getHealth(), getMaxHealth()));
 		if (hasStatusEffect(StatusEffects.JUMP_BOOST)) {
 			addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20, 4, true, true, true, null));
 		}
@@ -182,7 +178,7 @@ public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 
 	@Override
 	public EntityDimensions getDimensions(EntityPose pose) {
-		return getType().getDimensions().scaled(getScaledHealth(getHealth(), getMaxHealth()));
+		return getType().getDimensions().scaled(LintUtilities.getScaledHealth(getHealth(), getMaxHealth()));
 	}
 
 	@Override

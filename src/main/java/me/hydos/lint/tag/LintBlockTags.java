@@ -26,8 +26,8 @@ import net.minecraft.tag.Tag;
 
 public class LintBlockTags {
 
-    public static final Tag<Block> BASIC_CASING = TagRegistry.block(Lint.id("basic_smeltery_casing"));
+	public static final Tag<Block> BASIC_CASING = TagRegistry.block(Lint.id("basic_smeltery_casing"));
 
-    public static void initialize() {
-    }
+	public static void initialize() {
+	}
 }

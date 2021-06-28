@@ -19,12 +19,10 @@
 
 package me.hydos.lint.client.render.block;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import me.hydos.lint.client.render.fluid.LintFluidRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -32,7 +30,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
-import org.lwjgl.opengl.GL20;
 
 import java.awt.*;
 
@@ -40,7 +37,8 @@ public class SmelteryBlockEntityRenderer implements BlockEntityRenderer<Smeltery
 
 	private static final Rectangle BLOCK_BOUNDS = new Rectangle(1, 1);
 
-	public SmelteryBlockEntityRenderer() {}
+	public SmelteryBlockEntityRenderer() {
+	}
 
 	// Fluid stack max level is 8.
 	@Override

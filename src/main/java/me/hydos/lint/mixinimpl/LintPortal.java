@@ -19,10 +19,6 @@
 
 package me.hydos.lint.mixinimpl;
 
-import java.util.function.BiPredicate;
-
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,16 +27,15 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.BiPredicate;
 
 public class LintPortal {
 	public static final BlockState FRAME = Blocks.COAL_BLOCK.getDefaultState();
 
 	public static void resolve(World world, BlockPos startPos, @Nullable BlockPos fromPos, boolean destroy) {
-		boolean blowUp = false;
-
-		if (world.getRegistryKey() != World.OVERWORLD) {
-			blowUp = true;
-		}
+		boolean blowUp = world.getRegistryKey() != World.OVERWORLD;
 
 		final int size = 3;
 		final int searchSize = 4;
@@ -111,7 +106,7 @@ public class LintPortal {
 				pos.setZ(startZ + zo);
 
 				world.syncWorldEvent(2001, pos, rawId);
-				world.setBlockState(pos, AIR, 2);	
+				world.setBlockState(pos, AIR, 2);
 			}
 		}
 	}
@@ -263,7 +258,8 @@ public class LintPortal {
 		// check air space for portal
 		boolean checkActive = false;
 
-		checkAir: for (int xo = -widthN; xo <= widthP; ++xo) {
+		checkAir:
+		for (int xo = -widthN; xo <= widthP; ++xo) {
 			pos.setX(fireX + xo);
 
 			for (int zo = -breadthN; zo <= breadthP; ++zo) {

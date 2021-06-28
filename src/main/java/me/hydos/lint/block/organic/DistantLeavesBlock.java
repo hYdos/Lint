@@ -19,8 +19,6 @@
 
 package me.hydos.lint.block.organic;
 
-import java.util.Random;
-
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import me.hydos.lint.particle.Particles;
@@ -30,8 +28,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -45,6 +41,8 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+
+import java.util.Random;
 
 /**
  * Based off the code in terraform because I don't wanna figure out every override myself.
@@ -131,7 +129,7 @@ public class DistantLeavesBlock extends Block {
 			double x = (double) pos.getX() + random.nextDouble();
 			double y = (double) pos.getY() + random.nextInt(1);
 			double z = (double) pos.getZ() + random.nextDouble();
-			if(world.isAir(pos.offset(Direction.DOWN))) {
+			if (world.isAir(pos.offset(Direction.DOWN))) {
 				world.addParticle(Particles.FALLEN_MYSTICAL_LEAF, x, y, z, 0.0D, -0.2D, 0.0D);
 			}
 		}

@@ -54,7 +54,9 @@ public class Dimensions {
 			true,
 			false,
 			true,
+			0,
 			256,
+			250,
 			BlockTags.INFINIBURN_OVERWORLD.getId(),
 			OVERWORLD_ID,
 			0.1F

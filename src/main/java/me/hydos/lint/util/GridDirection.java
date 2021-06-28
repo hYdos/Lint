@@ -24,52 +24,52 @@ import net.minecraft.util.math.Direction;
 import java.util.Random;
 
 public enum GridDirection {
-    UP(0, 0, 1, false, false, Direction.SOUTH),
-    RIGHT(1, 1, 0, true, false, Direction.EAST),
-    DOWN(2, 0, -1, false, true, Direction.NORTH),
-    LEFT(3, -1, 0, true, true, Direction.WEST);
+	UP(0, 0, 1, false, false, Direction.SOUTH),
+	RIGHT(1, 1, 0, true, false, Direction.EAST),
+	DOWN(2, 0, -1, false, true, Direction.NORTH),
+	LEFT(3, -1, 0, true, true, Direction.WEST);
 
-    public static final GridDirection[] BY_ID = new GridDirection[4];
+	public static final GridDirection[] BY_ID = new GridDirection[4];
 
-    static {
-        for (GridDirection d : GridDirection.values()) {
-            BY_ID[d.id] = d;
-        }
-    }
+	static {
+		for (GridDirection d : GridDirection.values()) {
+			BY_ID[d.id] = d;
+		}
+	}
 
-    public final int id;
-    public final int xOff, zOff;
-    public final boolean horizontal;
-    public final boolean mirror;
-    public final int off;
-    public final Direction direction;
+	public final int id;
+	public final int xOff, zOff;
+	public final boolean horizontal;
+	public final boolean mirror;
+	public final int off;
+	public final Direction direction;
 
-    GridDirection(int id, int xOff, int zOff, boolean horizontal, boolean mirror, Direction direction) {
-        this.id = id;
-        this.xOff = xOff;
-        this.zOff = zOff;
-        this.horizontal = horizontal;
-        this.mirror = mirror;
-        this.off = mirror ? -1 : 1;
-        this.direction = direction;
-    }
+	GridDirection(int id, int xOff, int zOff, boolean horizontal, boolean mirror, Direction direction) {
+		this.id = id;
+		this.xOff = xOff;
+		this.zOff = zOff;
+		this.horizontal = horizontal;
+		this.mirror = mirror;
+		this.off = mirror ? -1 : 1;
+		this.direction = direction;
+	}
 
-    public GridDirection reverse() {
-        switch (this) {
-            case UP:
-                return DOWN;
-            case DOWN:
-                return UP;
-            case LEFT:
-                return RIGHT;
-            case RIGHT:
-                return LEFT;
-            default:
-                return null;
-        }
-    }
+	public GridDirection reverse() {
+		switch (this) {
+			case UP:
+				return DOWN;
+			case DOWN:
+				return UP;
+			case LEFT:
+				return RIGHT;
+			case RIGHT:
+				return LEFT;
+			default:
+				return null;
+		}
+	}
 
-    public static GridDirection random(Random rand) {
-        return values()[rand.nextInt(4)];
-    }
+	public static GridDirection random(Random rand) {
+		return values()[rand.nextInt(4)];
+	}
 }

@@ -19,12 +19,9 @@
 
 package me.hydos.lint.entity.goal;
 
-import java.util.EnumSet;
-import java.util.function.Predicate;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.TargetFinder;
+import net.minecraft.entity.ai.NoPenaltyTargeting;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
@@ -33,6 +30,9 @@ import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.EnumSet;
+import java.util.function.Predicate;
 
 public class SeekBlockGoal extends Goal {
 	protected final PathAwareEntity mob;
@@ -108,7 +108,7 @@ public class SeekBlockGoal extends Goal {
 		if (seekPosCache == null) {
 			return false;
 		} else {
-			Vec3d target = TargetFinder.findTargetTowards(this.mob, 2, 2, new Vec3d(seekPosCache.getX(), seekPosCache.getY(), seekPosCache.getZ()));
+			Vec3d target = NoPenaltyTargeting.find(this.mob, 2, 2, new Vec3d(seekPosCache.getX(), seekPosCache.getY(), seekPosCache.getZ()));
 
 			if (target == null) {
 				return false;

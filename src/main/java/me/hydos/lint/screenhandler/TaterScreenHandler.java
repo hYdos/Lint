@@ -19,7 +19,7 @@
 
 package me.hydos.lint.screenhandler;
 
-//TODO: finish porting to new api
+// TODO: finish porting to new api
 //public class TaterScreenHandler extends ScreenHandler {
 //
 //	private final PlayerInventory playerInventory;

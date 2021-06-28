@@ -25,50 +25,60 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
+import java.util.List;
+import java.util.Map;
+
+import static me.hydos.lint.util.ModelUtils.cuboid;
+
 public class BeeTaterEntityModel extends EntityModel<BeeTaterEntity> {
 
-	private final ModelPart body;
-	private final ModelPart left_wing;
-	private final ModelPart right_wing;
-	private final ModelPart leg1;
-	private final ModelPart leg2;
-	private final ModelPart leg3;
+	private static final ModelPart body;
+	private static final ModelPart left_wing;
+	private static final ModelPart right_wing;
+	private static final ModelPart leg1;
+	private static final ModelPart leg2;
+	private static final ModelPart leg3;
+	private static final int textureWidth = 64;
+	private static final int textureHeight = 64;
 
-	public BeeTaterEntityModel() {
-		textureWidth = 64;
-		textureHeight = 64;
-
-		body = new ModelPart(this);
+	// TODO: use ModelUtils.part to set pivot
+	static {
+		body = new ModelPart(List.of(
+				cuboid(0, 0, -4.0F, -2.0F, -8.0F, 7.0F, 7.0F, 10.0F, 0.0F, false, textureWidth, textureHeight),
+				cuboid(3, 3, 2.0F, -2.0F, -11.0F, 0.0F, 2.0F, 3.0F, 0.0F, false, textureWidth, textureHeight),
+				cuboid(2, 0, -3.0F, -2.0F, -11.0F, 0.0F, 2.0F, 3.0F, 0.0F, false, textureWidth, textureHeight),
+				cuboid(3, 1, -0.5F, 1.0F, 2.0F, 0.0F, 1.0F, 2.0F, 0.0F, false, textureWidth, textureHeight)
+		), Map.of());
 		body.setPivot(0.0F, 0.0F, 0.0F);
-		body.setTextureOffset(0, 0).addCuboid(-4.0F, -2.0F, -8.0F, 7.0F, 7.0F, 10.0F, 0.0F, false);
-		body.setTextureOffset(3, 3).addCuboid(2.0F, -2.0F, -11.0F, 0.0F, 2.0F, 3.0F, 0.0F, false);
-		body.setTextureOffset(2, 0).addCuboid(-3.0F, -2.0F, -11.0F, 0.0F, 2.0F, 3.0F, 0.0F, false);
-		body.setTextureOffset(3, 1).addCuboid(-0.5F, 1.0F, 2.0F, 0.0F, 1.0F, 2.0F, 0.0F, false);
 
-		left_wing = new ModelPart(this);
+		left_wing = new ModelPart(List.of(
+				cuboid(9, 24, 3.0F, 0.0F, 2.0F, 7.0F, 0.0F, 6.0F, 0.0F, false, textureWidth, textureHeight)
+		), Map.of());
 		left_wing.setPivot(-2.0F, -2.0F, -8.0F);
-		left_wing.setTextureOffset(9, 24).addCuboid(3.0F, 0.0F, 2.0F, 7.0F, 0.0F, 6.0F, 0.0F, false);
 
-		right_wing = new ModelPart(this);
+		right_wing = new ModelPart(List.of(
+				cuboid(9, 24, -13.0F, 0.0F, 2.0F, 7.0F, 0.0F, 6.0F, 0.0F, true, textureWidth, textureHeight)
+		), Map.of());
 		right_wing.setPivot(3.0F, -2.0F, -8.0F);
-		right_wing.setTextureOffset(9, 24).addCuboid(-13.0F, 0.0F, 2.0F, 7.0F, 0.0F, 6.0F, 0.0F, true);
 
-		leg1 = new ModelPart(this);
+		leg1 = new ModelPart(List.of(
+				cuboid(28, 1, -2.0F, -19.0F, -5.0F, 3.0F, 2.0F, 0.0F, 0.0F, false, textureWidth, textureHeight)
+		), Map.of());
 		leg1.setPivot(0.0F, 24.0F, 0.0F);
-		leg1.setTextureOffset(28, 1).addCuboid(-2.0F, -19.0F, -5.0F, 3.0F, 2.0F, 0.0F, 0.0F, false);
 
-		leg2 = new ModelPart(this);
+		leg2 = new ModelPart(List.of(
+				cuboid(27, 3, -3.0F, -19.0F, -3.0F, 5.0F, 2.0F, 0.0F, 0.0F, false, textureWidth, textureHeight)
+		), Map.of());
 		leg2.setPivot(0.0F, 24.0F, 0.0F);
-		leg2.setTextureOffset(27, 3).addCuboid(-3.0F, -19.0F, -3.0F, 5.0F, 2.0F, 0.0F, 0.0F, false);
 
-		leg3 = new ModelPart(this);
+		leg3 = new ModelPart(List.of(
+				cuboid(27, 5, -3.0F, -19.0F, -1.0F, 5.0F, 2.0F, 0.0F, 0.0F, false, textureWidth, textureHeight)
+		), Map.of());
 		leg3.setPivot(0.0F, 24.0F, 0.0F);
-		leg3.setTextureOffset(27, 5).addCuboid(-3.0F, -19.0F, -1.0F, 5.0F, 2.0F, 0.0F, 0.0F, false);
 	}
 
 	@Override
 	public void setAngles(BeeTaterEntity entity, float limbAngle, float limbDistance, float customAngle, float headYaw, float headPitch) {
-
 	}
 
 

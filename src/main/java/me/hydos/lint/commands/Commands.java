@@ -35,44 +35,44 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 public class Commands {
 	public static void initialize() {
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> dispatcher.register(
-                CommandManager.literal("lint")
-                        .then(CommandManager.literal("debug")
-                                .requires(sc -> sc.hasPermissionLevel(2))
-                                .then(CommandManager.literal("towns")
-                                        .executes(src -> {
-                                            ServerWorld world = src.getSource().getMinecraftServer().getWorld(Dimensions.FRAIYA_WORLD);
-                                            ChunkGenerator generator = world.getChunkManager().getChunkGenerator();
+				CommandManager.literal("lint")
+						.then(CommandManager.literal("debug")
+								.requires(sc -> sc.hasPermissionLevel(2))
+								.then(CommandManager.literal("towns")
+										.executes(src -> {
+											ServerWorld world = src.getSource().getMinecraftServer().getWorld(Dimensions.FRAIYA_WORLD);
+											ChunkGenerator generator = world.getChunkManager().getChunkGenerator();
 
-                                            if (generator instanceof TerrainChunkGenerator) {
-                                                Vec2i[] towns = ((TerrainChunkGenerator) generator).getTownCentres();
+											if (generator instanceof TerrainChunkGenerator) {
+												Vec2i[] towns = ((TerrainChunkGenerator) generator).getTownCentres();
 
-                                                StringBuilder result = new StringBuilder();
+												StringBuilder result = new StringBuilder();
 
-                                                for (int i = 0; i < 4; ++i) {
-                                                    result.append(towns[i]);
+												for (int i = 0; i < 4; ++i) {
+													result.append(towns[i]);
 
-                                                    if (i < 3) {
-                                                        result.append("\n");
-                                                    }
-                                                }
+													if (i < 3) {
+														result.append("\n");
+													}
+												}
 
-                                                src.getSource().sendFeedback(new LiteralText(result.toString()), false);
-                                                return 1;
-                                            }
+												src.getSource().sendFeedback(new LiteralText(result.toString()), false);
+												return 1;
+											}
 
-                                            return 0;
-                                        }))
-                                .then(CommandManager.literal("npc")
-                                        .requires(src -> src.getEntity() != null && src.getEntity() instanceof PlayerEntity)
-                                        .then(CommandManager.argument("id", IdentifierArgumentType.identifier())
-                                                .executes(src -> {
-                                                    Identifier id = IdentifierArgumentType.getIdentifier(src, "id");
-                                                    ServerWorld world = src.getSource().getWorld();
-                                                    NPCHumanEntity npc = NPCHumanEntity.create(world, id);
-                                                    npc.refreshPositionAfterTeleport(src.getSource().getPlayer().getPos());
-                                                    world.spawnEntity(npc);
-                                                    return 1;
-                                                }))))
-        ));
+											return 0;
+										}))
+								.then(CommandManager.literal("npc")
+										.requires(src -> src.getEntity() != null && src.getEntity() instanceof PlayerEntity)
+										.then(CommandManager.argument("id", IdentifierArgumentType.identifier())
+												.executes(src -> {
+													Identifier id = IdentifierArgumentType.getIdentifier(src, "id");
+													ServerWorld world = src.getSource().getWorld();
+													NPCHumanEntity npc = NPCHumanEntity.create(world, id);
+													npc.refreshPositionAfterTeleport(src.getSource().getPlayer().getPos());
+													world.spawnEntity(npc);
+													return 1;
+												}))))
+		));
 	}
 }

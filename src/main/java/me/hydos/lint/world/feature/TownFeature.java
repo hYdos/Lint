@@ -70,7 +70,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 			.walls(Blocks.COBBLESTONE.getDefaultState(), LintBlocks.MYSTICAL_LOG.getDefaultState())
 			.roof(Blocks.STONE_BRICKS.getDefaultState(), Blocks.STONE_BRICK_STAIRS.getDefaultState(), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
-	private static final TownBlocks[] BLOCK_SETS = new TownBlocks[] {PAWERIA_CENTRE, HERIA, AURIA, THERIA};
+	private static final TownBlocks[] BLOCK_SETS = new TownBlocks[]{PAWERIA_CENTRE, HERIA, AURIA, THERIA};
 
 	public TownFeature() {
 		super(DefaultFeatureConfig.CODEC);
@@ -107,7 +107,7 @@ public class TownFeature extends Feature<DefaultFeatureConfig> {
 
 			if (mindist < DENSE_DIST) {
 				if (new ChunkPos(pos).equals(closest.chunkPos())) {
-					Features.RETURN_PORTAL.generate(world, pos, true);
+					FeaturesOld.RETURN_PORTAL.generate(world, pos, true);
 				} else {
 					this.generateHouse(world, pos.add(random.nextInt(3), 0, random.nextInt(3)), random, false, blocks);
 				}

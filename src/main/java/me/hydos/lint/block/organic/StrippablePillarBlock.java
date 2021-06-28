@@ -39,7 +39,7 @@ public class StrippablePillarBlock extends PillarBlock {
 		super(settings);
 
 		this.stripper = stripper;
-	} 
+	}
 
 	private final Block stripper;
 

@@ -19,10 +19,6 @@
 
 package me.hydos.lint.screenhandler.client;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
-
 import me.hydos.lint.block.entity.SmelteryBlockEntity;
 import me.hydos.lint.client.render.fluid.LintFluidRenderer;
 import me.hydos.lint.fluid.FluidStack;
@@ -43,6 +39,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
+
+import java.awt.*;
 
 public class SmelteryScreen extends HandledScreen<ScreenHandler> {
 

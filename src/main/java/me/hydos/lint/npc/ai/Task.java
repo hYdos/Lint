@@ -32,43 +32,43 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 
 public class Task {
-    private Task(Task parent, Predicate predicate) {
-        this.goalProvider = parent.goalProvider;
-        this.predicate = predicate;
-    }
+	private Task(Task parent, Predicate predicate) {
+		this.goalProvider = parent.goalProvider;
+		this.predicate = predicate;
+	}
 
-    public Task(Function<NPCHumanEntity, Goal> goalProvider) {
-        this.goalProvider = goalProvider;
-    }
+	public Task(Function<NPCHumanEntity, Goal> goalProvider) {
+		this.goalProvider = goalProvider;
+	}
 
-    private final Function<NPCHumanEntity, Goal> goalProvider;
-    private Predicate predicate;
+	private final Function<NPCHumanEntity, Goal> goalProvider;
+	private Predicate predicate;
 
-    Task withPredicate(@Nullable Predicate predicate) {
-        return predicate == null ? this : new Task(this, predicate);
-    }
+	Task withPredicate(@Nullable Predicate predicate) {
+		return predicate == null ? this : new Task(this, predicate);
+	}
 
-    public Goal createGoal(NPCHumanEntity entity) {
-        return this.goalProvider.apply(entity);
-    }
+	public Goal createGoal(NPCHumanEntity entity) {
+		return this.goalProvider.apply(entity);
+	}
 
-    Predicate getPredicate() {
-        return this.predicate;
-    }
+	Predicate getPredicate() {
+		return this.predicate;
+	}
 
-    public static final Task FLEE_HOSTILE_ENEMIES = new Task(npc -> new FleeEntityGoal<>(npc, HostileEntity.class, 4.0f, 2.5f, 3.0f));
-    public static final Task SEEK_LIGHT = new Task(npc -> new SeekBlockGoal(npc, b -> b.getDefaultState().getLuminance() > 8 && npc.getEntityWorld().getLightLevel(LightType.BLOCK, npc.getBlockPos()) < 10, 16, 2.0f, 2.5f));
-    public static final Task SAUNTER_AROUND = new Task(npc -> new WanderAroundGoal(npc, 1.5f, 32));
-    public static final Task WALK_AROUND = new Task(npc -> new WanderAroundGoal(npc, 2.0f, 64));
+	public static final Task FLEE_HOSTILE_ENEMIES = new Task(npc -> new FleeEntityGoal<>(npc, HostileEntity.class, 4.0f, 2.5f, 3.0f));
+	public static final Task SEEK_LIGHT = new Task(npc -> new SeekBlockGoal(npc, b -> b.getDefaultState().getLuminance() > 8 && npc.getEntityWorld().getLightLevel(LightType.BLOCK, npc.getBlockPos()) < 10, 16, 2.0f, 2.5f));
+	public static final Task SAUNTER_AROUND = new Task(npc -> new WanderAroundGoal(npc, 1.5f, 32));
+	public static final Task WALK_AROUND = new Task(npc -> new WanderAroundGoal(npc, 2.0f, 64));
 
-    public enum Predicate {
-        NIGHT(e -> () -> e.getEntityWorld().isNight()),
-        DAY(e -> () -> e.getEntityWorld().isDay());
+	public enum Predicate {
+		NIGHT(e -> () -> e.getEntityWorld().isNight()),
+		DAY(e -> () -> e.getEntityWorld().isDay());
 
-        Predicate(Function<NPCHumanEntity, BooleanSupplier> conditionProvider) {
-            this.provider = conditionProvider;
-        }
+		Predicate(Function<NPCHumanEntity, BooleanSupplier> conditionProvider) {
+			this.provider = conditionProvider;
+		}
 
-        public final Function<NPCHumanEntity, BooleanSupplier> provider;
-    }
+		public final Function<NPCHumanEntity, BooleanSupplier> provider;
+	}
 }

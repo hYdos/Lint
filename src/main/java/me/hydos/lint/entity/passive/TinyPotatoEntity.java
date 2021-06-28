@@ -19,10 +19,6 @@
 
 package me.hydos.lint.entity.passive;
 
-import java.util.Random;
-
-import org.jetbrains.annotations.Nullable;
-
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.goal.FleeBlockGoal;
 import me.hydos.lint.entity.passive.bird.EasternRosellaEntity;
@@ -33,16 +29,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.EscapeDangerGoal;
-import net.minecraft.entity.ai.goal.FleeEntityGoal;
-import net.minecraft.entity.ai.goal.FollowMobGoal;
-import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.SitGoal;
-import net.minecraft.entity.ai.goal.SitOnOwnerShoulderGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.TemptGoal;
-import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -63,6 +50,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 @SuppressWarnings("EntityConstructor")
 public class TinyPotatoEntity extends TameableShoulderEntity implements ExtendedScreenHandlerFactory {

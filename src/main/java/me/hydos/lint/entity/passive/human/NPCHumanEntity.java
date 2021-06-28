@@ -48,11 +48,11 @@ public class NPCHumanEntity extends PathAwareEntity {
 		super(Entities.NPC_HUMAN, world);
 		this.dataTracker.set(NPC_ID, id.toString());
 
-		((MobNavigation)this.getNavigation()).setCanPathThroughDoors(true);
+		((MobNavigation) this.getNavigation()).setCanPathThroughDoors(true);
 		this.getNavigation().setCanSwim(true);
-		
+
 		NPCPathing pathing = NPCRegistry.getById(id).getPathing();
-		
+
 		if (pathing != null) {
 			pathing.accept(this);
 		}
@@ -77,7 +77,7 @@ public class NPCHumanEntity extends PathAwareEntity {
 		}
 	}
 
-	public GoalSelector getGoalSelector() {		
+	public GoalSelector getGoalSelector() {
 		return this.goalSelector;
 	}
 

@@ -29,18 +29,18 @@ import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 import java.util.Random;
 
 public class DawnShardlandsEdgeSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
-    private static final TernarySurfaceConfig ASH_CONFIG = new TernarySurfaceConfig(LintBlocks.ASH.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASH.getDefaultState());
+	private static final TernarySurfaceConfig ASH_CONFIG = new TernarySurfaceConfig(LintBlocks.ASH.getDefaultState(), LintBlocks.ASPHALT.getDefaultState(), LintBlocks.ASH.getDefaultState());
 
-    public DawnShardlandsEdgeSurfaceBuilder() {
-        super(TernarySurfaceConfig.CODEC);
-    }
+	public DawnShardlandsEdgeSurfaceBuilder() {
+		super(TernarySurfaceConfig.CODEC);
+	}
 
-    @Override
-    public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, int i, long l, TernarySurfaceConfig surfaceConfig) {
-        if (noise >= -2.0f) {
-            surfaceConfig = ASH_CONFIG;
-        }
+	@Override
+	public void generate(Random random, Chunk chunk, Biome biome, int x, int z, int height, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, int i, long l, TernarySurfaceConfig surfaceConfig) {
+		if (noise >= -2.0f) {
+			surfaceConfig = ASH_CONFIG;
+		}
 
-        SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, i, l, surfaceConfig);
-    }
+		SurfaceBuilder.DEFAULT.generate(random, chunk, biome, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, i, l, surfaceConfig);
+	}
 }

@@ -19,35 +19,25 @@
 
 package me.hydos.lint.network;
 
-import me.hydos.lint.bossbar.ClientModernBossBar;
-import me.hydos.lint.bossbar.ModernBossBar;
-import me.hydos.lint.client.screen.NpcInteractionScreen;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
-
-public class ClientNetworking {
-
-	public static void register() {
-		ClientPlayNetworking.registerGlobalReceiver(Networking.SEND_BOSSBAR_INFO, (minecraftClient, clientPlayNetworkHandler, buf, packetSender) -> {
-			ModernBossBar.PacketType type = buf.readEnumConstant(ModernBossBar.PacketType.class);
-			switch (type) {
-				case NEW:
-					Text title = buf.readText();
-					int colour = buf.readInt();
-					int endX = buf.readInt();
-					new ClientModernBossBar(title, colour, endX);
-					break;
-				case SET_VALUE:
-					ClientModernBossBar.getInstance().endX = buf.readInt();
-					break;
-				case SET_TITLE:
-					ClientModernBossBar.getInstance().title = buf.readText();
-			}
-		});
-
-		ClientPlayNetworking.registerGlobalReceiver(Networking.OPEN_NPC_INTERACTION_WINDOW, (minecraftClient, clientPlayNetworkHandler, packetByteBuf, packetSender) -> {
-			MinecraftClient.getInstance().openScreen(new NpcInteractionScreen(packetByteBuf));
-		});
-	}
-}
+//public class ClientNetworking {
+//
+//	public static void register() {
+//		ClientPlayNetworking.registerGlobalReceiver(Networking.SEND_BOSSBAR_INFO, (minecraftClient, clientPlayNetworkHandler, buf, packetSender) -> {
+//			ModernBossBar.PacketType type = buf.readEnumConstant(ModernBossBar.PacketType.class);
+//			switch (type) {
+//				case NEW -> {
+//					Text title = buf.readText();
+//					int colour = buf.readInt();
+//					int endX = buf.readInt();
+//					new ClientModernBossBar(title, colour, endX);
+//				}
+//				case SET_VALUE -> ClientModernBossBar.getInstance().endX = buf.readInt();
+//				case SET_TITLE -> ClientModernBossBar.getInstance().title = buf.readText();
+//			}
+//		});
+//
+//		ClientPlayNetworking.registerGlobalReceiver(Networking.OPEN_NPC_INTERACTION_WINDOW, (minecraftClient, clientPlayNetworkHandler, packetByteBuf, packetSender) -> {
+//			MinecraftClient.getInstance().openScreen(new NpcInteractionScreen(packetByteBuf));
+//		});
+//	}
+//}

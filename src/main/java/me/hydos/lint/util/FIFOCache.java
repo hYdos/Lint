@@ -31,82 +31,82 @@ import java.util.function.Predicate;
  * @author Valoeghese
  */
 public class FIFOCache<T> implements Iterable<T> {
-    private final int capacity;
-    private final T[] array;
-    private final long[] positions;
-    protected int currentIndex = 0;
-    private int size = 0;
+	private final int capacity;
+	private final T[] array;
+	private final long[] positions;
+	protected int currentIndex = 0;
+	private int size = 0;
 
-    public FIFOCache(T[] array) {
-        this.capacity = array.length;
-        this.array = array;
-        this.positions = new long[array.length];
-    }
+	public FIFOCache(T[] array) {
+		this.capacity = array.length;
+		this.array = array;
+		this.positions = new long[array.length];
+	}
 
-    public T add(long position, T item) {
-        if (this.capacity > this.size) {
-            this.size++;
-        }
+	public T add(long position, T item) {
+		if (this.capacity > this.size) {
+			this.size++;
+		}
 
-        this.array[this.currentIndex++] = item;
+		this.array[this.currentIndex++] = item;
 
-        if (this.currentIndex >= this.capacity) {
-            this.currentIndex = 0;
-        }
+		if (this.currentIndex >= this.capacity) {
+			this.currentIndex = 0;
+		}
 
-        return item;
-    }
+		return item;
+	}
 
-    public T getOrAdd(long position, Predicate<T> requires, LongFunction<T> constructor) {
-        if (this.size > 0) {
-            for (int i = 0; i < this.size; ++i) {
-                long l = this.positions[i]; // take the L
+	public T getOrAdd(long position, Predicate<T> requires, LongFunction<T> constructor) {
+		if (this.size > 0) {
+			for (int i = 0; i < this.size; ++i) {
+				long l = this.positions[i]; // take the L
 
-                if (l == position) {
-                    T maybeResult = this.array[i];
+				if (l == position) {
+					T maybeResult = this.array[i];
 
-                    if (requires.test(maybeResult)) {
-                        return maybeResult;
-                    } else {
-                        continue;
-                    }
-                }
-            }
-        }
+					if (requires.test(maybeResult)) {
+						return maybeResult;
+					} else {
+						continue;
+					}
+				}
+			}
+		}
 
-        // if not exist then we get here
-        return this.add(position, constructor.apply(position));
-    }
+		// if not exist then we get here
+		return this.add(position, constructor.apply(position));
+	}
 
-    public boolean contains(T item) {
-        for (int i = 0; i < this.size; ++i) {
-            if (this.array[i].equals(item)) {
-                return true;
-            }
-        }
+	public boolean contains(T item) {
+		for (int i = 0; i < this.size; ++i) {
+			if (this.array[i].equals(item)) {
+				return true;
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    public void reset() {
-        this.currentIndex = 0;
-        this.size = 0;
-    }
+	public void reset() {
+		this.currentIndex = 0;
+		this.size = 0;
+	}
 
-    public int getSize() {
-        return this.size;
-    }
+	public int getSize() {
+		return this.size;
+	}
 
-    public void clear() {
-        this.reset();
+	public void clear() {
+		this.reset();
 
-        for (int i = 0; i <= this.capacity; ++i) {
-            this.array[i] = null;
-        }
-    }
+		for (int i = 0; i <= this.capacity; ++i) {
+			this.array[i] = null;
+		}
+	}
 
-    @Override
-    public Iterator<T> iterator() {
-        return new ObjectArrayIterator<>(this.array, 0, this.size);
-    }
+	@Override
+	public Iterator<T> iterator() {
+		return new ObjectArrayIterator<>(this.array, 0, this.size);
+	}
 }

@@ -19,15 +19,15 @@
 
 package me.hydos.lint.world.feature;
 
-import java.util.Random;
-import java.util.stream.Stream;
-
 import me.hydos.lint.Lint;
 import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorContext;
 import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
+
+import java.util.Random;
+import java.util.stream.Stream;
 
 public class UnderIslandDecorator extends Decorator<NopeDecoratorConfig> {
 	public UnderIslandDecorator() {

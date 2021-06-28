@@ -37,14 +37,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DimensionType.class)
 public class DimensionTypeMixin {
-
 	@Inject(method = "addRegistryDefaults", at = @At("TAIL"))
 	private static void addAdditionalDefaults(DynamicRegistryManager.Impl registryManager, CallbackInfoReturnable<DynamicRegistryManager.Impl> cir) {
 		Registry.register(registryManager.getMutable(Registry.DIMENSION_TYPE_KEY), Dimensions.FRAIYA_DIM.getValue(), Dimensions.FRAIYA);
 	}
 
 	@Inject(method = "createDefaultDimensionOptions", at = @At("TAIL"))
-	private static void addAdditionalDefaultDimensionOptions(Registry<DimensionType> dimensionRegistry, Registry<Biome> biomeRegistry, Registry<ChunkGeneratorSettings> chunkGeneratorSettingsRegistry, long seed, CallbackInfoReturnable<SimpleRegistry<DimensionOptions>> cir) {
+	private static void addAdditionalDefaultDimensionOptions(Registry<DimensionType> dimensionRegistry, Registry<Biome> biomeRegistry, Registry<ChunkGeneratorSettings> settingsRegistry, long seed, CallbackInfoReturnable<SimpleRegistry<DimensionOptions>> cir) {
 		cir.getReturnValue().add(Dimensions.FRAIYA_DIM_OPTIONS, new DimensionOptions(() -> dimensionRegistry.getOrThrow(Dimensions.FRAIYA_DIM), new TerrainChunkGenerator(seed, Lint.id("fraiya"), biomeRegistry)), Lifecycle.stable());
 	}
 }

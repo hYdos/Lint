@@ -31,65 +31,65 @@ import java.util.Optional;
  * All the data neccesary for NPCs is specified here.
  */
 public class NPC {
-    public NPC(Settings settings) {
-        this.name = settings.name;
-        this.texture = new Identifier(settings.texture.getNamespace(), "textures/npc/" + settings.texture.getPath() + ".png");
-        this.pathing = settings.pathing;
-        this.quest = settings.quest;
-    }
+	public NPC(Settings settings) {
+		this.name = settings.name;
+		this.texture = new Identifier(settings.texture.getNamespace(), "textures/npc/" + settings.texture.getPath() + ".png");
+		this.pathing = settings.pathing;
+		this.quest = settings.quest;
+	}
 
-    private final String name;
-    private final Identifier texture;
-    private final Optional<Quest> quest;
+	private final String name;
+	private final Identifier texture;
+	private final Optional<Quest> quest;
 
-    @Nullable
-    private final NPCPathing pathing;
+	@Nullable
+	private final NPCPathing pathing;
 
-    public String getName() {
-        return this.name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public Identifier getTextureLocation() {
-        return this.texture;
-    }
+	public Identifier getTextureLocation() {
+		return this.texture;
+	}
 
-    @Nullable
-    public NPCPathing getPathing() {
-        return this.pathing;
-    }
+	@Nullable
+	public NPCPathing getPathing() {
+		return this.pathing;
+	}
 
-    public Optional<Quest> getQuest() {
-        return this.quest;
-    }
+	public Optional<Quest> getQuest() {
+		return this.quest;
+	}
 
-    public static class Settings {
-        private String name = "Missingno";
-        private Identifier texture = TEXTURE_MISSINGNO;
-        private NPCPathing pathing;
-        private Optional<Quest> quest = Optional.empty();
+	public static class Settings {
+		private String name = "Missingno";
+		private Identifier texture = TEXTURE_MISSINGNO;
+		private NPCPathing pathing;
+		private Optional<Quest> quest = Optional.empty();
 
-        public Settings name(String name) {
-            this.name = name;
-            return this;
-        }
+		public Settings name(String name) {
+			this.name = name;
+			return this;
+		}
 
-        public Settings texture(Identifier texture) {
-            this.texture = texture;
-            return this;
-        }
+		public Settings texture(Identifier texture) {
+			this.texture = texture;
+			return this;
+		}
 
-        public Settings pathing(NPCPathing pathing) {
-            this.pathing = pathing;
-            return this;
-        }
+		public Settings pathing(NPCPathing pathing) {
+			this.pathing = pathing;
+			return this;
+		}
 
-        public Settings quest(Quest quest) {
-            this.quest = Optional.of(quest);
-            return this;
-        }
+		public Settings quest(Quest quest) {
+			this.quest = Optional.of(quest);
+			return this;
+		}
 
-        private static final Identifier TEXTURE_MISSINGNO = new Identifier("missingno");
-    }
+		private static final Identifier TEXTURE_MISSINGNO = new Identifier("missingno");
+	}
 
-    public static final NPC MISSINGNO = NPCRegistry.register(Lint.id("missingno"), new NPC(new NPC.Settings().name("missingno").texture(new Identifier("missing_texture"))));
+	public static final NPC MISSINGNO = NPCRegistry.register(Lint.id("missingno"), new NPC(new NPC.Settings().name("missingno").texture(new Identifier("missing_texture"))));
 }

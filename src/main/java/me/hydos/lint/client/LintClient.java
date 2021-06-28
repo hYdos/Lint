@@ -30,7 +30,6 @@ import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
-import me.hydos.lint.network.ClientNetworking;
 import me.hydos.lint.network.Networking;
 import me.hydos.lint.particle.FallenMysticalLeaf;
 import me.hydos.lint.particle.Particles;
@@ -113,14 +112,11 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private RenderLayer getRenderLayer(Layer layer) {
-		switch (layer) {
-			case CUTOUT_MIPPED:
-				return RenderLayer.getCutoutMipped();
-			case TRANSLUCENT:
-				return RenderLayer.getTranslucent();
-			default:
-				return RenderLayer.getSolid();
-		}
+		return switch (layer) {
+			case CUTOUT_MIPPED -> RenderLayer.getCutoutMipped();
+			case TRANSLUCENT -> RenderLayer.getTranslucent();
+			default -> RenderLayer.getSolid();
+		};
 	}
 
 	private void registerHandledScreens() {
@@ -145,7 +141,6 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerMiscRenderers() {
-		ClientNetworking.register();
 	}
 
 	private void registerFluidRenderer(FlowableFluid still, FlowableFluid flowing, Identifier textureId, int colour) {

@@ -19,6 +19,7 @@
 
 package me.hydos.lint.item;
 
+import me.hydos.lint.Lint;
 import net.devtech.arrp.json.models.JModel;
 import net.devtech.arrp.json.recipe.JRecipe;
 import net.minecraft.item.Item;
@@ -32,25 +33,25 @@ import static me.hydos.lint.Lint.id;
  * ARRP for item data.
  */
 public class ItemData {
-    public static Item registerGenerated(String id, Item item) {
-        Identifier modelIdentifier = id("item/" + id);
-        RESOURCE_PACK.addModel(generatedModel(modelIdentifier), modelIdentifier);
-        return Registry.register(Registry.ITEM, id(id), item);
-    }
+	public static Item registerGenerated(String id, Item item) {
+		Identifier modelIdentifier = id("item/" + id);
+		RESOURCE_PACK.addModel(generatedModel(modelIdentifier), modelIdentifier);
+		return Registry.register(Registry.ITEM, id(id), item);
+	}
 
-    public static Item registerHandheld(String id, Item item) {
-        Identifier modelIdentifier = id("item/" + id);
-        RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
-        return Registry.register(Registry.ITEM, id(id), item);
-    }
+	public static Item registerHandheld(String id, Item item) {
+		Identifier modelIdentifier = id("item/" + id);
+		RESOURCE_PACK.addModel(JModel.model().parent("item/handheld").textures(JModel.textures().var("layer0", modelIdentifier.toString())), modelIdentifier);
+		return Registry.register(Registry.ITEM, id(id), item);
+	}
 
-    public static JModel generatedModel(Identifier textureIdentifier) {
-        return JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", textureIdentifier.toString()));
-    }
+	public static JModel generatedModel(Identifier textureIdentifier) {
+		return JModel.model().parent("item/generated").textures(JModel.textures().var("layer0", (textureIdentifier.getPath().startsWith("item/") ? textureIdentifier : Lint.id("block/" + textureIdentifier.getPath())).toString()));
+	}
 
-    // Recipe
+	// Recipe
 
-    public static void registerRecipe(String id, JRecipe recipe) {
-        RESOURCE_PACK.addRecipe(id(id), recipe);
-    }
+	public static void registerRecipe(String id, JRecipe recipe) {
+		RESOURCE_PACK.addRecipe(id(id), recipe);
+	}
 }

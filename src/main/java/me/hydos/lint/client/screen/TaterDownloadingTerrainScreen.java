@@ -19,8 +19,6 @@
 
 package me.hydos.lint.client.screen;
 
-import java.util.Random;
-
 import me.hydos.lint.Lint;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -33,6 +31,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
+
+import java.util.Random;
 
 @Environment(EnvType.CLIENT)
 public class TaterDownloadingTerrainScreen extends DownloadingTerrainScreen {

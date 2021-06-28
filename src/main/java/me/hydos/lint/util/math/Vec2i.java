@@ -23,66 +23,66 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 
 public final class Vec2i {
-    private final int x;
-    private final int y;
+	private final int x;
+	private final int y;
 
-    public Vec2i(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+	public Vec2i(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
-    public int getX() {
-        return this.x;
-    }
+	public int getX() {
+		return this.x;
+	}
 
-    public int getY() {
-        return this.y;
-    }
+	public int getY() {
+		return this.y;
+	}
 
-    public Vec2i add(int x, int y) {
-        return new Vec2i(this.x + x, this.y + y);
-    }
+	public Vec2i add(int x, int y) {
+		return new Vec2i(this.x + x, this.y + y);
+	}
 
-    public Vec2i add(Vec2i other) {
-        return this.add(other.x, other.y);
-    }
+	public Vec2i add(Vec2i other) {
+		return this.add(other.x, other.y);
+	}
 
-    public ChunkPos chunkPos() {
-        return new ChunkPos(this.x >> 4, this.y >> 4);
-    }
+	public ChunkPos chunkPos() {
+		return new ChunkPos(this.x >> 4, this.y >> 4);
+	}
 
-    public int squaredDist(int x, int y) {
-        int dx = MathHelper.abs(this.x - x);
-        int dy = MathHelper.abs(this.y - y);
-        return dx * dx + dy * dy;
-    }
+	public int squaredDist(int x, int y) {
+		int dx = MathHelper.abs(this.x - x);
+		int dy = MathHelper.abs(this.y - y);
+		return dx * dx + dy * dy;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        } else if (o == null) {
-            return false;
-        } else if (o instanceof Vec2i) {
-            Vec2i vec2i = (Vec2i) o;
-            return vec2i.x == this.x && vec2i.y == this.y;
-        } else {
-            return false;
-        }
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		} else if (o == null) {
+			return false;
+		} else if (o instanceof Vec2i) {
+			Vec2i vec2i = (Vec2i) o;
+			return vec2i.x == this.x && vec2i.y == this.y;
+		} else {
+			return false;
+		}
+	}
 
-    @Override
-    public int hashCode() {
-        int result = 7;
-        result = 29 * result + Integer.hashCode(this.x);
-        result = 29 * result + Integer.hashCode(this.y);
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		int result = 7;
+		result = 29 * result + Integer.hashCode(this.x);
+		result = 29 * result + Integer.hashCode(this.y);
+		return result;
+	}
 
-    @Override
-    public String toString() {
-        return "Vec2i(" + this.x
-                + ", " + this.y
-                + ')';
-    }
+	@Override
+	public String toString() {
+		return "Vec2i(" + this.x
+				+ ", " + this.y
+				+ ')';
+	}
 }

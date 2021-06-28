@@ -29,73 +29,73 @@ import net.minecraft.util.Lazy;
 import java.util.function.Supplier;
 
 public enum ArmourMaterials implements ArmorMaterial {
-    SICIERON("sicieron",
-            22,
-            new int[]{2, 6, 7, 2},
-            4, // lower enchantability to encourage people to use the enhancement system
-            SoundEvents.ITEM_ARMOR_EQUIP_IRON,
-            1.0F,
-            0.0F,
-            () -> Ingredient.ofItems(LintItems.SICIERON_INGOT)),
-    JUREL("sicieron",
-            39,
-            new int[]{3, 6, 8, 3},
-            4,
-            SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
-            2.0F,
-            0.1F,
-            () -> Ingredient.ofItems(LintItems.HARDENED_JUREL_INGOT));
+	SICIERON("sicieron",
+			22,
+			new int[]{2, 6, 7, 2},
+			4, // lower enchantability to encourage people to use the enhancement system
+			SoundEvents.ITEM_ARMOR_EQUIP_IRON,
+			1.0F,
+			0.0F,
+			() -> Ingredient.ofItems(LintItems.SICIERON_INGOT)),
+	JUREL("sicieron",
+			39,
+			new int[]{3, 6, 8, 3},
+			4,
+			SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND,
+			2.0F,
+			0.1F,
+			() -> Ingredient.ofItems(LintItems.HARDENED_JUREL_INGOT));
 
-    private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
-    private final String name;
-    private final int durabilityMultiplier;
-    private final int[] protectionAmounts;
-    private final int enchantability;
-    private final SoundEvent equipSound;
-    private final float toughness;
-    private final float knockbackResistance;
-    private final Lazy<Ingredient> repairIngredientSupplier;
+	private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
+	private final String name;
+	private final int durabilityMultiplier;
+	private final int[] protectionAmounts;
+	private final int enchantability;
+	private final SoundEvent equipSound;
+	private final float toughness;
+	private final float knockbackResistance;
+	private final Lazy<Ingredient> repairIngredientSupplier;
 
-    ArmourMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredientSupplier) {
-        this.name = name;
-        this.durabilityMultiplier = durabilityMultiplier;
-        this.protectionAmounts = protectionAmounts;
-        this.enchantability = enchantability;
-        this.equipSound = equipSound;
-        this.toughness = toughness;
-        this.knockbackResistance = knockbackResistance;
-        this.repairIngredientSupplier = new Lazy<>(repairIngredientSupplier);
-    }
+	ArmourMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantability, SoundEvent equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredientSupplier) {
+		this.name = name;
+		this.durabilityMultiplier = durabilityMultiplier;
+		this.protectionAmounts = protectionAmounts;
+		this.enchantability = enchantability;
+		this.equipSound = equipSound;
+		this.toughness = toughness;
+		this.knockbackResistance = knockbackResistance;
+		this.repairIngredientSupplier = new Lazy<>(repairIngredientSupplier);
+	}
 
-    public int getDurability(EquipmentSlot slot) {
-        return BASE_DURABILITY[slot.getEntitySlotId()] * this.durabilityMultiplier;
-    }
+	public int getDurability(EquipmentSlot slot) {
+		return BASE_DURABILITY[slot.getEntitySlotId()] * this.durabilityMultiplier;
+	}
 
-    public int getProtectionAmount(EquipmentSlot slot) {
-        return this.protectionAmounts[slot.getEntitySlotId()];
-    }
+	public int getProtectionAmount(EquipmentSlot slot) {
+		return this.protectionAmounts[slot.getEntitySlotId()];
+	}
 
-    public int getEnchantability() {
-        return this.enchantability;
-    }
+	public int getEnchantability() {
+		return this.enchantability;
+	}
 
-    public SoundEvent getEquipSound() {
-        return this.equipSound;
-    }
+	public SoundEvent getEquipSound() {
+		return this.equipSound;
+	}
 
-    public Ingredient getRepairIngredient() {
-        return this.repairIngredientSupplier.get();
-    }
+	public Ingredient getRepairIngredient() {
+		return this.repairIngredientSupplier.get();
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public float getToughness() {
-        return this.toughness;
-    }
+	public float getToughness() {
+		return this.toughness;
+	}
 
-    public float getKnockbackResistance() {
-        return this.knockbackResistance;
-    }
+	public float getKnockbackResistance() {
+		return this.knockbackResistance;
+	}
 }

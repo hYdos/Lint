@@ -26,6 +26,7 @@ import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.world.PersistentStateManager;
+import net.minecraft.world.chunk.ChunkStatusChangeListener;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.level.storage.LevelStorage;
 import org.spongepowered.asm.mixin.Mixin;
@@ -39,8 +40,20 @@ import java.util.function.Supplier;
 @Mixin(ServerChunkManager.class)
 public class ServerChunkManagerMixin {
 
-    @Inject(method = "<init>", at = @At("RETURN"))
-    private void astromine_init(ServerWorld world, LevelStorage.Session session, DataFixer dataFixer, StructureManager structureManager, Executor workerExecutor, ChunkGenerator chunkGenerator, int viewDistance, boolean bl, WorldGenerationProgressListener worldGenerationProgressListener, Supplier<PersistentStateManager> supplier, CallbackInfo ci) {
-        ServerChunkManagerCallback.EVENT.invoker().handle((ServerChunkManager) (Object) this);
-    }
+	@SuppressWarnings("ConstantConditions")
+	@Inject(method = "<init>", at = @At("RETURN"))
+	private void astromine_init(ServerWorld world,
+	                            LevelStorage.Session session,
+	                            DataFixer dataFixer,
+	                            StructureManager structureManager,
+	                            Executor workerExecutor,
+	                            ChunkGenerator chunkGenerator,
+	                            int viewDistance,
+	                            boolean bl,
+	                            WorldGenerationProgressListener worldGenerationProgressListener,
+	                            ChunkStatusChangeListener chunkStatusChangeListener,
+	                            Supplier<PersistentStateManager> supplier,
+	                            CallbackInfo ci) {
+		ServerChunkManagerCallback.EVENT.invoker().handle((ServerChunkManager) (Object) this);
+	}
 }

@@ -21,6 +21,7 @@ package me.hydos.lint.entity.goal;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.NoPenaltyTargeting;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.ai.pathing.Path;
@@ -107,7 +108,8 @@ public class FleeBlockGoal extends Goal {
 		if (fleePosCache == null) {
 			return false;
 		} else {
-			Vec3d target = MoveToTargetPosGoal.findTargetAwayFrom(this.mob, this.fleeDistance + 2, 5, new Vec3d(fleePosCache.getX() + 0.5, fleePosCache.getY() + 0.5, fleePosCache.getZ() + 0.5));
+			//Vec3d target = MoveToTargetPosGoal.findTargetAwayFrom(this.mob, this.fleeDistance + 2, 5, new Vec3d(fleePosCache.getX() + 0.5, fleePosCache.getY() + 0.5, fleePosCache.getZ() + 0.5));
+			Vec3d target = NoPenaltyTargeting.find(this.mob, this.fleeDistance + 2, 5, new Vec3d(fleePosCache.getX() + 0.5, fleePosCache.getY() + 0.5, fleePosCache.getZ() + 0.5));
 
 			if (target == null) {
 				return false;

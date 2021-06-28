@@ -20,11 +20,7 @@
 package me.hydos.lint.entity;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.entity.aggressive.CrabEntity;
-import me.hydos.lint.entity.aggressive.GhostEntity;
-import me.hydos.lint.entity.aggressive.I509VCBEntity;
-import me.hydos.lint.entity.aggressive.KingTaterEntity;
-import me.hydos.lint.entity.aggressive.TaterMinionEntity;
+import me.hydos.lint.entity.aggressive.*;
 import me.hydos.lint.entity.passive.BeeTaterEntity;
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
 import me.hydos.lint.entity.passive.TinyPotatoNpcEntity;

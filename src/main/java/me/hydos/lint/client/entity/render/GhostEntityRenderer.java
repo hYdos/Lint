@@ -22,11 +22,11 @@ package me.hydos.lint.client.entity.render;
 import me.hydos.lint.client.entity.model.GhostEntityModel;
 import me.hydos.lint.entity.aggressive.GhostEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import software.bernie.geckolib3.renderer.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class GhostEntityRenderer extends GeoEntityRenderer<GhostEntity> {
 
 	public GhostEntityRenderer(EntityRendererFactory.Context context) {
-		super(context.getRenderDispatcher(), new GhostEntityModel());
+		super(context, new GhostEntityModel());
 	}
 }

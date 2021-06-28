@@ -19,8 +19,6 @@
 
 package me.hydos.lint.entity.aggressive;
 
-import java.util.EnumSet;
-import me.hydos.lint.entity.aggressive.GhostEntity.RetreatToCavernsGoal;
 import me.hydos.lint.entity.goal.FleeBlockGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -49,6 +47,8 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+import java.util.EnumSet;
 
 @SuppressWarnings("EntityConstructor")
 public class GhostEntity extends VexEntity implements IAnimatable {
@@ -238,7 +238,7 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 				return false;
 			}
 		}
-		
+
 		@Override
 		public void start() {
 			this.nav.startMovingAlong(this.path, 1.5f);

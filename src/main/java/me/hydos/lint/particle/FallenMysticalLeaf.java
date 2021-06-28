@@ -35,43 +35,43 @@ import java.util.Random;
 @Environment(EnvType.CLIENT)
 public class FallenMysticalLeaf extends AnimatedParticle {
 
-    protected FallenMysticalLeaf(World world, double x, double y, double z, SpriteProvider sprites, float accel) {
-        super((ClientWorld) world, x, y, z, sprites, accel);
-        this.age = 0;
-        this.maxAge = 80;
-        setSprite(sprites.getSprite(world.random));
-        BlockPos pos = new BlockPos(x, y, z);
-        setColor(world.getBlockState(pos).getMapColor(world, pos).color);
-    }
+	protected FallenMysticalLeaf(World world, double x, double y, double z, SpriteProvider sprites, float accel) {
+		super((ClientWorld) world, x, y, z, sprites, accel);
+		this.age = 0;
+		this.maxAge = 80;
+		setSprite(sprites.getSprite(world.random));
+		BlockPos pos = new BlockPos(x, y, z);
+		setColor(world.getBlockState(pos).getMapColor(world, pos).color);
+	}
 
-    @Override
-    public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
-    }
+	@Override
+	public ParticleTextureSheet getType() {
+		return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
+	}
 
-    @Override
-    public int getBrightness(float tint) {
-        BlockPos blockPos = new BlockPos(this.x, this.y, this.z);
-        return this.world.isChunkLoaded(blockPos) ? WorldRenderer.getLightmapCoordinates(this.world, blockPos) : 0;
-    }
+	@Override
+	public int getBrightness(float tint) {
+		BlockPos blockPos = new BlockPos(this.x, this.y, this.z);
+		return this.world.isChunkLoaded(blockPos) ? WorldRenderer.getLightmapCoordinates(this.world, blockPos) : 0;
+	}
 
-    @Environment(EnvType.CLIENT)
-    public static class Factory implements ParticleFactory<DefaultParticleType> {
+	@Environment(EnvType.CLIENT)
+	public static class Factory implements ParticleFactory<DefaultParticleType> {
 
-        private final FabricSpriteProvider sprites;
+		private final FabricSpriteProvider sprites;
 
-        public Factory(FabricSpriteProvider sprites) {
-            this.sprites = sprites;
-        }
+		public Factory(FabricSpriteProvider sprites) {
+			this.sprites = sprites;
+		}
 
-        @Nullable
-        @Override
-        public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-            Random random = new Random();
-            float min = 50.0E-4F;
-            float max = 5.0E-3F;
-            float accel = -(min + random.nextFloat() * (max - min));
-            return new FallenMysticalLeaf(world, x, y, z, this.sprites, accel);
-        }
-    }
+		@Nullable
+		@Override
+		public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+			Random random = new Random();
+			float min = 50.0E-4F;
+			float max = 5.0E-3F;
+			float accel = -(min + random.nextFloat() * (max - min));
+			return new FallenMysticalLeaf(world, x, y, z, this.sprites, accel);
+		}
+	}
 }

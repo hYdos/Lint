@@ -34,13 +34,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemTagsProvider.class)
 public abstract class ItemTagsProviderMixin extends AbstractTagProvider<Item> {
 
-    protected ItemTagsProviderMixin(DataGenerator root, Registry<Item> registry) {
-        super(root, registry);
-    }
+	protected ItemTagsProviderMixin(DataGenerator root, Registry<Item> registry) {
+		super(root, registry);
+	}
 
-    @Inject(method = "configure", at = @At("TAIL"))
-    private void registerCustomMusicDiscs(CallbackInfo ci) {
-        this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(LintItems.OBOE_DISC, LintItems.OCEAN_DISC, LintItems.CORRUPT_FOREST_DISC, LintItems.MYSTICAL_FOREST_DISC);
-    }
+	@Inject(method = "configure", at = @At("TAIL"))
+	private void registerCustomMusicDiscs(CallbackInfo ci) {
+		this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(LintItems.OBOE_DISC, LintItems.OCEAN_DISC, LintItems.CORRUPT_FOREST_DISC, LintItems.MYSTICAL_FOREST_DISC);
+	}
 
 }

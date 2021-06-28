@@ -27,26 +27,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NPCRegistry {
-    private static final Map<Identifier, NPC> MAP = new HashMap<>();
-    private static final Map<Identifier, Quest> QUEST_MAP = new HashMap<>();
+	private static final Map<Identifier, NPC> MAP = new HashMap<>();
+	private static final Map<Identifier, Quest> QUEST_MAP = new HashMap<>();
 
-    @Nullable
-    public static NPC getById(Identifier id) {
-        return MAP.get(id);
-    }
+	@Nullable
+	public static NPC getById(Identifier id) {
+		return MAP.get(id);
+	}
 
-    @Nullable
-    public static Quest getQuestById(Identifier id) {
-        return QUEST_MAP.get(id);
-    }
+	@Nullable
+	public static Quest getQuestById(Identifier id) {
+		return QUEST_MAP.get(id);
+	}
 
-    public static <T extends NPC> T register(Identifier id, T npc) {
-        MAP.put(id, npc);
-        return npc;
-    }
+	public static <T extends NPC> T register(Identifier id, T npc) {
+		MAP.put(id, npc);
+		return npc;
+	}
 
-    public static <T extends Quest> T register(Identifier id, T quest) {
-        QUEST_MAP.put(id, quest);
-        return quest;
-    }
+	public static <T extends Quest> T register(Identifier id, T quest) {
+		QUEST_MAP.put(id, quest);
+		return quest;
+	}
 }
