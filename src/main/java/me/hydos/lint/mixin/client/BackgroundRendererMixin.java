@@ -19,25 +19,15 @@
 
 package me.hydos.lint.mixin.client;
 
-import me.hydos.lint.util.math.Maths;
-import net.minecraft.client.render.BackgroundRenderer;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.biome.source.BiomeAccess;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-@Mixin(BackgroundRenderer.class)
-public class BackgroundRendererMixin {
-	@Inject(
-			at = @At("HEAD"),
-			method = "method_24873(Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/world/biome/source/BiomeAccess;FIII)Lnet/minecraft/util/math/Vec3d;",
-			cancellable = true
-	)
-	private static void onRetrieveModifiedFogColour(ClientWorld world, BiomeAccess access, float skyAngleThing,
-	                                                int noiseGenX, int noiseGenY, int noiseGenZ, CallbackInfoReturnable<Vec3d> info) {
-		Maths.onRetrieveModifiedFogColor(world, access, skyAngleThing, noiseGenX, noiseGenY, noiseGenZ, info);
-	}
-}
+//@Mixin(BackgroundRenderer.class)
+//public class BackgroundRendererMixin {
+//	@Inject(
+//			at = @At("HEAD"),
+//			method = "method_24873(Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/world/biome/source/BiomeAccess;FIII)Lnet/minecraft/util/math/Vec3d;",
+//			cancellable = true
+//	)
+//	private static void onRetrieveModifiedFogColour(ClientWorld world, BiomeAccess access, float skyAngleThing,
+//	                                                int noiseGenX, int noiseGenY, int noiseGenZ, CallbackInfoReturnable<Vec3d> info) {
+//		Maths.onRetrieveModifiedFogColor(world, access, skyAngleThing, noiseGenX, noiseGenY, noiseGenZ, info);
+//	}
+//}

@@ -37,9 +37,9 @@ dependencies {
 
     modImplementation("net.fabricmc", "fabric-loader", "0.11.3")
     modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.34.8+1.17")
+	modImplementation("software.bernie.geckolib", "geckolib-fabric-1.17", "3.0.5", classifier = "dev")
 
 	modImplementationAndInclude("net.devtech", "arrp", "0.+")
-	modImplementationAndInclude("software.bernie.geckolib", "geckolib-fabric-1.17", "3.0.5", classifier = "dev")
 
 	if (! file("ignoreruntime.txt").exists()) {
 		println("Setting Up Mod Runtimes")
@@ -60,7 +60,7 @@ java {
 	targetCompatibility = JavaVersion.VERSION_16
 }
 
-loom {
+minecraft {
 	accessWidener = file("src/main/resources/lint.aw")
 }
 
@@ -83,11 +83,5 @@ tasks.withType<AbstractArchiveTask> {
 tasks.processResources {
 	filesMatching("fabric.mod.json") {
 		expand("version" to project.version)
-	}
-}
-
-tasks.remapJar {
-	doLast {
-		input.get().asFile.delete()
 	}
 }

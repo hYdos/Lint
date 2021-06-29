@@ -83,6 +83,7 @@ public class BiomeEffectSoundPlayerMixin {
 			at = @At(
 					value = "INVOKE",
 					target = "Lit/unimi/dsi/fastutil/objects/Object2ObjectArrayMap;values()Lit/unimi/dsi/fastutil/objects/ObjectCollection;",
+					remap = false,
 					ordinal = 1),
 			method = "tick")
 	private void markNext(CallbackInfo info) {
