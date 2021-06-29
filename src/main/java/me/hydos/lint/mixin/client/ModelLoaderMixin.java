@@ -33,6 +33,7 @@ public class ModelLoaderMixin {
 			at = @At(
 					value = "INVOKE",
 					target = "Lorg/apache/logging/log4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V"),
+			remap = false,
 			expect = 0 // This mixin is optional
 	)
 	private void silenceMissingFluidBlockstates(Logger logger, String message, Object p0, Object p1) {

@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "me.hydos.lint.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_16",
   "mixins": [
     "AbstractFireBlockMixin",
     "ArmorItemMixin",
@@ -23,7 +23,6 @@
     "gecko.RegistryUtilsMixin"
   ],
   "client": [
-    "client.BackgroundRendererMixin",
     "client.BiomeEffectSoundPlayerMixin",
     "client.ClientPlayNetworkHandlerMixin",
     "client.LevelPropertiesMixin",
