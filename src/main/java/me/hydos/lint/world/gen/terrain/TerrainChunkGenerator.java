@@ -303,7 +303,7 @@ public class TerrainChunkGenerator extends ChunkGenerator implements StructureCh
 				region.getBiome(mutable.set(startX + xo, height, startZ + zo)).buildSurface(rand, chunk, x, z, height, noise,
 						LintBlocks.FUSED_STONE.getDefaultState(), Blocks.WATER.getDefaultState(), this.getSeaLevel(), region.getBottomY(), region.getSeed());
 
-				// bedrock
+				// bed rock :crushed:
 				if (x * x + z * z < FraiyaTerrainGenerator.SHARDLANDS_FADE_START) {
 					mutable.setY(0);
 					chunk.setBlockState(mutable, Blocks.BEDROCK.getDefaultState(), false);

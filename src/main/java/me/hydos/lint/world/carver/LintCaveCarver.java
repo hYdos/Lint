@@ -40,8 +40,6 @@ import java.util.function.Function;
 import static net.minecraft.world.gen.carver.CaveCarver.isPositionExcluded;
 
 public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
-	// FIXME: cave carvers
-	//public static final Carver<ProbabilityConfig> INSTANCE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(ProbabilityConfig.CODEC, 256));
 	public static final Carver<LintCaveCarverConfig> INSTANCE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(LintCaveCarverConfig.CODEC));
 
 	public LintCaveCarver(Codec<LintCaveCarverConfig> codec) {
@@ -148,7 +146,16 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 	}
 
 	@Override
-	protected boolean carveAtPoint(CarverContext context, LintCaveCarverConfig config, Chunk chunk, Function<BlockPos, Biome> posToBiome, BitSet carvingMask, Random random, BlockPos.Mutable pos, BlockPos.Mutable downPos, AquiferSampler sampler, MutableBoolean foundSurface) {
+	protected boolean carveAtPoint(CarverContext context,
+	                               LintCaveCarverConfig config,
+	                               Chunk chunk,
+	                               Function<BlockPos, Biome> posToBiome,
+	                               BitSet carvingMask,
+	                               Random random,
+	                               BlockPos.Mutable pos,
+	                               BlockPos.Mutable downPos,
+	                               AquiferSampler sampler,
+	                               MutableBoolean foundSurface) {
 		BlockState blockState = chunk.getBlockState(pos);
 		BlockState blockState2 = chunk.getBlockState(downPos.set(pos, Direction.UP));
 		if (blockState.isOf(LintBlocks.CORRUPT_GRASS) || blockState.isOf(LintBlocks.LIVELY_GRASS)) {
