@@ -20,15 +20,16 @@
 package me.hydos.lint.world.carver;
 
 import com.mojang.serialization.Codec;
+import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.*;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.carver.Carver;
 import net.minecraft.world.gen.carver.CarverContext;
-import net.minecraft.world.gen.carver.CaveCarver;
 import net.minecraft.world.gen.chunk.AquiferSampler;
 import org.apache.commons.lang3.mutable.MutableBoolean;
 
@@ -36,9 +37,12 @@ import java.util.BitSet;
 import java.util.Random;
 import java.util.function.Function;
 
+import static net.minecraft.world.gen.carver.CaveCarver.isPositionExcluded;
+
 public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 	// FIXME: cave carvers
 	//public static final Carver<ProbabilityConfig> INSTANCE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(ProbabilityConfig.CODEC, 256));
+	public static final Carver<LintCaveCarverConfig> INSTANCE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(LintCaveCarverConfig.CODEC));
 
 	public LintCaveCarver(Codec<LintCaveCarverConfig> codec) {
 		super(codec);
@@ -100,14 +104,14 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 		int i = ChunkSectionPos.getBlockCoord(this.getBranchFactor() * 2 - 1);
 		int j = random.nextInt(random.nextInt(random.nextInt(this.getMaxCaveCount()) + 1) + 1);
 
-		for (int k = 0; k < j; ++k) {
+		for(int k = 0; k < j; ++k) {
 			double d = chunkPos.getOffsetX(random.nextInt(16));
 			double e = caveCarverConfig.y.get(random, carverContext);
 			double f = chunkPos.getOffsetZ(random.nextInt(16));
 			double g = caveCarverConfig.horizontalRadiusMultiplier.get(random);
 			double h = caveCarverConfig.verticalRadiusMultiplier.get(random);
 			double l = caveCarverConfig.floorLevel.get(random);
-			Carver.SkipPredicate skipPredicate = (context, scaledRelativeX, scaledRelativeY, scaledRelativeZ, y) -> CaveCarver.isPositionExcluded(scaledRelativeX, scaledRelativeY, scaledRelativeZ, l);
+			Carver.SkipPredicate skipPredicate = (context, scaledRelativeX, scaledRelativeY, scaledRelativeZ, y) -> isPositionExcluded(scaledRelativeX, scaledRelativeY, scaledRelativeZ, l);
 			int m = 1;
 			float r;
 			if (random.nextInt(4) == 0) {
@@ -117,7 +121,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 				m += random.nextInt(4);
 			}
 
-			for (int p = 0; p < m; ++p) {
+			for(int p = 0; p < m; ++p) {
 				float q = random.nextFloat() * 6.2831855F;
 				r = (random.nextFloat() - 0.5F) / 4.0F;
 				float s = this.getTunnelSystemWidth(random);
