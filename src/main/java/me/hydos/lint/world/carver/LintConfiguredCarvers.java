@@ -19,7 +19,31 @@
 
 package me.hydos.lint.world.carver;
 
-// FIXME: cave carvers
+import me.hydos.lint.Lint;
+import me.hydos.lint.block.LintBlocks;
+import net.minecraft.util.math.floatprovider.ConstantFloatProvider;
+import net.minecraft.util.math.floatprovider.UniformFloatProvider;
+import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.world.gen.YOffset;
+import net.minecraft.world.gen.carver.CarverDebugConfig;
+import net.minecraft.world.gen.carver.ConfiguredCarver;
+import net.minecraft.world.gen.heightprovider.BiasedToBottomHeightProvider;
+
+// FIXME: why won't it work irr (this might have something to do with the biomes but i'm not sure)
 public interface LintConfiguredCarvers {
-//	ConfiguredCarver<CarverConfig> CAVE = Registry.register(BuiltinRegistries.CONFIGURED_CARVER, Lint.id("nebulaes_bane"), LintCaveCarver.INSTANCE.configure(new ProbabilityConfig(0.09F)));
+	ConfiguredCarver<LintCaveCarverConfig> NEBULAES_BANE = register("nebulaes_bane",
+					new LintCaveCarverConfig(
+							/*0.09F*/0.33333334F,
+							BiasedToBottomHeightProvider.create(YOffset.fixed(0), YOffset.fixed(127), 8),
+							ConstantFloatProvider.create(0.5F),
+							YOffset.aboveBottom(10),
+							false,
+							CarverDebugConfig.create(false, LintBlocks.SAKHALIN_MINT.getDefaultState()),
+							UniformFloatProvider.create(2.4F, 8.0F),
+							UniformFloatProvider.create(3.6F, 12.0F),
+							UniformFloatProvider.create(-1.0F, -0.4F)));
+
+	private static ConfiguredCarver<LintCaveCarverConfig> register(@SuppressWarnings("SameParameterValue") String id, LintCaveCarverConfig carverConfig) {
+		return BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_CARVER, Lint.id(id), LintCaveCarver.INSTANCE.configure(carverConfig));
+	}
 }

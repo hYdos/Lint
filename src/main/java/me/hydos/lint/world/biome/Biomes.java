@@ -27,6 +27,7 @@ import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.world.biome.surface.DawnShardlandsEdgeSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.DawnShardlandsSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.OceanSurfaceBuilder;
+import me.hydos.lint.world.carver.LintConfiguredCarvers;
 import me.hydos.lint.world.feature.FeaturesOld;
 import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
 import me.hydos.lint.world.structure.ConfiguredStructureFeatures;
@@ -130,7 +131,8 @@ public class Biomes {
 			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(MF_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
@@ -168,7 +170,8 @@ public class Biomes {
 			.spawnSettings(FOREST_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(MF_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.MYSTICAL_ROCKS)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
@@ -213,7 +216,8 @@ public class Biomes {
 			.spawnSettings(FOREST_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(FF_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
@@ -256,7 +260,8 @@ public class Biomes {
 			.spawnSettings(CORRUPT_FOREST_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CF_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.RAW_GENERATION, FeaturesOld.CONFIGURED_VERTICAL_SHAFT)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
@@ -296,7 +301,8 @@ public class Biomes {
 			.spawnSettings(createOceanSpawnSettings())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(OC_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_STEMS)
@@ -338,7 +344,8 @@ public class Biomes {
 			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CB_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CORRUPT_STEMS)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.KUREI)
@@ -373,7 +380,8 @@ public class Biomes {
 			.spawnSettings(new SpawnSettings.Builder().build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(IN_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.RAW_GENERATION, FeaturesOld.CONFIGURED_VERTICAL_SHAFT)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)

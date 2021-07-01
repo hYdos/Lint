@@ -19,13 +19,48 @@
 
 package me.hydos.lint.world.carver;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.math.floatprovider.FloatProvider;
 import net.minecraft.world.gen.YOffset;
+import net.minecraft.world.gen.carver.CarverDebugConfig;
 import net.minecraft.world.gen.carver.CaveCarverConfig;
 import net.minecraft.world.gen.heightprovider.HeightProvider;
 
 public class LintCaveCarverConfig extends CaveCarverConfig {
-	public LintCaveCarverConfig(HeightProvider y, FloatProvider yScale, YOffset lavaLevel, boolean aquifers, FloatProvider horizontalRadiusMultiplier, FloatProvider verticalRadiusMultiplier, FloatProvider floorLevel) {
-		super(0.09F, y, yScale, lavaLevel, aquifers, horizontalRadiusMultiplier, verticalRadiusMultiplier, floorLevel);
+	@SuppressWarnings("CodeBlock2Expr")
+	public static final Codec<LintCaveCarverConfig> CODEC = RecordCodecBuilder.create((instance) -> {
+		return instance.group(Codec.FLOAT.fieldOf("probability").forGetter(config -> {
+			return config.probability;
+		}),
+			HeightProvider.CODEC.fieldOf("y").forGetter(config -> {
+			return config.y;
+		}), FloatProvider.VALUE_CODEC.fieldOf("yScale").forGetter(config -> {
+			return config.yScale;
+		}), YOffset.OFFSET_CODEC.fieldOf("lava_level").forGetter(config -> {
+			return config.lavaLevel;
+		}), Codec.BOOL.fieldOf("aquifers_enabled").forGetter(config -> {
+			return config.aquifers;
+		}), CarverDebugConfig.CODEC.optionalFieldOf("debug_settings", CarverDebugConfig.DEFAULT).forGetter(config -> {
+			return config.debugConfig;
+		}), FloatProvider.VALUE_CODEC.fieldOf("horizontal_radius_multiplier").forGetter(config -> {
+			return config.horizontalRadiusMultiplier;
+		}), FloatProvider.VALUE_CODEC.fieldOf("vertical_radius_multiplier").forGetter(config -> {
+			return config.verticalRadiusMultiplier;
+		}), FloatProvider.VALUE_CODEC.fieldOf("floor_level").forGetter(config -> {
+			return config.floorLevel;
+		})).apply(instance, LintCaveCarverConfig::new);
+	});
+
+	public LintCaveCarverConfig(float probability,
+	                            HeightProvider y,
+	                            FloatProvider yScale,
+	                            YOffset lavaLevel,
+	                            boolean aquifers,
+	                            CarverDebugConfig debugConfig,
+	                            FloatProvider horizontalRadiusMultiplier,
+	                            FloatProvider verticalRadiusMultiplier,
+	                            FloatProvider floorLevel) {
+		super(probability, y, yScale, lavaLevel, aquifers, debugConfig, horizontalRadiusMultiplier, verticalRadiusMultiplier, floorLevel);
 	}
 }

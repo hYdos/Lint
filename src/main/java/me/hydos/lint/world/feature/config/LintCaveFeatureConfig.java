@@ -17,8 +17,9 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.world.feature;
+package me.hydos.lint.world.feature.config;
 
-// TODO: New Features class
-public class Features {
+import net.minecraft.world.gen.feature.FeatureConfig;
+
+public class LintCaveFeatureConfig implements FeatureConfig {
 }
