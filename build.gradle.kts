@@ -26,6 +26,20 @@ repositories {
 	maven {
 		url = uri("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
 	}
+
+	maven {
+		name = "Bikeshedaniel Maven"
+		url = uri("https://maven.shedaniel.me/")
+	}
+
+	maven {
+		url = uri("https://bai.jfrog.io/artifactory/maven")
+	}
+
+	maven {
+		name = "JitPack"
+		url = uri("https://jitpack.io")
+	}
 }
 
 // Configurations
@@ -43,6 +57,10 @@ dependencies {
 
 	if (! file("ignoreruntime.txt").exists()) {
 		println("Setting Up Mod Runtimes")
+		modRuntime("com.terraformersmc", "modmenu", "2.0.2")
+		modRuntime("mcp.mobius.waila", "wthit", "fabric-3.6.1")
+		modRuntime("me.shedaniel", "RoughlyEnoughItems-fabric", "6.0.262-alpha")
+		modRuntime("com.github.CursedMC", "pride-year", "1.0.0+1.17")
 //		modRuntime("curse.maven", "worldedit-225608", "3135186")
 //		modRuntime("curse.maven", "appleskin-248787", "2987255")
 //		modRuntime("curse.maven", "hwyla-253449", "3033613")
