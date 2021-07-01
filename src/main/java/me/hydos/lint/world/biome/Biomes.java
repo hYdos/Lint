@@ -40,6 +40,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
@@ -131,6 +132,7 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(MF_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
@@ -169,6 +171,7 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(MF_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.MYSTICAL_ROCKS)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
@@ -214,6 +217,7 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(FF_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
@@ -257,6 +261,7 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CF_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.RAW_GENERATION, FeaturesOld.CONFIGURED_VERTICAL_SHAFT)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
@@ -297,6 +302,7 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(OC_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_STEMS)
@@ -339,6 +345,7 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CB_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CORRUPT_STEMS)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.KUREI)
@@ -374,6 +381,7 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(IN_SB)
 					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.NEBULAES_BANE)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.PROTOTYPE_CAVE)
 					.feature(GenerationStep.Feature.RAW_GENERATION, FeaturesOld.CONFIGURED_VERTICAL_SHAFT)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
