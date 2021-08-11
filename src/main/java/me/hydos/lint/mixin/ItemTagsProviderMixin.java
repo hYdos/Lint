@@ -40,7 +40,7 @@ public abstract class ItemTagsProviderMixin extends AbstractTagProvider<Item> {
 
 	@Inject(method = "configure", at = @At("TAIL"))
 	private void registerCustomMusicDiscs(CallbackInfo ci) {
-		this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(LintItems.OBOE_DISC, LintItems.OCEAN_DISC, LintItems.CORRUPT_FOREST_DISC, LintItems.MYSTICAL_FOREST_DISC);
+		this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(LintItems.GRIMACE_OBOE_DISC, LintItems.OCEAN_DISC, LintItems.CORRUPT_FOREST_DISC, LintItems.MYSTICAL_FOREST_DISC);
 	}
 
 }

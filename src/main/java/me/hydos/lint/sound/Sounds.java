@@ -42,6 +42,7 @@ public class Sounds {
 	public static final SoundEvent PAWERIA_CARIAR_OF_ORDER = new SoundEvent(Lint.id("music.paweria_cariar_of_order"));
 	public static final SoundEvent STEELBRANCH = new SoundEvent(Lint.id("music.steelbranch"));
 	public static final SoundEvent EYE_OF_GOLD = new SoundEvent(Lint.id("music.eye_of_gold"));
+	public static final SoundEvent KING_TATER_DISC = new SoundEvent(Lint.id("music.king_tater_disc"));
 
 	/**
 	 * Biome Music
@@ -87,6 +88,7 @@ public class Sounds {
 		register(GRIMACE_OBOE);
 		register(GRIMACE_VIOLINS);
 		register(MANOS_TOUCH);
+		register(KING_TATER_DISC);
 
 		// progression related short tunes
 		register(ADVANCEMENT);

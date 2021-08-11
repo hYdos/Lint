@@ -65,6 +65,12 @@
       "lint:grimace"
     ]
   },
+  "music.king_tater_disc": {
+    "subtitle": "subtitles.king_tater_disc",
+    "sounds": [
+      "lint:king_tater_disc"
+    ]
+  },
   "music.grimace_violins": {
     "subtitle": "subtitles.grimace_violins",
     "sounds": [

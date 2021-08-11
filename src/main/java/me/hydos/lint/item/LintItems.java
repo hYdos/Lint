@@ -67,9 +67,13 @@ public class LintItems {
 	/**
 	 * Music Discs
 	 */
+	// Found in Dungeon (todo: actually finalise which discs are in dungeon)
+	public static final Item GRIMACE_OBOE_DISC = new LintMusicDiscItem(14, Sounds.GRIMACE_OBOE, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.UNCOMMON));
+	public static final Item GRIMACE_VIOLINS_DISC = new LintMusicDiscItem(14, Sounds.GRIMACE_VIOLINS, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.UNCOMMON));
+	// Special
 	public static final Item SUSPICIOUS_LOOKING_DISC = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
-	public static final Item OBOE_DISC = new LintMusicDiscItem(14, Sounds.GRIMACE_OBOE, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 	public static final Item OCEAN_DISC = new LintMusicDiscItem(15, Sounds.OCEAN, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
+	public static final Item KING_TATER_LINT1_DISC = new LintMusicDiscItem(15, Sounds.KING_TATER_DISC, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 	public static final Item MYSTICAL_FOREST_DISC = new LintMusicDiscItem(16, Sounds.MYSTICAL_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 	public static final Item CORRUPT_FOREST_DISC = new LintMusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 
@@ -94,10 +98,12 @@ public class LintItems {
 
 	private static void registerDiscs() {
 		registerGenerated("suspicious_looking_disc", SUSPICIOUS_LOOKING_DISC);
-		registerGenerated("oboe_disc", OBOE_DISC);
+		registerGenerated("oboe_disc", GRIMACE_OBOE_DISC);
+		registerGenerated("violins_disc", GRIMACE_VIOLINS_DISC);
 		registerGenerated("ocean_disc", OCEAN_DISC);
 		registerGenerated("mystical_forest_disc", MYSTICAL_FOREST_DISC);
 		registerGenerated("corrupt_forest_disc", CORRUPT_FOREST_DISC);
+		registerGenerated("king_tater_disc", KING_TATER_LINT1_DISC);
 	}
 
 	private static void registerMaterialSets() {
