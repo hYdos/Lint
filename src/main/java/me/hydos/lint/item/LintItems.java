@@ -74,8 +74,8 @@ public class LintItems {
 	public static final Item SUSPICIOUS_LOOKING_DISC = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 	public static final Item OCEAN_DISC = new LintMusicDiscItem(15, Sounds.OCEAN, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 	public static final Item KING_TATER_LINT1_DISC = new LintMusicDiscItem(15, Sounds.KING_TATER_DISC, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
-	public static final Item MYSTICAL_FOREST_DISC = new LintMusicDiscItem(16, Sounds.MYSTICAL_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
-	public static final Item CORRUPT_FOREST_DISC = new LintMusicDiscItem(17, Sounds.CORRUPT_FOREST, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
+	public static final Item MYSTICAL_FOREST_DISC = new LintMusicDiscItem(16, Sounds.MYSTICAL_FOREST_DISC, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
+	public static final Item CORRUPT_FOREST_DISC = new LintMusicDiscItem(17, Sounds.CORRUPT_FOREST_DISC, new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 
 	/**
 	 * yes
