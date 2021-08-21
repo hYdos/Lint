@@ -47,6 +47,12 @@
       "lint:corrupt_forest"
     ]
   },
+  "music.imminence_of_desolation": {
+    "subtitle": "subtitles.imminence_of_desolation",
+    "sounds": [
+      "lint:imminence_of_desolation"
+    ]
+  },
   "music.manos_touch": {
     "subtitle": "subtitles.manos_touch",
     "sounds": [
