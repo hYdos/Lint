@@ -33,10 +33,10 @@ val modImplementationAndInclude by configurations.register("modImplementationAnd
 
 dependencies {
     minecraft("net.minecraft", "minecraft", "1.17")
-    mappings("net.fabricmc", "yarn", "1.17+build.11", classifier = "v2")
+    mappings("net.fabricmc", "yarn", "1.17+build.13", classifier = "v2")
 
-    modImplementation("net.fabricmc", "fabric-loader", "0.11.3")
-    modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.34.8+1.17")
+    modImplementation("net.fabricmc", "fabric-loader", "0.11.6")
+    modImplementation("net.fabricmc.fabric-api", "fabric-api", "0.36.0+1.17")
 	modImplementation("software.bernie.geckolib", "geckolib-fabric-1.17", "3.0.5", classifier = "dev")
 
 	modImplementationAndInclude("net.devtech", "arrp", "0.+")
