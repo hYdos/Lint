@@ -92,7 +92,6 @@ public class Sounds {
 		register(KING_TATER_DISC);
 		register(MYSTICAL_FOREST_DISC);
 		register(CORRUPT_FOREST_DISC);
-		register(CORRUPT_FOREST_DISC);
 		register(FROZEN_FOREST);
 
 		// ambient music
