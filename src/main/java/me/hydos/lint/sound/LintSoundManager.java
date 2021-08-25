@@ -19,11 +19,16 @@
 
 package me.hydos.lint.sound;
 
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.util.math.Vec2i;
-import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.block.Block;
@@ -43,11 +48,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.chunk.Chunk;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 public class LintSoundManager {
 	private static final Set<Identifier> BOSS_MUSIC = new HashSet<>();
@@ -190,20 +190,6 @@ public class LintSoundManager {
 
 		}
 
-		Biome biome = access.getBiomeForNoiseGen(x, y, z);
-
-		int fg = biome.getEffects().getFogColor();
-
-		if (fg == Biomes.MYSTICAL_FOG_COLOUR) { // Good ol' performance hax. This is probably faster than getting the registry and checking the key.
-			if ((System.currentTimeMillis() & 0x80000) == 0) { // about an 8-9 minute delay
-				return DummyBiomes.DUMMY_MYSTICAL_FOREST_ALTER;
-			}
-		} else if (fg == Biomes.CORRUPT_FOG_COLOUR) {
-			if (((System.currentTimeMillis() + 0x40000) & 0x80000) == 0) { // about an 8-9 minute delay, offset by half of the mystical one
-				return DummyBiomes.DUMMY_CORRUPT_FOREST_ALTER;
-			}
-		}
-
-		return biome;
+		return access.getBiomeForNoiseGen(x, y, z);
 	}
 }

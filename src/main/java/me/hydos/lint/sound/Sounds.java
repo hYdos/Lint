@@ -20,6 +20,7 @@
 package me.hydos.lint.sound;
 
 import me.hydos.lint.Lint;
+import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.registry.Registry;
 
@@ -120,5 +121,9 @@ public class Sounds {
 
 	private static void register(SoundEvent event) {
 		Registry.register(Registry.SOUND_EVENT, event.id, event);
+	}
+
+	public static MusicSound createAmbientMusic(SoundEvent event) {
+		return new MusicSound(event, 6000, 12000, false);
 	}
 }

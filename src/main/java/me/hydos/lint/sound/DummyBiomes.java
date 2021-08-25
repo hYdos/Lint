@@ -26,7 +26,19 @@ import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 
 public class DummyBiomes {
-	private static final Biome createLoopSound(SoundEvent event) {
+	private static final Biome createSound(SoundEvent event, boolean loop) {
+		BiomeEffects.Builder effects = new BiomeEffects.Builder()
+				.waterColor(0x32e686)
+				.waterFogColor(0x32e686)
+				.fogColor(0xffffff)
+				.skyColor(0x88dfea);
+		
+		if (loop) {
+			effects.loopSound(event);
+		} else {
+			effects.music(Sounds.createAmbientMusic(event)); // twice as often as vanilla
+		}
+
 		return new Biome.Builder()
 				.precipitation(Biome.Precipitation.NONE)
 				.category(Biome.Category.FOREST)
@@ -38,33 +50,23 @@ public class DummyBiomes {
 				.generationSettings(new GenerationSettings.Builder()
 						.surfaceBuilder(Biomes.MF_SB)
 						.build())
-				.effects(new BiomeEffects.Builder()
-						.waterColor(0x32e686)
-						.waterFogColor(0x32e686)
-						.fogColor(0xffffff)
-						.loopSound(event)
-						.skyColor(0x88dfea)
-						.build())
+				.effects(effects.build())
 				.build();
 	}
 
 	// Towns
-	public static final Biome DUMMY_TOWN_THERIA = createLoopSound(Sounds.EYE_OF_GOLD);
-	public static final Biome DUMMY_TOWN_AURIA = createLoopSound(Sounds.STEELBRANCH);
-	public static final Biome DUMMY_TOWN_PAWERIA = createLoopSound(Sounds.PAWERIA_CARIAR_OF_ORDER);
-	public static final Biome DUMMY_TOWN_HERIA = createLoopSound(Sounds.HERIA_AND_THE_TOWN_OF_HOPE);
+	public static final Biome DUMMY_TOWN_THERIA = createSound(Sounds.EYE_OF_GOLD, false);
+	public static final Biome DUMMY_TOWN_AURIA = createSound(Sounds.STEELBRANCH, false);
+	public static final Biome DUMMY_TOWN_PAWERIA = createSound(Sounds.PAWERIA_CARIAR_OF_ORDER, false);
+	public static final Biome DUMMY_TOWN_HERIA = createSound(Sounds.HERIA_AND_THE_TOWN_OF_HOPE, false);
 
 	// Locations
-	public static final Biome DUMMY_CAVERNS = createLoopSound(Sounds.CAVERNS);
-	public static final Biome DUMMY_DUNGEON = createLoopSound(Sounds.DUNGEON);
-
-	// Alternative Tunes
-	public static final Biome DUMMY_MYSTICAL_FOREST_ALTER = createLoopSound(Sounds.ETHEREAL_GROVES);
-	public static final Biome DUMMY_CORRUPT_FOREST_ALTER = createLoopSound(Sounds.MANOS_TOUCH);
+	public static final Biome DUMMY_CAVERNS = createSound(Sounds.CAVERNS, false);
+	public static final Biome DUMMY_DUNGEON = createSound(Sounds.DUNGEON, false);
 
 	// Boss Music
-	public static final Biome DUMMY_KING_TATER = createLoopSound(Sounds.KING_TATER);
-	public static final Biome DUMMY_I509 = createLoopSound(Sounds.I509);
+	public static final Biome DUMMY_KING_TATER = createSound(Sounds.KING_TATER, true);
+	public static final Biome DUMMY_I509 = createSound(Sounds.I509, true);
 
 	// in the correct order to designate whose town is whose.
 	public static final Biome[] TOWNS = new Biome[]{DUMMY_TOWN_PAWERIA, DUMMY_TOWN_HERIA, DUMMY_TOWN_AURIA, DUMMY_TOWN_THERIA};

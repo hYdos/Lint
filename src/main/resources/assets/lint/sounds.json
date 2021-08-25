@@ -26,12 +26,7 @@
   "music.mystical_forest": {
     "subtitle": "subtitles.mystical_forest",
     "sounds": [
-      "lint:mystical_forest"
-    ]
-  },
-  "music.ethereal_groves_of_fraiya": {
-    "subtitle": "subtitles.ethereal_groves_of_fraiya",
-    "sounds": [
+      "lint:mystical_forest",
       "lint:ethereal_groves_of_fraiya"
     ]
   },
@@ -44,13 +39,8 @@
   "music.corrupt_forest": {
     "subtitle": "subtitles.corrupt_forest",
     "sounds": [
-      "lint:corrupt_forest"
-    ]
-  },
-  "music.imminence_of_desolation": {
-    "subtitle": "subtitles.imminence_of_desolation",
-    "sounds": [
-      "lint:imminence_of_desolation"
+      "lint:corrupt_forest",
+      "lint:imminent_desolation"
     ]
   },
   "music.manos_touch": {
