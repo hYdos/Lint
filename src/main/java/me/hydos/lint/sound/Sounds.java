@@ -121,8 +121,4 @@ public class Sounds {
 	private static void register(SoundEvent event) {
 		Registry.register(Registry.SOUND_EVENT, event.id, event);
 	}
-
-	public static MusicSound createAmbientMusic(SoundEvent event) {
-		return new MusicSound(event, 6000, 12000, false);
-	}
 }

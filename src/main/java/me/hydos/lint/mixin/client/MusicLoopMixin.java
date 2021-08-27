@@ -19,16 +19,16 @@
 
 package me.hydos.lint.mixin.client;
 
-import me.hydos.lint.sound.LintSoundManager;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import net.minecraft.client.sound.AbstractSoundInstance;
 import net.minecraft.client.sound.BiomeEffectSoundPlayer;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BiomeEffectSoundPlayer.MusicLoop.class)
 public class MusicLoopMixin extends AbstractSoundInstance {
@@ -41,21 +41,5 @@ public class MusicLoopMixin extends AbstractSoundInstance {
 		if (sound.getId().toString().startsWith("lint:music")) {
 			this.category = SoundCategory.MUSIC;
 		}
-	}
-
-	@Inject(
-			at = @At(value = "HEAD"),
-			method = "fadeIn",
-			cancellable = true)
-	private void onFadeIn(CallbackInfo info) {
-		LintSoundManager.checkFade(info);
-	}
-
-	@Inject(
-			at = @At(value = "HEAD"),
-			method = "fadeOut",
-			cancellable = true)
-	private void onFadeOut(CallbackInfo info) {
-		LintSoundManager.checkFade(info);
 	}
 }

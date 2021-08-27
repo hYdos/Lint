@@ -20,24 +20,21 @@
 package me.hydos.lint.sound;
 
 import me.hydos.lint.world.biome.Biomes;
+import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 
-public class DummyBiomes {
-	private static final Biome createSound(SoundEvent event, boolean loop) {
+public class MusicSounds {
+	private static final Biome createLoop(SoundEvent event) {
 		BiomeEffects.Builder effects = new BiomeEffects.Builder()
 				.waterColor(0x32e686)
 				.waterFogColor(0x32e686)
 				.fogColor(0xffffff)
 				.skyColor(0x88dfea);
-		
-		if (loop) {
-			effects.loopSound(event);
-		} else {
-			effects.music(Sounds.createAmbientMusic(event)); // twice as often as vanilla
-		}
+
+		effects.loopSound(event);
 
 		return new Biome.Builder()
 				.precipitation(Biome.Precipitation.NONE)
@@ -54,20 +51,24 @@ public class DummyBiomes {
 				.build();
 	}
 
+	private static MusicSound createAmbient(SoundEvent event) {
+		return new MusicSound(event, 4000, 12000, false);
+	}
+
 	// Towns
-	public static final Biome DUMMY_TOWN_THERIA = createSound(Sounds.EYE_OF_GOLD, false);
-	public static final Biome DUMMY_TOWN_AURIA = createSound(Sounds.STEELBRANCH, false);
-	public static final Biome DUMMY_TOWN_PAWERIA = createSound(Sounds.PAWERIA_CARIAR_OF_ORDER, false);
-	public static final Biome DUMMY_TOWN_HERIA = createSound(Sounds.HERIA_AND_THE_TOWN_OF_HOPE, false);
+	public static final MusicSound TOWN_THERIA = createAmbient(Sounds.EYE_OF_GOLD);
+	public static final MusicSound TOWN_AURIA = createAmbient(Sounds.STEELBRANCH);
+	public static final MusicSound TOWN_PAWERIA = createAmbient(Sounds.PAWERIA_CARIAR_OF_ORDER);
+	public static final MusicSound TOWN_HERIA = createAmbient(Sounds.HERIA_AND_THE_TOWN_OF_HOPE);
 
 	// Locations
-	public static final Biome DUMMY_CAVERNS = createSound(Sounds.CAVERNS, false);
-	public static final Biome DUMMY_DUNGEON = createSound(Sounds.DUNGEON, false);
+	public static final MusicSound CAVERNS = createAmbient(Sounds.CAVERNS);
+	public static final MusicSound DUNGEON = createAmbient(Sounds.DUNGEON);
 
-	// Boss Music
-	public static final Biome DUMMY_KING_TATER = createSound(Sounds.KING_TATER, true);
-	public static final Biome DUMMY_I509 = createSound(Sounds.I509, true);
+	// Boss Music Dummy Biomes
+	public static final Biome DUMMY_KING_TATER = createLoop(Sounds.KING_TATER);
+	public static final Biome DUMMY_I509 = createLoop(Sounds.I509);
 
 	// in the correct order to designate whose town is whose.
-	public static final Biome[] TOWNS = new Biome[]{DUMMY_TOWN_PAWERIA, DUMMY_TOWN_HERIA, DUMMY_TOWN_AURIA, DUMMY_TOWN_THERIA};
+	public static final MusicSound[] TOWNS = new MusicSound[]{TOWN_PAWERIA, TOWN_HERIA, TOWN_AURIA, TOWN_THERIA};
 }
