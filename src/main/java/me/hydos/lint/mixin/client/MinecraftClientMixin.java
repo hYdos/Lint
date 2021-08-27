@@ -59,7 +59,7 @@ public class MinecraftClientMixin {
 
 	@Inject(at = @At("HEAD"), cancellable = true, method = "getMusicType")
 	private void addLintMusicOverrides(CallbackInfoReturnable<MusicSound> info) {
-		if (this.world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
+		if (this.world != null && this.world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
 			BlockPos playerPos = this.player.getBlockPos();
 			Vec3d playerPosD = this.player.getPos(); // pos double
 

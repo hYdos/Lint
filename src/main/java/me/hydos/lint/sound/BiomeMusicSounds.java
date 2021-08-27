@@ -26,8 +26,10 @@ import net.minecraft.sound.SoundEvent;
  * Collection of Music Sounds that are attributed to specific biomes. These are done commonly, because they must be constructed as part of the biome.
  */
 public class BiomeMusicSounds {
+	// significantly more often than vanilla due to the more atmospheric purpose of the music, but never an entire loop because that's dumb
+	// this is very approximately 3-6.5 minutes
 	public static MusicSound createAmbient(SoundEvent event) {
-		return new MusicSound(event, 4000, 12000, false);
+		return new MusicSound(event, 3500, 8000, false);
 	}
 
 	public static final MusicSound MYSTICAL_FOREST = createAmbient(Sounds.MYSTICAL_FOREST);

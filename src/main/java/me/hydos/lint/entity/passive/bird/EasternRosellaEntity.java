@@ -19,7 +19,10 @@
 
 package me.hydos.lint.entity.passive.bird;
 
+import org.jetbrains.annotations.Nullable;
+
 import me.hydos.lint.entity.Birds;
+import me.hydos.lint.entity.aggressive.NightclawEntity;
 import me.hydos.lint.entity.aggressive.TaterMinionEntity;
 import me.hydos.lint.entity.passive.TinyPotatoEntity;
 import me.hydos.lint.sound.Sounds;
@@ -27,7 +30,16 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.ai.control.FlightMoveControl;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.AttackGoal;
+import net.minecraft.entity.ai.goal.EscapeDangerGoal;
+import net.minecraft.entity.ai.goal.FleeEntityGoal;
+import net.minecraft.entity.ai.goal.FlyOntoTreeGoal;
+import net.minecraft.entity.ai.goal.FollowOwnerGoal;
+import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.PounceAtTargetGoal;
+import net.minecraft.entity.ai.goal.SitGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.damage.DamageSource;
@@ -38,7 +50,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -61,6 +72,7 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 		this.goalSelector.add(0, new SwimGoal(this));
 		this.goalSelector.add(1, new FleeEntityGoal<>(this, CatEntity.class, 6.0F, 1.0D, 1.2D));
 		this.goalSelector.add(1, new FleeEntityGoal<>(this, OcelotEntity.class, 6.0F, 1.0D, 1.2D));
+		this.goalSelector.add(1, new FleeEntityGoal<>(this, NightclawEntity.class, 6.0F, 1.0D, 1.2D));
 		this.goalSelector.add(1, new FleeEntityGoal<>(this, PlayerEntity.class, le -> true, 6.0F, 1.0D, 1.2D, le -> !le.isSneaking() && !le.isSpectator())); // false in last predicate = filter *out*
 		this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 		this.goalSelector.add(3, new FollowOwnerGoal(this, 1.0D, 5.0F, 1.0F, true));

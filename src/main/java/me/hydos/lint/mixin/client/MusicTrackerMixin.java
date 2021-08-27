@@ -40,7 +40,7 @@ public class MusicTrackerMixin {
 
 	@Inject(at = @At("HEAD"), method = "play", cancellable = true)
 	private void onPlayer(MusicSound type, CallbackInfo info) {
-		if (this.client.world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
+		if (this.client.world != null && this.client.world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
 			if (LintSoundManager.shouldNotStartMusic(this.client.player, this.client.worldRenderer, this.client.getSoundManager())) {
 				info.cancel();
 			}
