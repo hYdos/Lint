@@ -19,14 +19,25 @@
 
 package me.hydos.lint.client;
 
+import java.util.function.Function;
+
 import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.block.util.BlockBuilder;
 import me.hydos.lint.block.util.Layer;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.model.NightClawModel;
 import me.hydos.lint.client.entity.model.RedTailedTropicBirdModel;
-import me.hydos.lint.client.entity.render.*;
+import me.hydos.lint.client.entity.render.BeeTaterEntityRenderer;
+import me.hydos.lint.client.entity.render.BirdEntityRenderer;
+import me.hydos.lint.client.entity.render.CrabEntityRenderer;
+import me.hydos.lint.client.entity.render.GhostEntityRenderer;
+import me.hydos.lint.client.entity.render.I509VCBRenderer;
+import me.hydos.lint.client.entity.render.KingTaterRenderer;
+import me.hydos.lint.client.entity.render.NPCHumanEntityRenderer;
+import me.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
 import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
+import me.hydos.lint.client.sound.LintSoundManager;
+import me.hydos.lint.client.sound.SecurityProblemCauser;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
@@ -36,8 +47,6 @@ import me.hydos.lint.particle.Particles;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.screenhandler.client.LilTaterScreen;
 import me.hydos.lint.screenhandler.client.SmelteryScreen;
-import me.hydos.lint.sound.LintSoundManager;
-import me.hydos.lint.sound.SecurityProblemCauser;
 import me.hydos.lint.sound.Sounds;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -65,8 +74,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
 
-import java.util.function.Function;
-
 public class LintClient implements ClientModInitializer {
 	@Override
 	@SuppressWarnings("deprecation")
@@ -77,22 +84,24 @@ public class LintClient implements ClientModInitializer {
 		registerBlockRendererLayers();
 		registerFluidRenderers();
 		registerHandledScreens();
-		registerBossMusicFixes();
 		registerParticles();
+		registerBossMusic();
 
 		ClientSidePacketRegistry.INSTANCE.register(Networking.TOWN_LOCATIONS, (context, data) -> {
 			SecurityProblemCauser.deserialiseLocations(data);
 		});
 	}
 
-	private void registerParticles() {
-		ParticleFactoryRegistry.getInstance().register(Particles.FALLEN_MYSTICAL_LEAF, FallenMysticalLeaf.Factory::new);
+	/**
+	 * Set the boss music in the lint sound manager for the specific entities.
+	 */
+	private void registerBossMusic() {
+		LintSoundManager.setBossMusic(Entities.KING_TATER, Sounds.KING_TATER);
+		LintSoundManager.setBossMusic(Entities.I509VCB, Sounds.I509);
 	}
 
-	private void registerBossMusicFixes() {
-		LintSoundManager.registerBossMusic(Sounds.KING_TATER);
-		LintSoundManager.registerBossMusic(Sounds.I509);
-		LintSoundManager.registerBossMusic(Sounds.LEX_MANOS);
+	private void registerParticles() {
+		ParticleFactoryRegistry.getInstance().register(Particles.FALLEN_MYSTICAL_LEAF, FallenMysticalLeaf.Factory::new);
 	}
 
 	private void registerBlockEntityRenderers() {

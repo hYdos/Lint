@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.sound;
+package me.hydos.lint.client.sound;
 
 import me.hydos.lint.util.math.Vec2i;
 import net.minecraft.network.PacketByteBuf;

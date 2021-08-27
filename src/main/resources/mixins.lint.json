@@ -15,24 +15,24 @@
     "ItemTagsProviderMixin",
     "ServerChunkManagerMixin",
     "StructurePoolsMixin",
-    "WorldMixin",
-    "client.LivingEntityRendererMixin",
-    "gecko.ClientListenerMixin",
-    "gecko.EntityRegistryMixin",
-    "gecko.GeckoLibModMixin",
-    "gecko.RegistryUtilsMixin"
+    "WorldMixin"
   ],
   "client": [
     "client.BiomeEffectSoundPlayerMixin",
     "client.ClientPlayNetworkHandlerMixin",
     "client.LevelPropertiesMixin",
+    "client.LivingEntityRendererMixin",
     "client.MinecraftClientMixin",
     "client.ModelLoaderMixin",
     "client.MusicLoopMixin",
     "client.MusicTrackerMixin",
     "client.PlayerEntityRendererMixin",
     "client.SoundEventAccessor",
-    "client.WorldRendererMixin"
+    "client.WorldRendererMixin",
+    "gecko.ClientListenerMixin",
+    "gecko.EntityRegistryMixin",
+    "gecko.GeckoLibModMixin",
+    "gecko.RegistryUtilsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

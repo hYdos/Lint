@@ -17,17 +17,19 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.sound;
+package me.hydos.lint.client.sound;
 
+import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.world.biome.Biomes;
 import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
+import static me.hydos.lint.sound.BiomeMusicSounds.createAmbient;
 
-public class MusicSounds {
-	private static final Biome createLoop(SoundEvent event) {
+public class ClientMusicSounds {
+	static final Biome createLoop(SoundEvent event) {
 		BiomeEffects.Builder effects = new BiomeEffects.Builder()
 				.waterColor(0x32e686)
 				.waterFogColor(0x32e686)
@@ -51,10 +53,6 @@ public class MusicSounds {
 				.build();
 	}
 
-	private static MusicSound createAmbient(SoundEvent event) {
-		return new MusicSound(event, 4000, 12000, false);
-	}
-
 	// Towns
 	public static final MusicSound TOWN_THERIA = createAmbient(Sounds.EYE_OF_GOLD);
 	public static final MusicSound TOWN_AURIA = createAmbient(Sounds.STEELBRANCH);
@@ -64,10 +62,6 @@ public class MusicSounds {
 	// Locations
 	public static final MusicSound CAVERNS = createAmbient(Sounds.CAVERNS);
 	public static final MusicSound DUNGEON = createAmbient(Sounds.DUNGEON);
-
-	// Boss Music Dummy Biomes
-	public static final Biome DUMMY_KING_TATER = createLoop(Sounds.KING_TATER);
-	public static final Biome DUMMY_I509 = createLoop(Sounds.I509);
 
 	// in the correct order to designate whose town is whose.
 	public static final MusicSound[] TOWNS = new MusicSound[]{TOWN_PAWERIA, TOWN_HERIA, TOWN_AURIA, TOWN_THERIA};

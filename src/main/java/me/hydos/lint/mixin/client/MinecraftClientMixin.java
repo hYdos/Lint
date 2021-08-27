@@ -26,8 +26,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import me.hydos.lint.sound.LintSoundManager;
-import me.hydos.lint.sound.SecurityProblemCauser;
+import me.hydos.lint.client.sound.LintSoundManager;
+import me.hydos.lint.client.sound.SecurityProblemCauser;
 import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;

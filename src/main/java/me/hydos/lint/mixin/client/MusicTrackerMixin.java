@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import me.hydos.lint.sound.LintSoundManager;
+import me.hydos.lint.client.sound.LintSoundManager;
 import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.MusicTracker;
@@ -41,7 +41,7 @@ public class MusicTrackerMixin {
 	@Inject(at = @At("HEAD"), method = "play", cancellable = true)
 	private void onPlayer(MusicSound type, CallbackInfo info) {
 		if (this.client.world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
-			if (LintSoundManager.isRecordPlaying(this.client.player, this.client.worldRenderer, this.client.getSoundManager())) {
+			if (LintSoundManager.shouldNotStartMusic(this.client.player, this.client.worldRenderer, this.client.getSoundManager())) {
 				info.cancel();
 			}
 		}
