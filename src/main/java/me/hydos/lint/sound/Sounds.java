@@ -20,11 +20,13 @@
 package me.hydos.lint.sound;
 
 import me.hydos.lint.Lint;
+import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.registry.Registry;
 
-public class Sounds {
+// Todo only have boss music use the loop override system
 
+public class Sounds {
 	/**
 	 * Boss Music
 	 */
@@ -33,28 +35,36 @@ public class Sounds {
 	public static final SoundEvent LEX_MANOS = new SoundEvent(Lint.id("music.lex_manos_boss_theme"));
 
 	/**
-	 * Misc Music
+	 * Music Discs
 	 */
-	public static final SoundEvent DUNGEON = new SoundEvent(Lint.id("music.clandestine"));
 	public static final SoundEvent GRIMACE_OBOE = new SoundEvent(Lint.id("music.grimace"));
 	public static final SoundEvent GRIMACE_VIOLINS = new SoundEvent(Lint.id("music.grimace_violins"));
-	public static final SoundEvent HERIA_AND_THE_TOWN_OF_HOPE = new SoundEvent(Lint.id("music.heria_and_the_town_of_hope"));
-	public static final SoundEvent PAWERIA_CARIAR_OF_ORDER = new SoundEvent(Lint.id("music.paweria_cariar_of_order"));
-	public static final SoundEvent STEELBRANCH = new SoundEvent(Lint.id("music.steelbranch"));
-	public static final SoundEvent EYE_OF_GOLD = new SoundEvent(Lint.id("music.eye_of_gold"));
+	public static final SoundEvent MANOS_TOUCH = new SoundEvent(Lint.id("music.manos_touch"));
 	public static final SoundEvent KING_TATER_DISC = new SoundEvent(Lint.id("music.king_tater_disc"));
+	/**
+	 * Biome Music Discs that are separate to the normal biome music events.
+	 */
+	public static final SoundEvent MYSTICAL_FOREST_DISC = new SoundEvent(Lint.id("music.mystical_forest_disc"));
+	public static final SoundEvent CORRUPT_FOREST_DISC = new SoundEvent(Lint.id("music.corrupt_forest_disc"));
 
 	/**
 	 * Biome Music
 	 */
 	public static final SoundEvent MYSTICAL_FOREST = new SoundEvent(Lint.id("music.mystical_forest"));
-	public static final SoundEvent ETHEREAL_GROVES = new SoundEvent(Lint.id("music.ethereal_groves_of_fraiya"));
 	public static final SoundEvent CORRUPT_FOREST = new SoundEvent(Lint.id("music.corrupt_forest"));
-	public static final SoundEvent MANOS_TOUCH = new SoundEvent(Lint.id("music.manos_touch"));
-	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
 	public static final SoundEvent DAWN_SHARDLANDS = new SoundEvent(Lint.id("music.dawn_shardlands"));
-	public static final SoundEvent CAVERNS = new SoundEvent(Lint.id("music.caverns"));
 	public static final SoundEvent FROZEN_FOREST = new SoundEvent(Lint.id("music.frozen_forest"));
+	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
+
+	/**
+	 * Other Ambient Music.
+	 */
+	public static final SoundEvent DUNGEON = new SoundEvent(Lint.id("music.clandestine"));
+	public static final SoundEvent CAVERNS = new SoundEvent(Lint.id("music.caverns"));
+	public static final SoundEvent HERIA_AND_THE_TOWN_OF_HOPE = new SoundEvent(Lint.id("music.heria_and_the_town_of_hope"));
+	public static final SoundEvent PAWERIA_CARIAR_OF_ORDER = new SoundEvent(Lint.id("music.paweria_cariar_of_order"));
+	public static final SoundEvent STEELBRANCH = new SoundEvent(Lint.id("music.steelbranch"));
+	public static final SoundEvent EYE_OF_GOLD = new SoundEvent(Lint.id("music.eye_of_gold"));
 
 	/**
 	 * Misc Sounds
@@ -70,25 +80,33 @@ public class Sounds {
 	public static final SoundEvent CRAB_IDLE = new SoundEvent(Lint.id("crab.idle"));
 
 	public static void initialize() {
-		// lint music
+		// boss music
 		register(KING_TATER);
 		register(I509);
 		register(LEX_MANOS);
-		register(MYSTICAL_FOREST);
-		register(CORRUPT_FOREST);
-		register(OCEAN);
-		register(DAWN_SHARDLANDS);
-		register(CAVERNS);
-		register(HERIA_AND_THE_TOWN_OF_HOPE);
-		register(PAWERIA_CARIAR_OF_ORDER);
-		register(STEELBRANCH);
-		register(EYE_OF_GOLD);
-		register(ETHEREAL_GROVES);
-		register(FROZEN_FOREST);
+
+		// music discs
 		register(GRIMACE_OBOE);
 		register(GRIMACE_VIOLINS);
 		register(MANOS_TOUCH);
 		register(KING_TATER_DISC);
+		register(MYSTICAL_FOREST_DISC);
+		register(CORRUPT_FOREST_DISC);
+		register(FROZEN_FOREST);
+
+		// ambient music
+		register(MYSTICAL_FOREST);
+		register(CORRUPT_FOREST);
+		register(OCEAN);
+		register(DAWN_SHARDLANDS);
+
+		register(DUNGEON);
+		register(CAVERNS);
+
+		register(HERIA_AND_THE_TOWN_OF_HOPE);
+		register(PAWERIA_CARIAR_OF_ORDER);
+		register(STEELBRANCH);
+		register(EYE_OF_GOLD);
 
 		// progression related short tunes
 		register(ADVANCEMENT);

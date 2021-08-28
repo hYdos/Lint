@@ -26,13 +26,14 @@
   "music.mystical_forest": {
     "subtitle": "subtitles.mystical_forest",
     "sounds": [
-      "lint:mystical_forest"
+      "lint:mystical_forest",
+      "lint:ethereal_groves_of_fraiya"
     ]
   },
-  "music.ethereal_groves_of_fraiya": {
-    "subtitle": "subtitles.ethereal_groves_of_fraiya",
+  "music.mystical_forest_disc": {
+    "subtitle": "subtitles.mystical_forest_disc",
     "sounds": [
-      "lint:ethereal_groves_of_fraiya"
+      "lint:mystical_forest"
     ]
   },
   "music.ocean": {
@@ -44,13 +45,14 @@
   "music.corrupt_forest": {
     "subtitle": "subtitles.corrupt_forest",
     "sounds": [
-      "lint:corrupt_forest"
+      "lint:corrupt_forest",
+      "lint:imminent_desolation"
     ]
   },
-  "music.imminence_of_desolation": {
-    "subtitle": "subtitles.imminence_of_desolation",
+  "music.corrupt_forest_disc": {
+    "subtitle": "subtitles.corrupt_forest_disc",
     "sounds": [
-      "lint:imminence_of_desolation"
+      "lint:corrupt_forest"
     ]
   },
   "music.manos_touch": {
@@ -105,6 +107,12 @@
     "subtitle": "subtitles.eye_of_gold",
     "sounds": [
       "lint:eye_of_gold"
+    ]
+  },
+  "music.timeless_realm": {
+    "subtitle": "subtitles.timeless_realm",
+    "sounds": [
+      "lint:timeless_realm"
     ]
   },
   "music.caverns": {

@@ -1,0 +1,9 @@
+{
+  "music.menu": {
+    "subtitle": "subtitles.menu",
+    "replace": true,
+    "sounds": [
+      "lint:lint_main_theme"
+    ]
+  }
+}

@@ -17,16 +17,27 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.sound;
+package me.hydos.lint.client.sound;
 
+import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.world.biome.Biomes;
+import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
+import static me.hydos.lint.sound.BiomeMusicSounds.createAmbient;
 
-public class DummyBiomes {
-	private static final Biome createLoopSound(SoundEvent event) {
+public class ClientMusicSounds {
+	static final Biome createLoop(SoundEvent event) {
+		BiomeEffects.Builder effects = new BiomeEffects.Builder()
+				.waterColor(0x32e686)
+				.waterFogColor(0x32e686)
+				.fogColor(0xffffff)
+				.skyColor(0x88dfea);
+
+		effects.loopSound(event);
+
 		return new Biome.Builder()
 				.precipitation(Biome.Precipitation.NONE)
 				.category(Biome.Category.FOREST)
@@ -38,34 +49,20 @@ public class DummyBiomes {
 				.generationSettings(new GenerationSettings.Builder()
 						.surfaceBuilder(Biomes.MF_SB)
 						.build())
-				.effects(new BiomeEffects.Builder()
-						.waterColor(0x32e686)
-						.waterFogColor(0x32e686)
-						.fogColor(0xffffff)
-						.loopSound(event)
-						.skyColor(0x88dfea)
-						.build())
+				.effects(effects.build())
 				.build();
 	}
 
 	// Towns
-	public static final Biome DUMMY_TOWN_THERIA = createLoopSound(Sounds.EYE_OF_GOLD);
-	public static final Biome DUMMY_TOWN_AURIA = createLoopSound(Sounds.STEELBRANCH);
-	public static final Biome DUMMY_TOWN_PAWERIA = createLoopSound(Sounds.PAWERIA_CARIAR_OF_ORDER);
-	public static final Biome DUMMY_TOWN_HERIA = createLoopSound(Sounds.HERIA_AND_THE_TOWN_OF_HOPE);
+	public static final MusicSound TOWN_THERIA = createAmbient(Sounds.EYE_OF_GOLD);
+	public static final MusicSound TOWN_AURIA = createAmbient(Sounds.STEELBRANCH);
+	public static final MusicSound TOWN_PAWERIA = createAmbient(Sounds.PAWERIA_CARIAR_OF_ORDER);
+	public static final MusicSound TOWN_HERIA = createAmbient(Sounds.HERIA_AND_THE_TOWN_OF_HOPE);
 
 	// Locations
-	public static final Biome DUMMY_CAVERNS = createLoopSound(Sounds.CAVERNS);
-	public static final Biome DUMMY_DUNGEON = createLoopSound(Sounds.DUNGEON);
-
-	// Alternative Tunes
-	public static final Biome DUMMY_MYSTICAL_FOREST_ALTER = createLoopSound(Sounds.ETHEREAL_GROVES);
-	public static final Biome DUMMY_CORRUPT_FOREST_ALTER = createLoopSound(Sounds.MANOS_TOUCH);
-
-	// Boss Music
-	public static final Biome DUMMY_KING_TATER = createLoopSound(Sounds.KING_TATER);
-	public static final Biome DUMMY_I509 = createLoopSound(Sounds.I509);
+	public static final MusicSound CAVERNS = createAmbient(Sounds.CAVERNS);
+	public static final MusicSound DUNGEON = createAmbient(Sounds.DUNGEON);
 
 	// in the correct order to designate whose town is whose.
-	public static final Biome[] TOWNS = new Biome[]{DUMMY_TOWN_PAWERIA, DUMMY_TOWN_HERIA, DUMMY_TOWN_AURIA, DUMMY_TOWN_THERIA};
+	public static final MusicSound[] TOWNS = new MusicSound[]{TOWN_PAWERIA, TOWN_HERIA, TOWN_AURIA, TOWN_THERIA};
 }

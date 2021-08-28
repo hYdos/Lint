@@ -23,7 +23,7 @@ import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
-import me.hydos.lint.sound.Sounds;
+import me.hydos.lint.sound.BiomeMusicSounds;
 import me.hydos.lint.world.biome.surface.DawnShardlandsEdgeSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.DawnShardlandsSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.OceanSurfaceBuilder;
@@ -37,7 +37,11 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeEffects;
+import net.minecraft.world.biome.BiomeParticleConfig;
+import net.minecraft.world.biome.GenerationSettings;
+import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
@@ -124,7 +128,7 @@ public class Biomes {
 					.waterColor(0x32e686)
 					.waterFogColor(0x32e686)
 					.fogColor(MYSTICAL_FOG_COLOUR)
-					.loopSound(Sounds.MYSTICAL_FOREST)
+					.music(BiomeMusicSounds.MYSTICAL_FOREST)
 					.skyColor(0x88dfea)
 					.build())
 			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
@@ -162,7 +166,7 @@ public class Biomes {
 					.waterColor(0x32e686)
 					.waterFogColor(0x32e686)
 					.fogColor(MYSTICAL_FOG_COLOUR)
-					.loopSound(Sounds.MYSTICAL_FOREST)
+					.music(BiomeMusicSounds.MYSTICAL_FOREST)
 					.skyColor(0x88dfea)
 					.build())
 			.spawnSettings(FOREST_SPAWN_SETTINGS.build())
@@ -207,7 +211,7 @@ public class Biomes {
 					.waterColor(0xa4fcef)
 					.waterFogColor(0xd5f2ed)
 					.fogColor(FROZEN_FOG_COLOUR)
-					.loopSound(Sounds.FROZEN_FOREST)
+					.music(BiomeMusicSounds.FROZEN_FOREST)
 					.skyColor(0xcdf0f4)
 					.build())
 			.spawnSettings(FOREST_SPAWN_SETTINGS.build())
@@ -249,7 +253,7 @@ public class Biomes {
 					.waterColor(0x916ec1)
 					.waterFogColor(0x916ec1)
 					.fogColor(CORRUPT_FOG_COLOUR)
-					.loopSound(Sounds.CORRUPT_FOREST)
+					.music(BiomeMusicSounds.CORRUPT_FOREST)
 					.skyColor(0x9c76c1)
 					.build()
 			)
@@ -290,7 +294,7 @@ public class Biomes {
 					.waterColor(0x4faad1)
 					.waterFogColor(0x4faad1)
 					.fogColor(0xC0D8FF)
-					.loopSound(Sounds.OCEAN)
+					.music(BiomeMusicSounds.OCEAN)
 					.skyColor(0x88dfea)
 					.build())
 			.spawnSettings(createOceanSpawnSettings())
@@ -332,7 +336,7 @@ public class Biomes {
 					.waterColor(0x4faad1)
 					.waterFogColor(0x4faad1)
 					.fogColor(CORRUPT_FOG_COLOUR)
-					.loopSound(Sounds.CORRUPT_FOREST)
+					.music(BiomeMusicSounds.CORRUPT_FOREST)
 					.skyColor(0x9c76c1)
 					.build())
 			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
@@ -366,7 +370,7 @@ public class Biomes {
 					.waterColor(0x916ec1)
 					.waterFogColor(0x916ec1)
 					.fogColor(CORRUPT_FOG_COLOUR)
-					.loopSound(Sounds.CORRUPT_FOREST)
+					.music(BiomeMusicSounds.CORRUPT_FOREST)
 					.skyColor(0x9c76c1)
 					.build()
 			)
@@ -402,7 +406,7 @@ public class Biomes {
 					.waterColor(0xfccb07)
 					.waterFogColor(0xfcf807)
 					.fogColor(DAWN_FOG_COLOUR)
-					.loopSound(Sounds.DAWN_SHARDLANDS)
+					.music(BiomeMusicSounds.DAWN_SHARDLANDS)
 					.skyColor(0xffd30f)
 					.build())
 			.spawnSettings(new SpawnSettings.Builder().build())
@@ -429,7 +433,7 @@ public class Biomes {
 					.waterColor(0xfccb07)
 					.waterFogColor(0xfcf807)
 					.fogColor(DAWN_FOG_COLOUR)
-					.loopSound(Sounds.DAWN_SHARDLANDS)
+					.music(BiomeMusicSounds.DAWN_SHARDLANDS)
 					.skyColor(0xffd30f)
 					.build())
 			.spawnSettings(new SpawnSettings.Builder().build())
