@@ -85,10 +85,11 @@
       "lint:grimace_violins"
     ]
   },
-  "music.heria_and_the_town_of_hope": {
-    "subtitle": "subtitles.heria_and_the_town_of_hope",
+  "music.town_of_hope": {
+    "subtitle": "subtitles.town_of_hope",
     "sounds": [
-      "lint:heria_and_the_town_of_hope"
+      "lint:heria_and_the_town_of_hope",
+	  "lint:herias_lullaby"
     ]
   },
   "music.paweria_cariar_of_order": {

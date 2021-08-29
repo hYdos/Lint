@@ -57,7 +57,7 @@ public class ClientMusicSounds {
 	public static final MusicSound TOWN_THERIA = createAmbient(Sounds.EYE_OF_GOLD);
 	public static final MusicSound TOWN_AURIA = createAmbient(Sounds.STEELBRANCH);
 	public static final MusicSound TOWN_PAWERIA = createAmbient(Sounds.PAWERIA_CARIAR_OF_ORDER);
-	public static final MusicSound TOWN_HERIA = createAmbient(Sounds.HERIA_AND_THE_TOWN_OF_HOPE);
+	public static final MusicSound TOWN_HERIA = createAmbient(Sounds.TOWN_OF_HOPE);
 
 	// Locations
 	public static final MusicSound CAVERNS = createAmbient(Sounds.CAVERNS);

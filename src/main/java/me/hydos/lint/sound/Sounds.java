@@ -20,7 +20,6 @@
 package me.hydos.lint.sound;
 
 import me.hydos.lint.Lint;
-import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.registry.Registry;
 
@@ -61,7 +60,7 @@ public class Sounds {
 	 */
 	public static final SoundEvent DUNGEON = new SoundEvent(Lint.id("music.clandestine"));
 	public static final SoundEvent CAVERNS = new SoundEvent(Lint.id("music.caverns"));
-	public static final SoundEvent HERIA_AND_THE_TOWN_OF_HOPE = new SoundEvent(Lint.id("music.heria_and_the_town_of_hope"));
+	public static final SoundEvent TOWN_OF_HOPE = new SoundEvent(Lint.id("music.town_of_hope"));
 	public static final SoundEvent PAWERIA_CARIAR_OF_ORDER = new SoundEvent(Lint.id("music.paweria_cariar_of_order"));
 	public static final SoundEvent STEELBRANCH = new SoundEvent(Lint.id("music.steelbranch"));
 	public static final SoundEvent EYE_OF_GOLD = new SoundEvent(Lint.id("music.eye_of_gold"));
@@ -103,7 +102,7 @@ public class Sounds {
 		register(DUNGEON);
 		register(CAVERNS);
 
-		register(HERIA_AND_THE_TOWN_OF_HOPE);
+		register(TOWN_OF_HOPE);
 		register(PAWERIA_CARIAR_OF_ORDER);
 		register(STEELBRANCH);
 		register(EYE_OF_GOLD);
