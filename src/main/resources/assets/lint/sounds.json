@@ -39,7 +39,13 @@
   "music.ocean": {
     "subtitle": "subtitles.ocean",
     "sounds": [
-      "lint:ocean"
+      "lint:call_of_the_sea"
+    ]
+  },
+  "music.voyage": {
+    "subtitle": "subtitles.voyage",
+    "sounds": [
+      "lint:voyage"
     ]
   },
   "music.corrupt_forest": {
