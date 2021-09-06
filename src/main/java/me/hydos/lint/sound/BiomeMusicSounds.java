@@ -35,6 +35,6 @@ public class BiomeMusicSounds {
 	public static final MusicSound MYSTICAL_FOREST = createAmbient(Sounds.MYSTICAL_FOREST);
 	public static final MusicSound FROZEN_FOREST = createAmbient(Sounds.FROZEN_FOREST);
 	public static final MusicSound CORRUPT_FOREST = createAmbient(Sounds.CORRUPT_FOREST);
-	public static final MusicSound OCEAN = createAmbient(Sounds.OCEAN); // note to self: considering adding a second ocean piece that's more like traditional english music, like in the style of lark ascending. or maybe make it night or sunset music or something.
+	public static final MusicSound OCEAN = createAmbient(Sounds.OCEAN);
 	public static final MusicSound DAWN_SHARDLANDS = createAmbient(Sounds.DAWN_SHARDLANDS);
 }

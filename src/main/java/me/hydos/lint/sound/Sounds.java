@@ -54,6 +54,7 @@ public class Sounds {
 	public static final SoundEvent DAWN_SHARDLANDS = new SoundEvent(Lint.id("music.dawn_shardlands"));
 	public static final SoundEvent FROZEN_FOREST = new SoundEvent(Lint.id("music.frozen_forest"));
 	public static final SoundEvent OCEAN = new SoundEvent(Lint.id("music.ocean"));
+	public static final SoundEvent VOYAGE = new SoundEvent(Lint.id("music.voyage"));
 
 	/**
 	 * Other Ambient Music.
@@ -97,6 +98,7 @@ public class Sounds {
 		register(MYSTICAL_FOREST);
 		register(CORRUPT_FOREST);
 		register(OCEAN);
+		register(VOYAGE);
 		register(DAWN_SHARDLANDS);
 
 		register(DUNGEON);

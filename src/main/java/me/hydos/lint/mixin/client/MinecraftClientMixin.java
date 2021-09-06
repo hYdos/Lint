@@ -63,7 +63,7 @@ public class MinecraftClientMixin {
 			BlockPos playerPos = this.player.getBlockPos();
 			Vec3d playerPosD = this.player.getPos(); // pos double
 
-			info.setReturnValue(LintSoundManager.injectSpecialMusic(this.world, playerPos, playerPosD.x, playerPosD.y, playerPosD.z)
+			info.setReturnValue(LintSoundManager.injectSpecialMusic(this.world, this.player, playerPos, playerPosD.x, playerPosD.y, playerPosD.z)
 					.orElse(this.world.getBiomeAccess().getBiomeForNoiseGen(playerPos).getMusic()
 							.orElse(MusicType.GAME)));
 		}

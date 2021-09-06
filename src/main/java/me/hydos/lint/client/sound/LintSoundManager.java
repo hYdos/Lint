@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.math.Vec2i;
+import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.Dimensions;
 import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.block.Block;
@@ -36,6 +37,7 @@ import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.sound.SoundManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.sound.MusicSound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -70,7 +72,7 @@ public class LintSoundManager {
 		return renderer.playingSongs.entrySet().stream().anyMatch(entry -> box.contains(entry.getKey().getX(), entry.getKey().getY(), entry.getKey().getZ()) && soundManager.isPlaying(entry.getValue()));
 	}
 
-	public static Optional<MusicSound> injectSpecialMusic(World world, BlockPos playerPos, double x, double y, double z) {
+	public static Optional<MusicSound> injectSpecialMusic(World world, ClientPlayerEntity player, BlockPos playerPos, double x, double y, double z) {
 		int playerY = playerPos.getY();
 		int passthroughs = 2;
 
@@ -127,6 +129,10 @@ public class LintSoundManager {
 			}
 		}
 
+		if (player.getVehicle() instanceof BoatEntity && world.getBiome(playerPos).getFogColor() == Biomes.OCEAN.getFogColor()) {
+			return Optional.of(ClientMusicSounds.VOYAGE);
+		}
+		
 		return Optional.empty();
 	}
 

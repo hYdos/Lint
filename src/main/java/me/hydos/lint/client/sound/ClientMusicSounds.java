@@ -63,6 +63,9 @@ public class ClientMusicSounds {
 	public static final MusicSound CAVERNS = createAmbient(Sounds.CAVERNS);
 	public static final MusicSound DUNGEON = createAmbient(Sounds.DUNGEON);
 
+	// Special
+	public static final MusicSound VOYAGE = createAmbient(Sounds.VOYAGE);
+
 	// in the correct order to designate whose town is whose.
 	public static final MusicSound[] TOWNS = new MusicSound[]{TOWN_PAWERIA, TOWN_HERIA, TOWN_AURIA, TOWN_THERIA};
 }
