@@ -19,8 +19,17 @@
 
 package me.hydos.lint.world.gen.terrain;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.callback.ServerChunkManagerCallback;
@@ -52,15 +61,6 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
 
 // FIXME: port
 public class TerrainChunkGenerator extends ChunkGenerator {
@@ -136,12 +136,11 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 
 				for (int zo = 0; zo < 16; ++zo) {
 					final int z = zo + startZ;
-					final int dist = x * x + z * z;
 					pos.setZ(zo);
 
 					int height = this.terrain.getHeight(x, z);
 					int lowerBound = this.terrain.getLowerGenBound(x, z, height);
-					boolean ash = this.surfaceNoise.sample(x * 0.09, z * 0.09, true) > 0 && (height - lowerBound) < 3;
+					double surfaceNoise = this.surfaceNoise.sample(x * 0.09, z * 0.09, true);
 
 					if (height - lowerBound == 1) {
 						lowerBound--;
@@ -151,22 +150,10 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 						pos.setY(y);
 
 						if (y < height) {
-							BlockState state;
-
-							// TODO move this logic to the surface builder, or some other property
-							if (dist > FraiyaTerrainGenerator.SHARDLANDS_ISLANDS_START) {
-								if (ash && y > lowerBound) {
-									state = LintBlocks.ASH.getDefaultState();
-								} else {
-									state = LintBlocks.ASPHALT.getDefaultState();
-								}
-							} else {
-								state = LintBlocks.FUSED_STONE.getDefaultState();
-							}
-
+							BlockState state = this.terrain.getDefaultBlock(x, y, z, height, lowerBound, surfaceNoise);
 							chunk.setBlockState(pos, state, false);
 						} else if (y < seaLevel) {
-							chunk.setBlockState(pos, Blocks.WATER.getDefaultState(), false);
+							chunk.setBlockState(pos, this.terrain.getDefaultFluid(x, y, z, height, lowerBound, surfaceNoise), false);
 						} else {
 							chunk.setBlockState(pos, Blocks.AIR.getDefaultState(), false);
 						}

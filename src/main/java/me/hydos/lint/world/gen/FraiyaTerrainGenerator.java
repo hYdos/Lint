@@ -19,6 +19,7 @@
 
 package me.hydos.lint.world.gen;
 
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.LossyDoubleCache;
 import me.hydos.lint.util.LossyIntCache;
 import me.hydos.lint.util.math.DoubleGridOperator;
@@ -27,6 +28,7 @@ import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.util.math.Voronoi;
 import me.hydos.lint.world.feature.TownFeature;
 import me.hydos.lint.world.gen.terrain.TerrainGenerator;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
@@ -323,6 +325,22 @@ public class FraiyaTerrainGenerator implements TerrainGenerator {
 			}
 		} else {
 			return (int) map(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, AVG_FLOAT_HEIGHT + 1);
+		}
+	}
+
+	@Override
+	public BlockState getDefaultBlock(int x, int y, int z, int height, int lowerBound, double surfaceNoise) {
+		final int dist = x * x + z * z;
+		final boolean ash = surfaceNoise > 0 && (height - lowerBound) < 3;
+
+		if (dist > FraiyaTerrainGenerator.SHARDLANDS_ISLANDS_START) {
+			if (ash && y > lowerBound) {
+				return LintBlocks.ASH.getDefaultState();
+			} else {
+				return LintBlocks.ASPHALT.getDefaultState();
+			}
+		} else {
+			return LintBlocks.FUSED_STONE.getDefaultState();
 		}
 	}
 }

@@ -19,6 +19,9 @@
 
 package me.hydos.lint.world.gen.terrain;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+
 public interface TerrainGenerator {
 	double sampleTypeScale(int x, int z);
 
@@ -30,5 +33,22 @@ public interface TerrainGenerator {
 
 	int getHeight(int x, int z);
 
-	int getLowerGenBound(int x, int z, int height);
+	/**
+	 * Get the lower bound of the terrain gen.
+	 * @param x the block x position.
+	 * @param z the block z position.
+	 * @param height the height of the terrain at that position.
+	 * @return the lowest position at which a block will be placed in the base terrain.
+	 */
+	default int getLowerGenBound(int x, int z, int height) {
+		return 0;
+	}
+
+	default BlockState getDefaultBlock(int x, int y, int z, int height, int lowerBound, double surfaceNoise) {
+		return Blocks.STONE.getDefaultState();
+	}
+
+	default BlockState getDefaultFluid(int x, int y, int z, int height, int lowerBound, double surfaceNoise) {
+		return Blocks.WATER.getDefaultState();
+	}
 }
