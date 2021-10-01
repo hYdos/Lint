@@ -4,6 +4,8 @@
     "lint:mystical_log",
     "lint:corrupt_log",
     "lint:stripped_mystical_log",
-    "lint:stripped_corrupt_log"
+    "lint:withered_log",
+    "lint:stripped_corrupt_log",
+    "lint:stripped_withered_log"
   ]
 }

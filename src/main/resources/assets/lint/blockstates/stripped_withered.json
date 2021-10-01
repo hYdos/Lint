@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "lint:block/stripped_withered_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "lint:block/stripped_withered_log"
+    },
+    "axis=z": {
+      "model": "lint:block/stripped_withered_log_horizontal",
+      "x": 90
+    }
+  }
+}

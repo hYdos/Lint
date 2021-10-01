@@ -20,7 +20,7 @@
 package me.hydos.lint.world.dimension;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.mixin.DimensionTypeAccessor;
+import me.hydos.lint.mixin.world.DimensionTypeAccessor;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;

@@ -17,7 +17,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixin;
+package me.hydos.lint.mixin.world;
 
 import me.hydos.lint.world.dimension.Dimensions;
 import net.minecraft.world.World;
@@ -26,6 +26,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+/**
+ * @reason prevent weather in Fraiya. TODO probably allow weather in fraiya but just make it less common?
+ */
 @Mixin(World.class)
 public class WorldMixin {
 	@Inject(at = @At("HEAD"), method = "isRaining", cancellable = true)

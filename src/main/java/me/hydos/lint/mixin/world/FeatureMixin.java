@@ -17,26 +17,25 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.block.organic;
+package me.hydos.lint.mixin.world;
 
-import java.util.function.Predicate;
-
+import me.hydos.lint.block.DirtLikeBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
+import net.minecraft.world.gen.feature.Feature;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-public class LintSaplingBlock extends SaplingBlock {
-	private final Predicate<BlockState> requires;
-
-	public LintSaplingBlock(SaplingGenerator generator, Settings settings, Predicate<BlockState> requires) {
-		super(generator, settings);
-		this.requires = requires;
-	}
-
-	@Override
-	protected boolean canPlantOnTop(BlockState floor, BlockView view, BlockPos pos) {
-		return this.requires.test(floor);
+/**
+ * @reason Make forest rocks generate.
+ */
+@Mixin(Feature.class)
+public class FeatureMixin {
+	@Inject(at = @At("HEAD"), method = "isSoil", cancellable = true)
+	private static void isSoil(BlockState state, CallbackInfoReturnable<Boolean> info) {
+		if (DirtLikeBlock.isLintGrass(state)) {
+			info.setReturnValue(true);
+		}
 	}
 }

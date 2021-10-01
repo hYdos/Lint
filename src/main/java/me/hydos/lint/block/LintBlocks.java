@@ -19,8 +19,22 @@
 
 package me.hydos.lint.block;
 
+import static me.hydos.lint.Lint.RESOURCE_PACK;
+import static me.hydos.lint.Lint.id;
+
+import java.util.function.Predicate;
+
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.organic.*;
+import me.hydos.lint.block.organic.CorruptFlower;
+import me.hydos.lint.block.organic.DistantLeavesBlock;
+import me.hydos.lint.block.organic.FallenLeavesBlock;
+import me.hydos.lint.block.organic.FrostedFlower;
+import me.hydos.lint.block.organic.LintFlowerBlock;
+import me.hydos.lint.block.organic.LintLeavesBlock;
+import me.hydos.lint.block.organic.LintSaplingBlock;
+import me.hydos.lint.block.organic.LintSpreadableBlock;
+import me.hydos.lint.block.organic.LintTallFlowerBlock;
+import me.hydos.lint.block.organic.StrippablePillarBlock;
 import me.hydos.lint.block.util.BlockBuilder;
 import me.hydos.lint.block.util.BlockBuilder.BlockConstructor;
 import me.hydos.lint.block.util.BlockMaterial;
@@ -36,9 +50,23 @@ import me.hydos.lint.world.tree.CanopyTree;
 import me.hydos.lint.world.tree.CorruptTree;
 import me.hydos.lint.world.tree.FrozenTree;
 import me.hydos.lint.world.tree.MysticalTree;
-import net.devtech.arrp.json.recipe.*;
+import me.hydos.lint.world.tree.WitheredTree;
+import net.devtech.arrp.json.recipe.JIngredient;
+import net.devtech.arrp.json.recipe.JKeys;
+import net.devtech.arrp.json.recipe.JPattern;
+import net.devtech.arrp.json.recipe.JRecipe;
+import net.devtech.arrp.json.recipe.JResult;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FallingBlock;
+import net.minecraft.block.FlowerBlock;
+import net.minecraft.block.MapColor;
+import net.minecraft.block.Material;
+import net.minecraft.block.PillarBlock;
+import net.minecraft.block.SaplingBlock;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -51,9 +79,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShapes;
-
-import static me.hydos.lint.Lint.RESOURCE_PACK;
-import static me.hydos.lint.Lint.id;
 
 /**
  * All of lint's core blocks.
@@ -118,13 +143,17 @@ public class LintBlocks {
 	}
 
 	private static LintSaplingBlock createSapling(String id, SaplingGenerator tree, Block growsOn) {
+		return createSapling(id, tree, s -> s.isOf(growsOn));
+	}
+
+	private static LintSaplingBlock createSapling(String id, SaplingGenerator tree, Predicate<BlockState> growsOn) {
 		return BlockBuilder.create()
 				.material(LintMaterials.SAPLING)
 				.model(Model.CROSS)
 				.itemGroup(ItemGroup.DECORATIONS)
 				.itemModel(ItemData::generatedModel)
 				.customLootTable()
-				.register(id, settings -> new LintSaplingBlock(tree, settings, growsOn.getDefaultState()));
+				.register(id, settings -> new LintSaplingBlock(tree, settings, growsOn));
 	}
 
 	// Plants
@@ -230,6 +259,16 @@ public class LintBlocks {
 			.model(Model.NONE)
 			.register("mystical_log", settings -> new StrippablePillarBlock(settings, CORRUPT_LOG_STRIPPED));
 
+	public static final Block STRIPPED_WITHERED_LOG = BlockBuilder.create()
+			.material(LintMaterials.log(MapColor.DEEPSLATE_GRAY, MapColor.DEEPSLATE_GRAY))
+			.model(Model.NONE)
+			.register("stripped_withered_log", PillarBlock::new);
+
+	public static final Block WITHERED_LOG = BlockBuilder.create()
+			.material(LintMaterials.log(MapColor.DEEPSLATE_GRAY, MapColor.BLACK))
+			.model(Model.NONE)
+			.register("withered_log", settings -> new StrippablePillarBlock(settings, CORRUPT_LOG_STRIPPED));
+
 	public static final DistantLeavesBlock CANOPY_LEAVES = BlockBuilder.create()
 			.material(LintMaterials.LEAVES
 					.colour(MapColor.CYAN))
@@ -243,6 +282,13 @@ public class LintBlocks {
 			.model(Model.CUTOUT_CUBE_ALL)
 			.customLootTable()
 			.register("frozen_leaves", LintLeavesBlock::new);
+
+	public static final LintLeavesBlock WITHERED_LEAVES = BlockBuilder.create()
+			.material(LintMaterials.LEAVES
+					.colour(MapColor.LIGHT_GRAY))
+			.model(Model.CUTOUT_CUBE_ALL)
+			.customLootTable()
+			.register("withered_leaves", LintLeavesBlock::new);
 
 	public static final Block MYSTICAL_PLANKS = BlockBuilder.create()
 			.material(LintMaterials.PLANKS
@@ -489,9 +535,9 @@ public class LintBlocks {
 		RESOURCE_PACK.addRecipe(identifier, JRecipe.shaped(
 				JPattern.pattern("###"),
 				JKeys.keys()
-						.key("#", JIngredient
-								.ingredient()
-								.item(id(planksId).toString())),
+				.key("#", JIngredient
+						.ingredient()
+						.item(id(planksId).toString())),
 				JResult.stackedResult(identifier.toString(), 6)));
 
 		return block;
@@ -505,6 +551,7 @@ public class LintBlocks {
 	public static final SaplingBlock FROZEN_SAPLING = createSapling("frozen_sapling", new FrozenTree(), FROSTED_GRASS);
 	public static final SaplingBlock CORRUPT_SAPLING = createSapling("corrupt_sapling", new CorruptTree(), CORRUPT_GRASS);
 	public static final SaplingBlock CANOPY_SAPLING = createSapling("canopy_sapling", new CanopyTree(), LIVELY_GRASS);
+	public static final SaplingBlock WITHERED_SAPLING = createSapling("withered_sapling", new WitheredTree(), s -> s.isOf(ASPHALT) || s.isOf(ASH));
 
 	public static void initialise() {
 	}

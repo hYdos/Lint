@@ -6,20 +6,21 @@
   "mixins": [
     "AbstractFireBlockMixin",
     "ArmorItemMixin",
-    "DimensionTypeAccessor",
-    "DimensionTypeMixin",
     "EnchantmentHelperMixin",
     "EntityMixin",
-    "FeatureMixin",
     "FireBlockAccessor",
     "ItemTagsProviderMixin",
     "ServerChunkManagerMixin",
     "StructurePoolsMixin",
-    "WorldMixin",
     "gecko.ClientListenerMixin",
     "gecko.EntityRegistryMixin",
     "gecko.GeckoLibModMixin",
-    "gecko.RegistryUtilsMixin"
+    "gecko.RegistryUtilsMixin",
+    "world.DimensionTypeAccessor",
+    "world.DimensionTypeMixin",
+    "world.FeatureMixin",
+    "world.SaplingGeneratorMixin",
+    "world.WorldMixin"
   ],
   "client": [
     "client.BiomeEffectSoundPlayerMixin",

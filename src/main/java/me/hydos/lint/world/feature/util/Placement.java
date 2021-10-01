@@ -25,6 +25,8 @@ import me.hydos.lint.Lint;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.YOffset;
+import net.minecraft.world.gen.decorator.CountExtraDecoratorConfig;
+import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
@@ -65,6 +67,18 @@ public enum Placement {
 		                                     Object config) {
 			Preconditions.checkArgument(config instanceof Integer, "config must be of type integer in COUNT_WORLD_SURFACE");
 			return register(id, feature.decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE).spreadHorizontally().repeat((Integer) config));
+		}
+	},
+
+	/**
+	 * Count/Chance config for tree features.
+	 */
+	TREE_WORLD_SURFACE {
+		@Override
+		public ConfiguredFeature<?, ?> apply(String id, ConfiguredFeature<?, ?> feature,
+				Object config) {
+			Preconditions.checkArgument(config instanceof CountExtraDecoratorConfig, "config must be of type CountExtraDecoratorConfig in TREE_WORLD_SURFACE");
+			return register(id, feature.decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_OCEAN_FLOOR_NO_WATER).decorate(Decorator.COUNT_EXTRA.configure((CountExtraDecoratorConfig) config)));
 		}
 	},
 

@@ -51,6 +51,10 @@ public class FeatureFactory {
 		return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, Lint.id(cfId), feature.configure(config)); // easy enough, at least for now. Just register it to the builtin regsitry and return it
 	}
 
+	public static <C extends FeatureConfig> ConfiguredFeature<C, ?> register(String cfId, ConfiguredFeature<C, ?> modifier) {
+		return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, Lint.id(cfId), modifier); // easy enough, at least for now. Just register it to the builtin regsitry and return it
+	}
+
 	private static class LintFeature<C extends FeatureConfig> extends Feature<C> {
 		public LintFeature(WorldModifier<C> modifier, Codec<C> configCodec) {
 			super(configCodec);

@@ -3,6 +3,7 @@
   "values": [
     "lint:mystical_leaves",
     "lint:corrupt_leaves",
-    "lint:canopy_leaves"
+    "lint:canopy_leaves",
+    "lint:withered_leaves"
   ]
 }

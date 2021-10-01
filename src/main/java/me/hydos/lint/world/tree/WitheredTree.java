@@ -17,25 +17,18 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.mixin;
+package me.hydos.lint.world.tree;
 
-import me.hydos.lint.block.DirtLikeBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.world.gen.feature.Feature;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import java.util.Random;
 
-/**
- * @reason Make forest rocks generate.
- */
-@Mixin(Feature.class)
-public class FeatureMixin {
-	@Inject(at = @At("HEAD"), method = "isSoil", cancellable = true)
-	private static void isSoil(BlockState state, CallbackInfoReturnable<Boolean> info) {
-		if (DirtLikeBlock.isLintGrass(state)) {
-			info.setReturnValue(true);
-		}
+import me.hydos.lint.world.feature.Features;
+import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
+
+public final class WitheredTree extends SaplingGenerator {
+	@Override
+	protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bl) {
+		return Features.WITHERED_TREE;
 	}
 }

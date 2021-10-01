@@ -413,10 +413,11 @@ public class Biomes {
 			.spawnSettings(new SpawnSettings.Builder().build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(DS_SB)
-					.feature(GenerationStep.Feature.RAW_GENERATION, Features.SHARDLANDS_SPIKES)
-					.feature(GenerationStep.Feature.RAW_GENERATION, Features.SHARDLANDS_SMOL_ISLANDS)
+					.feature(GenerationStep.Feature.RAW_GENERATION, Features.Worldgen.SHARDLANDS_SPIKES)
+					.feature(GenerationStep.Feature.RAW_GENERATION, Features.Worldgen.SHARDLANDS_SMOL_ISLANDS)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, FeaturesOld.DAWN_SHARDLANDS_SHARDS)
-					// TODO lexmanos boss structure
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, Features.Worldgen.SHARDLANDS_WITHERED_TREES)
+					// TODO portal hole to timeless realm
 					.build())
 			.build();
 
