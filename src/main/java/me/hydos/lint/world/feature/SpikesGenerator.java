@@ -41,8 +41,8 @@ public class SpikesGenerator implements WorldModifier<FillLayerFeatureConfig>{
 		// we want it to generate pointing out a bit
 		// the +0.5 is to make it target the centre of a block to try not imbalance pointing left or right because d2i floors positives and ceils negatives
 		// clamp due to limitations in worldgen. might gen after chunk is done or something in the future in order to avoid this idk
-		final double endX = startX + MathHelper.clamp(settings.random.nextInt(settings.config.height) - halfBaseHeight + 0.5, -24, 24);
-		final double endZ = startZ + MathHelper.clamp(settings.random.nextInt(settings.config.height) - halfBaseHeight + 0.5, -24, 24);
+		final double endX = startX + MathHelper.clamp(settings.random.nextInt(settings.config.height) - halfBaseHeight + 0.5, -16, 16);
+		final double endZ = startZ + MathHelper.clamp(settings.random.nextInt(settings.config.height) - halfBaseHeight + 0.5, -16, 16);
 
 		// chonky
 		// max thickness is 10 because of cringe gen restrictions.
@@ -77,9 +77,7 @@ public class SpikesGenerator implements WorldModifier<FillLayerFeatureConfig>{
 				for (int z = z_0; z <= z_1; ++z) {
 					pos.setZ(z);
 
-					if (world.isPosLoaded(x, z)) {
-						world.setBlockState(pos, settings.config.state, Block.NOTIFY_ALL | Block.FORCE_STATE);
-					}
+					world.setBlockState(pos, settings.config.state, Block.NOTIFY_ALL | Block.FORCE_STATE);
 				}				
 			}
 		}

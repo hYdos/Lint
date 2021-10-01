@@ -21,9 +21,9 @@ package me.hydos.lint.world.feature;
 
 import java.util.Random;
 
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.world.feature.util.WorldModifier;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.StructureWorldAccess;
@@ -43,7 +43,7 @@ public class AsphaltIslandGenerator implements WorldModifier<DefaultFeatureConfi
 			for(int j = MathHelper.floor(-f); j <= MathHelper.ceil(f); ++j) {
 				for(int k = MathHelper.floor(-f); k <= MathHelper.ceil(f); ++k) {
 					if ((float)(j * j + k * k) <= (f + 1.0F) * (f + 1.0F)) {
-						world.setBlockState(blockPos.add(j, i, k), Blocks.END_STONE.getDefaultState(), Block.NOTIFY_ALL | Block.FORCE_STATE);
+						world.setBlockState(blockPos.add(j, i, k), LintBlocks.ASPHALT.getDefaultState(), Block.NOTIFY_ALL | Block.FORCE_STATE);
 					}
 				}
 			}
