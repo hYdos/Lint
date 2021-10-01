@@ -20,12 +20,15 @@
 package me.hydos.lint.world.feature.util;
 
 import com.google.common.base.Preconditions;
+
 import me.hydos.lint.Lint;
-import net.minecraft.data.client.model.BlockStateVariantMap;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.YOffset;
+import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
+import net.minecraft.world.gen.heightprovider.UniformHeightProvider;
 
 // TODO: use this
 public enum Placement {
@@ -98,6 +101,26 @@ public enum Placement {
 				Object config) {
 			Preconditions.checkArgument(config instanceof Integer, "config must be of type integer in CHANCE_SIMPLE");
 			return register(id, feature.spreadHorizontally().applyChance((Integer) config));
+		}
+	},
+
+	/**
+	 * Chance config for range features. Config is an int[3]: {CHANCE, MIN, MAX}.
+	 */
+	CHANCE_RANGE {
+		@Override
+		public ConfiguredFeature<?, ?> apply(String id, ConfiguredFeature<?, ?> feature,
+				Object config) {
+			Preconditions.checkArgument(config instanceof int[], "config must be an int[3] in CHANCE_RANGE (incorrect type)");
+			int[] configuration = (int[]) config;
+			Preconditions.checkArgument(configuration.length == 3, "config must be an int[3] in CHANCE_RANGE (incorrect size)");
+			return register(id, feature
+					.range(new RangeDecoratorConfig(UniformHeightProvider.create(
+							YOffset.fixed(configuration[1]),
+							YOffset.fixed(configuration[2])
+							)))
+					.spreadHorizontally()
+					.applyChance(configuration[0]));
 		}
 	};
 

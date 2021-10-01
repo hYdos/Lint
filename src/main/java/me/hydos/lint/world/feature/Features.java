@@ -23,6 +23,7 @@ import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.world.feature.util.FeatureFactory;
 import me.hydos.lint.world.feature.util.Placement;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.FillLayerFeatureConfig;
 
 // TODO move features to this abstractified system because unneccesary abstractions are funi
@@ -31,4 +32,9 @@ public class Features {
 			"shardlands_spikes",
 			FeatureFactory.register("gargantuan_spikes", new SpikesGenerator(), new FillLayerFeatureConfig(110, LintBlocks.ASPHALT.getDefaultState())),
 			18);
+
+	public static ConfiguredFeature<?,?> SHARDLANDS_SMOL_ISLANDS = Placement.CHANCE_RANGE.apply(
+			"shardlands_small_islands",
+			FeatureFactory.register("asphalt_islands", new AsphaltIslandGenerator(), FeatureConfig.DEFAULT),
+			new int[] {5, 100, 135});
 }

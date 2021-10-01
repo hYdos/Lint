@@ -414,6 +414,7 @@ public class Biomes {
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(DS_SB)
 					.feature(GenerationStep.Feature.RAW_GENERATION, Features.SHARDLANDS_SPIKES)
+					.feature(GenerationStep.Feature.RAW_GENERATION, Features.SHARDLANDS_SMOL_ISLANDS)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, FeaturesOld.DAWN_SHARDLANDS_SHARDS)
 					// TODO lexmanos boss structure
 					.build())
