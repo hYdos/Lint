@@ -72,12 +72,12 @@ public class Features {
 		public static ConfiguredFeature<?,?> SHARDLANDS_SPIKES = Placement.CHANCE_SIMPLE.apply(
 				"shardlands_spikes",
 				GARGANTUAN_SPIKES,
-				18);
+				20);
 
 		public static ConfiguredFeature<?,?> SHARDLANDS_SMOL_ISLANDS = Placement.CHANCE_RANGE.apply(
 				"shardlands_small_islands",
 				ASPHALT_ISLANDS,
-				new int[] {5, 100, 135});
+				new int[] {7, 100, 135});
 
 		public static ConfiguredFeature<?,?> SHARDLANDS_WITHERED_TREES = Placement.TREE_WORLD_SURFACE.apply(
 				"shardlands_withered_trees",
