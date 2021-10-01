@@ -20,6 +20,7 @@
 package me.hydos.lint.world.feature;
 
 import me.hydos.lint.world.feature.util.WorldModifier;
+import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.StructureWorldAccess;
@@ -44,7 +45,7 @@ public class SpikesGenerator implements WorldModifier<FillLayerFeatureConfig>{
 
 		// chonky
 		final int height = settings.random.nextInt(halfBaseHeight) + settings.config.height;
-		final int thiccness = settings.random.nextInt(4) + 4;
+		final int thiccness = settings.random.nextInt(Math.max(3,settings.config.height / 10)) + (settings.config.height / 6) + 2;
 
 		// ok we lied earlier here's the *real* starting points
 		final int sx_0 = startX - thiccness; // start x 0 (where 1 = higher (positive increment) and 0 = lower (negative). it's a bit but in variable name you see)
@@ -58,10 +59,10 @@ public class SpikesGenerator implements WorldModifier<FillLayerFeatureConfig>{
 
 		for (int y = 0; y <= height; ++y) {
 			pos.setY(y);
-	
+
 			// compute starting positions for given height. y/height gives the proportion of the way done we are since y is range 0 to height.
 			final double prog = (double)y / (double)height; // progress
-	
+
 			final int x_0 = (int) MathHelper.lerp(prog, sx_0, endX);
 			final int z_0 = (int) MathHelper.lerp(prog, sz_0, endZ);
 			final int x_1 = (int) MathHelper.lerp(prog, sx_1, endX);
@@ -73,7 +74,7 @@ public class SpikesGenerator implements WorldModifier<FillLayerFeatureConfig>{
 				for (int z = z_0; z <= z_1; ++z) {
 					pos.setZ(z);
 
-					world.setBlockState(pos, settings.config.state, 3);
+					world.setBlockState(pos, settings.config.state, Block.NOTIFY_ALL | Block.FORCE_STATE);
 				}				
 			}
 		}

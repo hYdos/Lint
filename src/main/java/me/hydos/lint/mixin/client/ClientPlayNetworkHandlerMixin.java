@@ -19,6 +19,12 @@
 
 package me.hydos.lint.mixin.client;
 
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import io.netty.buffer.Unpooled;
 import me.hydos.lint.client.screen.TaterDownloadingTerrainScreen;
 import me.hydos.lint.network.Networking;
@@ -31,15 +37,10 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlayerRespawnS2CPacket;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandlerMixin {
-	@Redirect(method = "onPlayerRespawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;openScreen(Lnet/minecraft/client/gui/screen/Screen;)V"))
+	@Redirect(method = "onPlayerRespawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;setScreen(Lnet/minecraft/client/gui/screen/Screen;)V"))
 	private void openDownloadingTerrainScreen(MinecraftClient client, Screen screen, PlayerRespawnS2CPacket packet) {
 		if (screen instanceof DownloadingTerrainScreen && packet.getDimension().equals(Dimensions.FRAIYA_WORLD)) {
 			client.setScreen(new TaterDownloadingTerrainScreen());
