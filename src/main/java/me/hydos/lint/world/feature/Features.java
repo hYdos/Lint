@@ -82,6 +82,6 @@ public class Features {
 		public static ConfiguredFeature<?,?> SHARDLANDS_WITHERED_TREES = Placement.TREE_WORLD_SURFACE.apply(
 				"shardlands_withered_trees",
 				WITHERED_TREE,
-				new CountExtraDecoratorConfig(0, 0.3f, 3));
+				new CountExtraDecoratorConfig(0, 0.15f, 3));
 	}
 }

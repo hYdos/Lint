@@ -1,7 +1,7 @@
 {
   "parent": "block/cube_column",
   "textures": {
-    "end": "lint:block/stripped_withered_log_top",
-    "side": "lint:block/stripped_withered_log"
+    "end": "lint:block/withered_log_top",
+    "side": "lint:block/withered_log"
   }
 }
