@@ -40,12 +40,14 @@ public class SpikesGenerator implements WorldModifier<FillLayerFeatureConfig>{
 
 		// we want it to generate pointing out a bit
 		// the +0.5 is to make it target the centre of a block to try not imbalance pointing left or right because d2i floors positives and ceils negatives
-		final double endX = startX + settings.random.nextInt(settings.config.height) - halfBaseHeight + 0.5;
-		final double endZ = startZ + settings.random.nextInt(settings.config.height) - halfBaseHeight + 0.5;
+		// clamp due to limitations in worldgen. might gen after chunk is done or something in the future in order to avoid this idk
+		final double endX = startX + MathHelper.clamp(settings.random.nextInt(settings.config.height) - halfBaseHeight + 0.5, -24, 24);
+		final double endZ = startZ + MathHelper.clamp(settings.random.nextInt(settings.config.height) - halfBaseHeight + 0.5, -24, 24);
 
 		// chonky
+		// max thickness is 10 because of cringe gen restrictions.
 		final int height = settings.random.nextInt(halfBaseHeight) + settings.config.height;
-		final int thiccness = settings.random.nextInt(Math.max(3,settings.config.height / 10)) + (settings.config.height / 6) + 2;
+		final int thiccness = Math.min(10, settings.random.nextInt(Math.max(3,settings.config.height / 10)) + (settings.config.height / 8) + 2);
 
 		// ok we lied earlier here's the *real* starting points
 		final int sx_0 = startX - thiccness; // start x 0 (where 1 = higher (positive increment) and 0 = lower (negative). it's a bit but in variable name you see)

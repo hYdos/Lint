@@ -30,5 +30,5 @@ public class Features {
 	public static ConfiguredFeature<?,?> SHARDLANDS_SPIKES = Placement.CHANCE_SIMPLE.apply(
 			"shardlands_spikes",
 			FeatureFactory.register("gargantuan_spikes", new SpikesGenerator(), new FillLayerFeatureConfig(110, LintBlocks.ASPHALT.getDefaultState())),
-			12);
+			18);
 }
