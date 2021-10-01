@@ -19,10 +19,12 @@
 
 package me.hydos.lint.entity.aggressive;
 
+import java.util.EnumSet;
+
 import me.hydos.lint.entity.goal.FleeBlockGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
@@ -47,8 +49,6 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-
-import java.util.EnumSet;
 
 @SuppressWarnings("EntityConstructor")
 public class GhostEntity extends VexEntity implements IAnimatable {
@@ -90,7 +90,7 @@ public class GhostEntity extends VexEntity implements IAnimatable {
 		this.goalSelector.add(9, new LookAtEntityGoal(this, PlayerEntity.class, 3.0F, 1.0F));
 		this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
 		this.targetSelector.add(1, (new RevengeGoal(this, RaiderEntity.class)).setGroupRevenge());
-		this.targetSelector.add(3, new FollowTargetGoal<>(this, PlayerEntity.class, true));
+		this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
 	}
 
 	@Override

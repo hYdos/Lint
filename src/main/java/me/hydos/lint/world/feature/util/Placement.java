@@ -28,7 +28,7 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 
 // TODO: use this
-public enum Placement implements BlockStateVariantMap.TriFunction<String, ConfiguredFeature<?, ?>, Object, ConfiguredFeature<?, ?>> {
+public enum Placement {
 	/**
 	 * Count config for Random Patch Features.
 	 */
@@ -87,6 +87,18 @@ public enum Placement implements BlockStateVariantMap.TriFunction<String, Config
 			Preconditions.checkArgument(config instanceof Integer, "config must be of type integer in UNIFORM_WORLD_SURFACE");
 			return register(id, feature.decorate(ConfiguredFeatures.Decorators.HEIGHTMAP_WORLD_SURFACE));
 		}
+	},
+
+	/**
+	 * Chance config for general non-heightmap based features.
+	 */
+	CHANCE_SIMPLE {
+		@Override
+		public ConfiguredFeature<?, ?> apply(String id, ConfiguredFeature<?, ?> feature,
+				Object config) {
+			Preconditions.checkArgument(config instanceof Integer, "config must be of type integer in CHANCE_SIMPLE");
+			return register(id, feature.spreadHorizontally().applyChance((Integer) config));
+		}
 	};
 
 	Placement() {
@@ -97,7 +109,6 @@ public enum Placement implements BlockStateVariantMap.TriFunction<String, Config
 	 *
 	 * @return a new feature with the given placement algorithm and settings.
 	 */
-	@Override
 	public abstract ConfiguredFeature<?, ?> apply(String id, ConfiguredFeature<?, ?> feature, Object config);
 
 	private static ConfiguredFeature<?, ?> register(String id, ConfiguredFeature<?, ?> result) {

@@ -19,6 +19,8 @@
 
 package me.hydos.lint.item;
 
+import java.util.List;
+
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.ReturnHomeBlock;
 import me.hydos.lint.world.dimension.Dimensions;
@@ -36,8 +38,6 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
-
 public class WaypointTeleportItem extends Item {
 	public WaypointTeleportItem(Settings settings) {
 		super(settings);
@@ -45,7 +45,7 @@ public class WaypointTeleportItem extends Item {
 
 	@Override
 	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-		NbtCompound tag = stack.getOrCreateTag();
+		NbtCompound tag = stack.getOrCreateNbt();
 
 		if (tag.contains("waypoint")) {
 			int[] pos = tag.getIntArray("waypoint");
@@ -55,7 +55,7 @@ public class WaypointTeleportItem extends Item {
 
 	@Override
 	public boolean hasGlint(ItemStack stack) {
-		NbtCompound tag = stack.getOrCreateTag();
+		NbtCompound tag = stack.getOrCreateNbt();
 
 		return tag.contains("waypoint");
 	}
@@ -65,7 +65,7 @@ public class WaypointTeleportItem extends Item {
 		if (world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
 			ItemStack stack = user.getStackInHand(hand);
 
-			NbtCompound tag = stack.getOrCreateTag();
+			NbtCompound tag = stack.getOrCreateNbt();
 
 			if (tag.contains("nextTime")) {
 				long cTime = world.getTime();
@@ -98,7 +98,7 @@ public class WaypointTeleportItem extends Item {
 		World world = context.getWorld();
 
 		if (world.getBlockState(pos) == LintBlocks.RETURN_HOME.getDefaultState().with(ReturnHomeBlock.ACTIVATED, true)) {
-			context.getStack().getOrCreateTag().putIntArray("waypoint", new int[]{pos.getX(), pos.getY() + 1, pos.getZ()});
+			context.getStack().getOrCreateNbt().putIntArray("waypoint", new int[]{pos.getX(), pos.getY() + 1, pos.getZ()});
 			return ActionResult.SUCCESS;
 		}
 

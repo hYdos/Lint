@@ -21,12 +21,12 @@ package me.hydos.lint.item.potion;
 
 import me.hydos.lint.Lint;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.util.registry.Registry;
 
 public class LintStatusEffects {
 
-	public static final StatusEffect TRANSMUTATION = register("transmutation", new TransmutationStatusEffect(StatusEffectType.NEUTRAL, 0x50C040));
+	public static final StatusEffect TRANSMUTATION = register("transmutation", new TransmutationStatusEffect(StatusEffectCategory.NEUTRAL, 0x50C040));
 
 	private static StatusEffect register(String name, StatusEffect effect) {
 		return Registry.register(Registry.STATUS_EFFECT, Lint.id(name), effect);

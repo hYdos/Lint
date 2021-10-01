@@ -19,13 +19,29 @@
 
 package me.hydos.lint.entity.aggressive;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+import java.util.function.Predicate;
+
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.item.LintItems;
 import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.util.LintUtilities;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;
-import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.LookAroundGoal;
+import net.minecraft.entity.ai.goal.LookAtEntityGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
@@ -45,11 +61,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-import java.util.function.Predicate;
 
 @SuppressWarnings("EntityConstructor")
 public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
@@ -80,8 +91,8 @@ public class KingTaterEntity extends HostileEntity implements RangedAttackMob {
 		this.goalSelector.add(7, new LookAroundGoal(this));
 
 		this.targetSelector.add(1, new RevengeGoal(this));
-		this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, false));
-		this.targetSelector.add(4, new FollowTargetGoal<>(this, LivingEntity.class, 10, false, false, PREDICATE));
+		this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, false));
+		this.targetSelector.add(4, new ActiveTargetGoal<>(this, LivingEntity.class, 10, false, false, PREDICATE));
 	}
 
 	@Override

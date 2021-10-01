@@ -40,7 +40,7 @@ public class UnderIslandDecorator extends Decorator<NopeDecoratorConfig> {
 		int z = pos.getZ();
 
 		try {
-			int y = ((TerrainChunkGenerator) context.generator).getLowerGenBound(x, z) - 1;
+			int y = ((TerrainChunkGenerator) context.getWorld().toServerWorld().getChunkManager().getChunkGenerator()).getLowerGenBound(x, z) - 1;
 			return y > 0 ? Stream.of(new BlockPos(x, y, z)) : Stream.of();
 		} catch (ClassCastException e) {
 			Lint.LOGGER.warn("Under Island Decorator can only be used with lint's chunk generators.");

@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class CorruptTree extends SaplingGenerator {
 	@Override
-	protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bl) {
+	protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bl) {
 		return FeaturesOld.CORRUPT_TREE;
 	}
 }

@@ -70,5 +70,6 @@ public class FeatureFactory {
 		CODECS = new HashMap<>();
 		CODECS.put(DefaultFeatureConfig.class, DefaultFeatureConfig.CODEC);
 		CODECS.put(TreeFeatureConfig.class, TreeFeatureConfig.CODEC);
+		CODECS.put(FillLayerFeatureConfig.class, FillLayerFeatureConfig.CODEC);
 	}
 }

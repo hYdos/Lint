@@ -20,11 +20,11 @@
 package me.hydos.lint.item.potion;
 
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffectCategory;
 
 class TransmutationStatusEffect extends StatusEffect {
 
-	protected TransmutationStatusEffect(StatusEffectType type, int color) {
+	protected TransmutationStatusEffect(StatusEffectCategory type, int color) {
 		super(type, color);
 	}
 }

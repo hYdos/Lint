@@ -30,12 +30,12 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.ai.control.FlightMoveControl;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.AttackGoal;
 import net.minecraft.entity.ai.goal.EscapeDangerGoal;
 import net.minecraft.entity.ai.goal.FleeEntityGoal;
 import net.minecraft.entity.ai.goal.FlyOntoTreeGoal;
 import net.minecraft.entity.ai.goal.FollowOwnerGoal;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.PounceAtTargetGoal;
 import net.minecraft.entity.ai.goal.SitGoal;
@@ -81,8 +81,8 @@ public class EasternRosellaEntity extends AbstractBirdEntity implements Fluttere
 		this.goalSelector.add(4, new PounceAtTargetGoal(this, 0.2F));
 		this.goalSelector.add(5, new AttackGoal(this));
 
-		this.targetSelector.add(2, new FollowTargetGoal<>(this, TaterMinionEntity.class, false));
-		this.targetSelector.add(3, new FollowTargetGoal<>(this, TinyPotatoEntity.class, false));
+		this.targetSelector.add(2, new ActiveTargetGoal<>(this, TaterMinionEntity.class, false));
+		this.targetSelector.add(3, new ActiveTargetGoal<>(this, TinyPotatoEntity.class, false));
 	}
 
 	@Nullable

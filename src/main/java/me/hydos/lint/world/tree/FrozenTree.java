@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class FrozenTree extends SaplingGenerator {
 	@Override
-	protected ConfiguredFeature<TreeFeatureConfig, ?> createTreeFeature(Random random, boolean bees) {
+	protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bees) {
 		return FeaturesOld.FROZEN_TREE;
 	}
 }

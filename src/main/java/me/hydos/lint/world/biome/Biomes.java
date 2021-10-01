@@ -27,6 +27,7 @@ import me.hydos.lint.sound.BiomeMusicSounds;
 import me.hydos.lint.world.biome.surface.DawnShardlandsEdgeSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.DawnShardlandsSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.OceanSurfaceBuilder;
+import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.feature.FeaturesOld;
 import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
 import me.hydos.lint.world.structure.ConfiguredStructureFeatures;
@@ -412,6 +413,7 @@ public class Biomes {
 			.spawnSettings(new SpawnSettings.Builder().build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(DS_SB)
+					.feature(GenerationStep.Feature.RAW_GENERATION, Features.SHARDLANDS_SPIKES)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, FeaturesOld.DAWN_SHARDLANDS_SHARDS)
 					// TODO lexmanos boss structure
 					.build())

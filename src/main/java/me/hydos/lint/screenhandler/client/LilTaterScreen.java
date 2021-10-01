@@ -77,7 +77,7 @@ public class LilTaterScreen extends AbstractInventoryScreen<LilTaterInteractScre
 			this.mouseY = mouseY;
 		} else {
 			this.onClose();
-			Objects.requireNonNull(client).openScreen(null);
+			Objects.requireNonNull(client).setScreen(null);
 		}
 	}
 

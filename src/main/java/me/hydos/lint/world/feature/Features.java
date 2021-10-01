@@ -19,6 +19,16 @@
 
 package me.hydos.lint.world.feature;
 
-// TODO: New Features class
+import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.world.feature.util.FeatureFactory;
+import me.hydos.lint.world.feature.util.Placement;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.FillLayerFeatureConfig;
+
+// TODO move features to the abstractified system because unneccesary abstractions are funi
 public class Features {
+	public static ConfiguredFeature<?,?> SHARDLANDS_SPIKES = Placement.CHANCE_SIMPLE.apply(
+			"shardlands_spikes",
+			FeatureFactory.register("gargantuan_spikes", new SpikesGenerator(), new FillLayerFeatureConfig(90, LintBlocks.ASPHALT.getDefaultState())),
+			3);
 }

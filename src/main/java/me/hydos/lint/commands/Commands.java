@@ -40,7 +40,7 @@ public class Commands {
 								.requires(sc -> sc.hasPermissionLevel(2))
 								.then(CommandManager.literal("towns")
 										.executes(src -> {
-											ServerWorld world = src.getSource().getMinecraftServer().getWorld(Dimensions.FRAIYA_WORLD);
+											ServerWorld world = src.getSource().getServer().getWorld(Dimensions.FRAIYA_WORLD);
 											ChunkGenerator generator = world.getChunkManager().getChunkGenerator();
 
 											if (generator instanceof TerrainChunkGenerator) {

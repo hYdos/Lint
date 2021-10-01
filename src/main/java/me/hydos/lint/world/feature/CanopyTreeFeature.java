@@ -76,7 +76,6 @@ public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 		// - cooler angles
 		// - cool spread out shape at top
 		// the leaves don't decay easily like they do
-		// larger decay distance for leaves (I think terrestria does this already)
 		// - switch to trunk placer and leaf placer that does the equivalent. Will need a custom config bc I use multiple leaf placement methods.
 
 		int startX = start.getX();
