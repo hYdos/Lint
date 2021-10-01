@@ -62,6 +62,7 @@ public class SpikesGenerator implements WorldModifier<FillLayerFeatureConfig>{
 		for (int y = 0; y <= height; ++y) {
 			pos.setY(y);
 
+			// this could probably be faster if we just generated lines connecting 4 points and thus made it hollow
 			// compute starting positions for given height. y/height gives the proportion of the way done we are since y is range 0 to height.
 			final double prog = (double)y / (double)height; // progress
 
