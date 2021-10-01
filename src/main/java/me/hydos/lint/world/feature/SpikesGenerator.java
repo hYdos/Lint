@@ -72,11 +72,13 @@ public class SpikesGenerator implements WorldModifier<FillLayerFeatureConfig>{
 
 			for (int x = x_0; x <= x_1; ++x) {
 				pos.setX(x);
-				
+
 				for (int z = z_0; z <= z_1; ++z) {
 					pos.setZ(z);
 
-					world.setBlockState(pos, settings.config.state, Block.NOTIFY_ALL | Block.FORCE_STATE);
+					if (world.isPosLoaded(x, z)) {
+						world.setBlockState(pos, settings.config.state, Block.NOTIFY_ALL | Block.FORCE_STATE);
+					}
 				}				
 			}
 		}
