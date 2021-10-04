@@ -51,6 +51,9 @@ public class LintItems {
 	/**
 	 * Materials
 	 */
+	public static final Item RAW_ELECTRUM = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
+	public static final Item ELECTRUM_INGOT = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
+
 	public static final Item SICIERON_INGOT = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
 	public static final Item TARSCAN_SHARD = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
 	public static final Item JUREL_POWDER = new Item(new Item.Settings().group(ItemGroups.ITEMS).rarity(Rarity.UNCOMMON).maxCount(64));
@@ -80,6 +83,7 @@ public class LintItems {
 	/**
 	 * yes
 	 */
+	public static final Item COIN = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(64));
 	public static final Item DUSKBLADE = new Item(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1).rarity(Rarity.EPIC));
 	public static final Item ATTUNER = new WaypointTeleportItem(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1));
 	public static final Item QUESTBOOK = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
@@ -92,6 +96,7 @@ public class LintItems {
 		Registry.register(Registry.ITEM, Lint.id("duskblade"), DUSKBLADE);
 		registerGenerated("questbook", QUESTBOOK);
 		registerHandheld("attuner", ATTUNER);
+		registerGenerated("coin", COIN);
 
 		FuelRegistry.INSTANCE.add(MINT_GEL, 150);
 	}
@@ -115,6 +120,8 @@ public class LintItems {
 	private static void registerMaterials() {
 		registerGenerated("tater_essence", TATER_ESSENCE);
 		registerGenerated("herb_mix", HERB_MIX);
+		registerGenerated("raw_electrum", RAW_ELECTRUM);
+		registerGenerated("electrum_ingot", ELECTRUM_INGOT);
 		registerGenerated("sicieron_ingot", SICIERON_INGOT);
 		registerGenerated("jurel_powder", JUREL_POWDER);
 		registerGenerated("magnetite_powder", MAGNETITE_POWDER);

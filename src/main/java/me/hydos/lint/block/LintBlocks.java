@@ -192,7 +192,7 @@ public class LintBlocks {
 	public static final FrostedFlower FROZEN_STEM = createFrostedPlant("frozen_stem", StatusEffects.SPEED);
 	public static final FlowerBlock RED_TUSSOCK = createTussockPlant("red_tussock", StatusEffects.FIRE_RESISTANCE);
 	public static final FrostedFlower MARIGOLD = createFrostedPlant("marigold", StatusEffects.GLOWING);
-	public static final FrostedFlower SAKHALIN_MINT = createFrostedPlant("sakhalin_mint", StatusEffects.HEALTH_BOOST);
+	public static final FrostedFlower SAKHALIN_MINT = createFrostedPlant("sakhalin_mint", StatusEffects.HEALTH_BOOST); // should this be haste like the other mints?
 
 	public static final Block TATERBANE = BlockBuilder.create()
 			.material(BlockMaterial.builder()
@@ -387,13 +387,6 @@ public class LintBlocks {
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("indigo_stone");
 
-	public static final Block JUREL_ORE = BlockBuilder.create()
-			.material(LintMaterials.STONE
-					.hardness(3.0f)
-					.miningLevel(FabricToolTags.PICKAXES, 2))
-			.model(Model.SIMPLE_CUBE_ALL)
-			.register("jurel_ore");
-
 	public static final Block MAGNETITE_DEPOSIT = BlockBuilder.create() // Used to use sound group metal but seeing as it is mineral form I think I should keep it as stone.
 			.material(LintMaterials.STONE
 					.hardness(2.75f))
@@ -424,6 +417,8 @@ public class LintBlocks {
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("pearlescent_cobblestone");
 
+	// Ores
+
 	public static final Block TARSCAN_ORE = BlockBuilder.create()
 			.material(LintMaterials.STONE
 					.hardness(2.0f))
@@ -436,6 +431,20 @@ public class LintBlocks {
 					.miningLevel(FabricToolTags.PICKAXES, 1))
 			.model(Model.SIMPLE_CUBE_ALL)
 			.register("sicieron_ore");
+
+	public static final Block ELECTRUM = BlockBuilder.create()
+			.material(LintMaterials.STONE
+					.hardness(3.0f)
+					.miningLevel(FabricToolTags.PICKAXES, 2))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("electrum_ore");
+
+	public static final Block JUREL_ORE = BlockBuilder.create()
+			.material(LintMaterials.STONE
+					.hardness(3.6f)
+					.miningLevel(FabricToolTags.PICKAXES, 2))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.register("jurel_ore");
 
 	// Structures
 	public static final Block DUNGEON_BRICKS = BlockBuilder.create()
