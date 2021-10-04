@@ -46,7 +46,6 @@ import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
-import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
@@ -69,6 +68,49 @@ public class Biomes {
 	public static final SurfaceBuilder<TernarySurfaceConfig> CORRUPT_OCEAN_RAW_SB = new OceanSurfaceBuilder(LintBlocks.CORRUPT_SAND.getDefaultState(), LintBlocks.WHITE_SAND.getDefaultState());
 	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_RAW_SB = new DawnShardlandsSurfaceBuilder();
 	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_EDGE_RAW_SB = new DawnShardlandsEdgeSurfaceBuilder();
+
+	public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
+			new TernarySurfaceConfig(
+					LintBlocks.LIVELY_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
+
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CB_SB = CORRUPT_OCEAN_RAW_SB.withConfig(
+			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
+
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> FF_SB = SurfaceBuilder.DEFAULT.withConfig(
+			new TernarySurfaceConfig(
+					LintBlocks.FROSTED_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
+
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CF_SB = SurfaceBuilder.DEFAULT.withConfig(
+			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
+
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OC_SB = OCEAN_RAW_SB.withConfig(
+			new TernarySurfaceConfig(
+					LintBlocks.LIVELY_GRASS.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState(),
+					LintBlocks.RICH_DIRT.getDefaultState()));
+
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> IN_SB = SurfaceBuilder.DEFAULT.withConfig(
+			new TernarySurfaceConfig(LintBlocks.INDIGO_STONE.getDefaultState(),
+					LintBlocks.INDIGO_STONE.getDefaultState(),
+					LintBlocks.INDIGO_STONE.getDefaultState()));
+
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DS_SB = DAWN_SHARDLANDS_RAW_SB.withConfig(
+			new TernarySurfaceConfig(LintBlocks.ASPHALT.getDefaultState(),
+					LintBlocks.ASPHALT.getDefaultState(),
+					LintBlocks.ASPHALT.getDefaultState()));
+
+	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DSE_SB = DAWN_SHARDLANDS_EDGE_RAW_SB.withConfig(
+			new TernarySurfaceConfig(LintBlocks.ASPHALT.getDefaultState(),
+					LintBlocks.ASPHALT.getDefaultState(),
+					LintBlocks.ASPHALT.getDefaultState()));
 
 	/**
 	 * Spawn Configurations
@@ -99,6 +141,15 @@ public class Biomes {
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 1, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SKELETON, 1, 1, 1))
 			.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 1, 1));
+
+	public static final SpawnSettings.Builder OCEAN_SPAWN_SETTINGS = new SpawnSettings.Builder()
+			.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.SQUID, 1, 1, 4))
+			.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.COD, 10, 3, 6))
+			.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.PUFFERFISH, 5, 1, 3))
+			.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.TROPICAL_FISH, 25, 8, 12))
+			.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.DOLPHIN, 2, 1, 2))
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.RED_TAILED_TROPICBIRD, 10, 1, 1))
+			.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.CRAB, 2, 4, 8));
 	/**
 	 * Biome Keys
 	 */
@@ -111,12 +162,11 @@ public class Biomes {
 	public static final RegistryKey<Biome> DAWN_SHARDLANDS_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands"));
 	public static final RegistryKey<Biome> DAWN_SHARDLANDS_EDGE_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands_edge"));
 	public static final RegistryKey<Biome> ETHEREAL_WOODLAND_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ethereal_woodland"));
+	public static final RegistryKey<Biome> FROZEN_OCEAN_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("frozen_ocean"));
 
-	public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.LIVELY_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
+	/**
+	 * Biomes
+	 */
 
 	public static final Biome MYSTICAL_GROVE = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
@@ -195,12 +245,6 @@ public class Biomes {
 					.build())
 			.build();
 
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> FF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.FROSTED_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
-
 	public static final Biome ETHEREAL_WOODLAND = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.FOREST)
@@ -236,13 +280,7 @@ public class Biomes {
 					.build())
 			.build();
 
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
-	/**
-	 * Biomes
-	 */
+
 	public static final Biome CORRUPT_FOREST = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.FOREST)
@@ -257,7 +295,7 @@ public class Biomes {
 					.music(BiomeMusicSounds.CORRUPT_FOREST)
 					.skyColor(0x9c76c1)
 					.build()
-			)
+					)
 			.spawnSettings(CORRUPT_FOREST_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CF_SB)
@@ -276,13 +314,7 @@ public class Biomes {
 					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
 					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
 					.build()
-			).build();
-
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OC_SB = OCEAN_RAW_SB.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.LIVELY_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
+					).build();
 
 	public static final Biome OCEAN = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
@@ -298,7 +330,7 @@ public class Biomes {
 					.music(BiomeMusicSounds.OCEAN)
 					.skyColor(0x88dfea)
 					.build())
-			.spawnSettings(createOceanSpawnSettings())
+			.spawnSettings(OCEAN_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(OC_SB)
 					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
@@ -319,10 +351,40 @@ public class Biomes {
 					.build())
 			.build();
 
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CB_SB = CORRUPT_OCEAN_RAW_SB.withConfig(
-			new TernarySurfaceConfig(LintBlocks.CORRUPT_GRASS.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState(),
-					LintBlocks.RICH_DIRT.getDefaultState()));
+	public static final Biome FROZEN_OCEAN = new Biome.Builder()
+			.precipitation(Biome.Precipitation.NONE)
+			.category(Biome.Category.OCEAN)
+			.depth(-0.5f)
+			.scale(1)
+			.temperature(0.8f)
+			.downfall(0)
+			.effects(new BiomeEffects.Builder()
+					.waterColor(0x4faad1)
+					.waterFogColor(0x4faad1)
+					.fogColor(0xC0D8FF)
+					.music(BiomeMusicSounds.OCEAN)
+					.skyColor(0x88dfea)
+					.build())
+			.spawnSettings(OCEAN_SPAWN_SETTINGS.build())
+			.generationSettings(new GenerationSettings.Builder()
+					.surfaceBuilder(OC_SB)
+					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
+					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_STEMS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_GRASS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.WATERMINTS)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.DILLS)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, FeaturesOld.TARSCAN_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, FeaturesOld.SICIERON_ORE)
+					.feature(GenerationStep.Feature.UNDERGROUND_ORES, FeaturesOld.JUREL_ORE)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.WARM_OCEAN_VEGETATION)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.SEAGRASS_WARM)
+					.feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.KELP_COLD)
+					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
+					.structureFeature(ConfiguredStructureFeatures.DUNGEON)
+					.build())
+			.build();
 
 	// TODO indigo stone layer in corrupt biomes
 	public static final Biome CORRUPT_BEACH = new Biome.Builder()
@@ -355,11 +417,6 @@ public class Biomes {
 					.build())
 			.build();
 
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> IN_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(LintBlocks.INDIGO_STONE.getDefaultState(),
-					LintBlocks.INDIGO_STONE.getDefaultState(),
-					LintBlocks.INDIGO_STONE.getDefaultState()));
-
 	public static final Biome INDIGO_RIDGES = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
 			.category(Biome.Category.EXTREME_HILLS)
@@ -374,7 +431,7 @@ public class Biomes {
 					.music(BiomeMusicSounds.CORRUPT_FOREST)
 					.skyColor(0x9c76c1)
 					.build()
-			)
+					)
 			.spawnSettings(new SpawnSettings.Builder().build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(IN_SB)
@@ -389,11 +446,6 @@ public class Biomes {
 					.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, ConfiguredFeatures.FREEZE_TOP_LAYER)
 					.build())
 			.build();
-
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DS_SB = DAWN_SHARDLANDS_RAW_SB.withConfig(
-			new TernarySurfaceConfig(LintBlocks.ASPHALT.getDefaultState(),
-					LintBlocks.ASPHALT.getDefaultState(),
-					LintBlocks.ASPHALT.getDefaultState()));
 
 	public static final Biome DAWN_SHARDLANDS = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
@@ -420,11 +472,6 @@ public class Biomes {
 					// TODO portal hole to timeless realm
 					.build())
 			.build();
-
-	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> DSE_SB = DAWN_SHARDLANDS_EDGE_RAW_SB.withConfig(
-			new TernarySurfaceConfig(LintBlocks.ASPHALT.getDefaultState(),
-					LintBlocks.ASPHALT.getDefaultState(),
-					LintBlocks.ASPHALT.getDefaultState()));
 
 	public static final Biome DAWN_SHARDLANDS_EDGE = new Biome.Builder()
 			.precipitation(Biome.Precipitation.NONE)
@@ -469,16 +516,5 @@ public class Biomes {
 	private static void registerBiome(RegistryKey<Biome> key, Biome biome) {
 		Registry.register(BuiltinRegistries.BIOME, key.getValue(), biome);
 		BuiltinBiomesAccessor.getBY_RAW_ID().put(BuiltinRegistries.BIOME.getRawId(biome), key);
-	}
-
-	private static SpawnSettings createOceanSpawnSettings() {
-		SpawnSettings.Builder builder = new SpawnSettings.Builder();
-		DefaultBiomeFeatures.addOceanMobs(builder, 1, 4, 10);
-		builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.PUFFERFISH, 5, 1, 3))
-				.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.TROPICAL_FISH, 25, 8, 12))
-				.spawn(SpawnGroup.WATER_CREATURE, new SpawnSettings.SpawnEntry(EntityType.DOLPHIN, 2, 1, 2))
-				.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Birds.RED_TAILED_TROPICBIRD, 10, 1, 1))
-				.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(Entities.CRAB, 2, 4, 8));
-		return builder.build();
 	}
 }
