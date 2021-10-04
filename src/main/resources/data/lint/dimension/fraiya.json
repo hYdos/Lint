@@ -1,0 +1,8 @@
+{
+  "type": "lint:fraiya",
+  "generator": {
+    "seed": 0,
+    "terrainType": "lint:fraiya",
+    "type": "lint:haykam_chunk_gen"
+  }
+}

@@ -24,6 +24,7 @@ import com.google.common.collect.ImmutableList;
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.world.feature.modifier.BetterTreeFeature;
+import me.hydos.lint.world.feature.trunkplacer.LintTrunkPlacer;
 import net.minecraft.structure.rule.BlockMatchRuleTest;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;

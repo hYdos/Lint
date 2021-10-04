@@ -19,10 +19,18 @@
 
 package me.hydos.lint.world.feature.modifier;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.OptionalInt;
+import java.util.Random;
+import java.util.Set;
+import java.util.function.BiConsumer;
+
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.structure.Structure;
@@ -39,12 +47,10 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 import net.minecraft.world.gen.foliage.FoliagePlacer;
 
-import java.util.*;
-import java.util.function.BiConsumer;
-
 /**
  * @reason bad minecraft hardcoding for a few things
  */
+// TODO I can't remember why we have this class. Do we stop the dirt being placed in this code? Or is it for something that's now redundant?
 public class BetterTreeFeature extends Feature<TreeFeatureConfig> {
 	public BetterTreeFeature(Codec<TreeFeatureConfig> codec) {
 		super(codec);

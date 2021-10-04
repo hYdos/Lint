@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
-import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.LintDimensions;
 import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -140,7 +140,7 @@ public class LintSoundManager {
 	public static Biome injectBiomeLoopDummies(ClientPlayerEntity player, BiomeAccess access, double x, double y, double z) {
 		World world = player.getEntityWorld();
 
-		if (world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
+		if (world.getRegistryKey() == LintDimensions.FRAIYA_WORLD) {
 			if (world != null) {
 				// probably slightly faster than getting the entities within the box each time
 				Set<EntityType<?>> surroundingTypes = world.getOtherEntities(player, player.getBoundingBox().expand(40)).stream().map(Entity::getType).collect(Collectors.toSet());

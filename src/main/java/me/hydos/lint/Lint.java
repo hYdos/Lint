@@ -19,6 +19,9 @@
 
 package me.hydos.lint;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import io.netty.buffer.Unpooled;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.LintBlocksOld;
@@ -36,7 +39,7 @@ import me.hydos.lint.sound.Sounds;
 import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
-import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.LintDimensions;
 import me.hydos.lint.world.feature.FeaturesOld;
 import me.hydos.lint.world.gen.FraiyaBiomeGenerator;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
@@ -49,8 +52,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
 public final class Lint implements ModInitializer {
@@ -75,14 +76,14 @@ public final class Lint implements ModInitializer {
 		registerLintContent();
 		registerLintWorld();
 		Particles.register();
-		RRPCallback.EVENT.register(resources -> resources.add(RESOURCE_PACK));
+		RRPCallback.BEFORE_VANILLA.register(resources -> resources.add(RESOURCE_PACK));
 		LOGGER.info("Lint initialization successful!");
 
 		Commands.initialize();
 
 		ServerSidePacketRegistry.INSTANCE.register(Networking.GIB_INFO_PLS, (context, data) -> {
 			try {
-				Vec2i[] towns = ((TerrainChunkGenerator) ((context.getPlayer()).getServer().getWorld(Dimensions.FRAIYA_WORLD).getChunkManager().getChunkGenerator())).getTownCentres();
+				Vec2i[] towns = ((TerrainChunkGenerator) ((context.getPlayer()).getServer().getWorld(LintDimensions.FRAIYA_WORLD).getChunkManager().getChunkGenerator())).getTownCentres();
 
 				PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 
@@ -103,6 +104,7 @@ public final class Lint implements ModInitializer {
 	private void registerLintWorld() {
 		Structures.initialize();
 		FeaturesOld.initialize();
+		// New Features class will just initialise when biomes are made and need it
 		Biomes.initialize();
 		TerrainType.REGISTRY.put(Lint.id("fraiya"), new TerrainType(
 				FraiyaTerrainGenerator::new,

@@ -45,7 +45,7 @@ import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.mixinimpl.LintPortal;
 import me.hydos.lint.util.Power;
 import me.hydos.lint.util.TeleportUtils;
-import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.LintDimensions;
 import me.hydos.lint.world.tree.CanopyTree;
 import me.hydos.lint.world.tree.CorruptTree;
 import me.hydos.lint.world.tree.FrozenTree;
@@ -497,7 +497,7 @@ public class LintBlocks {
 					.onNeighbourUpdate((state, world, pos, block, fromPos, notify) -> LintPortal.resolve(world, pos, fromPos, true))
 					.onEntityCollision((state, world, pos, entity) -> {
 						if (!world.isClient()) {
-							ServerWorld fraiya = ((ServerWorld) world).getServer().getWorld(Dimensions.FRAIYA_WORLD);
+							ServerWorld fraiya = ((ServerWorld) world).getServer().getWorld(LintDimensions.FRAIYA_WORLD);
 
 							if (fraiya == null) {
 								return;

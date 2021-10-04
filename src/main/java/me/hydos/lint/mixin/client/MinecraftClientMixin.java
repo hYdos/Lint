@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import me.hydos.lint.client.sound.LintSoundManager;
 import me.hydos.lint.client.sound.SecurityProblemCauser;
-import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.LintDimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -59,7 +59,7 @@ public class MinecraftClientMixin {
 
 	@Inject(at = @At("HEAD"), cancellable = true, method = "getMusicType")
 	private void addLintMusicOverrides(CallbackInfoReturnable<MusicSound> info) {
-		if (this.world != null && this.world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
+		if (this.world != null && this.world.getRegistryKey() == LintDimensions.FRAIYA_WORLD) {
 			BlockPos playerPos = this.player.getBlockPos();
 			Vec3d playerPosD = this.player.getPos(); // pos double
 

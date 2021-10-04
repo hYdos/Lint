@@ -12,12 +12,13 @@
     "ItemTagsProviderMixin",
     "ServerChunkManagerMixin",
     "StructurePoolsMixin",
+    
     "gecko.ClientListenerMixin",
     "gecko.EntityRegistryMixin",
     "gecko.GeckoLibModMixin",
     "gecko.RegistryUtilsMixin",
-    "world.DimensionTypeAccessor",
-    "world.DimensionTypeMixin",
+    
+    "world.GeneratorOptionsMixin",
     "world.FeatureMixin",
     "world.SaplingGeneratorMixin",
     "world.WorldMixin"

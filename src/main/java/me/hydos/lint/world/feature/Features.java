@@ -20,6 +20,7 @@
 package me.hydos.lint.world.feature;
 
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.world.feature.trunkplacer.LintBendingTrunkPlacer;
 import me.hydos.lint.world.feature.util.FeatureFactory;
 import me.hydos.lint.world.feature.util.Placement;
 import net.minecraft.block.BlockState;
@@ -34,7 +35,6 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.RandomSpreadFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.trunk.BendingTrunkPlacer;
 
 // TODO move features to this abstractified system because unneccesary abstractions are funi
 // Vanilla-Based configured features can also go here (todo: move)
@@ -48,7 +48,6 @@ public class Features {
 			new SpikesGenerator(),
 			new FillLayerFeatureConfig(110, LintBlocks.ASPHALT.getDefaultState()));
 
-
 	public static ConfiguredFeature<?,?> ASPHALT_ISLANDS = FeatureFactory.register(
 			"asphalt_islands",
 			new AsphaltIslandGenerator(),
@@ -58,7 +57,7 @@ public class Features {
 			"withered_tree",
 			Feature.TREE.configure(new TreeFeatureConfig.Builder(
 						provide(LintBlocks.WITHERED_LOG.getDefaultState()),
-						new BendingTrunkPlacer(5, 3, 0, 4, UniformIntProvider.create(2, 3)),
+						new LintBendingTrunkPlacer(5, 3, 0, 4, UniformIntProvider.create(2, 3)),
 						provide(LintBlocks.WITHERED_LEAVES.getDefaultState()),
 						provide(LintBlocks.WITHERED_SAPLING.getDefaultState()),
 						new RandomSpreadFoliagePlacer(ConstantIntProvider.create(3), ConstantIntProvider.create(0), ConstantIntProvider.create(2), 50),

@@ -19,7 +19,7 @@
 
 package me.hydos.lint.mixin.world;
 
-import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.LintDimensions;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -36,7 +36,7 @@ public class WorldMixin {
 		@SuppressWarnings("resource")
 		World self = (World) (Object) this;
 
-		if (self.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
+		if (self.getRegistryKey().equals(LintDimensions.FRAIYA_WORLD)) {
 			cir.setReturnValue(false);
 		}
 	}
@@ -46,7 +46,7 @@ public class WorldMixin {
 		@SuppressWarnings("resource")
 		World self = (World) (Object) this;
 
-		if (self.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
+		if (self.getRegistryKey().equals(LintDimensions.FRAIYA_WORLD)) {
 			cir.setReturnValue(false);
 		}
 	}

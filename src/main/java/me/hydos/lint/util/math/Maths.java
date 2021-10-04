@@ -20,7 +20,7 @@
 package me.hydos.lint.util.math;
 
 import me.hydos.lint.world.biome.Biomes;
-import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.LintDimensions;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -87,7 +87,7 @@ public class Maths {
 
 	public static void onRetrieveModifiedFogColor(ClientWorld world, BiomeAccess access, float skyAngleThing,
 	                                              int noiseGenX, int noiseGenY, int noiseGenZ, CallbackInfoReturnable<Vec3d> info) {
-		if (world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
+		if (world.getRegistryKey() == LintDimensions.FRAIYA_WORLD) {
 			if (noiseGenY < (50 >> 2)) {
 				info.setReturnValue(Vec3d.unpackRgb(Biomes.CAVERN_FOG_COLOUR));
 			} else {

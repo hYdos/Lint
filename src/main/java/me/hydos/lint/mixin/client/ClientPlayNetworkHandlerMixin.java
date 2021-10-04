@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import io.netty.buffer.Unpooled;
 import me.hydos.lint.client.screen.TaterDownloadingTerrainScreen;
 import me.hydos.lint.network.Networking;
-import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.LintDimensions;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
@@ -42,7 +42,7 @@ import net.minecraft.network.packet.s2c.play.PlayerRespawnS2CPacket;
 public class ClientPlayNetworkHandlerMixin {
 	@Redirect(method = "onPlayerRespawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;setScreen(Lnet/minecraft/client/gui/screen/Screen;)V"))
 	private void openDownloadingTerrainScreen(MinecraftClient client, Screen screen, PlayerRespawnS2CPacket packet) {
-		if (screen instanceof DownloadingTerrainScreen && packet.getDimension().equals(Dimensions.FRAIYA_WORLD)) {
+		if (screen instanceof DownloadingTerrainScreen && packet.getDimension().equals(LintDimensions.FRAIYA_WORLD)) {
 			client.setScreen(new TaterDownloadingTerrainScreen());
 		} else {
 			client.setScreen(new DownloadingTerrainScreen());

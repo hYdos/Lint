@@ -23,7 +23,7 @@ import java.util.List;
 
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.ReturnHomeBlock;
-import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.LintDimensions;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -62,7 +62,7 @@ public class WaypointTeleportItem extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-		if (world.getRegistryKey() == Dimensions.FRAIYA_WORLD) {
+		if (world.getRegistryKey() == LintDimensions.FRAIYA_WORLD) {
 			ItemStack stack = user.getStackInHand(hand);
 
 			NbtCompound tag = stack.getOrCreateNbt();

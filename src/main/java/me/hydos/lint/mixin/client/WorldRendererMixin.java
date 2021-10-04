@@ -20,7 +20,7 @@
 package me.hydos.lint.mixin.client;
 
 import me.hydos.lint.mixinimpl.LintSky;
-import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.LintDimensions;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.VertexBuffer;
 import net.minecraft.client.render.WorldRenderer;
@@ -52,7 +52,7 @@ public class WorldRendererMixin {
 
 	@Inject(at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V", shift = At.Shift.AFTER), method = "renderSky", cancellable = true)
 	private void renderLintSky(MatrixStack matrices, Matrix4f skyObjectMatrix, float tickDelta, Runnable runnable, CallbackInfo info) {
-		if (this.world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD)) {
+		if (this.world.getRegistryKey().equals(LintDimensions.FRAIYA_WORLD)) {
 			LintSky.renderLintSky(matrices, skyObjectMatrix, tickDelta, runnable, world, client, lightSkyBuffer, darkSkyBuffer, starsBuffer);
 			info.cancel();
 		}

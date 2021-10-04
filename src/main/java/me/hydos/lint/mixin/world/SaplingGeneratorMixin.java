@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import me.hydos.lint.world.dimension.Dimensions;
+import me.hydos.lint.world.dimension.LintDimensions;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import net.minecraft.block.sapling.SaplingGenerator;
@@ -44,7 +44,7 @@ public abstract class SaplingGeneratorMixin {
 	 */
 	@Redirect(method = "generate", at = @At(value= "INVOKE", target = "Lnet/minecraft/block/sapling/SaplingGenerator;getTreeFeature(Ljava/util/Random;Z)Lnet/minecraft/world/gen/feature/ConfiguredFeature;"))
 	private ConfiguredFeature<TreeFeatureConfig, ?> witherShardlandsTrees(SaplingGenerator generator, Random rand, boolean bees, ServerWorld world, ChunkGenerator cgenerator, BlockPos pos) {
-		if (world.getRegistryKey().equals(Dimensions.FRAIYA_WORLD) && (pos.getX() * pos.getX() + pos.getZ() * pos.getZ()) > FraiyaTerrainGenerator.SHARDLANDS_START) {
+		if (world.getRegistryKey().equals(LintDimensions.FRAIYA_WORLD) && (pos.getX() * pos.getX() + pos.getZ() * pos.getZ()) > FraiyaTerrainGenerator.SHARDLANDS_START) {
 			return Features.WITHERED_TREE;
 		}
 

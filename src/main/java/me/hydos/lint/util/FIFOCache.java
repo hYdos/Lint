@@ -43,7 +43,7 @@ public class FIFOCache<T> implements Iterable<T> {
 		this.positions = new long[array.length];
 	}
 
-	public T add(long position, T item) {
+	public T add(long position, T item) { // Should this throw ArrayIndexOutOfBoundsException
 		if (this.capacity > this.size) {
 			this.size++;
 		}

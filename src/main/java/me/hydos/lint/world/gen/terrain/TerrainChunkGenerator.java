@@ -62,13 +62,14 @@ import net.minecraft.world.gen.chunk.StructuresConfig;
 import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 
-// FIXME: port
 public class TerrainChunkGenerator extends ChunkGenerator {
+	public static long trueWorldSeed;
 	public static final Codec<TerrainChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(
-			Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> generator.seed),
+			Codec.LONG.fieldOf("seed").orElseGet(() -> trueWorldSeed).stable().forGetter((generator) -> generator.seed),
 			Identifier.CODEC.fieldOf("terrainType").orElse(Lint.id("fraiya")).stable().forGetter(generator -> generator.terrainType),
 			RegistryLookupCodec.of(Registry.BIOME_KEY).forGetter(haykamChunkGenerator -> haykamChunkGenerator.biomeRegistry)
 	).apply(instance, instance.stable(TerrainChunkGenerator::new)));
+
 	private final ChunkRandom random = new ChunkRandom();
 	private final long seed;
 	private final Registry<Biome> biomeRegistry;
@@ -77,7 +78,7 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 	private FloatingIslandModifier floatingIslands;
 	private OctaveSimplexNoiseSampler surfaceNoise;
 	private final Identifier terrainType;
-
+	
 	public TerrainChunkGenerator(long seed, Identifier terrainType, Registry<Biome> registry) {
 		super(new TerrainBiomeSource(registry, terrainType, seed), new StructuresConfig(false));
 		this.seed = seed;

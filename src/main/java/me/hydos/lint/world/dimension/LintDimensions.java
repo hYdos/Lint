@@ -20,45 +20,17 @@
 package me.hydos.lint.world.dimension;
 
 import me.hydos.lint.Lint;
-import me.hydos.lint.mixin.world.DimensionTypeAccessor;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.dimension.DimensionType;
 
-import java.util.OptionalLong;
-
-import static net.minecraft.world.dimension.DimensionType.OVERWORLD_ID;
-
-public class Dimensions {
+public class LintDimensions {
 	/**
 	 * Dimension Registry Keys
 	 */
 	public static final RegistryKey<DimensionOptions> FRAIYA_DIM_OPTIONS = RegistryKey.of(Registry.DIMENSION_KEY, Lint.id("fraiya"));
 	public static final RegistryKey<DimensionType> FRAIYA_DIM = RegistryKey.of(Registry.DIMENSION_TYPE_KEY, Lint.id("fraiya"));
 	public static final RegistryKey<World> FRAIYA_WORLD = RegistryKey.of(Registry.WORLD_KEY, Lint.id("fraiya"));
-
-	/**
-	 * Fraiya Dimension
-	 */
-	public static final DimensionType FRAIYA = DimensionTypeAccessor.create(
-			OptionalLong.empty(),
-			true,
-			false,
-			false,
-			true,
-			1.0D,
-			true,
-			true,
-			false,
-			true,
-			0,
-			256,
-			250,
-			BlockTags.INFINIBURN_OVERWORLD.getId(),
-			OVERWORLD_ID,
-			0.1F
-	);
 }
