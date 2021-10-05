@@ -23,12 +23,9 @@ import lint.mana.ManaStorage;
 import lint.mana.ManaType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class ChargepadBlock extends Block {
@@ -41,29 +38,19 @@ public class ChargepadBlock extends Block {
 	}
 
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return super.getOutlineShape(state, world, pos, context);
-	}
-
-	@Override
 	public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
 		if (!world.isClient()) {
 			ManaStorage entityStorage = ManaStorage.of(entity, ManaType.GENERIC);
-			ManaStorage attachedStorage = null;
 
 			for (Direction direction : Direction.values()) {
-				attachedStorage = ManaStorage.BLOCK.find(world, pos.offset(direction), ManaType.GENERIC);
+				ManaStorage attachedStorage = ManaStorage.BLOCK.find(world, pos.offset(direction), ManaType.GENERIC);
 
 				if (attachedStorage != null) {
-					break;
-				}
-			}
-
-			if (attachedStorage != null) {
-				if (chargeEntity) {
-					ManaStorage.move(attachedStorage, entityStorage, 100, null);
-				} else {
-					ManaStorage.move(entityStorage, attachedStorage, 100, null);
+					if (chargeEntity) {
+						ManaStorage.move(attachedStorage, entityStorage, 5, null);
+					} else {
+						ManaStorage.move(entityStorage, attachedStorage, 5, null);
+					}
 				}
 			}
 		}

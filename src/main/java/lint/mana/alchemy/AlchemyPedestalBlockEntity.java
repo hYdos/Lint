@@ -22,7 +22,10 @@ package lint.mana.alchemy;
 import lint.mana.*;
 import me.hydos.lint.recipe.Recipes;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.PlayerInventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.api.util.NbtType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -30,6 +33,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.recipe.RecipeMatcher;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -67,6 +71,10 @@ public class AlchemyPedestalBlockEntity extends BlockEntity implements BlockEnti
 		return exposedStorage;
 	}
 
+	public LinkedList<ItemStack> getInventory() {
+		return inventory;
+	}
+
 	public void tick(World world) {
 		if (world.isClient) {
 			return;
@@ -93,14 +101,23 @@ public class AlchemyPedestalBlockEntity extends BlockEntity implements BlockEnti
 	public ActionResult onUse(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 
-		if (stack.isEmpty()) {
-			if (!inventory.isEmpty()) {
-				player.setStackInHand(hand, inventory.remove());
-				return ActionResult.SUCCESS;
+		if (player.isSneaking() && !inventory.isEmpty()) {
+			try (Transaction transaction = Transaction.openOuter()) {
+				if (PlayerInventoryStorage.of(player).insert(ItemVariant.of(inventory.peek()), 1, transaction) == 1) {
+					transaction.commit();
+					inventory.remove();
+					sync();
+					return ActionResult.SUCCESS;
+				}
 			}
 		} else {
-			inventory.add(stack.split(1));
-			return ActionResult.SUCCESS;
+			ItemStack split = stack.split(1);
+
+			if (!split.isEmpty()) {
+				inventory.add(split);
+				sync();
+				return ActionResult.SUCCESS;
+			}
 		}
 
 		return ActionResult.PASS;
@@ -128,8 +145,14 @@ public class AlchemyPedestalBlockEntity extends BlockEntity implements BlockEnti
 	@Override
 	public void readNbt(NbtCompound nbt) {
 		super.readNbt(nbt);
-		Inventories.readNbt(nbt, new DefaultedList<>(inventory = new LinkedList<>(), ItemStack.EMPTY) {
-		});
+
+		inventory = new LinkedList<>();
+		NbtList items = nbt.getList("Items", NbtType.COMPOUND);
+
+		for (int i = 0; i < items.size(); ++i) {
+			inventory.add(ItemStack.fromNbt(items.getCompound(i)));
+		}
+
 		storage.setStored(nbt.getLong(STORED_MANA_NBT));
 	}
 

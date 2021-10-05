@@ -19,22 +19,14 @@
 
 package me.hydos.lint.client;
 
-import java.util.function.Function;
-
+import lint.mana.alchemy.AlchemyPedestalBlockEntityRenderer;
 import me.hydos.lint.block.entity.BlockEntities;
 import me.hydos.lint.block.util.BlockBuilder;
 import me.hydos.lint.block.util.Layer;
 import me.hydos.lint.client.entity.model.EasternRosellaModel;
 import me.hydos.lint.client.entity.model.NightClawModel;
 import me.hydos.lint.client.entity.model.RedTailedTropicBirdModel;
-import me.hydos.lint.client.entity.render.BeeTaterEntityRenderer;
-import me.hydos.lint.client.entity.render.BirdEntityRenderer;
-import me.hydos.lint.client.entity.render.CrabEntityRenderer;
-import me.hydos.lint.client.entity.render.GhostEntityRenderer;
-import me.hydos.lint.client.entity.render.I509VCBRenderer;
-import me.hydos.lint.client.entity.render.KingTaterRenderer;
-import me.hydos.lint.client.entity.render.NPCHumanEntityRenderer;
-import me.hydos.lint.client.entity.render.TinyPotatoEntityRenderer;
+import me.hydos.lint.client.entity.render.*;
 import me.hydos.lint.client.render.block.SmelteryBlockEntityRenderer;
 import me.hydos.lint.client.sound.LintSoundManager;
 import me.hydos.lint.client.sound.SecurityProblemCauser;
@@ -74,6 +66,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
 
+import java.util.function.Function;
+
 public class LintClient implements ClientModInitializer {
 	@Override
 	@SuppressWarnings("deprecation")
@@ -90,6 +84,8 @@ public class LintClient implements ClientModInitializer {
 		ClientSidePacketRegistry.INSTANCE.register(Networking.TOWN_LOCATIONS, (context, data) -> {
 			SecurityProblemCauser.deserialiseLocations(data);
 		});
+
+		BlockEntityRendererRegistry.INSTANCE.register(BlockEntities.ALCHEMY_PEDESTAL, AlchemyPedestalBlockEntityRenderer::new);
 	}
 
 	/**
