@@ -23,6 +23,7 @@ import me.hydos.lint.Lint;
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 
 /**
@@ -58,11 +59,28 @@ public interface ManaStorage {
 	 * A mana storage of a player, such as items in their inventory capable of mana storage
 	 *
 	 * @param player The player
-	 * @param type   The mana type to manipulate
+	 * @param type   The mana type to access
 	 * @return An aggregate mana storage
 	 */
 	static ManaStorage of(PlayerEntity player, ManaType type) {
 		return new PlayerManaStorageImpl(player, type);
+	}
+
+	/**
+	 * A mana storage of an entity
+	 *
+	 * @param entity The entity
+	 * @param type   The mana type to access
+	 * @return An aggregate mana storage. May return an {@link #empty(ManaType)} instance if the entity is incapable of
+	 * holding mana
+	 * @see #of(PlayerEntity, ManaType)
+	 */
+	static ManaStorage of(Entity entity, ManaType type) {
+		if (entity instanceof PlayerEntity player) {
+			return of(player, type);
+		} else {
+			return empty(type);
+		}
 	}
 
 	/**

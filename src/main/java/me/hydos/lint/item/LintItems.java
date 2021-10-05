@@ -19,6 +19,7 @@
 
 package me.hydos.lint.item;
 
+import lint.mana.item.PortableCrystal;
 import me.hydos.lint.Lint;
 import me.hydos.lint.item.group.ItemGroups;
 import me.hydos.lint.item.materialset.MaterialSet;
@@ -88,6 +89,11 @@ public class LintItems {
 	public static final Item ATTUNER = new WaypointTeleportItem(new Item.Settings().group(ItemGroups.TOOLS).maxCount(1));
 	public static final Item QUESTBOOK = new Item(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1).rarity(Rarity.RARE));
 
+	/*
+	 * Mana stuff
+	 */
+	public static final Item PORTABLE_CRYSTAL = new PortableCrystal(new Item.Settings().group(ItemGroups.ITEMS).maxCount(1));
+
 	public static void initialize() {
 		ItemGroups.register();
 		registerMaterials();
@@ -97,6 +103,7 @@ public class LintItems {
 		registerGenerated("questbook", QUESTBOOK);
 		registerHandheld("attuner", ATTUNER);
 		registerGenerated("coin", COIN);
+		registerHandheld("portable_crystal", PORTABLE_CRYSTAL);
 
 		FuelRegistry.INSTANCE.add(MINT_GEL, 150);
 	}

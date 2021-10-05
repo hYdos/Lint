@@ -19,7 +19,9 @@
 
 package me.hydos.lint;
 
+import lint.mana.events.EntityDeathListener;
 import me.hydos.lint.block.entity.BlockEntities;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -121,5 +123,7 @@ public final class Lint implements ModInitializer {
 		LintItems.initialize();
 		LintPotions.initialize();
 		Entities.initialize();
+
+		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(new EntityDeathListener());
 	}
 }

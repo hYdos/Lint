@@ -22,17 +22,17 @@ package lint.mana;
 public enum ManaType {
 
 	/**
-	 * Generic unrefined Mana
+	 * Generic unrefined mana
 	 */
 	GENERIC,
 
 	/**
-	 * Manos-attuned Mana
+	 * Manos-attuned mana
 	 */
 	MANOS,
 
 	/**
-	 * Allos-attuned Mana
+	 * Allos-attuned mana
 	 */
 	ALLOS,
 }
