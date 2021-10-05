@@ -19,13 +19,19 @@
 
 package me.hydos.lint.recipe;
 
+import lint.mana.alchemy.AlchemyRecipe;
 import me.hydos.lint.Lint;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.registry.Registry;
 
 public class Recipes {
 
 	public static final SpecialRecipeSerializer<HerbMixRecipe> HERB_MIX = Registry.register(Registry.RECIPE_SERIALIZER, Lint.id("herb_mix"), new SpecialRecipeSerializer<>(HerbMixRecipe::new));
+
+	public static final RecipeType<AlchemyRecipe> ALCHEMY = Registry.register(Registry.RECIPE_TYPE, Lint.id("alchemy"), new LintRecipeType<>());
+	public static final RecipeSerializer<AlchemyRecipe> ALCHEMY_SERIALIZER = Registry.register(Registry.RECIPE_SERIALIZER, Lint.id("alchemy"), new AlchemyRecipe.Serializer());
 
 //	public static final RecipeType<SmelteryRecipe> SMELTERY_RECIPE_TYPE = Registry.register(Registry.RECIPE_TYPE,
 //			Lint.id("smeltery_recipe"),

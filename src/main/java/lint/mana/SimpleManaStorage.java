@@ -50,6 +50,10 @@ public class SimpleManaStorage extends SnapshotParticipant<Long> implements Mana
 		return stored;
 	}
 
+	public void setStored(long stored) {
+		this.stored = stored;
+	}
+
 	@Override
 	public long getCapacity() {
 		return capacity;
@@ -59,7 +63,7 @@ public class SimpleManaStorage extends SnapshotParticipant<Long> implements Mana
 	public long insert(long maxAmount, TransactionContext transaction) {
 		StoragePreconditions.notNegative(maxAmount);
 
-		long inserted = Math.min(bounds.input(), Math.min(maxAmount, capacity - stored));
+		long inserted = Math.min(bounds.input(), Math.min(maxAmount, getCapacity() - stored));
 
 		if (inserted > 0) {
 			updateSnapshots(transaction);

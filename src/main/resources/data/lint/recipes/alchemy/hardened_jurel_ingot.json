@@ -1,0 +1,19 @@
+{
+  "type": "lint:alchemy",
+  "mana": {
+    "type": "generic",
+    "amount": 200
+  },
+  "ingredients": [
+    {
+      "item": "lint:sicieron_ingot"
+    },
+    {
+      "item": "lint:jurel_powder"
+    }
+  ],
+  "result": {
+    "item": "lint:hardened_jurel_ingot",
+    "count": 1
+  }
+}

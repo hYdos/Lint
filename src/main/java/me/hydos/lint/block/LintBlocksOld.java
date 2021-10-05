@@ -19,6 +19,7 @@
 
 package me.hydos.lint.block;
 
+import lint.mana.alchemy.AlchemyPedestal;
 import me.hydos.lint.Lint;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.fluid.MoltenMetalFluid;
@@ -50,6 +51,8 @@ public final class LintBlocksOld {
 			.sounds(BlockSoundGroup.STONE)
 			.breakByTool(FabricToolTags.PICKAXES, 0));
 
+	public static final Block ALCHEMY_PEDESTAL = new AlchemyPedestal(FabricBlockSettings.copy(Blocks.STONE));
+
 	/**
 	 * Fluid blockstate cache
 	 */
@@ -62,6 +65,7 @@ public final class LintBlocksOld {
 
 	public static void registerBuildingBlocks() {
 		registerBlock(ItemGroups.BLOCKS, SMELTERY, "smeltery");
+		registerBlock(ItemGroups.BLOCKS, ALCHEMY_PEDESTAL, "alchemy_pedestal");
 	}
 
 	public static void registerFluidBlocks() {

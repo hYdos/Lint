@@ -21,17 +21,12 @@ package me.hydos.lint.recipe;
 
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.registry.Registry;
 
-public class LintRecipeType<T extends Recipe<?>> implements RecipeType<T> {
+public record LintRecipeType<T extends Recipe<?>>() implements RecipeType<T> {
 
-	private final String name;
-
-	public LintRecipeType(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public String toString() {
-		return name;
-	}
+    @Override
+    public String toString() {
+        return Registry.RECIPE_TYPE.getId(this).toString();
+    }
 }

@@ -19,6 +19,7 @@
 
 package me.hydos.lint;
 
+import me.hydos.lint.block.entity.BlockEntities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -116,6 +117,7 @@ public final class Lint implements ModInitializer {
 		LintFluids.initialize();
 		LintBlocks.initialise();
 		LintBlocksOld.initialize();
+		BlockEntities.initialize();
 		LintItems.initialize();
 		LintPotions.initialize();
 		Entities.initialize();
