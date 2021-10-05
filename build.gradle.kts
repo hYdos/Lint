@@ -43,8 +43,8 @@ dependencies {
 
 	if (! file("ignoreruntime.txt").exists()) {
 		println("Setting Up Mod Runtimes")
-//		modRuntime("curse.maven", "worldedit-225608", "3135186")
-//		modRuntime("curse.maven", "appleskin-248787", "2987255")
+		modRuntime("curse.maven", "worldedit-225608", "343390")
+		modRuntime("curse.maven", "appleskin-248787", "3420933")
 //		modRuntime("curse.maven", "hwyla-253449", "3033613")
 	} else {
 		println("Skipping Mod Runtimes")
