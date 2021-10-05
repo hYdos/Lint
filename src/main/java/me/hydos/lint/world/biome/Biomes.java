@@ -53,9 +53,10 @@ import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
 public class Biomes {
 
 	/**
-	 * Fog Colours
+	 * Environment Colours
 	 */
 	public static final int MYSTICAL_FOG_COLOUR = 0x8cfff5;
+	public static final int MYSTICAL_WATER_COLOUR = 0x4fd1ba;
 	public static final int CORRUPT_FOG_COLOUR = 0x916ec1;
 	public static final int FROZEN_FOG_COLOUR = 0xdbfffc;
 	public static final int CAVERN_FOG_COLOUR = 0x7f7f7f;
@@ -111,7 +112,7 @@ public class Biomes {
 	public static final RegistryKey<Biome> DAWN_SHARDLANDS_EDGE_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("dawn_shardlands_edge"));
 	public static final RegistryKey<Biome> ETHEREAL_WOODLAND_KEY = RegistryKey.of(Registry.BIOME_KEY, Lint.id("ethereal_woodland"));
 
-	public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
+	public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MYSTICAL_FOREST_SURFACE_BUILDER = SurfaceBuilder.DEFAULT.withConfig(
 			new TernarySurfaceConfig(
 					LintBlocks.LIVELY_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
@@ -125,22 +126,21 @@ public class Biomes {
 			.temperature(0.8f)
 			.downfall(0)
 			.effects(new BiomeEffects.Builder()
-					.waterColor(0x32e686)
-					.waterFogColor(0x32e686)
+					.waterColor(MYSTICAL_WATER_COLOUR)
+					.waterFogColor(MYSTICAL_WATER_COLOUR)
 					.fogColor(MYSTICAL_FOG_COLOUR)
 					.music(BiomeMusicSounds.MYSTICAL_FOREST)
 					.skyColor(0x88dfea)
 					.build())
 			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
-					.surfaceBuilder(MF_SB)
+					.surfaceBuilder(MYSTICAL_FOREST_SURFACE_BUILDER)
 					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_TREES)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_FLOWERS)
-					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_GRASS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.GENERIC_BLUE_FLOWERS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_STEMS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.TATERBANES)
@@ -163,15 +163,15 @@ public class Biomes {
 			.temperature(0.8f)
 			.downfall(0)
 			.effects(new BiomeEffects.Builder()
-					.waterColor(0x32e686)
-					.waterFogColor(0x32e686)
+					.waterColor(MYSTICAL_WATER_COLOUR)
+					.waterFogColor(MYSTICAL_WATER_COLOUR)
 					.fogColor(MYSTICAL_FOG_COLOUR)
 					.music(BiomeMusicSounds.MYSTICAL_FOREST)
 					.skyColor(0x88dfea)
 					.build())
 			.spawnSettings(FOREST_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
-					.surfaceBuilder(MF_SB)
+					.surfaceBuilder(MYSTICAL_FOREST_SURFACE_BUILDER)
 					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.MYSTICAL_ROCKS)
@@ -179,7 +179,6 @@ public class Biomes {
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.THICK_MYSTICAL_TREES)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.GENERIC_BLUE_FLOWERS)
-					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_GRASS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.LESS_MYSTICAL_STEMS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.TATERBANES)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.SPEARMINTS)
@@ -304,7 +303,6 @@ public class Biomes {
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_STEMS)
-					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_GRASS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.WATERMINTS)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.DILLS)
 					.feature(GenerationStep.Feature.UNDERGROUND_ORES, FeaturesOld.TARSCAN_ORE)
@@ -332,7 +330,6 @@ public class Biomes {
 			.temperature(0.8f)
 			.downfall(0)
 			.effects(new BiomeEffects.Builder()
-					.waterColor(0)
 					.waterColor(0x4faad1)
 					.waterFogColor(0x4faad1)
 					.fogColor(CORRUPT_FOG_COLOUR)

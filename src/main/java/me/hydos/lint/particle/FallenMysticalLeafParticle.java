@@ -28,14 +28,17 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
 @Environment(EnvType.CLIENT)
-public class FallenMysticalLeaf extends AnimatedParticle {
+public class FallenMysticalLeafParticle extends AnimatedParticle {
 
-	protected FallenMysticalLeaf(World world, double x, double y, double z, SpriteProvider sprites, float accel) {
+    private static final Random RANDOM = new Random();
+
+    protected FallenMysticalLeafParticle(World world, double x, double y, double z, SpriteProvider sprites, float accel) {
 		super((ClientWorld) world, x, y, z, sprites, accel);
 		this.age = 0;
 		this.maxAge = 80;
@@ -55,23 +58,13 @@ public class FallenMysticalLeaf extends AnimatedParticle {
 		return this.world.isChunkLoaded(blockPos) ? WorldRenderer.getLightmapCoordinates(this.world, blockPos) : 0;
 	}
 
-	@Environment(EnvType.CLIENT)
-	public static class Factory implements ParticleFactory<DefaultParticleType> {
+    @Environment(EnvType.CLIENT)
+    public record Factory(FabricSpriteProvider sprites) implements ParticleFactory<DefaultParticleType> {
 
-		private final FabricSpriteProvider sprites;
-
-		public Factory(FabricSpriteProvider sprites) {
-			this.sprites = sprites;
-		}
-
-		@Nullable
-		@Override
-		public Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-			Random random = new Random();
-			float min = 50.0E-4F;
-			float max = 5.0E-3F;
-			float accel = -(min + random.nextFloat() * (max - min));
-			return new FallenMysticalLeaf(world, x, y, z, this.sprites, accel);
-		}
-	}
+        @Override
+        public @NotNull Particle createParticle(DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+            float accel = (float) (velocityY + RANDOM.nextFloat());
+            return new FallenMysticalLeafParticle(world, x, y, z, this.sprites, accel);
+        }
+    }
 }

@@ -32,6 +32,7 @@
     "client.MusicTrackerMixin",
     "client.PlayerEntityRendererMixin",
     "client.SoundEventAccessor",
+    "client.BossBarHudMixin",
     "client.WorldRendererMixin"
   ],
   "injectors": {

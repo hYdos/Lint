@@ -36,9 +36,9 @@ public class DungeonGenerator {
 						ImmutableList.of(
 								Pair.of(Structures.createSinglePoolElement("dungeon/dungeon_enterance", StructureProcessorLists.EMPTY), 50),
 								Pair.of(Structures.createSinglePoolElement("dungeon/boss/king_tater", StructureProcessorLists.EMPTY), 50),
-								Pair.of(Structures.createLegacySinglePoolElement("dungeon/pathway/carpet_intersection", StructureProcessorLists.EMPTY), 50),
+								Pair.of(Structures.createSinglePoolElement("dungeon/pathway/carpet_intersection", StructureProcessorLists.EMPTY), 50),
 								Pair.of(Structures.createSinglePoolElement("dungeon/decoration/carpet_large_paintings", StructureProcessorLists.EMPTY), 50),
-								Pair.of(Structures.createSinglePoolElement("dungeon/decoration/cell_room", StructureProcessorLists.EMPTY), 50),
+								Pair.of(Structures.createLegacySinglePoolElement("dungeon/decoration/cell_room", StructureProcessorLists.EMPTY), 50),
 								Pair.of(Structures.createSinglePoolElement("dungeon/pathway/east_pathway", StructureProcessorLists.EMPTY), 50),
 								Pair.of(Structures.createSinglePoolElement("dungeon/pathway/east_west_corner", StructureProcessorLists.EMPTY), 50),
 								Pair.of(Structures.createSinglePoolElement("dungeon/pathway/hallway_north", StructureProcessorLists.EMPTY), 50),

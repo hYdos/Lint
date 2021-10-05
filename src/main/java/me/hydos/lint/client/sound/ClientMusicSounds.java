@@ -47,7 +47,7 @@ public class ClientMusicSounds {
 				.downfall(0)
 				.spawnSettings(Biomes.DEFAULT_SPAWN_SETTINGS.build())
 				.generationSettings(new GenerationSettings.Builder()
-						.surfaceBuilder(Biomes.MF_SB)
+						.surfaceBuilder(Biomes.MYSTICAL_FOREST_SURFACE_BUILDER)
 						.build())
 				.effects(effects.build())
 				.build();

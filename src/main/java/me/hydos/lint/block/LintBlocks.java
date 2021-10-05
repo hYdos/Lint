@@ -154,11 +154,6 @@ public class LintBlocks {
 			.itemGroup(ItemGroup.DECORATIONS)
 			.register("mystical_fallen_leaves", FallenLeavesBlock::new);
 
-	public static final FlowerBlock MYSTICAL_GRASS_PLANT = BlockBuilder.create()
-			.material(LintMaterials.PLANT)
-			.model(Model.CROSS)
-			.register("mystical_grass", settings -> new LintFlowerBlock(StatusEffects.BAD_OMEN, settings, VoxelShapes.cuboid(0.125, 0.0, 0.125, 0.9375, 0.5, 0.875)));
-
 	public static final FlowerBlock MYSTICAL_STEM = createPlant("mystical_stem", StatusEffects.JUMP_BOOST);
 	public static final FrostedFlower FROZEN_STEM = createFrostedPlant("frozen_stem", StatusEffects.SPEED);
 	public static final FlowerBlock RED_TUSSOCK = createTussockPlant("red_tussock", StatusEffects.FIRE_RESISTANCE);

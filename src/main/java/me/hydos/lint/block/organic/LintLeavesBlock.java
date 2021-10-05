@@ -44,7 +44,7 @@ public class LintLeavesBlock extends LeavesBlock {
 			double y = (double) pos.getY() + random.nextInt(1);
 			double z = (double) pos.getZ() + random.nextDouble();
 			if (world.isAir(pos.offset(Direction.DOWN))) {
-				world.addParticle(Particles.FALLEN_MYSTICAL_LEAF, x, y, z, 0.0D, -0.2D, 0.0D);
+				world.addParticle(Particles.FALLEN_MYSTICAL_LEAF, x, y, z, 0.0D, 0.8D, 0.0D);
 			}
 		}
 	}

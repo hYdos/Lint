@@ -208,7 +208,6 @@ public class FeaturesOld {
 	public static final ConfiguredFeature<?, ?> TUSSOCKS = registerPatch("tussocks", Configs.TUSSOCK_CONFIG, 2);
 	public static final ConfiguredFeature<?, ?> RED_TUSSOCKS = registerPatch("red_tussocks", Configs.RED_TUSSOCK_CONFIG, 2);
 	public static final ConfiguredFeature<?, ?> GENERIC_BLUE_FLOWERS = registerPatch("generic_blue_flowers", Configs.GENERIC_BLUE_FLOWERS_CONFIG, 1);
-	public static final ConfiguredFeature<?, ?> MYSTICAL_GRASS = registerPatch("mystical_grass", Configs.MYSTICAL_GRASS_CONFIG, 3);
 	public static final ConfiguredFeature<?, ?> CORRUPT_STEMS = registerPatch("corrupt_stems", Configs.CORRUPT_STEM_CONFIG, 3);
 	public static final ConfiguredFeature<?, ?> WILTED_FLOWERS = registerPatch("wilted_flowers", Configs.WILTED_FLOWER_CONFIG, 3);
 	public static final ConfiguredFeature<?, ?> CORRUPT_FALLEN_LEAVES = registerPatch("corrupt_fallen_leaves", Configs.CORRUPT_FALLEN_LEAVES, 3);
@@ -292,18 +291,6 @@ public class FeaturesOld {
 				new SimpleBlockStateProvider(LintBlocks.THAISA.getDefaultState()),
 				new DoublePlantPlacer())
 				.tries(8).build();
-
-		public static final RandomPatchFeatureConfig MYSTICAL_GRASS_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_GRASS_PLANT.getDefaultState()),
-				SimpleBlockPlacer.INSTANCE)
-				.tries(16).build();
-
-		public static final RandomPatchFeatureConfig BUNCHED_MYSTICAL_GRASS_CONFIG = new RandomPatchFeatureConfig.Builder(
-				new SimpleBlockStateProvider(LintBlocks.MYSTICAL_GRASS_PLANT.getDefaultState()),
-				SimpleBlockPlacer.INSTANCE)
-				.spreadX(3)
-				.spreadZ(3)
-				.tries(16).build();
 
 		public static final RandomPatchFeatureConfig CORRUPT_STEM_CONFIG = new RandomPatchFeatureConfig.Builder(
 				new SimpleBlockStateProvider(LintBlocks.CORRUPT_STEM.getDefaultState()),

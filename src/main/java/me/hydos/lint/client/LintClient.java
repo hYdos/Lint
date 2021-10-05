@@ -42,7 +42,7 @@ import me.hydos.lint.entity.Birds;
 import me.hydos.lint.entity.Entities;
 import me.hydos.lint.fluid.LintFluids;
 import me.hydos.lint.network.Networking;
-import me.hydos.lint.particle.FallenMysticalLeaf;
+import me.hydos.lint.particle.FallenMysticalLeafParticle;
 import me.hydos.lint.particle.Particles;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.screenhandler.client.LilTaterScreen;
@@ -101,7 +101,7 @@ public class LintClient implements ClientModInitializer {
 	}
 
 	private void registerParticles() {
-		ParticleFactoryRegistry.getInstance().register(Particles.FALLEN_MYSTICAL_LEAF, FallenMysticalLeaf.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(Particles.FALLEN_MYSTICAL_LEAF, FallenMysticalLeafParticle.Factory::new);
 	}
 
 	private void registerBlockEntityRenderers() {
