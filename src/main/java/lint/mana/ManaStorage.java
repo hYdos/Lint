@@ -22,9 +22,12 @@ package lint.mana;
 import me.hydos.lint.Lint;
 import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
+import net.fabricmc.fabric.api.transfer.v1.storage.StoragePreconditions;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Access to mana reserved either in world, as items on in players
@@ -115,4 +118,43 @@ public interface ManaStorage {
 	 * @return How much mana was successfully extracted
 	 */
 	long extract(long maxAmount, TransactionContext transaction);
+
+	/**
+	 * Move mana between two mana storages, and return the amount that was successfully moved
+	 *
+	 * @param from        The source storage
+	 * @param to          The target storage
+	 * @param maxAmount   The maximum amount that may be moved
+	 * @param transaction The transaction this transfer is part of, or {@code null} if a transaction should be opened
+	 *                    just for this transfer
+	 * @return The amount of mana that was successfully moved
+	 */
+	static long move(ManaStorage from, ManaStorage to, long maxAmount, @Nullable TransactionContext transaction) {
+		if (from.getType() != to.getType()) {
+			return 0;
+		}
+
+		StoragePreconditions.notNegative(maxAmount);
+
+		// Simulate extraction first
+		long maxExtracted;
+
+		try (Transaction extractionTestTransaction = Transaction.openNested(transaction)) {
+			maxExtracted = from.extract(maxAmount, extractionTestTransaction);
+		}
+
+		try (Transaction moveTransaction = Transaction.openNested(transaction)) {
+			// Then insert what can be extracted
+			long accepted = to.insert(maxExtracted, moveTransaction);
+
+			// Extract for real
+			if (from.extract(accepted, moveTransaction) == accepted) {
+				// Commit if the amounts match
+				moveTransaction.commit();
+				return accepted;
+			}
+		}
+
+		return 0;
+	}
 }

@@ -24,6 +24,8 @@ import static me.hydos.lint.Lint.id;
 
 import java.util.function.Predicate;
 
+import lint.mana.alchemy.AlchemyPedestalBlock;
+import lint.mana.block.ChargepadBlock;
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.organic.CorruptFlower;
 import me.hydos.lint.block.organic.DistantLeavesBlock;
@@ -56,6 +58,7 @@ import net.devtech.arrp.json.recipe.JKeys;
 import net.devtech.arrp.json.recipe.JPattern;
 import net.devtech.arrp.json.recipe.JRecipe;
 import net.devtech.arrp.json.recipe.JResult;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -530,6 +533,23 @@ public class LintBlocks {
 			.register("cookie");
 
 	public static final Block MYSTICAL_DOOR = Blocks.WARPED_DOOR; // TODO
+
+	// Mana
+	public static final Block ALCHEMY_PEDESTAL = BlockBuilder.create()
+			.material(BlockMaterial.copy(Blocks.STONE))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.itemGroup(ItemGroups.ITEMS)
+			.register("alchemy_pedestal", AlchemyPedestalBlock::new);
+	public static final Block CHARGEPAD = BlockBuilder.create()
+			.material(BlockMaterial.copy(Blocks.STONE))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.itemGroup(ItemGroups.ITEMS)
+			.register("chargepad", settings -> new ChargepadBlock(settings, true));
+	public static final Block DISCHARGEPAD = BlockBuilder.create()
+			.material(BlockMaterial.copy(Blocks.STONE))
+			.model(Model.SIMPLE_CUBE_ALL)
+			.itemGroup(ItemGroups.ITEMS)
+			.register("dischargepad", settings -> new ChargepadBlock(settings, false));
 
 	// Slabs and Saplings
 

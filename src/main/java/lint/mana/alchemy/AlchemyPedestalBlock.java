@@ -34,9 +34,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class AlchemyPedestal extends BlockWithEntity {
+public class AlchemyPedestalBlock extends BlockWithEntity {
 
-	public AlchemyPedestal(Settings settings) {
+	public AlchemyPedestalBlock(Settings settings) {
 		super(settings);
 	}
 

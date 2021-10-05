@@ -22,6 +22,7 @@ package me.hydos.lint.block.entity;
 import lint.mana.ManaStorage;
 import lint.mana.alchemy.AlchemyPedestalBlockEntity;
 import me.hydos.lint.Lint;
+import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.LintBlocksOld;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.registry.Registry;
@@ -39,7 +40,7 @@ public class BlockEntities {
 			Lint.id("alchemy_pedestal"),
 			BlockEntityType.Builder.create((pos, state) ->
 							new AlchemyPedestalBlockEntity(BlockEntities.ALCHEMY_PEDESTAL, pos, state),
-					LintBlocksOld.ALCHEMY_PEDESTAL).build(null));
+					LintBlocks.ALCHEMY_PEDESTAL).build(null));
 
 	public static void initialize() {
 		ManaStorage.BLOCK.registerForBlockEntity((blockEntity, type) -> blockEntity.getStorage(), ALCHEMY_PEDESTAL);
