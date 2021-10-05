@@ -26,13 +26,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class ChargepadBlock extends Block {
-
-	private static final VoxelShape SHAPE = createCuboidShape(0, 0, 0, 16, 2, 16);
 
 	private final boolean chargeEntity;
 
@@ -50,7 +49,15 @@ public class ChargepadBlock extends Block {
 	public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
 		if (!world.isClient()) {
 			ManaStorage entityStorage = ManaStorage.of(entity, ManaType.GENERIC);
-			ManaStorage attachedStorage = ManaStorage.BLOCK.find(world, pos.down(), ManaType.GENERIC);
+			ManaStorage attachedStorage = null;
+
+			for (Direction direction : Direction.values()) {
+				attachedStorage = ManaStorage.BLOCK.find(world, pos.offset(direction), ManaType.GENERIC);
+
+				if (attachedStorage != null) {
+					break;
+				}
+			}
 
 			if (attachedStorage != null) {
 				if (chargeEntity) {
