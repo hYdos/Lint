@@ -20,10 +20,11 @@
 package me.hydos.lint.world.carver;
 
 import com.mojang.serialization.Codec;
+import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.math.*;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.carver.Carver;
@@ -37,8 +38,7 @@ import java.util.Random;
 import java.util.function.Function;
 
 public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
-	// FIXME: cave carvers
-	//public static final Carver<ProbabilityConfig> INSTANCE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(ProbabilityConfig.CODEC, 256));
+	public static final LintCaveCarver CAVE = Registry.register(Registry.CARVER, Lint.id("cave"), new LintCaveCarver(LintCaveCarverConfig.CAVE_CODEC));
 
 	public LintCaveCarver(Codec<LintCaveCarverConfig> codec) {
 		super(codec);
@@ -131,12 +131,12 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 
 	@Override
 	public boolean shouldCarve(LintCaveCarverConfig config, Random random) {
-		return false;
+		return random.nextFloat() <= config.probability;
 	}
 
 	@Override
 	protected boolean canCarveBlock(BlockState state, BlockState stateAbove) {
-		return state.isOf(LintBlocks.FUSED_STONE) || super.canCarveBlock(state, stateAbove);
+		return state.isOf(LintBlocks.FUSED_STONE) || state.isOf(LintBlocks.INDIGO_STONE) || state.isOf(LintBlocks.CORRUPT_GRASS) || state.isOf(LintBlocks.LIVELY_GRASS) || state.isOf(LintBlocks.FROSTED_GRASS) || state.isOf(LintBlocks.ASPHALT) || state.isOf(LintBlocks.CORRUPT_SAND) || state.isOf(LintBlocks.MYSTICAL_SAND) || state.isOf(LintBlocks.WHITE_SAND) || state.isOf(LintBlocks.ASH) || super.canCarveBlock(state, stateAbove);
 	}
 
 	protected float getTunnelSystemWidth(Random random) {
@@ -147,7 +147,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 	protected boolean carveAtPoint(CarverContext context, LintCaveCarverConfig config, Chunk chunk, Function<BlockPos, Biome> posToBiome, BitSet carvingMask, Random random, BlockPos.Mutable pos, BlockPos.Mutable downPos, AquiferSampler sampler, MutableBoolean foundSurface) {
 		BlockState blockState = chunk.getBlockState(pos);
 		BlockState blockState2 = chunk.getBlockState(downPos.set(pos, Direction.UP));
-		if (blockState.isOf(LintBlocks.CORRUPT_GRASS) || blockState.isOf(LintBlocks.LIVELY_GRASS)) {
+		if (blockState.isOf(LintBlocks.CORRUPT_GRASS) || blockState.isOf(LintBlocks.LIVELY_GRASS) || blockState.isOf(LintBlocks.FROSTED_GRASS)) {
 			foundSurface.setTrue();
 		}
 
@@ -162,7 +162,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 				chunk.setBlockState(pos, blockState3, false);
 				if (foundSurface.isTrue()) {
 					downPos.set(pos, Direction.DOWN);
-					if (chunk.getBlockState(downPos).isOf(Blocks.DIRT)) {
+					if (chunk.getBlockState(downPos).isOf(LintBlocks.RICH_DIRT)) {
 						chunk.setBlockState(downPos, posToBiome.apply(pos).getGenerationSettings().getSurfaceConfig().getTopMaterial(), false);
 					}
 				}
