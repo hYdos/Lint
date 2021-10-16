@@ -19,22 +19,8 @@
 
 package me.hydos.lint.block;
 
-import static me.hydos.lint.Lint.RESOURCE_PACK;
-import static me.hydos.lint.Lint.id;
-
-import java.util.function.Predicate;
-
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.organic.CorruptFlower;
-import me.hydos.lint.block.organic.DistantLeavesBlock;
-import me.hydos.lint.block.organic.FallenLeavesBlock;
-import me.hydos.lint.block.organic.FrostedFlower;
-import me.hydos.lint.block.organic.LintFlowerBlock;
-import me.hydos.lint.block.organic.LintLeavesBlock;
-import me.hydos.lint.block.organic.LintSaplingBlock;
-import me.hydos.lint.block.organic.LintSpreadableBlock;
-import me.hydos.lint.block.organic.LintTallFlowerBlock;
-import me.hydos.lint.block.organic.StrippablePillarBlock;
+import me.hydos.lint.block.organic.*;
 import me.hydos.lint.block.util.BlockBuilder;
 import me.hydos.lint.block.util.BlockBuilder.BlockConstructor;
 import me.hydos.lint.block.util.BlockMaterial;
@@ -46,27 +32,10 @@ import me.hydos.lint.mixinimpl.LintPortal;
 import me.hydos.lint.util.Power;
 import me.hydos.lint.util.TeleportUtils;
 import me.hydos.lint.world.dimension.LintDimensions;
-import me.hydos.lint.world.tree.CanopyTree;
-import me.hydos.lint.world.tree.CorruptTree;
-import me.hydos.lint.world.tree.FrozenTree;
-import me.hydos.lint.world.tree.MysticalTree;
-import me.hydos.lint.world.tree.WitheredTree;
-import net.devtech.arrp.json.recipe.JIngredient;
-import net.devtech.arrp.json.recipe.JKeys;
-import net.devtech.arrp.json.recipe.JPattern;
-import net.devtech.arrp.json.recipe.JRecipe;
-import net.devtech.arrp.json.recipe.JResult;
+import me.hydos.lint.world.tree.*;
+import net.devtech.arrp.json.recipe.*;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.SlabBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -79,6 +48,11 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShapes;
+
+import java.util.function.Predicate;
+
+import static me.hydos.lint.Lint.RESOURCE_PACK;
+import static me.hydos.lint.Lint.id;
 
 /**
  * All of lint's core blocks.
@@ -374,7 +348,7 @@ public class LintBlocks {
 			.material(LintMaterials.STONE)
 			.model(Model.SIMPLE_CUBE_ALL)
 			.customLootTable()
-			.register("fused_stone");
+			.register("fused_stone", StoneLikeBlock::new);
 
 	public static final Block FUSED_COBBLESTONE = BlockBuilder.create()
 			.material(LintMaterials.COBBLESTONE)
@@ -385,7 +359,7 @@ public class LintBlocks {
 			.material(LintMaterials.STONE
 					.colour(MapColor.TERRACOTTA_PURPLE))
 			.model(Model.SIMPLE_CUBE_ALL)
-			.register("indigo_stone");
+			.register("indigo_stone", StoneLikeBlock::new);
 
 	public static final Block MAGNETITE_DEPOSIT = BlockBuilder.create() // Used to use sound group metal but seeing as it is mineral form I think I should keep it as stone.
 			.material(LintMaterials.STONE
@@ -511,8 +485,7 @@ public class LintBlocks {
 							if (fraiya == null) {
 								return;
 							}
-							if (entity instanceof ServerPlayerEntity) {
-								ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) entity;
+							if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
 								serverPlayerEntity.networkHandler.sendPacket(new StopSoundS2CPacket(null, null));
 							}
 							if (entity instanceof LivingEntity) {
@@ -566,7 +539,7 @@ public class LintBlocks {
 	}
 
 	private static final class FarmlandBlock extends net.minecraft.block.FarmlandBlock {
-		protected FarmlandBlock(Settings settings) {
+		private FarmlandBlock(Settings settings) {
 			super(settings);
 		}
 	}
