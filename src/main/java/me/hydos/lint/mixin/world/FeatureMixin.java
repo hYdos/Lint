@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 @Mixin(Feature.class)
 public class FeatureMixin {
-	@Inject(at = @At("HEAD"), method = "isSoil", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "isSoil(Lnet/minecraft/block/BlockState;)Z", cancellable = true)
 	private static void isSoil(BlockState state, CallbackInfoReturnable<Boolean> info) {
 		if (DirtLikeBlock.isLintGrass(state)) {
 			info.setReturnValue(true);
