@@ -23,7 +23,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 
 public class DirtLikeBlock extends Block {
-	public DirtLikeBlock(Settings settings) {
+	DirtLikeBlock(Settings settings) {
 		super(settings);
 	}
 
