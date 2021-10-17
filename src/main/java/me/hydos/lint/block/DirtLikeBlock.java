@@ -17,9 +17,32 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.world.carver;
+package me.hydos.lint.block;
 
-// FIXME: cave carvers
-public interface LintConfiguredCarvers {
-//	ConfiguredCarver<CarverConfig> CAVE = Registry.register(BuiltinRegistries.CONFIGURED_CARVER, Lint.id("nebulaes_bane"), LintCaveCarver.INSTANCE.configure(new ProbabilityConfig(0.09F)));
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+
+public class DirtLikeBlock extends Block {
+	public DirtLikeBlock(Settings settings) {
+		super(settings);
+	}
+
+//	@Override
+//	public boolean is(Block block) {
+//		return this == block || Blocks.DIRT == block;
+//	}
+
+	public static boolean isLintGrass(BlockState state) {
+		Block block = state.getBlock();
+		return isLintGrass(block);
+	}
+
+	public static boolean isLintGrass(Block block) {
+		return block == LintBlocks.CORRUPT_GRASS || block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
+	}
+
+	public static boolean isUntaintedGrass(BlockState state) {
+		Block block = state.getBlock();
+		return block == LintBlocks.LIVELY_GRASS || block == LintBlocks.FROSTED_GRASS;
+	}
 }

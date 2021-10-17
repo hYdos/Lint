@@ -19,14 +19,18 @@
 
 package me.hydos.lint.world.feature;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import me.hydos.lint.block.DirtLikeBlock;
 import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.block.organic.DistantLeavesBlock;
-import me.hydos.lint.tag.block.LintGrassTags;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.structure.Structure;
+import net.minecraft.util.math.*;
+import net.minecraft.util.shape.VoxelSet;
 import net.minecraft.world.ModifiableTestableWorld;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.TestableWorld;
@@ -35,7 +39,11 @@ import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 // Should be default feature config bc I ignore every parameter but i have to use this
 public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
@@ -62,7 +70,7 @@ public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 		return height;
 	}
 
-	private boolean generate(StructureWorldAccess world, Random random, BlockPos start) {
+	private boolean generate(StructureWorldAccess world, Random random, BlockPos start, BiConsumer<BlockPos, BlockState> trunkReplacer, BiConsumer<BlockPos, BlockState> foliageReplacer, TreeFeatureConfig config) {
 		// TODO
 		// - taller
 		// - cooler angles
@@ -75,7 +83,7 @@ public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 		int startZ = start.getZ();
 		BlockPos.Mutable pos = new BlockPos.Mutable().set(start);
 
-		if (world.getBlockState(start.down()).isIn(LintGrassTags.UNTAINTED)) {
+		if (DirtLikeBlock.isUntaintedGrass(world.getBlockState(start.down()))) {
 			int trunkHeight = 12 + random.nextInt(15);
 			int trueHeight = trunkHeight + 3; // 3 blocks above trunk height
 
@@ -91,7 +99,7 @@ public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 				// 1. Canopy Leaves
 				for (int dy = -5; dy < 0; ++dy) {
 					float dymod = dy + 3;
-					float r = 4 - 0.5f * dymod * (1 + 0.1f * dymod * dymod); // radius
+					float r = dy == 0 ? 1.01f : 4 - 0.5f * dymod * (1 + 0.1f * dymod * dymod); // radius
 					int max = MathHelper.ceil(r);
 					pos.setY(startY + trueHeight + dy);
 
@@ -203,8 +211,42 @@ public class CanopyTreeFeature extends Feature<TreeFeatureConfig> {
 		StructureWorldAccess structureWorldAccess = context.getWorld();
 		Random random = context.getRandom();
 		BlockPos blockPos = context.getOrigin();
-		this.generate(structureWorldAccess, random, blockPos);
-		return false;
+		TreeFeatureConfig treeFeatureConfig = context.getConfig();
+		Set<BlockPos> set = Sets.newHashSet();
+		Set<BlockPos> set2 = Sets.newHashSet();
+		Set<BlockPos> set3 = Sets.newHashSet();
+		BiConsumer<BlockPos, BlockState> biConsumer = (pos, state) -> {
+			set.add(pos.toImmutable());
+			structureWorldAccess.setBlockState(pos, state, Block.NOTIFY_ALL | Block.FORCE_STATE);
+		};
+		BiConsumer<BlockPos, BlockState> biConsumer2 = (pos, state) -> {
+			set2.add(pos.toImmutable());
+			structureWorldAccess.setBlockState(pos, state, Block.NOTIFY_ALL | Block.FORCE_STATE);
+		};
+		BiConsumer<BlockPos, BlockState> biConsumer3 = (pos, state) -> {
+			set3.add(pos.toImmutable());
+			structureWorldAccess.setBlockState(pos, state, Block.NOTIFY_ALL | Block.FORCE_STATE);
+		};
+		boolean bl = this.generate(structureWorldAccess, random, blockPos, biConsumer, biConsumer2, treeFeatureConfig);
+		if (bl && (!set.isEmpty() || !set2.isEmpty())) {
+			if (!treeFeatureConfig.decorators.isEmpty()) {
+				List<BlockPos> list = Lists.newArrayList(set);
+				List<BlockPos> list2 = Lists.newArrayList(set2);
+				list.sort(Comparator.comparingInt(Vec3i::getY));
+				list2.sort(Comparator.comparingInt(Vec3i::getY));
+				treeFeatureConfig.decorators.forEach((treeDecorator) -> {
+					treeDecorator.generate(structureWorldAccess, biConsumer3, random, list, list2);
+				});
+			}
+
+			return BlockBox.encompassPositions(Iterables.concat(set, set2, set3)).map((box) -> {
+				VoxelSet voxelSet = TreeFeature.placeLogsAndLeaves(structureWorldAccess, box, set, set3);
+				Structure.updateCorner(structureWorldAccess, Block.NOTIFY_ALL, voxelSet, box.getMinX(), box.getMinY(), box.getMinZ());
+				return true;
+			}).orElse(false);
+		} else {
+			return false;
+		}
 	}
 
 	private void setLeaves(ModifiableTestableWorld world, BlockPos pos) {

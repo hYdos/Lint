@@ -1,7 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#lint:untainted/grass",
-    "#lint:tainted/grass"
-  ]
-}

@@ -17,15 +17,14 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.tag.item;
+package me.hydos.lint.tag;
 
 import me.hydos.lint.Lint;
-import net.fabricmc.fabric.api.tag.TagFactory;
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
 
-public final class LintItemTags {
-	public static final Tag<Item> HERB_MIX_SPECIAL = TagFactory.ITEM.create(Lint.id("herb_mix_special"));
+public class LintItemTags {
 
-	private LintItemTags() {}
+	public static final Tag<Item> HERB_MIX_SPECIAL = TagRegistry.item(Lint.id("herb_mix_special"));
 }
