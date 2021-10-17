@@ -19,7 +19,14 @@
 
 package me.hydos.lint.world.carver;
 
-// FIXME: cave carvers
+import me.hydos.lint.Lint;
+import net.minecraft.util.math.floatprovider.ConstantFloatProvider;
+import net.minecraft.util.registry.BuiltinRegistries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.YOffset;
+import net.minecraft.world.gen.carver.ConfiguredCarver;
+import net.minecraft.world.gen.heightprovider.BiasedToBottomHeightProvider;
+
 public interface LintConfiguredCarvers {
-//	ConfiguredCarver<CarverConfig> CAVE = Registry.register(BuiltinRegistries.CONFIGURED_CARVER, Lint.id("nebulaes_bane"), LintCaveCarver.INSTANCE.configure(new ProbabilityConfig(0.09F)));
+	ConfiguredCarver<LintCaveCarverConfig> CAVE = Registry.register(BuiltinRegistries.CONFIGURED_CARVER, Lint.id("nebulaes_bane"), LintCaveCarver.CAVE.configure(new LintCaveCarverConfig(BiasedToBottomHeightProvider.create(YOffset.fixed(0), YOffset.fixed(127), 8), ConstantFloatProvider.create(0.5F), YOffset.aboveBottom(10), false, ConstantFloatProvider.create(0.5F), ConstantFloatProvider.create(0.5F), ConstantFloatProvider.create(-0.7F))));
 }

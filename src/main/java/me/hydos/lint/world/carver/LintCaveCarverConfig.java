@@ -19,12 +19,24 @@
 
 package me.hydos.lint.world.carver;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.math.floatprovider.FloatProvider;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.carver.CaveCarverConfig;
 import net.minecraft.world.gen.heightprovider.HeightProvider;
 
 public class LintCaveCarverConfig extends CaveCarverConfig {
+	public static final Codec<LintCaveCarverConfig> CAVE_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+			HeightProvider.CODEC.fieldOf("y").forGetter(config -> config.y),
+			FloatProvider.VALUE_CODEC.fieldOf("yScale").forGetter(config -> config.yScale),
+			YOffset.OFFSET_CODEC.fieldOf("lava_level").forGetter(config -> config.lavaLevel),
+			Codec.BOOL.fieldOf("aquifers_enabled").forGetter(config -> config.aquifers),
+			FloatProvider.VALUE_CODEC.fieldOf("horizontal_radius_multiplier").forGetter(config -> config.horizontalRadiusMultiplier),
+			FloatProvider.VALUE_CODEC.fieldOf("vertical_radius_multiplier").forGetter(config -> config.verticalRadiusMultiplier),
+			FloatProvider.VALUE_CODEC.fieldOf("floor_level").forGetter(config -> config.floorLevel)
+	).apply(instance, LintCaveCarverConfig::new));
+
 	public LintCaveCarverConfig(HeightProvider y, FloatProvider yScale, YOffset lavaLevel, boolean aquifers, FloatProvider horizontalRadiusMultiplier, FloatProvider verticalRadiusMultiplier, FloatProvider floorLevel) {
 		super(0.09F, y, yScale, lavaLevel, aquifers, horizontalRadiusMultiplier, verticalRadiusMultiplier, floorLevel);
 	}
