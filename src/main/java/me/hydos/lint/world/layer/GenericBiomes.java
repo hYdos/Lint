@@ -27,12 +27,19 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.layer.type.InitLayer;
 import net.minecraft.world.biome.layer.util.LayerRandomnessSource;
 
-public record GenericBiomes(Registry<Biome> biomeRegistry,
-                            boolean beach) implements InitLayer {
+public class GenericBiomes implements InitLayer {
 	@SuppressWarnings("rawtypes")
 	private static final RegistryKey[] BIOMES = {Biomes.MYSTICAL_GROVE_KEY, Biomes.MYSTICAL_GROVE_KEY, Biomes.MYSTICAL_FOREST_KEY};
 	@SuppressWarnings("rawtypes")
 	private static final RegistryKey[] CORRUPT_BIOMES = {Biomes.CORRUPT_FOREST_KEY};
+
+	private final Registry<Biome> biomeRegistry;
+	private final boolean beach;
+
+	public GenericBiomes(Registry<Biome> biomeRegistry, boolean beach) {
+		this.biomeRegistry = biomeRegistry;
+		this.beach = beach;
+	}
 
 	@Override
 	public int sample(LayerRandomnessSource randomPawn, int x, int y) {

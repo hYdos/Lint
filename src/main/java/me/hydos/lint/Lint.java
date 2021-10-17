@@ -36,7 +36,7 @@ import me.hydos.lint.particle.Particles;
 import me.hydos.lint.recipe.Recipes;
 import me.hydos.lint.screenhandler.ScreenHandlers;
 import me.hydos.lint.sound.Sounds;
-import me.hydos.lint.tag.block.LintBlockTags;
+import me.hydos.lint.tag.LintBlockTags;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.LintDimensions;

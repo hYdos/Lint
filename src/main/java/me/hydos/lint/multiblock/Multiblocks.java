@@ -19,7 +19,7 @@
 
 package me.hydos.lint.multiblock;
 
-import me.hydos.lint.tag.block.LintBlockTags;
+import me.hydos.lint.tag.LintBlockTags;
 
 public class Multiblocks {
 	public static final SimpleMultiblockType SMELTERY = new SimpleMultiblockType(LintBlockTags.BASIC_CASING)

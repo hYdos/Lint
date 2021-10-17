@@ -17,18 +17,17 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package me.hydos.lint.tag.block;
+package me.hydos.lint.tag;
 
 import me.hydos.lint.Lint;
-import net.fabricmc.fabric.api.tag.TagFactory;
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.tag.Tag;
 
-public final class LintGrassTags {
-	public static final Tag<Block> UNTAINTED = TagFactory.BLOCK.create(Lint.id("untainted/grass"));
+public class LintBlockTags {
 
-	private LintGrassTags() {}
+	public static final Tag<Block> BASIC_CASING = TagRegistry.block(Lint.id("basic_smeltery_casing"));
 
-	/* no-op */
-	static void initialize() {}
+	public static void initialize() {
+	}
 }

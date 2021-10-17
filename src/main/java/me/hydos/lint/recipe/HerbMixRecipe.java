@@ -20,7 +20,7 @@
 package me.hydos.lint.recipe;
 
 import me.hydos.lint.item.LintItems;
-import me.hydos.lint.tag.item.LintItemTags;
+import me.hydos.lint.tag.LintItemTags;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
