@@ -21,9 +21,9 @@ package me.hydos.lint.world.carver;
 
 import com.mojang.serialization.Codec;
 import me.hydos.lint.Lint;
-import me.hydos.lint.block.LintBlocks;
-import me.hydos.lint.block.DirtLikeBlock;
+import me.hydos.lint.tag.block.LintBlockTags;
 import net.minecraft.block.BlockState;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -137,7 +137,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 
 	@Override
 	protected boolean canCarveBlock(BlockState state, BlockState stateAbove) {
-		return state.isOf(LintBlocks.FUSED_STONE) || state.isOf(LintBlocks.INDIGO_STONE) || state.isOf(LintBlocks.RICH_DIRT) || DirtLikeBlock.isLintGrass(state) || (state.isOf(LintBlocks.CORRUPT_SAND) || state.isOf(LintBlocks.MYSTICAL_SAND) || state.isOf(LintBlocks.WHITE_SAND)) && !stateAbove.getFluidState().isIn(FluidTags.WATER);
+		return (state.isIn(LintBlockTags.STONE) || state.isIn(LintBlockTags.DIRT) || state.isIn(LintBlockTags.GRASS)) && !stateAbove.getFluidState().isIn(FluidTags.WATER);
 	}
 
 	protected float getTunnelSystemWidth(Random random) {
@@ -146,24 +146,23 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 
 	@Override
 	protected boolean carveAtPoint(CarverContext context, LintCaveCarverConfig config, Chunk chunk, Function<BlockPos, Biome> posToBiome, BitSet carvingMask, Random random, BlockPos.Mutable pos, BlockPos.Mutable downPos, AquiferSampler sampler, MutableBoolean foundSurface) {
-		BlockState blockState = chunk.getBlockState(pos);
-		BlockState blockState2 = chunk.getBlockState(downPos.set(pos, Direction.UP));
-		if (DirtLikeBlock.isLintGrass(blockState)) {
+		BlockState state = chunk.getBlockState(pos);
+		BlockState state2 = chunk.getBlockState(downPos.set(pos, Direction.UP));
+		if (state.isIn(LintBlockTags.GRASS)) {
 			foundSurface.setTrue();
 		}
 
-		if (!this.canCarveBlock(blockState, blockState2) && !isDebug(config)) {
+		if (!this.canCarveBlock(state, state2) && !isDebug(config)) {
 			return false;
 		} else {
-			// TODO: should i do if (y == 11) and stuff from the old carveAtPoint?
-			BlockState blockState3 = this.getState(context, config, pos, sampler);
-			if (blockState3 == null) {
+			BlockState state3 = this.getState(context, config, pos, sampler);
+			if (state3 == null) {
 				return false;
 			} else {
-				chunk.setBlockState(pos, blockState3, false);
+				chunk.setBlockState(pos, state3, false);
 				if (foundSurface.isTrue()) {
 					downPos.set(pos, Direction.DOWN);
-					if (chunk.getBlockState(downPos).isOf(LintBlocks.RICH_DIRT)) {
+					if (chunk.getBlockState(downPos).isIn(LintBlockTags.DIRT)) {
 						chunk.setBlockState(downPos, posToBiome.apply(pos).getGenerationSettings().getSurfaceConfig().getTopMaterial(), false);
 					}
 				}

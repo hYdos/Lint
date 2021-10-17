@@ -1,0 +1,6 @@
+{
+  "require": false,
+  "values": [
+    "lint:rich_dirt"
+  ]
+}

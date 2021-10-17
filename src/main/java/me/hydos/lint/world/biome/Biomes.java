@@ -66,8 +66,7 @@ public class Biomes {
 	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_EDGE_RAW_SB = new DawnShardlandsEdgeSurfaceBuilder();
 
 	public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.LIVELY_GRASS.getDefaultState(),
+			new TernarySurfaceConfig(LintBlocks.LIVELY_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
@@ -77,8 +76,7 @@ public class Biomes {
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> FF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.FROSTED_GRASS.getDefaultState(),
+			new TernarySurfaceConfig(LintBlocks.FROSTED_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
@@ -88,8 +86,7 @@ public class Biomes {
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OC_SB = OCEAN_RAW_SB.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.LIVELY_GRASS.getDefaultState(),
+			new TernarySurfaceConfig(LintBlocks.LIVELY_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
