@@ -1,5 +1,5 @@
 {
-  "require": false,
+  "replace": false,
   "values": [
     "lint:rich_dirt"
   ]
