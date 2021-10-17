@@ -312,7 +312,7 @@ public class LintBlocks {
 	public static final Block RICH_DIRT = BlockBuilder.create()
 			.material(LintMaterials.DIRT)
 			.model(Model.SIMPLE_CUBE_ALL)
-			.register("rich_dirt", DirtLikeBlock::new);
+			.register("rich_dirt");
 
 	public static final Block RICH_SOIL = BlockBuilder.create()
 			.material(LintMaterials.FARMLAND)
@@ -348,7 +348,7 @@ public class LintBlocks {
 			.material(LintMaterials.STONE)
 			.model(Model.SIMPLE_CUBE_ALL)
 			.customLootTable()
-			.register("fused_stone", StoneLikeBlock::new);
+			.register("fused_stone");
 
 	public static final Block FUSED_COBBLESTONE = BlockBuilder.create()
 			.material(LintMaterials.COBBLESTONE)
@@ -359,7 +359,7 @@ public class LintBlocks {
 			.material(LintMaterials.STONE
 					.colour(MapColor.TERRACOTTA_PURPLE))
 			.model(Model.SIMPLE_CUBE_ALL)
-			.register("indigo_stone", StoneLikeBlock::new);
+			.register("indigo_stone");
 
 	public static final Block MAGNETITE_DEPOSIT = BlockBuilder.create() // Used to use sound group metal but seeing as it is mineral form I think I should keep it as stone.
 			.material(LintMaterials.STONE
