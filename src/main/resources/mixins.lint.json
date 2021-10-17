@@ -19,7 +19,6 @@
     "gecko.RegistryUtilsMixin",
     
     "world.GeneratorOptionsMixin",
-    "world.FeatureMixin",
     "world.SaplingGeneratorMixin",
     "world.WorldMixin"
   ],

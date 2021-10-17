@@ -27,6 +27,7 @@ import me.hydos.lint.sound.BiomeMusicSounds;
 import me.hydos.lint.world.biome.surface.DawnShardlandsEdgeSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.DawnShardlandsSurfaceBuilder;
 import me.hydos.lint.world.biome.surface.OceanSurfaceBuilder;
+import me.hydos.lint.world.carver.LintConfiguredCarvers;
 import me.hydos.lint.world.feature.Features;
 import me.hydos.lint.world.feature.FeaturesOld;
 import me.hydos.lint.world.gen.terrain.TerrainChunkGenerator;
@@ -38,13 +39,8 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeEffects;
-import net.minecraft.world.biome.BiomeParticleConfig;
-import net.minecraft.world.biome.GenerationSettings;
-import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
@@ -70,8 +66,7 @@ public class Biomes {
 	public static final SurfaceBuilder<TernarySurfaceConfig> DAWN_SHARDLANDS_EDGE_RAW_SB = new DawnShardlandsEdgeSurfaceBuilder();
 
 	public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> MF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.LIVELY_GRASS.getDefaultState(),
+			new TernarySurfaceConfig(LintBlocks.LIVELY_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
@@ -81,8 +76,7 @@ public class Biomes {
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> FF_SB = SurfaceBuilder.DEFAULT.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.FROSTED_GRASS.getDefaultState(),
+			new TernarySurfaceConfig(LintBlocks.FROSTED_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
@@ -92,8 +86,7 @@ public class Biomes {
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
 	private static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OC_SB = OCEAN_RAW_SB.withConfig(
-			new TernarySurfaceConfig(
-					LintBlocks.LIVELY_GRASS.getDefaultState(),
+			new TernarySurfaceConfig(LintBlocks.LIVELY_GRASS.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState(),
 					LintBlocks.RICH_DIRT.getDefaultState()));
 
@@ -185,7 +178,7 @@ public class Biomes {
 			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(MF_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
@@ -223,7 +216,7 @@ public class Biomes {
 			.spawnSettings(FOREST_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(MF_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.MYSTICAL_ROCKS)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
@@ -262,7 +255,7 @@ public class Biomes {
 			.spawnSettings(FOREST_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(FF_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
@@ -299,7 +292,7 @@ public class Biomes {
 			.spawnSettings(CORRUPT_FOREST_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CF_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.RAW_GENERATION, FeaturesOld.CONFIGURED_VERTICAL_SHAFT)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
@@ -333,7 +326,7 @@ public class Biomes {
 			.spawnSettings(OCEAN_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(OC_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_STEMS)
@@ -368,7 +361,7 @@ public class Biomes {
 			.spawnSettings(OCEAN_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(OC_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_TOWN)
 					.feature(GenerationStep.Feature.VEGETAL_DECORATION, FeaturesOld.MYSTICAL_STEMS)
@@ -405,7 +398,7 @@ public class Biomes {
 			.spawnSettings(DEFAULT_SPAWN_SETTINGS.build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(CB_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CORRUPT_STEMS)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.KUREI)
@@ -435,7 +428,7 @@ public class Biomes {
 			.spawnSettings(new SpawnSettings.Builder().build())
 			.generationSettings(new GenerationSettings.Builder()
 					.surfaceBuilder(IN_SB)
-					.carver(GenerationStep.Carver.AIR, ConfiguredCarvers.CAVE)
+					.carver(GenerationStep.Carver.AIR, LintConfiguredCarvers.CAVE)
 					.feature(GenerationStep.Feature.RAW_GENERATION, FeaturesOld.CONFIGURED_VERTICAL_SHAFT)
 					.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, FeaturesOld.CONFIGURED_FADING_ASH)
 					.feature(GenerationStep.Feature.SURFACE_STRUCTURES, FeaturesOld.CONFIGURED_RETURN_PORTAL)
