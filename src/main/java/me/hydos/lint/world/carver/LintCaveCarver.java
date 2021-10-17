@@ -22,6 +22,7 @@ package me.hydos.lint.world.carver;
 import com.mojang.serialization.Codec;
 import me.hydos.lint.Lint;
 import me.hydos.lint.block.LintBlocks;
+import me.hydos.lint.block.DirtLikeBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
@@ -136,7 +137,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 
 	@Override
 	protected boolean canCarveBlock(BlockState state, BlockState stateAbove) {
-		return state.isOf(LintBlocks.FUSED_STONE) || state.isOf(LintBlocks.INDIGO_STONE) || state.isOf(LintBlocks.CORRUPT_GRASS) || state.isOf(LintBlocks.LIVELY_GRASS) || state.isOf(LintBlocks.FROSTED_GRASS) || (state.isOf(LintBlocks.CORRUPT_SAND) || state.isOf(LintBlocks.MYSTICAL_SAND) || state.isOf(LintBlocks.WHITE_SAND)) && !stateAbove.getFluidState().isIn(FluidTags.WATER);
+		return state.isOf(LintBlocks.FUSED_STONE) || state.isOf(LintBlocks.INDIGO_STONE) || DirtLikeBlock.isLintGrass(state) || (state.isOf(LintBlocks.CORRUPT_SAND) || state.isOf(LintBlocks.MYSTICAL_SAND) || state.isOf(LintBlocks.WHITE_SAND)) && !stateAbove.getFluidState().isIn(FluidTags.WATER);
 	}
 
 	protected float getTunnelSystemWidth(Random random) {
@@ -147,7 +148,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 	protected boolean carveAtPoint(CarverContext context, LintCaveCarverConfig config, Chunk chunk, Function<BlockPos, Biome> posToBiome, BitSet carvingMask, Random random, BlockPos.Mutable pos, BlockPos.Mutable downPos, AquiferSampler sampler, MutableBoolean foundSurface) {
 		BlockState blockState = chunk.getBlockState(pos);
 		BlockState blockState2 = chunk.getBlockState(downPos.set(pos, Direction.UP));
-		if (blockState.isOf(LintBlocks.CORRUPT_GRASS) || blockState.isOf(LintBlocks.LIVELY_GRASS) || blockState.isOf(LintBlocks.FROSTED_GRASS)) {
+		if (DirtLikeBlock.isLintGrass(blockState)) {
 			foundSurface.setTrue();
 		}
 
