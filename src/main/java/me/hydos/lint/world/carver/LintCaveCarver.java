@@ -136,7 +136,7 @@ public class LintCaveCarver extends Carver<LintCaveCarverConfig> {
 
 	@Override
 	protected boolean canCarveBlock(BlockState state, BlockState stateAbove) {
-		return state.isOf(LintBlocks.FUSED_STONE) || state.isOf(LintBlocks.INDIGO_STONE) || state.isOf(LintBlocks.CORRUPT_GRASS) || state.isOf(LintBlocks.LIVELY_GRASS) || state.isOf(LintBlocks.FROSTED_GRASS) || state.isOf(LintBlocks.ASPHALT) || state.isOf(LintBlocks.CORRUPT_SAND) || state.isOf(LintBlocks.MYSTICAL_SAND) || state.isOf(LintBlocks.WHITE_SAND) || state.isOf(LintBlocks.ASH) || super.canCarveBlock(state, stateAbove);
+		return state.isOf(LintBlocks.FUSED_STONE) || state.isOf(LintBlocks.INDIGO_STONE) || state.isOf(LintBlocks.CORRUPT_GRASS) || state.isOf(LintBlocks.LIVELY_GRASS) || state.isOf(LintBlocks.FROSTED_GRASS) || (state.isOf(LintBlocks.CORRUPT_SAND) || state.isOf(LintBlocks.MYSTICAL_SAND) || state.isOf(LintBlocks.WHITE_SAND)) && !stateAbove.getFluidState().isIn(FluidTags.WATER);
 	}
 
 	protected float getTunnelSystemWidth(Random random) {
