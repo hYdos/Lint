@@ -28,6 +28,7 @@ public final class LintBlockTags {
 	public static final Tag<Block> BASIC_CASING = TagFactory.BLOCK.create(Lint.id("basic_smeltery_casing"));
 	public static final Tag<Block> DIRT = TagFactory.BLOCK.create(Lint.id("dirt"));
 	public static final Tag<Block> GRASS = TagFactory.BLOCK.create(Lint.id("grass"));
+	public static final Tag<Block> SAND = TagFactory.BLOCK.create(Lint.id("sand"));
 	public static final Tag<Block> STONE = TagFactory.BLOCK.create(Lint.id("stone"));
 
 	private LintBlockTags() {}
