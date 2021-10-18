@@ -37,6 +37,7 @@ import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.feature.FeaturesOld;
 import me.hydos.lint.world.feature.FloatingIslandModifier;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.world.ServerWorld;
@@ -122,9 +123,12 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 		return new TerrainChunkGenerator(seed, this.terrainType, this.biomeRegistry);
 	}
 
+	static volatile int DEBUGGS = 5;
+
 	@Override
 	public CompletableFuture<Chunk> populateNoise(Executor executor, StructureAccessor accessor, Chunk chunk) {
 		return CompletableFuture.supplyAsync(() -> {
+//			long l = System.nanoTime();
 			final int startX = ((chunk.getPos().x) << 4);
 			final int startZ = ((chunk.getPos().z) << 4);
 			final int seaLevel = this.getSeaLevel();
@@ -158,62 +162,17 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 				}
 			}
 
+//			if (DEBUGGS > 0) {
+//				l = System.nanoTime() - l;
+//				if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+//					System.out.println("Debug ChunkShapeGEN Time: " + ((double) l / 1000000000.0));
+//				}
+//				DEBUGGS--;
+//			}
+
 			return chunk;
 		});
 	}
-
-//    @Override
-//    public void populateNoise(WorldAccess world, StructureAccessor accessor, Chunk chunk) {
-//        final int startX = ((chunk.getPos().x) << 4);
-//        final int startZ = ((chunk.getPos().z) << 4);
-//        final int seaLevel = this.getSeaLevel();
-//
-//        BlockPos.Mutable pos = new BlockPos.Mutable();
-//
-//        for (int xo = 0; xo < 16; ++xo) {
-//            final int x = xo + startX;
-//            pos.setX(xo);
-//
-//            for (int zo = 0; zo < 16; ++zo) {
-//                final int z = zo + startZ;
-//                final int dist = x * x + z * z;
-//                pos.setZ(zo);
-//
-//                int height = this.terrain.getHeight(x, z);
-//                int lowerBound = this.terrain.getLowerGenBound(x, z, height);
-//                boolean ash = this.surfaceNoise.sample(x * 0.09, z * 0.09, true) > 0 && (height - lowerBound) < 3;
-//
-//                if (height - lowerBound == 1) {
-//                    lowerBound--;
-//                }
-//
-//                for (int y = lowerBound; y < world.getHeight(); ++y) {
-//                    pos.setY(y);
-//
-//                    if (y < height) {
-//                        BlockState state;
-//
-//                        // TODO move this logic to the surface builder, or some other property
-//                        if (dist > FraiyaTerrainGenerator.SHARDLANDS_ISLANDS_START) {
-//                            if (ash && y > lowerBound) {
-//                                state = LintBlocks.ASH.getDefaultState();
-//                            } else {
-//                                state = LintBlocks.ASPHALT.getDefaultState();
-//                            }
-//                        } else {
-//                            state = LintBlocks.FUSED_STONE.getDefaultState();
-//                        }
-//
-//                        chunk.setBlockState(pos, state, false);
-//                    } else if (y < seaLevel) {
-//                        chunk.setBlockState(pos, Blocks.WATER.getDefaultState(), false);
-//                    } else {
-//                        chunk.setBlockState(pos, Blocks.AIR.getDefaultState(), false);
-//                    }
-//                }
-//            }
-//        }
-//    }
 
 	public int getLowerGenBound(int x, int z) {
 		int height = this.terrain.getHeight(x, z);
@@ -253,6 +212,7 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 
 	@Override
 	public void buildSurface(ChunkRegion region, Chunk chunk) {
+		long l = System.nanoTime();
 		ChunkPos chunkPos = chunk.getPos();
 		int chunkX = chunkPos.x;
 		int chunkZ = chunkPos.z;
@@ -283,6 +243,13 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 			}
 		}
 
+		if (DEBUGGS > 0) {
+			l = System.nanoTime() - l;
+			if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+				System.out.println("Debug BuildSurface Time: " + ((double) l / 1000000000.0));
+			}
+			DEBUGGS--;
+		}
 	}
 
 	public Vec2i[] getTownCentres() {

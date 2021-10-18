@@ -27,6 +27,7 @@ import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import me.hydos.lint.world.gen.terrain.TerrainGenerator;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.biome.Biome;
 
 public class CoreTests {
 	public static void main(String[] args) {
@@ -38,9 +39,9 @@ public class CoreTests {
 				if (a.annotationType().isAssignableFrom(UnitTest.class)) {
 					try {
 						if ((Boolean) m.invoke(null)) {
-							System.out.println("Test " + m.getName() + " Passed.");
+							System.out.println("Test " + m.getName() + " passed.");
 						} else {
-							System.err.println("Test " + m.getName() + " Failed.");
+							System.err.println("Test " + m.getName() + " failed.");
 						}
 					} catch (Throwable t) {
 						t.printStackTrace();
@@ -63,14 +64,23 @@ public class CoreTests {
 		
 		long start = System.nanoTime();
 
-		for (int x = 0; x < 16; ++x) {
-			for (int z = 0; z < 16; ++z) {
-				classic.getHeight(x, z);
+		for (int chunkX = -1; chunkX <= 1; ++chunkX) {
+			int startX = chunkX << 4;
+
+			for (int chunkZ = -1; chunkZ <= 1; ++chunkZ) {
+				int startZ = chunkZ << 4;
+
+				for (int x = 0; x < 16; ++x) {
+					for (int z = 0; z < 16; ++z) {
+						classic.getHeight(x + startX, z + startZ);
+					}
+				}
 			}
 		}
 
+
 		long elapsed = System.nanoTime() - start;
-		System.out.println("Took " + ((double) elapsed / 1000000000.0) + " seconds to get the heights for 1 chunk.");
+		System.out.println("Took " + ((double) elapsed / 1000000000.0) + " seconds to get the heights for 9 chunks (in a 3x3 region).");
 		return elapsed < 500000000L; // 0.5 second max time!
 	}
 }

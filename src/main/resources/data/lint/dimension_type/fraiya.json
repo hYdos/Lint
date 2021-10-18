@@ -13,5 +13,5 @@
   "logical_height": 250,
   "infiniburn": "minecraft:infiniburn_overworld",
   "effects": "minecraft:overworld",
-  "ambient_light": 0.1
+  "ambient_light": 0.05
 }
