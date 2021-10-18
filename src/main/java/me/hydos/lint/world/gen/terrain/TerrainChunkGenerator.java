@@ -123,12 +123,13 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 		return new TerrainChunkGenerator(seed, this.terrainType, this.biomeRegistry);
 	}
 
-	static volatile int DEBUGGS = 5;
+	// set to 0 to disable
+	static volatile int DEBUGGS = FabricLoader.getInstance().isDevelopmentEnvironment() ? 15 : 0;
 
 	@Override
 	public CompletableFuture<Chunk> populateNoise(Executor executor, StructureAccessor accessor, Chunk chunk) {
 		return CompletableFuture.supplyAsync(() -> {
-//			long l = System.nanoTime();
+			long l = System.nanoTime();
 			final int startX = ((chunk.getPos().x) << 4);
 			final int startZ = ((chunk.getPos().z) << 4);
 			final int seaLevel = this.getSeaLevel();
@@ -162,13 +163,13 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 				}
 			}
 
-//			if (DEBUGGS > 0) {
-//				l = System.nanoTime() - l;
-//				if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-//					System.out.println("Debug ChunkShapeGEN Time: " + ((double) l / 1000000000.0));
-//				}
-//				DEBUGGS--;
-//			}
+			if (DEBUGGS > 0 && DEBUGGS <= 5) {
+				l = System.nanoTime() - l;
+				if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+					System.out.println("Debug ChunkShapeGEN Time: " + ((double) l / 1000000000.0));
+				}
+				DEBUGGS--;
+			}
 
 			return chunk;
 		});
@@ -201,8 +202,7 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 			}
 		}
 
-		// FIXME: is seaLevel the correct startY?
-		return new VerticalBlockSample(seaLevel, column);
+		return new VerticalBlockSample(this.getMinimumY(), column);
 	}
 
 	@Override
@@ -243,11 +243,9 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 			}
 		}
 
-		if (DEBUGGS > 0) {
+		if (DEBUGGS > 5 && DEBUGGS <= 10) {
 			l = System.nanoTime() - l;
-			if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
-				System.out.println("Debug BuildSurface Time: " + ((double) l / 1000000000.0));
-			}
+			System.out.println("Debug BuildSurface Time: " + ((double) l / 1000000000.0));
 			DEBUGGS--;
 		}
 	}
@@ -258,6 +256,8 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 
 	@Override
 	public void generateFeatures(ChunkRegion region, StructureAccessor accessor) {
+		long l = System.nanoTime();
+
 		// generate features
 		super.generateFeatures(region, accessor);
 
@@ -281,6 +281,14 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 				List<List<Supplier<ConfiguredFeature<?, ?>>>> list = biome.getGenerationSettings().getFeatures();
 				this.postVegetalPlacement(list, region, startPos, rand);
 			}
+		}
+
+		if (DEBUGGS > 10) {
+			l = System.nanoTime() - l;
+			if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+				System.out.println("Debug GenerateFeatures Time: " + ((double) l / 1000000000.0));
+			}
+			DEBUGGS--;
 		}
 	}
 
