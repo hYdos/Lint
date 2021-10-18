@@ -143,10 +143,6 @@ public class TerrainChunkGenerator extends ChunkGenerator {
 					int lowerBound = this.terrain.getLowerGenBound(x, z, height);
 					double surfaceNoise = this.surfaceNoise.sample(x * 0.09, z * 0.09, true);
 
-					if (height - lowerBound == 1) {
-						lowerBound--;
-					}
-
 					for (int y = lowerBound; y < chunk.getHeight(); ++y) {
 						pos.setY(y);
 

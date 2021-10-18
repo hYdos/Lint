@@ -317,14 +317,24 @@ public class FraiyaTerrainGenerator implements TerrainGenerator {
 			} else {
 				int lowerBound = height - (int) (22 * (-0.36 + this.sampleMountainsNoise(x * 3, z * 3)));
 
-				if (sqrDist > SHARDLANDS_ISLANDS_FADE_END) {
-					return lowerBound;
-				} else {
-					return (int) map(sqrDist, SHARDLANDS_ISLANDS_START, SHARDLANDS_ISLANDS_FADE_END, 200, lowerBound);
+				if (sqrDist <= SHARDLANDS_ISLANDS_FADE_END) {
+					lowerBound = (int) map(sqrDist, SHARDLANDS_ISLANDS_START, SHARDLANDS_ISLANDS_FADE_END, 200, lowerBound);
 				}
+
+				if (height - lowerBound == 1) {
+					lowerBound--;
+				}
+				
+				return lowerBound;
 			}
 		} else {
-			return (int) map(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, AVG_FLOAT_HEIGHT + 1);
+			int lowerBound = (int) map(sqrDist, SHARDLANDS_FADE_START, SHARDLANDS_START, 0, AVG_FLOAT_HEIGHT + 1);
+			
+			if (height - lowerBound == 1) {
+				lowerBound--;
+			}
+
+			return lowerBound;
 		}
 	}
 
