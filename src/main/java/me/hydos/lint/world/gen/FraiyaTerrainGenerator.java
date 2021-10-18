@@ -218,7 +218,6 @@ public class FraiyaTerrainGenerator implements TerrainGenerator {
 		return height;
 	}
 
-	@Override
 	public int sampleTerraceMod(int x, int z) {
 		return this.terraceModOperator.get(x, z);
 	}
@@ -290,7 +289,6 @@ public class FraiyaTerrainGenerator implements TerrainGenerator {
 		return sample1 + sample2;
 	}
 
-	@Override
 	public double sampleTypeScale(int x, int z) {
 		return this.typeScaleOperator.get(x, z);
 	}

@@ -22,15 +22,20 @@ package me.hydos.lint.world.gen.terrain;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 
+/**
+ * A terrain shape generator.
+ */
 public interface TerrainGenerator {
-	double sampleTypeScale(int x, int z);
-
 	double sampleTerrainScale(int x, int z);
 
 	int sampleBaseHeight(int x, int z);
 
-	int sampleTerraceMod(int x, int z);
-
+	/**
+	 * Get the height at a position.
+	 * @param x the x block position.
+	 * @param z the z block position.
+	 * @return
+	 */
 	int getHeight(int x, int z);
 
 	/**
