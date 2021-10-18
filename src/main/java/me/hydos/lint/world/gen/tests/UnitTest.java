@@ -28,5 +28,5 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target(METHOD)
 public @interface UnitTest {
-
+	int times() default 1;
 }
