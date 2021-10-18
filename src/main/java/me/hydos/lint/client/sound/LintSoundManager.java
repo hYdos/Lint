@@ -29,6 +29,7 @@ import me.hydos.lint.block.LintBlocks;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
 import me.hydos.lint.world.dimension.LintDimensions;
+import me.hydos.lint.world.feature.OldTownFeatureConstants;
 import me.hydos.lint.world.feature.TownFeature;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -120,7 +121,7 @@ public class LintSoundManager {
 					double dx = x - townLoc.getX();
 					double dz = z - townLoc.getY();
 
-					if (dx * dx + dz * dz < TownFeature.SUBURB_DIST) {
+					if (dx * dx + dz * dz < OldTownFeatureConstants.SUBURB_DIST) {
 						return Optional.of(ClientMusicSounds.TOWNS[i]);
 					}
 

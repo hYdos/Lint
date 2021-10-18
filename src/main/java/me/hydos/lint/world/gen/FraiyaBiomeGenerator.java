@@ -21,6 +21,7 @@ package me.hydos.lint.world.gen;
 
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.biome.Biomes;
+import me.hydos.lint.world.feature.OldTownFeatureConstants;
 import me.hydos.lint.world.feature.TownFeature;
 import me.hydos.lint.world.gen.terrain.BiomeGenerator;
 import me.hydos.lint.world.gen.terrain.TerrainGenerator;
@@ -99,7 +100,7 @@ public class FraiyaBiomeGenerator extends BiomeGenerator {
 		Biome result = (scale > 40.0 ? this.mountainSampler : this.genericSampler).sample(this.biomeRegistry, biomeX, biomeZ);
 
 		for (Vec2i town : ((FraiyaTerrainGenerator) this.terrainData).townAreas) {
-			if (town.squaredDist(x, z) < TownFeature.SUBURB_DIST) {
+			if (town.squaredDist(x, z) < OldTownFeatureConstants.SUBURB_DIST) {
 				// remove corrupt forest in town suburbs and centres. Yes indigo ridges can still apply.
 				return this.biomeRegistry.getKey(result).get().equals(Biomes.CORRUPT_FOREST_KEY) ? this.biomeRegistry.get(Biomes.MYSTICAL_GROVE_KEY) : result;
 			}

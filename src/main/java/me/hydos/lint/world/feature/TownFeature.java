@@ -34,6 +34,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import static me.hydos.lint.world.feature.OldTownFeatureConstants.*;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 import java.util.Random;
@@ -45,9 +46,6 @@ import java.util.Random;
 // TODO pre-generate all towns in order to properly place persistent NPCs
 
 public class TownFeature extends Feature<DefaultFeatureConfig> {
-	public static int DENSE_DIST = 80 * 80;
-	public static int SUBURB_DIST = 127 * 127;
-	public static int RURAL_DIST = 180 * 180;
 	private static final int OUTSKIRTS_DIST = 320 * 320;
 
 	private static final TownBlocks HERIA = new TownBlocks()

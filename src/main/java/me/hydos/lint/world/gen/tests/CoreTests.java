@@ -70,7 +70,7 @@ public class CoreTests {
 		}
 
 		long elapsed = System.nanoTime() - start;
-		System.out.println("Took " + elapsed + " seconds to get the heights for 1 chunk.");
+		System.out.println("Took " + ((double) elapsed / 1000000000.0) + " seconds to get the heights for 1 chunk.");
 		return elapsed < 500000000L; // 0.5 second max time!
 	}
 }

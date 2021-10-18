@@ -26,6 +26,7 @@ import me.hydos.lint.util.math.DoubleGridOperator;
 import me.hydos.lint.util.math.IntGridOperator;
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.util.math.Voronoi;
+import me.hydos.lint.world.feature.OldTownFeatureConstants;
 import me.hydos.lint.world.feature.TownFeature;
 import me.hydos.lint.world.gen.terrain.TerrainGenerator;
 import net.minecraft.block.BlockState;
@@ -256,10 +257,10 @@ public class FraiyaTerrainGenerator implements TerrainGenerator {
 				}
 			}
 
-			if (mindist < TownFeature.DENSE_DIST) {
+			if (mindist < OldTownFeatureConstants.DENSE_DIST) {
 				scale -= 18;
 				scale = Math.max(0, scale);
-			} else if (mindist < TownFeature.RURAL_DIST) {
+			} else if (mindist < OldTownFeatureConstants.RURAL_DIST) {
 				scale -= 9;
 				scale = Math.max(0, scale);
 			}
