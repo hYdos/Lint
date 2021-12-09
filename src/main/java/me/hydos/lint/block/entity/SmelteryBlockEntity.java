@@ -114,7 +114,7 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 			tag.put(String.valueOf(i), fluidData.get(i).toTag());
 		}
 	}
-	
+
 //	@Override
 //	public void fromClientTag(NbtCompound compoundTag) {
 //		readNbt(compoundTag);

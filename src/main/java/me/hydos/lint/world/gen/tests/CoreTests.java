@@ -96,8 +96,8 @@ public class CoreTests {
 		}
 
 		long elapsed = System.nanoTime() - start;
-		boolean success = elapsed < 40000000L;
-		boolean warn = elapsed > 20000000L;
+		boolean success = elapsed < 30000000L;
+		boolean warn = elapsed > 10000000L;
 		System.out.println((success ? (warn ? "[?] " : "[✓] ") : "[!] " + "Took ") + ((double) elapsed / 1000000000.0) + " seconds to get the heights for 9 chunks (in a 3x3 region).");
 		offset += 3;
 		return success; // 0.05 second max time!
