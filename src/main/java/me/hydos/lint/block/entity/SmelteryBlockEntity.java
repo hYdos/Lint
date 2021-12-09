@@ -24,7 +24,7 @@ import me.hydos.lint.multiblock.Multiblock;
 import me.hydos.lint.multiblock.Multiblocks;
 import me.hydos.lint.screenhandler.SmelteryScreenHandler;
 import me.hydos.lint.util.LintInventory;
-//import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable; TODO wtf
+import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -44,7 +44,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, NamedScreenHandlerFactory/*, BlockEntityClientSerializable*/ {
+public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, NamedScreenHandlerFactory, BlockEntityClientSerializable {
 
 	public final List<FluidStack> fluidData = new ArrayList<>(5);
 	public LintInventory inventory = new LintInventory(9);
@@ -115,13 +115,13 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 		}
 	}
 
-//	@Override
-//	public void fromClientTag(NbtCompound compoundTag) {
-//		readNbt(compoundTag);
-//	}
-//
-//	@Override
-//	public NbtCompound toClientTag(NbtCompound compoundTag) {
-//		return writeNbt(compoundTag);
-//	}
+	@Override
+	public void fromClientTag(NbtCompound compoundTag) {
+		readNbt(compoundTag);
+	}
+
+	@Override
+	public NbtCompound toClientTag(NbtCompound compoundTag) {
+		return writeNbt(compoundTag);
+	}
 }
