@@ -40,6 +40,8 @@ dependencies {
 	implementation("com.eliotlash.molang", "molang", "SNAPSHOT.12")
 	implementation("com.eliotlash.mclib", "mclib", "SNAPSHOT.12")
 
+    compileOnly("org.jetbrains:annotations:20.1.0")
+
 	include(modImplementation("net.devtech", "arrp", "0.+"))
 }
 

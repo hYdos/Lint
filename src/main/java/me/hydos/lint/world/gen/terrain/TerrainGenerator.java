@@ -26,9 +26,7 @@ import net.minecraft.block.Blocks;
  * A terrain shape generator.
  */
 public interface TerrainGenerator {
-	double sampleTerrainScale(int x, int z);
-
-	int sampleBaseHeight(int x, int z);
+	double sampleBaseHeight(int x, int z);
 
 	/**
 	 * Get the height at a position.

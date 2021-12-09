@@ -19,16 +19,14 @@
 
 package me.hydos.lint.world.gen.tests;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.Random;
-
 import me.hydos.lint.util.math.Vec2i;
 import me.hydos.lint.world.gen.FraiyaTerrainGenerator;
 import me.hydos.lint.world.gen.terrain.TerrainGenerator;
-import net.minecraft.util.Unit;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.biome.Biome;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.Random;
 
 public class CoreTests {
 	public static void main(String[] args) {
@@ -74,7 +72,7 @@ public class CoreTests {
 	@UnitTest(times = 15)
 	public static boolean generateChunk() {
 		Random random = new Random(12345); // unit test, set seed
-		TerrainGenerator classic = new FraiyaTerrainGenerator(random.nextLong(), random, new Vec2i[] {
+		TerrainGenerator modern = new FraiyaTerrainGenerator(random.nextLong(), random, new Vec2i[] {
 				new Vec2i(1000, 0),
 				new Vec2i(-1000, 0),
 				new Vec2i(0, 1000),
@@ -91,7 +89,7 @@ public class CoreTests {
 
 				for (int x = 0; x < 16; ++x) {
 					for (int z = 0; z < 16; ++z) {
-						classic.getHeight(x + startX, z + startZ);
+						modern.getHeight(x + startX, z + startZ);
 					}
 				}
 			}

@@ -41,21 +41,8 @@ import net.minecraft.world.biome.source.BiomeLayerSampler;
 import java.util.function.LongFunction;
 
 public class FraiyaBiomeGenerator extends BiomeGenerator {
-	private final BiomeLayerSampler genericSampler;
-	private final BiomeLayerSampler mountainSampler;
-	private final BiomeLayerSampler beachSampler;
-
 	public FraiyaBiomeGenerator(long seed, Registry<Biome> registry, TerrainGenerator generator) {
 		super(generator, registry, seed);
-
-		this.genericSampler = createBiomeLayerSampler(new GenericBiomes(registry, false), seed);
-		this.mountainSampler = createBiomeLayerSampler(new MountainBiomes(registry), seed);
-		this.beachSampler = createBiomeLayerSampler(new GenericBiomes(registry, true), seed);
-	}
-
-	public static BiomeLayerSampler createBiomeLayerSampler(InitLayer biomes, long seed) {
-		LongFunction<CachingLayerContext> contextProvider = salt -> new CachingLayerContext(25, seed, salt);
-		return new BiomeLayerSampler(stackLayers(biomes, contextProvider));
 	}
 
 	public static <T extends LayerSampler, C extends LayerSampleContext<T>> LayerFactory<T> stackLayers(InitLayer biomes, LongFunction<C> contextProvider) {
@@ -69,6 +56,7 @@ public class FraiyaBiomeGenerator extends BiomeGenerator {
 
 	@Override
 	public Biome getBiomeForNoiseGen(int biomeX, int biomeZ) {
+		// TODO new biome system, once terrain gen is finished
 		int x = (biomeX << 2);
 		int z = (biomeZ << 2);
 		int dist = x * x + z * z;
@@ -81,14 +69,14 @@ public class FraiyaBiomeGenerator extends BiomeGenerator {
 
 		double baseHeight = this.terrainData.sampleBaseHeight(x, z);
 
-		int z_ = z + 6200;
-		boolean frozen = z_ * z_ + x * x < 5000 * 5000;
+		int frozenCentreZ = z + 6200;
+		boolean frozen = frozenCentreZ * frozenCentreZ + x * x < 5000 * 5000;
 
 		if (baseHeight < FraiyaTerrainGenerator.SEA_LEVEL + 2) {
 			if (baseHeight > FraiyaTerrainGenerator.SEA_LEVEL - 2) {
-				return frozen ? this.biomeRegistry.get(Biomes.ETHEREAL_WOODLAND_KEY) : this.beachSampler.sample(this.biomeRegistry, biomeX, biomeZ);
+				return this.biomeRegistry.get(frozen ? Biomes.ETHEREAL_WOODLAND_KEY : Biomes.OCEAN_KEY);
 			} else {
-				return this.biomeRegistry.getOrThrow(Biomes.OCEAN_KEY);
+				return this.biomeRegistry.getOrThrow(frozen ? Biomes.FROZEN_OCEAN_KEY : Biomes.OCEAN_KEY);
 			}
 		}
 
@@ -96,8 +84,7 @@ public class FraiyaBiomeGenerator extends BiomeGenerator {
 			return this.biomeRegistry.get(Biomes.ETHEREAL_WOODLAND_KEY);
 		}
 
-		double scale = this.terrainData.sampleTerrainScale(x, z);
-		Biome result = (scale > 40.0 ? this.mountainSampler : this.genericSampler).sample(this.biomeRegistry, biomeX, biomeZ);
+		Biome result = this.biomeRegistry.get(Biomes.MYSTICAL_GROVE_KEY);
 
 		for (Vec2i town : ((FraiyaTerrainGenerator) this.terrainData).townAreas) {
 			if (town.squaredDist(x, z) < OldTownFeatureConstants.SUBURB_DIST) {

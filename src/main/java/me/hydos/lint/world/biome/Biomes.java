@@ -355,7 +355,7 @@ public class Biomes {
 					.waterColor(0x4faad1)
 					.waterFogColor(0x4faad1)
 					.fogColor(0xC0D8FF)
-					.music(BiomeMusicSounds.OCEAN)
+					.music(BiomeMusicSounds.FROZEN_FOREST)
 					.skyColor(0x88dfea)
 					.build())
 			.spawnSettings(OCEAN_SPAWN_SETTINGS.build())
@@ -504,6 +504,7 @@ public class Biomes {
 		registerBiome(DAWN_SHARDLANDS_KEY, DAWN_SHARDLANDS);
 		registerBiome(DAWN_SHARDLANDS_EDGE_KEY, DAWN_SHARDLANDS_EDGE);
 		registerBiome(ETHEREAL_WOODLAND_KEY, ETHEREAL_WOODLAND);
+		registerBiome(FROZEN_OCEAN_KEY, FROZEN_OCEAN);
 	}
 
 	private static void registerBiome(RegistryKey<Biome> key, Biome biome) {
